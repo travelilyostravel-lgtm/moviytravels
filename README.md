@@ -42,3 +42,11 @@ There is no form and no server code. Every button opens a choice: **WhatsApp** (
 - `assets/img/` — photos (WebP, compressed)
 - `assets/icons/` — Moviy Nomad city badges
 - `assets/css/site.css`, `assets/js/site.js`
+
+## Tour presentations & tour builder
+
+- `tours/<id>.html` — slide presentation for each ready tour: cover with price, route map (km / hours / transport), included / not included, day-by-day program with photos, options (hotels, transport, guide language, travellers) with live price, packing list, booking via WhatsApp/Telegram.
+- `builder.html` — "Build your own tour": choose places and nights, hotels, transport, guide; map + instant estimate, sent to WhatsApp in one message.
+- `assets/data/catalog.js` — cities, transfers (km/hours/mode), hotel classes, transport, guide rates, fixed costs, margin. **Prices are samples (`sample: true`) until real partner prices are entered.**
+- `assets/data/tours.js` — the ready tours (days, stops, photos, included/excluded, packing).
+- `assets/js/engine.js` — price calculation and route map; `deck.js` — presentation; `builder.js` — tour builder.

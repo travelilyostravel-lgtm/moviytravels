@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uz" dir="ltr">
+<html lang="uz" dir="ltr" data-base="../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
 <header class="header">
   <div class="container header__bar">
     <a class="logo" href="../uz/" aria-label="Moviy Nomad"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-    <nav class="nav"><a href="#destinations">Yo&#x27;nalishlar</a><a href="#tours">Turlar</a><a href="#why">Nega biz</a><a href="#faq">Savollar</a><a href="#contact-us">Aloqa</a></nav>
+    <nav class="nav"><a href="#destinations">Yo&#x27;nalishlar</a><a href="#tours">Turlar</a><a href="../builder.html" class="nav__build">Tur yig&#x27;ish</a><a href="#why">Nega biz</a><a href="#faq">Savollar</a><a href="#contact-us">Aloqa</a></nav>
     <div class="header__right">
       <div class="lang"><button class="lang__btn" aria-label="Language"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5S14.6 18.7 12 21.5C9.4 18.7 8.1 15.5 8.1 12S9.4 5.3 12 2.5z"/></svg>UZ</button><div class="lang__menu"><a href="../" hreflang="en" lang="en">English<small>EN</small></a><a href="../ru/" hreflang="ru" lang="ru">Русский<small>RU</small></a><a href="../uz/" hreflang="uz" lang="uz" aria-current="page">O'zbekcha<small>UZ</small></a><a href="../tr/" hreflang="tr" lang="tr">Türkçe<small>TR</small></a><a href="../ar/" hreflang="ar" lang="ar">العربية<small>AR</small></a><a href="../de/" hreflang="de" lang="de">Deutsch<small>DE</small></a><a href="../sv/" hreflang="sv" lang="sv">Svenska<small>SV</small></a><a href="../zh/" hreflang="zh" lang="zh">中文<small>ZH</small></a><a href="../hi/" hreflang="hi" lang="hi">हिन्दी<small>HI</small></a><a href="../ko/" hreflang="ko" lang="ko">한국어<small>KO</small></a></div></div>
       <button class="btn btn--gold btn--sm header__cta" data-contact>Sayohatni rejalash</button>
@@ -80,60 +80,70 @@
       <div class="section-head reveal"><span class="eyebrow">Turlar</span><h2>Mashhur turlar</h2><p>Namunaviy marshrutlar — har bir turni sanalaringiz, byudjetingiz va guruh soniga moslaymiz.</p></div>
       <div class="tours">
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/khiva.webp" alt="Klassik O&#x27;zbekiston" loading="lazy" width="1100" height="825"><span class="tour__days">8 kun</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/classic.html"><img src="../assets/img/khiva.webp" alt="Klassik O&#x27;zbekiston" loading="lazy" width="1100" height="825"><span class="tour__days">8 kun</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Klassik O&#x27;zbekiston</h3>
           <div class="tour__route">Toshkent · Samarqand · Buxoro · Xiva</div>
           <p>Ipak yo&#x27;lining asosiy sayohati: quyosh botishidagi Registon, qadimiy Buxoro va qal&#x27;a-shahar Xiva.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Narx so&#x27;rov bo&#x27;yicha</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Klassik O&#x27;zbekiston">Dastur va narx</button></div>
+          <div class="tour__foot"><div class="price"><small>dan boshlab</small><strong data-from="classic">…</strong> <small>1 kishi uchun</small></div><a class="btn btn--gold btn--sm" href="../tours/classic.html">Dasturni ko&#x27;rish →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/bukhara.webp" alt="Samarqand va Buxoro — ekspress" loading="lazy" width="1100" height="825"><span class="tour__days">5 kun</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/express.html"><img src="../assets/img/bukhara.webp" alt="Samarqand va Buxoro — ekspress" loading="lazy" width="1100" height="825"><span class="tour__days">5 kun</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Samarqand va Buxoro — ekspress</h3>
           <div class="tour__route">Toshkent · Samarqand · Buxoro</div>
           <p>Vaqtingiz kammi? Buyuk shaharlar orasida &quot;Afrosiyob&quot; tezyurar poyezdida sayohat qiling.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Narx so&#x27;rov bo&#x27;yicha</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Samarqand va Buxoro — ekspress">Dastur va narx</button></div>
+          <div class="tour__foot"><div class="price"><small>dan boshlab</small><strong data-from="express">…</strong> <small>1 kishi uchun</small></div><a class="btn btn--gold btn--sm" href="../tours/express.html">Dasturni ko&#x27;rish →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/tashkent.webp" alt="O&#x27;zbekistonning ma&#x27;naviy merosi" loading="lazy" width="1100" height="825"><span class="tour__days">7 kun</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/spiritual.html"><img src="../assets/img/tashkent.webp" alt="O&#x27;zbekistonning ma&#x27;naviy merosi" loading="lazy" width="1100" height="825"><span class="tour__days">7 kun</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>O&#x27;zbekistonning ma&#x27;naviy merosi</h3>
           <div class="tour__route">Toshkent · Samarqand · Buxoro</div>
           <p>Hazrati Imom, Imom Buxoriy majmuasi, Imom Moturidiy va Bahouddin Naqshband ziyorati.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Narx so&#x27;rov bo&#x27;yicha</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="O&#x27;zbekistonning ma&#x27;naviy merosi">Dastur va narx</button></div>
+          <div class="tour__foot"><div class="price"><small>dan boshlab</small><strong data-from="spiritual">…</strong> <small>1 kishi uchun</small></div><a class="btn btn--gold btn--sm" href="../tours/spiritual.html">Dasturni ko&#x27;rish →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/charvak.webp" alt="Tog&#x27;lar va cho&#x27;l" loading="lazy" width="1100" height="825"><span class="tour__days">4 kun</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/nature.html"><img src="../assets/img/charvak.webp" alt="Tog&#x27;lar va cho&#x27;l" loading="lazy" width="1100" height="825"><span class="tour__days">4 kun</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Tog&#x27;lar va cho&#x27;l</h3>
           <div class="tour__route">Chimyon · Chorvoq · Aydarko&#x27;l</div>
           <p>Toza tog&#x27; havosi, feruza ko&#x27;l va cho&#x27;ldagi o&#x27;tov lagerida yulduzlar ostida bir kecha.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Narx so&#x27;rov bo&#x27;yicha</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Tog&#x27;lar va cho&#x27;l">Dastur va narx</button></div>
+          <div class="tour__foot"><div class="price"><small>dan boshlab</small><strong data-from="nature">…</strong> <small>1 kishi uchun</small></div><a class="btn btn--gold btn--sm" href="../tours/nature.html">Dasturni ko&#x27;rish →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/mountains.webp" alt="Ipak yo&#x27;li: O&#x27;zbekiston, Qozog&#x27;iston va Qirg&#x27;iziston" loading="lazy" width="1100" height="825"><span class="tour__days">12 kun</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></div>
+        <a class="tour__img" href="../tours/silkroad.html"><img src="../assets/img/mountains.webp" alt="Ipak yo&#x27;li: O&#x27;zbekiston, Qozog&#x27;iston va Qirg&#x27;iziston" loading="lazy" width="1100" height="825"><span class="tour__days">12 kun</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></a>
         <div class="tour__body">
           <h3>Ipak yo&#x27;li: O&#x27;zbekiston, Qozog&#x27;iston va Qirg&#x27;iziston</h3>
           <div class="tour__route">Olmaota · Charin · Issiqko&#x27;l · Bishkek · Toshkent · Samarqand</div>
           <p>Kanyonlar, alp ko&#x27;llari va ko&#x27;chmanchilar madaniyati O&#x27;zbekistonning buyuk shaharlari bilan birga.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Narx so&#x27;rov bo&#x27;yicha</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Ipak yo&#x27;li: O&#x27;zbekiston, Qozog&#x27;iston va Qirg&#x27;iziston">Dastur va narx</button></div>
+          <div class="tour__foot"><div class="price"><small>dan boshlab</small><strong data-from="silkroad">…</strong> <small>1 kishi uchun</small></div><a class="btn btn--gold btn--sm" href="../tours/silkroad.html">Dasturni ko&#x27;rish →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/shahizinda.webp" alt="O&#x27;zbekiston va Tojikiston" loading="lazy" width="1100" height="825"><span class="tour__days">9 kun</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></div>
+        <a class="tour__img" href="../tours/uztj.html"><img src="../assets/img/shahizinda.webp" alt="O&#x27;zbekiston va Tojikiston" loading="lazy" width="1100" height="825"><span class="tour__days">9 kun</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></a>
         <div class="tour__body">
           <h3>O&#x27;zbekiston va Tojikiston</h3>
           <div class="tour__route">Samarqand · Panjakent · Xo&#x27;jand · Dushanbe</div>
           <p>Samarqanddan qadimiy Panjakentga o&#x27;ting va Tojikiston tog&#x27;lari hamda mehmondo&#x27;stligini kashf eting.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Narx so&#x27;rov bo&#x27;yicha</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="O&#x27;zbekiston va Tojikiston">Dastur va narx</button></div>
+          <div class="tour__foot"><div class="price"><small>dan boshlab</small><strong data-from="uztj">…</strong> <small>1 kishi uchun</small></div><a class="btn btn--gold btn--sm" href="../tours/uztj.html">Dasturni ko&#x27;rish →</a></div>
         </div>
       </article></div>
       <p class="tours-note">Mos tur topmadingizmi? Juftliklar, oilalar va guruhlar uchun alohida marshrut tuzib beramiz.</p>
+    </div>
+  </section>
+
+  <section class="section builder-cta">
+    <div class="container">
+      <div class="bcta reveal">
+        <div class="bcta__text"><span class="eyebrow">Tur yig&#x27;ish</span><h2>O&#x27;z turingizni yig&#x27;ing</h2><p>Joylar, tunlar soni, mehmonxona, transport va gidni tanlang — xaritada marshrut va taxminiy narxni darhol ko&#x27;ring.</p>
+          <a class="btn btn--gold" href="../builder.html">Yig&#x27;ishni boshlash →</a></div>
+        <div class="bcta__img"><img src="../assets/img/p/yurt.webp" alt="" loading="lazy"><img src="../assets/img/p/ichan-kala.webp" alt="" loading="lazy"><img src="../assets/img/p/gur-e-amir.webp" alt="" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
@@ -218,7 +228,9 @@
   </div>
 </div>
 
-<script>window.MN={"whatsapp": "998000000000", "msgGeneral": "Assalomu alaykum, Moviy Nomad! Markaziy Osiyoga sayohat rejalashtirmoqchiman.", "msgTour": "Assalomu alaykum, Moviy Nomad! \"{tour}\" turi qiziqtirdi. Dastur va narxini yuborsangiz."};</script>
+<script>window.MN={"whatsapp": "998000000000", "telegram": "moviytravel", "instagram": "moviy_travel", "msgGeneral": "Assalomu alaykum, Moviy Nomad! Markaziy Osiyoga sayohat rejalashtirmoqchiman.", "msgTour": "Assalomu alaykum, Moviy Nomad! \"{tour}\" turi qiziqtirdi. Dastur va narxini yuborsangiz."};</script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/js/engine.js"></script>
+<script>document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");});</script>
 <script src="../assets/js/site.js" defer></script>
 </body>
 </html>

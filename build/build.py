@@ -48,19 +48,16 @@ def render(lang):
 
     def tour_card(tr):
         name, route, desc = t["tours"][tr["id"]]
-        if tr["price"]:
-            price = f'<div class="price"><small>{e(t["from"])}</small><strong>${tr["price"]:,}</strong> <small>{e(t["pp"])}</small></div>'
-        else:
-            price = f'<div class="price price--req"><small>&nbsp;</small><strong>{e(t["on_request"])}</strong></div>'
+        price = f'<div class="price"><small>{e(t["from"])}</small><strong data-from="{tr["id"]}">…</strong> <small>{e(t["pp"])}</small></div>'
         flags = "".join(f"<span>{f}</span>" for f in tr["flags"])
         return f'''
       <article class="tour reveal">
-        <div class="tour__img"><img src="{A}img/{tr["img"]}.webp" alt="{e(name)}" loading="lazy" width="1100" height="825"><span class="tour__days">{tr["days"]} {e(t["days"])}</span><div class="tour__flags">{flags}</div></div>
+        <a class="tour__img" href="{pre}tours/{tr["id"]}.html"><img src="{A}img/{tr["img"]}.webp" alt="{e(name)}" loading="lazy" width="1100" height="825"><span class="tour__days">{tr["days"]} {e(t["days"])}</span><div class="tour__flags">{flags}</div></a>
         <div class="tour__body">
           <h3>{e(name)}</h3>
           <div class="tour__route">{e(route)}</div>
           <p>{e(desc)}</p>
-          <div class="tour__foot">{price}<button class="btn btn--gold btn--sm" data-contact data-tour="{e(name)}">{e(t["ask"])}</button></div>
+          <div class="tour__foot">{price}<a class="btn btn--gold btn--sm" href="{pre}tours/{tr["id"]}.html">{e(t["view"])} →</a></div>
         </div>
       </article>'''
 
@@ -91,7 +88,7 @@ def render(lang):
     alternates += f'<link rel="alternate" hreflang="x-default" href="{cfg["site_url"]}/">'
     url = f'{cfg["site_url"]}/{path_for(lang)}'
 
-    js_cfg = json.dumps({"whatsapp": cfg["whatsapp"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)
+    js_cfg = json.dumps({"whatsapp": cfg["whatsapp"], "telegram": cfg["telegram"], "instagram": cfg["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)
     ld = json.dumps({
         "@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad",
         "description": t["meta_desc"], "url": url, "image": cfg["site_url"] + "/assets/img/hero.webp",
@@ -100,11 +97,11 @@ def render(lang):
     }, ensure_ascii=False)
 
     links = [("destinations", "#destinations"), ("tours", "#tours"), ("why", "#why"), ("faq", "#faq"), ("contact", "#contact-us")]
-    navhtml = "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links)
+    navhtml = "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links[:2]) + f'<a href="{pre}builder.html" class="nav__build">{e(t["build_nav"])}</a>' + "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links[2:])
     year = "2026"
 
     return f'''<!DOCTYPE html>
-<html lang="{lang}" dir="{t["dir"]}">
+<html lang="{lang}" dir="{t["dir"]}" data-base="{pre}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -165,6 +162,16 @@ def render(lang):
       <div class="section-head reveal"><span class="eyebrow">{e(t["tours_eyebrow"])}</span><h2>{e(t["tours_title"])}</h2><p>{e(t["tours_sub"])}</p></div>
       <div class="tours">{"".join(tour_card(x) for x in TOURS)}</div>
       <p class="tours-note">{e(t["tours_note"])}</p>
+    </div>
+  </section>
+
+  <section class="section builder-cta">
+    <div class="container">
+      <div class="bcta reveal">
+        <div class="bcta__text"><span class="eyebrow">{e(t["build_nav"])}</span><h2>{e(t["build_title"])}</h2><p>{e(t["build_sub"])}</p>
+          <a class="btn btn--gold" href="{pre}builder.html">{e(t["build_btn"])} →</a></div>
+        <div class="bcta__img"><img src="{A}img/p/yurt.webp" alt="" loading="lazy"><img src="{A}img/p/ichan-kala.webp" alt="" loading="lazy"><img src="{A}img/p/gur-e-amir.webp" alt="" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
@@ -250,10 +257,79 @@ def render(lang):
 </div>
 
 <script>window.MN={js_cfg};</script>
+<script src="{A}data/catalog.js"></script><script src="{A}data/tours.js"></script><script src="{A}js/engine.js"></script>
+<script>document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");}});</script>
 <script src="{A}js/site.js" defer></script>
 </body>
 </html>
 '''
+
+
+HEAD = """<!DOCTYPE html>
+<html lang="en" dir="ltr" data-base="{base}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title><meta name="description" content="{desc}"><meta name="theme-color" content="#12355b">
+<link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{base}assets/css/site.css"><link rel="stylesheet" href="{base}assets/css/deck.css">
+</head>"""
+
+SCRIPTS = """<script>window.MN={cfg};</script>
+<script src="{base}assets/data/catalog.js"></script><script src="{base}assets/data/geo.js"></script><script src="{base}assets/data/tours.js"></script>
+<script src="{base}assets/js/engine.js"></script><script src="{base}assets/js/{js}.js"></script>"""
+
+
+def page_cfg():
+    t = T["en"]
+    return json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"], "instagram": CONFIG["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)
+
+
+def render_tour(tid):
+    base = "../"
+    return HEAD.format(base=base, title=f"{T['en']['tours'][tid][0]} — Moviy Nomad", desc="Tour program, route map, prices and what is included — Moviy Nomad") + f"""
+<body class="deck-page" data-tour="{tid}">
+<header class="topbar"><a class="logo" href="{base}index.html#tours" aria-label="Moviy Nomad">{LOGO}</a><div class="topbar__title" id="t-title"></div><span class="topbar__count" id="count"></span><a class="close" href="{base}index.html#tours" aria-label="Close">×</a></header>
+<div class="bar" id="bar"></div>
+<div class="sample" id="sample" hidden>Sample prices</div>
+<main id="deck"></main>
+<nav class="dock"><button class="dock__arrow" id="prev" aria-label="Previous">‹</button><div id="dots"></div><button class="dock__arrow dock__arrow--next" id="next" aria-label="Next">›</button></nav>
+""" + SCRIPTS.format(base=base, cfg=page_cfg(), js="deck") + "\n</body></html>\n"
+
+
+def render_builder():
+    base = ""
+    months = "".join(f'<option>{m}</option>' for m in ["Not sure yet", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
+    interests = "".join(f'<label class="chk"><input type="checkbox" name="interest" value="{x}"> {x}</label>' for x in ["History & architecture", "Spiritual / ziyarat", "Food & bazaars", "Mountains & nature", "Desert & yurts", "Crafts & silk", "Photography"])
+    return HEAD.format(base=base, title="Build your own tour — Moviy Nomad", desc="Build your own tour to Uzbekistan, Kazakhstan, Kyrgyzstan and Tajikistan: route map and instant price.") + f"""
+<body class="builder-page">
+<header class="header is-solid"><div class="container header__bar"><a class="logo" href="index.html" aria-label="Moviy Nomad">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
+<nav class="nav" style="display:flex"><a href="index.html#tours">Ready tours</a><a href="index.html#faq">FAQ</a></nav></div></header>
+<div class="sample" id="sample" hidden style="top:86px">Sample prices</div>
+<main class="container bwrap">
+  <div class="bhead"><span class="eyebrow">Tour builder</span><h1>Build your own Silk Road journey</h1><p>Choose places and nights, hotels, transport and a guide. You will see the route on the map and an estimated price — then send it to us in one tap.</p></div>
+  <div>
+    <div class="bstep"><h3><span>1</span>Where do you want to go?</h3>
+      <div class="presets" id="presets"></div>
+      <div id="cities"></div></div>
+    <div class="bstep"><h3><span>2</span>Your route & nights</h3><div id="route"></div></div>
+    <div class="bstep"><h3><span>3</span>Hotels</h3><div class="cards" id="hotel"></div></div>
+    <div class="bstep"><h3><span>4</span>Transport</h3><div class="cards" id="transport"></div></div>
+    <div class="bstep"><h3><span>5</span>Travellers, guide & dates</h3>
+      <div class="brow"><div><label class="lbl">Travellers</label><div class="stepper"><button data-pax="-1" aria-label="Less">−</button><b id="pax">2</b><button data-pax="1" aria-label="More">+</button></div><label class="tgl"><input type="checkbox" id="single"> Single rooms</label></div>
+      <div><label class="lbl" for="lang">Guide language</label><select id="lang"></select><label class="lbl" for="month" style="margin-top:14px">Travel month</label><select id="month">{months}</select></div></div>
+      <label class="lbl" style="margin-top:18px">Interests</label><div class="chks">{interests}</div></div>
+  </div>
+  <aside class="result is-empty" id="result">
+    <svg id="bmap"></svg>
+    <div class="bstats" id="bstats"></div>
+    <div class="bprice"><small>Estimated price per person</small><strong id="bprice">—</strong><small id="btotal"></small>
+      <a class="btn btn--wa is-disabled" id="send" target="_blank" rel="noopener">Send to WhatsApp</a>
+      <a class="btn btn--outline" id="sendtg" href="#" target="_blank" rel="noopener" style="width:100%;margin-top:10px">Write on Telegram</a></div>
+    <p class="bnote">Distances and times are approximate. The final price depends on dates and availability — we confirm it before you book.</p>
+  </aside>
+</main>
+""" + SCRIPTS.format(base=base, cfg=page_cfg(), js="builder") + "\n</body></html>\n"
 
 
 def main():
@@ -263,6 +339,14 @@ def main():
         with open(out, "w", encoding="utf-8") as f:
             f.write(render(lang))
         print("ok", os.path.relpath(out, ROOT))
+    os.makedirs(os.path.join(ROOT, "tours"), exist_ok=True)
+    for tr in TOURS:
+        with open(os.path.join(ROOT, "tours", tr["id"] + ".html"), "w", encoding="utf-8") as f:
+            f.write(render_tour(tr["id"]))
+        print("ok tours/" + tr["id"] + ".html")
+    with open(os.path.join(ROOT, "builder.html"), "w", encoding="utf-8") as f:
+        f.write(render_builder())
+    print("ok builder.html")
     # favicon
     with open(os.path.join(ROOT, "assets", "favicon.svg"), "w") as f:
         f.write(LOGO.replace('<svg viewBox="0 0 180 120" aria-hidden="true">', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -30 200 180"><rect x="-10" y="-30" width="200" height="180" rx="36" fill="#12355b"/>'))

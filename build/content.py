@@ -769,3 +769,19 @@ T["ko"] = {
     "msg_tour": "안녕하세요, Moviy Nomad! \"{tour}\" 투어에 관심이 있습니다. 일정과 가격을 보내주세요.",
     "msg_country": "안녕하세요, Moviy Nomad! {tour} 여행을 하고 싶습니다.",
 }
+
+# --- Tur sahifalari va konstruktor uchun qo'shimcha matnlar
+EXTRA = {
+    "en": ("View program", "Build your tour", "Build your own tour", "Pick the places, nights, hotels, transport and guide — see the route on the map and an instant price estimate.", "Start building"),
+    "ru": ("Смотреть программу", "Собрать тур", "Соберите свой тур", "Выберите места, количество ночей, отели, транспорт и гида — маршрут на карте и примерная цена сразу.", "Собрать тур"),
+    "uz": ("Dasturni ko'rish", "Tur yig'ish", "O'z turingizni yig'ing", "Joylar, tunlar soni, mehmonxona, transport va gidni tanlang — xaritada marshrut va taxminiy narxni darhol ko'ring.", "Yig'ishni boshlash"),
+    "tr": ("Programı gör", "Turunu oluştur", "Kendi turunuzu oluşturun", "Yerleri, gece sayısını, otelleri, ulaşımı ve rehberi seçin — rotayı haritada ve tahmini fiyatı anında görün.", "Oluşturmaya başla"),
+    "ar": ("عرض البرنامج", "صمّم رحلتك", "صمّم رحلتك بنفسك", "اختر الأماكن وعدد الليالي والفنادق والمواصلات والمرشد — وشاهد المسار على الخريطة وسعرًا تقديريًا فورًا.", "ابدأ التصميم"),
+    "de": ("Programm ansehen", "Reise zusammenstellen", "Stellen Sie Ihre eigene Reise zusammen", "Wählen Sie Orte, Nächte, Hotels, Transport und Reiseleiter — Route auf der Karte und sofortige Preisschätzung.", "Jetzt zusammenstellen"),
+    "sv": ("Se programmet", "Bygg din resa", "Bygg din egen resa", "Välj platser, nätter, hotell, transport och guide — se rutten på kartan och ett direkt prisförslag.", "Börja bygga"),
+    "zh": ("查看行程", "定制线路", "定制您的专属线路", "选择目的地、住宿晚数、酒店、交通和导游——即时查看地图路线和预估价格。", "开始定制"),
+    "hi": ("प्रोग्राम देखें", "अपना टूर बनाएँ", "अपना टूर ख़ुद बनाएँ", "जगहें, रातें, होटल, ट्रांसपोर्ट और गाइड चुनें — नक़्शे पर रूट और तुरंत अनुमानित कीमत देखें।", "बनाना शुरू करें"),
+    "ko": ("일정 보기", "투어 만들기", "나만의 투어 만들기", "여행지, 숙박 일수, 호텔, 교통, 가이드를 선택하고 지도 위 경로와 예상 가격을 바로 확인하세요.", "만들기 시작"),
+}
+for _l, _v in EXTRA.items():
+    T[_l].update(dict(zip(["view", "build_nav", "build_title", "build_sub", "build_btn"], _v)))

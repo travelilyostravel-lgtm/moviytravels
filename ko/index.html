@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" dir="ltr">
+<html lang="ko" dir="ltr" data-base="../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
 <header class="header">
   <div class="container header__bar">
     <a class="logo" href="../ko/" aria-label="Moviy Nomad"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-    <nav class="nav"><a href="#destinations">여행지</a><a href="#tours">투어</a><a href="#why">왜 우리인가</a><a href="#faq">자주 묻는 질문</a><a href="#contact-us">문의</a></nav>
+    <nav class="nav"><a href="#destinations">여행지</a><a href="#tours">투어</a><a href="../builder.html" class="nav__build">투어 만들기</a><a href="#why">왜 우리인가</a><a href="#faq">자주 묻는 질문</a><a href="#contact-us">문의</a></nav>
     <div class="header__right">
       <div class="lang"><button class="lang__btn" aria-label="Language"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5S14.6 18.7 12 21.5C9.4 18.7 8.1 15.5 8.1 12S9.4 5.3 12 2.5z"/></svg>KO</button><div class="lang__menu"><a href="../" hreflang="en" lang="en">English<small>EN</small></a><a href="../ru/" hreflang="ru" lang="ru">Русский<small>RU</small></a><a href="../uz/" hreflang="uz" lang="uz">O'zbekcha<small>UZ</small></a><a href="../tr/" hreflang="tr" lang="tr">Türkçe<small>TR</small></a><a href="../ar/" hreflang="ar" lang="ar">العربية<small>AR</small></a><a href="../de/" hreflang="de" lang="de">Deutsch<small>DE</small></a><a href="../sv/" hreflang="sv" lang="sv">Svenska<small>SV</small></a><a href="../zh/" hreflang="zh" lang="zh">中文<small>ZH</small></a><a href="../hi/" hreflang="hi" lang="hi">हिन्दी<small>HI</small></a><a href="../ko/" hreflang="ko" lang="ko" aria-current="page">한국어<small>KO</small></a></div></div>
       <button class="btn btn--gold btn--sm header__cta" data-contact>여행 상담하기</button>
@@ -80,60 +80,70 @@
       <div class="section-head reveal"><span class="eyebrow">투어</span><h2>인기 투어</h2><p>예시 일정입니다 — 모든 투어는 날짜, 예산, 인원에 맞춰 조정할 수 있습니다.</p></div>
       <div class="tours">
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/khiva.webp" alt="클래식 우즈베키스탄" loading="lazy" width="1100" height="825"><span class="tour__days">8 일</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/classic.html"><img src="../assets/img/khiva.webp" alt="클래식 우즈베키스탄" loading="lazy" width="1100" height="825"><span class="tour__days">8 일</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>클래식 우즈베키스탄</h3>
           <div class="tour__route">타슈켄트 · 사마르칸트 · 부하라 · 히바</div>
           <p>실크로드 필수 코스: 노을 지는 레기스탄 광장, 부하라 구시가지, 성벽 도시 히바.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>가격 문의</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="클래식 우즈베키스탄">일정 및 가격 받기</button></div>
+          <div class="tour__foot"><div class="price"><small>부터</small><strong data-from="classic">…</strong> <small>1인 기준</small></div><a class="btn btn--gold btn--sm" href="../tours/classic.html">일정 보기 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/bukhara.webp" alt="사마르칸트 &amp; 부하라 익스프레스" loading="lazy" width="1100" height="825"><span class="tour__days">5 일</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/express.html"><img src="../assets/img/bukhara.webp" alt="사마르칸트 &amp; 부하라 익스프레스" loading="lazy" width="1100" height="825"><span class="tour__days">5 일</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>사마르칸트 &amp; 부하라 익스프레스</h3>
           <div class="tour__route">타슈켄트 · 사마르칸트 · 부하라</div>
           <p>시간이 부족하다면? 아프로시압 고속열차로 위대한 도시들을 여행하세요.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>가격 문의</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="사마르칸트 &amp; 부하라 익스프레스">일정 및 가격 받기</button></div>
+          <div class="tour__foot"><div class="price"><small>부터</small><strong data-from="express">…</strong> <small>1인 기준</small></div><a class="btn btn--gold btn--sm" href="../tours/express.html">일정 보기 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/tashkent.webp" alt="우즈베키스탄 영적 유산 투어" loading="lazy" width="1100" height="825"><span class="tour__days">7 일</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/spiritual.html"><img src="../assets/img/tashkent.webp" alt="우즈베키스탄 영적 유산 투어" loading="lazy" width="1100" height="825"><span class="tour__days">7 일</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>우즈베키스탄 영적 유산 투어</h3>
           <div class="tour__route">타슈켄트 · 사마르칸트 · 부하라</div>
           <p>하즈라티 이맘, 이맘 알부하리 영묘, 이맘 알마투리디, 바하우딘 낙쉬반드.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>가격 문의</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="우즈베키스탄 영적 유산 투어">일정 및 가격 받기</button></div>
+          <div class="tour__foot"><div class="price"><small>부터</small><strong data-from="spiritual">…</strong> <small>1인 기준</small></div><a class="btn btn--gold btn--sm" href="../tours/spiritual.html">일정 보기 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/charvak.webp" alt="산과 사막" loading="lazy" width="1100" height="825"><span class="tour__days">4 일</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/nature.html"><img src="../assets/img/charvak.webp" alt="산과 사막" loading="lazy" width="1100" height="825"><span class="tour__days">4 일</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>산과 사막</h3>
           <div class="tour__route">침간 · 차르박 · 아이다르쿨</div>
           <p>상쾌한 산 공기, 청록빛 호수, 그리고 사막 유르트 캠프에서 별을 보는 하룻밤.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>가격 문의</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="산과 사막">일정 및 가격 받기</button></div>
+          <div class="tour__foot"><div class="price"><small>부터</small><strong data-from="nature">…</strong> <small>1인 기준</small></div><a class="btn btn--gold btn--sm" href="../tours/nature.html">일정 보기 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/mountains.webp" alt="실크로드: 우즈베키스탄·카자흐스탄·키르기스스탄" loading="lazy" width="1100" height="825"><span class="tour__days">12 일</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></div>
+        <a class="tour__img" href="../tours/silkroad.html"><img src="../assets/img/mountains.webp" alt="실크로드: 우즈베키스탄·카자흐스탄·키르기스스탄" loading="lazy" width="1100" height="825"><span class="tour__days">12 일</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></a>
         <div class="tour__body">
           <h3>실크로드: 우즈베키스탄·카자흐스탄·키르기스스탄</h3>
           <div class="tour__route">알마티 · 차린 · 이식쿨 · 비슈케크 · 타슈켄트 · 사마르칸트</div>
           <p>협곡, 산정 호수, 유목 문화와 우즈베키스탄의 위대한 도시들을 함께.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>가격 문의</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="실크로드: 우즈베키스탄·카자흐스탄·키르기스스탄">일정 및 가격 받기</button></div>
+          <div class="tour__foot"><div class="price"><small>부터</small><strong data-from="silkroad">…</strong> <small>1인 기준</small></div><a class="btn btn--gold btn--sm" href="../tours/silkroad.html">일정 보기 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/shahizinda.webp" alt="우즈베키스탄 &amp; 타지키스탄" loading="lazy" width="1100" height="825"><span class="tour__days">9 일</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></div>
+        <a class="tour__img" href="../tours/uztj.html"><img src="../assets/img/shahizinda.webp" alt="우즈베키스탄 &amp; 타지키스탄" loading="lazy" width="1100" height="825"><span class="tour__days">9 일</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></a>
         <div class="tour__body">
           <h3>우즈베키스탄 &amp; 타지키스탄</h3>
           <div class="tour__route">사마르칸트 · 판자켄트 · 후잔드 · 두샨베</div>
           <p>사마르칸트에서 고대 도시 판자켄트로 — 타지키스탄의 산과 환대를 만나보세요.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>가격 문의</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="우즈베키스탄 &amp; 타지키스탄">일정 및 가격 받기</button></div>
+          <div class="tour__foot"><div class="price"><small>부터</small><strong data-from="uztj">…</strong> <small>1인 기준</small></div><a class="btn btn--gold btn--sm" href="../tours/uztj.html">일정 보기 →</a></div>
         </div>
       </article></div>
       <p class="tours-note">원하는 투어가 없나요? 커플, 가족, 단체를 위한 맞춤 일정을 만들어 드립니다.</p>
+    </div>
+  </section>
+
+  <section class="section builder-cta">
+    <div class="container">
+      <div class="bcta reveal">
+        <div class="bcta__text"><span class="eyebrow">투어 만들기</span><h2>나만의 투어 만들기</h2><p>여행지, 숙박 일수, 호텔, 교통, 가이드를 선택하고 지도 위 경로와 예상 가격을 바로 확인하세요.</p>
+          <a class="btn btn--gold" href="../builder.html">만들기 시작 →</a></div>
+        <div class="bcta__img"><img src="../assets/img/p/yurt.webp" alt="" loading="lazy"><img src="../assets/img/p/ichan-kala.webp" alt="" loading="lazy"><img src="../assets/img/p/gur-e-amir.webp" alt="" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
@@ -218,7 +228,9 @@
   </div>
 </div>
 
-<script>window.MN={"whatsapp": "998000000000", "msgGeneral": "안녕하세요, Moviy Nomad! 중앙아시아 여행을 계획하고 싶습니다.", "msgTour": "안녕하세요, Moviy Nomad! \"{tour}\" 투어에 관심이 있습니다. 일정과 가격을 보내주세요."};</script>
+<script>window.MN={"whatsapp": "998000000000", "telegram": "moviytravel", "instagram": "moviy_travel", "msgGeneral": "안녕하세요, Moviy Nomad! 중앙아시아 여행을 계획하고 싶습니다.", "msgTour": "안녕하세요, Moviy Nomad! \"{tour}\" 투어에 관심이 있습니다. 일정과 가격을 보내주세요."};</script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/js/engine.js"></script>
+<script>document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");});</script>
 <script src="../assets/js/site.js" defer></script>
 </body>
 </html>

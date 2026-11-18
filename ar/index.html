@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-base="../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
 <header class="header">
   <div class="container header__bar">
     <a class="logo" href="../ar/" aria-label="Moviy Nomad"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-    <nav class="nav"><a href="#destinations">الوجهات</a><a href="#tours">الرحلات</a><a href="#why">لماذا نحن</a><a href="#faq">الأسئلة</a><a href="#contact-us">تواصل معنا</a></nav>
+    <nav class="nav"><a href="#destinations">الوجهات</a><a href="#tours">الرحلات</a><a href="../builder.html" class="nav__build">صمّم رحلتك</a><a href="#why">لماذا نحن</a><a href="#faq">الأسئلة</a><a href="#contact-us">تواصل معنا</a></nav>
     <div class="header__right">
       <div class="lang"><button class="lang__btn" aria-label="Language"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5S14.6 18.7 12 21.5C9.4 18.7 8.1 15.5 8.1 12S9.4 5.3 12 2.5z"/></svg>AR</button><div class="lang__menu"><a href="../" hreflang="en" lang="en">English<small>EN</small></a><a href="../ru/" hreflang="ru" lang="ru">Русский<small>RU</small></a><a href="../uz/" hreflang="uz" lang="uz">O'zbekcha<small>UZ</small></a><a href="../tr/" hreflang="tr" lang="tr">Türkçe<small>TR</small></a><a href="../ar/" hreflang="ar" lang="ar" aria-current="page">العربية<small>AR</small></a><a href="../de/" hreflang="de" lang="de">Deutsch<small>DE</small></a><a href="../sv/" hreflang="sv" lang="sv">Svenska<small>SV</small></a><a href="../zh/" hreflang="zh" lang="zh">中文<small>ZH</small></a><a href="../hi/" hreflang="hi" lang="hi">हिन्दी<small>HI</small></a><a href="../ko/" hreflang="ko" lang="ko">한국어<small>KO</small></a></div></div>
       <button class="btn btn--gold btn--sm header__cta" data-contact>خطّط رحلتي</button>
@@ -80,60 +80,70 @@
       <div class="section-head reveal"><span class="eyebrow">الرحلات</span><h2>الرحلات الأكثر طلبًا</h2><p>مسارات مقترحة — نعدّل كل رحلة حسب تواريخك وميزانيتك وعدد المسافرين.</p></div>
       <div class="tours">
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/khiva.webp" alt="أوزبكستان الكلاسيكية" loading="lazy" width="1100" height="825"><span class="tour__days">8 أيام</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/classic.html"><img src="../assets/img/khiva.webp" alt="أوزبكستان الكلاسيكية" loading="lazy" width="1100" height="825"><span class="tour__days">8 أيام</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>أوزبكستان الكلاسيكية</h3>
           <div class="tour__route">طشقند · سمرقند · بخارى · خيوة</div>
           <p>رحلة طريق الحرير الأساسية: ساحة ريجستان عند الغروب، وبخارى القديمة، ومدينة خيوة المسوّرة.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>السعر عند الطلب</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="أوزبكستان الكلاسيكية">البرنامج والسعر</button></div>
+          <div class="tour__foot"><div class="price"><small>ابتداءً من</small><strong data-from="classic">…</strong> <small>للشخص</small></div><a class="btn btn--gold btn--sm" href="../tours/classic.html">عرض البرنامج →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/bukhara.webp" alt="سمرقند وبخارى السريعة" loading="lazy" width="1100" height="825"><span class="tour__days">5 أيام</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/express.html"><img src="../assets/img/bukhara.webp" alt="سمرقند وبخارى السريعة" loading="lazy" width="1100" height="825"><span class="tour__days">5 أيام</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>سمرقند وبخارى السريعة</h3>
           <div class="tour__route">طشقند · سمرقند · بخارى</div>
           <p>وقتك محدود؟ تنقّل بين المدن العظيمة بقطار أفراسياب السريع.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>السعر عند الطلب</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="سمرقند وبخارى السريعة">البرنامج والسعر</button></div>
+          <div class="tour__foot"><div class="price"><small>ابتداءً من</small><strong data-from="express">…</strong> <small>للشخص</small></div><a class="btn btn--gold btn--sm" href="../tours/express.html">عرض البرنامج →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/tashkent.webp" alt="التراث الروحي لأوزبكستان" loading="lazy" width="1100" height="825"><span class="tour__days">7 أيام</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/spiritual.html"><img src="../assets/img/tashkent.webp" alt="التراث الروحي لأوزبكستان" loading="lazy" width="1100" height="825"><span class="tour__days">7 أيام</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>التراث الروحي لأوزبكستان</h3>
           <div class="tour__route">طشقند · سمرقند · بخارى</div>
           <p>مجمّع حضرة إمام، ومجمّع الإمام البخاري، والإمام الماتريدي، وبهاء الدين النقشبند.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>السعر عند الطلب</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="التراث الروحي لأوزبكستان">البرنامج والسعر</button></div>
+          <div class="tour__foot"><div class="price"><small>ابتداءً من</small><strong data-from="spiritual">…</strong> <small>للشخص</small></div><a class="btn btn--gold btn--sm" href="../tours/spiritual.html">عرض البرنامج →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/charvak.webp" alt="الجبال والصحراء" loading="lazy" width="1100" height="825"><span class="tour__days">4 أيام</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/nature.html"><img src="../assets/img/charvak.webp" alt="الجبال والصحراء" loading="lazy" width="1100" height="825"><span class="tour__days">4 أيام</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>الجبال والصحراء</h3>
           <div class="tour__route">تشيمغان · تشارفاك · أيدركول</div>
           <p>هواء الجبال النقي، وبحيرة فيروزية، وليلة تحت النجوم في مخيم خيام في الصحراء.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>السعر عند الطلب</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="الجبال والصحراء">البرنامج والسعر</button></div>
+          <div class="tour__foot"><div class="price"><small>ابتداءً من</small><strong data-from="nature">…</strong> <small>للشخص</small></div><a class="btn btn--gold btn--sm" href="../tours/nature.html">عرض البرنامج →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/mountains.webp" alt="طريق الحرير: أوزبكستان وكازاخستان وقيرغيزستان" loading="lazy" width="1100" height="825"><span class="tour__days">12 أيام</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></div>
+        <a class="tour__img" href="../tours/silkroad.html"><img src="../assets/img/mountains.webp" alt="طريق الحرير: أوزبكستان وكازاخستان وقيرغيزستان" loading="lazy" width="1100" height="825"><span class="tour__days">12 أيام</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></a>
         <div class="tour__body">
           <h3>طريق الحرير: أوزبكستان وكازاخستان وقيرغيزستان</h3>
           <div class="tour__route">ألماتي · شارين · إيسيك كول · بيشكيك · طشقند · سمرقند</div>
           <p>أودية وبحيرات جبلية وثقافة البدو الرحّل مع مدن أوزبكستان العظيمة.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>السعر عند الطلب</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="طريق الحرير: أوزبكستان وكازاخستان وقيرغيزستان">البرنامج والسعر</button></div>
+          <div class="tour__foot"><div class="price"><small>ابتداءً من</small><strong data-from="silkroad">…</strong> <small>للشخص</small></div><a class="btn btn--gold btn--sm" href="../tours/silkroad.html">عرض البرنامج →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/shahizinda.webp" alt="أوزبكستان وطاجيكستان" loading="lazy" width="1100" height="825"><span class="tour__days">9 أيام</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></div>
+        <a class="tour__img" href="../tours/uztj.html"><img src="../assets/img/shahizinda.webp" alt="أوزبكستان وطاجيكستان" loading="lazy" width="1100" height="825"><span class="tour__days">9 أيام</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></a>
         <div class="tour__body">
           <h3>أوزبكستان وطاجيكستان</h3>
           <div class="tour__route">سمرقند · بنجكنت · خجند · دوشنبه</div>
           <p>من سمرقند إلى بنجكنت العريقة، واكتشف جبال طاجيكستان وكرم أهلها.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>السعر عند الطلب</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="أوزبكستان وطاجيكستان">البرنامج والسعر</button></div>
+          <div class="tour__foot"><div class="price"><small>ابتداءً من</small><strong data-from="uztj">…</strong> <small>للشخص</small></div><a class="btn btn--gold btn--sm" href="../tours/uztj.html">عرض البرنامج →</a></div>
         </div>
       </article></div>
       <p class="tours-note">لم تجد الرحلة المناسبة؟ نصمم برامج خاصة للأزواج والعائلات والمجموعات.</p>
+    </div>
+  </section>
+
+  <section class="section builder-cta">
+    <div class="container">
+      <div class="bcta reveal">
+        <div class="bcta__text"><span class="eyebrow">صمّم رحلتك</span><h2>صمّم رحلتك بنفسك</h2><p>اختر الأماكن وعدد الليالي والفنادق والمواصلات والمرشد — وشاهد المسار على الخريطة وسعرًا تقديريًا فورًا.</p>
+          <a class="btn btn--gold" href="../builder.html">ابدأ التصميم →</a></div>
+        <div class="bcta__img"><img src="../assets/img/p/yurt.webp" alt="" loading="lazy"><img src="../assets/img/p/ichan-kala.webp" alt="" loading="lazy"><img src="../assets/img/p/gur-e-amir.webp" alt="" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
@@ -218,7 +228,9 @@
   </div>
 </div>
 
-<script>window.MN={"whatsapp": "998000000000", "msgGeneral": "مرحبًا Moviy Nomad! أرغب في التخطيط لرحلة إلى آسيا الوسطى.", "msgTour": "مرحبًا Moviy Nomad! أنا مهتم برحلة \"{tour}\". أرجو إرسال البرنامج والسعر."};</script>
+<script>window.MN={"whatsapp": "998000000000", "telegram": "moviytravel", "instagram": "moviy_travel", "msgGeneral": "مرحبًا Moviy Nomad! أرغب في التخطيط لرحلة إلى آسيا الوسطى.", "msgTour": "مرحبًا Moviy Nomad! أنا مهتم برحلة \"{tour}\". أرجو إرسال البرنامج والسعر."};</script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/js/engine.js"></script>
+<script>document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");});</script>
 <script src="../assets/js/site.js" defer></script>
 </body>
 </html>

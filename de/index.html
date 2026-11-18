@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" dir="ltr">
+<html lang="de" dir="ltr" data-base="../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
 <header class="header">
   <div class="container header__bar">
     <a class="logo" href="../de/" aria-label="Moviy Nomad"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-    <nav class="nav"><a href="#destinations">Reiseziele</a><a href="#tours">Reisen</a><a href="#why">Warum wir</a><a href="#faq">FAQ</a><a href="#contact-us">Kontakt</a></nav>
+    <nav class="nav"><a href="#destinations">Reiseziele</a><a href="#tours">Reisen</a><a href="../builder.html" class="nav__build">Reise zusammenstellen</a><a href="#why">Warum wir</a><a href="#faq">FAQ</a><a href="#contact-us">Kontakt</a></nav>
     <div class="header__right">
       <div class="lang"><button class="lang__btn" aria-label="Language"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5S14.6 18.7 12 21.5C9.4 18.7 8.1 15.5 8.1 12S9.4 5.3 12 2.5z"/></svg>DE</button><div class="lang__menu"><a href="../" hreflang="en" lang="en">English<small>EN</small></a><a href="../ru/" hreflang="ru" lang="ru">Русский<small>RU</small></a><a href="../uz/" hreflang="uz" lang="uz">O'zbekcha<small>UZ</small></a><a href="../tr/" hreflang="tr" lang="tr">Türkçe<small>TR</small></a><a href="../ar/" hreflang="ar" lang="ar">العربية<small>AR</small></a><a href="../de/" hreflang="de" lang="de" aria-current="page">Deutsch<small>DE</small></a><a href="../sv/" hreflang="sv" lang="sv">Svenska<small>SV</small></a><a href="../zh/" hreflang="zh" lang="zh">中文<small>ZH</small></a><a href="../hi/" hreflang="hi" lang="hi">हिन्दी<small>HI</small></a><a href="../ko/" hreflang="ko" lang="ko">한국어<small>KO</small></a></div></div>
       <button class="btn btn--gold btn--sm header__cta" data-contact>Reise planen</button>
@@ -80,60 +80,70 @@
       <div class="section-head reveal"><span class="eyebrow">Reisen</span><h2>Beliebte Reisen</h2><p>Beispielrouten — jede Reise passen wir an Ihre Termine, Ihr Budget und Ihre Gruppengröße an.</p></div>
       <div class="tours">
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/khiva.webp" alt="Klassisches Usbekistan" loading="lazy" width="1100" height="825"><span class="tour__days">8 Tage</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/classic.html"><img src="../assets/img/khiva.webp" alt="Klassisches Usbekistan" loading="lazy" width="1100" height="825"><span class="tour__days">8 Tage</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Klassisches Usbekistan</h3>
           <div class="tour__route">Taschkent · Samarkand · Buchara · Chiwa</div>
           <p>Die Seidenstraßen-Reise schlechthin: der Registan bei Sonnenuntergang, die Altstadt von Buchara und die Festungsstadt Chiwa.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Preis auf Anfrage</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Klassisches Usbekistan">Programm &amp; Preis</button></div>
+          <div class="tour__foot"><div class="price"><small>ab</small><strong data-from="classic">…</strong> <small>pro Person</small></div><a class="btn btn--gold btn--sm" href="../tours/classic.html">Programm ansehen →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/bukhara.webp" alt="Samarkand &amp; Buchara Express" loading="lazy" width="1100" height="825"><span class="tour__days">5 Tage</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/express.html"><img src="../assets/img/bukhara.webp" alt="Samarkand &amp; Buchara Express" loading="lazy" width="1100" height="825"><span class="tour__days">5 Tage</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Samarkand &amp; Buchara Express</h3>
           <div class="tour__route">Taschkent · Samarkand · Buchara</div>
           <p>Wenig Zeit? Reisen Sie mit dem Hochgeschwindigkeitszug Afrosiyob zwischen den großen Städten.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Preis auf Anfrage</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Samarkand &amp; Buchara Express">Programm &amp; Preis</button></div>
+          <div class="tour__foot"><div class="price"><small>ab</small><strong data-from="express">…</strong> <small>pro Person</small></div><a class="btn btn--gold btn--sm" href="../tours/express.html">Programm ansehen →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/tashkent.webp" alt="Spirituelles Erbe Usbekistans" loading="lazy" width="1100" height="825"><span class="tour__days">7 Tage</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/spiritual.html"><img src="../assets/img/tashkent.webp" alt="Spirituelles Erbe Usbekistans" loading="lazy" width="1100" height="825"><span class="tour__days">7 Tage</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Spirituelles Erbe Usbekistans</h3>
           <div class="tour__route">Taschkent · Samarkand · Buchara</div>
           <p>Hazrati Imam, der Komplex von Imam al-Buchari, Imam al-Maturidi und Bahauddin Naqschband.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Preis auf Anfrage</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Spirituelles Erbe Usbekistans">Programm &amp; Preis</button></div>
+          <div class="tour__foot"><div class="price"><small>ab</small><strong data-from="spiritual">…</strong> <small>pro Person</small></div><a class="btn btn--gold btn--sm" href="../tours/spiritual.html">Programm ansehen →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/charvak.webp" alt="Berge &amp; Wüste" loading="lazy" width="1100" height="825"><span class="tour__days">4 Tage</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/nature.html"><img src="../assets/img/charvak.webp" alt="Berge &amp; Wüste" loading="lazy" width="1100" height="825"><span class="tour__days">4 Tage</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Berge &amp; Wüste</h3>
           <div class="tour__route">Tschimgan · Tscharwak · Aydarkul</div>
           <p>Frische Bergluft, ein türkisfarbener See und eine Nacht unter den Sternen im Jurtencamp in der Wüste.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Preis auf Anfrage</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Berge &amp; Wüste">Programm &amp; Preis</button></div>
+          <div class="tour__foot"><div class="price"><small>ab</small><strong data-from="nature">…</strong> <small>pro Person</small></div><a class="btn btn--gold btn--sm" href="../tours/nature.html">Programm ansehen →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/mountains.webp" alt="Seidenstraße: Usbekistan, Kasachstan &amp; Kirgisistan" loading="lazy" width="1100" height="825"><span class="tour__days">12 Tage</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></div>
+        <a class="tour__img" href="../tours/silkroad.html"><img src="../assets/img/mountains.webp" alt="Seidenstraße: Usbekistan, Kasachstan &amp; Kirgisistan" loading="lazy" width="1100" height="825"><span class="tour__days">12 Tage</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></a>
         <div class="tour__body">
           <h3>Seidenstraße: Usbekistan, Kasachstan &amp; Kirgisistan</h3>
           <div class="tour__route">Almaty · Scharyn · Issyk-Kul · Bischkek · Taschkent · Samarkand</div>
           <p>Canyons, Bergseen und Nomadenkultur, kombiniert mit den großen Städten Usbekistans.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Preis auf Anfrage</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Seidenstraße: Usbekistan, Kasachstan &amp; Kirgisistan">Programm &amp; Preis</button></div>
+          <div class="tour__foot"><div class="price"><small>ab</small><strong data-from="silkroad">…</strong> <small>pro Person</small></div><a class="btn btn--gold btn--sm" href="../tours/silkroad.html">Programm ansehen →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/shahizinda.webp" alt="Usbekistan &amp; Tadschikistan" loading="lazy" width="1100" height="825"><span class="tour__days">9 Tage</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></div>
+        <a class="tour__img" href="../tours/uztj.html"><img src="../assets/img/shahizinda.webp" alt="Usbekistan &amp; Tadschikistan" loading="lazy" width="1100" height="825"><span class="tour__days">9 Tage</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></a>
         <div class="tour__body">
           <h3>Usbekistan &amp; Tadschikistan</h3>
           <div class="tour__route">Samarkand · Pendschikent · Chudschand · Duschanbe</div>
           <p>Von Samarkand ins antike Pendschikent — entdecken Sie die Berge und Gastfreundschaft Tadschikistans.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Preis auf Anfrage</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Usbekistan &amp; Tadschikistan">Programm &amp; Preis</button></div>
+          <div class="tour__foot"><div class="price"><small>ab</small><strong data-from="uztj">…</strong> <small>pro Person</small></div><a class="btn btn--gold btn--sm" href="../tours/uztj.html">Programm ansehen →</a></div>
         </div>
       </article></div>
       <p class="tours-note">Nicht das Richtige dabei? Wir planen individuelle Routen für Paare, Familien und Gruppen.</p>
+    </div>
+  </section>
+
+  <section class="section builder-cta">
+    <div class="container">
+      <div class="bcta reveal">
+        <div class="bcta__text"><span class="eyebrow">Reise zusammenstellen</span><h2>Stellen Sie Ihre eigene Reise zusammen</h2><p>Wählen Sie Orte, Nächte, Hotels, Transport und Reiseleiter — Route auf der Karte und sofortige Preisschätzung.</p>
+          <a class="btn btn--gold" href="../builder.html">Jetzt zusammenstellen →</a></div>
+        <div class="bcta__img"><img src="../assets/img/p/yurt.webp" alt="" loading="lazy"><img src="../assets/img/p/ichan-kala.webp" alt="" loading="lazy"><img src="../assets/img/p/gur-e-amir.webp" alt="" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
@@ -218,7 +228,9 @@
   </div>
 </div>
 
-<script>window.MN={"whatsapp": "998000000000", "msgGeneral": "Hallo Moviy Nomad! Ich möchte eine Reise nach Zentralasien planen.", "msgTour": "Hallo Moviy Nomad! Ich interessiere mich für die Reise „{tour}“. Bitte senden Sie mir Programm und Preis."};</script>
+<script>window.MN={"whatsapp": "998000000000", "telegram": "moviytravel", "instagram": "moviy_travel", "msgGeneral": "Hallo Moviy Nomad! Ich möchte eine Reise nach Zentralasien planen.", "msgTour": "Hallo Moviy Nomad! Ich interessiere mich für die Reise „{tour}“. Bitte senden Sie mir Programm und Preis."};</script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/js/engine.js"></script>
+<script>document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");});</script>
 <script src="../assets/js/site.js" defer></script>
 </body>
 </html>

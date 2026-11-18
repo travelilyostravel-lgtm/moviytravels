@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" dir="ltr">
+<html lang="zh" dir="ltr" data-base="../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
 <header class="header">
   <div class="container header__bar">
     <a class="logo" href="../zh/" aria-label="Moviy Nomad"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-    <nav class="nav"><a href="#destinations">目的地</a><a href="#tours">线路</a><a href="#why">为什么选择我们</a><a href="#faq">常见问题</a><a href="#contact-us">联系我们</a></nav>
+    <nav class="nav"><a href="#destinations">目的地</a><a href="#tours">线路</a><a href="../builder.html" class="nav__build">定制线路</a><a href="#why">为什么选择我们</a><a href="#faq">常见问题</a><a href="#contact-us">联系我们</a></nav>
     <div class="header__right">
       <div class="lang"><button class="lang__btn" aria-label="Language"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5S14.6 18.7 12 21.5C9.4 18.7 8.1 15.5 8.1 12S9.4 5.3 12 2.5z"/></svg>ZH</button><div class="lang__menu"><a href="../" hreflang="en" lang="en">English<small>EN</small></a><a href="../ru/" hreflang="ru" lang="ru">Русский<small>RU</small></a><a href="../uz/" hreflang="uz" lang="uz">O'zbekcha<small>UZ</small></a><a href="../tr/" hreflang="tr" lang="tr">Türkçe<small>TR</small></a><a href="../ar/" hreflang="ar" lang="ar">العربية<small>AR</small></a><a href="../de/" hreflang="de" lang="de">Deutsch<small>DE</small></a><a href="../sv/" hreflang="sv" lang="sv">Svenska<small>SV</small></a><a href="../zh/" hreflang="zh" lang="zh" aria-current="page">中文<small>ZH</small></a><a href="../hi/" hreflang="hi" lang="hi">हिन्दी<small>HI</small></a><a href="../ko/" hreflang="ko" lang="ko">한국어<small>KO</small></a></div></div>
       <button class="btn btn--gold btn--sm header__cta" data-contact>定制我的行程</button>
@@ -80,60 +80,70 @@
       <div class="section-head reveal"><span class="eyebrow">线路</span><h2>热门线路</h2><p>参考线路——每条线路都可根据您的日期、预算和人数调整。</p></div>
       <div class="tours">
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/khiva.webp" alt="经典乌兹别克斯坦" loading="lazy" width="1100" height="825"><span class="tour__days">8 天</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/classic.html"><img src="../assets/img/khiva.webp" alt="经典乌兹别克斯坦" loading="lazy" width="1100" height="825"><span class="tour__days">8 天</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>经典乌兹别克斯坦</h3>
           <div class="tour__route">塔什干 · 撒马尔罕 · 布哈拉 · 希瓦</div>
           <p>丝绸之路必游线路：日落时的雷吉斯坦广场、布哈拉古城和城墙环绕的希瓦。</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>价格请咨询</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="经典乌兹别克斯坦">获取行程和报价</button></div>
+          <div class="tour__foot"><div class="price"><small>起价</small><strong data-from="classic">…</strong> <small>每人</small></div><a class="btn btn--gold btn--sm" href="../tours/classic.html">查看行程 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/bukhara.webp" alt="撒马尔罕与布哈拉快线" loading="lazy" width="1100" height="825"><span class="tour__days">5 天</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/express.html"><img src="../assets/img/bukhara.webp" alt="撒马尔罕与布哈拉快线" loading="lazy" width="1100" height="825"><span class="tour__days">5 天</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>撒马尔罕与布哈拉快线</h3>
           <div class="tour__route">塔什干 · 撒马尔罕 · 布哈拉</div>
           <p>时间有限？乘坐阿夫罗夏伯高铁往返各大名城。</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>价格请咨询</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="撒马尔罕与布哈拉快线">获取行程和报价</button></div>
+          <div class="tour__foot"><div class="price"><small>起价</small><strong data-from="express">…</strong> <small>每人</small></div><a class="btn btn--gold btn--sm" href="../tours/express.html">查看行程 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/tashkent.webp" alt="乌兹别克斯坦宗教文化之旅" loading="lazy" width="1100" height="825"><span class="tour__days">7 天</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/spiritual.html"><img src="../assets/img/tashkent.webp" alt="乌兹别克斯坦宗教文化之旅" loading="lazy" width="1100" height="825"><span class="tour__days">7 天</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>乌兹别克斯坦宗教文化之旅</h3>
           <div class="tour__route">塔什干 · 撒马尔罕 · 布哈拉</div>
           <p>哈兹拉蒂伊玛目建筑群、布哈里陵园、马图里迪陵墓和纳克什班迪陵园。</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>价格请咨询</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="乌兹别克斯坦宗教文化之旅">获取行程和报价</button></div>
+          <div class="tour__foot"><div class="price"><small>起价</small><strong data-from="spiritual">…</strong> <small>每人</small></div><a class="btn btn--gold btn--sm" href="../tours/spiritual.html">查看行程 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/charvak.webp" alt="雪山与沙漠" loading="lazy" width="1100" height="825"><span class="tour__days">4 天</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/nature.html"><img src="../assets/img/charvak.webp" alt="雪山与沙漠" loading="lazy" width="1100" height="825"><span class="tour__days">4 天</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>雪山与沙漠</h3>
           <div class="tour__route">奇姆甘 · 恰尔瓦克 · 艾达尔湖</div>
           <p>清新的山间空气、碧蓝的湖水，在沙漠毡房营地仰望满天星空。</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>价格请咨询</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="雪山与沙漠">获取行程和报价</button></div>
+          <div class="tour__foot"><div class="price"><small>起价</small><strong data-from="nature">…</strong> <small>每人</small></div><a class="btn btn--gold btn--sm" href="../tours/nature.html">查看行程 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/mountains.webp" alt="丝绸之路：乌兹别克斯坦、哈萨克斯坦与吉尔吉斯斯坦" loading="lazy" width="1100" height="825"><span class="tour__days">12 天</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></div>
+        <a class="tour__img" href="../tours/silkroad.html"><img src="../assets/img/mountains.webp" alt="丝绸之路：乌兹别克斯坦、哈萨克斯坦与吉尔吉斯斯坦" loading="lazy" width="1100" height="825"><span class="tour__days">12 天</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></a>
         <div class="tour__body">
           <h3>丝绸之路：乌兹别克斯坦、哈萨克斯坦与吉尔吉斯斯坦</h3>
           <div class="tour__route">阿拉木图 · 恰伦 · 伊塞克湖 · 比什凯克 · 塔什干 · 撒马尔罕</div>
           <p>峡谷、高山湖泊与游牧文化，结合乌兹别克斯坦的历史名城。</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>价格请咨询</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="丝绸之路：乌兹别克斯坦、哈萨克斯坦与吉尔吉斯斯坦">获取行程和报价</button></div>
+          <div class="tour__foot"><div class="price"><small>起价</small><strong data-from="silkroad">…</strong> <small>每人</small></div><a class="btn btn--gold btn--sm" href="../tours/silkroad.html">查看行程 →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/shahizinda.webp" alt="乌兹别克斯坦与塔吉克斯坦" loading="lazy" width="1100" height="825"><span class="tour__days">9 天</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></div>
+        <a class="tour__img" href="../tours/uztj.html"><img src="../assets/img/shahizinda.webp" alt="乌兹别克斯坦与塔吉克斯坦" loading="lazy" width="1100" height="825"><span class="tour__days">9 天</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></a>
         <div class="tour__body">
           <h3>乌兹别克斯坦与塔吉克斯坦</h3>
           <div class="tour__route">撒马尔罕 · 片治肯特 · 苦盏 · 杜尚别</div>
           <p>从撒马尔罕出发前往古城片治肯特，感受塔吉克斯坦的山川与热情。</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>价格请咨询</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="乌兹别克斯坦与塔吉克斯坦">获取行程和报价</button></div>
+          <div class="tour__foot"><div class="price"><small>起价</small><strong data-from="uztj">…</strong> <small>每人</small></div><a class="btn btn--gold btn--sm" href="../tours/uztj.html">查看行程 →</a></div>
         </div>
       </article></div>
       <p class="tours-note">没有找到合适的线路？我们为情侣、家庭和团队定制专属行程。</p>
+    </div>
+  </section>
+
+  <section class="section builder-cta">
+    <div class="container">
+      <div class="bcta reveal">
+        <div class="bcta__text"><span class="eyebrow">定制线路</span><h2>定制您的专属线路</h2><p>选择目的地、住宿晚数、酒店、交通和导游——即时查看地图路线和预估价格。</p>
+          <a class="btn btn--gold" href="../builder.html">开始定制 →</a></div>
+        <div class="bcta__img"><img src="../assets/img/p/yurt.webp" alt="" loading="lazy"><img src="../assets/img/p/ichan-kala.webp" alt="" loading="lazy"><img src="../assets/img/p/gur-e-amir.webp" alt="" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
@@ -218,7 +228,9 @@
   </div>
 </div>
 
-<script>window.MN={"whatsapp": "998000000000", "msgGeneral": "您好，Moviy Nomad！我想规划一次中亚之旅。", "msgTour": "您好，Moviy Nomad！我对“{tour}”线路感兴趣，请发送行程和报价。"};</script>
+<script>window.MN={"whatsapp": "998000000000", "telegram": "moviytravel", "instagram": "moviy_travel", "msgGeneral": "您好，Moviy Nomad！我想规划一次中亚之旅。", "msgTour": "您好，Moviy Nomad！我对“{tour}”线路感兴趣，请发送行程和报价。"};</script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/js/engine.js"></script>
+<script>document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");});</script>
 <script src="../assets/js/site.js" defer></script>
 </body>
 </html>

@@ -239,3 +239,15 @@ html[dir="rtl"] .hero__bg::after{background:linear-gradient(-100deg,rgba(12,36,6
   .fab{padding:16px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* Builder CTA on the home page */
+.builder-cta{padding-top:0}
+.bcta{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:48px;border-radius:28px;background:linear-gradient(120deg,var(--sky-soft),#fff 70%);border:1px solid #d3e9f1}
+.bcta h2{font-size:clamp(28px,3.4vw,40px);color:var(--navy);margin:12px 0}
+.bcta p{color:var(--muted);font-size:18px;margin-bottom:24px}
+.bcta__img{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:150px 150px;gap:12px}
+.bcta__img img{width:100%;height:100%;object-fit:cover;border-radius:18px}
+.bcta__img img:first-child{grid-row:span 2}
+.nav a.nav__build{color:var(--gold);opacity:1}
+a.tour__img{display:block}
+@media (max-width:860px){.bcta{grid-template-columns:1fr;padding:30px}.nav a.nav__build{color:var(--gold)}}

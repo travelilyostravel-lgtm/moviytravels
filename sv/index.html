@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv" dir="ltr">
+<html lang="sv" dir="ltr" data-base="../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
 <header class="header">
   <div class="container header__bar">
     <a class="logo" href="../sv/" aria-label="Moviy Nomad"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-    <nav class="nav"><a href="#destinations">Resmål</a><a href="#tours">Resor</a><a href="#why">Varför vi</a><a href="#faq">Frågor</a><a href="#contact-us">Kontakt</a></nav>
+    <nav class="nav"><a href="#destinations">Resmål</a><a href="#tours">Resor</a><a href="../builder.html" class="nav__build">Bygg din resa</a><a href="#why">Varför vi</a><a href="#faq">Frågor</a><a href="#contact-us">Kontakt</a></nav>
     <div class="header__right">
       <div class="lang"><button class="lang__btn" aria-label="Language"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5S14.6 18.7 12 21.5C9.4 18.7 8.1 15.5 8.1 12S9.4 5.3 12 2.5z"/></svg>SV</button><div class="lang__menu"><a href="../" hreflang="en" lang="en">English<small>EN</small></a><a href="../ru/" hreflang="ru" lang="ru">Русский<small>RU</small></a><a href="../uz/" hreflang="uz" lang="uz">O'zbekcha<small>UZ</small></a><a href="../tr/" hreflang="tr" lang="tr">Türkçe<small>TR</small></a><a href="../ar/" hreflang="ar" lang="ar">العربية<small>AR</small></a><a href="../de/" hreflang="de" lang="de">Deutsch<small>DE</small></a><a href="../sv/" hreflang="sv" lang="sv" aria-current="page">Svenska<small>SV</small></a><a href="../zh/" hreflang="zh" lang="zh">中文<small>ZH</small></a><a href="../hi/" hreflang="hi" lang="hi">हिन्दी<small>HI</small></a><a href="../ko/" hreflang="ko" lang="ko">한국어<small>KO</small></a></div></div>
       <button class="btn btn--gold btn--sm header__cta" data-contact>Planera min resa</button>
@@ -80,60 +80,70 @@
       <div class="section-head reveal"><span class="eyebrow">Resor</span><h2>Populära resor</h2><p>Exempelrutter — varje resa anpassas efter era datum, er budget och gruppens storlek.</p></div>
       <div class="tours">
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/khiva.webp" alt="Klassiska Uzbekistan" loading="lazy" width="1100" height="825"><span class="tour__days">8 dagar</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/classic.html"><img src="../assets/img/khiva.webp" alt="Klassiska Uzbekistan" loading="lazy" width="1100" height="825"><span class="tour__days">8 dagar</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Klassiska Uzbekistan</h3>
           <div class="tour__route">Tasjkent · Samarkand · Buchara · Chiva</div>
           <p>Den självklara Sidenvägsresan: Registan i solnedgången, gamla Buchara och den murade staden Chiva.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Pris på förfrågan</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Klassiska Uzbekistan">Program &amp; pris</button></div>
+          <div class="tour__foot"><div class="price"><small>från</small><strong data-from="classic">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="../tours/classic.html">Se programmet →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/bukhara.webp" alt="Samarkand &amp; Buchara Express" loading="lazy" width="1100" height="825"><span class="tour__days">5 dagar</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/express.html"><img src="../assets/img/bukhara.webp" alt="Samarkand &amp; Buchara Express" loading="lazy" width="1100" height="825"><span class="tour__days">5 dagar</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Samarkand &amp; Buchara Express</h3>
           <div class="tour__route">Tasjkent · Samarkand · Buchara</div>
           <p>Ont om tid? Res mellan de stora städerna med snabbtåget Afrosiyob.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Pris på förfrågan</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Samarkand &amp; Buchara Express">Program &amp; pris</button></div>
+          <div class="tour__foot"><div class="price"><small>från</small><strong data-from="express">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="../tours/express.html">Se programmet →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/tashkent.webp" alt="Uzbekistans andliga arv" loading="lazy" width="1100" height="825"><span class="tour__days">7 dagar</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/spiritual.html"><img src="../assets/img/tashkent.webp" alt="Uzbekistans andliga arv" loading="lazy" width="1100" height="825"><span class="tour__days">7 dagar</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Uzbekistans andliga arv</h3>
           <div class="tour__route">Tasjkent · Samarkand · Buchara</div>
           <p>Hazrati Imam, Imam al-Bukharis komplex, Imam al-Maturidi och Bahauddin Naqshband.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Pris på förfrågan</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Uzbekistans andliga arv">Program &amp; pris</button></div>
+          <div class="tour__foot"><div class="price"><small>från</small><strong data-from="spiritual">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="../tours/spiritual.html">Se programmet →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/charvak.webp" alt="Berg &amp; öken" loading="lazy" width="1100" height="825"><span class="tour__days">4 dagar</span><div class="tour__flags"><span>UZ</span></div></div>
+        <a class="tour__img" href="../tours/nature.html"><img src="../assets/img/charvak.webp" alt="Berg &amp; öken" loading="lazy" width="1100" height="825"><span class="tour__days">4 dagar</span><div class="tour__flags"><span>UZ</span></div></a>
         <div class="tour__body">
           <h3>Berg &amp; öken</h3>
           <div class="tour__route">Chimgan · Charvak · Aydarkul</div>
           <p>Frisk bergsluft, en turkos sjö och en natt under stjärnorna i ett jurtläger i öknen.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Pris på förfrågan</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Berg &amp; öken">Program &amp; pris</button></div>
+          <div class="tour__foot"><div class="price"><small>från</small><strong data-from="nature">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="../tours/nature.html">Se programmet →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/mountains.webp" alt="Sidenvägen: Uzbekistan, Kazakstan &amp; Kirgizistan" loading="lazy" width="1100" height="825"><span class="tour__days">12 dagar</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></div>
+        <a class="tour__img" href="../tours/silkroad.html"><img src="../assets/img/mountains.webp" alt="Sidenvägen: Uzbekistan, Kazakstan &amp; Kirgizistan" loading="lazy" width="1100" height="825"><span class="tour__days">12 dagar</span><div class="tour__flags"><span>UZ</span><span>KZ</span><span>KG</span></div></a>
         <div class="tour__body">
           <h3>Sidenvägen: Uzbekistan, Kazakstan &amp; Kirgizistan</h3>
           <div class="tour__route">Almaty · Charyn · Issyk-Kul · Bisjkek · Tasjkent · Samarkand</div>
           <p>Kanjoner, alpsjöar och nomadkultur kombinerat med Uzbekistans stora städer.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Pris på förfrågan</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Sidenvägen: Uzbekistan, Kazakstan &amp; Kirgizistan">Program &amp; pris</button></div>
+          <div class="tour__foot"><div class="price"><small>från</small><strong data-from="silkroad">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="../tours/silkroad.html">Se programmet →</a></div>
         </div>
       </article>
       <article class="tour reveal">
-        <div class="tour__img"><img src="../assets/img/shahizinda.webp" alt="Uzbekistan &amp; Tadzjikistan" loading="lazy" width="1100" height="825"><span class="tour__days">9 dagar</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></div>
+        <a class="tour__img" href="../tours/uztj.html"><img src="../assets/img/shahizinda.webp" alt="Uzbekistan &amp; Tadzjikistan" loading="lazy" width="1100" height="825"><span class="tour__days">9 dagar</span><div class="tour__flags"><span>UZ</span><span>TJ</span></div></a>
         <div class="tour__body">
           <h3>Uzbekistan &amp; Tadzjikistan</h3>
           <div class="tour__route">Samarkand · Pandzjakent · Chudzjand · Dusjanbe</div>
           <p>Från Samarkand till antika Pandzjakent — upptäck Tadzjikistans berg och gästfrihet.</p>
-          <div class="tour__foot"><div class="price price--req"><small>&nbsp;</small><strong>Pris på förfrågan</strong></div><button class="btn btn--gold btn--sm" data-contact data-tour="Uzbekistan &amp; Tadzjikistan">Program &amp; pris</button></div>
+          <div class="tour__foot"><div class="price"><small>från</small><strong data-from="uztj">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="../tours/uztj.html">Se programmet →</a></div>
         </div>
       </article></div>
       <p class="tours-note">Hittar du inte din resa? Vi skräddarsyr rutter för par, familjer och grupper.</p>
+    </div>
+  </section>
+
+  <section class="section builder-cta">
+    <div class="container">
+      <div class="bcta reveal">
+        <div class="bcta__text"><span class="eyebrow">Bygg din resa</span><h2>Bygg din egen resa</h2><p>Välj platser, nätter, hotell, transport och guide — se rutten på kartan och ett direkt prisförslag.</p>
+          <a class="btn btn--gold" href="../builder.html">Börja bygga →</a></div>
+        <div class="bcta__img"><img src="../assets/img/p/yurt.webp" alt="" loading="lazy"><img src="../assets/img/p/ichan-kala.webp" alt="" loading="lazy"><img src="../assets/img/p/gur-e-amir.webp" alt="" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
@@ -218,7 +228,9 @@
   </div>
 </div>
 
-<script>window.MN={"whatsapp": "998000000000", "msgGeneral": "Hej Moviy Nomad! Jag vill planera en resa till Centralasien.", "msgTour": "Hej Moviy Nomad! Jag är intresserad av resan \"{tour}\". Skicka gärna program och pris."};</script>
+<script>window.MN={"whatsapp": "998000000000", "telegram": "moviytravel", "instagram": "moviy_travel", "msgGeneral": "Hej Moviy Nomad! Jag vill planera en resa till Centralasien.", "msgTour": "Hej Moviy Nomad! Jag är intresserad av resan \"{tour}\". Skicka gärna program och pris."};</script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/js/engine.js"></script>
+<script>document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");});</script>
 <script src="../assets/js/site.js" defer></script>
 </body>
 </html>
