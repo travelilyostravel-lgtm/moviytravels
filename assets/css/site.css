@@ -11,6 +11,10 @@
   --max:1200px;
 }
 html[lang="ar"]{--font-head:"Tajawal",system-ui,sans-serif;--font-body:"Tajawal",system-ui,sans-serif}
+html[lang="zh"]{--font-head:"Montserrat","Noto Sans SC",sans-serif;--font-body:"Noto Sans SC",sans-serif}
+html[lang="hi"]{--font-head:"Montserrat","Noto Sans Devanagari",sans-serif;--font-body:"Noto Sans Devanagari",sans-serif}
+html[lang="ko"]{--font-head:"Montserrat","Noto Sans KR",sans-serif;--font-body:"Noto Sans KR",sans-serif;word-break:keep-all}
+html[lang="ar"] .eyebrow,html[lang="zh"] .eyebrow,html[lang="hi"] .eyebrow,html[lang="ko"] .eyebrow{letter-spacing:.04em}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--font-body);color:var(--ink);background:#fff;line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
@@ -23,7 +27,6 @@ h1,h2,h3{font-family:var(--font-head);line-height:1.15;font-weight:700}
 .section--sand{background:var(--sand)}
 .section--navy{background:var(--navy);color:#fff}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-head);font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--sky)}
-html[lang="ar"] .eyebrow{letter-spacing:0}
 .eyebrow::before{content:"";width:28px;height:3px;border-radius:3px;background:var(--gold)}
 .section-head{max-width:720px;margin-bottom:48px}
 .section-head h2{font-size:clamp(30px,4vw,44px);margin:14px 0 14px;color:var(--navy)}
@@ -61,8 +64,9 @@ html[lang="ar"] .eyebrow{letter-spacing:0}
 .header__right{display:flex;align-items:center;gap:14px}
 .lang{position:relative}
 .lang__btn{display:flex;align-items:center;gap:6px;color:#fff;font-family:var(--font-head);font-weight:600;font-size:14px;padding:8px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px}
-.lang__menu{position:absolute;inset-inline-end:0;top:calc(100% + 8px);background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:8px;min-width:160px;display:none}
-.lang.is-open .lang__menu{display:block}
+.lang__menu{position:absolute;inset-inline-end:0;top:calc(100% + 8px);background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:8px;width:330px;display:none;grid-template-columns:1fr 1fr;gap:2px}
+@media (max-width:420px){.lang__menu{width:280px}}
+.lang.is-open .lang__menu{display:grid}
 .lang__menu a{display:flex;justify-content:space-between;padding:10px 12px;border-radius:10px;font-size:15px;color:var(--ink)}
 .lang__menu a:hover,.lang__menu a[aria-current]{background:var(--sky-soft)}
 .lang__menu small{color:var(--muted);font-weight:600}

@@ -6,6 +6,7 @@ import html, json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from content import CONFIG, TOURS, COUNTRIES, EXPERIENCES, LANGS, T
 
+EXTRA_FONT = {"ar": "&family=Tajawal:wght@400;500;700", "zh": "&family=Noto+Sans+SC:wght@400;600;700", "hi": "&family=Noto+Sans+Devanagari:wght@400;600;700", "ko": "&family=Noto+Sans+KR:wght@400;600;700"}
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 e = html.escape
 
@@ -115,7 +116,7 @@ def render(lang):
 <meta name="theme-color" content="#12355b">
 <link rel="icon" href="{A}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{EXTRA_FONT.get(lang, "")}&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="{A}img/hero.webp">
 <link rel="stylesheet" href="{A}css/site.css">
 <script type="application/ld+json">{ld}</script>
