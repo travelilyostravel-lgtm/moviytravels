@@ -1,11 +1,12 @@
 # Moviy Nomad — inbound tours website
 
-Static site (HTML/CSS/JS, no framework) in 4 languages:
+Static site (HTML/CSS/JS, no framework) in 5 languages:
 
 | Language | URL |
 |---|---|
 | English (default) | `/` |
 | Русский | `/ru/` |
+| O'zbekcha | `/uz/` |
 | Türkçe | `/tr/` |
 | العربية (RTL) | `/ar/` |
 
@@ -17,7 +18,7 @@ All texts, tours, prices and contacts live in **`build/content.py`**:
 
 - `CONFIG` — WhatsApp number, Telegram username, Instagram username, site URL
 - `TOURS` — duration (`days`), price in USD (`price`, `None` = "Price on request"), photo, countries
-- `T["en"]`, `T["ru"]`, `T["tr"]`, `T["ar"]` — page text per language
+- `T["en"]`, `T["ru"]`, `T["uz"]`, `T["tr"]`, `T["ar"]` — page text per language
 
 After editing, rebuild the pages:
 
@@ -25,7 +26,7 @@ After editing, rebuild the pages:
 python3 build/build.py
 ```
 
-This regenerates `index.html`, `ru/index.html`, `tr/index.html` and `ar/index.html`.
+This regenerates `index.html`, `ru/index.html`, `uz/index.html`, `tr/index.html` and `ar/index.html`.
 
 ## Contacts
 

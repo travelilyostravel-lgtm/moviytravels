@@ -35,7 +35,7 @@ COUNTRIES = [
 
 EXPERIENCES = ["plov", "chorsu", "ceramics", "train", "tea", "camels"]
 
-LANGS = ["en", "ru", "tr", "ar"]
+LANGS = ["en", "ru", "uz", "tr", "ar"]
 
 # ---------------------------------------------------------------- MATNLAR
 T = {}
@@ -330,4 +330,77 @@ T["ar"] = {
     "msg_general": "مرحبًا Moviy Nomad! أرغب في التخطيط لرحلة إلى آسيا الوسطى.",
     "msg_tour": "مرحبًا Moviy Nomad! أنا مهتم برحلة \"{tour}\". أرجو إرسال البرنامج والسعر.",
     "msg_country": "مرحبًا Moviy Nomad! أرغب في السفر إلى {tour}.",
+}
+
+T["uz"] = {
+    "name": "O'zbekcha", "dir": "ltr",
+    "meta_title": "Moviy Nomad — O'zbekiston va Markaziy Osiyoga turlar",
+    "meta_desc": "O'zbekiston, Qozog'iston, Qirg'iziston va Tojikistonga shaxsiy va guruh turlari. Samarqand, Buxoro, Xiva va Ipak yo'li mahalliy jamoa bilan. WhatsApp yoki Telegram orqali bron qiling.",
+    "nav": {"destinations": "Yo'nalishlar", "tours": "Turlar", "why": "Nega biz", "faq": "Savollar", "contact": "Aloqa"},
+    "plan": "Sayohatni rejalash",
+    "hero_eyebrow": "O'zbekiston · Qozog'iston · Qirg'iziston · Tojikiston",
+    "hero_title": "<em>Ipak yo'li</em>ni mahalliy jamoa bilan kashf eting",
+    "hero_sub": "Markaziy Osiyo bo'ylab shaxsiy va kichik guruh turlari — feruza gumbazlar, cho'ldagi o'tovlar, tog' ko'llari va samimiy mehmondo'stlik. Hammasini biz tashkil qilamiz, siz faqat sayohat qilasiz.",
+    "btn_wa": "WhatsApp'da yozish", "btn_tg": "Telegram'da yozish",
+    "chips": ["Shaxsiy va guruh turlari", "Halol taomlar", "Mahalliy gidlar", "24/7 aloqa"],
+    "dest_eyebrow": "Yo'nalishlar", "dest_title": "To'rt davlat — bitta sayohat",
+    "dest_sub": "Markaziy Osiyoning eng go'zal joylarini bitta sayohatda birlashtiring — chegara, transport va gidlarni biz o'z zimmamizga olamiz.",
+    "countries": {
+        "uz": ("O'zbekiston", "Samarqand, Buxoro va Xiva — tezyurar poyezdlar bog'lagan Ipak yo'lining moviy gumbazli durdonalari."),
+        "kz": ("Qozog'iston", "Olmaota atrofidagi tog'lar, Charin kanyonining qizil qoyalari va muqaddas Turkiston shahri."),
+        "kg": ("Qirg'iziston", "Alp ko'llari, ko'chmanchilar o'tovlari, cheksiz yaylovlardagi otlar va Issiqko'l sohillari."),
+        "tj": ("Tojikiston", "Qadimiy Panjakent, Sirdaryo bo'yidagi Xo'jand va dunyo tomi — Pomir."),
+    },
+    "ask_country": "Bu davlat haqida so'rash",
+    "tours_eyebrow": "Turlar", "tours_title": "Mashhur turlar",
+    "tours_sub": "Namunaviy marshrutlar — har bir turni sanalaringiz, byudjetingiz va guruh soniga moslaymiz.",
+    "days": "kun", "from": "dan boshlab", "pp": "1 kishi uchun", "on_request": "Narx so'rov bo'yicha", "ask": "Dastur va narx",
+    "tours_note": "Mos tur topmadingizmi? Juftliklar, oilalar va guruhlar uchun alohida marshrut tuzib beramiz.",
+    "tours": {
+        "classic":   ("Klassik O'zbekiston", "Toshkent · Samarqand · Buxoro · Xiva", "Ipak yo'lining asosiy sayohati: quyosh botishidagi Registon, qadimiy Buxoro va qal'a-shahar Xiva."),
+        "express":   ("Samarqand va Buxoro — ekspress", "Toshkent · Samarqand · Buxoro", "Vaqtingiz kammi? Buyuk shaharlar orasida \"Afrosiyob\" tezyurar poyezdida sayohat qiling."),
+        "spiritual": ("O'zbekistonning ma'naviy merosi", "Toshkent · Samarqand · Buxoro", "Hazrati Imom, Imom Buxoriy majmuasi, Imom Moturidiy va Bahouddin Naqshband ziyorati."),
+        "nature":    ("Tog'lar va cho'l", "Chimyon · Chorvoq · Aydarko'l", "Toza tog' havosi, feruza ko'l va cho'ldagi o'tov lagerida yulduzlar ostida bir kecha."),
+        "silkroad":  ("Ipak yo'li: O'zbekiston, Qozog'iston va Qirg'iziston", "Olmaota · Charin · Issiqko'l · Bishkek · Toshkent · Samarqand", "Kanyonlar, alp ko'llari va ko'chmanchilar madaniyati O'zbekistonning buyuk shaharlari bilan birga."),
+        "uztj":      ("O'zbekiston va Tojikiston", "Samarqand · Panjakent · Xo'jand · Dushanbe", "Samarqanddan qadimiy Panjakentga o'ting va Tojikiston tog'lari hamda mehmondo'stligini kashf eting."),
+    },
+    "exp_eyebrow": "Taassurotlar", "exp_title": "Markaziy Osiyo ta'mi",
+    "exp_sub": "Bu faqat obidalar emas. Bu katta qozondagi palov, bozordagi tonglar va yangi do'stlar bilan choy.",
+    "exp": {"plov": "Qozonda pishgan palov", "chorsu": "Chorsu bozori", "ceramics": "Qo'lda bezatilgan kulolchilik", "train": "\"Afrosiyob\" tezyurar poyezdi", "tea": "Choy marosimi", "camels": "Tuyalar va cho'ldagi o'tov lageri"},
+    "why_eyebrow": "Nega Moviy Nomad", "why_title": "Shu yerda yashaydiganlar bilan sayohat qiling",
+    "why": [
+        ("pin", "Mahalliy mutaxassislar", "Jamoamiz O'zbekistonda yashaydi va har bir ko'cha, gid va yashirin go'shani biladi."),
+        ("box", "Hammasi tayyor", "Mehmonxona, poyezd, transfer, gid va kirish chiptalari — bitta tushunarli paketda."),
+        ("moon", "Halol va oilaviy", "Halol taomlar, namoz vaqtiga mos dastur va oilalar uchun qulay sur'at."),
+        ("chat", "Sizning tilingizda", "Ingliz va rus tilidagi gidlar; turk va arab tilida — so'rov bo'yicha."),
+        ("tag", "Aniq narxlar", "Yashirin to'lovlarsiz — bron qilishdan oldin narxga nimalar kirishini ko'rasiz."),
+        ("phone", "24/7 aloqada", "Butun sayohat davomida WhatsApp yoki Telegram'da jonli menejer."),
+    ],
+    "steps_eyebrow": "Qanday ishlaydi", "steps_title": "Uchta oddiy qadam",
+    "steps": [
+        ("Bizga yozing", "Sanalar, guruh soni va istaklaringizni WhatsApp yoki Telegram'da yozing."),
+        ("Dasturni oling", "Guruhingiz uchun kunma-kun dastur va aniq narxni tayyorlaymiz."),
+        ("Sayohatdan zavqlaning", "Sizni aeroportda kutib olamiz, qolgan hamma ishni o'zimiz hal qilamiz."),
+    ],
+    "faq_eyebrow": "Savollar", "faq_title": "Bilish foydali",
+    "faq": [
+        ("Viza kerakmi?", "Ko'plab davlatlar fuqarolari O'zbekiston, Qozog'iston va Qirg'izistonga vizasiz yoki oddiy elektron viza bilan kirishi mumkin. Pasportingiz qaysi davlatniki ekanini yozing — amaldagi qoidalarni tekshirib beramiz."),
+        ("Qachon borgan ma'qul?", "Shaharlar uchun bahor (aprel–iyun) va kuz (sentabr–oktabr) eng qulay vaqt. Yoz — Qirg'iziston va Tojikiston tog'lari va ko'llari mavsumi."),
+        ("Shaxsiy tur tashkil qila olasizmi?", "Ha. Juftliklar va oilalar uchun shaxsiy turlar, shuningdek guruh turlari va turagentliklar uchun dasturlar tuzamiz."),
+        ("Taomlar halolmi?", "Mintaqadagi taomlarning aksariyati halol. Dasturni namoz vaqtlari va muqaddas joylar ziyoratiga moslab ham tuzishimiz mumkin."),
+        ("Qanday bron qilaman va to'layman?", "WhatsApp yoki Telegram orqali yozing. Dasturni tasdiqlaganingizdan so'ng bronni rasmiylashtiramiz va to'lov ma'lumotlarini yuboramiz."),
+        ("Turagentliklar bilan ishlaysizmi?", "Ha. Agentliklar va guruhlar uchun qabul xizmati va hamkorlik narxlarini taklif qilamiz."),
+    ],
+    "cta_title": "Ipak yo'li sayohatiga tayyormisiz?",
+    "cta_sub": "O'zingizga qulay aloqa usulini tanlang — g'oyalar, dastur va narxni yuboramiz.",
+    "modal_title": "Biz bilan qanday bog'lanmoqchisiz?",
+    "opt_wa": ("WhatsApp", "Eng tez javob"), "opt_tg": ("Telegram", "Menejerga yozish"), "opt_ig": ("Instagram", "Turlarimiz va storislar"),
+    "fab": "Bog'lanish",
+    "footer_about": "O'zbekiston, Qozog'iston, Qirg'iziston va Tojikistonga kirish turizmi.",
+    "footer_part": "Moviy Travel brendi",
+    "footer_nav": "Bo'limlar", "footer_contact": "Aloqa",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "msg_general": "Assalomu alaykum, Moviy Nomad! Markaziy Osiyoga sayohat rejalashtirmoqchiman.",
+    "msg_tour": "Assalomu alaykum, Moviy Nomad! \"{tour}\" turi qiziqtirdi. Dastur va narxini yuborsangiz.",
+    "msg_country": "Assalomu alaykum, Moviy Nomad! {tour} sayohatiga bormoqchiman.",
 }
