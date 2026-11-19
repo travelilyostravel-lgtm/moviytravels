@@ -58,9 +58,9 @@
   T.days.forEach(function (d, n) {
     var moves = (d.move || []).map(function (m) { var l = E.leg(m[0], m[1]); return '<span class="chip-mv">' + E.MODE_ICON[l.mode] + esc(C.cities[l.a].name) + ' → ' + esc(C.cities[l.b].name) + ' · ' + l.km + ' ' + t("km") + ' · ' + E.hours(l.h) + '</span>'; }).join("");
     var meals = (d.meals || "").split(",").filter(function (m) { return MEALS[m]; }).map(function (m) { return MEALS[m]; }).join(", ");
-    slides.push({ label: t("lbl_day") + " " + (n + 1), cls: "s-day", html:
+    slides.push({ label: t("day_n", { n: n + 1 }), cls: "s-day", html:
       '<div class="s-inner day">' +
-        '<div class="day__photo" style="background-image:url(' + E.img(d.stops[0].img) + ')"><span class="day__num">' + t("lbl_day") + ' ' + (n + 1) + '</span></div>' +
+        '<div class="day__photo" style="background-image:url(' + E.img(d.stops[0].img) + ')"><span class="day__num">' + t("day_n", { n: n + 1 }) + '</span></div>' +
         '<div class="day__body"><span class="eyebrow">' + t("day_of", { n: n + 1, total: T.days.length }) + '</span><h2>' + esc(d.title) + '</h2>' +
           (moves ? '<div class="day__moves">' + moves + '</div>' : '') +
           '<div class="stops">' + d.stops.map(function (s) {

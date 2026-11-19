@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 UI = {
+  "day_n": 'Day {n}',
   # generic
   "days": "days", "nights": "nights", "destinations": "destinations", "km": "km", "from": "from", "h": "h", "min": "min",
   "pp_2": "per person · 2 travellers", "see_program": "See the program →", "sample": "Sample prices", "close": "Close",
