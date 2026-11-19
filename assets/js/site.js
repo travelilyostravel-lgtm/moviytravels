@@ -23,6 +23,19 @@
     });
   });
 
+  // Ready tours: country tabs
+  var ttabs = document.querySelectorAll('.ttab');
+  ttabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      var c = t.getAttribute('data-tc');
+      ttabs.forEach(function (x) { x.setAttribute('aria-selected', x === t ? 'true' : 'false'); });
+      document.querySelectorAll('.tgrid').forEach(function (g) {
+        var on = g.getAttribute('data-tc-panel') === c; g.classList.toggle('is-active', on);
+        if (on) g.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+      });
+    });
+  });
+
   // Reveal on scroll
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {

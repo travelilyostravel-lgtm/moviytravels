@@ -254,3 +254,27 @@ a.tour__img{display:block}
 .agent-link{color:#fff;font-family:var(--font-head);font-weight:600;font-size:13.5px;opacity:.85;white-space:nowrap}
 .agent-link:hover{opacity:1;color:var(--gold)}
 @media (max-width:1100px){.agent-link{display:none}}
+
+/* Ready tours by country */
+.ttabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:-6px 0 34px}
+.ttab{padding:12px 24px;border-radius:999px;border:1.5px solid var(--line,#e2dccf);background:#fff;font-family:var(--font-head);font-weight:600;font-size:15px;color:var(--navy);cursor:pointer;transition:.2s}
+.ttab:hover{border-color:var(--navy)}
+.ttab[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tgrid{display:none}
+.tgrid.is-active{display:grid}
+
+/* Always-visible social buttons */
+.sbar{position:fixed;inset-inline-start:16px;bottom:22px;z-index:60;display:flex;flex-direction:column;gap:10px}
+.sbar a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 8px 22px rgba(0,0,0,.22);transition:transform .2s}
+.sbar a:hover{transform:scale(1.08)}
+.sbar svg{width:24px;height:24px}
+.sbar__wa{background:var(--wa,#25d366)}
+.sbar__tg{background:#2aabee}
+.sbar__ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285aeb 90%)}
+@media (max-width:640px){.sbar{bottom:88px;inset-inline-start:12px}.sbar a{width:44px;height:44px}}
+.hero__actions .btn--ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285aeb 90%);color:#fff}
+
+/* Language menu on tour pages */
+.lang--deck .lang__btn{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-family:var(--font-head);font-weight:600;font-size:13px}
+.lang--deck .lang__menu{z-index:40}
+.builder-page .lang .lang__btn{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line,#e2dccf);color:var(--navy);font-family:var(--font-head);font-weight:600;font-size:13px}

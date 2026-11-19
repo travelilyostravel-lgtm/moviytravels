@@ -62,13 +62,13 @@
     <div class="bstep"><h3><span>1</span>Where do you want to go?</h3>
       <div class="presets" id="presets"></div>
       <div id="cities"></div></div>
-    <div class="bstep"><h3><span>2</span>Your route & nights</h3><div id="route"></div></div>
+    <div class="bstep"><h3><span>2</span>Your route &amp; nights</h3><div id="route"></div></div>
     <div class="bstep"><h3><span>3</span>Hotels</h3><div class="cards" id="hotel"></div></div>
     <div class="bstep"><h3><span>4</span>Transport</h3><div class="cards" id="transport"></div></div>
-    <div class="bstep"><h3><span>5</span>Travellers, guide & dates</h3>
-      <div class="brow"><div><label class="lbl">Travellers</label><div class="stepper"><button data-pax="-1" aria-label="Less">−</button><b id="pax">2</b><button data-pax="1" aria-label="More">+</button></div><label class="tgl"><input type="checkbox" id="single"> Single rooms</label></div>
-      <div><label class="lbl" for="lang">Guide language</label><select id="lang"></select><label class="lbl" for="month" style="margin-top:14px">Travel month</label><select id="month"><option>Not sure yet</option><option>January</option><option>February</option><option>March</option><option>April</option><option>May</option><option>June</option><option>July</option><option>August</option><option>September</option><option>October</option><option>November</option><option>December</option></select></div></div>
-      <label class="lbl" style="margin-top:18px">Interests</label><div class="chks"><label class="chk"><input type="checkbox" name="interest" value="History & architecture"> History & architecture</label><label class="chk"><input type="checkbox" name="interest" value="Spiritual / ziyarat"> Spiritual / ziyarat</label><label class="chk"><input type="checkbox" name="interest" value="Food & bazaars"> Food & bazaars</label><label class="chk"><input type="checkbox" name="interest" value="Mountains & nature"> Mountains & nature</label><label class="chk"><input type="checkbox" name="interest" value="Desert & yurts"> Desert & yurts</label><label class="chk"><input type="checkbox" name="interest" value="Crafts & silk"> Crafts & silk</label><label class="chk"><input type="checkbox" name="interest" value="Photography"> Photography</label></div></div>
+    <div class="bstep"><h3><span>5</span>Travellers, guide &amp; dates</h3>
+      <div class="brow"><div><label class="lbl">Travellers</label><div class="stepper"><button data-pax="-1" aria-label="−">−</button><b id="pax">2</b><button data-pax="1" aria-label="+">+</button></div><label class="tgl"><input type="checkbox" id="single"> Single room</label></div>
+      <div><label class="lbl" for="lang">Guide language</label><select id="lang"></select><label class="lbl" for="month" style="margin-top:14px">Travel month</label><select id="month"><option value="">Not sure yet</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select></div></div>
+      <label class="lbl" style="margin-top:18px">Interests</label><div class="chks"><label class="chk"><input type="checkbox" name="interest" value="History &amp; architecture"> History &amp; architecture</label><label class="chk"><input type="checkbox" name="interest" value="Spiritual / ziyarat"> Spiritual / ziyarat</label><label class="chk"><input type="checkbox" name="interest" value="Food &amp; bazaars"> Food &amp; bazaars</label><label class="chk"><input type="checkbox" name="interest" value="Mountains &amp; nature"> Mountains &amp; nature</label><label class="chk"><input type="checkbox" name="interest" value="Desert &amp; yurts"> Desert &amp; yurts</label><label class="chk"><input type="checkbox" name="interest" value="Crafts &amp; silk"> Crafts &amp; silk</label><label class="chk"><input type="checkbox" name="interest" value="Photography"> Photography</label></div></div>
   </div>
   <aside class="result is-empty" id="result">
     <svg id="bmap"></svg>
@@ -100,6 +100,6 @@
 </main>
 <script>window.MN={"whatsapp": "998000000000", "telegram": "moviytravel", "instagram": "moviy_travel", "msgGeneral": "Hello Moviy Nomad! I'd like to plan a trip to Central Asia.", "msgTour": "Hello Moviy Nomad! I'm interested in the \"{tour}\" tour. Please send me the program and price."};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script>
-<script src="../assets/data/catalog.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script>
-<script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/agent.js"></script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script>
+<script src="../assets/data/l10n/en.js"></script><script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/agent.js"></script>
 </body></html>

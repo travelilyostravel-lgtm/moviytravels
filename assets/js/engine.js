@@ -1,6 +1,35 @@
 /* Moviy Nomad — shared engine: routes, prices, maps. */
 (function () {
-  var C = window.MN_CATALOG, G = window.MN_GEO || {};
+  var C = window.MN_CATALOG, G = window.MN_GEO || {}, PL = window.MN_PLACES || {};
+  var L = window.MN_L || { ui: {}, items: {}, legnotes: {}, hotels: {}, transport: {}, guide: {}, cities: {}, sights: {}, tours: {}, bringIcon: {} };
+  if (PL.cities) { C.cities = PL.cities; C.legs = PL.legs; }
+
+  // ---- localization: everything visible comes from window.MN_L (assets/data/l10n/<lang>.js)
+  function t(key, vars) {
+    var s = L.ui[key]; if (s === undefined) s = key;
+    if (vars) Object.keys(vars).forEach(function (k) { s = String(s).split("{" + k + "}").join(vars[k]); });
+    return s;
+  }
+  Object.keys(C.cities).forEach(function (id) { var x = L.cities[id] || [id, ""]; C.cities[id].name = x[0]; C.cities[id].desc = x[1]; });
+  C.hotelClasses.forEach(function (h) { var x = L.hotels[h.id]; if (x) { h.name = x[0]; h.desc = x[1]; } });
+  C.transport.forEach(function (tr) { var x = L.transport[tr.id]; if (x) { tr.name = x[0]; tr.desc = x[1]; } });
+  Object.keys(L.guide).forEach(function (k) { C.guide.names[k] = L.guide[k]; });
+  function cname(id) { return (C.cities[id] || {}).name || id; }
+  var TOURS = window.MN_TOURS || {};
+  Object.keys(TOURS).forEach(function (id) {
+    var T = TOURS[id], tx = L.tours[id] || [id, ""];
+    T.id = id; T.title = tx[0]; T.subtitle = tx[1];
+    T.highlights = (T.hl || []).map(function (s) { return (L.sights[s] || [s])[0]; });
+    T.included = (T.inc || []).map(function (k) { return L.items[k] || k; });
+    T.excluded = (T.exc || []).map(function (k) { return L.items[k] || k; });
+    T.bring = (T.bring || []).map(function (k) { return [L.bringIcon[k] || "passport", L.items[k] || k]; });
+    T.days.forEach(function (d) {
+      var from = d.move && d.move.length ? d.move[0][0] : null;
+      d.title = !d.sleep ? t("departure") : (from && from !== d.sleep ? cname(from) + " → " + cname(d.sleep) : cname(d.sleep));
+      if (!d.stops.length) d.stops = [{ id: "", img: (C.cities[from || d.sleep || "tashkent"] || C.cities.tashkent).img, city: d.sleep }];
+      d.stops.forEach(function (st) { var x = L.sights[st.id] || [cname(st.city), (C.cities[st.city] || {}).desc || ""]; st.name = x[0]; st.desc = x[1]; });
+    });
+  });
   var BASE = document.documentElement.getAttribute("data-base") || "";
   var MAIN_IMG = ["hero", "bukhara", "camels", "ceramics", "charvak", "chorsu", "khiva", "mountains", "plov", "shahizinda", "tashkent", "tea", "train"];
 
@@ -16,18 +45,18 @@
   function leg(a, b) {
     for (var i = 0; i < C.legs.length; i++) {
       var l = C.legs[i];
-      if ((l.a === a && l.b === b) || (l.a === b && l.b === a)) return { a: a, b: b, km: l.km, h: l.h, mode: l.mode, note: l.note || "", known: true };
+      if ((l.a === a && l.b === b) || (l.a === b && l.b === a)) return { a: a, b: b, km: l.km, h: l.h, mode: l.mode, note: (l.note && L.legnotes[l.note]) || l.note || "", known: true };
     }
     var ca = C.cities[a], cb = C.cities[b];
     var km = Math.round(hav(ca, cb) * 1.3 / 10) * 10;
     var border = ca.country !== cb.country;
-    if (km > 900) return { a: a, b: b, km: km, h: Math.round(km / 600 * 10) / 10 + 1, mode: "flight", note: "Flight (estimate)", known: false };
-    return { a: a, b: b, km: km, h: Math.round((km / 65 + (border ? 1 : 0)) * 2) / 2, mode: border ? "border" : "car", note: border ? "Incl. border crossing (estimate)" : "Estimate", known: false };
+    if (km > 900) return { a: a, b: b, km: km, h: Math.round(km / 600 * 10) / 10 + 1, mode: "flight", note: t("flight_est"), known: false };
+    return { a: a, b: b, km: km, h: Math.round((km / 65 + (border ? 1 : 0)) * 2) / 2, mode: border ? "border" : "car", note: border ? t("border_est") : t("estimate"), known: false };
   }
 
   function hours(h) {
     var hh = Math.floor(h), mm = Math.round((h - hh) * 60);
-    return (hh ? hh + " h" : "") + (mm ? (hh ? " " : "") + mm + " min" : "");
+    return (hh ? hh + " " + t("h") : "") + (mm ? (hh ? " " : "") + mm + " " + t("min") : "");
   }
 
   function byId(list, id) { for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i]; return list[0]; }
@@ -88,7 +117,7 @@
     flight: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 13.5 3 11l1.5-1.5 7 1L16 6a2 2 0 0 1 3 3l-4.5 4.5 1 7L14 22l-2.5-7.5L8 18v2l-1.5 1L5 18l-3-1.5 1-1.5h2l3.5-3.5"/></svg>',
     border: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4M4 4h12l-2 4 2 4H4"/></svg>'
   };
-  var MODE_NAME = { train: "Train", car: "By car", flight: "Flight", border: "By car + border" };
+  var MODE_NAME = { train: t("mode_train"), car: t("mode_car"), flight: t("mode_flight"), border: t("mode_border") };
 
   // Draw a route map into an <svg>
   function drawMap(svg, cities, opts) {
@@ -107,7 +136,8 @@
     var out = '<defs><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity=".25"/></filter></defs>';
     out += '<rect width="' + W + '" height="' + H + '" fill="#e9f3f7"/>';
     var tint = { UZB: "#fdf8ee", KAZ: "#f4f1ea", KGZ: "#f4f1ea", TJK: "#f4f1ea", TKM: "#efede8", AFG: "#efede8" };
-    var names = { UZB: ["UZBEKISTAN", 64.0, 41.9], KAZ: ["KAZAKHSTAN", 70.5, 44.6], KGZ: ["KYRGYZSTAN", 74.6, 41.4], TJK: ["TAJIKISTAN", 70.6, 38.4], TKM: ["TURKMENISTAN", 60.0, 39.2], AFG: ["AFGHANISTAN", 66.5, 36.6] };
+    var U = function (k) { return String(t(k)).toUpperCase(); };
+    var names = { UZB: [U("country_UZ"), 64.0, 41.9], KAZ: [U("country_KZ"), 70.5, 44.6], KGZ: [U("country_KG"), 74.6, 41.4], TJK: [U("country_TJ"), 70.6, 38.4], TKM: [U("country_TM"), 60.0, 39.2], AFG: [U("country_AF"), 66.5, 36.6] };
     Object.keys(G).forEach(function (c) {
       G[c].forEach(function (ring) {
         out += '<path d="M' + ring.map(function (p) { var q = P(p[0], p[1]); return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join("L") + 'Z" fill="' + tint[c] + '" stroke="#c9c2b4" stroke-width="1.5"/>';
@@ -152,5 +182,5 @@
     svg.innerHTML = out;
   }
 
-  window.MN_ENGINE = { img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
+  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
 })();

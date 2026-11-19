@@ -4,10 +4,23 @@ Natija: index.html (EN), ru/index.html, tr/index.html, ar/index.html
 """
 import html, json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from content import CONFIG, TOURS, COUNTRIES, EXPERIENCES, LANGS, T
+from content import CONFIG, COUNTRIES, EXPERIENCES, LANGS, T
+import tours_data as TD
+import build_tours
+
+_LD = {}
+def LD(lang):
+    """Localized tour/ui texts (falls back to English for anything not translated yet)."""
+    if lang not in _LD:
+        _LD[lang] = build_tours.l10n(lang if os.path.exists(os.path.join(os.path.dirname(__file__), "l10n", lang + ".py")) else "en")
+    return _LD[lang]
+
+def l10n_lang(lang):
+    return lang if os.path.exists(os.path.join(os.path.dirname(__file__), "l10n", lang + ".py")) else "en"
 
 EXTRA_FONT = {"ar": "&family=Tajawal:wght@400;500;700", "zh": "&family=Noto+Sans+SC:wght@400;600;700", "hi": "&family=Noto+Sans+Devanagari:wght@400;600;700", "ko": "&family=Noto+Sans+KR:wght@400;600;700"}
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MAIN_IMG = ["hero", "bukhara", "camels", "ceramics", "charvak", "chorsu", "khiva", "mountains", "plov", "shahizinda", "tashkent", "tea", "train"]
 e = html.escape
 
 ICON = {
@@ -46,20 +59,29 @@ def render(lang):
     ig = f"https://instagram.com/{cfg['instagram']}"
     nav = t["nav"]
 
+    L = LD(lang); U = L["ui"]
     def tour_card(tr):
-        name, route, desc = t["tours"][tr["id"]]
-        price = f'<div class="price"><small>{e(t["from"])}</small><strong data-from="{tr["id"]}">…</strong> <small>{e(t["pp"])}</small></div>'
+        tid = tr["id"]; name, sub = L["tours"][tid]
+        seen = []
+        for d in tr["days"]:
+            for c in ([d[0]] if d[0] else []):
+                if c not in seen and not TD.CITIES[c][4]: seen.append(c)
+        route = " · ".join(L["cities"][c][0] for c in seen)
+        price = f'<div class="price"><small>{e(U["from"])}</small><strong data-from="{tid}">…</strong> <small>{e(t["pp"])}</small></div>'
         flags = "".join(f"<span>{f}</span>" for f in tr["flags"])
+        img = tr["cover"]; folder = "" if img in MAIN_IMG else "p/"
         return f'''
       <article class="tour reveal">
-        <a class="tour__img" href="{pre}tours/{tr["id"]}.html"><img src="{A}img/{tr["img"]}.webp" alt="{e(name)}" loading="lazy" width="1100" height="825"><span class="tour__days">{tr["days"]} {e(t["days"])}</span><div class="tour__flags">{flags}</div></a>
+        <a class="tour__img" href="tours/{tid}.html"><img src="{A}img/{folder}{img}.webp" alt="{e(name)}" loading="lazy" width="1100" height="760"><span class="tour__days">{len(tr["days"])} {e(U["days"])}</span><div class="tour__flags">{flags}</div></a>
         <div class="tour__body">
           <h3>{e(name)}</h3>
           <div class="tour__route">{e(route)}</div>
-          <p>{e(desc)}</p>
-          <div class="tour__foot">{price}<a class="btn btn--gold btn--sm" href="{pre}tours/{tr["id"]}.html">{e(t["view"])} →</a></div>
+          <p>{e(sub)}</p>
+          <div class="tour__foot">{price}<a class="btn btn--gold btn--sm" href="tours/{tid}.html">{e(U["view_tour"])} →</a></div>
         </div>
       </article>'''
+    ttabs = "".join(f'<button class="ttab" role="tab" data-tc="{c}" aria-selected="{"true" if i == 0 else "false"}">{e(U["country_" + c])}</button>' for i, c in enumerate(TD.COUNTRIES))
+    tgrids = "".join(f'<div class="tours tgrid{" is-active" if i == 0 else ""}" data-tc-panel="{c}">' + "".join(tour_card(x) for x in TD.TOURS if x["country"] == c) + '</div>' for i, c in enumerate(TD.COUNTRIES))
 
     tabs = "".join(
         f'<button class="tab" role="tab" aria-selected="{"true" if i == 0 else "false"}" aria-controls="c-{c["id"]}">{e(t["countries"][c["id"]][0])}</button>'
@@ -97,7 +119,7 @@ def render(lang):
     }, ensure_ascii=False)
 
     links = [("destinations", "#destinations"), ("tours", "#tours"), ("why", "#why"), ("faq", "#faq"), ("contact", "#contact-us")]
-    navhtml = "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links[:2]) + f'<a href="{pre}builder.html" class="nav__build">{e(t["build_nav"])}</a>' + "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links[2:])
+    navhtml = "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links[:2]) + f'<a href="builder.html" class="nav__build">{e(t["build_nav"])}</a>' + "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links[2:])
     year = "2026"
 
     return f'''<!DOCTYPE html>
@@ -143,6 +165,7 @@ def render(lang):
         <div class="hero__actions">
           <a class="btn btn--wa" href="{wa}" data-wa target="_blank" rel="noopener">{ICON["wa"]}{e(t["btn_wa"])}</a>
           <a class="btn btn--tg" href="{tg}" target="_blank" rel="noopener">{ICON["tg"]}{e(t["btn_tg"])}</a>
+          <a class="btn btn--ig" href="{ig}" target="_blank" rel="noopener">{ICON["ig"]}Instagram</a>
         </div>
         <div class="chips">{chips}</div>
       </div>
@@ -160,8 +183,9 @@ def render(lang):
 
   <section class="section section--sand" id="tours">
     <div class="container">
-      <div class="section-head reveal"><span class="eyebrow">{e(t["tours_eyebrow"])}</span><h2>{e(t["tours_title"])}</h2><p>{e(t["tours_sub"])}</p></div>
-      <div class="tours">{"".join(tour_card(x) for x in TOURS)}</div>
+      <div class="section-head reveal"><span class="eyebrow">{e(U["h_eyebrow"])}</span><h2>{e(U["h_title"])}</h2><p>{e(U["h_sub"])}</p></div>
+      <div class="ttabs" role="tablist">{ttabs}</div>
+      {tgrids}
       <p class="tours-note">{e(t["tours_note"])}</p>
     </div>
   </section>
@@ -170,7 +194,7 @@ def render(lang):
     <div class="container">
       <div class="bcta reveal">
         <div class="bcta__text"><span class="eyebrow">{e(t["build_nav"])}</span><h2>{e(t["build_title"])}</h2><p>{e(t["build_sub"])}</p>
-          <a class="btn btn--gold" href="{pre}builder.html">{e(t["build_btn"])} →</a></div>
+          <a class="btn btn--gold" href="builder.html">{e(t["build_btn"])} →</a></div>
         <div class="bcta__img"><img src="{A}img/p/yurt.webp" alt="" loading="lazy"><img src="{A}img/p/ichan-kala.webp" alt="" loading="lazy"><img src="{A}img/p/gur-e-amir.webp" alt="" loading="lazy"></div>
       </div>
     </div>
@@ -243,6 +267,12 @@ def render(lang):
   </div>
 </footer>
 
+<div class="sbar" aria-label="{e(U["contact_us"])}">
+  <a class="sbar__wa" href="{wa}" data-wa target="_blank" rel="noopener" aria-label="WhatsApp">{ICON["wa"]}</a>
+  <a class="sbar__tg" href="{tg}" target="_blank" rel="noopener" aria-label="Telegram">{ICON["tg"]}</a>
+  <a class="sbar__ig" href="{ig}" target="_blank" rel="noopener" aria-label="Instagram">{ICON["ig"]}</a>
+</div>
+
 <button class="fab" data-contact aria-label="{e(t["fab"])}">{ICON["chat-bubble"]}<span>{e(t["fab"])}</span></button>
 
 <div class="modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
@@ -259,7 +289,7 @@ def render(lang):
 </div>
 
 <script>window.MN={js_cfg};</script>
-<script src="{A}data/catalog.js"></script><script src="{A}data/tours.js"></script><script src="{A}js/engine.js"></script>
+<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/engine.js"></script>
 <script>document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");}});</script>
 <script src="{A}js/site.js" defer></script>
 </body>
@@ -268,79 +298,90 @@ def render(lang):
 
 
 HEAD = """<!DOCTYPE html>
-<html lang="en" dir="ltr" data-base="{base}">
+<html lang="{lang}" dir="{dir}" data-base="{base}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title><meta name="description" content="{desc}"><meta name="theme-color" content="#12355b">
 <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{font}&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{base}assets/css/site.css"><link rel="stylesheet" href="{base}assets/css/deck.css">
 </head>"""
 
 SCRIPTS = """<script>window.MN={cfg};</script>
-<script src="{base}assets/data/catalog.js"></script><script src="{base}assets/data/geo.js"></script><script src="{base}assets/data/tours.js"></script>
-<script src="{base}assets/js/engine.js"></script><script src="{base}assets/js/{js}.js"></script>"""
+<script src="{base}assets/data/catalog.js"></script><script src="{base}assets/data/places.js"></script><script src="{base}assets/data/geo.js"></script><script src="{base}assets/data/tours.js"></script>
+<script src="{base}assets/data/l10n/{l10n}.js"></script><script src="{base}assets/js/engine.js"></script><script src="{base}assets/js/{js}.js"></script>"""
 
 
-def page_cfg():
-    t = T["en"]
+def page_cfg(lang="en"):
+    t = T[lang]
     return json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"], "instagram": CONFIG["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)
 
 
-def render_tour(tid):
-    base = "../"
-    return HEAD.format(base=base, title=f"{T['en']['tours'][tid][0]} — Moviy Nomad", desc="Tour program, route map, prices and what is included — Moviy Nomad") + f"""
-<body class="deck-page" data-tour="{tid}">
-<header class="topbar"><a class="logo" href="{base}index.html#tours" aria-label="Moviy Nomad">{LOGO}</a><div class="topbar__title" id="t-title"></div><span class="topbar__count" id="count"></span><a class="close" href="{base}index.html#tours" aria-label="Close">×</a></header>
+def head(lang, base, title, desc):
+    return HEAD.format(base=base, title=e(title), desc=e(desc), lang=lang, dir=T[lang]["dir"], font=EXTRA_FONT.get(lang, ""))
+
+
+def lang_menu(lang, base, page):
+    items = "".join(f'<a href="{base}{path_for(l)}{page}" hreflang="{l}" lang="{l}"{" aria-current=\"page\"" if l == lang else ""}>{T[l]["name"]}<small>{l.upper()}</small></a>' for l in LANGS)
+    return f'<div class="lang lang--deck"><button class="lang__btn" aria-label="Language" onclick="event.stopPropagation();this.parentNode.classList.toggle(\'is-open\')">{ICON["globe"]}{lang.upper()}</button><div class="lang__menu">{items}</div></div>'
+
+
+def render_tour(tid, lang):
+    base = "../" if lang == "en" else "../../"
+    L = LD(lang); home = "../index.html#tours"
+    return head(lang, base, f"{L['tours'][tid][0]} — Moviy Nomad", L["tours"][tid][1]) + f"""
+<body class="deck-page" data-tour="{tid}" onclick="var m=document.querySelector('.lang.is-open');if(m)m.classList.remove('is-open')">
+<header class="topbar"><a class="logo" href="{home}" aria-label="Moviy Nomad">{LOGO}</a><div class="topbar__title" id="t-title"></div>{lang_menu(lang, base, "tours/" + tid + ".html")}<span class="topbar__count" id="count"></span><a class="close" href="{home}" aria-label="{e(L['ui']['close'])}">×</a></header>
 <div class="bar" id="bar"></div>
-<div class="sample" id="sample" hidden>Sample prices</div>
+<div class="sample" id="sample" hidden></div>
 <main id="deck"></main>
-<nav class="dock"><button class="dock__arrow" id="prev" aria-label="Previous">‹</button><div id="dots"></div><button class="dock__arrow dock__arrow--next" id="next" aria-label="Next">›</button></nav>
-""" + SCRIPTS.format(base=base, cfg=page_cfg(), js="deck") + "\n</body></html>\n"
+<nav class="dock"><button class="dock__arrow" id="prev" aria-label="‹">‹</button><div id="dots"></div><button class="dock__arrow dock__arrow--next" id="next" aria-label="›">›</button></nav>
+""" + SCRIPTS.format(base=base, cfg=page_cfg(lang), js="deck", l10n=l10n_lang(lang)) + "\n</body></html>\n"
 
 
-def builder_body(months, interests, wrap=True):
+def builder_body(months, interests, U):
     return f"""<main class="container bwrap">
-  <div class="bhead"><span class="eyebrow">Tour builder</span><h1>Build your own Silk Road journey</h1><p>Choose places and nights, hotels, transport and a guide. You will see the route on the map and an estimated price — then send it to us in one tap.</p></div>
+  <div class="bhead"><span class="eyebrow">{e(U["b_eyebrow"])}</span><h1>{e(U["b_title"])}</h1><p>{e(U["b_sub"])}</p></div>
   <div>
-    <div class="bstep"><h3><span>1</span>Where do you want to go?</h3>
+    <div class="bstep"><h3><span>1</span>{e(U["b_step1"])}</h3>
       <div class="presets" id="presets"></div>
       <div id="cities"></div></div>
-    <div class="bstep"><h3><span>2</span>Your route & nights</h3><div id="route"></div></div>
-    <div class="bstep"><h3><span>3</span>Hotels</h3><div class="cards" id="hotel"></div></div>
-    <div class="bstep"><h3><span>4</span>Transport</h3><div class="cards" id="transport"></div></div>
-    <div class="bstep"><h3><span>5</span>Travellers, guide & dates</h3>
-      <div class="brow"><div><label class="lbl">Travellers</label><div class="stepper"><button data-pax="-1" aria-label="Less">−</button><b id="pax">2</b><button data-pax="1" aria-label="More">+</button></div><label class="tgl"><input type="checkbox" id="single"> Single rooms</label></div>
-      <div><label class="lbl" for="lang">Guide language</label><select id="lang"></select><label class="lbl" for="month" style="margin-top:14px">Travel month</label><select id="month">{months}</select></div></div>
-      <label class="lbl" style="margin-top:18px">Interests</label><div class="chks">{interests}</div></div>
+    <div class="bstep"><h3><span>2</span>{e(U["b_step2"])}</h3><div id="route"></div></div>
+    <div class="bstep"><h3><span>3</span>{e(U["b_step3"])}</h3><div class="cards" id="hotel"></div></div>
+    <div class="bstep"><h3><span>4</span>{e(U["b_step4"])}</h3><div class="cards" id="transport"></div></div>
+    <div class="bstep"><h3><span>5</span>{e(U["b_step5"])}</h3>
+      <div class="brow"><div><label class="lbl">{e(U["travellers"])}</label><div class="stepper"><button data-pax="-1" aria-label="−">−</button><b id="pax">2</b><button data-pax="1" aria-label="+">+</button></div><label class="tgl"><input type="checkbox" id="single"> {e(U["single_room"])}</label></div>
+      <div><label class="lbl" for="lang">{e(U["guide_lang"])}</label><select id="lang"></select><label class="lbl" for="month" style="margin-top:14px">{e(U["b_month"])}</label><select id="month">{months}</select></div></div>
+      <label class="lbl" style="margin-top:18px">{e(U["b_interests"])}</label><div class="chks">{interests}</div></div>
   </div>
   <aside class="result is-empty" id="result">
     <svg id="bmap"></svg>
     <div class="bstats" id="bstats"></div>
-    <div class="bprice"><small>Estimated price per person</small><strong id="bprice">—</strong><small id="btotal"></small>
-      <a class="btn btn--wa is-disabled" id="send" target="_blank" rel="noopener">Send to WhatsApp</a>
-      <a class="btn btn--outline" id="sendtg" href="#" target="_blank" rel="noopener" style="width:100%;margin-top:10px">Write on Telegram</a></div>
-    <p class="bnote">Distances and times are approximate. The final price depends on dates and availability — we confirm it before you book.</p>
+    <div class="bprice"><small>{e(U["b_est"])}</small><strong id="bprice">—</strong><small id="btotal"></small>
+      <a class="btn btn--wa is-disabled" id="send" target="_blank" rel="noopener">{e(U["b_send_wa"])}</a>
+      <a class="btn btn--outline" id="sendtg" href="#" target="_blank" rel="noopener" style="width:100%;margin-top:10px">{e(U["b_send_tg"])}</a></div>
+    <p class="bnote">{e(U["b_note"])}</p>
   </aside>
 </main>"""
 
 
-def builder_inputs():
-    months = "".join(f'<option>{m}</option>' for m in ["Not sure yet", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
-    interests = "".join(f'<label class="chk"><input type="checkbox" name="interest" value="{x}"> {x}</label>' for x in ["History & architecture", "Spiritual / ziyarat", "Food & bazaars", "Mountains & nature", "Desert & yurts", "Crafts & silk", "Photography"])
+def builder_inputs(U):
+    months = "".join(f'<option value="{e(m) if i else ""}">{e(m)}</option>' for i, m in enumerate(U["months"]))
+    interests = "".join(f'<label class="chk"><input type="checkbox" name="interest" value="{e(x)}"> {e(x)}</label>' for x in U["interests"])
     return months, interests
 
 
-def render_builder():
-    base = ""
-    months, interests = builder_inputs()
-    return HEAD.format(base=base, title="Build your own tour — Moviy Nomad", desc="Build your own tour to Uzbekistan, Kazakhstan, Kyrgyzstan and Tajikistan: route map and instant price.") + f"""
+def render_builder(lang):
+    base = "" if lang == "en" else "../"
+    U = LD(lang)["ui"]
+    months, interests = builder_inputs(U)
+    return head(lang, base, f'{U["b_title"]} — Moviy Nomad', U["b_sub"]) + f"""
 <body class="builder-page">
 <header class="header is-solid"><div class="container header__bar"><a class="logo" href="index.html" aria-label="Moviy Nomad">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-<nav class="nav" style="display:flex"><a href="index.html#tours">Ready tours</a><a href="index.html#faq">FAQ</a></nav></div></header>
-<div class="sample" id="sample" hidden style="top:86px">Sample prices</div>
-{builder_body(months, interests)}
-""" + SCRIPTS.format(base=base, cfg=page_cfg(), js="builder") + "\n</body></html>\n"
+<nav class="nav" style="display:flex"><a href="index.html#tours">{e(U["nav_ready"])}</a><a href="index.html#faq">{e(U["nav_faq"])}</a></nav>{lang_menu(lang, base, "builder.html")}</div></header>
+<div class="sample" id="sample" hidden style="top:86px"></div>
+{builder_body(months, interests, U)}
+""" + SCRIPTS.format(base=base, cfg=page_cfg(lang), js="builder", l10n=l10n_lang(lang)) + "\n</body></html>\n"
 
 
 PORTAL_HEAD = """<!DOCTYPE html>
@@ -355,7 +396,7 @@ PORTAL_HEAD = """<!DOCTYPE html>
 
 
 def render_agent():
-    months, interests = builder_inputs()
+    months, interests = builder_inputs(LD("en")["ui"])
     countries = "".join(f"<option>{c}</option>" for c in ["Germany", "Sweden", "Turkey", "United Arab Emirates", "Saudi Arabia", "China", "India", "South Korea", "Russia", "Kazakhstan", "United Kingdom", "France", "Italy", "Spain", "Netherlands", "Poland", "USA", "Japan", "Malaysia", "Indonesia", "Other"])
     return PORTAL_HEAD.format(lang="en", title="Agent portal — Moviy Nomad") + f"""
 <body class="portal">
@@ -407,7 +448,7 @@ def render_agent():
   </div></section>
 
   <section id="v-quote" class="hidden">
-    {builder_body(months, interests)}
+    {builder_body(months, interests, LD("en")["ui"])}
     <div class="p-card" id="q-box" style="margin-top:20px">
       <h3>Your quote</h3>
       <div id="q-empty" class="empty">Choose a ready tour or build a route above.</div>
@@ -429,8 +470,8 @@ def render_agent():
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script>
-<script src="../assets/data/catalog.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script>
-<script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/agent.js"></script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script>
+<script src="../assets/data/l10n/en.js"></script><script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/agent.js"></script>
 </body></html>
 """
 
@@ -468,13 +509,18 @@ def main():
         with open(out, "w", encoding="utf-8") as f:
             f.write(render(lang))
         print("ok", os.path.relpath(out, ROOT))
-    os.makedirs(os.path.join(ROOT, "tours"), exist_ok=True)
-    for tr in TOURS:
-        with open(os.path.join(ROOT, "tours", tr["id"] + ".html"), "w", encoding="utf-8") as f:
-            f.write(render_tour(tr["id"]))
-        print("ok tours/" + tr["id"] + ".html")
-    with open(os.path.join(ROOT, "builder.html"), "w", encoding="utf-8") as f:
-        f.write(render_builder())
+    build_tours.main()
+    ids = {tr["id"] for tr in TD.TOURS}
+    for lang in LANGS:
+        d = os.path.join(ROOT, path_for(lang), "tours"); os.makedirs(d, exist_ok=True)
+        for f in os.listdir(d):
+            if f.endswith(".html") and f[:-5] not in ids: os.remove(os.path.join(d, f))
+        for tr in TD.TOURS:
+            with open(os.path.join(d, tr["id"] + ".html"), "w", encoding="utf-8") as f:
+                f.write(render_tour(tr["id"], lang))
+        with open(os.path.join(ROOT, path_for(lang), "builder.html"), "w", encoding="utf-8") as f:
+            f.write(render_builder(lang))
+        print("ok", lang, "tours + builder")
     with open(os.path.join(ROOT, "agent", "index.html"), "w", encoding="utf-8") as f:
         f.write(render_agent())
     print("ok agent/index.html")
@@ -482,7 +528,6 @@ def main():
     with open(os.path.join(ROOT, "admin", "index.html"), "w", encoding="utf-8") as f:
         f.write(render_admin())
     print("ok admin/index.html")
-    print("ok builder.html")
     # favicon
     with open(os.path.join(ROOT, "assets", "favicon.svg"), "w") as f:
         f.write(LOGO.replace('<svg viewBox="0 0 180 120" aria-hidden="true">', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -30 200 180"><rect x="-10" y="-30" width="200" height="180" rx="36" fill="#12355b"/>'))

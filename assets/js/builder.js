@@ -1,10 +1,10 @@
 /* Moviy Nomad — build your own tour. */
 (function () {
-  var E = window.MN_ENGINE, C = window.MN_CATALOG, CFG = window.MN || {}, TOURS = window.MN_TOURS;
+  var E = window.MN_ENGINE, C = window.MN_CATALOG, CFG = window.MN || {}, TOURS = window.MN_TOURS, t = E.t;
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
-  var COUNTRY = { UZ: "Uzbekistan", KZ: "Kazakhstan", KG: "Kyrgyzstan", TJ: "Tajikistan" };
-  var st = { preset: "", route: [], pax: 2, hotel: "superior", transport: "", lang: "en", single: false, month: "", interests: [] };
-  if (C.sample && document.getElementById("sample")) document.getElementById("sample").hidden = false;
+  var COUNTRY = { UZ: t("country_UZ"), KZ: t("country_KZ"), KG: t("country_KG"), TJ: t("country_TJ") };
+  var st = { preset: "", route: [], pax: 2, hotel: "superior", transport: "", lang: (C.guide.languages[E.L.lang] !== undefined ? E.L.lang : "en"), single: false, month: "", interests: [] };
+  if (C.sample && document.getElementById("sample")) { document.getElementById("sample").textContent = t("sample"); document.getElementById("sample").hidden = false; }
 
   // City picker
   var pick = document.getElementById("cities");
@@ -21,7 +21,7 @@
   }).join("");
 
   document.getElementById("hotel").innerHTML = C.hotelClasses.map(function (h) { return '<button class="card" data-hotel="' + h.id + '"><b>' + esc(h.name) + '</b><small>' + esc(h.desc) + '</small></button>'; }).join("");
-  document.getElementById("transport").innerHTML = '<button class="card" data-tr=""><b>Best for my group</b><small>We choose the right vehicle</small></button>' + C.transport.map(function (t) { return '<button class="card" data-tr="' + t.id + '"><b>' + esc(t.name) + '</b><small>' + esc(t.desc) + ' · ' + t.seats + ' seats</small></button>'; }).join("");
+  document.getElementById("transport").innerHTML = '<button class="card" data-tr=""><b>' + t("b_best") + '</b><small>' + t("b_best_sub") + '</small></button>' + C.transport.map(function (tr) { return '<button class="card" data-tr="' + tr.id + '"><b>' + esc(tr.name) + '</b><small>' + esc(tr.desc) + ' · ' + t("seats", { n: tr.seats }) + '</small></button>'; }).join("");
   document.getElementById("lang").innerHTML = Object.keys(C.guide.names).map(function (k) { return '<option value="' + k + '">' + C.guide.names[k] + '</option>'; }).join("");
 
   function toTour() {
@@ -33,21 +33,21 @@
         days.push(d);
       }
     });
-    days.push({ title: "Departure", sleep: null, meals: "B", stops: [{ img: "tashkent-sky" }] });
-    return { title: "Custom tour", days: days, hotel: st.hotel };
+    days.push({ title: t("departure"), sleep: null, meals: "B", stops: [{ img: "tashkent-sky" }] });
+    return { title: t("b_custom"), days: days, hotel: st.hotel };
   }
 
   function render() {
     var list = document.getElementById("route");
     if (!st.route.length) {
-      list.innerHTML = '<p class="muted">Tap the places you want to visit — or start from a ready tour above.</p>';
+      list.innerHTML = '<p class="muted">' + t("b_empty") + '</p>';
     } else {
       list.innerHTML = st.route.map(function (r, i) {
         var l = i > 0 ? E.leg(st.route[i - 1].id, r.id) : null;
-        return (l ? '<div class="rleg">' + E.MODE_ICON[l.mode] + l.km + ' km · ' + E.hours(l.h) + (l.known ? "" : " (approx.)") + '</div>' : '') +
+        return (l ? '<div class="rleg">' + E.MODE_ICON[l.mode] + l.km + ' ' + t("km") + ' · ' + E.hours(l.h) + (l.known ? "" : " (" + t("b_approx") + ")") + '</div>' : '') +
           '<div class="ritem"><span class="ritem__n">' + (i + 1) + '</span><b>' + esc(C.cities[r.id].name) + '</b>' +
-          '<div class="stepper stepper--sm"><button data-n="' + i + '" data-d="-1">−</button><span>' + r.nights + ' night' + (r.nights > 1 ? "s" : "") + '</span><button data-n="' + i + '" data-d="1">+</button></div>' +
-          '<div class="ritem__act"><button data-up="' + i + '" aria-label="Move up">↑</button><button data-rm="' + i + '" aria-label="Remove">✕</button></div></div>';
+          '<div class="stepper stepper--sm"><button data-n="' + i + '" data-d="-1">−</button><span>' + r.nights + ' ' + (r.nights > 1 ? t("b_nights") : t("b_night")) + '</span><button data-n="' + i + '" data-d="1">+</button></div>' +
+          '<div class="ritem__act"><button data-up="' + i + '" aria-label="' + t("b_up") + '">↑</button><button data-rm="' + i + '" aria-label="' + t("b_rm") + '">✕</button></div></div>';
       }).join("");
     }
     document.querySelectorAll("[data-add]").forEach(function (b) { b.classList.toggle("is-on", st.route.some(function (r) { return r.id === b.getAttribute("data-add"); })); });
@@ -62,7 +62,7 @@
       document.getElementById("bmap").innerHTML = "";
       document.getElementById("bstats").innerHTML = "";
       document.getElementById("bprice").textContent = "—";
-      document.getElementById("btotal").textContent = "Add at least one place";
+      document.getElementById("btotal").textContent = t("b_add_one");
       document.getElementById("send").classList.add("is-disabled");
       if (window.MN_ON_QUOTE) window.MN_ON_QUOTE(null);
       return;
@@ -73,23 +73,23 @@
     var extent = ids.map(function (id) { return C.cities[id]; });
     if (extent.length === 1) extent = extent.concat([{ lat: extent[0].lat + 1.5, lon: extent[0].lon + 2 }, { lat: extent[0].lat - 1.5, lon: extent[0].lon - 2 }]);
     E.drawMap(document.getElementById("bmap"), ids, { h: 560, extent: extent });
-    document.getElementById("bstats").innerHTML = '<div><b>' + p.days + '</b><small>days</small></div><div><b>' + p.nights + '</b><small>nights</small></div><div><b>' + ids.length + '</b><small>places</small></div><div><b>' + km.toLocaleString("en") + '</b><small>km</small></div>';
+    document.getElementById("bstats").innerHTML = '<div><b>' + p.days + '</b><small>' + t("days") + '</small></div><div><b>' + p.nights + '</b><small>' + t("nights") + '</small></div><div><b>' + ids.length + '</b><small>' + t("b_places") + '</small></div><div><b>' + km.toLocaleString("en") + '</b><small>' + t("km") + '</small></div>';
     document.getElementById("bprice").textContent = "$" + p.pp.toLocaleString("en");
-    document.getElementById("btotal").textContent = "per person · $" + p.total.toLocaleString("en") + " for " + st.pax + " · " + p.hotel.name + " · " + p.transport.name + (p.vehicles > 1 ? " × " + p.vehicles : "");
+    document.getElementById("btotal").textContent = t("per_person") + " · $" + p.total.toLocaleString("en") + " " + t("b_for") + " " + st.pax + " · " + p.hotel.name + " · " + p.transport.name + (p.vehicles > 1 ? " × " + p.vehicles : "");
     var send = document.getElementById("send"); send.classList.remove("is-disabled");
-    var msg = "Hello Moviy Nomad! I built my own tour:\n" +
-      "• Route: " + st.route.map(function (r) { return C.cities[r.id].name + " (" + r.nights + "n)"; }).join(" → ") + "\n" +
-      "• " + p.days + " days / " + p.nights + " nights\n" +
-      "• Travellers: " + st.pax + (st.single ? ", single rooms" : "") + "\n" +
-      "• Hotels: " + p.hotel.name + "\n• Transport: " + p.transport.name + "\n• Guide: " + C.guide.names[st.lang] + "\n" +
-      (st.month ? "• Month: " + st.month + "\n" : "") +
-      (st.interests.length ? "• Interests: " + st.interests.join(", ") + "\n" : "") +
-      "• Estimated price: $" + p.pp + " per person\nPlease send me the full program.";
+    var msg = t("b_msg") + "\n" +
+      "• " + t("b_route") + ": " + st.route.map(function (r) { return C.cities[r.id].name + " (" + r.nights + "n)"; }).join(" → ") + "\n" +
+      "• " + p.days + " " + t("days") + " / " + p.nights + " " + t("nights") + "\n" +
+      "• " + t("sum_travellers") + ": " + st.pax + (st.single ? ", " + t("sum_single") : "") + "\n" +
+      "• " + t("sum_hotels") + ": " + p.hotel.name + "\n• " + t("sum_transport") + ": " + p.transport.name + "\n• " + t("sum_guide") + ": " + C.guide.names[st.lang] + "\n" +
+      (st.month ? "• " + t("b_month_l") + ": " + st.month + "\n" : "") +
+      (st.interests.length ? "• " + t("b_interests_l") + ": " + st.interests.join(", ") + "\n" : "") +
+      "• " + t("b_price_l") + ": $" + p.pp + " " + t("per_person") + "\n" + t("b_full");
     send.href = "https://wa.me/" + (CFG.whatsapp || "") + "?text=" + encodeURIComponent(msg);
     document.getElementById("sendtg").href = "https://t.me/" + (CFG.telegram || "");
     if (window.MN_ON_QUOTE) window.MN_ON_QUOTE({
       tour_id: st.preset || "custom",
-      tour_title: st.preset ? TOURS[st.preset].title : "Custom tour: " + st.route.map(function (r) { return C.cities[r.id].name; }).join(" – "),
+      tour_title: st.preset ? TOURS[st.preset].title : t("b_custom") + ": " + st.route.map(function (r) { return C.cities[r.id].name; }).join(" – "),
       price: p, km: km,
       config: { route: st.route.map(function (r) { return { city: r.id, name: C.cities[r.id].name, nights: r.nights }; }),
         hotel: p.hotel.name, transport: p.transport.name + (p.vehicles > 1 ? " × " + p.vehicles : ""), guide: C.guide.names[st.lang],
