@@ -50,3 +50,9 @@ There is no form and no server code. Every button opens a choice: **WhatsApp** (
 - `assets/data/catalog.js` — cities, transfers (km/hours/mode), hotel classes, transport, guide rates, fixed costs, margin. **Prices are samples (`sample: true`) until real partner prices are entered.**
 - `assets/data/tours.js` — the ready tours (days, stops, photos, included/excluded, packing).
 - `assets/js/engine.js` — price calculation and route map; `deck.js` — presentation; `builder.js` — tour builder.
+
+## Agent portal (B2B) & admin panel
+
+- `agent/` — partner agencies: registration with documents, quotes with brutto / netto, bookings with passports, payment, vouchers.
+- `admin/` — staff: approve agencies and set commission, process bookings, generate PDF vouchers.
+- Backend: Supabase. Setup steps, statuses and security rules: see `supabase/README.md`; database: `supabase/schema.sql`.

@@ -3,8 +3,8 @@
   var E = window.MN_ENGINE, C = window.MN_CATALOG, CFG = window.MN || {}, TOURS = window.MN_TOURS;
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var COUNTRY = { UZ: "Uzbekistan", KZ: "Kazakhstan", KG: "Kyrgyzstan", TJ: "Tajikistan" };
-  var st = { route: [], pax: 2, hotel: "superior", transport: "", lang: "en", single: false, month: "", interests: [] };
-  if (C.sample) document.getElementById("sample").hidden = false;
+  var st = { preset: "", route: [], pax: 2, hotel: "superior", transport: "", lang: "en", single: false, month: "", interests: [] };
+  if (C.sample && document.getElementById("sample")) document.getElementById("sample").hidden = false;
 
   // City picker
   var pick = document.getElementById("cities");
@@ -64,6 +64,7 @@
       document.getElementById("bprice").textContent = "—";
       document.getElementById("btotal").textContent = "Add at least one place";
       document.getElementById("send").classList.add("is-disabled");
+      if (window.MN_ON_QUOTE) window.MN_ON_QUOTE(null);
       return;
     }
     sum.classList.remove("is-empty");
@@ -86,11 +87,20 @@
       "• Estimated price: $" + p.pp + " per person\nPlease send me the full program.";
     send.href = "https://wa.me/" + (CFG.whatsapp || "") + "?text=" + encodeURIComponent(msg);
     document.getElementById("sendtg").href = "https://t.me/" + (CFG.telegram || "");
+    if (window.MN_ON_QUOTE) window.MN_ON_QUOTE({
+      tour_id: st.preset || "custom",
+      tour_title: st.preset ? TOURS[st.preset].title : "Custom tour: " + st.route.map(function (r) { return C.cities[r.id].name; }).join(" – "),
+      price: p, km: km,
+      config: { route: st.route.map(function (r) { return { city: r.id, name: C.cities[r.id].name, nights: r.nights }; }),
+        hotel: p.hotel.name, transport: p.transport.name + (p.vehicles > 1 ? " × " + p.vehicles : ""), guide: C.guide.names[st.lang],
+        single: st.single, month: st.month, interests: st.interests, days: p.days, nights: p.nights }
+    });
   }
 
   document.addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
     var a;
+    if (!b.hasAttribute("data-preset") && (b.hasAttribute("data-add") || b.hasAttribute("data-d") || b.hasAttribute("data-up") || b.hasAttribute("data-rm"))) st.preset = "";
     if ((a = b.getAttribute("data-add"))) {
       var idx = st.route.map(function (r) { return r.id; }).indexOf(a);
       if (idx > -1) st.route.splice(idx, 1); else st.route.push({ id: a, nights: 2 });
@@ -107,7 +117,7 @@
       var tour = TOURS[a], counts = {}, order = [];
       tour.days.forEach(function (d) { if (d.sleep) { if (!(d.sleep in counts)) { counts[d.sleep] = 0; order.push(d.sleep); } counts[d.sleep]++; } });
       st.route = order.map(function (id) { return { id: id, nights: counts[id] }; });
-      st.hotel = tour.hotel;
+      st.hotel = tour.hotel; st.preset = a;
     } else return;
     render();
   });
@@ -116,5 +126,6 @@
   document.getElementById("month").onchange = function (e) { st.month = e.target.value; render(); };
   document.querySelectorAll("[name=interest]").forEach(function (c) { c.onchange = function () {
     st.interests = [].slice.call(document.querySelectorAll("[name=interest]:checked")).map(function (x) { return x.value; }); render(); }; });
+  window.MN_BUILDER = { render: render, state: st };
   render();
 })();

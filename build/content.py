@@ -785,3 +785,8 @@ EXTRA = {
 }
 for _l, _v in EXTRA.items():
     T[_l].update(dict(zip(["view", "build_nav", "build_title", "build_sub", "build_btn"], _v)))
+
+AGENT_LOGIN = {"en": "Agent login", "ru": "Вход для агентов", "uz": "Agentlar uchun", "tr": "Acente girişi", "ar": "دخول الوكلاء",
+               "de": "Agenten-Login", "sv": "Agentinloggning", "zh": "旅行社登录", "hi": "एजेंट लॉगिन", "ko": "여행사 로그인"}
+for _l, _v in AGENT_LOGIN.items():
+    T[_l]["agent_login"] = _v

@@ -124,6 +124,7 @@ def render(lang):
     <a class="logo" href="{pre}{path_for(lang)}" aria-label="Moviy Nomad">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
     <nav class="nav">{navhtml}</nav>
     <div class="header__right">
+      <a class="agent-link" href="{pre}agent/">{e(t["agent_login"])}</a>
       <div class="lang"><button class="lang__btn" aria-label="Language">{ICON["globe"]}{lang.upper()}</button><div class="lang__menu">{langs_menu}</div></div>
       <button class="btn btn--gold btn--sm header__cta" data-contact>{e(t["plan"])}</button>
       <button class="burger" aria-label="Menu">{ICON["menu"]}</button>
@@ -235,6 +236,7 @@ def render(lang):
         <li><a href="{tg}" target="_blank" rel="noopener">Telegram @{cfg["telegram"]}</a></li>
         <li><a href="{ig}" target="_blank" rel="noopener">Instagram @{cfg["instagram"]}</a></li>
         {f'<li><a href="mailto:{cfg["email"]}">{cfg["email"]}</a></li>' if cfg["email"] else ""}
+        <li><a href="{pre}agent/">{e(t["agent_login"])} →</a></li>
       </ul></div>
     </div>
     <div class="footer__bottom"><span>© {year} Moviy Nomad. {e(t["rights"])}</span><span>{" · ".join(f'<a href="{pre}{path_for(l)}">{T[l]["name"]}</a>' for l in LANGS)}</span></div>
@@ -297,16 +299,8 @@ def render_tour(tid):
 """ + SCRIPTS.format(base=base, cfg=page_cfg(), js="deck") + "\n</body></html>\n"
 
 
-def render_builder():
-    base = ""
-    months = "".join(f'<option>{m}</option>' for m in ["Not sure yet", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
-    interests = "".join(f'<label class="chk"><input type="checkbox" name="interest" value="{x}"> {x}</label>' for x in ["History & architecture", "Spiritual / ziyarat", "Food & bazaars", "Mountains & nature", "Desert & yurts", "Crafts & silk", "Photography"])
-    return HEAD.format(base=base, title="Build your own tour — Moviy Nomad", desc="Build your own tour to Uzbekistan, Kazakhstan, Kyrgyzstan and Tajikistan: route map and instant price.") + f"""
-<body class="builder-page">
-<header class="header is-solid"><div class="container header__bar"><a class="logo" href="index.html" aria-label="Moviy Nomad">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-<nav class="nav" style="display:flex"><a href="index.html#tours">Ready tours</a><a href="index.html#faq">FAQ</a></nav></div></header>
-<div class="sample" id="sample" hidden style="top:86px">Sample prices</div>
-<main class="container bwrap">
+def builder_body(months, interests, wrap=True):
+    return f"""<main class="container bwrap">
   <div class="bhead"><span class="eyebrow">Tour builder</span><h1>Build your own Silk Road journey</h1><p>Choose places and nights, hotels, transport and a guide. You will see the route on the map and an estimated price — then send it to us in one tap.</p></div>
   <div>
     <div class="bstep"><h3><span>1</span>Where do you want to go?</h3>
@@ -328,8 +322,143 @@ def render_builder():
       <a class="btn btn--outline" id="sendtg" href="#" target="_blank" rel="noopener" style="width:100%;margin-top:10px">Write on Telegram</a></div>
     <p class="bnote">Distances and times are approximate. The final price depends on dates and availability — we confirm it before you book.</p>
   </aside>
-</main>
+</main>"""
+
+
+def builder_inputs():
+    months = "".join(f'<option>{m}</option>' for m in ["Not sure yet", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
+    interests = "".join(f'<label class="chk"><input type="checkbox" name="interest" value="{x}"> {x}</label>' for x in ["History & architecture", "Spiritual / ziyarat", "Food & bazaars", "Mountains & nature", "Desert & yurts", "Crafts & silk", "Photography"])
+    return months, interests
+
+
+def render_builder():
+    base = ""
+    months, interests = builder_inputs()
+    return HEAD.format(base=base, title="Build your own tour — Moviy Nomad", desc="Build your own tour to Uzbekistan, Kazakhstan, Kyrgyzstan and Tajikistan: route map and instant price.") + f"""
+<body class="builder-page">
+<header class="header is-solid"><div class="container header__bar"><a class="logo" href="index.html" aria-label="Moviy Nomad">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
+<nav class="nav" style="display:flex"><a href="index.html#tours">Ready tours</a><a href="index.html#faq">FAQ</a></nav></div></header>
+<div class="sample" id="sample" hidden style="top:86px">Sample prices</div>
+{builder_body(months, interests)}
 """ + SCRIPTS.format(base=base, cfg=page_cfg(), js="builder") + "\n</body></html>\n"
+
+
+PORTAL_HEAD = """<!DOCTYPE html>
+<html lang="{lang}" dir="ltr" data-base="../">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title><meta name="robots" content="noindex"><meta name="theme-color" content="#12355b">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/deck.css"><link rel="stylesheet" href="../assets/css/portal.css">
+</head>"""
+
+
+def render_agent():
+    months, interests = builder_inputs()
+    countries = "".join(f"<option>{c}</option>" for c in ["Germany", "Sweden", "Turkey", "United Arab Emirates", "Saudi Arabia", "China", "India", "South Korea", "Russia", "Kazakhstan", "United Kingdom", "France", "Italy", "Spain", "Netherlands", "Poland", "USA", "Japan", "Malaysia", "Indonesia", "Other"])
+    return PORTAL_HEAD.format(lang="en", title="Agent portal — Moviy Nomad") + f"""
+<body class="portal">
+<header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Agent portal</span><span class="p-top__sp"></span>
+  <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Log out</button></div>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="quote" class="is-on">New quote</button><button data-view="list">My bookings</button><button data-view="agency">Agency</button></div></nav>
+</header>
+<main class="container p-main">
+  <div class="msg msg--err" id="notcfg" hidden>The portal is not connected to the database yet.</div>
+
+  <section id="v-auth" class="p-auth hidden"><div class="p-card">
+    <div class="seg"><button data-auth="login" class="is-on">Log in</button><button data-auth="register">Register your agency</button></div>
+    <form id="f-login">
+      <h2>Welcome, partner</h2><p class="p-sub">Log in to quote tours with your net prices and book for your clients.</p>
+      <div class="fld"><label>E-mail</label><input type="email" name="email" required autocomplete="email"></div>
+      <div class="fld" style="margin-top:12px"><label>Password</label><input type="password" name="password" required autocomplete="current-password"></div>
+      <div class="msg" id="m-login"></div>
+      <div class="p-actions"><button class="btn btn--gold" type="submit">Log in</button><button class="btn btn--outline" type="button" id="forgot">Forgot password</button></div>
+    </form>
+    <form id="f-register" class="hidden">
+      <h2>Become a partner agency</h2><p class="p-sub">We check every agency by hand. After approval you get net prices and online booking.</p>
+      <div class="p-grid">
+        <div class="fld full"><label>Agency name *</label><input name="agency_name" required></div>
+        <div class="fld"><label>Country *</label><select name="country" required>{countries}</select></div>
+        <div class="fld"><label>City</label><input name="city"></div>
+        <div class="fld full"><label>Address</label><input name="address"></div>
+        <div class="fld"><label>Website</label><input name="website" placeholder="https://"></div>
+        <div class="fld"><label>License / registration no.</label><input name="license_no"></div>
+        <div class="fld"><label>Contact person *</label><input name="contact_name" required></div>
+        <div class="fld"><label>Phone</label><input name="phone"></div>
+        <div class="fld"><label>WhatsApp</label><input name="whatsapp"></div>
+        <div class="fld"><label>E-mail (login) *</label><input type="email" name="email" required autocomplete="email"></div>
+        <div class="fld full"><label>Password * <small>(min. 8 characters)</small></label><input type="password" name="password" minlength="8" required autocomplete="new-password"></div>
+        <label class="chk full"><input type="checkbox" required> I agree that Moviy Nomad checks my agency documents and stores my clients' passport data only to arrange their trip.</label>
+      </div>
+      <div class="msg" id="m-register"></div>
+      <div class="p-actions"><button class="btn btn--gold" type="submit">Send application</button></div>
+    </form>
+  </div></section>
+
+  <section id="v-pending" class="hidden"><div class="p-card">
+    <h2 id="pend-title">Your application is being reviewed</h2>
+    <p class="p-sub" id="pend-text">Please upload your company registration and tourism license. We usually review applications within 1–2 working days.</p>
+    <div class="files" id="pend-docs"></div>
+    <div class="p-grid" style="margin-top:16px"><div class="fld"><label>Document type</label><select id="doc-kind"><option value="registration">Company registration</option><option value="license">Tourism license</option><option value="id">ID of the director</option><option value="other">Other</option></select></div>
+      <div class="fld"><label>File (PDF or image)</label><input type="file" id="doc-file" accept=".pdf,image/*"></div></div>
+    <div class="msg" id="m-docs"></div>
+    <div class="p-actions"><button class="btn btn--navy" id="doc-up">Upload document</button></div>
+  </div></section>
+
+  <section id="v-quote" class="hidden">
+    {builder_body(months, interests)}
+    <div class="p-card" id="q-box" style="margin-top:20px">
+      <h3>Your quote</h3>
+      <div id="q-empty" class="empty">Choose a ready tour or build a route above.</div>
+      <div id="q-body" class="hidden">
+        <div class="kv"><div><small>Tour</small><b id="q-title"></b></div><div><small>Travellers</small><b id="q-pax"></b></div><div><small>Brutto (client price)</small><b id="q-brutto"></b></div><div class="hl"><small>Your netto</small><b id="q-netto"></b></div></div>
+        <p class="p-sub" style="margin-top:10px" id="q-comm"></p>
+        <div class="p-grid"><div class="fld"><label>Start date *</label><input type="date" id="q-date"></div><div class="fld"><label>Note for Moviy Nomad</label><input id="q-note" placeholder="Arrival flight, special wishes…"></div></div>
+        <div class="msg" id="m-quote"></div>
+        <div class="p-actions"><button class="btn btn--gold" id="q-book">Book this tour →</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="v-list" class="hidden"><div class="p-card"><h2>My bookings</h2><p class="p-sub">All requests and bookings of your agency.</p><div id="list"></div></div></section>
+
+  <section id="v-booking" class="hidden"></section>
+
+  <section id="v-agency" class="hidden"><div class="p-card" id="agency-box"></div></section>
+</main>
+<script>window.MN={page_cfg()};</script>
+<script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script>
+<script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/agent.js"></script>
+</body></html>
+"""
+
+
+def render_admin():
+    return PORTAL_HEAD.format(lang="uz", title="Admin panel — Moviy Nomad") + f"""
+<body class="portal">
+<header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
+  <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button></div></nav>
+</header>
+<main class="container p-main">
+  <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
+  <section id="v-login" class="p-auth hidden"><div class="p-card"><form id="f-login">
+    <h2>Admin panel</h2><p class="p-sub">Faqat Moviy Nomad xodimlari uchun.</p>
+    <div class="fld"><label>E-mail</label><input type="email" name="email" required></div>
+    <div class="fld" style="margin-top:12px"><label>Parol</label><input type="password" name="password" required></div>
+    <div class="msg" id="m-login"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Kirish</button></div></form></div></section>
+  <section id="v-bookings" class="hidden"><div class="p-card"><h2>Bronlar</h2><div class="filters" id="bf"></div><div id="blist"></div></div></section>
+  <section id="v-booking" class="hidden"></section>
+  <section id="v-agencies" class="hidden"><div class="p-card"><h2>Agentliklar</h2><div class="filters" id="af"></div><div id="alist"></div></div></section>
+  <section id="v-agency" class="hidden"></section>
+</main>
+<script>window.MN={page_cfg()};</script>
+<script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
+<script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script>
+</body></html>
+"""
 
 
 def main():
@@ -346,6 +475,13 @@ def main():
         print("ok tours/" + tr["id"] + ".html")
     with open(os.path.join(ROOT, "builder.html"), "w", encoding="utf-8") as f:
         f.write(render_builder())
+    with open(os.path.join(ROOT, "agent", "index.html"), "w", encoding="utf-8") as f:
+        f.write(render_agent())
+    print("ok agent/index.html")
+    os.makedirs(os.path.join(ROOT, "admin"), exist_ok=True)
+    with open(os.path.join(ROOT, "admin", "index.html"), "w", encoding="utf-8") as f:
+        f.write(render_admin())
+    print("ok admin/index.html")
     print("ok builder.html")
     # favicon
     with open(os.path.join(ROOT, "assets", "favicon.svg"), "w") as f:
