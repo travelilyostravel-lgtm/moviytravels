@@ -299,3 +299,6 @@ a.tour__img{display:block}
 .mn-toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;z-index:250;background:var(--navy-3,#0c2441);color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;font-size:14px;transition:.3s;max-width:90vw;text-align:center}
 .mn-toast.is-on{opacity:1;transform:translate(-50%,0)}
 @media (max-width:900px){.sbar a{width:42px;height:42px}.sbar svg{width:21px;height:21px}}
+
+.opt--tel{color:var(--navy)} .opt--tel .opt__ic{background:var(--navy)}
+.cta__phone{flex-basis:100%;margin:6px 0 0;font-size:15px;opacity:.9}.cta__phone a{display:inline-flex;align-items:center;gap:6px;color:inherit;font-weight:700}.cta__phone svg{width:16px;height:16px}

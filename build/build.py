@@ -60,6 +60,7 @@ def render(lang):
     wa = f"https://wa.me/{cfg['whatsapp']}"
     tg = f"https://t.me/{cfg['telegram']}"
     ig = f"https://instagram.com/{cfg['instagram']}"
+    tel = "tel:+" + cfg["whatsapp"]
     nav = t["nav"]
 
     L = LD(lang); U = L["ui"]
@@ -241,6 +242,7 @@ def render(lang):
           <a class="btn btn--tg" href="{tg}" target="_blank" rel="noopener">{ICON["tg"]}{e(t["btn_tg"])}</a>
           <a class="btn btn--ig" href="{ig}" target="_blank" rel="noopener">{ICON["ig"]}Instagram</a>
         </div>
+        <p class="cta__phone"><a href="{tel}">{ICON["phone"]}{e(cfg.get("phone",""))}</a> · {e(cfg.get("manager",""))}</p>
       </div>
     </div>
   </section>
@@ -260,6 +262,7 @@ def render(lang):
       </div>
       <div><h4>{e(t["footer_nav"])}</h4><ul>{"".join(f'<li><a href="{h}">{e(nav[k])}</a></li>' for k, h in links[:4])}</ul></div>
       <div><h4>{e(t["footer_contact"])}</h4><ul>
+        <li><a href="{tel}">{e(cfg.get("phone",""))}</a><br><small>{e(cfg.get("manager",""))}</small></li>
         <li><a href="{wa}" data-wa target="_blank" rel="noopener">WhatsApp</a></li>
         <li><a href="{tg}" target="_blank" rel="noopener">Telegram @{cfg["telegram"]}</a></li>
         <li><a href="{ig}" target="_blank" rel="noopener">Instagram @{cfg["instagram"]}</a></li>
@@ -288,6 +291,7 @@ def render(lang):
       <a class="opt opt--wa" href="{wa}" target="_blank" rel="noopener"><span class="opt__ic">{ICON["wa"]}</span><span><strong>{e(t["opt_wa"][0])}</strong><small>{e(t["opt_wa"][1])}</small></span></a>
       <a class="opt opt--tg" href="{tg}" target="_blank" rel="noopener"><span class="opt__ic">{ICON["tg"]}</span><span><strong>{e(t["opt_tg"][0])}</strong><small>{e(t["opt_tg"][1])}</small></span></a>
       <a class="opt opt--ig" href="{ig}" target="_blank" rel="noopener"><span class="opt__ic">{ICON["ig"]}</span><span><strong>{e(t["opt_ig"][0])}</strong><small>{e(t["opt_ig"][1])}</small></span></a>
+      <a class="opt opt--tel" href="{tel}"><span class="opt__ic">{ICON["phone"]}</span><span><strong>{e(cfg.get("phone",""))}</strong><small>{e(cfg.get("manager",""))}</small></span></a>
     </div>
   </div>
 </div>
