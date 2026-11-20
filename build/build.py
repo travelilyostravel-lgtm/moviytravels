@@ -1,3 +1,4 @@
+import os
 # -*- coding: utf-8 -*-
 """Moviy Nomad saytini yig'ish: python3 build/build.py
 Natija: index.html (EN), ru/index.html, tr/index.html, ar/index.html
@@ -538,5 +539,25 @@ def main():
         print("DIQQAT: build/content.py ichida haqiqiy WhatsApp raqamini kiriting!")
 
 
+def bust_cache():
+    """Append ?v=<content hash> to local css/js links so browsers fetch fresh files after each update."""
+    import hashlib, re as _re
+    root = ROOT if "ROOT" in globals() else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    pat = _re.compile(r'((?:href|src)=")([^"?#]*assets/[^"?#]+\.(?:css|js))(?:\?v=[0-9a-f]+)?(")')
+    for dp, dn, fn in os.walk(root):
+        dn[:] = [d for d in dn if d not in (".git", "build", "node_modules")]
+        for f in fn:
+            if not f.endswith(".html"): continue
+            fp = os.path.join(dp, f); html = open(fp, encoding="utf-8").read()
+            def rep(m):
+                tgt = os.path.normpath(os.path.join(dp, m.group(2)))
+                if not os.path.exists(tgt): return m.group(0)
+                h = hashlib.md5(open(tgt, "rb").read()).hexdigest()[:8]
+                return m.group(1) + m.group(2) + "?v=" + h + m.group(3)
+            new = pat.sub(rep, html)
+            if new != html: open(fp, "w", encoding="utf-8").write(new)
+
+
 if __name__ == "__main__":
     main()
+    bust_cache()
