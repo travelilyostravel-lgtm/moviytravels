@@ -8,7 +8,7 @@ CONFIG = {
     # !!! WhatsApp raqamini xalqaro formatda, faqat raqamlar bilan yozing (masalan 998901234567)
     "whatsapp": "998000000000",
     # Telegram: shaxsiy akkaunt yoki bot username (@ belgisisiz)
-    "telegram": "moviytravel",
+    "telegram": "moviy_safina",
     # Instagram username (@ belgisisiz)
     "instagram": "moviy_travel",
     "email": "",
