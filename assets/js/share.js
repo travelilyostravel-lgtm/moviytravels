@@ -58,7 +58,7 @@
     var rtl = document.documentElement.dir === "rtl";
     if (rtl) pop.style.left = Math.max(10, r.left) + "px"; else pop.style.right = Math.max(10, window.innerWidth - r.right) + "px";
   }
-  document.addEventListener("click", function (e) { if (pop && !pop.contains(e.target) && !e.target.closest("[data-share]")) close(); });
+  document.addEventListener("click", function (e) { if (pop && !pop.contains(e.target) && !e.target.closest("[data-share],#share")) close(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
   window.MNShare = { open: open, close: close, toast: toast };
 
