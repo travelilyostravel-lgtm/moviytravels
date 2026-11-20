@@ -46,7 +46,7 @@
         }).join("") + '</div>' +
         '<div class="mn-share__copy"><input readonly value="' + esc(cur.url) + '"><button>' + esc(t("copy_link")) + '</button></div>';
       pop.querySelector(".mn-share__x").onclick = close;
-      pop.querySelectorAll("[data-m]").forEach(function (b) { b.onclick = function () { mode = b.getAttribute("data-m"); draw(); }; });
+      pop.querySelectorAll("[data-m]").forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); mode = b.getAttribute("data-m"); draw(); }; });
       pop.querySelector(".mn-share__copy button").onclick = function () { copy(cur.url); };
       var nat = pop.querySelector(".mn-share__native");
       if (nat) nat.onclick = function () { navigator.share({ title: cur.title, text: text, url: cur.url }).then(close, function () {}); };
