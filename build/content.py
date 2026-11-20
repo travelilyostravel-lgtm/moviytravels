@@ -15,6 +15,17 @@ CONFIG = {
     # Instagram username (@ belgisisiz)
     "instagram": "moviy_nomad",
     "email": "",
+    # Asosiy Moviy Travel Instagram (ishonch uchun) va sharhlar kanali
+    "parent_instagram": "moviy_travel",
+    "reviews_channel": "Moviy_Travel_Otzivlar",
+    # Kompaniya rekvizitlari (huquqiy sahifalar va to'lov uchun)
+    "company": "\u201cMOVIY TRAVEL\u201d XK",
+    "address": "Bunyodkor shoh ko'chasi 15/1-uy, Toshkent, O'zbekiston",
+    "office_phone": "+998 99 124 42 14",
+    "inn": "311516284",
+    "mfo": "00419",
+    "account": "2020 8000 8071 4735 4001",
+    "bank": "\u201cIpoteka Bank\u201d ATB yagona filiali",
     # Sayt manzili (SEO uchun)
     "site_url": "https://moviytravel.uz",
 }

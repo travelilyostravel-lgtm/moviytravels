@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from content import CONFIG, COUNTRIES, EXPERIENCES, LANGS, T
 import tours_data as TD
 import build_tours
+import pages
 
 _LD = {}
 def LD(lang):
@@ -64,6 +65,7 @@ def render(lang):
     nav = t["nav"]
 
     L = LD(lang); U = L["ui"]
+    XB = pages.home_blocks(lang, pre, A, ICON); XX = pages.X(lang)
     def tour_card(tr):
         tid = tr["id"]; name, sub = L["tours"][tid]
         seen = []
@@ -114,7 +116,7 @@ def render(lang):
     alternates += f'<link rel="alternate" hreflang="x-default" href="{cfg["site_url"]}/">'
     url = f'{cfg["site_url"]}/{path_for(lang)}'
 
-    js_cfg = json.dumps({"whatsapp": cfg["whatsapp"], "telegram": cfg["telegram"], "instagram": cfg["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)
+    js_cfg = json.dumps({"whatsapp": cfg["whatsapp"], "telegram": cfg["telegram"], "instagram": cfg["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"], "bookLabel": pages.X(lang)["bk_btn"]}, ensure_ascii=False)
     ld = json.dumps({
         "@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad",
         "description": t["meta_desc"], "url": url, "image": cfg["site_url"] + "/assets/img/hero.webp",
@@ -123,7 +125,8 @@ def render(lang):
     }, ensure_ascii=False)
 
     links = [("destinations", "#destinations"), ("tours", "#tours"), ("why", "#why"), ("faq", "#faq"), ("contact", "#contact-us")]
-    navhtml = "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links[:2]) + f'<a href="builder.html" class="nav__build">{e(t["build_nav"])}</a>' + "".join(f'<a href="{h}">{e(nav[k])}</a>' for k, h in links[2:])
+    _x = pages.X(lang)
+    navhtml = f'<a href="#tours">{e(nav["tours"])}</a><a href="services.html">{e(_x["nav_services"])}</a><a href="builder.html" class="nav__build">{e(t["build_nav"])}</a><a href="#reviews">{e(_x["nav_reviews"])}</a><a href="#about">{e(_x["nav_about"])}</a><a href="#contact-us">{e(nav["contact"])}</a>'
     year = "2026"
 
     return f'''<!DOCTYPE html>
@@ -195,6 +198,8 @@ def render(lang):
     </div>
   </section>
 
+{XB["services"]}
+
   <section class="section builder-cta">
     <div class="container">
       <div class="bcta reveal">
@@ -219,12 +224,16 @@ def render(lang):
     </div>
   </section>
 
+{XB["about"]}
+
   <section class="section section--sand">
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(t["steps_eyebrow"])}</span><h2>{e(t["steps_title"])}</h2></div>
       <div class="steps">{steps}</div>
     </div>
   </section>
+
+{XB["reviews"]}
 
   <section class="section" id="faq">
     <div class="container">
@@ -266,10 +275,13 @@ def render(lang):
         <li><a href="{wa}" data-wa target="_blank" rel="noopener">WhatsApp</a></li>
         <li><a href="{tg}" target="_blank" rel="noopener">Telegram @{cfg["telegram"]}</a></li>
         <li><a href="{ig}" target="_blank" rel="noopener">Instagram @{cfg["instagram"]}</a></li>
+        <li><a href="https://instagram.com/{cfg["parent_instagram"]}" target="_blank" rel="noopener">Moviy Travel @{cfg["parent_instagram"]}</a></li>
+        <li><a href="services.html">{e(XX["nav_services"])}</a> · <a href="booking.html">{e(XX["bk_btn"])}</a></li>
         {f'<li><a href="mailto:{cfg["email"]}">{cfg["email"]}</a></li>' if cfg["email"] else ""}
         <li><a href="{pre}agent/">{e(t["agent_login"])} →</a></li>
       </ul></div>
     </div>
+    {pages.footer_legal(lang, pre)}
     <div class="footer__bottom"><span>© {year} Moviy Nomad. {e(t["rights"])}</span><span>{" · ".join(f'<a href="{pre}{path_for(l)}">{T[l]["name"]}</a>' for l in LANGS)}</span></div>
   </div>
 </footer>
@@ -299,6 +311,7 @@ def render(lang):
 <script>window.MN={js_cfg};</script>
 <script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/share.js"></script>
 <script>document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");}});</script>
+<script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/sb-config.js"></script><script src="{A}js/forms.js" defer></script>
 <script src="{A}js/site.js" defer></script>
 </body>
 </html>
@@ -489,7 +502,7 @@ def render_admin():
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button><button data-view="requests">Mijoz so'rovlari</button><button data-view="posts">Hikoyalar</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
@@ -502,10 +515,13 @@ def render_admin():
   <section id="v-booking" class="hidden"></section>
   <section id="v-agencies" class="hidden"><div class="p-card"><h2>Agentliklar</h2><div class="filters" id="af"></div><div id="alist"></div></div></section>
   <section id="v-agency" class="hidden"></section>
+  <section id="v-requests" class="hidden"><div class="p-card"><h2>Mijoz so'rovlari (sayt: bron va xizmatlar)</h2><div class="filters" id="rf"></div><div id="rlist"></div></div></section>
+  <section id="v-request" class="hidden"></section>
+  <section id="v-posts" class="hidden"><div class="p-card"><h2>Sayohatchilar hikoyalari</h2><p class="p-sub">Tasdiqlangan hikoyalar saytda darhol ko'rinadi.</p><div class="filters" id="pf"></div><div id="plist"></div></div></section>
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
-<script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script>
+<script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/admin-site.js"></script>
 </body></html>
 """
 
@@ -529,6 +545,18 @@ def main():
         with open(os.path.join(ROOT, path_for(lang), "builder.html"), "w", encoding="utf-8") as f:
             f.write(render_builder(lang))
         print("ok", lang, "tours + builder")
+    names = {l: T[l]["name"] for l in LANGS}
+    for lang in LANGS:
+        d = os.path.join(ROOT, path_for(lang)); font = EXTRA_FONT.get(lang, ""); L = LD(lang)
+        out = {"services.html": pages.render_services(lang, ICON, LOGO, font, names),
+               "booking.html": pages.render_booking(lang, ICON, LOGO, font, names, TD.TOURS, L),
+               "stories.html": pages.render_stories(lang, ICON, LOGO, font, names),
+               "privacy.html": pages.render_legal(lang, "privacy", ICON, LOGO, font, names),
+               "terms.html": pages.render_legal(lang, "terms", ICON, LOGO, font, names)}
+        for fn, h in out.items():
+            with open(os.path.join(d, fn), "w", encoding="utf-8") as f: f.write(h)
+        miss = pages.missing_keys(lang)
+        print("ok", lang, "pages", ("MISSING " + ",".join(miss)) if miss else "")
     with open(os.path.join(ROOT, "agent", "index.html"), "w", encoding="utf-8") as f:
         f.write(render_agent())
     print("ok agent/index.html")

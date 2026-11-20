@@ -7,11 +7,12 @@
   if (!P.configured) { $("#notcfg").hidden = false; show("login"); return; }
 
   function show(v) {
-    ["login", "bookings", "booking", "agencies", "agency"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
-    $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || b.dataset.view + "s" === v || (v === "booking" && b.dataset.view === "bookings") || (v === "agency" && b.dataset.view === "agencies")); });
+    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
+    $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || b.dataset.view + "s" === v || (v === "booking" && b.dataset.view === "bookings") || (v === "agency" && b.dataset.view === "agencies") || (v === "request" && b.dataset.view === "requests")); });
     window.scrollTo(0, 0);
   }
-  $$("#tabs button").forEach(function (b) { b.onclick = function () { b.dataset.view === "bookings" ? loadBookings() : loadAgencies(); }; });
+  window.MNA = window.MNA || {}; window.MNA.show = show;
+  $$("#tabs button").forEach(function (b) { b.onclick = function () { var v = b.dataset.view; v === "bookings" ? loadBookings() : v === "agencies" ? loadAgencies() : window.MNA[v] && window.MNA[v](); }; });
 
   $("#f-login").onsubmit = async function (e) {
     e.preventDefault(); var f = e.target;

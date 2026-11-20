@@ -98,7 +98,7 @@
     '<div class="s-bg" style="background-image:url(' + E.img(T.days[T.days.length - 2].stops[0].img) + ')"></div>' +
     '<div class="s-inner book"><h2>' + t("book_title") + '</h2><p>' + t("book_text") + '</p>' +
       '<div class="book__sum" id="summary"></div>' +
-      '<div class="book__btns"><a class="btn btn--wa" id="wa" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--tg" href="https://t.me/' + esc(CFG.telegram || "") + '" target="_blank" rel="noopener">Telegram</a><a class="btn btn--ghost" href="https://instagram.com/' + esc(CFG.instagram || "") + '" target="_blank" rel="noopener">Instagram</a></div>' +
+      '<div class="book__btns"><a class="btn btn--gold" href="../booking.html?tour=' + encodeURIComponent(document.body.getAttribute("data-tour") || "") + '">' + esc(CFG.bookLabel || "Book online") + ' →</a><a class="btn btn--wa" id="wa" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--tg" href="https://t.me/' + esc(CFG.telegram || "") + '" target="_blank" rel="noopener">Telegram</a><a class="btn btn--ghost" href="https://instagram.com/' + esc(CFG.instagram || "") + '" target="_blank" rel="noopener">Instagram</a></div>' +
     '</div>' });
 
   // Render

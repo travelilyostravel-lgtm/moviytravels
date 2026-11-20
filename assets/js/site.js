@@ -1,7 +1,7 @@
 (function () {
   var cfg = window.MN || {};
   var header = document.querySelector('.header');
-  function onScroll() { header.classList.toggle('is-solid', window.scrollY > 40); }
+  function onScroll() { header.classList.toggle('is-solid', window.scrollY > 40 || document.body.classList.contains('subpage')); }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   // Mobile menu
@@ -46,6 +46,7 @@
 
   // Contact chooser: WhatsApp / Telegram / Instagram
   var modal = document.getElementById('contact');
+  if (!modal) return;
   var tourLabel = modal.querySelector('.modal__tour');
   var waLink = modal.querySelector('.opt--wa');
   function waUrl(tour) {
