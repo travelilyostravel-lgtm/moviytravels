@@ -13,7 +13,7 @@ CONFIG = {
     # Telegram: shaxsiy akkaunt yoki bot username (@ belgisisiz)
     "telegram": "moviy_safina",
     # Instagram username (@ belgisisiz)
-    "instagram": "moviy_travel",
+    "instagram": "moviy_nomad",
     "email": "",
     # Sayt manzili (SEO uchun)
     "site_url": "https://moviytravel.uz",
