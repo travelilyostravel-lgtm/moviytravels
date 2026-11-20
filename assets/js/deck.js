@@ -130,15 +130,6 @@
   deck.addEventListener("touchend", function (e) { if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 60) go(cur + (dx < 0 ? 1 : -1)); sx = null; });
 
   // PDF (browser "Save as PDF" keeps every language and the photos) + share
-  document.getElementById("pdf").onclick = function () {
-    E.drawMap(document.getElementById("map"), route);
-    var old = document.title; document.title = T.title + " — Moviy Nomad";
-    document.body.classList.add("is-print");
-    if (window.MNShare) window.MNShare.toast(t("pdf_hint"));
-    setTimeout(function () { window.print(); }, 450);
-    var done = function () { document.body.classList.remove("is-print"); document.title = old; go(cur); window.removeEventListener("afterprint", done); };
-    window.addEventListener("afterprint", done);
-  };
   document.getElementById("share").onclick = function (e) {
     var url = location.href.split("#")[0].split("?")[0];
     if (navigator.share && window.matchMedia("(pointer:coarse)").matches) { navigator.share({ title: T.title, text: t("share_msg") + " " + T.title, url: url }).catch(function () {}); return; }
