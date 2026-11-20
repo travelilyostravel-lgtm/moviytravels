@@ -1,0 +1,81 @@
+/* Moviy Nomad — agent portal & admin */
+body.portal{background:var(--sand);min-height:100vh}
+.p-top{position:sticky;top:0;z-index:30;background:var(--navy);color:#fff}
+.p-top__bar{display:flex;align-items:center;gap:18px;height:66px}
+.p-top .logo svg{width:44px;height:30px}
+.p-top__tag{font-family:var(--font-head);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(243,180,67,.5);padding:4px 10px;border-radius:999px}
+.p-top__sp{flex:1}
+.p-top__who{font-size:14px;color:#cfdcec;text-align:end;line-height:1.3}
+.p-top__who b{color:#fff;display:block}
+.p-tabs{display:flex;gap:4px;background:var(--navy-2)}
+.p-tabs button{padding:14px 18px;color:#cfdcec;font-family:var(--font-head);font-weight:600;font-size:14.5px;border-bottom:3px solid transparent}
+.p-tabs button.is-on{color:#fff;border-color:var(--gold)}
+.p-main{padding:32px 0 80px}
+.p-card{background:#fff;border-radius:20px;padding:26px;box-shadow:0 4px 18px rgba(12,36,65,.06);margin-bottom:20px}
+.p-card h2{font-size:24px;color:var(--navy);margin-bottom:6px}
+.p-card h3{font-size:18px;color:var(--navy);margin-bottom:14px}
+.p-sub{color:var(--muted);margin-bottom:18px}
+.p-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 18px}
+.p-grid .full{grid-column:1/-1}
+.fld label{display:block;font-weight:700;color:var(--navy);font-size:13.5px;margin-bottom:6px}
+.fld input,.fld select,.fld textarea{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);font:inherit;font-size:15.5px;background:#fff;color:var(--ink)}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--sky)}
+.fld textarea{min-height:90px;resize:vertical}
+.fld small{color:var(--muted);font-size:12.5px}
+.p-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn--navy{background:var(--navy);color:#fff}
+.btn--red{background:#fbe9e7;color:#a8392f}
+.btn--green{background:#25a35a;color:#fff}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.p-auth{max-width:560px;margin:40px auto}
+.p-auth .seg{display:flex;background:var(--sand);border-radius:999px;padding:4px;margin-bottom:22px}
+.p-auth .seg button{flex:1;padding:11px;border-radius:999px;font-weight:700;color:var(--muted)}
+.p-auth .seg button.is-on{background:var(--navy);color:#fff}
+.msg{padding:14px 16px;border-radius:14px;font-size:15px;margin:14px 0}
+.msg--ok{background:#ecf8f1;color:#1c7a47}.msg--err{background:#fbf0ef;color:#a8392f}.msg--info{background:var(--sky-soft);color:var(--navy)}
+.msg:empty{display:none}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th{text-align:start;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 12px;border-bottom:1.5px solid var(--line)}
+.tbl td{padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr.click{cursor:pointer}.tbl tr.click:hover td{background:#f7fafc}
+.tbl .num{text-align:end;white-space:nowrap;font-variant-numeric:tabular-nums}
+.badge-s{display:inline-block;padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.st-pending,.st-request{background:#fff4dc;color:#7a5200}
+.st-approved,.st-paid{background:#e2f1fb;color:#0d5e8a}
+.st-awaiting_payment{background:#fdecd9;color:#9a4b05}
+.st-payment_reported{background:#efe9fb;color:#5b3fa8}
+.st-confirmed{background:#ecf8f1;color:#1c7a47}
+.st-rejected,.st-blocked,.st-cancelled{background:#f3f1ee;color:#7b7368}
+.kv{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kv div{padding:14px 16px;border-radius:14px;background:var(--sand)}
+.kv small{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.kv b{font-size:17px;color:var(--navy)}
+.kv .hl{background:var(--navy)}.kv .hl small{color:#9fb3cc}.kv .hl b{color:var(--gold);font-size:22px}
+.steps-line{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.steps-line span{flex:1;min-width:110px;padding:9px 10px;border-radius:10px;background:var(--sand);color:var(--muted);font-size:12.5px;font-weight:700;text-align:center}
+.steps-line span.done{background:#ecf8f1;color:#1c7a47}.steps-line span.now{background:var(--navy);color:#fff}
+.files{display:flex;flex-direction:column;gap:8px}
+.file{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid var(--line)}
+.file b{flex:1;color:var(--navy);font-size:14.5px;word-break:break-all}
+.file a,.file button{color:var(--sky);font-weight:700;font-size:14px}
+.quote{position:sticky;top:96px}
+.quote .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.quote .row b{color:var(--navy)}
+.quote .big{font-family:"Montserrat",sans-serif;font-size:30px;color:var(--navy)}
+.quote .net{background:var(--navy);color:#fff;border-radius:16px;padding:16px 18px;margin:14px 0}
+.quote .net small{color:#9fb3cc;display:block;font-size:12.5px}
+.quote .net b{font-family:"Montserrat",sans-serif;font-size:30px;color:var(--gold)}
+.portal .bwrap{padding:0;grid-template-columns:1.25fr .75fr}
+.portal .bhead{display:none}
+.portal .result .bprice .btn,.portal .result .bnote{display:none}
+.hidden{display:none!important}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+.trav{display:grid;grid-template-columns:1fr 1fr 80px 1fr 1fr 1fr 1fr;gap:10px;align-items:end}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filters button{padding:8px 14px;border-radius:999px;border:1.5px solid var(--line);font-size:13.5px;font-weight:700;color:var(--muted);background:#fff}
+.filters button.is-on{background:var(--navy);border-color:var(--navy);color:#fff}
+.svc{display:grid;grid-template-columns:120px 1.4fr 1fr 130px 130px;gap:8px;align-items:end;padding:12px;border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+.svc .wide{grid-column:span 2}
+@media (max-width:900px){.p-grid,.kv,.trav,.svc{grid-template-columns:1fr 1fr}.portal .bwrap{grid-template-columns:1fr}.quote{position:static}}
+@media (max-width:560px){.p-grid,.kv,.trav,.svc{grid-template-columns:1fr}.p-tabs{overflow-x:auto}}
+.link{color:var(--sky);font-weight:700;font-size:14px}

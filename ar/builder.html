@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-base="../">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>صمّم رحلتك الخاصة على طريق الحرير — Moviy Nomad</title><meta name="description" content="اختر الأماكن والليالي والفنادق والنقل والمرشد. سترى المسار على الخريطة والسعر التقديري — ثم أرسله إلينا بلمسة واحدة."><meta name="theme-color" content="#12355b">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css?v=af0dbca4"><link rel="stylesheet" href="../assets/css/deck.css?v=d0bf7380">
+</head>
+<body class="builder-page">
+<header class="header is-solid"><div class="container header__bar"><a class="logo" href="index.html" aria-label="Moviy Nomad"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a>
+<nav class="nav" style="display:flex"><a href="index.html#tours">رحلات جاهزة</a><a href="index.html#faq">الأسئلة الشائعة</a></nav><div class="lang lang--deck"><button class="lang__btn" aria-label="Language" onclick="event.stopPropagation();this.parentNode.classList.toggle('is-open')"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5S14.6 18.7 12 21.5C9.4 18.7 8.1 15.5 8.1 12S9.4 5.3 12 2.5z"/></svg>AR</button><div class="lang__menu"><a href="../builder.html" hreflang="en" lang="en">English<small>EN</small></a><a href="../ru/builder.html" hreflang="ru" lang="ru">Русский<small>RU</small></a><a href="../uz/builder.html" hreflang="uz" lang="uz">O'zbekcha<small>UZ</small></a><a href="../tr/builder.html" hreflang="tr" lang="tr">Türkçe<small>TR</small></a><a href="../ar/builder.html" hreflang="ar" lang="ar" aria-current="page">العربية<small>AR</small></a><a href="../de/builder.html" hreflang="de" lang="de">Deutsch<small>DE</small></a><a href="../sv/builder.html" hreflang="sv" lang="sv">Svenska<small>SV</small></a><a href="../zh/builder.html" hreflang="zh" lang="zh">中文<small>ZH</small></a><a href="../hi/builder.html" hreflang="hi" lang="hi">हिन्दी<small>HI</small></a><a href="../ko/builder.html" hreflang="ko" lang="ko">한국어<small>KO</small></a></div></div></div></header>
+<div class="sample" id="sample" hidden style="top:86px"></div>
+<main class="container bwrap">
+  <div class="bhead"><span class="eyebrow">صمّم رحلتك</span><h1>صمّم رحلتك الخاصة على طريق الحرير</h1><p>اختر الأماكن والليالي والفنادق والنقل والمرشد. سترى المسار على الخريطة والسعر التقديري — ثم أرسله إلينا بلمسة واحدة.</p></div>
+  <div>
+    <div class="bstep"><h3><span>1</span>إلى أين تريد الذهاب؟</h3>
+      <div class="presets" id="presets"></div>
+      <div id="cities"></div></div>
+    <div class="bstep"><h3><span>2</span>المسار والليالي</h3><div id="route"></div></div>
+    <div class="bstep"><h3><span>3</span>الفنادق</h3><div class="cards" id="hotel"></div></div>
+    <div class="bstep"><h3><span>4</span>النقل</h3><div class="cards" id="transport"></div></div>
+    <div class="bstep"><h3><span>5</span>المسافرون والمرشد والتواريخ</h3>
+      <div class="brow"><div><label class="lbl">المسافرون</label><div class="stepper"><button data-pax="-1" aria-label="−">−</button><b id="pax">2</b><button data-pax="1" aria-label="+">+</button></div><label class="tgl"><input type="checkbox" id="single"> غرفة مفردة</label></div>
+      <div><label class="lbl" for="lang">لغة المرشد</label><select id="lang"></select><label class="lbl" for="month" style="margin-top:14px">شهر السفر</label><select id="month"><option value="">لم أحدد بعد</option><option value="يناير">يناير</option><option value="فبراير">فبراير</option><option value="مارس">مارس</option><option value="أبريل">أبريل</option><option value="مايو">مايو</option><option value="يونيو">يونيو</option><option value="يوليو">يوليو</option><option value="أغسطس">أغسطس</option><option value="سبتمبر">سبتمبر</option><option value="أكتوبر">أكتوبر</option><option value="نوفمبر">نوفمبر</option><option value="ديسمبر">ديسمبر</option></select></div></div>
+      <label class="lbl" style="margin-top:18px">الاهتمامات</label><div class="chks"><label class="chk"><input type="checkbox" name="interest" value="التاريخ والعمارة"> التاريخ والعمارة</label><label class="chk"><input type="checkbox" name="interest" value="الزيارات الدينية"> الزيارات الدينية</label><label class="chk"><input type="checkbox" name="interest" value="الطعام والأسواق"> الطعام والأسواق</label><label class="chk"><input type="checkbox" name="interest" value="الجبال والطبيعة"> الجبال والطبيعة</label><label class="chk"><input type="checkbox" name="interest" value="الصحراء والخيام"> الصحراء والخيام</label><label class="chk"><input type="checkbox" name="interest" value="الحرف والحرير"> الحرف والحرير</label><label class="chk"><input type="checkbox" name="interest" value="التصوير"> التصوير</label></div></div>
+  </div>
+  <aside class="result is-empty" id="result">
+    <svg id="bmap"></svg>
+    <div class="bstats" id="bstats"></div>
+    <div class="bprice"><small>السعر التقديري للشخص</small><strong id="bprice">—</strong><small id="btotal"></small>
+      <a class="btn btn--wa is-disabled" id="send" target="_blank" rel="noopener">إرسال عبر واتساب</a>
+      <a class="btn btn--outline" id="sendtg" href="#" target="_blank" rel="noopener" style="width:100%;margin-top:10px">الكتابة عبر تيليغرام</a></div>
+    <p class="bnote">المسافات والأوقات تقريبية. يعتمد السعر النهائي على التواريخ والتوفر — نؤكده قبل الحجز.</p>
+  </aside>
+</main>
+<script>window.MN={"whatsapp": "998999804214", "telegram": "moviy_safina", "instagram": "moviy_travel", "msgGeneral": "مرحبًا Moviy Nomad! أرغب في التخطيط لرحلة إلى آسيا الوسطى.", "msgTour": "مرحبًا Moviy Nomad! أنا مهتم برحلة \"{tour}\". أرجو إرسال البرنامج والسعر."};</script>
+<script src="../assets/data/catalog.js?v=434fbec6"></script><script src="../assets/data/places.js?v=a3f1ff60"></script><script src="../assets/data/geo.js?v=66ac0701"></script><script src="../assets/data/tours.js?v=f6774d6f"></script>
+<script src="../assets/data/l10n/ar.js?v=509b6177"></script><script src="../assets/js/engine.js?v=612440b0"></script><script src="../assets/js/share.js?v=fb8c2990"></script><script src="../assets/js/builder.js?v=d4f57fbf"></script>
+</body></html>
