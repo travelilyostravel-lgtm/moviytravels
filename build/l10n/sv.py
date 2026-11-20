@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 UI = {
+  'pdf_title': 'Ladda ner som PDF',
+  'share': 'Dela',
+  'share_tour': 'Den här resan',
+  'share_site': 'Hela webbplatsen',
+  'copy_link': 'Kopiera länk',
+  'copied': 'Länken kopierad!',
+  'share_msg': 'Kolla in den här resan från Moviy Nomad:',
+  'site_msg': 'Moviy Nomad — färdiga resor i Uzbekistan, Kazakstan, Kirgizistan och Tadzjikistan:',
+  'pdf_hint': 'Välj ”Spara som PDF” i utskriftsfönstret.',
   "day_n": 'Dag {n}',
   "days": "dagar", "nights": "nätter", "destinations": "platser", "km": "km", "from": "från", "h": "tim", "min": "min",
   "pp_2": "per person · vid 2 resenärer", "see_program": "Se programmet →", "sample": "Exempelpriser", "close": "Stäng",

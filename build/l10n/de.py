@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 UI = {
+  'pdf_title': 'Als PDF herunterladen',
+  'share': 'Teilen',
+  'share_tour': 'Diese Reise',
+  'share_site': 'Ganze Website',
+  'copy_link': 'Link kopieren',
+  'copied': 'Link kopiert!',
+  'share_msg': 'Schau dir diese Reise von Moviy Nomad an:',
+  'site_msg': 'Moviy Nomad — fertige Reisen durch Usbekistan, Kasachstan, Kirgistan und Tadschikistan:',
+  'pdf_hint': 'Wählen Sie im Druckfenster „Als PDF speichern“.',
   "day_n": 'Tag {n}',
   "days": "Tage", "nights": "Nächte", "destinations": "Orte", "km": "km", "from": "ab", "h": "Std.", "min": "Min.",
   "pp_2": "pro Person · bei 2 Reisenden", "see_program": "Programm ansehen →", "sample": "Beispielpreise", "close": "Schließen",

@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 UI = {
+  'pdf_title': 'PDF olarak indir',
+  'share': 'Paylaş',
+  'share_tour': 'Bu tur',
+  'share_site': 'Tüm site',
+  'copy_link': 'Bağlantıyı kopyala',
+  'copied': 'Bağlantı kopyalandı!',
+  'share_msg': "Moviy Nomad'ın bu turuna göz atın:",
+  'site_msg': "Moviy Nomad — Özbekistan, Kazakistan, Kırgızistan ve Tacikistan'da hazır turlar:",
+  'pdf_hint': 'Yazdırma penceresinde “PDF olarak kaydet”i seçin.',
   "day_n": '{n}. gün',
   "days": "gün", "nights": "gece", "destinations": "destinasyon", "km": "km", "from": "başlayan", "h": "sa", "min": "dk",
   "pp_2": "kişi başı · 2 kişi için", "see_program": "Programı gör →", "sample": "Örnek fiyatlar", "close": "Kapat",

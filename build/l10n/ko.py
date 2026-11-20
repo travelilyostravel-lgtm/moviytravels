@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 UI = {
+  'pdf_title': 'PDF로 다운로드',
+  'share': '공유',
+  'share_tour': '이 투어',
+  'share_site': '웹사이트 전체',
+  'copy_link': '링크 복사',
+  'copied': '링크가 복사되었습니다!',
+  'share_msg': 'Moviy Nomad의 이 투어를 확인해 보세요:',
+  'site_msg': 'Moviy Nomad — 우즈베키스탄, 카자흐스탄, 키르기스스탄, 타지키스탄 추천 투어:',
+  'pdf_hint': "인쇄 창에서 'PDF로 저장'을 선택하세요.",
   "day_n": '{n}일차',
   "days": "일", "nights": "박", "destinations": "곳", "km": "km", "from": "부터", "h": "시간", "min": "분",
   "pp_2": "1인 · 2인 기준", "see_program": "일정 보기 →", "sample": "예시 가격", "close": "닫기",

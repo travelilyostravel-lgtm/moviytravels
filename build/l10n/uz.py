@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 UI = {
+  'pdf_title': 'PDF qilib yuklab olish',
+  'share': 'Ulashish',
+  'share_tour': 'Shu tur',
+  'share_site': 'Butun sayt',
+  'copy_link': 'Havolani nusxalash',
+  'copied': 'Havola nusxalandi!',
+  'share_msg': "Moviy Nomad'ning shu turini ko'ring:",
+  'site_msg': "Moviy Nomad — O'zbekiston, Qozog'iston, Qirg'iziston va Tojikiston bo'ylab tayyor turlar:",
+  'pdf_hint': 'Chop etish oynasida «PDF sifatida saqlash»ni tanlang.',
   "day_n": '{n}-kun',
   "days": "kun", "nights": "tun", "destinations": "manzil", "km": "km", "from": "dan", "h": "soat", "min": "daq",
   "pp_2": "1 kishi uchun · 2 kishi bo'lsa", "see_program": "Dasturni ko'rish →", "sample": "Namuna narxlar", "close": "Yopish",

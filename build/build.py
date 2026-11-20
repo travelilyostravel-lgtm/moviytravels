@@ -24,6 +24,8 @@ MAIN_IMG = ["hero", "bukhara", "camels", "ceramics", "charvak", "chorsu", "khiva
 e = html.escape
 
 ICON = {
+ "share": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>',
+ "pdf": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>',
  "wa": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4z"/></svg>',
  "tg": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.8 15.2l-.4 5.5c.6 0 .8-.3 1.1-.5l2.7-2.6 5.6 4.1c1 .6 1.8.3 2-.9L24.5 3.4c.3-1.5-.6-2.1-1.6-1.7L1 10.2c-1.5.6-1.5 1.4-.3 1.8l5.6 1.7 13-8.2c.6-.4 1.2-.2.7.2z"/></svg>',
  "ig": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>',
@@ -147,6 +149,7 @@ def render(lang):
     <nav class="nav">{navhtml}</nav>
     <div class="header__right">
       <a class="agent-link" href="{pre}agent/">{e(t["agent_login"])}</a>
+      <button class="hshare" data-share="site" aria-label="{e(U["share"])}" title="{e(U["share"])}">{ICON["share"]}</button>
       <div class="lang"><button class="lang__btn" aria-label="Language">{ICON["globe"]}{lang.upper()}</button><div class="lang__menu">{langs_menu}</div></div>
       <button class="btn btn--gold btn--sm header__cta" data-contact>{e(t["plan"])}</button>
       <button class="burger" aria-label="Menu">{ICON["menu"]}</button>
@@ -289,7 +292,7 @@ def render(lang):
 </div>
 
 <script>window.MN={js_cfg};</script>
-<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/engine.js"></script>
+<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/share.js"></script>
 <script>document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");}});</script>
 <script src="{A}js/site.js" defer></script>
 </body>
@@ -309,7 +312,7 @@ HEAD = """<!DOCTYPE html>
 
 SCRIPTS = """<script>window.MN={cfg};</script>
 <script src="{base}assets/data/catalog.js"></script><script src="{base}assets/data/places.js"></script><script src="{base}assets/data/geo.js"></script><script src="{base}assets/data/tours.js"></script>
-<script src="{base}assets/data/l10n/{l10n}.js"></script><script src="{base}assets/js/engine.js"></script><script src="{base}assets/js/{js}.js"></script>"""
+<script src="{base}assets/data/l10n/{l10n}.js"></script><script src="{base}assets/js/engine.js"></script><script src="{base}assets/js/share.js"></script><script src="{base}assets/js/{js}.js"></script>"""
 
 
 def page_cfg(lang="en"):
@@ -331,7 +334,7 @@ def render_tour(tid, lang):
     L = LD(lang); home = "../index.html#tours"
     return head(lang, base, f"{L['tours'][tid][0]} — Moviy Nomad", L["tours"][tid][1]) + f"""
 <body class="deck-page" data-tour="{tid}" onclick="var m=document.querySelector('.lang.is-open');if(m)m.classList.remove('is-open')">
-<header class="topbar"><a class="logo" href="{home}" aria-label="Moviy Nomad">{LOGO}</a><div class="topbar__title" id="t-title"></div>{lang_menu(lang, base, "tours/" + tid + ".html")}<span class="topbar__count" id="count"></span><a class="close" href="{home}" aria-label="{e(L['ui']['close'])}">×</a></header>
+<header class="topbar"><a class="logo" href="{home}" aria-label="Moviy Nomad">{LOGO}</a><div class="topbar__title" id="t-title"></div><button class="tb-btn" id="pdf" title="{e(L['ui']['pdf_title'])}">{ICON["pdf"]}<span>PDF</span></button><button class="tb-btn" id="share" data-share="tour" title="{e(L['ui']['share'])}">{ICON["share"]}<span>{e(L['ui']['share'])}</span></button>{lang_menu(lang, base, "tours/" + tid + ".html")}<span class="topbar__count" id="count"></span><a class="close" href="{home}" aria-label="{e(L['ui']['close'])}">×</a></header>
 <div class="bar" id="bar"></div>
 <div class="sample" id="sample" hidden></div>
 <main id="deck"></main>

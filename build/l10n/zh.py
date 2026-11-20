@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 UI = {
+  'pdf_title': '下载 PDF',
+  'share': '分享',
+  'share_tour': '此线路',
+  'share_site': '整个网站',
+  'copy_link': '复制链接',
+  'copied': '链接已复制！',
+  'share_msg': '看看 Moviy Nomad 的这条线路：',
+  'site_msg': 'Moviy Nomad——乌兹别克斯坦、哈萨克斯坦、吉尔吉斯斯坦和塔吉克斯坦精选线路：',
+  'pdf_hint': '请在打印窗口中选择“另存为 PDF”。',
   "day_n": '第{n}天',
   "days": "天", "nights": "晚", "destinations": "个目的地", "km": "公里", "from": "起", "h": "小时", "min": "分钟",
   "pp_2": "每人 · 按2人出行", "see_program": "查看行程 →", "sample": "示例价格", "close": "关闭",

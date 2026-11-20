@@ -162,3 +162,31 @@ body.builder-page{background:var(--sand)}
   .stop img{width:72px;height:64px}
   .sample{top:auto;bottom:84px}
 }
+
+/* Topbar: PDF + share */
+.tb-btn{display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-family:var(--font-head);font-weight:600;font-size:13px;white-space:nowrap}
+.tb-btn:hover{background:rgba(255,255,255,.22)}
+.tb-btn svg{width:17px;height:17px}
+#pdf{background:var(--gold);color:var(--navy-3)}
+@media (max-width:720px){.tb-btn span{display:none}.tb-btn{width:38px;padding:0;justify-content:center}.topbar{gap:10px;padding:0 12px}.topbar__count{display:none}}
+
+/* Print / Save as PDF: every slide on its own A4 landscape page */
+@page{size:A4 landscape;margin:0}
+@media print{
+  html,body{height:auto!important;overflow:visible!important;background:#fff}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .topbar,.dock,.bar,.sample,.mn-toast,.mn-share,.sbar,.fab,.s-opt,.s-book,.btn,.lang{display:none!important}
+  #deck{position:static!important;inset:auto!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;visibility:visible!important;transform:none!important;transition:none!important;overflow:visible!important;height:auto!important;min-height:100vh;break-after:page;page-break-after:always;break-inside:avoid}
+  .slide:last-of-type{break-after:auto;page-break-after:auto}
+  .s-inner{padding:34px 40px}
+  .cover{min-height:100vh}
+  body,body.deck-page{background:#fff!important}
+  .s-route .s-inner{padding:24px 32px}
+  .s-route .split{grid-template-columns:1fr 1.15fr;gap:24px}
+  .s-route .legs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+  .s-route .legs li{padding:6px 9px;gap:8px;border-radius:10px}
+  .s-route .legs b{font-size:12px}.s-route .legs small{font-size:10.5px}
+  .s-route .legs__ic{width:26px;height:26px;border-radius:8px}.s-route .legs__ic svg{width:15px;height:15px}
+  .s-route h2{margin-bottom:12px}
+}
