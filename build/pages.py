@@ -65,7 +65,7 @@ def bank_box(x):
     rows = [("b_company", c["company"]), ("b_address", c["address"]), ("b_inn", c["inn"]), ("b_mfo", c["mfo"]),
             ("b_account", c["account"]), ("b_bank", c["bank"]), ("b_phone", c["phone"])]
     return (f'<div class="bank"><h3>{e(x["bank_title"])}</h3><p class="bank__lead">{e(x["bank_local"])}</p><dl>'
-            + "".join(f'<dt>{e(x[k])}</dt><dd>{e(v)}</dd>' for k, v in rows)
+            + "".join(f'<dt>{e(x[k])}</dt><dd{" dir=ltr" if k in ("b_inn", "b_mfo", "b_account", "b_phone") else ""}>{e(v)}</dd>' for k, v in rows)
             + f'</dl><p class="bank__note">{e(x["bank_intl"])}</p></div>')
 
 
@@ -80,7 +80,7 @@ def contact_box(x, icon):
     return (f'<div class="unsure"><h3>{e(x["bk_unsure_title"])}</h3><p>{e(x["bk_unsure_text"])}</p><div class="unsure__btns">'
             f'<a class="btn btn--wa btn--sm" href="https://wa.me/{c["whatsapp"]}" target="_blank" rel="noopener">{icon["wa"]}WhatsApp</a>'
             f'<a class="btn btn--tg btn--sm" href="https://t.me/{c["telegram"]}" target="_blank" rel="noopener">{icon["tg"]}Telegram</a>'
-            f'<a class="btn btn--outline btn--sm" href="tel:+{c["whatsapp"]}">{icon["phone"]}{e(c["phone"])}</a></div>'
+            f'<a class="btn btn--outline btn--sm" href="tel:+{c["whatsapp"]}">{icon["phone"]}<span dir="ltr">{e(c["phone"])}</span></a></div>'
             f'<small>{e(c["manager"])}</small></div>')
 
 
@@ -131,7 +131,7 @@ def home_blocks(lang, pre, A, icon):
 
 def footer_legal(lang, pre):
     x = X(lang); c = company()
-    return (f'<div class="footer__legal"><b>{e(c["company"])}</b> · {e(c["address"])} · {e(x["b_inn"])}: {e(c["inn"])} · {e(c["phone"])}'
+    return (f'<div class="footer__legal"><b>{e(c["company"])}</b> · {e(c["address"])} · {e(x["b_inn"])}: {e(c["inn"])} · <span dir="ltr">{e(c["phone"])}</span>'
             f'<span><a href="{pre}{path(lang)}privacy.html">{e(x["privacy_title"])}</a> · <a href="{pre}{path(lang)}terms.html">{e(x["terms_title"])}</a></span></div>')
 
 
@@ -187,7 +187,7 @@ def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, bod
 <footer class="footer footer--sub">
   <div class="container">
     {footer_legal(lang, pre)}
-    <div class="footer__bottom"><span>© 2026 Moviy Nomad · Moviy Travel</span><span><a href="tel:+{c["whatsapp"]}">{e(c["phone"])}</a> · <a href="https://t.me/{c["telegram"]}" target="_blank" rel="noopener">@{c["telegram"]}</a> · <a href="https://instagram.com/{c["instagram"]}" target="_blank" rel="noopener">@{c["instagram"]}</a></span></div>
+    <div class="footer__bottom"><span>© 2026 Moviy Nomad · Moviy Travel</span><span><a href="tel:+{c["whatsapp"]}" dir="ltr">{e(c["phone"])}</a> · <a href="https://t.me/{c["telegram"]}" target="_blank" rel="noopener">@{c["telegram"]}</a> · <a href="https://instagram.com/{c["instagram"]}" target="_blank" rel="noopener">@{c["instagram"]}</a></span></div>
   </div>
 </footer>
 <script>window.MN={json.dumps({"whatsapp": c["whatsapp"], "telegram": c["telegram"], "instagram": c["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)};window.MNX={js_strings(lang)};window.MN_LANG="{lang}";</script>
@@ -324,7 +324,8 @@ def render_stories(lang, icon, logo, font, names):
 def render_legal(lang, kind, icon, logo, font, names):
     x = X(lang)
     title = x[kind + "_title"]
-    secs = "".join(f'<h2>{e(h)}</h2><p>{e(fill(p))}</p>' for h, p in x[kind])
+    ph = e(company()["phone"])
+    secs = "".join(f'<h2>{e(h)}</h2><p>{e(fill(p)).replace(ph, "<span dir=ltr>" + ph + "</span>")}</p>' for h, p in x[kind])
     extra = bank_box(x) if kind == "terms" else sec_box(x)
     body = f'<section class="phero phero--small"><div class="container"><h1>{e(title)}</h1><p>{e(x["legal_updated"])}</p></div></section><section class="section section--tight"><div class="container legal"><article>{secs}</article><aside>{extra}</aside></div></section>'
     return shell(lang, kind + ".html", title, title, body, icon, logo, font, names)
