@@ -126,7 +126,7 @@ def render(lang):
 
     links = [("destinations", "#destinations"), ("tours", "#tours"), ("why", "#why"), ("faq", "#faq"), ("contact", "#contact-us")]
     _x = pages.X(lang)
-    navhtml = f'<a href="#tours">{e(nav["tours"])}</a><a href="services.html">{e(_x["nav_services"])}</a><a href="builder.html" class="nav__build">{e(t["build_nav"])}</a><a href="#reviews">{e(_x["nav_reviews"])}</a><a href="#about">{e(_x["nav_about"])}</a><a href="#contact-us">{e(nav["contact"])}</a>'
+    navhtml = f'<a href="#tours">{e(nav["tours"])}</a><a href="services.html">{e(_x["nav_services"])}</a><a href="group-tours.html">{e(_x["nav_groups"])}</a><a href="builder.html" class="nav__build">{e(t["build_nav"])}</a><a href="#reviews">{e(_x["nav_reviews"])}</a><a href="#about">{e(_x["nav_about"])}</a>'
     year = "2026"
 
     return f'''<!DOCTYPE html>
@@ -198,6 +198,7 @@ def render(lang):
     </div>
   </section>
 
+{pages.groups_home(lang)}
 {XB["services"]}
 
   <section class="section builder-cta">
@@ -309,7 +310,7 @@ def render(lang):
 </div>
 
 <script>window.MN={js_cfg};</script>
-<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/share.js"></script>
+<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/groups.js"></script><script src="{A}js/share.js"></script>
 <script>MN_ENGINE.onPrices(function(){{var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");}});document.querySelectorAll(".ttab[data-tc]").forEach(function(b){{b.classList.toggle("is-locked",!E.isOpen(b.getAttribute("data-tc")));}});}});</script>
 <script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/forms.js" defer></script>
 <script src="{A}js/site.js" defer></script>
@@ -503,7 +504,7 @@ def render_admin():
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button><button data-view="requests">Mijoz so'rovlari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button><button data-view="requests">Mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
@@ -518,13 +519,15 @@ def render_admin():
   <section id="v-agency" class="hidden"></section>
   <section id="v-requests" class="hidden"><div class="p-card"><h2>Mijoz so'rovlari (sayt: bron va xizmatlar)</h2><div class="filters" id="rf"></div><div id="rlist"></div></div></section>
   <section id="v-request" class="hidden"></section>
+  <section id="v-groups" class="hidden"><div class="p-card"><h2>Guruh sanalari (kafolatlangan reyslar)</h2><p class="p-sub">Yakka sayohatchilar uchun sanasi aniq guruh turlari: ingliz tilidagi gidlar, 50 kishigacha guruh. Saytda faqat e'lon qilingan kelgusi sanalar ko'rinadi.</p><div id="glist"></div></div></section>
+  <section id="v-group" class="hidden"></section>
   <section id="v-prices" class="hidden"><div class="p-card np-head"><div><h2>Narxlar va xarajatlar</h2><p class="p-sub">Bu yerda xarajatlarni (netto) va ustamani kiritasiz. Saytdagi barcha narxlar shulardan hisoblanadi. Mijozlar xarajat va ustamani ko'rmaydi.</p><span id="np-state" class="np-state"></span></div><div class="np-actions"><button class="btn btn--outline btn--sm" id="np-reset">Bekor qilish</button><button class="btn btn--gold btn--sm" id="np-save">Saqlash va saytga chiqarish</button></div><div class="msg" id="np-msg"></div></div><div id="np-body"></div></section>
   <section id="v-posts" class="hidden"><div class="p-card"><h2>Sayohatchilar hikoyalari</h2><p class="p-sub">Tasdiqlangan hikoyalar saytda darhol ko'rinadi.</p><div class="filters" id="pf"></div><div id="plist"></div></div></section>
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
 <script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/admin-site.js"></script>
-<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/admin-groups.js"></script>
 </body></html>
 """
 
@@ -554,6 +557,7 @@ def main():
         out = {"services.html": pages.render_services(lang, ICON, LOGO, font, names),
                "booking.html": pages.render_booking(lang, ICON, LOGO, font, names, TD.TOURS, L),
                "stories.html": pages.render_stories(lang, ICON, LOGO, font, names),
+               "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
                "privacy.html": pages.render_legal(lang, "privacy", ICON, LOGO, font, names),
                "terms.html": pages.render_legal(lang, "terms", ICON, LOGO, font, names)}
         for fn, h in out.items():

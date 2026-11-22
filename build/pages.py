@@ -148,14 +148,33 @@ def js_strings(lang):
     return json.dumps(d, ensure_ascii=False)
 
 
+def gr_strings(lang):
+    x = X(lang)
+    keys = [k for k in x if k.startswith("gr_") and isinstance(x[k], str)] + ["f_required", "f_sending", "f_err", "f_ok_title"]
+    return json.dumps({k: x[k] for k in keys}, ensure_ascii=False)
+
+
+def groups_home(lang):
+    x = X(lang)
+    return f'''
+  <section class="section" id="groups">
+    <div class="container">
+      <div class="section-head reveal"><span class="eyebrow">{e(x["gr_eyebrow"])}</span><h2>{e(x["gr_home_title"])}</h2><p>{e(x["gr_home_sub"])}</p></div>
+      <div class="gds" id="gd-home"></div>
+      <p style="margin-top:28px"><a class="btn btn--outline" href="group-tours.html">{e(x["gr_home_all"])} →</a></p>
+    </div>
+  </section>
+<script>window.MNG={gr_strings(lang)};</script>'''
+
+
 # ------------------------------------------------------------------ page shell
-def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, body_cls=""):
+def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, body_cls="", extra_js=""):
     t = T[lang]; x = X(lang); pre = "" if lang == "en" else "../"; A = pre + "assets/"
     c = CONFIG; home = f"{pre}{path(lang)}"
     langs = "".join(f'<a href="{pre}{path(l)}{slug}" hreflang="{l}" lang="{l}"{" aria-current=\"page\"" if l == lang else ""}>{lang_names[l]}<small>{l.upper()}</small></a>' for l in LANGS)
     alts = "".join(f'<link rel="alternate" hreflang="{l}" href="{c["site_url"]}/{path(l)}{slug}">' for l in LANGS)
     nav = (f'<a href="{home}index.html#tours">{e(t["nav"]["tours"])}</a><a href="{home}services.html">{e(x["nav_services"])}</a>'
-           f'<a href="{home}builder.html" class="nav__build">{e(t["build_nav"])}</a><a href="{home}stories.html">{e(x["nav_reviews"])}</a><a href="{home}index.html#about">{e(x["nav_about"])}</a>')
+           f'<a href="{home}group-tours.html">{e(x["nav_groups"])}</a><a href="{home}builder.html" class="nav__build">{e(t["build_nav"])}</a><a href="{home}stories.html">{e(x["nav_reviews"])}</a><a href="{home}index.html#about">{e(x["nav_about"])}</a>')
     return f'''<!DOCTYPE html>
 <html lang="{lang}" dir="{t["dir"]}" data-base="{pre}">
 <head>
@@ -191,7 +210,7 @@ def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, bod
   </div>
 </footer>
 <script>window.MN={json.dumps({"whatsapp": c["whatsapp"], "telegram": c["telegram"], "instagram": c["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)};window.MNX={js_strings(lang)};window.MN_LANG="{lang}";</script>
-<script src="{A}js/sb-config.js"></script><script src="{A}data/l10n/{lang}.js"></script><script>window.MN_SHARE_TXT=(window.MN_L||{{}}).ui||{{}};</script><script src="{A}js/share.js"></script><script src="{A}js/forms.js"></script><script src="{A}js/site.js" defer></script>
+<script src="{A}js/sb-config.js"></script><script src="{A}data/l10n/{lang}.js"></script><script>window.MN_SHARE_TXT=(window.MN_L||{{}}).ui||{{}};</script><script src="{A}js/share.js"></script><script src="{A}js/forms.js"></script>{extra_js}<script src="{A}js/site.js" defer></script>
 </body>
 </html>
 '''
@@ -330,3 +349,47 @@ def render_legal(lang, kind, icon, logo, font, names):
     extra = bank_box(x) if kind == "terms" else sec_box(x)
     body = f'<section class="phero phero--small"><div class="container"><h1>{e(title)}</h1><p>{e(x["legal_updated"])}</p></div></section><section class="section section--tight"><div class="container legal"><article>{secs}</article><aside>{extra}</aside></div></section>'
     return shell(lang, kind + ".html", title, title, body, icon, logo, font, names)
+
+
+# ------------------------------------------------------------------ guaranteed group departures
+def render_groups(lang, icon, logo, font, names):
+    x = X(lang); pre = "" if lang == "en" else "../"; A = pre + "assets/"
+    feats = "".join(f'<div class="gfeat"><b>{e(h)}</b><p>{e(p)}</p></div>' for h, p in x["gr_feats"])
+    how = "".join(f'<div class="how__i"><b>{n + 1}</b><h3>{e(h)}</h3><p>{e(p)}</p></div>' for n, (h, p) in enumerate(x["gr_how"]))
+    incl = "".join(f'<li>{e(i)}</li>' for i in x["gr_incl"]); excl = "".join(f'<li>{e(i)}</li>' for i in x["gr_excl"])
+    rooms = "".join(f'<option value="{k}">{e(v)}</option>' for k, v in x["gr_rooms"])
+    body = page_head(x["gr_eyebrow"], x["gr_title"], x["gr_sub"]) + f'''
+<section class="section section--tight"><div class="container">
+  <div class="gfeats">{feats}</div>
+  <div class="gd-head"><h2>{e(x["gr_list_title"])}</h2><select id="gd-month" class="gd-month" hidden></select></div>
+  <div class="gds" id="gd-list"></div>
+</div></section>
+<section class="section section--sand section--tight"><div class="container">
+  <div class="ginc"><div><h2>{e(x["gr_incl_title"])}</h2><ul class="ticks">{incl}</ul></div><div><h2>{e(x["gr_excl_title"])}</h2><ul class="crosses">{excl}</ul></div></div>
+  <h2 class="h2c">{e(x["gr_how_title"])}</h2><div class="how">{how}</div>
+  <div class="side2">{sec_box(x)}{contact_box(x, icon)}</div>
+</div></section>
+<div class="modal" id="gd-modal" role="dialog" aria-modal="true"><div class="modal__box modal__box--form">
+  <button class="modal__close" aria-label="{e(x["f_close"])}">×</button>
+  <form class="mf" id="gd-form" novalidate>
+    <h3>{e(x["gr_form_title"])}</h3>
+    <div class="mf-grid">
+      <label class="mf-f mf-f--full"><span>{e(x["gr_f_dep"])}</span><select name="dep"></select></label>
+      <label class="mf-f"><span>{e(x["gr_f_seats"])} *</span><input type="number" name="pax" min="1" max="20" value="1" required></label>
+      <label class="mf-f"><span>{e(x["gr_f_room"])}</span><select name="room">{rooms}</select></label>
+      <label class="mf-f"><span>{e(x["f_name"])} *</span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
+      <label class="mf-f"><span>{e(x["f_phone"])} *</span><input type="tel" name="phone" required maxlength="40" autocomplete="tel" placeholder="+"></label>
+      <label class="mf-f"><span>{e(x["f_email"])}</span><input type="email" name="email" maxlength="160" autocomplete="email"></label>
+      <label class="mf-f"><span>{e(x["f_citizenship"])} *</span><input name="citizenship" required maxlength="80"></label>
+      <label class="mf-f"><span>{e(x["f_messenger"])}</span><select name="messenger"><option>WhatsApp</option><option>Telegram</option><option>E-mail</option></select></label>
+      <label class="mf-f mf-f--full"><span>{e(x["f_details"])}</span><textarea name="message" rows="2" maxlength="3000"></textarea></label>
+    </div>
+    {consent_label(lang, x)}
+    <div class="mf-msg" role="status"></div>
+    <button class="btn btn--gold" type="submit">{e(x["f_send"])}</button>
+  </form>
+  <div id="gd-ok" hidden></div>
+</div></div>'''
+    js = (f'<script>window.MNG={gr_strings(lang)};</script><script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script>'
+          f'<script src="{A}data/tours.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/groups.js"></script>')
+    return shell(lang, "group-tours.html", x["gr_title"], x["gr_sub"], body, icon, logo, font, names, "is-groups", js)
