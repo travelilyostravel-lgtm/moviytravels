@@ -137,3 +137,13 @@ create policy "traveller photos upload" on storage.objects for insert to anon, a
 drop policy if exists "traveller photos admin" on storage.objects;
 create policy "traveller photos admin" on storage.objects for delete to authenticated
   using (bucket_id = 'traveller-photos' and public.is_admin());
+
+-- ---------------------------------------------------------------- privileges
+-- Visitors (anon) may only read stories; RLS above limits them to approved ones.
+grant select on public.traveller_posts to anon;
+-- Staff (authenticated) — RLS above limits this to admins.
+grant select, insert, update, delete on public.site_requests, public.traveller_posts to authenticated;
+-- Storage needs SELECT as well as DELETE for remove() to work.
+drop policy if exists "traveller photos admin read" on storage.objects;
+create policy "traveller photos admin read" on storage.objects for select to authenticated
+  using (bucket_id = 'traveller-photos' and public.is_admin());

@@ -4,6 +4,7 @@
   if (!sb) return;
   var RS = { new: "Yangi", in_progress: "Ishlanmoqda", awaiting_payment: "To'lov kutilmoqda", paid: "To'landi", confirmed: "Tasdiqlandi", closed: "Yopildi", cancelled: "Bekor" };
   var SV = { airport: "Kutib olish", transfer: "Transfer", car: "Haydovchili mashina", hotel: "Mehmonxona", train: "Poyezd chiptasi", guide: "Gid", mice: "Guruh / MICE" };
+  var HC = { comfort: "Komfort 3★", superior: "Superior 4★", boutique: "Butik va tarixiy" };
   var PM = { bank: "Bank o'tkazmasi", card: "Karta havolasi", contact: "Avval bog'lanish" };
   var rFilter = "open", pFilter = "pending";
   function badge(s) { return '<span class="badge-s st-' + (s === "new" ? "request" : s === "closed" ? "cancelled" : s) + '">' + esc(RS[s] || s) + '</span>'; }
@@ -37,7 +38,7 @@
     var rows = [["Raqam", x.ref], ["Yuborilgan", new Date(x.created_at).toLocaleString("ru-RU")], ["Til", (x.lang || "").toUpperCase()],
       ["Turi", x.kind === "tour" ? "Tur bron so'rovi" : "Xizmat: " + (SV[x.service] || x.service)], ["Tur", x.tour_title], ["Shahar / yo'nalish", d.city],
       ["Boshlanish", P.date(x.start_date)], ["Kishi soni", x.pax + (d.adults != null ? " (kattalar " + d.adults + ", bolalar " + (d.children || 0) + ")" : "")],
-      ["Mehmonxona", d.hotel], ["Gid tili", d.guide_lang], ["To'lov usuli", PM[x.pay_method]],
+      ["Mehmonxona", HC[d.hotel] || d.hotel], ["Gid tili", d.guide_lang], ["To'lov usuli", PM[x.pay_method]],
       ["Mijoz", x.contact_name], ["Telefon", x.phone], ["E-mail", x.email], ["Bog'lanish", x.messenger], ["Fuqarolik", x.citizenship], ["Izoh", x.message]];
     var h = '<p><a href="#" id="r-back">← Mijoz so\'rovlari</a></p><div class="p-card"><h2>' + esc(x.ref) + ' ' + badge(x.status) + '</h2><table class="tbl">' +
       rows.filter(function (a) { return a[1] != null && a[1] !== "" && a[1] !== "—"; }).map(function (a) { return '<tr><th style="width:200px">' + esc(a[0]) + '</th><td style="white-space:pre-wrap">' + esc(a[1]) + '</td></tr>'; }).join("") + '</table>' +
