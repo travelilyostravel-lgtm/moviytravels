@@ -26,14 +26,18 @@
   C.transport.forEach(function (x) { DEF.transport[x.id] = x.day; });
 
   // What the tours use, grouped by country
-  var used = {};  // country -> {cities:{}, legs:{}, sights:{}, tours:[]}
-  Object.keys(TOURS).forEach(function (id) {
-    var T = TOURS[id], g = used[T.country] = used[T.country] || { cities: {}, legs: {}, sights: {}, tours: [] };
-    g.tours.push(id);
-    T.days.forEach(function (d) {
-      if (d.sleep) g.cities[d.sleep] = 1;
-      (d.move || []).forEach(function (m) { g.legs[m[0] + ">" + m[1]] = m; });
-      (d.stops || []).forEach(function (st) { if (st.id) g.sights[st.id] = st.city || d.sleep; });
+  // Each city / route / sight is listed once (under the first country that uses it), so one value = one input
+  var used = {}, seen = { cities: {}, legs: {}, sights: {} };  // country -> {cities:{}, legs:{}, sights:{}, tours:[]}
+  ORDER.concat(Object.keys(TOURS).map(function (id) { return TOURS[id].country; })).forEach(function (cc) {
+    Object.keys(TOURS).forEach(function (id) {
+      var T = TOURS[id]; if (T.country !== cc) return;
+      var g = used[cc] = used[cc] || { cities: {}, legs: {}, sights: {}, tours: [] };
+      if (g.tours.indexOf(id) < 0) g.tours.push(id);
+      T.days.forEach(function (d) {
+        if (d.sleep && !seen.cities[d.sleep]) { seen.cities[d.sleep] = 1; g.cities[d.sleep] = 1; }
+        (d.move || []).forEach(function (m) { var k = m[0] + ">" + m[1]; if (!seen.legs[k]) { seen.legs[k] = 1; g.legs[k] = m; } });
+        (d.stops || []).forEach(function (st) { if (st.id && !seen.sights[st.id]) { seen.sights[st.id] = 1; g.sights[st.id] = st.city || d.sleep; } });
+      });
     });
   });
   function cname(id) { return (C.cities[id] || {}).name || id; }
