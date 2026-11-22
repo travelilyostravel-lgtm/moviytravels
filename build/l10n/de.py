@@ -57,7 +57,7 @@ ITEMS = {
   "yurt": "Nächte im Jurtencamp mit Abendessen und Frühstück", "homestay": "Übernachtung im Gästehaus oder bei Familien mit Hausmannskost",
   "jeep": "Geländewagen 4×4 mit erfahrenem Bergfahrer", "permit": "GBAO-Genehmigung für den Pamir", "meals_full": "Vollpension unterwegs (Frühstück, Mittag-, Abendessen)",
   "crew": "Trekking-Team: Guide, Koch, Zelte und Packtiere", "horses": "Pferde und ein einheimischer Pferdeführer",
-  "intl_flights": "Internationale Flüge", "visa": "Visagebühren (falls für Ihren Pass nötig)", "visa_4": 'Visagebühren und Visa-Unterstützung für Tadschikistan, Kasachstan und Kirgisistan (falls für Ihren Pass nötig)', "meals": "Mittag- und Abendessen, sofern nicht im Programm",
+  "own_flight_khiva": 'Flüge nach Urgentsch/Chiwa und ab Taschkent (buchen Sie selbst)', "intl_flights": "Internationale Flüge", "visa": "Visagebühren (falls für Ihren Pass nötig)", "visa_4": 'Visagebühren und Visa-Unterstützung für Tadschikistan, Kasachstan und Kirgisistan (falls für Ihren Pass nötig)', "meals": "Mittag- und Abendessen, sofern nicht im Programm",
   "photo": "Foto- und Videogebühren an manchen Orten", "insurance": "Reiseversicherung", "tips": "Trinkgelder für Reiseleiter und Fahrer, persönliche Ausgaben",
   "park": "Ökogebühren der Nationalparks können sich ändern",
   "passport": "Reisepass, mindestens 6 Monate nach der Reise gültig", "shoes": "Bequeme Schuhe — Altstädte haben Steinpflaster",
@@ -236,7 +236,7 @@ SIGHTS = {
   "ist_mug": ["Zitadelle Mug-Teppa", "Alte Zitadelle und Werkstätten der Messermacher."],
 }
 TOURS = {
-  "classic": ["Klassisches Usbekistan", "Taschkent, Samarkand, Buchara und Chiwa auf einer Reise"],
+  "classic": ["Klassisches Usbekistan", "Chiwa, Buchara, Samarkand und Taschkent — Start samstags in Chiwa"],
   "express": ["Samarkand & Buchara Express", "Die zwei Juwelen der Seidenstraße in fünf Tagen"],
   "silkroad": ["Die große Seidenstraße", "Von Chiwa nach Samarkand mit einer Nacht in der Wüstenjurte"],
   "spiritual": ["Spirituelles Erbe Usbekistans", "Pilgerreise zu großen Imamen und Sufi-Meistern"],

@@ -72,7 +72,7 @@ ITEMS = {
   "meals_full": "Full board on the road (breakfast, lunch, dinner)",
   "crew": "Trekking crew: guide, cook, tents and pack animals",
   "horses": "Horses and a local horseman",
-  "intl_flights": "International flights",
+  "own_flight_khiva": 'Flights to Urgench/Khiva and home from Tashkent (booked by you)', "intl_flights": "International flights",
   "visa": "Visa fees (if required for your passport)", "visa_4": 'Visa fees and visa support for Tajikistan, Kazakhstan and Kyrgyzstan (if required for your passport)',
   "meals": "Lunches and dinners unless stated in the program",
   "photo": "Photo and video fees at some sites",
@@ -269,7 +269,7 @@ SIGHTS = {
 }
 
 TOURS = {
-  "classic": ["Classic Uzbekistan", "Tashkent, Samarkand, Bukhara and Khiva in one journey"],
+  "classic": ["Classic Uzbekistan", "Khiva, Bukhara, Samarkand and Tashkent — starts in Khiva every Saturday"],
   "express": ["Samarkand & Bukhara Express", "The two jewels of the Silk Road in five days"],
   "silkroad": ["The Great Silk Road", "From Khiva to Samarkand with a night in a desert yurt"],
   "spiritual": ["Spiritual Heritage of Uzbekistan", "Ziyarat to the great imams and Sufi masters"],

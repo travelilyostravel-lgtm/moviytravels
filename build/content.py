@@ -81,7 +81,7 @@ T["en"] = {
     "days": "days", "from": "from", "pp": "per person", "on_request": "Price on request", "ask": "Get program & price",
     "tours_note": "Don't see your perfect trip? We build custom itineraries for couples, families and groups.",
     "tours": {
-        "classic":   ("Classic Uzbekistan", "Tashkent · Samarkand · Bukhara · Khiva", "The essential Silk Road journey: Registan at sunset, the old town of Bukhara and the walled city of Khiva."),
+        "classic":   ("Classic Uzbekistan", "Khiva · Bukhara · Samarkand · Tashkent", "The essential Silk Road journey: Registan at sunset, the old town of Bukhara and the walled city of Khiva."),
         "express":   ("Samarkand & Bukhara Express", "Tashkent · Samarkand · Bukhara", "Short on time? Travel between the great cities on the Afrosiyob high-speed train."),
         "spiritual": ("Spiritual Heritage of Uzbekistan", "Tashkent · Samarkand · Bukhara", "Hazrati Imam, the complex of Imam al-Bukhari, Imam al-Maturidi and Bahauddin Naqshband."),
         "nature":    ("Mountains & Desert", "Chimgan · Charvak · Aydarkul", "Fresh mountain air, a turquoise lake and a night under the stars in a desert yurt camp."),
@@ -154,7 +154,7 @@ T["ru"] = {
     "days": "дней", "from": "от", "pp": "с человека", "on_request": "Цена по запросу", "ask": "Программа и цена",
     "tours_note": "Не нашли подходящий тур? Составим индивидуальный маршрут для пары, семьи или группы.",
     "tours": {
-        "classic":   ("Классический Узбекистан", "Ташкент · Самарканд · Бухара · Хива", "Главное путешествие по Шёлковому пути: Регистан на закате, старая Бухара и город-крепость Хива."),
+        "classic":   ("Классический Узбекистан", "Хива · Бухара · Самарканд · Ташкент", "Главное путешествие по Шёлковому пути: Регистан на закате, старая Бухара и город-крепость Хива."),
         "express":   ("Самарканд и Бухара — экспресс", "Ташкент · Самарканд · Бухара", "Мало времени? Между великими городами — на скоростном поезде «Афросиаб»."),
         "spiritual": ("Духовное наследие Узбекистана", "Ташкент · Самарканд · Бухара", "Хазрати Имам, комплекс имама аль-Бухари, имам аль-Матуриди и Бахауддин Накшбанд."),
         "nature":    ("Горы и пустыня", "Чимган · Чарвак · Айдаркуль", "Горный воздух, бирюзовое озеро и ночь под звёздами в юртовом лагере в пустыне."),
@@ -227,7 +227,7 @@ T["tr"] = {
     "days": "gün", "from": "başlayan fiyat", "pp": "kişi başı", "on_request": "Fiyat için sorun", "ask": "Program ve fiyat al",
     "tours_note": "Aradığınız turu bulamadınız mı? Çiftler, aileler ve gruplar için özel rota hazırlıyoruz.",
     "tours": {
-        "classic":   ("Klasik Özbekistan", "Taşkent · Semerkant · Buhara · Hive", "Vazgeçilmez İpek Yolu turu: gün batımında Registan, eski Buhara ve surlarla çevrili Hive."),
+        "classic":   ("Klasik Özbekistan", "Hive · Buhara · Semerkant · Taşkent", "Vazgeçilmez İpek Yolu turu: gün batımında Registan, eski Buhara ve surlarla çevrili Hive."),
         "express":   ("Semerkant ve Buhara Ekspres", "Taşkent · Semerkant · Buhara", "Vaktiniz kısa mı? Büyük şehirler arasında Afrasiyab hızlı treniyle seyahat edin."),
         "spiritual": ("Özbekistan'ın Manevi Mirası", "Taşkent · Semerkant · Buhara", "Hazreti İmam, İmam Buhari Külliyesi, İmam Maturidi ve Bahaeddin Nakşibend."),
         "nature":    ("Dağlar ve Çöl", "Çimgan · Çarvak · Aydarkul", "Temiz dağ havası, turkuaz bir göl ve çöldeki yurt kampında yıldızların altında bir gece."),
@@ -300,7 +300,7 @@ T["ar"] = {
     "days": "أيام", "from": "ابتداءً من", "pp": "للشخص", "on_request": "السعر عند الطلب", "ask": "البرنامج والسعر",
     "tours_note": "لم تجد الرحلة المناسبة؟ نصمم برامج خاصة للأزواج والعائلات والمجموعات.",
     "tours": {
-        "classic":   ("أوزبكستان الكلاسيكية", "طشقند · سمرقند · بخارى · خيوة", "رحلة طريق الحرير الأساسية: ساحة ريجستان عند الغروب، وبخارى القديمة، ومدينة خيوة المسوّرة."),
+        "classic":   ("أوزبكستان الكلاسيكية", "خيوة · بخارى · سمرقند · طشقند", "رحلة طريق الحرير الأساسية: ساحة ريجستان عند الغروب، وبخارى القديمة، ومدينة خيوة المسوّرة."),
         "express":   ("سمرقند وبخارى السريعة", "طشقند · سمرقند · بخارى", "وقتك محدود؟ تنقّل بين المدن العظيمة بقطار أفراسياب السريع."),
         "spiritual": ("التراث الروحي لأوزبكستان", "طشقند · سمرقند · بخارى", "مجمّع حضرة إمام، ومجمّع الإمام البخاري، والإمام الماتريدي، وبهاء الدين النقشبند."),
         "nature":    ("الجبال والصحراء", "تشيمغان · تشارفاك · أيدركول", "هواء الجبال النقي، وبحيرة فيروزية، وليلة تحت النجوم في مخيم خيام في الصحراء."),
@@ -373,7 +373,7 @@ T["uz"] = {
     "days": "kun", "from": "dan boshlab", "pp": "1 kishi uchun", "on_request": "Narx so'rov bo'yicha", "ask": "Dastur va narx",
     "tours_note": "Mos tur topmadingizmi? Juftliklar, oilalar va guruhlar uchun alohida marshrut tuzib beramiz.",
     "tours": {
-        "classic":   ("Klassik O'zbekiston", "Toshkent · Samarqand · Buxoro · Xiva", "Ipak yo'lining asosiy sayohati: quyosh botishidagi Registon, qadimiy Buxoro va qal'a-shahar Xiva."),
+        "classic":   ("Klassik O'zbekiston", "Xiva · Buxoro · Samarqand · Toshkent", "Ipak yo'lining asosiy sayohati: quyosh botishidagi Registon, qadimiy Buxoro va qal'a-shahar Xiva."),
         "express":   ("Samarqand va Buxoro — ekspress", "Toshkent · Samarqand · Buxoro", "Vaqtingiz kammi? Buyuk shaharlar orasida \"Afrosiyob\" tezyurar poyezdida sayohat qiling."),
         "spiritual": ("O'zbekistonning ma'naviy merosi", "Toshkent · Samarqand · Buxoro", "Hazrati Imom, Imom Buxoriy majmuasi, Imom Moturidiy va Bahouddin Naqshband ziyorati."),
         "nature":    ("Tog'lar va cho'l", "Chimyon · Chorvoq · Aydarko'l", "Toza tog' havosi, feruza ko'l va cho'ldagi o'tov lagerida yulduzlar ostida bir kecha."),
@@ -446,7 +446,7 @@ T["de"] = {
     "days": "Tage", "from": "ab", "pp": "pro Person", "on_request": "Preis auf Anfrage", "ask": "Programm & Preis",
     "tours_note": "Nicht das Richtige dabei? Wir planen individuelle Routen für Paare, Familien und Gruppen.",
     "tours": {
-        "classic":   ("Klassisches Usbekistan", "Taschkent · Samarkand · Buchara · Chiwa", "Die Seidenstraßen-Reise schlechthin: der Registan bei Sonnenuntergang, die Altstadt von Buchara und die Festungsstadt Chiwa."),
+        "classic":   ("Klassisches Usbekistan", "Chiwa · Buchara · Samarkand · Taschkent", "Die Seidenstraßen-Reise schlechthin: der Registan bei Sonnenuntergang, die Altstadt von Buchara und die Festungsstadt Chiwa."),
         "express":   ("Samarkand & Buchara Express", "Taschkent · Samarkand · Buchara", "Wenig Zeit? Reisen Sie mit dem Hochgeschwindigkeitszug Afrosiyob zwischen den großen Städten."),
         "spiritual": ("Spirituelles Erbe Usbekistans", "Taschkent · Samarkand · Buchara", "Hazrati Imam, der Komplex von Imam al-Buchari, Imam al-Maturidi und Bahauddin Naqschband."),
         "nature":    ("Berge & Wüste", "Tschimgan · Tscharwak · Aydarkul", "Frische Bergluft, ein türkisfarbener See und eine Nacht unter den Sternen im Jurtencamp in der Wüste."),
@@ -519,7 +519,7 @@ T["sv"] = {
     "days": "dagar", "from": "från", "pp": "per person", "on_request": "Pris på förfrågan", "ask": "Program & pris",
     "tours_note": "Hittar du inte din resa? Vi skräddarsyr rutter för par, familjer och grupper.",
     "tours": {
-        "classic":   ("Klassiska Uzbekistan", "Tasjkent · Samarkand · Buchara · Chiva", "Den självklara Sidenvägsresan: Registan i solnedgången, gamla Buchara och den murade staden Chiva."),
+        "classic":   ("Klassiska Uzbekistan", "Chiva · Buchara · Samarkand · Tasjkent", "Den självklara Sidenvägsresan: Registan i solnedgången, gamla Buchara och den murade staden Chiva."),
         "express":   ("Samarkand & Buchara Express", "Tasjkent · Samarkand · Buchara", "Ont om tid? Res mellan de stora städerna med snabbtåget Afrosiyob."),
         "spiritual": ("Uzbekistans andliga arv", "Tasjkent · Samarkand · Buchara", "Hazrati Imam, Imam al-Bukharis komplex, Imam al-Maturidi och Bahauddin Naqshband."),
         "nature":    ("Berg & öken", "Chimgan · Charvak · Aydarkul", "Frisk bergsluft, en turkos sjö och en natt under stjärnorna i ett jurtläger i öknen."),
@@ -592,7 +592,7 @@ T["zh"] = {
     "days": "天", "from": "起价", "pp": "每人", "on_request": "价格请咨询", "ask": "获取行程和报价",
     "tours_note": "没有找到合适的线路？我们为情侣、家庭和团队定制专属行程。",
     "tours": {
-        "classic":   ("经典乌兹别克斯坦", "塔什干 · 撒马尔罕 · 布哈拉 · 希瓦", "丝绸之路必游线路：日落时的雷吉斯坦广场、布哈拉古城和城墙环绕的希瓦。"),
+        "classic":   ("经典乌兹别克斯坦", "希瓦 · 布哈拉 · 撒马尔罕 · 塔什干", "丝绸之路必游线路：日落时的雷吉斯坦广场、布哈拉古城和城墙环绕的希瓦。"),
         "express":   ("撒马尔罕与布哈拉快线", "塔什干 · 撒马尔罕 · 布哈拉", "时间有限？乘坐阿夫罗夏伯高铁往返各大名城。"),
         "spiritual": ("乌兹别克斯坦宗教文化之旅", "塔什干 · 撒马尔罕 · 布哈拉", "哈兹拉蒂伊玛目建筑群、布哈里陵园、马图里迪陵墓和纳克什班迪陵园。"),
         "nature":    ("雪山与沙漠", "奇姆甘 · 恰尔瓦克 · 艾达尔湖", "清新的山间空气、碧蓝的湖水，在沙漠毡房营地仰望满天星空。"),
@@ -665,7 +665,7 @@ T["hi"] = {
     "days": "दिन", "from": "शुरुआती कीमत", "pp": "प्रति व्यक्ति", "on_request": "कीमत अनुरोध पर", "ask": "प्रोग्राम और कीमत",
     "tours_note": "मनचाहा टूर नहीं मिला? हम कपल, परिवार और ग्रुप के लिए कस्टम यात्रा बनाते हैं।",
     "tours": {
-        "classic":   ("क्लासिक उज़्बेकिस्तान", "ताशकंद · समरकंद · बुख़ारा · ख़ीवा", "सिल्क रोड की सबसे ज़रूरी यात्रा: सूर्यास्त में रेगिस्तान चौक, पुराना बुख़ारा और किलेबंद शहर ख़ीवा।"),
+        "classic":   ("क्लासिक उज़्बेकिस्तान", "ख़ीवा · बुख़ारा · समरकंद · ताशकंद", "सिल्क रोड की सबसे ज़रूरी यात्रा: सूर्यास्त में रेगिस्तान चौक, पुराना बुख़ारा और किलेबंद शहर ख़ीवा।"),
         "express":   ("समरकंद और बुख़ारा एक्सप्रेस", "ताशकंद · समरकंद · बुख़ारा", "समय कम है? अफ़रोसियाब हाई-स्पीड ट्रेन से महान शहरों के बीच यात्रा करें।"),
         "spiritual": ("उज़्बेकिस्तान की आध्यात्मिक विरासत", "ताशकंद · समरकंद · बुख़ारा", "हज़रती इमाम, इमाम अल-बुख़ारी परिसर, इमाम अल-मातुरीदी और बहाउद्दीन नक़्शबंद।"),
         "nature":    ("पहाड़ और रेगिस्तान", "चिमगन · चारवाक · आयदरकुल", "ताज़ा पहाड़ी हवा, फ़िरोज़ी झील और रेगिस्तानी यर्ट कैंप में तारों के नीचे एक रात।"),
@@ -738,7 +738,7 @@ T["ko"] = {
     "days": "일", "from": "부터", "pp": "1인 기준", "on_request": "가격 문의", "ask": "일정 및 가격 받기",
     "tours_note": "원하는 투어가 없나요? 커플, 가족, 단체를 위한 맞춤 일정을 만들어 드립니다.",
     "tours": {
-        "classic":   ("클래식 우즈베키스탄", "타슈켄트 · 사마르칸트 · 부하라 · 히바", "실크로드 필수 코스: 노을 지는 레기스탄 광장, 부하라 구시가지, 성벽 도시 히바."),
+        "classic":   ("클래식 우즈베키스탄", "히바 · 부하라 · 사마르칸트 · 타슈켄트", "실크로드 필수 코스: 노을 지는 레기스탄 광장, 부하라 구시가지, 성벽 도시 히바."),
         "express":   ("사마르칸트 & 부하라 익스프레스", "타슈켄트 · 사마르칸트 · 부하라", "시간이 부족하다면? 아프로시압 고속열차로 위대한 도시들을 여행하세요."),
         "spiritual": ("우즈베키스탄 영적 유산 투어", "타슈켄트 · 사마르칸트 · 부하라", "하즈라티 이맘, 이맘 알부하리 영묘, 이맘 알마투리디, 바하우딘 낙쉬반드."),
         "nature":    ("산과 사막", "침간 · 차르박 · 아이다르쿨", "상쾌한 산 공기, 청록빛 호수, 그리고 사막 유르트 캠프에서 별을 보는 하룻밤."),

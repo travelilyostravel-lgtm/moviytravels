@@ -57,7 +57,7 @@ ITEMS = {
   "yurt": "Yurt kampında akşam yemeği ve kahvaltı ile konaklama", "homestay": "Misafirhane veya aile yanında ev yemekli konaklama",
   "jeep": "Deneyimli dağ sürücüsüyle 4×4 araç", "permit": "Pamir bölgesi için GBAO izni", "meals_full": "Yolda tam pansiyon (kahvaltı, öğle, akşam)",
   "crew": "Trekking ekibi: rehber, aşçı, çadırlar ve yük hayvanları", "horses": "Atlar ve yerel seyis",
-  "intl_flights": "Uluslararası uçuşlar", "visa": "Vize ücretleri (pasaportunuz için gerekliyse)", "visa_4": 'Vize ücretleri ve Tacikistan, Kazakistan, Kırgızistan için vize desteği (pasaportunuz için gerekirse)', "meals": "Programda belirtilmeyen öğle ve akşam yemekleri",
+  "own_flight_khiva": "Urgenç/Hive'ye ve Taşkent'ten dönüş uçuşları (kendiniz alırsınız)", "intl_flights": "Uluslararası uçuşlar", "visa": "Vize ücretleri (pasaportunuz için gerekliyse)", "visa_4": 'Vize ücretleri ve Tacikistan, Kazakistan, Kırgızistan için vize desteği (pasaportunuz için gerekirse)', "meals": "Programda belirtilmeyen öğle ve akşam yemekleri",
   "photo": "Bazı yerlerde fotoğraf ve video ücreti", "insurance": "Seyahat sigortası", "tips": "Rehber ve şoför bahşişleri, kişisel harcamalar",
   "park": "Milli park ekolojik ücretleri değişebilir",
   "passport": "Seyahatten sonra en az 6 ay geçerli pasaport", "shoes": "Rahat yürüyüş ayakkabısı — eski şehirlerde taş sokaklar var",
@@ -236,7 +236,7 @@ SIGHTS = {
   "ist_mug": ["Mug Tepe Kalesi", "Eski kale ve bıçakçı atölyeleri."],
 }
 TOURS = {
-  "classic": ["Klasik Özbekistan", "Taşkent, Semerkant, Buhara ve Hive tek yolculukta"],
+  "classic": ["Klasik Özbekistan", "Hive, Buhara, Semerkant ve Taşkent — her cumartesi Hive'den başlar"],
   "express": ["Semerkant ve Buhara Ekspres", "İpek Yolu'nun iki incisi beş günde"],
   "silkroad": ["Büyük İpek Yolu", "Hive'den Semerkant'a, çölde yurt gecesiyle"],
   "spiritual": ["Özbekistan'ın Manevi Mirası", "Büyük imamlar ve sufi ustalara ziyaret"],

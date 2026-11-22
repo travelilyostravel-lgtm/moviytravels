@@ -57,7 +57,7 @@ ITEMS = {
   "yurt": "Nätter i jurtläger med middag och frukost", "homestay": "Nätter på gästhus eller hos familj med hemlagad mat",
   "jeep": "Fyrhjulsdriven bil med erfaren bergsförare", "permit": "GBAO-tillstånd för Pamirregionen", "meals_full": "Helpension under resan (frukost, lunch, middag)",
   "crew": "Vandringsteam: guide, kock, tält och packdjur", "horses": "Hästar och en lokal hästskötare",
-  "intl_flights": "Internationella flyg", "visa": "Visumavgifter (om de krävs för ditt pass)", "visa_4": 'Visumavgifter och visumstöd för Tadzjikistan, Kazakstan och Kirgizistan (om ditt pass kräver det)', "meals": "Luncher och middagar om inget annat anges",
+  "own_flight_khiva": 'Flyg till Urgench/Chiva och hem från Tasjkent (bokas av dig)', "intl_flights": "Internationella flyg", "visa": "Visumavgifter (om de krävs för ditt pass)", "visa_4": 'Visumavgifter och visumstöd för Tadzjikistan, Kazakstan och Kirgizistan (om ditt pass kräver det)', "meals": "Luncher och middagar om inget annat anges",
   "photo": "Foto- och videoavgifter på vissa platser", "insurance": "Reseförsäkring", "tips": "Dricks till guider och chaufförer, personliga utgifter",
   "park": "Nationalparkernas miljöavgifter kan ändras",
   "passport": "Pass som är giltigt minst 6 månader efter resan", "shoes": "Bekväma skor — gamla stadskärnor har stenlagda gator",
@@ -236,7 +236,7 @@ SIGHTS = {
   "ist_mug": ["Citadellet Mug-Teppa", "Gammalt citadell och knivmakarverkstäder."],
 }
 TOURS = {
-  "classic": ["Klassiska Uzbekistan", "Tasjkent, Samarkand, Buchara och Chiva på en resa"],
+  "classic": ["Klassiska Uzbekistan", "Chiva, Buchara, Samarkand och Tasjkent — start i Chiva varje lördag"],
   "express": ["Samarkand & Buchara express", "Sidenvägens två juveler på fem dagar"],
   "silkroad": ["Den stora Sidenvägen", "Från Chiva till Samarkand med en natt i ökenjurta"],
   "spiritual": ["Uzbekistans andliga arv", "Pilgrimsfärd till stora imamer och sufimästare"],

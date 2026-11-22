@@ -150,15 +150,15 @@ def T(cid, country, cover, hotel, days, extra_inc=(), extra_exc=(), bring=None, 
 
 TOURS = [
  # ---------------- UZBEKISTAN
- T("classic", "UZ", "registan", "superior", [
-   ("tashkent", [], ["tash_imam", "tash_chorsu", "tash_metro"], "D"),
-   ("samarkand", [["tashkent", "samarkand"]], ["sam_gurmir", "sam_registan"], "B"),
-   ("samarkand", [], ["sam_shahizinda", "sam_bibi", "sam_ulugbek"], "B"),
-   ("bukhara", [["samarkand", "bukhara"]], ["buk_samanid", "buk_ark"], "B"),
-   ("bukhara", [], ["buk_poikalon", "buk_domes", "buk_lyabi"], "B"),
-   ("khiva", [["bukhara", "khiva"]], ["khi_walls"], "B"),
+ T("classic", "UZ", "registan", "superior", [   # 8 days / 7 nights, Saturday start in Khiva (owner, 2026-11-23)
+   ("khiva", [], ["khi_walls"], "D"),
    ("khiva", [], ["khi_ichan", "khi_islamkhoja", "khi_tashhauli"], "B"),
-   (None, [["khiva", "urgench"], ["urgench", "tashkent"]], ["tash_timur"], "B")], ["train", "flight", "dinner"]),
+   ("bukhara", [["khiva", "bukhara"]], ["buk_lyabi", "buk_domes"], "B"),
+   ("bukhara", [], ["buk_ark", "buk_samanid", "buk_poikalon"], "B"),
+   ("samarkand", [["bukhara", "samarkand"]], ["sam_gurmir", "sam_registan"], "B"),
+   ("samarkand", [], ["sam_shahizinda", "sam_bibi", "sam_ulugbek", "sam_siyob"], "B"),
+   ("tashkent", [["samarkand", "tashkent"]], ["tash_timur", "tash_metro"], "B"),
+   (None, [], ["tash_imam", "tash_chorsu"], "B")], ["train", "dinner"], ["own_flight_khiva"]),
  T("express", "UZ", "shahizinda", "superior", [
    ("tashkent", [], ["tash_imam", "tash_metro"], "D"),
    ("samarkand", [["tashkent", "samarkand"]], ["sam_registan", "sam_gurmir"], "B"),

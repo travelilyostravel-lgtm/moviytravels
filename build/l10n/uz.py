@@ -57,7 +57,7 @@ ITEMS = {
   "yurt": "O'tov lagerida tunash, kechki ovqat va nonushta bilan", "homestay": "Mehmon uyi yoki oilada tunash, uy taomlari bilan",
   "jeep": "Tajribali tog' haydovchisi bilan 4×4 avtomobil", "permit": "Pomir hududi uchun GBAO ruxsatnomasi", "meals_full": "Yo'lda to'liq ovqatlanish (nonushta, tushlik, kechki ovqat)",
   "crew": "Treking jamoasi: gid, oshpaz, chodirlar va yuk hayvonlari", "horses": "Otlar va mahalliy otboqar",
-  "intl_flights": "Xalqaro aviachiptalar", "visa": "Viza to'lovlari (pasportingiz uchun kerak bo'lsa)", "visa_4": "Viza to'lovlari va Tojikiston, Qozog'iston, Qirg'iziston uchun viza ko'magi (pasportingizga kerak bo'lsa)", "meals": "Dasturda ko'rsatilmagan tushlik va kechki ovqatlar",
+  "own_flight_khiva": "Xiva/Urganchgacha va Toshkentdan qaytish aviachiptalari (o'zingiz olasiz)", "intl_flights": "Xalqaro aviachiptalar", "visa": "Viza to'lovlari (pasportingiz uchun kerak bo'lsa)", "visa_4": "Viza to'lovlari va Tojikiston, Qozog'iston, Qirg'iziston uchun viza ko'magi (pasportingizga kerak bo'lsa)", "meals": "Dasturda ko'rsatilmagan tushlik va kechki ovqatlar",
   "photo": "Ba'zi joylarda foto va video to'lovi", "insurance": "Sayohat sug'urtasi", "tips": "Gid va haydovchilar uchun choychaqa, shaxsiy xarajatlar",
   "park": "Milliy bog'larning ekologik yig'imi o'zgarishi mumkin",
   "passport": "Sayohatdan keyin kamida 6 oy amal qiladigan pasport", "shoes": "Qulay poyabzal — eski shaharlarda tosh ko'chalar",
@@ -237,7 +237,7 @@ SIGHTS = {
   "ist_mug": ["Mug'-tepa qo'rg'oni", "Eski qo'rg'on va pichoqchilar ustaxonalari."],
 }
 TOURS = {
-  "classic": ["Klassik O'zbekiston", "Toshkent, Samarqand, Buxoro va Xiva bitta sayohatda"],
+  "classic": ["Klassik O'zbekiston", "Xiva, Buxoro, Samarqand va Toshkent — Xivadan boshlanadi, har shanba"],
   "express": ["Samarqand va Buxoro ekspress", "Ipak yo'lining ikki durdonasi besh kunda"],
   "silkroad": ["Buyuk Ipak yo'li", "Xivadan Samarqandgacha, cho'lda o'tovda bir kecha bilan"],
   "spiritual": ["O'zbekistonning ma'naviy merosi", "Buyuk imomlar va so'fiy ustozlar ziyorati"],
