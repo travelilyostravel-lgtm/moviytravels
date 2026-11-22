@@ -79,3 +79,32 @@ body.portal{background:var(--sand);min-height:100vh}
 @media (max-width:900px){.p-grid,.kv,.trav,.svc{grid-template-columns:1fr 1fr}.portal .bwrap{grid-template-columns:1fr}.quote{position:static}}
 @media (max-width:560px){.p-grid,.kv,.trav,.svc{grid-template-columns:1fr}.p-tabs{overflow-x:auto}}
 .link{color:var(--sky);font-weight:700;font-size:14px}
+
+/* ===== Admin: price control ===== */
+.np-head{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;justify-content:space-between;position:sticky;top:0;z-index:5}
+.np-actions{display:flex;gap:8px;align-items:center}
+.np-head .msg{flex-basis:100%}
+.np-state{display:inline-block;margin-top:8px;font-size:13px;color:#5b6b7f;background:#eef3f8;border-radius:8px;padding:4px 10px}
+.np-state.is-dirty{background:#fff4d6;color:#8a5a00}
+.np-sec{background:#fff;border:1px solid #e3e8ef;border-radius:16px;padding:6px 18px 16px;margin-top:14px}
+.np-sec>summary,.np-country>summary{cursor:pointer;font-weight:700;color:#12355b;padding:12px 0;font-size:16px}
+.np-country{border-top:1px solid #eef1f5;margin-top:6px}.np-country>summary{font-size:15px}
+.np-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px 16px;margin:6px 0 10px}
+.np-grid--s{grid-template-columns:repeat(auto-fill,minmax(190px,240px))}
+.np-grid label{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight:600;color:#33465c}
+.np-grid small,.np-check small{font-weight:400;color:#7a8a9c;font-size:12px}
+.np-check{flex-direction:row!important;flex-wrap:wrap;align-items:center;gap:8px!important}
+.np-in{width:100%;max-width:140px;padding:7px 9px;border:1.5px solid #d9e0e8;border-radius:9px;font:inherit;font-size:14px}
+.np-in:focus{outline:none;border-color:#2fa4c7}
+.np-in::placeholder{color:#a6b3c2;font-size:12px}
+.np-note{font-size:13px;color:#6b7b8e;margin:4px 0 10px}
+.np-tbl td,.np-tbl th{padding:6px 8px;vertical-align:middle}
+.np-tbl .np-in{max-width:110px}
+.np-grp td{background:#f4f7fa;font-weight:700;color:#12355b}
+.np-def td{background:#fffaf0}
+.np-tour{border:1px solid #e3e8ef;border-radius:14px;padding:12px 14px;margin:10px 0}
+.np-tour__h{display:flex;gap:10px;align-items:baseline}.np-tour__h small{color:#7a8a9c}
+.np-res{overflow-x:auto}
+.np-res-tbl{font-size:13px;white-space:nowrap}
+.np-main td{background:#f2fbfd}
+.np-gross{color:#12355b}.np-pos{color:#1f7a45;font-weight:600}.np-neg{color:#b42318;font-weight:700}

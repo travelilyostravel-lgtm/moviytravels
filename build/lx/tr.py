@@ -141,4 +141,10 @@ X = {
    ("İletişim", "{company}, {address}. Telefon: {phone}. Telegram: @{telegram}."),
  ],
  "footer_legal": "Yasal bilgiler",
+ "soon_badge": "Yakında",
+ "bk_soon_title": "Online rezervasyon ve ödeme — yakında",
+ "bk_soon_text": "Şimdilik talep bırakın: turu seçin ve bilgilerinizi yazın. Temsilcimiz sizinle iletişime geçip detayları netleştirecek ve ödemede yardımcı olacak.",
+ "bk_submit_req": "Talep gönder",
+ "bk_req_btn": "Talep bırak",
+ "bk_ok_req": "Temsilcimiz detayları ve ödemeyi netleştirmek için kısa süre içinde sizinle iletişime geçecek.",
 }

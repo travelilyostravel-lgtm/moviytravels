@@ -141,4 +141,10 @@ X = {
    ("Aloqa", "{company}, {address}. Telefon: {phone}. Telegram: @{telegram}."),
  ],
  "footer_legal": "Huquqiy ma'lumot",
+ "soon_badge": "Tez orada",
+ "bk_soon_title": "Onlayn bron va to'lov — tez orada",
+ "bk_soon_text": "Hozircha so'rov qoldiring: turni tanlang va ma'lumotlaringizni yozing. Menejer siz bilan bog'lanib, tafsilotlarni aniqlaydi va to'lovda yordam beradi.",
+ "bk_submit_req": "So'rov yuborish",
+ "bk_req_btn": "So'rov qoldirish",
+ "bk_ok_req": "Menejer tez orada siz bilan bog'lanib, tafsilotlar va to'lovni kelishib oladi.",
 }

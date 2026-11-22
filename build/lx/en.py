@@ -152,4 +152,10 @@ X = {
    ("Contacts", "{company}, {address}. Phone: {phone}. Telegram: @{telegram}."),
  ],
  "footer_legal": "Legal information",
+ "soon_badge": "Coming soon",
+ "bk_soon_title": "Online booking and payment — coming soon",
+ "bk_soon_text": "For now, send us a request: choose your tour and leave your details. A manager will contact you, confirm the details and help with payment.",
+ "bk_submit_req": "Send request",
+ "bk_req_btn": "Send a request",
+ "bk_ok_req": "A manager will contact you soon to confirm the details and payment.",
 }

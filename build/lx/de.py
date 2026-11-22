@@ -141,4 +141,10 @@ X = {
    ("Kontakt", "{company}, {address}. Telefon: {phone}. Telegram: @{telegram}."),
  ],
  "footer_legal": "Rechtliche Informationen",
+ "soon_badge": "Bald verfügbar",
+ "bk_soon_title": "Online-Buchung und Zahlung – bald verfügbar",
+ "bk_soon_text": "Senden Sie uns vorerst eine Anfrage: Tour wählen und Ihre Daten angeben. Ein Manager meldet sich, klärt die Details und hilft bei der Zahlung.",
+ "bk_submit_req": "Anfrage senden",
+ "bk_req_btn": "Anfrage senden",
+ "bk_ok_req": "Ein Manager meldet sich bald, um Details und Zahlung zu klären.",
 }

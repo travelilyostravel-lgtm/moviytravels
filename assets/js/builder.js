@@ -128,4 +128,5 @@
     st.interests = [].slice.call(document.querySelectorAll("[name=interest]:checked")).map(function (x) { return x.value; }); render(); }; });
   window.MN_BUILDER = { render: render, state: st };
   render();
+  E.onPrices(render);
 })();

@@ -141,4 +141,10 @@ X = {
    ("联系方式", "{company}，{address}。电话：{phone}。Telegram：@{telegram}。"),
  ],
  "footer_legal": "法律信息",
+ "soon_badge": "即将上线",
+ "bk_soon_title": "在线预订与支付——即将上线",
+ "bk_soon_text": "目前请先提交需求：选择线路并留下您的信息。客服会联系您确认细节并协助付款。",
+ "bk_submit_req": "提交需求",
+ "bk_req_btn": "提交需求",
+ "bk_ok_req": "客服会尽快联系您，确认细节和付款方式。",
 }

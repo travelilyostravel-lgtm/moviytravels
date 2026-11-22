@@ -67,6 +67,20 @@
     return "bus";
   }
 
+  // ---- prices. Costs/selling prices can be overridden from the admin panel ("Narxlar"):
+  //      the site reads the ready selling prices (row "public" in price_config) and applies them here.
+  function num(v, d) { v = parseFloat(v); return isFinite(v) ? v : d; }
+  function roomPrice(city, cls) {
+    var hc = C.hotelCity && C.hotelCity[city], v = hc ? num(hc[cls.id], NaN) : NaN;
+    return v > 0 ? v : cls.room;
+  }
+  function legTicket(a, b) {
+    var k = a + ">" + b, v = C.legPrice ? C.legPrice[k] : undefined;
+    if (v !== undefined && v !== null && v !== "") return num(v, 0);
+    var l = leg(a, b);
+    return l.mode === "train" ? C.fixed.train : l.mode === "flight" ? C.fixed.flight : 0;
+  }
+
   // Price per person for a tour with chosen options
   function price(tour, cfg) {
     var pax = Math.max(1, cfg.pax || C.defaultPax);
@@ -77,25 +91,67 @@
     var nights = tour.days.filter(function (d) { return d.sleep; }).length;
     var guideDays = Math.max(1, days - 1);
     var langExtra = C.guide.languages[cfg.lang || "en"] || 0;
+    var single = cfg.single ? 1 + C.singleSupplement : 1;
 
-    var hotelPP = nights * hotel.room / 2 * (cfg.single ? 1 + C.singleSupplement : 1);
+    var hotelPP = 0;
+    tour.days.forEach(function (d) { if (d.sleep) hotelPP += roomPrice(d.sleep, hotel) / 2 * single; });
     var transportPP = tr.day * days * vehicles / pax;
     var guidePP = (C.guide.day + langExtra) * guideDays / pax;
     var tickets = 0;
-    tour.days.forEach(function (d) {
-      (d.move || []).forEach(function (m) {
-        var l = leg(m[0], m[1]);
-        if (l.mode === "train") tickets += C.fixed.train;
-        if (l.mode === "flight") tickets += C.fixed.flight;
-      });
-    });
-    var entries = guideDays * C.fixed.entryPerDay;
+    tour.days.forEach(function (d) { (d.move || []).forEach(function (m) { tickets += legTicket(m[0], m[1]); }); });
+    var entries = 0, sightIds = [];
+    tour.days.forEach(function (d) { (d.stops || []).forEach(function (st) { if (st.id) sightIds.push(st.id); }); });
+    if (C.sightPrice && sightIds.length) sightIds.forEach(function (id) { entries += num(C.sightPrice[id], num(C.fixed.entryDefault, 0)); });
+    else entries = guideDays * C.fixed.entryPerDay;
     var dinner = /D/.test(tour.days[0].meals || "") ? C.fixed.welcomeDinner : 0;
-    var cost = hotelPP + transportPP + guidePP + tickets + entries + dinner;
-    var pp = Math.ceil(cost * (1 + C.markup) / 5) * 5;
-    return { pp: pp, total: pp * pax, pax: pax, nights: nights, days: days, hotel: hotel, transport: tr, vehicles: vehicles,
-      parts: { hotel: hotelPP, transport: transportPP, guide: guidePP, tickets: tickets + entries + dinner } };
+    var ex = C.tourExtra && tour.id ? C.tourExtra[tour.id] : null;
+    var extra = ex ? num(ex.pp, 0) + num(ex.group, 0) / pax : 0;
+    var cost = hotelPP + transportPP + guidePP + tickets + entries + dinner + extra;
+    var step = num(C.roundTo, 5) || 1;
+    var pp = Math.ceil(cost * (1 + C.markup) / step) * step;
+    return { pp: pp, total: pp * pax, pax: pax, nights: nights, days: days, hotel: hotel, transport: tr, vehicles: vehicles, cost: cost,
+      parts: { hotel: hotelPP, transport: transportPP, guide: guidePP, tickets: tickets + entries + dinner, train: tickets, entries: entries, dinner: dinner, extra: extra } };
   }
+
+  // Apply a price set (from the admin panel) on top of the defaults in catalog.js
+  function applyPrices(d) {
+    if (!d || typeof d !== "object") return;
+    if (d.markup !== undefined) C.markup = num(d.markup, C.markup);
+    if (d.singleSupplement !== undefined) C.singleSupplement = num(d.singleSupplement, C.singleSupplement);
+    if (d.roundTo !== undefined) C.roundTo = num(d.roundTo, 5);
+    if (d.defaultPax !== undefined) C.defaultPax = num(d.defaultPax, C.defaultPax);
+    if (d.hotelClasses) C.hotelClasses.forEach(function (h) { if (d.hotelClasses[h.id] !== undefined) h.room = num(d.hotelClasses[h.id], h.room); });
+    if (d.transport) C.transport.forEach(function (x) { if (d.transport[x.id] !== undefined) x.day = num(d.transport[x.id], x.day); });
+    if (d.guide) { if (d.guide.day !== undefined) C.guide.day = num(d.guide.day, C.guide.day);
+      if (d.guide.languages) Object.keys(d.guide.languages).forEach(function (k) { C.guide.languages[k] = num(d.guide.languages[k], 0); }); }
+    if (d.fixed) Object.keys(d.fixed).forEach(function (k) { C.fixed[k] = num(d.fixed[k], C.fixed[k] || 0); });
+    C.hotelCity = d.hotelCity || C.hotelCity || {};
+    C.legPrice = d.legPrice || C.legPrice || {};
+    if (d.sightPrice) C.sightPrice = d.sightPrice;
+    C.tourExtra = d.tourExtra || C.tourExtra || {};
+    C.bookingOnline = !!d.booking_online;
+  }
+
+  // Load the published selling prices once per page; callbacks re-run when prices change
+  var priceCbs = [], pricesLoaded = false;
+  function onPrices(fn) { priceCbs.push(fn); if (pricesLoaded) { try { fn(); } catch (e) {} } }
+  function firePrices() { pricesLoaded = true; priceCbs.forEach(function (f) { try { f(); } catch (e) {} }); }
+  (function loadPrices() {
+    if (window.MN_NO_PRICE_FETCH) return;
+    var SB = window.MN_SB, KEY = "mn_prices_v1", cached = null;
+    try { cached = localStorage.getItem(KEY); if (cached) { applyPrices(JSON.parse(cached)); pricesLoaded = true; } } catch (e) {}
+    if (!SB || !SB.url || !window.fetch) { pricesLoaded = true; return; }
+    var timer = setTimeout(function () { if (!pricesLoaded) firePrices(); }, 2500);
+    fetch(SB.url + "/rest/v1/price_config?id=eq.public&select=data", { headers: { apikey: SB.anonKey, Authorization: "Bearer " + SB.anonKey } })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        clearTimeout(timer);
+        var d = rows && rows[0] && rows[0].data, txt = d ? JSON.stringify(d) : null;
+        if (d && txt !== cached) { applyPrices(d); try { localStorage.setItem(KEY, txt); } catch (e) {} firePrices(); }
+        else if (!pricesLoaded) firePrices();
+      })
+      .catch(function () { clearTimeout(timer); if (!pricesLoaded) firePrices(); });
+  })();
 
   function fromPrice(tour) { return price(tour, { pax: C.defaultPax, hotel: tour.hotel }).pp; }
 
@@ -182,5 +238,5 @@
     svg.innerHTML = out;
   }
 
-  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
+  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, applyPrices: applyPrices, onPrices: onPrices, roomPrice: roomPrice, legTicket: legTicket, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
 })();

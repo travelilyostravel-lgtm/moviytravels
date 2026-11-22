@@ -141,4 +141,10 @@ X = {
    ("Kontakt", "{company}, {address}. Telefon: {phone}. Telegram: @{telegram}."),
  ],
  "footer_legal": "Juridisk information",
+ "soon_badge": "Kommer snart",
+ "bk_soon_title": "Onlinebokning och betalning – kommer snart",
+ "bk_soon_text": "Skicka en förfrågan tills vidare: välj resa och lämna dina uppgifter. En handläggare kontaktar dig, går igenom detaljerna och hjälper till med betalningen.",
+ "bk_submit_req": "Skicka förfrågan",
+ "bk_req_btn": "Skicka förfrågan",
+ "bk_ok_req": "En handläggare kontaktar dig snart för att gå igenom detaljer och betalning.",
 }

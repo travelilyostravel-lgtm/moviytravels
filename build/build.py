@@ -116,7 +116,7 @@ def render(lang):
     alternates += f'<link rel="alternate" hreflang="x-default" href="{cfg["site_url"]}/">'
     url = f'{cfg["site_url"]}/{path_for(lang)}'
 
-    js_cfg = json.dumps({"whatsapp": cfg["whatsapp"], "telegram": cfg["telegram"], "instagram": cfg["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"], "bookLabel": pages.X(lang)["bk_btn"]}, ensure_ascii=False)
+    js_cfg = json.dumps({"whatsapp": cfg["whatsapp"], "telegram": cfg["telegram"], "instagram": cfg["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"], "bookLabel": pages.X(lang)["bk_btn"], "bookReqLabel": pages.X(lang)["bk_req_btn"]}, ensure_ascii=False)
     ld = json.dumps({
         "@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad",
         "description": t["meta_desc"], "url": url, "image": cfg["site_url"] + "/assets/img/hero.webp",
@@ -309,9 +309,9 @@ def render(lang):
 </div>
 
 <script>window.MN={js_cfg};</script>
-<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/share.js"></script>
-<script>document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");}});</script>
-<script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/sb-config.js"></script><script src="{A}js/forms.js" defer></script>
+<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/share.js"></script>
+<script>MN_ENGINE.onPrices(function(){{document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");}});}});</script>
+<script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/forms.js" defer></script>
 <script src="{A}js/site.js" defer></script>
 </body>
 </html>
@@ -330,12 +330,13 @@ HEAD = """<!DOCTYPE html>
 
 SCRIPTS = """<script>window.MN={cfg};</script>
 <script src="{base}assets/data/catalog.js"></script><script src="{base}assets/data/places.js"></script><script src="{base}assets/data/geo.js"></script><script src="{base}assets/data/tours.js"></script>
-<script src="{base}assets/data/l10n/{l10n}.js"></script><script src="{base}assets/js/engine.js"></script><script src="{base}assets/js/share.js"></script><script src="{base}assets/js/{js}.js"></script>"""
+<script src="{base}assets/data/l10n/{l10n}.js"></script><script src="{base}assets/js/sb-config.js"></script><script src="{base}assets/js/engine.js"></script><script src="{base}assets/js/share.js"></script><script src="{base}assets/js/{js}.js"></script>"""
 
 
 def page_cfg(lang="en"):
     t = T[lang]
-    return json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"], "instagram": CONFIG["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)
+    return json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"], "instagram": CONFIG["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"],
+                       "bookLabel": pages.X(lang)["bk_btn"], "bookReqLabel": pages.X(lang)["bk_req_btn"]}, ensure_ascii=False)
 
 
 def head(lang, base, title, desc):
@@ -502,7 +503,7 @@ def render_admin():
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button><button data-view="requests">Mijoz so'rovlari</button><button data-view="posts">Hikoyalar</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button><button data-view="requests">Mijoz so'rovlari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
@@ -517,11 +518,13 @@ def render_admin():
   <section id="v-agency" class="hidden"></section>
   <section id="v-requests" class="hidden"><div class="p-card"><h2>Mijoz so'rovlari (sayt: bron va xizmatlar)</h2><div class="filters" id="rf"></div><div id="rlist"></div></div></section>
   <section id="v-request" class="hidden"></section>
+  <section id="v-prices" class="hidden"><div class="p-card np-head"><div><h2>Narxlar va xarajatlar</h2><p class="p-sub">Bu yerda xarajatlarni (netto) va ustamani kiritasiz. Saytdagi barcha narxlar shulardan hisoblanadi. Mijozlar xarajat va ustamani ko'rmaydi.</p><span id="np-state" class="np-state"></span></div><div class="np-actions"><button class="btn btn--outline btn--sm" id="np-reset">Bekor qilish</button><button class="btn btn--gold btn--sm" id="np-save">Saqlash va saytga chiqarish</button></div><div class="msg" id="np-msg"></div></div><div id="np-body"></div></section>
   <section id="v-posts" class="hidden"><div class="p-card"><h2>Sayohatchilar hikoyalari</h2><p class="p-sub">Tasdiqlangan hikoyalar saytda darhol ko'rinadi.</p><div class="filters" id="pf"></div><div id="plist"></div></div></section>
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
 <script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/admin-site.js"></script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script>
 </body></html>
 """
 

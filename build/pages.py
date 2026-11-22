@@ -142,7 +142,7 @@ def path(lang):
 def js_strings(lang):
     x = X(lang)
     keys = ["f_sending", "f_send", "f_required", "f_ok_title", "f_ok_text", "f_err", "f_close", "bk_first", "bk_last", "bk_gender", "bk_m", "bk_f", "bk_dob",
-            "bk_remove", "bk_ok", "ts_send", "ts_uploading", "ts_ok", "ts_too_many", "gal_empty", "bk_submit", "rev_traveller"]
+            "bk_remove", "bk_ok", "bk_ok_req", "bk_submit_req", "ts_send", "ts_uploading", "ts_ok", "ts_too_many", "gal_empty", "bk_submit", "rev_traveller"]
     d = {k: x[k] for k in keys}
     d["services"] = {k: v[0] for k, v in x["services"].items()}
     return json.dumps(d, ensure_ascii=False)
@@ -256,11 +256,12 @@ def render_booking(lang, icon, logo, font, names, tours, L):
     glangs = ["English", "Русский", "O'zbekcha", "Türkçe", "العربية", "Deutsch", "Svenska", "中文", "हिन्दी", "한국어", "Français", "Español", "Italiano"]
     gopts = "".join(f'<option>{g}</option>' for g in glangs)
     pay = "".join(
-        f'<label class="pay"><input type="radio" name="pay_method" value="{k}"{" checked" if k == "contact" else ""}><span><b>{e(v[0])}</b><small>{e(v[1])}</small></span></label>'
+        f'<label class="pay"><input type="radio" name="pay_method" value="{k}" disabled{" checked" if k == "contact" else ""}><span><b>{e(v[0])}</b><small>{e(v[1])}</small></span></label>'
         for k, v in x["pay"].items())
     body = page_head(x["bk_btn"], x["bk_title"], x["bk_sub"]) + f'''
 <section class="section section--tight"><div class="container bk">
-  <form class="mf bk__form" id="bk-form" novalidate>
+  <form class="mf bk__form" id="bk-form" novalidate data-online="0">
+    <div class="bk-soon" id="bk-soon"><span class="soon-badge">{e(x["soon_badge"])}</span><b>{e(x["bk_soon_title"])}</b><p>{e(x["bk_soon_text"])}</p></div>
     <fieldset><legend>{e(x["bk_trip"])}</legend><div class="mf-grid">
       <label class="mf-f mf-f--full"><span>{e(x["bk_tour"])} *</span><select name="tour_id" required>{opts}</select></label>
       <label class="mf-f"><span>{e(x["bk_start"])} *</span><input type="date" name="start_date" required></label>
@@ -280,12 +281,12 @@ def render_booking(lang, icon, logo, font, names, tours, L):
       <div id="trav-list"></div><button type="button" class="btn btn--outline btn--sm" id="trav-add">{e(x["bk_add"])}</button>
     </fieldset>
     <fieldset><legend>{e(x["bk_notes"])}</legend><textarea name="message" rows="3" maxlength="3000"></textarea></fieldset>
-    <fieldset><legend>{e(x["bk_pay_title"])}</legend><div class="pays">{pay}</div><p class="mf-note">{e(x["bk_pay_rule"])}</p></fieldset>
+    <fieldset class="pays-wrap is-soon" id="pays-wrap"><legend>{e(x["bk_pay_title"])} <span class="soon-badge">{e(x["soon_badge"])}</span></legend><div class="pays">{pay}</div><p class="mf-note">{e(x["bk_pay_rule"])}</p></fieldset>
     {consent_label(lang, x)}
     <div class="mf-msg" role="status"></div>
-    <button class="btn btn--gold" type="submit">{e(x["bk_submit"])}</button>
+    <button class="btn btn--gold" type="submit">{e(x["bk_submit_req"])}</button>
   </form>
-  <aside class="bk__side">{sec_box(x)}{contact_box(x, icon)}{bank_box(x)}</aside>
+  <aside class="bk__side">{sec_box(x)}{contact_box(x, icon)}<div class="bank-wrap" id="bank-wrap" hidden>{bank_box(x)}</div></aside>
 </div></section>
 <div class="modal" id="ok-modal" role="dialog" aria-modal="true"><div class="modal__box"><button class="modal__close" aria-label="{e(x["f_close"])}">×</button><div id="ok-body"></div></div></div>'''
     return shell(lang, "booking.html", x["bk_title"], x["bk_sub"], body, icon, logo, font, names, "is-booking")

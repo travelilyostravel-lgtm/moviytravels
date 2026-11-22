@@ -417,3 +417,9 @@ a.tour__img{display:block}
   .trav{grid-template-columns:24px 1fr 1fr 30px}.trav .mf-f--s{grid-column:2/4}.mf{padding:20px}
 }
 .subpage .hshare{color:#fff;border-color:rgba(255,255,255,.35)}.subpage .hshare svg{width:18px;height:18px}
+.bk-soon{background:linear-gradient(135deg,#fff7e2,#fdf0d2);border:1px solid #f0d58a;border-radius:16px;padding:16px 18px;display:grid;gap:6px}
+.bk-soon b{color:var(--navy);font-size:17px}.bk-soon p{color:#5e5440;font-size:15px}
+.soon-badge{display:inline-block;justify-self:start;background:var(--gold);color:var(--navy-3);font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;vertical-align:middle}
+.pays-wrap.is-soon .pays{opacity:.5;pointer-events:none;filter:grayscale(.4)}
+.pays-wrap legend .soon-badge{margin-inline-start:8px}
+.pays-wrap:not(.is-soon) legend .soon-badge{display:none}

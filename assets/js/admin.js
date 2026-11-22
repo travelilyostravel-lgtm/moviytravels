@@ -7,7 +7,7 @@
   if (!P.configured) { $("#notcfg").hidden = false; show("login"); return; }
 
   function show(v) {
-    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
+    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts", "prices"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
     $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || b.dataset.view + "s" === v || (v === "booking" && b.dataset.view === "bookings") || (v === "agency" && b.dataset.view === "agencies") || (v === "request" && b.dataset.view === "requests")); });
     window.scrollTo(0, 0);
   }

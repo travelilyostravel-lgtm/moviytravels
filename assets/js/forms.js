@@ -91,11 +91,28 @@
     var q = new URLSearchParams(location.search).get("tour");
     if (q && $('option[value="' + CSS.escape(q) + '"]', bf.elements.tour_id)) bf.elements.tour_id.value = q;
     var today = new Date(); today.setDate(today.getDate() + 3); bf.elements.start_date.min = today.toISOString().slice(0, 10);
+    // Online booking + payment can be switched on from the admin panel (Narxlar → "Onlayn bron va to'lov yoqilgan").
+    // While it is off, the page works as a request form: payment options are shown as "coming soon".
+    var online = false;
+    function setOnline(on) {
+      online = !!on; bf.dataset.online = online ? "1" : "0";
+      $("#bk-soon").hidden = online;
+      $("#pays-wrap").classList.toggle("is-soon", !online);
+      $$("input[name=pay_method]", bf).forEach(function (r) { r.disabled = !online; });
+      if (!online) bf.querySelector("input[name=pay_method][value=contact]").checked = true;
+      var bw = $("#bank-wrap"); if (bw) bw.hidden = !online;
+      $("button[type=submit]", bf).textContent = online ? X.bk_submit : X.bk_submit_req;
+    }
+    setOnline(false);
+    if (SB.url) fetch(SB.url + "/rest/v1/price_config?id=eq.public&select=data", { headers: hdr() })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) { if (rows && rows[0] && rows[0].data && rows[0].data.booking_online) setOnline(true); })
+      .catch(function () {});
 
     bf.onsubmit = async function (ev) {
       ev.preventDefault(); if (!check(bf)) return;
       var opt = bf.elements.tour_id.selectedOptions[0];
-      var pm = (bf.querySelector("input[name=pay_method]:checked") || {}).value || "contact";
+      var pm = online ? ((bf.querySelector("input[name=pay_method]:checked") || {}).value || "contact") : "contact";
       var trav = $$(".trav", list).map(function (r) { var o = {}; $$("[data-k]", r).forEach(function (i) { o[i.dataset.k] = i.value.trim(); }); return o; });
       busy(bf, true);
       try {
@@ -106,11 +123,11 @@
           travellers: trav, details: { adults: ad, children: ch, hotel: val(bf, "hotel"), guide_lang: val(bf, "guide_lang") },
           message: val(bf, "message"), pay_method: pm, consent: bf.elements.consent.checked, lang: LANG
         });
-        var extra = '<p class="okbox__next">' + esc((X.bk_ok || {})[pm] || "") + '</p>';
-        if (pm === "bank" && $(".bank")) extra += $(".bank").outerHTML;
+        var extra = '<p class="okbox__next">' + esc(online ? ((X.bk_ok || {})[pm] || "") : X.bk_ok_req) + '</p>';
+        if (online && pm === "bank" && $(".bank")) extra += $(".bank").outerHTML;
         $("#ok-body").innerHTML = success(ref, extra);
         openModal($("#ok-modal"));
-        bf.reset(); list.innerHTML = ""; syncRows(); busy(bf, false); msg(bf, "");
+        bf.reset(); list.innerHTML = ""; syncRows(); busy(bf, false); msg(bf, ""); setOnline(online);
       } catch (e) { msg(bf, niceErr(e), "err"); busy(bf, false); }
     };
   }
