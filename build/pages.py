@@ -48,7 +48,7 @@ def svc_icon(sid):
 def company():
     c = CONFIG
     return {"company": c["company"], "address": c["address"], "inn": c["inn"], "mfo": c["mfo"], "account": c["account"],
-            "bank": c["bank"], "phone": c["office_phone"], "telegram": c["telegram"]}
+            "bank": c["bank"], "phone": c["office_phone"], "telegram": c["telegram"], "license": c["license"]}
 
 
 def fill(s):
@@ -62,7 +62,7 @@ def consent_label(lang, x):
 
 def bank_box(x):
     c = company()
-    rows = [("b_company", c["company"]), ("b_address", c["address"]), ("b_inn", c["inn"]), ("b_mfo", c["mfo"]),
+    rows = [("b_company", c["company"]), ("b_license", "№ " + c["license"]), ("b_address", c["address"]), ("b_inn", c["inn"]), ("b_mfo", c["mfo"]),
             ("b_account", c["account"]), ("b_bank", c["bank"]), ("b_phone", c["phone"])]
     return (f'<div class="bank"><h3>{e(x["bank_title"])}</h3><p class="bank__lead">{e(x["bank_local"])}</p><dl>'
             + "".join(f'<dt>{e(x[k])}</dt><dd{" dir=ltr" if k in ("b_inn", "b_mfo", "b_account", "b_phone") else ""}>{e(v)}</dd>' for k, v in rows)
@@ -92,6 +92,7 @@ def home_blocks(lang, pre, A, icon):
   <section class="section" id="about">
     <div class="container about reveal">
       <div class="about__text"><span class="eyebrow">{e(x["about_eyebrow"])}</span><h2>{e(x["about_title"])}</h2><p>{e(x["about_text"])}</p>
+        <p class="lic"><span class="lic__ic">✓</span>{e(x["lic_badge"].replace("{n}", c["license"]))}</p>
         <a class="igcard" href="https://instagram.com/{c["parent_instagram"]}" target="_blank" rel="noopener"><span class="igcard__ic">{icon["ig"]}</span><span><b>{e(x["about_ig"])}</b><small>{e(x["about_ig_note"])}</small></span><span class="igcard__go">→</span></a>
       </div>
       <div class="stats">{stats}</div>
@@ -131,7 +132,7 @@ def home_blocks(lang, pre, A, icon):
 
 def footer_legal(lang, pre):
     x = X(lang); c = company()
-    return (f'<div class="footer__legal"><b>{e(c["company"])}</b> · {e(c["address"])} · {e(x["b_inn"])}: {e(c["inn"])} · <span dir="ltr">{e(c["phone"])}</span>'
+    return (f'<div class="footer__legal"><b>{e(c["company"])}</b> · {e(x["b_license"])} № {e(c["license"])} · {e(c["address"])} · {e(x["b_inn"])}: {e(c["inn"])} · <span dir="ltr">{e(c["phone"])}</span>'
             f'<span><a href="{pre}{path(lang)}privacy.html">{e(x["privacy_title"])}</a> · <a href="{pre}{path(lang)}terms.html">{e(x["terms_title"])}</a></span></div>')
 
 

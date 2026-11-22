@@ -198,4 +198,6 @@ X = {
  'gr_home_sub': 'For solo travellers and couples from any country: fixed departure dates, English-speaking guides, everything arranged.',
  'gr_home_all': 'All departures',
  "svc_from": 'from ${n}',
+ "lic_badge": 'Licensed tour operator — Tourism Committee of the Republic of Uzbekistan, licence No. {n}',
+ "b_license": 'Licence',
 }

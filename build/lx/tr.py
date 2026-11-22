@@ -187,4 +187,6 @@ X = {
  'gr_home_sub': 'Her ülkeden tek gezginler ve çiftler için: kesin tarihler, İngilizce rehberler, her şey ayarlanmış.',
  'gr_home_all': 'Tüm kalkışlar',
  "svc_from": "${n}'dan itibaren",
+ "lic_badge": 'Lisanslı tur operatörü — Özbekistan Cumhuriyeti Turizm Komitesi, lisans No. {n}',
+ "b_license": 'Lisans',
 }

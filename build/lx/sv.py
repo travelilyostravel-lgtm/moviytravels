@@ -187,4 +187,6 @@ X = {
  'gr_home_sub': 'För ensamresenärer och par från alla länder: fasta datum, engelsktalande guider, allt ordnat.',
  'gr_home_all': 'Alla avgångar',
  "svc_from": 'från ${n}',
+ "lic_badge": 'Licensierad researrangör — Turistkommittén i Republiken Uzbekistan, licens nr {n}',
+ "b_license": 'Licens',
 }

@@ -23,6 +23,8 @@ CONFIG = {
     "address": "Bunyodkor shoh ko'chasi 15/1-uy, Toshkent, O'zbekiston",
     "office_phone": "+998 99 124 42 14",
     "inn": "311516284",
+    "license": "887333",              # Tourism Committee licence (inbound, outbound, domestic), valid from 11.07.2025, no expiry
+    "license_reg": "L-41802587",
     "mfo": "00419",
     "account": "2020 8000 8071 4735 4001",
     "bank": "\u201cIpoteka Bank\u201d ATB yagona filiali",

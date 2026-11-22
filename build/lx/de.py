@@ -187,4 +187,6 @@ X = {
  'gr_home_sub': 'Für Alleinreisende und Paare aus aller Welt: feste Termine, englischsprachige Reiseleiter, alles organisiert.',
  'gr_home_all': 'Alle Termine',
  "svc_from": 'ab ${n}',
+ "lic_badge": 'Lizenzierter Reiseveranstalter — Tourismuskomitee der Republik Usbekistan, Lizenz Nr. {n}',
+ "b_license": 'Lizenz',
 }

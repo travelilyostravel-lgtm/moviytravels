@@ -187,4 +187,6 @@ X = {
  'gr_home_sub': 'Har qanday davlatdan yakka sayohatchilar va juftliklar uchun: aniq sanalar, ingliz tilidagi gidlar, hammasi tashkil qilingan.',
  'gr_home_all': 'Barcha sanalar',
  "svc_from": '${n} dan',
+ "lic_badge": "Litsenziyalangan tur operator — O'zbekiston Respublikasi Turizm qo'mitasi, litsenziya № {n}",
+ "b_license": 'Litsenziya',
 }
