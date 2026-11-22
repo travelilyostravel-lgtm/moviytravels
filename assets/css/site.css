@@ -423,3 +423,10 @@ a.tour__img{display:block}
 .pays-wrap.is-soon .pays{opacity:.5;pointer-events:none;filter:grayscale(.4)}
 .pays-wrap legend .soon-badge{margin-inline-start:8px}
 .pays-wrap:not(.is-soon) legend .soon-badge{display:none}
+/* countries in preparation ("coming soon") */
+.tour__lock{display:none;position:absolute;top:16px;inset-inline-end:16px;background:rgba(10,25,50,.88);color:#fff;font-weight:700;font-size:13px;padding:6px 12px;border-radius:999px}
+.tour.is-locked .tour__lock{display:inline-block}
+.price--lock small{display:none}
+.price--lock strong{font-size:16px}
+.ttab__lock{display:none;margin-inline-start:6px;font-size:.85em}
+.ttab.is-locked .ttab__lock{display:inline}

@@ -43,6 +43,11 @@ UI = {
   "h_eyebrow": "Hazır turlar", "h_title": "Orta Asya'da hazır yolculuklar",
   "h_sub": "Her ülkede altı denenmiş rota — haritayı, günlük programı ve fiyatı görmek için bir tur açın.",
   "view_tour": "Turu gör", "contact_us": "Bize ulaşın", "follow": "Bizi takip edin",
+  'lock_badge': 'Hazırlanıyor',
+  'lock_price': 'Fiyat talep üzerine',
+  'lock_title': 'Bu destinasyon hazırlanıyor',
+  'lock_text': 'Bu ülke için çevrimiçi fiyat hesaplama yakında açılacak. Programı şimdiden inceleyebilirsiniz — fiyat, tarih ve size özel teklif için yöneticimize yazın.',
+  'lock_btn': 'Yöneticiye yaz',
 }
 ITEMS = {
   "hotel": "Seçilen kategoride otel konaklaması, kahvaltı dahil", "transfers": "Havalimanında veya sınırda karşılama, tüm transferler",

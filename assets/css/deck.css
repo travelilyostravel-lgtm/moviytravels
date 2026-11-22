@@ -190,3 +190,18 @@ body.builder-page{background:var(--sand)}
   .s-route .legs__ic{width:26px;height:26px;border-radius:8px}.s-route .legs__ic svg{width:15px;height:15px}
   .s-route h2{margin-bottom:12px}
 }
+/* countries in preparation ("coming soon") */
+body:not(.is-locked) .lock-only{display:none}
+body.is-locked .calc-only{display:none!important}
+.lock-badge{display:inline-block;background:var(--gold);color:var(--navy-3);font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px}
+.lock-badge--sm{font-size:11px;padding:3px 9px;margin-inline-start:8px;vertical-align:middle;text-transform:none;letter-spacing:0}
+.cover__lock{display:flex;flex-direction:column;gap:8px;align-items:flex-start;margin:18px 0}
+.cover__lock b{font-size:24px;color:#fff}
+.lock-box{max-width:760px;background:var(--sky-soft);border-radius:20px;padding:28px;margin-top:18px}
+.lock-box h3{font-size:24px;margin:12px 0 8px;color:var(--navy)}
+.lock-box p{margin-bottom:16px;line-height:1.55}
+.cgroup .lock-badge--sm,.cgroup .lock-note{display:none}
+.cgroup.is-locked .lock-badge--sm{display:inline-block}
+.cgroup.is-locked .lock-note{display:block;font-size:13.5px;color:var(--muted);margin:-2px 0 10px;line-height:1.5}
+.lock-link{color:var(--sky);font-weight:700;white-space:nowrap}
+.cchip:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(1)}

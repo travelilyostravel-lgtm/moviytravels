@@ -18,6 +18,7 @@
 
   // Defaults taken from catalog.js before anything is applied
   var DEF = {
+    openCountries: (C.openCountries || ["UZ"]).slice(),
     markup: C.markup, singleSupplement: C.singleSupplement, roundTo: C.roundTo || 5, defaultPax: C.defaultPax,
     hotelClasses: {}, transport: {}, guide: { day: C.guide.day, languages: JSON.parse(JSON.stringify(C.guide.languages)) },
     fixed: { train: C.fixed.train, flight: C.fixed.flight, entryPerDay: C.fixed.entryPerDay, entryDefault: 5, welcomeDinner: C.fixed.welcomeDinner }
@@ -63,6 +64,10 @@
       '<label>Narxni yaxlitlash, $' + inp("roundTo", v("roundTo", DEF.roundTo), "5") + '<small>1 kishi narxi shu songa karrali qilib yuqoriga yaxlitlanadi.</small></label>' +
       '<label>"…dan" narx necha kishi uchun' + inp("defaultPax", v("defaultPax", DEF.defaultPax), "2") + '<small>Bosh sahifadagi kartochkalar narxi.</small></label>' +
       '<label class="np-check"><input type="checkbox" data-p="booking_online"' + (c.booking_online ? " checked" : "") + '> Onlayn bron va to\'lov yoqilgan<small>O\'chiq bo\'lsa saytda "Tez orada" ko\'rinadi, mijoz faqat so\'rov qoldiradi.</small></label>' +
+      '<div class="np-check np-open"><b>Narxi ochiq davlatlar</b>' + ORDER.map(function (cc) {
+        var on = (c.openCountries || DEF.openCountries).indexOf(cc) > -1;
+        return '<label><input type="checkbox" data-p="open.' + cc + '"' + (on ? " checked" : "") + '> ' + COUNTRY[cc] + '</label>'; }).join("") +
+        '<small>Belgilanmagan davlat saytda "Tayyorlanmoqda" bo\'lib turadi: tur taqdimotlari ko\'rinadi, lekin narx va o\'zi hisoblash (B2C va B2B) yopiq, mijoz menejerga yo\'naltiriladi.</small></div>' +
       '</div></details>';
     // 2. Hotels
     h += '<details open class="np-sec"><summary>2. Mehmonxonalar — xona narxi bir kechaga (2 kishilik xona), $</summary>' +
@@ -133,7 +138,7 @@
     });
     h += '</details>';
     box.innerHTML = h;
-    $$(".np-in, [data-p=booking_online]", box).forEach(function (el) { el.addEventListener("input", recalc); el.addEventListener("change", recalc); });
+    $$(".np-in, input[type=checkbox][data-p]", box).forEach(function (el) { el.addEventListener("input", recalc); el.addEventListener("change", recalc); });
     recalc();
   }
 
@@ -143,6 +148,7 @@
     $$("#np-body [data-p]").forEach(function (el) {
       var p = el.dataset.p;
       if (p === "booking_online") { o.booking_online = el.checked; return; }
+      if (p.indexOf("open.") === 0) { o.openCountries = o.openCountries || []; if (el.checked) o.openCountries.push(p.slice(5)); return; }
       if (el.value === "") return;
       var n = parseFloat(el.value); if (!isFinite(n) || n < 0) return;
       if (p === "markup_pct") { o.markup = n / 100; return; }
@@ -160,7 +166,7 @@
     var k = 1 + (c.markup || 0), r = function (x) { return Math.round(x * k * 100) / 100; };
     var mapVals = function (obj) { var out = {}; Object.keys(obj || {}).forEach(function (key) { var x = obj[key]; out[key] = typeof x === "object" ? mapVals(x) : r(x); }); return out; };
     return {
-      markup: 0, singleSupplement: c.singleSupplement, roundTo: c.roundTo, defaultPax: c.defaultPax, booking_online: !!c.booking_online,
+      markup: 0, singleSupplement: c.singleSupplement, roundTo: c.roundTo, defaultPax: c.defaultPax, booking_online: !!c.booking_online, openCountries: c.openCountries || DEF.openCountries,
       hotelClasses: mapVals(c.hotelClasses), hotelCity: mapVals(c.hotelCity), transport: mapVals(c.transport),
       guide: { day: c.guide.day !== undefined ? r(c.guide.day) : undefined, languages: mapVals(c.guide.languages) },
       fixed: mapVals(c.fixed), legPrice: mapVals(c.legPrice), sightPrice: mapVals(c.sightPrice), tourExtra: mapVals(c.tourExtra)

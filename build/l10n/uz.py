@@ -43,6 +43,11 @@ UI = {
   "h_eyebrow": "Tayyor turlar", "h_title": "Markaziy Osiyo bo'ylab tayyor sayohatlar",
   "h_sub": "Har bir davlatda oltitadan sinalgan yo'nalish — xarita, kunma-kun dastur va narxni ko'rish uchun turni oching.",
   "view_tour": "Turni ko'rish", "contact_us": "Biz bilan bog'laning", "follow": "Bizni kuzating",
+  'lock_badge': 'Tayyorlanmoqda',
+  'lock_price': "Narx so'rov bo'yicha",
+  'lock_title': "Bu yo'nalish tayyorlanmoqda",
+  'lock_text': "Bu davlat bo'yicha narxni onlayn hisoblash tez orada ochiladi. Dasturni hozir ko'rishingiz mumkin — narx, sana va shaxsiy taklif uchun menejerimizga yozing.",
+  'lock_btn': 'Menejerga yozish',
 }
 ITEMS = {
   "hotel": "Tanlangan toifadagi mehmonxonada yashash, nonushta bilan", "transfers": "Aeroport yoki chegarada kutib olish, barcha transferlar",

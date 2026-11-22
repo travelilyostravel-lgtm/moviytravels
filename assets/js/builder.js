@@ -10,14 +10,15 @@
   var pick = document.getElementById("cities");
   pick.innerHTML = Object.keys(COUNTRY).map(function (cc) {
     var ids = Object.keys(C.cities).filter(function (id) { return C.cities[id].country === cc && !C.cities[id].hidden; });
-    return '<div class="cgroup"><h4>' + COUNTRY[cc] + '</h4><div class="cchips">' + ids.map(function (id) {
+    return '<div class="cgroup" data-cc="' + cc + '"><h4>' + COUNTRY[cc] + ' <span class="lock-badge lock-badge--sm">🔒 ' + t("lock_badge") + '</span></h4>' +
+      '<p class="lock-note">' + t("lock_text") + ' <a class="lock-link" target="_blank" rel="noopener" href="https://wa.me/' + (CFG.whatsapp || "") + '?text=' + encodeURIComponent(t("b_msg") + " " + COUNTRY[cc]) + '">' + t("lock_btn") + ' →</a></p><div class="cchips">' + ids.map(function (id) {
       return '<button class="cchip" data-add="' + id + '" title="' + esc(C.cities[id].desc) + '"><img src="' + E.img(C.cities[id].img) + '" alt="">' + esc(C.cities[id].name) + '</button>';
     }).join("") + '</div></div>';
   }).join("");
 
   // Presets from ready tours
   document.getElementById("presets").innerHTML = Object.keys(TOURS).map(function (k) {
-    return '<button class="preset" data-preset="' + k + '">' + esc(TOURS[k].title) + '</button>';
+    return '<button class="preset" data-preset="' + k + '" data-pcc="' + TOURS[k].country + '">' + esc(TOURS[k].title) + '</button>';
   }).join("");
 
   document.getElementById("hotel").innerHTML = C.hotelClasses.map(function (h) { return '<button class="card" data-hotel="' + h.id + '"><b>' + esc(h.name) + '</b><small>' + esc(h.desc) + '</small></button>'; }).join("");
@@ -37,7 +38,15 @@
     return { title: t("b_custom"), days: days, hotel: st.hotel };
   }
 
+  function applyLock() {
+    st.route = st.route.filter(function (r) { return E.cityOpen(r.id); });
+    if (st.preset && !E.tourOpen(TOURS[st.preset])) st.preset = "";
+    document.querySelectorAll(".cgroup[data-cc]").forEach(function (g) { g.classList.toggle("is-locked", !E.isOpen(g.getAttribute("data-cc"))); });
+    document.querySelectorAll("[data-add]").forEach(function (b) { b.disabled = !E.cityOpen(b.getAttribute("data-add")); });
+    document.querySelectorAll("[data-pcc]").forEach(function (b) { b.hidden = !E.isOpen(b.getAttribute("data-pcc")); });
+  }
   function render() {
+    applyLock();
     var list = document.getElementById("route");
     if (!st.route.length) {
       list.innerHTML = '<p class="muted">' + t("b_empty") + '</p>';
@@ -68,7 +77,7 @@
       return;
     }
     sum.classList.remove("is-empty");
-    var t = toTour(), p = E.price(t, st);
+    var tr0 = toTour(), p = E.price(tr0, st);
     var km = 0; for (var i = 1; i < ids.length; i++) km += E.leg(ids[i - 1], ids[i]).km;
     var extent = ids.map(function (id) { return C.cities[id]; });
     if (extent.length === 1) extent = extent.concat([{ lat: extent[0].lat + 1.5, lon: extent[0].lon + 2 }, { lat: extent[0].lat - 1.5, lon: extent[0].lon - 2 }]);
@@ -102,18 +111,20 @@
     var a;
     if (!b.hasAttribute("data-preset") && (b.hasAttribute("data-add") || b.hasAttribute("data-d") || b.hasAttribute("data-up") || b.hasAttribute("data-rm"))) st.preset = "";
     if ((a = b.getAttribute("data-add"))) {
+      if (!E.cityOpen(a)) return;
       var idx = st.route.map(function (r) { return r.id; }).indexOf(a);
       if (idx > -1) st.route.splice(idx, 1); else st.route.push({ id: a, nights: 2 });
     } else if (b.hasAttribute("data-d")) {
       var r = st.route[+b.getAttribute("data-n")]; r.nights = Math.max(1, Math.min(10, r.nights + +b.getAttribute("data-d")));
     } else if ((a = b.getAttribute("data-up")) !== null) {
-      var i = +a; if (i > 0) { var t = st.route[i]; st.route[i] = st.route[i - 1]; st.route[i - 1] = t; }
+      var i = +a; if (i > 0) { var sw = st.route[i]; st.route[i] = st.route[i - 1]; st.route[i - 1] = sw; }
     } else if ((a = b.getAttribute("data-rm")) !== null) {
       st.route.splice(+a, 1);
     } else if (b.hasAttribute("data-hotel")) { st.hotel = b.getAttribute("data-hotel");
     } else if (b.hasAttribute("data-tr")) { st.transport = b.getAttribute("data-tr");
     } else if (b.hasAttribute("data-pax")) { st.pax = Math.max(1, Math.min(40, st.pax + +b.getAttribute("data-pax")));
     } else if ((a = b.getAttribute("data-preset"))) {
+      if (!E.tourOpen(TOURS[a])) return;
       var tour = TOURS[a], counts = {}, order = [];
       tour.days.forEach(function (d) { if (d.sleep) { if (!(d.sleep in counts)) { counts[d.sleep] = 0; order.push(d.sleep); } counts[d.sleep]++; } });
       st.route = order.map(function (id) { return { id: id, nights: counts[id] }; });

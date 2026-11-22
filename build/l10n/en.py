@@ -47,6 +47,11 @@ UI = {
   "h_eyebrow": "Ready tours", "h_title": "Ready-made journeys across Central Asia",
   "h_sub": "Six proven routes in each country — open any tour to see the map, the day-by-day program and the price.",
   "view_tour": "View the tour", "contact_us": "Contact us", "follow": "Follow us",
+  'lock_badge': 'Coming soon',
+  'lock_price': 'Price on request',
+  'lock_title': 'This destination is being prepared',
+  'lock_text': 'Online price calculation for this country is coming soon. You can already view the programme — for prices, dates and a personal offer, write to our manager.',
+  'lock_btn': 'Write to our manager',
 }
 
 ITEMS = {

@@ -132,6 +132,7 @@
     if (d.sightPrice) C.sightPrice = d.sightPrice;
     C.tourExtra = d.tourExtra || C.tourExtra || {};
     C.bookingOnline = !!d.booking_online;
+    if (Array.isArray(d.openCountries)) C.openCountries = d.openCountries.filter(function (x) { return typeof x === "string"; });
   }
 
   // Load the published selling prices once per page; callbacks re-run when prices change
@@ -154,6 +155,11 @@
       })
       .catch(function () { clearTimeout(timer); if (!pricesLoaded) firePrices(); });
   })();
+
+  // Countries whose prices / calculator are open to the public (others: presentation only, "coming soon")
+  function isOpen(cc) { return (C.openCountries || ["UZ"]).indexOf(cc) > -1; }
+  function tourOpen(tour) { return !!tour && isOpen(tour.country); }
+  function cityOpen(id) { var c = C.cities[id]; return !!c && isOpen(c.country); }
 
   function fromPrice(tour) { return price(tour, { pax: C.defaultPax, hotel: tour.hotel }).pp; }
 
@@ -240,5 +246,5 @@
     svg.innerHTML = out;
   }
 
-  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, applyPrices: applyPrices, onPrices: onPrices, roomPrice: roomPrice, legTicket: legTicket, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
+  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, isOpen: isOpen, tourOpen: tourOpen, cityOpen: cityOpen, applyPrices: applyPrices, onPrices: onPrices, roomPrice: roomPrice, legTicket: legTicket, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
 })();

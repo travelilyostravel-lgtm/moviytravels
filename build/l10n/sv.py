@@ -43,6 +43,11 @@ UI = {
   "h_eyebrow": "Färdiga resor", "h_title": "Färdiga resor genom Centralasien",
   "h_sub": "Sex beprövade rutter i varje land — öppna en resa för att se kartan, dag-för-dag-programmet och priset.",
   "view_tour": "Se resan", "contact_us": "Kontakta oss", "follow": "Följ oss",
+  'lock_badge': 'Kommer snart',
+  'lock_price': 'Pris på förfrågan',
+  'lock_title': 'Det här resmålet förbereds',
+  'lock_text': 'Prisberäkning online för det här landet öppnar snart. Du kan redan se programmet – skriv till vår manager för priser, datum och ett personligt erbjudande.',
+  'lock_btn': 'Skriv till managern',
 }
 ITEMS = {
   "hotel": "Boende i vald hotellkategori med frukost", "transfers": "Mottagning på flygplatsen eller vid gränsen, alla transfers",

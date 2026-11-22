@@ -78,7 +78,7 @@ def render(lang):
         img = tr["cover"]; folder = "" if img in MAIN_IMG else "p/"
         return f'''
       <article class="tour reveal">
-        <a class="tour__img" href="tours/{tid}.html"><img src="{A}img/{folder}{img}.webp" alt="{e(name)}" loading="lazy" width="1100" height="760"><span class="tour__days">{len(tr["days"])} {e(U["days"])}</span><div class="tour__flags">{flags}</div></a>
+        <a class="tour__img" href="tours/{tid}.html"><img src="{A}img/{folder}{img}.webp" alt="{e(name)}" loading="lazy" width="1100" height="760"><span class="tour__days">{len(tr["days"])} {e(U["days"])}</span><span class="tour__lock">🔒 {e(U["lock_badge"])}</span><div class="tour__flags">{flags}</div></a>
         <div class="tour__body">
           <h3>{e(name)}</h3>
           <div class="tour__route">{e(route)}</div>
@@ -86,7 +86,7 @@ def render(lang):
           <div class="tour__foot">{price}<a class="btn btn--gold btn--sm" href="tours/{tid}.html">{e(U["view_tour"])} →</a></div>
         </div>
       </article>'''
-    ttabs = "".join(f'<button class="ttab" role="tab" data-tc="{c}" aria-selected="{"true" if i == 0 else "false"}">{e(U["country_" + c])}</button>' for i, c in enumerate(TD.COUNTRIES))
+    ttabs = "".join(f'<button class="ttab" role="tab" data-tc="{c}" aria-selected="{"true" if i == 0 else "false"}">{e(U["country_" + c])}<span class="ttab__lock">🔒</span></button>' for i, c in enumerate(TD.COUNTRIES))
     tgrids = "".join(f'<div class="tours tgrid{" is-active" if i == 0 else ""}" data-tc-panel="{c}">' + "".join(tour_card(x) for x in TD.TOURS if x["country"] == c) + '</div>' for i, c in enumerate(TD.COUNTRIES))
 
     tabs = "".join(
@@ -310,7 +310,7 @@ def render(lang):
 
 <script>window.MN={js_cfg};</script>
 <script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/share.js"></script>
-<script>MN_ENGINE.onPrices(function(){{document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(t)el.textContent="$"+MN_ENGINE.fromPrice(t).toLocaleString("en");}});}});</script>
+<script>MN_ENGINE.onPrices(function(){{var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");}});document.querySelectorAll(".ttab[data-tc]").forEach(function(b){{b.classList.toggle("is-locked",!E.isOpen(b.getAttribute("data-tc")));}});}});</script>
 <script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/forms.js" defer></script>
 <script src="{A}js/site.js" defer></script>
 </body>

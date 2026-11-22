@@ -31,7 +31,8 @@
       '<h1>' + esc(T.title) + '</h1><p class="cover__sub">' + esc(T.subtitle) + '</p>' +
       '<div class="cover__facts"><div><b>' + T.days.length + '</b><span>' + t("days") + '</span></div><div><b>' + (T.days.length - 1) + '</b><span>' + t("nights") + '</span></div><div><b>' + route.filter(function (c, i) { return !C.cities[c].hidden && route.indexOf(c) === i; }).length + '</b><span>' + t("destinations") + '</span></div><div><b>' + totalKm.toLocaleString("en") + '</b><span>' + t("km") + '</span></div></div>' +
       '<ul class="cover__hl">' + T.highlights.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("") + '</ul>' +
-      '<div class="cover__price"><small>' + t("from") + '</small><strong data-price>$' + E.fromPrice(T) + '</strong><small>' + t("pp_2") + '</small></div>' +
+      '<div class="cover__price calc-only"><small>' + t("from") + '</small><strong data-price>$' + E.fromPrice(T) + '</strong><small>' + t("pp_2") + '</small></div>' +
+      '<div class="cover__lock lock-only"><span class="lock-badge">🔒 ' + t("lock_badge") + '</span><b>' + t("lock_price") + '</b></div>' +
       '<button class="btn btn--gold" data-go="1">' + t("see_program") + '</button>' +
     '</div>' });
 
@@ -75,7 +76,9 @@
   var langOpts = Object.keys(C.guide.names).map(function (k) { return '<option value="' + k + '">' + C.guide.names[k] + '</option>'; }).join("");
   slides.push({ label: t("lbl_options"), cls: "s-opt", html:
     '<div class="s-inner"><span class="eyebrow">' + t("opt_eyebrow") + '</span><h2>' + t("opt_title") + '</h2>' +
-      '<div class="opt-grid">' +
+      '<div class="lock-box lock-only"><span class="lock-badge">🔒 ' + t("lock_badge") + '</span><h3>' + t("lock_title") + '</h3><p>' + t("lock_text") + '</p>' +
+        '<div class="book__btns"><a class="btn btn--wa" data-lockwa target="_blank" rel="noopener">WhatsApp · ' + t("lock_btn") + '</a><a class="btn btn--tg" href="https://t.me/' + esc(CFG.telegram || "") + '" target="_blank" rel="noopener">Telegram</a></div></div>' +
+      '<div class="calc-only"><div class="opt-grid">' +
         '<div class="opt-block"><h3>' + t("travellers") + '</h3><div class="stepper"><button data-pax="-1" aria-label="Less">−</button><b id="pax">2</b><button data-pax="1" aria-label="More">+</button></div>' +
           '<label class="tgl"><input type="checkbox" id="single"> ' + t("single_room") + '</label></div>' +
         '<div class="opt-block"><h3>' + t("guide_lang") + '</h3><select id="lang">' + langOpts + '</select><p class="muted">' + t("guide_soon") + '</p></div>' +
@@ -84,7 +87,7 @@
         '<div class="opt-block opt-block--wide"><h3>' + t("transport") + '</h3><div class="cards" id="transport">' + C.transport.map(function (tr) {
           return '<button class="card" data-tr="' + tr.id + '"><b>' + esc(tr.name) + '</b><small>' + esc(tr.desc) + ' · ' + t("seats", { n: tr.seats }) + '</small></button>'; }).join("") + '</div></div>' +
       '</div>' +
-      '<div class="pricebar"><div><small>' + t("price_pp") + '</small><strong id="pp"></strong><small id="ptotal"></small></div><button class="btn btn--gold" data-go="last">' + t("get_offer") + '</button></div>' +
+      '<div class="pricebar"><div><small>' + t("price_pp") + '</small><strong id="pp"></strong><small id="ptotal"></small></div><button class="btn btn--gold" data-go="last">' + t("get_offer") + '</button></div></div>' +
     '</div>' });
 
   // 6. Packing
@@ -98,7 +101,7 @@
     '<div class="s-bg" style="background-image:url(' + E.img(T.days[T.days.length - 2].stops[0].img) + ')"></div>' +
     '<div class="s-inner book"><h2>' + t("book_title") + '</h2><p>' + t("book_text") + '</p>' +
       '<div class="book__sum" id="summary"></div>' +
-      '<div class="book__btns"><a class="btn btn--gold" id="bookbtn" href="../booking.html?tour=' + encodeURIComponent(document.body.getAttribute("data-tour") || "") + '">' + esc(CFG.bookReqLabel || CFG.bookLabel || "Send a request") + ' →</a><a class="btn btn--wa" id="wa" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--tg" href="https://t.me/' + esc(CFG.telegram || "") + '" target="_blank" rel="noopener">Telegram</a><a class="btn btn--ghost" href="https://instagram.com/' + esc(CFG.instagram || "") + '" target="_blank" rel="noopener">Instagram</a></div>' +
+      '<div class="book__btns"><a class="btn btn--gold calc-only" id="bookbtn" href="../booking.html?tour=' + encodeURIComponent(document.body.getAttribute("data-tour") || "") + '">' + esc(CFG.bookReqLabel || CFG.bookLabel || "Send a request") + ' →</a><a class="btn btn--wa" id="wa" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--tg" href="https://t.me/' + esc(CFG.telegram || "") + '" target="_blank" rel="noopener">Telegram</a><a class="btn btn--ghost" href="https://instagram.com/' + esc(CFG.instagram || "") + '" target="_blank" rel="noopener">Instagram</a></div>' +
     '</div>' });
 
   // Render
@@ -137,6 +140,13 @@
   };
 
   // Options
+  var locked = false;
+  function applyLock() {
+    locked = !E.tourOpen(T);
+    document.body.classList.toggle("is-locked", locked);
+    var wa = "https://wa.me/" + (CFG.whatsapp || "") + "?text=" + encodeURIComponent(t("msg_tour") + "\n• " + t("sum_tour") + ": " + T.title + " (" + T.days.length + " " + t("days") + ")\n" + t("msg_dates") + " ");
+    document.querySelectorAll("[data-lockwa]").forEach(function (a) { a.href = wa; });
+  }
   function update() {
     var p = E.price(T, state);
     document.getElementById("pax").textContent = state.pax;
@@ -150,8 +160,9 @@
       [t("sum_hotels"), p.hotel.name],
       [t("sum_transport"), p.transport.name + (p.vehicles > 1 ? " × " + p.vehicles : "")],
       [t("sum_guide"), C.guide.names[state.lang]],
-      [t("sum_price"), "$" + p.pp + " " + t("per_person") + " · $" + p.total + " " + t("total")]
+      locked ? [t("sum_price"), t("lock_price")] : [t("sum_price"), "$" + p.pp + " " + t("per_person") + " · $" + p.total + " " + t("total")]
     ];
+    if (locked) lines.splice(1, 4);
     document.getElementById("summary").innerHTML = lines.map(function (l) { return "<div><small>" + l[0] + "</small><b>" + esc(l[1]) + "</b></div>"; }).join("");
     var msg = t("msg_tour") + "\n" + lines.map(function (l) { return "• " + l[0] + ": " + l[1]; }).join("\n") + "\n" + t("msg_dates") + " ";
     document.getElementById("wa").href = "https://wa.me/" + (CFG.whatsapp || "") + "?text=" + encodeURIComponent(msg);
@@ -162,8 +173,9 @@
   document.getElementById("lang").onchange = function (e) { state.lang = e.target.value; update(); };
   document.getElementById("single").onchange = function (e) { state.single = e.target.checked; update(); };
 
+  applyLock();
   update();
-  E.onPrices(function () { var bb = document.getElementById("bookbtn"); if (bb) bb.textContent = ((C.bookingOnline ? CFG.bookLabel : CFG.bookReqLabel) || CFG.bookLabel) + " →"; });
+  E.onPrices(function () { applyLock(); var bb = document.getElementById("bookbtn"); if (bb) bb.textContent = ((C.bookingOnline ? CFG.bookLabel : CFG.bookReqLabel) || CFG.bookLabel) + " →"; });
   E.onPrices(function () { var el = document.querySelector("[data-price]"); if (el) el.textContent = "$" + E.fromPrice(T).toLocaleString("en"); update(); });
   var start = parseInt((location.hash.match(/^#s(\d+)$/) || [])[1] || "1", 10) - 1;
   go(isNaN(start) ? 0 : start);

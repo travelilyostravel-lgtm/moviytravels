@@ -43,6 +43,11 @@ UI = {
   "h_eyebrow": "Fertige Reisen", "h_title": "Fertige Reisen durch Zentralasien",
   "h_sub": "Sechs bewährte Routen in jedem Land — öffnen Sie eine Reise, um Karte, Tagesprogramm und Preis zu sehen.",
   "view_tour": "Reise ansehen", "contact_us": "Kontakt", "follow": "Folgen Sie uns",
+  'lock_badge': 'In Vorbereitung',
+  'lock_price': 'Preis auf Anfrage',
+  'lock_title': 'Dieses Reiseziel wird vorbereitet',
+  'lock_text': 'Die Online-Preisberechnung für dieses Land startet in Kürze. Das Programm können Sie schon ansehen – für Preise, Termine und ein persönliches Angebot schreiben Sie unserem Manager.',
+  'lock_btn': 'Manager schreiben',
 }
 ITEMS = {
   "hotel": "Übernachtung in der gewählten Hotelkategorie mit Frühstück", "transfers": "Empfang am Flughafen oder an der Grenze, alle Transfers",
