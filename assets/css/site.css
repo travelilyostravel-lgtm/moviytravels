@@ -471,3 +471,9 @@ a.tour__img{display:block}
 .nav a{white-space:nowrap}
 @media (max-width:1360px){.nav{gap:20px;font-size:14.5px}}
 @media (max-width:1240px){.agent-link{display:none}}
+/* locked countries on the home page ("coming soon") */
+.lock-tag{display:none;margin-inline-start:8px;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--sand,#f3ede2);color:#8a5a00;vertical-align:middle}
+.ttab.is-locked .lock-tag,.tab.is-locked .lock-tag{display:inline-block}
+.ttab.is-locked,.tab.is-locked{cursor:not-allowed;opacity:.72;background:#f6f4ef!important;color:var(--navy)!important;border-style:dashed}
+.ttab.is-locked:hover,.tab.is-locked:hover{border-color:var(--line)}
+.ttab__lock{display:none!important}

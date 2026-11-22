@@ -86,11 +86,14 @@ def render(lang):
           <div class="tour__foot">{price}<a class="btn btn--gold btn--sm" href="tours/{tid}.html">{e(U["view_tour"])} →</a></div>
         </div>
       </article>'''
-    ttabs = "".join(f'<button class="ttab" role="tab" data-tc="{c}" aria-selected="{"true" if i == 0 else "false"}">{e(U["country_" + c])}<span class="ttab__lock">🔒</span></button>' for i, c in enumerate(TD.COUNTRIES))
+    OPEN = ["UZ"]  # default; admin can open more (Narxlar → "Narxi ochiq davlatlar"), applied in the browser
+    def lk(c): return c.upper() not in OPEN
+    soon = f'<span class="lock-tag">🔒 {e(U["lock_badge"])}</span>'
+    ttabs = "".join(f'<button class="ttab{" is-locked" if lk(c) else ""}" role="tab" data-tc="{c}" aria-selected="{"true" if i == 0 else "false"}"{" disabled aria-disabled=\"true\"" if lk(c) else ""} title="{e(U["lock_title"]) if lk(c) else ""}">{e(U["country_" + c])}{soon}</button>' for i, c in enumerate(TD.COUNTRIES))
     tgrids = "".join(f'<div class="tours tgrid{" is-active" if i == 0 else ""}" data-tc-panel="{c}">' + "".join(tour_card(x) for x in TD.TOURS if x["country"] == c) + '</div>' for i, c in enumerate(TD.COUNTRIES))
 
     tabs = "".join(
-        f'<button class="tab" role="tab" aria-selected="{"true" if i == 0 else "false"}" aria-controls="c-{c["id"]}">{e(t["countries"][c["id"]][0])}</button>'
+        f'<button class="tab{" is-locked" if lk(c["id"]) else ""}" role="tab" data-tc="{c["id"].upper()}" aria-selected="{"true" if i == 0 else "false"}" aria-controls="c-{c["id"]}"{" disabled aria-disabled=\"true\"" if lk(c["id"]) else ""} title="{e(U["lock_title"]) if lk(c["id"]) else ""}">{e(t["countries"][c["id"]][0])}{soon}</button>'
         for i, c in enumerate(COUNTRIES))
     panels = ""
     for i, c in enumerate(COUNTRIES):
@@ -311,7 +314,7 @@ def render(lang):
 
 <script>window.MN={js_cfg};</script>
 <script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/groups.js"></script><script src="{A}js/share.js"></script>
-<script>MN_ENGINE.onPrices(function(){{var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");}});document.querySelectorAll(".ttab[data-tc]").forEach(function(b){{b.classList.toggle("is-locked",!E.isOpen(b.getAttribute("data-tc")));}});}});</script>
+<script>MN_ENGINE.onPrices(function(){{var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");}});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){{var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");}});}});</script>
 <script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/forms.js" defer></script>
 <script src="{A}js/site.js" defer></script>
 </body>
