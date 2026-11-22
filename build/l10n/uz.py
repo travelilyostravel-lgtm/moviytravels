@@ -156,6 +156,7 @@ SIGHTS = {
   "sen_village": ["Sentyab qishlog'i", "Nurota tog'larida sayr va mahalliy oilada tunash."],
   "chim_mount": ["Chimyon tog'lari", "G'arbiy Tyan-Shanda kanat yo'li va sayr."],
   "chim_charvak": ["Chorvoq ko'li", "Tog'lar orasidagi feruza suv ombori."],
+  "chim_amirsoy": ["Amirsoy tog' kurorti", "Kanat yo'li va G'arbiy Tyan-Shan manzarasi bilan zamonaviy tog' kurorti."],
   "fer_kokand": ["Xudoyorxon saroyi", "Qo'qonning so'nggi xonlarining rang-barang saroyi."],
   "fer_jome": ["Qo'qon Jome masjidi", "98 ta o'ymakor yog'och ustunli masjid."],
   "fer_rishtan": ["Rishton sopoli", "Usta ustaxonalaridan moviy sirli sopol buyumlar."],

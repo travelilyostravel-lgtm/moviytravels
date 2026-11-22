@@ -187,6 +187,7 @@ SIGHTS = {
   "sen_village": ["Sentyab village", "Walk in the Nuratau mountains and stay with a local family."],
   "chim_mount": ["Chimgan mountains", "Cable car and walks in the Western Tian Shan."],
   "chim_charvak": ["Charvak lake", "A turquoise reservoir between the mountains."],
+  "chim_amirsoy": ["Amirsoy mountain resort", "Modern mountain resort with a gondola and panoramic views of the Western Tian Shan."],
   "fer_kokand": ["Khudayar Khan palace", "The colourful palace of the last khans of Kokand."],
   "fer_jome": ["Juma mosque of Kokand", "A mosque with 98 carved wooden columns."],
   "fer_rishtan": ["Rishtan ceramics", "Blue-glazed pottery from master workshops."],

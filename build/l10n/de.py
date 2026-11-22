@@ -155,6 +155,7 @@ SIGHTS = {
   "sen_village": ["Dorf Sentyab", "Wanderung im Nuratau-Gebirge und Übernachtung bei einer Familie."],
   "chim_mount": ["Tschimgan-Berge", "Seilbahn und Wanderungen im westlichen Tian Shan."],
   "chim_charvak": ["Tscharwak-Stausee", "Ein türkisfarbener Stausee zwischen den Bergen."],
+  "chim_amirsoy": ["Bergresort Amirsoy", "Modernes Bergresort mit Gondelbahn und Panoramablick auf den Westlichen Tian Shan."],
   "fer_kokand": ["Palast von Chudojar Khan", "Der farbenfrohe Palast der letzten Khane von Kokand."],
   "fer_jome": ["Freitagsmoschee von Kokand", "Eine Moschee mit 98 geschnitzten Holzsäulen."],
   "fer_rishtan": ["Keramik aus Rischtan", "Blau glasierte Keramik aus Meisterwerkstätten."],

@@ -155,6 +155,7 @@ SIGHTS = {
   "sen_village": ["Sentyab köyü", "Nuratau dağlarında yürüyüş ve yerel bir ailede konaklama."],
   "chim_mount": ["Çimgan dağları", "Batı Tanrı Dağları'nda teleferik ve yürüyüşler."],
   "chim_charvak": ["Çarvak Gölü", "Dağların arasında turkuaz baraj gölü."],
+  "chim_amirsoy": ["Amirsoy dağ tatil köyü", "Teleferiği ve Batı Tian Shan manzarasıyla modern bir dağ tatil köyü."],
   "fer_kokand": ["Hudayar Han Sarayı", "Hokand'ın son hanlarının renkli sarayı."],
   "fer_jome": ["Hokand Cuma Camii", "98 oymalı ahşap sütunlu cami."],
   "fer_rishtan": ["Rişton seramiği", "Usta atölyelerinden mavi sırlı çömlekler."],

@@ -99,7 +99,7 @@ SIGHTS = {
     "nuk_savitsky": ("nukus", "ceramics"), "moy_ships": ("moynaq", "uz-aral"), "moy_aral": ("moynaq", "uz-aral2"),
     "ayd_yurt": ("aydarkul", "uz-yurt"), "ayd_camel": ("aydarkul", "uz-camels"), "ayd_lake": ("aydarkul", "kyzylkum"),
     "nur_fortress": ("nurata", "kyzylkum"), "sen_village": ("sentyab", "autumn-mountains"),
-    "chim_mount": ("chimgan", "chimgan"), "chim_charvak": ("chimgan", "uz-charvak"),
+    "chim_mount": ("chimgan", "chimgan"), "chim_charvak": ("chimgan", "uz-charvak"), "chim_amirsoy": ("chimgan", "uz-snowpeaks"),
     "fer_kokand": ("kokand", "uz-mosaic"), "fer_jome": ("kokand", "uz-kokand-mosque"), "fer_rishtan": ("fergana", "ceramics"),
     "fer_margilan": ("fergana", "uz-fabrics"), "fer_bazaar": ("fergana", "uz-dress"), "fer_valley": ("fergana", "uz-fergana-road"),
     "ter_fayaz": ("termez", "uz-termez"), "ter_hakim": ("termez", "kukeldash"), "ter_kyrkyz": ("termez", "kyzylkum"),
@@ -196,7 +196,7 @@ TOURS = [
    (None, [["khiva", "urgench"], ["urgench", "tashkent"]], ["khi_islamkhoja"], "B")], ["flight", "yurt", "jeep", "dinner"], bring=BRING_MOUNT),
  T("nature", "UZ", "chimgan", "comfort", [
    ("tashkent", [], ["tash_imam", "tash_chorsu"], "D"),
-   ("tashkent", [["tashkent", "chimgan"], ["chimgan", "tashkent"]], ["chim_mount", "chim_charvak"], "B"),  # day trip, night in Tashkent
+   ("tashkent", [["tashkent", "chimgan"], ["chimgan", "tashkent"]], ["chim_mount", "chim_amirsoy", "chim_charvak"], "B"),  # day trip, night in Tashkent
    ("samarkand", [["tashkent", "samarkand"]], ["sam_registan"], "B"),
    ("sentyab", [["samarkand", "nurata"], ["nurata", "sentyab"]], ["nur_fortress", "sen_village"], "B,D"),
    ("aydarkul", [["sentyab", "aydarkul"]], ["ayd_lake", "ayd_camel", "ayd_yurt"], "B,L,D"),

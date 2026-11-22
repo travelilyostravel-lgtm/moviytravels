@@ -155,6 +155,7 @@ SIGHTS = {
   "sen_village": ["Byn Sentyab", "Vandring i Nuratau och övernattning hos en lokal familj."],
   "chim_mount": ["Chimganbergen", "Linbana och vandringar i västra Tian Shan."],
   "chim_charvak": ["Charvaksjön", "En turkos reservoar mellan bergen."],
+  "chim_amirsoy": ["Fjällresorten Amirsoy", "Modern fjällresort med gondolbana och utsikt över västra Tian Shan."],
   "fer_kokand": ["Khudayar Khans palats", "De sista khanerna i Kokands färgstarka palats."],
   "fer_jome": ["Fredagsmoskén i Kokand", "En moské med 98 snidade träpelare."],
   "fer_rishtan": ["Keramik från Rishtan", "Blåglaserad keramik från mästarverkstäder."],
