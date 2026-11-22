@@ -59,7 +59,7 @@ table{width:100%;border-collapse:collapse;font-size:12.5px}td,th{padding:1.7mm 2
     var cells=[[L.no,v.ref],[L.dates,d(v.start_date)+(days?" — "+d(v.start_date,days-1):"")],[L.tour,days?L.dur.replace("{d}",days).replace("{n}",nights):""],[L.pax,v.pax]];
     if(v.kind==="b2b") cells.push([L.agency,v.agency]); else cells.push([L.lead,v.lead]);
     cells.push([L.hotel,name("hotels",det.hotel||cfg.hotel||(T&&T.hotel))]); if(det.room) cells.push([L.room,{twin_share:"Twin (shared)",twin:"Twin",single:"Single"}[det.room]||det.room]);
-    cells.push([L.guide,det.guide_lang||cfg.guide||"English"]); cells.push([L.issued,d((v.issued||"").slice(0,10))]);
+    cells.push([L.guide,det.guide_lang||cfg.guide||"English"]); var iss=v.issued?new Date(v.issued):new Date(); cells.push([L.issued,d(iss.getFullYear()+"-"+String(iss.getMonth()+1).padStart(2,"0")+"-"+String(iss.getDate()).padStart(2,"0"))]);
     var route="",prog="";
     if(T){var seq=[];T.days.forEach(function(x){if(x.sleep){var l=seq[seq.length-1];if(l&&l.c===x.sleep)l.n++;else seq.push({c:x.sleep,n:1});}});
       route='<div class="route">'+seq.map(function(s){return'<span>'+esc(name("cities",s.c))+' · '+s.n+' '+(s.n>1?L.nights:L.night)+'</span>';}).join('<i>→</i>')+'</div>';
