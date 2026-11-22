@@ -166,18 +166,21 @@
 
     // Payment
     if (b.status === "request") h += '<div class="p-card"><h3>Next step</h3><p>Add all travellers with their passports below. Moviy Nomad will check availability and send you the payment details here.</p></div>';
-    if (b.status === "awaiting_payment" || b.status === "payment_reported") {
-      h += '<div class="p-card"><h3>Payment</h3><div class="msg msg--info" style="white-space:pre-wrap">' + esc(b.payment_details || "") + '</div><p>Amount to pay: <b>' + P.money(b.netto) + '</b> · Reference: <b>' + esc(b.ref) + '</b></p>';
-      if (b.status === "awaiting_payment") h += '<div class="p-actions"><button class="btn btn--green" id="paid">I have paid</button></div>';
+    if (b.status === "awaiting_payment" || b.status === "payment_reported" || b.status === "deposit_paid") {
+      var dep = Math.round(b.netto * 0.3), due = b.balance_due ? P.date(b.balance_due) : "14 days before the start";
+      h += '<div class="p-card"><h3>Payment</h3><div class="msg msg--info" style="white-space:pre-wrap">' + esc(b.payment_details || "") + '</div><p>Total netto: <b>' + P.money(b.netto) + '</b> · Reference: <b>' + esc(b.ref) + '</b></p>' +
+        '<table class="tbl"><tr><th>30% deposit</th><td><b>' + P.money(dep) + '</b> — within 3 working days of the invoice' + ((+b.paid_total || 0) >= dep ? ' ✅ received' : '') + '</td></tr><tr><th>70% balance</th><td><b>' + P.money(b.netto - dep) + '</b> — by ' + esc(due) + '</td></tr><tr><th>Received</th><td><b>' + P.money(+b.paid_total || 0) + '</b></td></tr></table>';
+      if (b.status === "awaiting_payment" || b.status === "deposit_paid") h += '<div class="p-actions"><button class="btn btn--green" id="paid">I have paid</button></div>';
       else h += '<p class="msg msg--ok">You reported the payment. We will confirm it as soon as the money arrives.</p>';
       var txt = encodeURIComponent("Moviy Nomad, payment sent for booking " + b.ref + ": " + P.money(b.netto) + " (" + (me.agency && me.agency.name) + ")");
       h += '<div class="p-actions"><a class="btn btn--wa btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + esc(CFG.whatsapp || "") + '?text=' + txt + '">Notify on WhatsApp</a><a class="btn btn--tg btn--sm" target="_blank" rel="noopener" href="https://t.me/' + esc(CFG.telegram || "") + '">Notify on Telegram</a></div></div>';
     }
 
     // Vouchers
-    if (vc.length || sv.length) {
+    if (vc.length || sv.length || b.voucher_key) {
       h += '<div class="p-card"><h3>Services & vouchers</h3>' +
         (sv.length ? '<table class="tbl"><thead><tr><th>Service</th><th>City</th><th>Dates</th><th>Confirmation</th></tr></thead><tbody>' + sv.map(function (s) { return '<tr><td><b>' + esc(s.title) + '</b><br><small>' + esc(s.kind) + '</small></td><td>' + esc(s.city || "") + '</td><td>' + P.date(s.date_from) + (s.date_to ? " – " + P.date(s.date_to) : "") + '</td><td>' + esc(s.confirmation_no || "") + '</td></tr>'; }).join("") + '</tbody></table>' : '') +
+        (b.voucher_key ? '<p style="margin-top:12px"><a class="btn btn--gold btn--sm" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '">🧾 Travel voucher (PDF) — for your client</a></p>' : '') +
         (vc.length ? '<div class="files" style="margin-top:14px">' + vc.map(function (v) { return '<div class="file"><b>📄 ' + esc(v.title || v.kind) + '</b><button data-v="' + esc(v.file_path) + '">Download PDF</button></div>'; }).join("") + '</div>' : '') + '</div>';
     }
 

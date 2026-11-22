@@ -544,6 +544,7 @@ def main():
             f.write(render(lang))
         print("ok", os.path.relpath(out, ROOT))
     build_tours.main()
+    import voucher_page; voucher_page.write(ROOT, CONFIG, LOGO); print('ok voucher.html')
     ids = {tr["id"] for tr in TD.TOURS}
     for lang in LANGS:
         d = os.path.join(ROOT, path_for(lang), "tours"); os.makedirs(d, exist_ok=True)

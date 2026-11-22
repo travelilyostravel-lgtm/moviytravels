@@ -1,6 +1,8 @@
 /* Moviy Nomad — admin panel (UI in Uzbek) */
 (function () {
   var P = window.MNP, sb = P.sb, $ = P.$, $$ = P.$$, esc = P.esc, CFG = window.MN || {};
+  function addD(d, n) { if (!d) return null; var t = new Date(d + "T12:00:00"); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); }
+  function vlink(b) { return location.origin + location.pathname.replace(/admin\/.*$/, "") + "voucher.html?ref=" + encodeURIComponent(b.ref) + "&k=" + b.voucher_key; }
   var L = "uz", bFilter = "active", aFilter = "pending";
   var DEFAULT_PAYMENT = "Bank: …\nBeneficiary: … (Moviy Travel)\nAccount / IBAN: …\nSWIFT: …\nPurpose: Tour services, booking {ref}";
 
@@ -77,14 +79,15 @@
         '<div class="p-grid"><div class="fld"><label>Brutto (jami, $)</label><input type="number" step="0.01" id="e-brutto" value="' + b.brutto + '"></div><div class="fld"><label>Komissiya, %</label><input type="number" step="0.5" id="e-comm" value="' + b.commission_pct + '"></div>' +
         '<div class="fld full"><label>To\'lov rekvizitlari (agent ko\'radi)</label><textarea id="e-pay">' + esc(b.payment_details || DEFAULT_PAYMENT.replace("{ref}", b.ref)) + '</textarea></div></div>' +
         '<div class="p-actions"><button class="btn btn--gold" id="a-invoice">Rekvizitlarni yuborish → “To\'lov kutilmoqda”</button></div>';
-    } else if (b.status === "awaiting_payment") {
-      h += '<p>Agent to\'lov qilishini kutyapmiz. Pul tushgan bo\'lsa, to\'g\'ridan-to\'g\'ri tasdiqlashingiz mumkin.</p><div class="p-actions"><button class="btn btn--green" id="a-paid">Pul tushdi — to\'lovni tasdiqlash</button></div>';
-    } else if (b.status === "payment_reported") {
-      h += '<div class="msg msg--info">Agent ' + P.date(b.payment_reported_at) + ' kuni to\'lov qilganini bildirdi. Hisobingizni tekshiring: <b>' + P.money(b.netto) + '</b>, maqsad: <b>' + esc(b.ref) + '</b>.</div><div class="p-actions"><button class="btn btn--green" id="a-paid">Pul tushdi — to\'lovni tasdiqlash</button><button class="btn btn--outline" id="a-back-pay">Pul kelmadi — qaytarish</button></div>';
+    } else if (b.status === "awaiting_payment" || b.status === "deposit_paid" || b.status === "payment_reported") {
+      var dep = Math.round(b.netto * 0.3), due = b.balance_due || addD(b.start_date, -14), paidT = +b.paid_total || 0;
+      h += '<table class="tbl"><tr><th style="width:230px">30% oldindan</th><td><b>' + P.money(dep) + '</b> — rekvizit yuborilgandan keyin 3 ish kunida</td></tr><tr><th>Qolgan 70%</th><td><b>' + P.money(b.netto - dep) + '</b> — ' + P.date(due) + ' gacha</td></tr><tr><th>Tushgan</th><td><b>' + P.money(paidT) + '</b> / ' + P.money(b.netto) + '</td></tr></table>';
+      if (b.status === "payment_reported") h += '<div class="msg msg--info">Agent ' + P.date(b.payment_reported_at) + ' kuni to\'lov qilganini bildirdi. Hisobingizni tekshiring, maqsad: <b>' + esc(b.ref) + '</b>.</div>';
+      h += '<div class="p-actions">' + (paidT < dep ? '<button class="btn btn--green" id="a-dep">30% tushdi (' + P.money(dep) + ')</button>' : '') + '<button class="btn btn--green" id="a-paid">100% tushdi — to\'lov to\'liq</button>' + (b.status === "payment_reported" ? '<button class="btn btn--outline" id="a-back-pay">Pul kelmadi — qaytarish</button>' : '') + '</div>';
     } else if (b.status === "paid") {
       h += '<p>Pastda mehmonxona, transport, gid va sug\'urta ma\'lumotlarini kiriting, keyin vaucherlarni yarating. Vaucherlar tayyor bo\'lgach, agent ularni yuklab oladi.</p>';
     } else if (b.status === "confirmed") {
-      h += '<p class="msg msg--ok">Vaucherlar tayyor, agent yuklab olishi mumkin.</p>';
+      h += '<p class="msg msg--ok">Vaucherlar tayyor, agent yuklab olishi mumkin.</p>' + (b.voucher_key ? '<p>Milliy dizayndagi umumiy vaucher (agent va mijoz uchun havola): <a class="link" target="_blank" rel="noopener" href="' + esc(vlink(b)) + '">' + esc(vlink(b)) + '</a></p>' : '');
     } else h += '<p>Bekor qilingan.</p>';
     h += '<div class="fld" style="margin-top:14px"><label>Ichki izoh (agent ko\'rmaydi)</label><textarea id="e-note">' + esc(b.admin_note || "") + '</textarea></div>' +
       '<div class="msg" id="m-b"></div><div class="p-actions"><button class="btn btn--outline btn--sm" id="a-note">Izohni saqlash</button>' + (b.status !== "cancelled" && b.status !== "confirmed" ? '<button class="btn btn--red btn--sm" id="a-cancel">Bronni bekor qilish</button>' : '') + '</div></div>';
@@ -116,9 +119,10 @@
       var br = parseFloat($("#e-brutto").value), cm = parseFloat($("#e-comm").value), pay = $("#e-pay").value.trim();
       if (!(br > 0) || isNaN(cm) || !pay) return P.msg("#m-b", "Narx, komissiya va rekvizitlarni to'ldiring.", "err");
       if (tr.length < b.pax && !confirm("Sayyohlar to'liq kiritilmagan (" + tr.length + "/" + b.pax + "). Baribir yuborilsinmi?")) return;
-      upd({ brutto: br, commission_pct: cm, payment_details: pay, status: "awaiting_payment" });
+      upd({ brutto: br, commission_pct: cm, payment_details: pay, status: "awaiting_payment", balance_due: addD(b.start_date, -14) });
     };
-    if ((x = $("#a-paid"))) x.onclick = function () { if (confirm(P.money(b.netto) + " hisobingizga tushganini tasdiqlaysizmi?")) upd({ status: "paid" }); };
+    if ((x = $("#a-paid"))) x.onclick = function () { if (confirm(P.money(b.netto) + " (100%) hisobingizga tushganini tasdiqlaysizmi?")) upd({ status: "paid", paid_total: b.netto }); };
+    if ((x = $("#a-dep"))) x.onclick = function () { var dep = Math.round(b.netto * 0.3); if (confirm(P.money(dep) + " (30%) tushganini tasdiqlaysizmi?")) upd({ status: "deposit_paid", paid_total: dep, payment_reported_at: null }); };
     if ((x = $("#a-back-pay"))) x.onclick = function () { if (confirm("Holat “To'lov kutilmoqda”ga qaytarilsinmi?")) upd({ status: "awaiting_payment", payment_reported_at: null }); };
     if ((x = $("#a-cancel"))) x.onclick = function () { if (confirm(b.ref + " bekor qilinsinmi? Buni qaytarib bo'lmaydi.")) upd({ status: "cancelled" }); };
     $("#a-note").onclick = function () { upd({ admin_note: $("#e-note").value.trim() || null }, "Saqlandi"); };
@@ -143,7 +147,8 @@
             var ins = await sb.from("vouchers").insert({ booking_id: id, kind: f.kind, title: f.title, file_path: path });
             if (ins.error) throw ins.error;
           }
-          var st = await sb.from("bookings").update({ status: "confirmed" }).eq("id", id);
+          var kb = new Uint8Array(18); crypto.getRandomValues(kb);
+          var st = await sb.from("bookings").update({ status: "confirmed", voucher_key: b.voucher_key || Array.from(kb, function (n) { return ("0" + n.toString(16)).slice(-2); }).join("") }).eq("id", id);
           if (st.error) throw st.error;
           openBooking(id);
         } catch (e) { btn.disabled = false; P.msg("#m-svc", P.err(e), "err"); }

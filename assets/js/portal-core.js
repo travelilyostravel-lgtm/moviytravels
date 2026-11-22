@@ -30,15 +30,15 @@
   }
 
   var STATUS = {
-    en: { request: "Request", awaiting_payment: "Awaiting payment", payment_reported: "Payment reported", paid: "Paid", confirmed: "Confirmed", cancelled: "Cancelled",
+    en: { request: "Request", awaiting_payment: "Awaiting payment", payment_reported: "Payment reported", deposit_paid: "Deposit paid (30%)", paid: "Paid", confirmed: "Confirmed", cancelled: "Cancelled",
           pending: "Pending review", approved: "Approved", rejected: "Rejected", blocked: "Blocked" },
-    uz: { request: "Yangi so'rov", awaiting_payment: "To'lov kutilmoqda", payment_reported: "To'lov qilindi (tekshirish)", paid: "To'lov tasdiqlandi", confirmed: "Vaucherlar tayyor", cancelled: "Bekor qilingan",
+    uz: { request: "Yangi so'rov", awaiting_payment: "To'lov kutilmoqda", payment_reported: "To'lov qilindi (tekshirish)", deposit_paid: "30% to'landi", paid: "To'lov tasdiqlandi", confirmed: "Vaucherlar tayyor", cancelled: "Bekor qilingan",
           pending: "Tekshiruvda", approved: "Tasdiqlangan", rejected: "Rad etilgan", blocked: "Bloklangan" }
   };
   function badge(s, lang) { return '<span class="badge-s st-' + esc(s) + '">' + esc((STATUS[lang || "en"] || STATUS.en)[s] || s) + '</span>'; }
-  var FLOW = ["request", "awaiting_payment", "payment_reported", "paid", "confirmed"];
+  var FLOW = ["request", "awaiting_payment", "deposit_paid", "paid", "confirmed"];
   function flowLine(s, lang) {
-    var i = FLOW.indexOf(s);
+    var i = FLOW.indexOf(s === "payment_reported" ? "awaiting_payment" : s);
     if (s === "cancelled") return '<div class="steps-line"><span class="now">' + esc(STATUS[lang || "en"].cancelled) + '</span></div>';
     return '<div class="steps-line">' + FLOW.map(function (f, n) { return '<span class="' + (n < i ? "done" : n === i ? "now" : "") + '">' + esc(STATUS[lang || "en"][f]) + '</span>'; }).join("") + '</div>';
   }

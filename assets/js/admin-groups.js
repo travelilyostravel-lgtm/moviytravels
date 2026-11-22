@@ -3,6 +3,8 @@
  * Visitors see only published upcoming departures (price, seats left) — never costs or notes. UI in Uzbek. */
 (function () {
   var P = window.MNP, sb = P && P.sb, A = window.MNA = window.MNA || {};
+  var KN = { small: "Kichik guruh (12–17)", medium: "O'rta guruh (30–35)", large: "Katta guruh (45–50)" };
+  var VH = { minibus: "Mikroavtobus (1 gid)", bus: "Avtobus (2 gid)", bus50: "50 o'rinli avtobus (2 gid)" };
   if (!sb) return;
   var $ = P.$, $$ = P.$$, esc = P.esc, E = window.MN_ENGINE, C = window.MN_CATALOG, TOURS = window.MN_TOURS || {}, L = window.MN_L || {};
   var ST = { open: "Bron ochiq", guaranteed: "Kafolatlangan", full: "Joy qolmadi", cancelled: "Bekor qilingan" };
@@ -73,7 +75,7 @@
     return (cap ? '<h3 style="margin:18px 0 8px">' + cap + '</h3>' : '') + '<table class="tbl"><thead><tr><th>Sana</th><th>Tur</th><th>Holat</th><th>Joylar</th><th>So\'rovlar</th><th>Narx / kishi</th><th>Saytda</th></tr></thead><tbody>' +
       list.map(function (x) {
         var rq = reqFor(x.id), rp = rq.reduce(function (s, r) { return s + (r.pax || 1); }, 0);
-        return '<tr class="click" data-id="' + x.id + '"><td><b>' + P.date(x.start_date) + '</b><br><small>' + P.date(endDate(x)) + ' gacha</small></td><td>' + esc(title(x.tour_id)) + '<br><small>' + days(x.tour_id) + ' kun · ' + x.guides + ' gid · ' + esc(x.guide_lang) + '</small></td>' +
+        return '<tr class="click" data-id="' + x.id + '"><td><b>' + P.date(x.start_date) + '</b><br><small>' + P.date(endDate(x)) + ' gacha</small></td><td>' + esc(title(x.tour_id)) + '<br><small>' + days(x.tour_id) + ' kun · ' + esc(KN[x.group_kind] || "") + ' · ' + x.guides + ' gid · ' + esc(x.guide_lang) + '</small></td>' +
           '<td>' + esc(ST[x.status] || x.status) + '</td><td><b>' + x.booked + '</b> / ' + x.capacity + '<br><small>' + Math.max(0, x.capacity - x.booked) + ' bo\'sh</small></td>' +
           '<td>' + (rq.length ? '<b>' + rq.length + '</b> ta (' + rp + ' kishi)' : '—') + '</td><td>' + money(x.price_pp) + (x.single_supp ? '<br><small>single +' + money(x.single_supp) + '</small>' : '') + '</td>' +
           '<td>' + (x.published ? '✅ E\'lon qilingan' : '📝 Qoralama') + '</td></tr>';
@@ -83,7 +85,7 @@
   // ---------------------------------------------------------------- edit one departure
   function edit(x) {
     A.show("group");
-    var isNew = !x; x = x || { tour_id: "classic", start_date: "", capacity: 50, booked: 0, guides: 2, guide_lang: "English", status: "open", published: false, price_pp: null, single_supp: null, note: "", admin_note: "" };
+    var isNew = !x; x = x || { tour_id: "classic", start_date: "", capacity: 50, booked: 0, guides: 2, guide_lang: "English", status: "open", published: false, group_kind: "large", vehicle: "bus50", extra_night: 65, transfer_pp: 25, price_pp: null, single_supp: null, note: "", admin_note: "" };
     var box = $("#v-group");
     var opts = uzTours().map(function (k) { return '<option value="' + k + '"' + (k === x.tour_id ? " selected" : "") + '>' + esc(title(k)) + ' (' + days(k) + ' kun)</option>'; }).join("");
     var rq = x.id ? reqFor(x.id) : [];
@@ -91,6 +93,10 @@
       '<div class="np-grid">' +
       fld("Tur (yo'nalish)", '<select id="g-tour">' + opts + '</select>') +
       fld("Boshlanish sanasi", '<input type="date" id="g-date" value="' + esc(x.start_date || "") + '">', '<span id="g-end"></span>') +
+      fld("Guruh turi", '<select id="g-kind">' + Object.keys(KN).map(function (k) { return '<option value="' + k + '"' + (x.group_kind === k ? " selected" : "") + '>' + KN[k] + '</option>'; }).join("") + '</select>') +
+      fld("Transport", '<select id="g-veh">' + Object.keys(VH).map(function (k) { return '<option value="' + k + '"' + (x.vehicle === k ? " selected" : "") + '>' + VH[k] + '</option>'; }).join("") + '</select>') +
+      fld("Toshkentda qo'shimcha kecha, 1 kishiga ($)", '<input type="number" id="g-xn" min="0" value="' + (x.extra_night == null ? "" : x.extra_night) + '">') +
+      fld("Individual transfer, 1 kishiga ($)", '<input type="number" id="g-xt" min="0" value="' + (x.transfer_pp == null ? "" : x.transfer_pp) + '">') +
       fld("Guruh sig'imi (kishi)", '<input type="number" id="g-cap" min="1" max="200" value="' + x.capacity + '">') +
       fld("Band qilingan joylar", '<input type="number" id="g-booked" min="0" value="' + x.booked + '">', "To'lov qilganlar sonini o'zingiz yozasiz") +
       fld("Gidlar soni", '<input type="number" id="g-guides" min="1" max="10" value="' + x.guides + '">') +
@@ -125,6 +131,7 @@
     $("#g-save").onclick = async function () {
       var row = { tour_id: $("#g-tour").value, start_date: $("#g-date").value, capacity: parseInt($("#g-cap").value, 10) || 50, booked: parseInt($("#g-booked").value, 10) || 0,
         guides: parseInt($("#g-guides").value, 10) || 2, guide_lang: $("#g-lang").value.trim() || "English", price_pp: n($("#g-price").value), single_supp: n($("#g-single").value),
+        group_kind: $("#g-kind").value, vehicle: $("#g-veh").value, extra_night: n($("#g-xn").value), transfer_pp: n($("#g-xt").value),
         status: $("#g-status").value, published: $("#g-pub1").checked, note: $("#g-note").value.trim() || null, admin_note: $("#g-anote").value.trim() || null, updated_at: new Date().toISOString() };
       if (!row.start_date) return P.msg("#g-m", "Sanani kiriting", "err");
       if (row.booked >= row.capacity && row.status === "open") row.status = "full";
@@ -170,7 +177,8 @@
         (per === 1 ? [list[0]] : per === 2 ? [list[0], list[2]] : list).forEach(function (x) { if (x) out.push(iso(x)); });
       });
       var today = iso(new Date()), tid = $("#q-tour").value;
-      var taken = all.filter(function (x) { return x.tour_id === tid; }).map(function (x) { return x.start_date; });
+      var cap = parseInt($("#q-cap").value, 10) || 50, kd = cap <= 17 ? "small" : cap <= 35 ? "medium" : "large";
+      var taken = all.filter(function (x) { return x.tour_id === tid && (x.group_kind || "large") === kd; }).map(function (x) { return x.start_date; });
       return out.filter(function (s) { return s > today && taken.indexOf(s) < 0; });
     }
     function prev() { var ds = dates(); $("#q-prev").innerHTML = '<p class="p-sub"><b>' + ds.length + ' ta sana</b>: ' + ds.map(function (s) { return P.date(s); }).join(", ") + '</p>'; }
@@ -179,7 +187,8 @@
     $("#q-go").onclick = async function () {
       var ds = dates(); if (!ds.length) return P.msg("#q-m", "Sana yo'q — oylarni tanlang", "err");
       var base = { tour_id: $("#q-tour").value, capacity: parseInt($("#q-cap").value, 10) || 50, guides: parseInt($("#q-guides").value, 10) || 2, guide_lang: "English",
-        price_pp: n($("#q-price").value), single_supp: n($("#q-single").value), status: "open", published: false };
+        price_pp: n($("#q-price").value), single_supp: n($("#q-single").value), status: "open", published: false, extra_night: 65, transfer_pp: 25 };
+      base.group_kind = base.capacity <= 17 ? "small" : base.capacity <= 35 ? "medium" : "large"; base.vehicle = base.group_kind === "small" ? "minibus" : base.group_kind === "medium" ? "bus" : "bus50";
       var r = await sb.from("group_departures").insert(ds.map(function (s) { return Object.assign({ start_date: s }, base); }));
       if (r.error) return P.msg("#q-m", r.error.message, "err");
       P.msg("#q-m", ds.length + " ta qoralama yaratildi", "ok"); setTimeout(A.groups, 600);

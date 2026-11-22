@@ -7,7 +7,7 @@ UI = {
   'copy_link': 'Bağlantıyı kopyala',
   'copied': 'Bağlantı kopyalandı!',
   'share_msg': "Moviy Nomad'ın bu turuna göz atın:",
-  'site_msg': "Moviy Nomad — Özbekistan, Kazakistan, Kırgızistan ve Tacikistan'da hazır turlar:",
+  'site_msg': "Moviy Nomad — Özbekistan'da hazır turlar:",
   'pdf_hint': 'Yazdırma penceresinde “PDF olarak kaydet”i seçin.',
   "day_n": '{n}. gün',
   "days": "gün", "nights": "gece", "destinations": "destinasyon", "km": "km", "from": "başlayan", "h": "sa", "min": "dk",

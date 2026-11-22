@@ -7,7 +7,7 @@ UI = {
   'copy_link': 'Copy link',
   'copied': 'Link copied!',
   'share_msg': 'Have a look at this tour from Moviy Nomad:',
-  'site_msg': 'Moviy Nomad — ready tours across Uzbekistan, Kazakhstan, Kyrgyzstan and Tajikistan:',
+  'site_msg': 'Moviy Nomad — ready tours across Uzbekistan:',
   'pdf_hint': 'In the print window choose “Save as PDF”.',
   "day_n": 'Day {n}',
   # generic

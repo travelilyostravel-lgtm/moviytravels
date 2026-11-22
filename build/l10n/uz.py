@@ -7,7 +7,7 @@ UI = {
   'copy_link': 'Havolani nusxalash',
   'copied': 'Havola nusxalandi!',
   'share_msg': "Moviy Nomad'ning shu turini ko'ring:",
-  'site_msg': "Moviy Nomad — O'zbekiston, Qozog'iston, Qirg'iziston va Tojikiston bo'ylab tayyor turlar:",
+  'site_msg': "Moviy Nomad — O'zbekiston bo'ylab tayyor turlar:",
   'pdf_hint': 'Chop etish oynasida «PDF sifatida saqlash»ni tanlang.',
   "day_n": '{n}-kun',
   "days": "kun", "nights": "tun", "destinations": "manzil", "km": "km", "from": "dan", "h": "soat", "min": "daq",

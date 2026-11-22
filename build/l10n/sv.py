@@ -7,7 +7,7 @@ UI = {
   'copy_link': 'Kopiera länk',
   'copied': 'Länken kopierad!',
   'share_msg': 'Kolla in den här resan från Moviy Nomad:',
-  'site_msg': 'Moviy Nomad — färdiga resor i Uzbekistan, Kazakstan, Kirgizistan och Tadzjikistan:',
+  'site_msg': 'Moviy Nomad — färdiga resor i Uzbekistan:',
   'pdf_hint': 'Välj ”Spara som PDF” i utskriftsfönstret.',
   "day_n": 'Dag {n}',
   "days": "dagar", "nights": "nätter", "destinations": "platser", "km": "km", "from": "från", "h": "tim", "min": "min",

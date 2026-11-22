@@ -43,6 +43,7 @@ body.portal{background:var(--sand);min-height:100vh}
 .st-pending,.st-request{background:#fff4dc;color:#7a5200}
 .st-approved,.st-paid{background:#e2f1fb;color:#0d5e8a}
 .st-awaiting_payment{background:#fdecd9;color:#9a4b05}
+.st-deposit_paid{background:#efe6fb;color:#5b3a9a}
 .st-payment_reported{background:#efe9fb;color:#5b3fa8}
 .st-confirmed{background:#ecf8f1;color:#1c7a47}
 .st-rejected,.st-blocked,.st-cancelled{background:#f3f1ee;color:#7b7368}
