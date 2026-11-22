@@ -196,8 +196,8 @@ TOURS = [
    (None, [["khiva", "urgench"], ["urgench", "tashkent"]], ["khi_islamkhoja"], "B")], ["flight", "yurt", "jeep", "dinner"], bring=BRING_MOUNT),
  T("nature", "UZ", "chimgan", "comfort", [
    ("tashkent", [], ["tash_imam", "tash_chorsu"], "D"),
-   ("chimgan", [["tashkent", "chimgan"]], ["chim_mount", "chim_charvak"], "B"),
-   ("samarkand", [["chimgan", "tashkent"], ["tashkent", "samarkand"]], ["sam_registan"], "B"),
+   ("tashkent", [["tashkent", "chimgan"], ["chimgan", "tashkent"]], ["chim_mount", "chim_charvak"], "B"),  # day trip, night in Tashkent
+   ("samarkand", [["tashkent", "samarkand"]], ["sam_registan"], "B"),
    ("sentyab", [["samarkand", "nurata"], ["nurata", "sentyab"]], ["nur_fortress", "sen_village"], "B,D"),
    ("aydarkul", [["sentyab", "aydarkul"]], ["ayd_lake", "ayd_camel", "ayd_yurt"], "B,L,D"),
    ("bukhara", [["aydarkul", "bukhara"]], ["buk_lyabi", "buk_poikalon"], "B"),

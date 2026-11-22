@@ -25,7 +25,9 @@
     T.bring = (T.bring || []).map(function (k) { return [L.bringIcon[k] || "passport", L.items[k] || k]; });
     T.days.forEach(function (d) {
       var from = d.move && d.move.length ? d.move[0][0] : null;
-      d.title = !d.sleep ? t("departure") : (from && from !== d.sleep ? cname(from) + " → " + cname(d.sleep) : cname(d.sleep));
+      var roundTrip = from && from === d.sleep && d.move.length > 1;  // day trip and back to the same hotel
+      d.title = !d.sleep ? t("departure") : roundTrip ? cname(from) + " → " + cname(d.move[0][1]) + " → " + cname(d.sleep)
+        : (from && from !== d.sleep ? cname(from) + " → " + cname(d.sleep) : cname(d.sleep));
       if (!d.stops.length) d.stops = [{ id: "", img: (C.cities[from || d.sleep || "tashkent"] || C.cities.tashkent).img, city: d.sleep }];
       d.stops.forEach(function (st) { var x = L.sights[st.id] || [cname(st.city), (C.cities[st.city] || {}).desc || ""]; st.name = x[0]; st.desc = x[1]; });
     });
