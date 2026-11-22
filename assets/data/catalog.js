@@ -7,7 +7,7 @@ window.MN_CATALOG = {
   currency: "USD",
   markup: 0.20,            // agency margin added on top of costs
   defaultPax: 2,
-  openCountries: ["UZ"],   // countries with live prices; others show "coming soon" (admin can change)
+  openCountries: ["UZ", "CA"],   // countries with live prices; others show "coming soon" (admin can change)
 
   // Cities and transfers are generated into assets/data/places.js (build/tours_data.py).
 

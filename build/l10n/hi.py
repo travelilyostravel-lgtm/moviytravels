@@ -12,7 +12,7 @@ UI = {
   "day_n": 'दिन {n}',
   "days": "दिन", "nights": "रातें", "destinations": "गंतव्य", "km": "कि.मी.", "from": "से शुरू", "h": "घं", "min": "मि",
   "pp_2": "प्रति व्यक्ति · 2 यात्रियों पर", "see_program": "कार्यक्रम देखें →", "sample": "अनुमानित कीमतें", "close": "बंद करें",
-  "country_UZ": "उज़्बेकिस्तान", "country_KZ": "कज़ाख़िस्तान", "country_KG": "किर्गिज़स्तान", "country_TJ": "ताजिकिस्तान", "country_TM": "तुर्कमेनिस्तान", "country_AF": "अफ़ग़ानिस्तान",
+  "country_UZ": "उज़्बेकिस्तान", "country_KZ": "कज़ाख़िस्तान", "country_KG": "किर्गिज़स्तान", "country_TJ": "ताजिकिस्तान", "country_CA": "मध्य एशिया (4 देश)", "country_TM": "तुर्कमेनिस्तान", "country_AF": "अफ़ग़ानिस्तान",
   "season_all": "पूरे साल", "season_summer": "जून – सितंबर", "season_spring_autumn": "अप्रैल – अक्टूबर",
   "lbl_cover": "कवर", "lbl_route": "मार्ग", "lbl_included": "शामिल", "lbl_day": "दिन", "lbl_options": "विकल्प", "lbl_packing": "तैयारी", "lbl_book": "बुकिंग",
   "route_eyebrow": "मार्ग", "route_title": "नक्शे पर आपकी यात्रा", "mode_car": "कार से", "mode_train": "ट्रेन", "mode_flight": "उड़ान", "mode_border": "कार + सीमा",

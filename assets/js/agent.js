@@ -113,7 +113,7 @@
     quote = q;
     $("#q-empty").classList.toggle("hidden", !!q); $("#q-body").classList.toggle("hidden", !q);
     if (!q || !me.agency) return;
-    var c = Number(me.agency.commission_pct || 0), brutto = q.price.total, netto = Math.round(brutto * (1 - c / 100) * 100) / 100;
+    var c = window.MN_ENGINE && window.MN_ENGINE.commission ? window.MN_ENGINE.commission(q.tour_id, me.agency.commission_pct) : Number(me.agency.commission_pct || 0), brutto = q.price.total, netto = Math.round(brutto * (1 - c / 100) * 100) / 100;
     $("#q-title").textContent = q.tour_title + " · " + q.price.days + " days";
     $("#q-pax").textContent = q.price.pax + (q.config.single ? " (single rooms)" : "");
     $("#q-brutto").textContent = P.money(brutto) + " (" + P.money(q.price.pp) + " pp)";

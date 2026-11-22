@@ -13,7 +13,7 @@
 
   function title(id) { return ((L.tours || {})[id] || [id])[0]; }
   function days(id) { return ((TOURS[id] || {}).days || []).length || 1; }
-  function uzTours() { return Object.keys(TOURS).filter(function (k) { return TOURS[k].country === "UZ"; }); }
+  function uzTours() { return Object.keys(TOURS).filter(function (k) { return TOURS[k].country === "UZ" || TOURS[k].country === "CA"; }); }
   function iso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
   function d0(s) { var p = String(s).split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
   function endDate(x) { var d = d0(x.start_date); d.setDate(d.getDate() + days(x.tour_id) - 1); return iso(d); }

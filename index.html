@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero.webp">
-<link rel="stylesheet" href="assets/css/site.css?v=01b4e3fa">
+<link rel="stylesheet" href="assets/css/site.css?v=4c463449">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad", "description": "Private and group tours to Uzbekistan, Kazakhstan, Kyrgyzstan and Tajikistan. Samarkand, Bukhara, Khiva and the Silk Road with a local team. Book on WhatsApp or Telegram.", "url": "https://moviytravel.uz/", "image": "https://moviytravel.uz/assets/img/hero.webp", "areaServed": ["Uzbekistan", "Kazakhstan", "Kyrgyzstan", "Tajikistan"], "sameAs": ["https://instagram.com/moviy_nomad", "https://t.me/moviy_safina"], "parentOrganization": {"@type": "Organization", "name": "Moviy Travel"}}</script>
 </head>
 <body>
@@ -120,21 +120,12 @@
         </div>
       </article>
       <article class="tour reveal">
-        <a class="tour__img" href="tours/nature.html"><img src="assets/img/p/chimgan.webp" alt="Mountains, Villages &amp; Desert" loading="lazy" width="1100" height="760"><span class="tour__days">7 days</span><span class="tour__lock">🔒 Coming soon</span><div class="tour__flags"><span>UZ</span></div></a>
+        <a class="tour__img" href="tours/ca_grand.html"><img src="assets/img/p/tj-sevenlakes.webp" alt="Grand Tour of Central Asia" loading="lazy" width="1100" height="760"><span class="tour__days">15 days</span><span class="tour__lock">🔒 Coming soon</span><div class="tour__flags"><span>UZ</span><span>TJ</span><span>KZ</span><span>KG</span></div></a>
         <div class="tour__body">
-          <h3>Mountains, Villages &amp; Desert</h3>
-          <div class="tour__route">Tashkent · Samarkand · Sentyab village · Aydarkul yurt camp · Bukhara</div>
-          <p>Chimgan, a mountain homestay and a yurt camp</p>
-          <div class="tour__foot"><div class="price"><small>from</small><strong data-from="nature">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="tours/nature.html">View the tour →</a></div>
-        </div>
-      </article>
-      <article class="tour reveal">
-        <a class="tour__img" href="tours/fergana.html"><img src="assets/img/p/fergana.webp" alt="Fergana Valley: Silk &amp; Ceramics" loading="lazy" width="1100" height="760"><span class="tour__days">6 days</span><span class="tour__lock">🔒 Coming soon</span><div class="tour__flags"><span>UZ</span></div></a>
-        <div class="tour__body">
-          <h3>Fergana Valley: Silk &amp; Ceramics</h3>
-          <div class="tour__route">Tashkent · Fergana Valley</div>
-          <p>Kokand, Margilan silk and Rishtan pottery</p>
-          <div class="tour__foot"><div class="price"><small>from</small><strong data-from="fergana">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="tours/fergana.html">View the tour →</a></div>
+          <h3>Grand Tour of Central Asia</h3>
+          <div class="tour__route">Tashkent · Khiva · Bukhara · Samarkand · Panjakent · Dushanbe · Almaty · Bishkek</div>
+          <p>Uzbekistan, Tajikistan, Kazakhstan and Kyrgyzstan in 15 days</p>
+          <div class="tour__foot"><div class="price"><small>from</small><strong data-from="ca_grand">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="tours/ca_grand.html">View the tour →</a></div>
         </div>
       </article></div><div class="tours tgrid" data-tc-panel="KZ">
       <article class="tour reveal">
@@ -452,9 +443,9 @@
 </div>
 
 <script>window.MN={"whatsapp": "998999804214", "telegram": "moviy_safina", "instagram": "moviy_nomad", "msgGeneral": "Hello Moviy Nomad! I'd like to plan a trip to Central Asia.", "msgTour": "Hello Moviy Nomad! I'm interested in the \"{tour}\" tour. Please send me the program and price.", "bookLabel": "Book online", "bookReqLabel": "Send a request"};</script>
-<script src="assets/data/catalog.js?v=5655b0b2"></script><script src="assets/data/places.js?v=b7d83857"></script><script src="assets/data/tours.js?v=ad113690"></script><script src="assets/data/l10n/en.js?v=50b97a9e"></script><script src="assets/js/sb-config.js?v=770b2c91"></script><script src="assets/js/engine.js?v=6fd57d84"></script><script src="assets/js/groups.js?v=6f8525c5"></script><script src="assets/js/share.js?v=fb8c2990"></script>
+<script src="assets/data/catalog.js?v=7b955866"></script><script src="assets/data/places.js?v=b7d83857"></script><script src="assets/data/tours.js?v=36cbf674"></script><script src="assets/data/l10n/en.js?v=d0ffb8c3"></script><script src="assets/js/sb-config.js?v=770b2c91"></script><script src="assets/js/engine.js?v=0eb5b00b"></script><script src="assets/js/groups.js?v=6f8525c5"></script><script src="assets/js/share.js?v=fb8c2990"></script>
 <script>MN_ENGINE.onPrices(function(){var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");});});</script>
-<script>window.MNX={"f_sending": "Sending…", "f_send": "Send request", "f_required": "Please fill in the required fields.", "f_ok_title": "Thank you! Your request is received", "f_ok_text": "Your request number: {ref}. A manager will contact you soon — usually within a few hours.", "f_err": "Something went wrong. Please try again or write to us on WhatsApp.", "f_close": "Close", "bk_first": "First name", "bk_last": "Last name", "bk_gender": "Gender", "bk_m": "Male", "bk_f": "Female", "bk_dob": "Date of birth", "bk_remove": "Remove", "bk_ok": {"bank": "We will send the invoice with payment details shortly. Please do not pay before the manager confirms the price and dates.", "card": "The manager will send you a secure card payment link after confirming the price and dates.", "contact": "A manager will contact you soon to discuss the trip. No payment is needed now."}, "bk_ok_req": "A manager will contact you soon to confirm the details and payment.", "bk_submit_req": "Send request", "ts_send": "Publish my story", "ts_uploading": "Uploading photos… {n}/{t}", "ts_ok": "Thank you! Your story will appear on the website after moderation (usually within 24 hours).", "ts_too_many": "Maximum 6 photos.", "gal_empty": "No stories yet — be the first to share yours.", "bk_submit": "Send booking request", "rev_traveller": "Traveller", "services": {"airport": "Airport & station meet-and-greet", "transfer": "Transfers between cities", "car": "Car with driver", "hotel": "Hotel booking", "train": "Train tickets", "guide": "Licensed guides", "mice": "Groups, events & MICE"}};window.MN_LANG="en";</script><script src="assets/js/forms.js?v=6c457f7c" defer></script>
+<script>window.MNX={"f_sending": "Sending…", "f_send": "Send request", "f_required": "Please fill in the required fields.", "f_ok_title": "Thank you! Your request is received", "f_ok_text": "Your request number: {ref}. A manager will contact you soon — usually within a few hours.", "f_err": "Something went wrong. Please try again or write to us on WhatsApp.", "f_close": "Close", "bk_first": "First name", "bk_last": "Last name", "bk_gender": "Gender", "bk_m": "Male", "bk_f": "Female", "bk_dob": "Date of birth", "bk_remove": "Remove", "bk_ok": {"bank": "We will send the invoice with payment details shortly. Please do not pay before the manager confirms the price and dates.", "card": "The manager will send you a secure card payment link after confirming the price and dates.", "contact": "A manager will contact you soon to discuss the trip. No payment is needed now."}, "bk_ok_req": "A manager will contact you soon to confirm the details and payment.", "bk_submit_req": "Send request", "ts_send": "Publish my story", "ts_uploading": "Uploading photos… {n}/{t}", "ts_ok": "Thank you! Your story will appear on the website after moderation (usually within 24 hours).", "ts_too_many": "Maximum 6 photos.", "gal_empty": "No stories yet — be the first to share yours.", "bk_submit": "Send booking request", "rev_traveller": "Traveller", "services": {"airport": "Airport & station meet-and-greet", "transfer": "Transfers between cities", "car": "Car with driver", "hotel": "Hotel booking", "train": "Train tickets", "guide": "Licensed guides", "mice": "Groups, events & MICE"}};window.MN_LANG="en";</script><script src="assets/js/forms.js?v=961056e4" defer></script>
 <script src="assets/js/site.js?v=26e77fd9" defer></script>
 </body>
 </html>

@@ -8,8 +8,12 @@
   var E = window.MN_ENGINE, C = window.MN_CATALOG, TOURS = window.MN_TOURS || {};
   if (!sb || !E) return;
 
-  var COUNTRY = { UZ: "O'zbekiston", KZ: "Qozog'iston", KG: "Qirg'iziston", TJ: "Tojikiston" };
-  var ORDER = ["UZ", "KZ", "KG", "TJ"];
+  var COUNTRY = { UZ: "O'zbekiston", KZ: "Qozog'iston", KG: "Qirg'iziston", TJ: "Tojikiston", CA: "Markaziy Osiyo katta turi (4 davlat)" };
+  var ORDER = ["UZ", "CA", "KZ", "KG", "TJ"];
+  // Separate services (services.html) — price per unit
+  var SVC = [["airport", "Aeroportda kutib olish va mehmonxonaga yetkazish", "mashina, 1 tomon"], ["transfer", "Shaharlararo transfer", "mashina, 1 yo'nalish"],
+    ["car", "Haydovchili mashina", "1 kun"], ["hotel", "Mehmonxona bron qilish (xizmat haqi)", "1 bron"], ["train", "Poyezd chiptasi (xizmat haqi bilan)", "1 chipta"],
+    ["guide", "Gid", "1 kun"], ["mice", "Guruh va MICE (tashkil qilish)", "1 kishi"]];
   var CLS = C.hotelClasses.map(function (h) { return h.id; });
   var CLS_NAME = { comfort: "Komfort 3★", superior: "Superior 4★", boutique: "Butik" };
   var TR_NAME = { sedan: "Sedan", minivan: "Miniven", premium: "Premium miniven", minibus: "Mikroavtobus", bus: "Avtobus" };
@@ -75,7 +79,7 @@
       '<table class="tbl np-tbl"><thead><tr><th>Shahar</th>' + CLS.map(function (k) { return '<th>' + CLS_NAME[k] + '</th>'; }).join("") + '</tr></thead><tbody>' +
       '<tr class="np-def"><td><b>Standart (boshqa shaharlar)</b></td>' + CLS.map(function (k) { return '<td>' + inp("hotelClasses." + k, v("hotelClasses." + k, DEF.hotelClasses[k])) + '</td>'; }).join("") + '</tr>';
     ORDER.forEach(function (cc) {
-      if (!used[cc]) return;
+      if (!used[cc] || !Object.keys(used[cc].cities).length) return;
       h += '<tr class="np-grp"><td colspan="' + (CLS.length + 1) + '">' + COUNTRY[cc] + '</td></tr>';
       Object.keys(used[cc].cities).forEach(function (city) {
         h += '<tr><td>' + esc(cname(city)) + '</td>' + CLS.map(function (k) { return '<td>' + inp("hotelCity." + city + "." + k, v("hotelCity." + city + "." + k, ""), "standart") + '</td>'; }).join("") + '</tr>';
@@ -98,7 +102,7 @@
       '<label>Ichki reys (standart)' + inp("fixed.flight", v("fixed.flight", DEF.fixed.flight)) + '</label></div>' +
       '<p class="np-note">Yo\'nalish bo\'yicha bo\'sh qoldirilsa standart narx olinadi (mashina yo\'llari uchun 0 — transport narxida bor).</p><table class="tbl np-tbl"><thead><tr><th>Yo\'nalish</th><th>Turi</th><th>1 kishi, $</th></tr></thead><tbody>';
     ORDER.forEach(function (cc) {
-      if (!used[cc]) return;
+      if (!used[cc] || !Object.keys(used[cc].legs).length) return;
       h += '<tr class="np-grp"><td colspan="3">' + COUNTRY[cc] + '</td></tr>';
       Object.keys(used[cc].legs).forEach(function (k) {
         var m = used[cc].legs[k], l = E.leg(m[0], m[1]);
@@ -114,7 +118,7 @@
       '<label>Tur yig\'ish: kunlik kirish chiptalari' + inp("fixed.entryPerDay", v("fixed.entryPerDay", DEF.fixed.entryPerDay)) + '<small>Mijoz o\'zi yig\'gan turlar uchun (obidalar ro\'yxati yo\'q).</small></label></div>' +
       '<table class="tbl np-tbl"><thead><tr><th>Obida</th><th>Shahar</th><th>1 kishi, $</th></tr></thead><tbody>';
     ORDER.forEach(function (cc) {
-      if (!used[cc]) return;
+      if (!used[cc] || !Object.keys(used[cc].sights).length) return;
       h += '<tr class="np-grp"><td colspan="3">' + COUNTRY[cc] + '</td></tr>';
       Object.keys(used[cc].sights).forEach(function (sid) {
         h += '<tr><td>' + esc(sname(sid)) + '</td><td>' + esc(cname(used[cc].sights[sid])) + '</td><td>' + inp("sightPrice." + sid, v("sightPrice." + sid, ""), "standart") + '</td></tr>';
@@ -122,14 +126,19 @@
     });
     h += '</tbody></table><p class="np-note">Bepul joylar (bozor, ko\'cha, tabiat) uchun 0 yozing.</p></details>';
     // 7. Tours
-    h += '<details open class="np-sec"><summary>7. Turlar — qo\'shimcha xarajat va natija (netto / brutto / foyda)</summary>' +
-      '<p class="np-note">Qo\'shimcha xarajat: masalan, master-klass, qayiq, maxsus kechki ovqat. "1 kishiga" — har bir mijozga; "guruhga" — butun guruhga bir marta (odamlarga bo\'linadi).</p>';
+    h += '<details open class="np-sec"><summary>7. Turlar — narx: netto, brutto, agent komissiyasi</summary>' +
+      '<p class="np-note"><b>Ikki usul bor.</b> 1) Avtomatik: yuqoridagi xarajatlar + ustama. 2) Qo\'lda: "Netto" va/yoki "Brutto" katagiga 1 kishi narxini yozasiz (2 kishi, turning asosiy mehmonxonasi) — sayt shu narxni ko\'rsatadi, boshqa variantlar (odam soni, mehmonxona) shunga mos o\'zgaradi. Faqat netto yozsangiz, brutto = netto + ustama. Bo\'sh qolsa — avtomatik.<br>' +
+      '<b>Agent komissiyasi %</b> — shu tur uchun agentga beriladigan foiz (agent portalida va bronda shu ishlatiladi). Bo\'sh qolsa — agentlikning o\'z foizi.<br>' +
+      'Qo\'shimcha xarajat: masalan, master-klass, qayiq, maxsus kechki ovqat. "1 kishiga" — har bir mijozga; "guruhga" — butun guruhga bir marta.</p>';
     ORDER.forEach(function (cc) {
       if (!used[cc]) return;
       h += '<details class="np-country"' + (cc === "UZ" ? " open" : "") + '><summary>' + COUNTRY[cc] + ' (' + used[cc].tours.length + ' ta tur)</summary>';
       used[cc].tours.forEach(function (tid) {
         var T = TOURS[tid];
         h += '<div class="np-tour" data-tour="' + tid + '"><div class="np-tour__h"><b>' + esc(T.title) + '</b><small>' + T.days.length + ' kun · ' + T.days.filter(function (d) { return d.sleep; }).length + ' kecha</small></div>' +
+          '<div class="np-grid np-grid--s np-manual"><label>Netto, 1 kishi $ <small>(qo\'lda)</small>' + inp("tourPrice." + tid + ".netto", v("tourPrice." + tid + ".netto", ""), "avtomatik") + '</label>' +
+          '<label>Brutto, 1 kishi $ <small>(saytdagi narx)</small>' + inp("tourPrice." + tid + ".brutto", v("tourPrice." + tid + ".brutto", ""), "avtomatik") + '</label>' +
+          '<label>Agent komissiyasi %' + inp("tourComm." + tid, v("tourComm." + tid, ""), "agentlikniki") + '</label></div>' +
           '<div class="np-grid np-grid--s"><label>Qo\'shimcha, 1 kishiga $' + inp("tourExtra." + tid + ".pp", v("tourExtra." + tid + ".pp", ""), "0") + '</label>' +
           '<label>Qo\'shimcha, guruhga $' + inp("tourExtra." + tid + ".group", v("tourExtra." + tid + ".group", ""), "0") + '</label></div>' +
           '<div class="np-res" data-res="' + tid + '"></div></div>';
@@ -137,6 +146,14 @@
       h += '</details>';
     });
     h += '</details>';
+    // 8. Separate services
+    h += '<details open class="np-sec"><summary>8. Alohida xizmatlar — netto, brutto, agent komissiyasi</summary>' +
+      '<p class="np-note">Xizmatlar sahifasida (services.html) mijozga "…dan" narx sifatida brutto ko\'rinadi. Bo\'sh qolsa — narx ko\'rsatilmaydi, mijoz so\'rov yuboradi. Netto va komissiya faqat sizga ko\'rinadi.</p>' +
+      '<table class="tbl np-tbl"><thead><tr><th>Xizmat</th><th>Birlik</th><th>Netto $</th><th>Brutto $ (saytda)</th><th>Agent komissiyasi %</th><th>Foyda</th></tr></thead><tbody>' +
+      SVC.map(function (x) {
+        return '<tr><td>' + x[1] + '</td><td><small>' + x[2] + '</small></td><td>' + inp("svcPrice." + x[0] + ".netto", v("svcPrice." + x[0] + ".netto", ""), "—") + '</td><td>' +
+          inp("svcPrice." + x[0] + ".brutto", v("svcPrice." + x[0] + ".brutto", ""), "—") + '</td><td>' + inp("svcPrice." + x[0] + ".comm", v("svcPrice." + x[0] + ".comm", ""), "—") + '</td><td data-svcres="' + x[0] + '">—</td></tr>';
+      }).join("") + '</tbody></table></details>';
     box.innerHTML = h;
     $$(".np-in, input[type=checkbox][data-p]", box).forEach(function (el) { el.addEventListener("input", recalc); el.addEventListener("change", recalc); });
     recalc();
@@ -144,7 +161,7 @@
 
   // Read the form into a costs object (only filled values)
   function collect() {
-    var o = { hotelClasses: {}, hotelCity: {}, transport: {}, guide: { languages: {} }, fixed: {}, legPrice: {}, sightPrice: {}, tourExtra: {} };
+    var o = { hotelClasses: {}, hotelCity: {}, transport: {}, guide: { languages: {} }, fixed: {}, legPrice: {}, sightPrice: {}, tourExtra: {}, tourPrice: {}, tourComm: {}, svcPrice: {} };
     $$("#np-body [data-p]").forEach(function (el) {
       var p = el.dataset.p;
       if (p === "booking_online") { o.booking_online = el.checked; return; }
@@ -169,8 +186,28 @@
       markup: 0, singleSupplement: c.singleSupplement, roundTo: c.roundTo, defaultPax: c.defaultPax, booking_online: !!c.booking_online, openCountries: c.openCountries || DEF.openCountries,
       hotelClasses: mapVals(c.hotelClasses), hotelCity: mapVals(c.hotelCity), transport: mapVals(c.transport),
       guide: { day: c.guide.day !== undefined ? r(c.guide.day) : undefined, languages: mapVals(c.guide.languages) },
-      fixed: mapVals(c.fixed), legPrice: mapVals(c.legPrice), sightPrice: mapVals(c.sightPrice), tourExtra: mapVals(c.tourExtra)
+      fixed: mapVals(c.fixed), legPrice: mapVals(c.legPrice), sightPrice: mapVals(c.sightPrice), tourExtra: mapVals(c.tourExtra),
+      // manual tour prices: only the selling price is published (brutto, or netto + margin)
+      tourPrice: pubTour(c), tourComm: c.tourComm || {},
+      // services: only the selling price; netto and commission stay in the admin copy
+      svcPrice: pubSvc(c)
     };
+    function pubTour(c) {
+      var out = {};
+      Object.keys(c.tourPrice || {}).forEach(function (tid) {
+        var x = c.tourPrice[tid] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * k) : 0);
+        if (b > 0) out[tid] = { brutto: b };
+      });
+      return out;
+    }
+    function pubSvc(c) {
+      var out = {};
+      Object.keys(c.svcPrice || {}).forEach(function (id) {
+        var x = c.svcPrice[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * k) : 0);
+        if (b > 0) out[id] = { brutto: b };
+      });
+      return out;
+    }
   }
 
   function recalc() {
@@ -182,10 +219,14 @@
       var rows = CLS.map(function (cls) {
         var p = E.price(T, { pax: pax, hotel: cls });
         var net = p.cost, gross = p.pp, profit = gross - net;
-        return '<tr' + (cls === T.hotel ? ' class="np-main"' : '') + '><td>' + CLS_NAME[cls] + (cls === T.hotel ? ' <small>(saytda "…dan")</small>' : '') + '</td><td>' + money(p.parts.hotel) + '</td><td>' + money(p.parts.transport) + '</td><td>' + money(p.parts.guide) +
+        return '<tr' + (cls === T.hotel ? ' class="np-main"' : '') + '><td>' + CLS_NAME[cls] + (cls === T.hotel ? ' <small>(saytda "…dan")</small>' : '') + (p.manual ? ' <small class="np-man">qo\'lda</small>' : '') + '</td><td>' + money(p.parts.hotel) + '</td><td>' + money(p.parts.transport) + '</td><td>' + money(p.parts.guide) +
           '</td><td>' + money(p.parts.train + p.parts.dinner) + '</td><td>' + money(p.parts.entries) + '</td><td>' + money(p.parts.extra) + '</td><td><b>' + money(net) + '</b></td><td><b class="np-gross">' + money(gross) + '</b></td><td class="' + (profit >= 0 ? "np-pos" : "np-neg") + '">' + money(profit) + ' <small>(' + (gross ? Math.round(profit / gross * 100) : 0) + '%)</small></td></tr>';
       });
       el.innerHTML = '<table class="tbl np-tbl np-res-tbl"><thead><tr><th>' + pax + ' kishi, 1 kishi uchun</th><th>Mehmonxona</th><th>Transport</th><th>Gid</th><th>Poyezd/avia, ovqat</th><th>Kirish</th><th>Qo\'shimcha</th><th>Netto</th><th>Brutto (saytda)</th><th>Foyda</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
+    });
+    $$("[data-svcres]").forEach(function (el) {
+      var x = (c.svcPrice || {})[el.dataset.svcres] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * (1 + c.markup)) : 0);
+      el.innerHTML = b && x.netto ? '<span class="' + (b - x.netto >= 0 ? "np-pos" : "np-neg") + '">' + money(b - x.netto) + '</span>' + (x.brutto > 0 ? "" : ' <small>(brutto = netto + ustama: ' + money(b) + ')</small>') : "—";
     });
     $("#np-state").textContent = "O'zgarishlar saqlanmagan";
     $("#np-state").className = "np-state is-dirty";

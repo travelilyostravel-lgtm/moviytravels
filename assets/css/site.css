@@ -477,3 +477,4 @@ a.tour__img{display:block}
 .ttab.is-locked,.tab.is-locked{cursor:not-allowed;opacity:.72;background:#f6f4ef!important;color:var(--navy)!important;border-style:dashed}
 .ttab.is-locked:hover,.tab.is-locked:hover{border-color:var(--line)}
 .ttab__lock{display:none!important}
+.svc__price{font-family:var(--font-head);font-weight:800;font-size:20px;color:var(--navy);margin:6px 0 12px}

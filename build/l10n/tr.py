@@ -12,7 +12,7 @@ UI = {
   "day_n": '{n}. gün',
   "days": "gün", "nights": "gece", "destinations": "destinasyon", "km": "km", "from": "başlayan", "h": "sa", "min": "dk",
   "pp_2": "kişi başı · 2 kişi için", "see_program": "Programı gör →", "sample": "Örnek fiyatlar", "close": "Kapat",
-  "country_UZ": "Özbekistan", "country_KZ": "Kazakistan", "country_KG": "Kırgızistan", "country_TJ": "Tacikistan", "country_TM": "Türkmenistan", "country_AF": "Afganistan",
+  "country_UZ": "Özbekistan", "country_KZ": "Kazakistan", "country_KG": "Kırgızistan", "country_TJ": "Tacikistan", "country_CA": "Orta Asya (4 ülke)", "country_TM": "Türkmenistan", "country_AF": "Afganistan",
   "season_all": "Tüm yıl", "season_summer": "Haziran – Eylül", "season_spring_autumn": "Nisan – Ekim",
   "lbl_cover": "Kapak", "lbl_route": "Rota", "lbl_included": "Dahil", "lbl_day": "Gün", "lbl_options": "Seçenekler", "lbl_packing": "Hazırlık", "lbl_book": "Rezervasyon",
   "route_eyebrow": "Rota", "route_title": "Yolculuğunuz haritada", "mode_car": "Araçla", "mode_train": "Tren", "mode_flight": "Uçuş", "mode_border": "Araç + sınır",

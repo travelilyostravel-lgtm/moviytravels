@@ -110,8 +110,20 @@
     var extra = ex ? num(ex.pp, 0) + num(ex.group, 0) / pax : 0;
     var cost = hotelPP + transportPP + guidePP + tickets + entries + dinner + extra;
     var step = num(C.roundTo, 5) || 1;
-    var pp = Math.ceil(cost * (1 + C.markup) / step) * step;
-    return { pp: pp, total: pp * pax, pax: pax, nights: nights, days: days, hotel: hotel, transport: tr, vehicles: vehicles, cost: cost,
+    var gross = cost * (1 + C.markup);
+    // Manual price set by the admin for this tour (Narxlar → 7): netto / brutto per person for the base
+    // configuration (2 travellers, the tour's hotel class). Other options are scaled from it.
+    var o = !cfg._raw && tour.id && C.tourPrice ? C.tourPrice[tour.id] : null;
+    var manual = false;
+    if (o && (num(o.netto, 0) > 0 || num(o.brutto, 0) > 0)) {
+      var base = price(tour, { pax: C.defaultPax, hotel: tour.hotel, _raw: true });
+      if (num(o.netto, 0) > 0 && base.cost > 0) cost = cost * num(o.netto, 0) / base.cost;
+      if (num(o.brutto, 0) > 0 && base.gross > 0) gross = gross * num(o.brutto, 0) / base.gross;
+      else gross = cost * (1 + C.markup);
+      manual = true;
+    }
+    var pp = Math.ceil(gross / step) * step;
+    return { pp: pp, total: pp * pax, pax: pax, nights: nights, days: days, hotel: hotel, transport: tr, vehicles: vehicles, cost: cost, gross: gross, manual: manual,
       parts: { hotel: hotelPP, transport: transportPP, guide: guidePP, tickets: tickets + entries + dinner, train: tickets, entries: entries, dinner: dinner, extra: extra } };
   }
 
@@ -131,6 +143,9 @@
     C.legPrice = d.legPrice || C.legPrice || {};
     if (d.sightPrice) C.sightPrice = d.sightPrice;
     C.tourExtra = d.tourExtra || C.tourExtra || {};
+    C.tourPrice = d.tourPrice || C.tourPrice || {};   // {tourId: {netto, brutto}} — manual prices
+    C.tourComm = d.tourComm || C.tourComm || {};      // {tourId: agent commission %}
+    C.svcPrice = d.svcPrice || C.svcPrice || {};      // {serviceId: {brutto, unit}} (+ netto, comm in the admin copy)
     C.bookingOnline = !!d.booking_online;
     if (Array.isArray(d.openCountries)) C.openCountries = d.openCountries.filter(function (x) { return typeof x === "string"; });
   }
@@ -246,5 +261,5 @@
     svg.innerHTML = out;
   }
 
-  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, isOpen: isOpen, tourOpen: tourOpen, cityOpen: cityOpen, applyPrices: applyPrices, onPrices: onPrices, roomPrice: roomPrice, legTicket: legTicket, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
+  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, commission: function (tid, agencyPct) { var x = C.tourComm && tid ? C.tourComm[tid] : undefined; return x !== undefined && x !== null && x !== "" ? num(x, 0) : num(agencyPct, 0); }, isOpen: isOpen, tourOpen: tourOpen, cityOpen: cityOpen, applyPrices: applyPrices, onPrices: onPrices, roomPrice: roomPrice, legTicket: legTicket, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
 })();

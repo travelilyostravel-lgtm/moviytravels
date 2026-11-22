@@ -12,7 +12,7 @@ UI = {
   "day_n": 'Tag {n}',
   "days": "Tage", "nights": "Nächte", "destinations": "Orte", "km": "km", "from": "ab", "h": "Std.", "min": "Min.",
   "pp_2": "pro Person · bei 2 Reisenden", "see_program": "Programm ansehen →", "sample": "Beispielpreise", "close": "Schließen",
-  "country_UZ": "Usbekistan", "country_KZ": "Kasachstan", "country_KG": "Kirgistan", "country_TJ": "Tadschikistan", "country_TM": "Turkmenistan", "country_AF": "Afghanistan",
+  "country_UZ": "Usbekistan", "country_KZ": "Kasachstan", "country_KG": "Kirgistan", "country_TJ": "Tadschikistan", "country_CA": "Zentralasien (4 Länder)", "country_TM": "Turkmenistan", "country_AF": "Afghanistan",
   "season_all": "Ganzjährig", "season_summer": "Juni – September", "season_spring_autumn": "April – Oktober",
   "lbl_cover": "Titel", "lbl_route": "Route", "lbl_included": "Inklusive", "lbl_day": "Tag", "lbl_options": "Optionen", "lbl_packing": "Packliste", "lbl_book": "Buchen",
   "route_eyebrow": "Route", "route_title": "Ihre Reise auf der Karte", "mode_car": "Mit dem Auto", "mode_train": "Zug", "mode_flight": "Flug", "mode_border": "Auto + Grenze",

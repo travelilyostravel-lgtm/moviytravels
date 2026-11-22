@@ -12,7 +12,7 @@ UI = {
   "day_n": '{n}일차',
   "days": "일", "nights": "박", "destinations": "곳", "km": "km", "from": "부터", "h": "시간", "min": "분",
   "pp_2": "1인 · 2인 기준", "see_program": "일정 보기 →", "sample": "예시 가격", "close": "닫기",
-  "country_UZ": "우즈베키스탄", "country_KZ": "카자흐스탄", "country_KG": "키르기스스탄", "country_TJ": "타지키스탄", "country_TM": "투르크메니스탄", "country_AF": "아프가니스탄",
+  "country_UZ": "우즈베키스탄", "country_KZ": "카자흐스탄", "country_KG": "키르기스스탄", "country_TJ": "타지키스탄", "country_CA": "중앙아시아 (4개국)", "country_TM": "투르크메니스탄", "country_AF": "아프가니스탄",
   "season_all": "연중", "season_summer": "6월 – 9월", "season_spring_autumn": "4월 – 10월",
   "lbl_cover": "표지", "lbl_route": "경로", "lbl_included": "포함 사항", "lbl_day": "일차", "lbl_options": "옵션", "lbl_packing": "준비물", "lbl_book": "예약",
   "route_eyebrow": "경로", "route_title": "지도로 보는 여행", "mode_car": "차량", "mode_train": "기차", "mode_flight": "항공", "mode_border": "차량 + 국경",

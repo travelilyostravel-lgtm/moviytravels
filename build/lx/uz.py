@@ -186,4 +186,5 @@ X = {
  'gr_home_title': 'Sanasi kafolatlangan guruh turlari',
  'gr_home_sub': 'Har qanday davlatdan yakka sayohatchilar va juftliklar uchun: aniq sanalar, ingliz tilidagi gidlar, hammasi tashkil qilingan.',
  'gr_home_all': 'Barcha sanalar',
+ "svc_from": '${n} dan',
 }

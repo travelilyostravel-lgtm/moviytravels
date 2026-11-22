@@ -12,7 +12,7 @@ UI = {
   "day_n": 'День {n}',
   "days": "дн.", "nights": "ноч.", "destinations": "мест", "km": "км", "from": "от", "h": "ч", "min": "мин",
   "pp_2": "на человека · при 2 путешественниках", "see_program": "Смотреть программу →", "sample": "Цены-образец", "close": "Закрыть",
-  "country_UZ": "Узбекистан", "country_KZ": "Казахстан", "country_KG": "Кыргызстан", "country_TJ": "Таджикистан", "country_TM": "Туркменистан", "country_AF": "Афганистан",
+  "country_UZ": "Узбекистан", "country_KZ": "Казахстан", "country_KG": "Кыргызстан", "country_TJ": "Таджикистан", "country_CA": "Центральная Азия (4 страны)", "country_TM": "Туркменистан", "country_AF": "Афганистан",
   "season_all": "Круглый год", "season_summer": "Июнь – сентябрь", "season_spring_autumn": "Апрель – октябрь",
   "lbl_cover": "Обложка", "lbl_route": "Маршрут", "lbl_included": "Включено", "lbl_day": "День", "lbl_options": "Опции", "lbl_packing": "Что взять", "lbl_book": "Бронь",
   "route_eyebrow": "Маршрут", "route_title": "Ваше путешествие на карте", "mode_car": "На машине", "mode_train": "Поезд", "mode_flight": "Перелёт", "mode_border": "Машина + граница",

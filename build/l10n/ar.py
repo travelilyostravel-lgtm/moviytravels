@@ -12,7 +12,7 @@ UI = {
   "day_n": 'اليوم {n}',
   "days": "أيام", "nights": "ليالٍ", "destinations": "وجهات", "km": "كم", "from": "ابتداءً من", "h": "س", "min": "د",
   "pp_2": "للشخص · عند سفر شخصين", "see_program": "عرض البرنامج ←", "sample": "أسعار تقديرية", "close": "إغلاق",
-  "country_UZ": "أوزبكستان", "country_KZ": "كازاخستان", "country_KG": "قيرغيزستان", "country_TJ": "طاجيكستان", "country_TM": "تركمانستان", "country_AF": "أفغانستان",
+  "country_UZ": "أوزبكستان", "country_KZ": "كازاخستان", "country_KG": "قيرغيزستان", "country_TJ": "طاجيكستان", "country_CA": "آسيا الوسطى (4 دول)", "country_TM": "تركمانستان", "country_AF": "أفغانستان",
   "season_all": "طوال العام", "season_summer": "يونيو – سبتمبر", "season_spring_autumn": "أبريل – أكتوبر",
   "lbl_cover": "الغلاف", "lbl_route": "المسار", "lbl_included": "يشمل", "lbl_day": "اليوم", "lbl_options": "الخيارات", "lbl_packing": "التحضير", "lbl_book": "الحجز",
   "route_eyebrow": "المسار", "route_title": "رحلتك على الخريطة", "mode_car": "بالسيارة", "mode_train": "قطار", "mode_flight": "طيران", "mode_border": "سيارة + حدود",

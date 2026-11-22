@@ -229,7 +229,7 @@ def render_services(lang, icon, logo, font, names):
         ttl, short, pts = x["services"][sid]
         cards += (f'<article class="svc" id="{sid}"><div class="svc__img" style="background-image:url({pre}assets/img/{SVC_IMG[sid]}.webp)"><span class="svc__ic">{svc_icon(sid)}</span></div>'
                   f'<div class="svc__body"><h2>{e(ttl)}</h2><p>{e(short)}</p><ul>' + "".join(f'<li>{e(p)}</li>' for p in pts) +
-                  f'</ul><button class="btn btn--gold btn--sm" data-svc="{sid}">{e(x["svc_request"])} →</button></div></article>')
+                  f'</ul><div class="svc__price" data-svcp="{sid}" data-tpl="{e(x["svc_from"])}" hidden></div><button class="btn btn--gold btn--sm" data-svc="{sid}">{e(x["svc_request"])} →</button></div></article>')
     how = "".join(f'<div class="how__i"><b>{n + 1}</b><h3>{e(h)}</h3><p>{e(p)}</p></div>' for n, (h, p) in enumerate(x["svc_how"]))
     opts = "".join(f'<option value="{sid}">{e(x["services"][sid][0])}</option>' for sid in SVC_IDS)
     modal = f'''<div class="modal" id="svc-modal" role="dialog" aria-modal="true"><div class="modal__box modal__box--form">
@@ -265,10 +265,10 @@ def render_booking(lang, icon, logo, font, names, tours, L):
     groups = {}
     for tr in tours:
         groups.setdefault(tr["country"], []).append(tr)
-    cn = {"UZ": "🇺🇿", "KZ": "🇰🇿", "KG": "🇰🇬", "TJ": "🇹🇯"}
+    cn = {"UZ": "🇺🇿", "KZ": "🇰🇿", "KG": "🇰🇬", "TJ": "🇹🇯", "CA": "🌏"}
     opts = f'<option value="">{e(x["bk_choose"])}</option>'
     for code, lst in groups.items():
-        opts += f'<optgroup label="{cn.get(code, "")} {e(T[lang]["countries"].get(code.lower(), (code,))[0])}">' + "".join(
+        opts += f'<optgroup label="{cn.get(code, "")} {e(L["ui"].get("country_" + code) or T[lang]["countries"].get(code.lower(), (code,))[0])}">' + "".join(
             f'<option value="{tr["id"]}">{e(L["tours"][tr["id"]][0])}</option>' for tr in lst) + '</optgroup>'
     opts += f'<option value="custom">{e(x["bk_custom"])}</option>'
     hotels = "".join(f'<option value="{k}">{e(v)}</option>' for k, v in x["bk_hotels"])

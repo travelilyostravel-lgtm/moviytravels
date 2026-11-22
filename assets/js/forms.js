@@ -198,4 +198,15 @@
       }).join("");
     } catch (e) { /* keep the empty state */ }
   });
+  // Services page: "from $X" taken from the admin prices (Narxlar → 8), selling price only
+  var sp = document.querySelectorAll("[data-svcp]");
+  if (sp.length && SB.url) fetch(SB.url + "/rest/v1/price_config?id=eq.public&select=data", { headers: hdr() })
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (rows) {
+      var d = rows && rows[0] && rows[0].data && rows[0].data.svcPrice || {};
+      sp.forEach(function (el) {
+        var x = d[el.getAttribute("data-svcp")];
+        if (x && x.brutto > 0) { el.textContent = el.getAttribute("data-tpl").replace("{n}", Math.round(x.brutto).toLocaleString("en")); el.hidden = false; }
+      });
+    }).catch(function () {});
 })();

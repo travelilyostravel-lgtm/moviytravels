@@ -39,7 +39,7 @@
   }
 
   function applyLock() {
-    st.route = st.route.filter(function (r) { return E.cityOpen(r.id); });
+    st.route = st.route.filter(function (r) { return r.fromPreset || E.cityOpen(r.id); });
     if (st.preset && !E.tourOpen(TOURS[st.preset])) st.preset = "";
     document.querySelectorAll(".cgroup[data-cc]").forEach(function (g) { g.classList.toggle("is-locked", !E.isOpen(g.getAttribute("data-cc"))); });
     document.querySelectorAll("[data-add]").forEach(function (b) { b.disabled = !E.cityOpen(b.getAttribute("data-add")); });
@@ -77,7 +77,8 @@
       return;
     }
     sum.classList.remove("is-empty");
-    var tr0 = toTour(), p = E.price(tr0, st);
+    // A ready tour that was not changed is priced exactly like its presentation (incl. a manual price from the admin)
+    var tr0 = st.preset && TOURS[st.preset] ? TOURS[st.preset] : toTour(), p = E.price(tr0, st);
     var km = 0; for (var i = 1; i < ids.length; i++) km += E.leg(ids[i - 1], ids[i]).km;
     var extent = ids.map(function (id) { return C.cities[id]; });
     if (extent.length === 1) extent = extent.concat([{ lat: extent[0].lat + 1.5, lon: extent[0].lon + 2 }, { lat: extent[0].lat - 1.5, lon: extent[0].lon - 2 }]);
@@ -127,7 +128,7 @@
       if (!E.tourOpen(TOURS[a])) return;
       var tour = TOURS[a], counts = {}, order = [];
       tour.days.forEach(function (d) { if (d.sleep) { if (!(d.sleep in counts)) { counts[d.sleep] = 0; order.push(d.sleep); } counts[d.sleep]++; } });
-      st.route = order.map(function (id) { return { id: id, nights: counts[id] }; });
+      st.route = order.map(function (id) { return { id: id, nights: counts[id], fromPreset: !E.cityOpen(id) }; });
       st.hotel = tour.hotel; st.preset = a;
     } else return;
     render();

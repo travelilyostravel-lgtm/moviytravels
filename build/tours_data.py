@@ -404,7 +404,6 @@ TOURS = [
 ]
 
 # ---------------- CENTRAL ASIA: one big 4-country programme (modelled on Advantour's 15-day "Central Asia Destinations")
-# DRAFT until the owner approves it: not on the home page, not in booking / builder lists.
 GRAND = [
  T("ca_grand", "CA", "tj-sevenlakes", "superior", [
    ("tashkent", [], ["tash_imam", "tash_chorsu", "tash_metro"], "D"),
@@ -423,7 +422,7 @@ GRAND = [
    ("bishkek", [], ["bis_burana", "bis_alaarcha"], "B"),
    (None, [], [], "B")], ["train", "flight", "dinner"], ["visa_4"], flags=["UZ", "TJ", "KZ", "KG"], season="spring_autumn"),
 ]
-GRAND[0]["draft"] = True
+# Approved by the owner 2026-11-23 (shown on the home page with the Uzbekistan tours)
 TOURS += GRAND
 
 # User decision 2026-11-20: 6 tours per country (24 total), the best-selling formats.
@@ -434,3 +433,6 @@ KEEP = ["classic", "express", "silkroad", "spiritual", "nature", "fergana",
 TOURS = [t for k in KEEP for t in TOURS if t["id"] == k]
 USED_SIGHTS = sorted({s for t in TOURS for d in t["days"] for s in d[2]})
 USED_CITIES = sorted({c for t in TOURS for d in t["days"] for c in ([d[0]] if d[0] else []) + [x for m in d[1] for x in m]} | {SIGHTS[s][0] for s in USED_SIGHTS})
+
+# Home page "popular" list (owner 2026-11-23): Fergana and Mountains & desert are not shown on the home page
+HOME_HIDE = ["fergana", "nature"]

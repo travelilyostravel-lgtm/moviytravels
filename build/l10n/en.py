@@ -13,7 +13,7 @@ UI = {
   # generic
   "days": "days", "nights": "nights", "destinations": "destinations", "km": "km", "from": "from", "h": "h", "min": "min",
   "pp_2": "per person · 2 travellers", "see_program": "See the program →", "sample": "Sample prices", "close": "Close",
-  "country_UZ": "Uzbekistan", "country_KZ": "Kazakhstan", "country_KG": "Kyrgyzstan", "country_TJ": "Tajikistan", "country_TM": "Turkmenistan", "country_AF": "Afghanistan",
+  "country_UZ": "Uzbekistan", "country_KZ": "Kazakhstan", "country_KG": "Kyrgyzstan", "country_TJ": "Tajikistan", "country_CA": "Central Asia (4 countries)", "country_TM": "Turkmenistan", "country_AF": "Afghanistan",
   "season_all": "All year", "season_summer": "June – September", "season_spring_autumn": "April – October",
   # deck labels
   "lbl_cover": "Cover", "lbl_route": "Route", "lbl_included": "Included", "lbl_day": "Day", "lbl_options": "Options", "lbl_packing": "Packing", "lbl_book": "Book",

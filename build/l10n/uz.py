@@ -12,7 +12,7 @@ UI = {
   "day_n": '{n}-kun',
   "days": "kun", "nights": "tun", "destinations": "manzil", "km": "km", "from": "dan", "h": "soat", "min": "daq",
   "pp_2": "1 kishi uchun · 2 kishi bo'lsa", "see_program": "Dasturni ko'rish →", "sample": "Namuna narxlar", "close": "Yopish",
-  "country_UZ": "O'zbekiston", "country_KZ": "Qozog'iston", "country_KG": "Qirg'iziston", "country_TJ": "Tojikiston", "country_TM": "Turkmaniston", "country_AF": "Afg'oniston",
+  "country_UZ": "O'zbekiston", "country_KZ": "Qozog'iston", "country_KG": "Qirg'iziston", "country_TJ": "Tojikiston", "country_CA": "Markaziy Osiyo (4 davlat)", "country_TM": "Turkmaniston", "country_AF": "Afg'oniston",
   "season_all": "Yil bo'yi", "season_summer": "Iyun – sentabr", "season_spring_autumn": "Aprel – oktabr",
   "lbl_cover": "Muqova", "lbl_route": "Marshrut", "lbl_included": "Narxga kiradi", "lbl_day": "Kun", "lbl_options": "Tanlov", "lbl_packing": "Yo'lga tayyorgarlik", "lbl_book": "Bron",
   "route_eyebrow": "Marshrut", "route_title": "Sayohatingiz xaritada", "mode_car": "Avtomobilda", "mode_train": "Poyezd", "mode_flight": "Samolyot", "mode_border": "Avtomobil + chegara",

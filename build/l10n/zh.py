@@ -12,7 +12,7 @@ UI = {
   "day_n": '第{n}天',
   "days": "天", "nights": "晚", "destinations": "个目的地", "km": "公里", "from": "起", "h": "小时", "min": "分钟",
   "pp_2": "每人 · 按2人出行", "see_program": "查看行程 →", "sample": "示例价格", "close": "关闭",
-  "country_UZ": "乌兹别克斯坦", "country_KZ": "哈萨克斯坦", "country_KG": "吉尔吉斯斯坦", "country_TJ": "塔吉克斯坦", "country_TM": "土库曼斯坦", "country_AF": "阿富汗",
+  "country_UZ": "乌兹别克斯坦", "country_KZ": "哈萨克斯坦", "country_KG": "吉尔吉斯斯坦", "country_TJ": "塔吉克斯坦", "country_CA": "中亚（4国）", "country_TM": "土库曼斯坦", "country_AF": "阿富汗",
   "season_all": "全年", "season_summer": "6月 – 9月", "season_spring_autumn": "4月 – 10月",
   "lbl_cover": "封面", "lbl_route": "路线", "lbl_included": "包含", "lbl_day": "第", "lbl_options": "选项", "lbl_packing": "行前准备", "lbl_book": "预订",
   "route_eyebrow": "路线", "route_title": "地图上的旅程", "mode_car": "汽车", "mode_train": "火车", "mode_flight": "航班", "mode_border": "汽车 + 过境",

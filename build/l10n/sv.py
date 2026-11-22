@@ -12,7 +12,7 @@ UI = {
   "day_n": 'Dag {n}',
   "days": "dagar", "nights": "nätter", "destinations": "platser", "km": "km", "from": "från", "h": "tim", "min": "min",
   "pp_2": "per person · vid 2 resenärer", "see_program": "Se programmet →", "sample": "Exempelpriser", "close": "Stäng",
-  "country_UZ": "Uzbekistan", "country_KZ": "Kazakstan", "country_KG": "Kirgizistan", "country_TJ": "Tadzjikistan", "country_TM": "Turkmenistan", "country_AF": "Afghanistan",
+  "country_UZ": "Uzbekistan", "country_KZ": "Kazakstan", "country_KG": "Kirgizistan", "country_TJ": "Tadzjikistan", "country_CA": "Centralasien (4 länder)", "country_TM": "Turkmenistan", "country_AF": "Afghanistan",
   "season_all": "Året runt", "season_summer": "Juni – september", "season_spring_autumn": "April – oktober",
   "lbl_cover": "Omslag", "lbl_route": "Rutt", "lbl_included": "Ingår", "lbl_day": "Dag", "lbl_options": "Val", "lbl_packing": "Packlista", "lbl_book": "Boka",
   "route_eyebrow": "Rutt", "route_title": "Din resa på kartan", "mode_car": "Med bil", "mode_train": "Tåg", "mode_flight": "Flyg", "mode_border": "Bil + gräns",

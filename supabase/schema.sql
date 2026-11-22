@@ -159,7 +159,7 @@ create trigger on_auth_user_created after insert on auth.users
 -- Bookings: prices and status are guarded on the server
 create or replace function public.bookings_guard() returns trigger
 language plpgsql security definer set search_path = public as $$
-declare c numeric;
+declare c numeric; tc numeric;
 begin
   new.updated_at := now();
   if tg_op = 'INSERT' then
@@ -170,7 +170,12 @@ begin
       new.paid_at := null; new.confirmed_at := null; new.payment_reported_at := null;
     end if;
     select commission_pct into c from public.agencies where id = new.agency_id;
-    new.commission_pct := coalesce(c, 0);
+    -- A commission set for this tour in the admin panel (Narxlar → 7) wins over the agency's own %
+    begin
+      select nullif(data->'tourComm'->>new.tour_id, '')::numeric into tc from public.price_config where id = 'public';
+    exception when others then tc := null;
+    end;
+    new.commission_pct := coalesce(tc, c, 0);
     new.netto := round(new.brutto * (1 - new.commission_pct / 100), 2);
     return new;
   end if;

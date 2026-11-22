@@ -116,3 +116,5 @@ body.portal{background:var(--sand);min-height:100vh}
 .g-est{margin-top:18px;padding:16px;border-radius:14px;background:#f4f8fb}
 .g-est h3{font-size:16px;margin-bottom:8px}
 .btn--danger{background:#b03a3a!important;color:#fff!important;border-color:#b03a3a!important}
+.np-manual{background:#fff8e6;border-radius:12px;padding:10px 12px}
+.np-man{background:#f5b638;color:#12355b;border-radius:999px;padding:1px 7px;font-weight:700}
