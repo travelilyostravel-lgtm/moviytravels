@@ -73,7 +73,7 @@ ITEMS = {
   "crew": "Trekking crew: guide, cook, tents and pack animals",
   "horses": "Horses and a local horseman",
   "intl_flights": "International flights",
-  "visa": "Visa fees (if required for your passport)",
+  "visa": "Visa fees (if required for your passport)", "visa_4": 'Visa fees and visa support for Tajikistan, Kazakhstan and Kyrgyzstan (if required for your passport)',
   "meals": "Lunches and dinners unless stated in the program",
   "photo": "Photo and video fees at some sites",
   "insurance": "Travel insurance",
@@ -293,4 +293,5 @@ TOURS = {
   "tj_uztj": ["Samarkand & Tajikistan", "The Silk Road city and the lakes of the Fann mountains"],
   "tj_ancient": ["Ancient Tajikistan", "Hissar, Istaravshan, Khujand and Sogdian Panjakent"],
   "tj_alaudin": ["Fann Trek: Alaudin & Kulikalon", "A camping trek between emerald lakes"],
+  "ca_grand": ['Grand Tour of Central Asia', 'Uzbekistan, Tajikistan, Kazakhstan and Kyrgyzstan in 15 days'],
 }

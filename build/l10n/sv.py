@@ -57,7 +57,7 @@ ITEMS = {
   "yurt": "Nätter i jurtläger med middag och frukost", "homestay": "Nätter på gästhus eller hos familj med hemlagad mat",
   "jeep": "Fyrhjulsdriven bil med erfaren bergsförare", "permit": "GBAO-tillstånd för Pamirregionen", "meals_full": "Helpension under resan (frukost, lunch, middag)",
   "crew": "Vandringsteam: guide, kock, tält och packdjur", "horses": "Hästar och en lokal hästskötare",
-  "intl_flights": "Internationella flyg", "visa": "Visumavgifter (om de krävs för ditt pass)", "meals": "Luncher och middagar om inget annat anges",
+  "intl_flights": "Internationella flyg", "visa": "Visumavgifter (om de krävs för ditt pass)", "visa_4": 'Visumavgifter och visumstöd för Tadzjikistan, Kazakstan och Kirgizistan (om ditt pass kräver det)', "meals": "Luncher och middagar om inget annat anges",
   "photo": "Foto- och videoavgifter på vissa platser", "insurance": "Reseförsäkring", "tips": "Dricks till guider och chaufförer, personliga utgifter",
   "park": "Nationalparkernas miljöavgifter kan ändras",
   "passport": "Pass som är giltigt minst 6 månader efter resan", "shoes": "Bekväma skor — gamla stadskärnor har stenlagda gator",
@@ -260,4 +260,5 @@ TOURS = {
   "tj_uztj": ["Samarkand & Tadzjikistan", "Sidenvägsstaden och Fanbergens sjöar"],
   "tj_ancient": ["Forntida Tadzjikistan", "Hissar, Istaravsjan, Chudzjand och sogdiska Panjakent"],
   "tj_alaudin": ["Fanvandring: Alaudin & Kulikalon", "Tältvandring mellan smaragdgröna sjöar"],
+  "ca_grand": ['Stora Centralasienresan', 'Uzbekistan, Tadzjikistan, Kazakstan och Kirgizistan på 15 dagar'],
 }

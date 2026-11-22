@@ -57,7 +57,7 @@ ITEMS = {
   "yurt": "Yurt kampında akşam yemeği ve kahvaltı ile konaklama", "homestay": "Misafirhane veya aile yanında ev yemekli konaklama",
   "jeep": "Deneyimli dağ sürücüsüyle 4×4 araç", "permit": "Pamir bölgesi için GBAO izni", "meals_full": "Yolda tam pansiyon (kahvaltı, öğle, akşam)",
   "crew": "Trekking ekibi: rehber, aşçı, çadırlar ve yük hayvanları", "horses": "Atlar ve yerel seyis",
-  "intl_flights": "Uluslararası uçuşlar", "visa": "Vize ücretleri (pasaportunuz için gerekliyse)", "meals": "Programda belirtilmeyen öğle ve akşam yemekleri",
+  "intl_flights": "Uluslararası uçuşlar", "visa": "Vize ücretleri (pasaportunuz için gerekliyse)", "visa_4": 'Vize ücretleri ve Tacikistan, Kazakistan, Kırgızistan için vize desteği (pasaportunuz için gerekirse)', "meals": "Programda belirtilmeyen öğle ve akşam yemekleri",
   "photo": "Bazı yerlerde fotoğraf ve video ücreti", "insurance": "Seyahat sigortası", "tips": "Rehber ve şoför bahşişleri, kişisel harcamalar",
   "park": "Milli park ekolojik ücretleri değişebilir",
   "passport": "Seyahatten sonra en az 6 ay geçerli pasaport", "shoes": "Rahat yürüyüş ayakkabısı — eski şehirlerde taş sokaklar var",
@@ -260,4 +260,5 @@ TOURS = {
   "tj_uztj": ["Semerkant ve Tacikistan", "İpek Yolu şehri ve Fan Dağları gölleri"],
   "tj_ancient": ["Antik Tacikistan", "Hisar, İstaravşan, Hucend ve Soğd Pencikenti"],
   "tj_alaudin": ["Fan Yürüyüşü: Alaaddin ve Kulikalon", "Zümrüt göller arasında çadırlı yürüyüş"],
+  "ca_grand": ['Büyük Orta Asya Turu', '15 günde Özbekistan, Tacikistan, Kazakistan ve Kırgızistan'],
 }

@@ -549,8 +549,11 @@ def main():
         for f in os.listdir(d):
             if f.endswith(".html") and f[:-5] not in ids: os.remove(os.path.join(d, f))
         for tr in TD.TOURS:
+            html = render_tour(tr["id"], lang)
+            if tr.get("draft"):  # draft = preview link for the owner only: keep it out of search engines
+                html = html.replace('<meta name="theme-color"', '<meta name="robots" content="noindex, nofollow"><meta name="theme-color"', 1)
             with open(os.path.join(d, tr["id"] + ".html"), "w", encoding="utf-8") as f:
-                f.write(render_tour(tr["id"], lang))
+                f.write(html)
         with open(os.path.join(ROOT, path_for(lang), "builder.html"), "w", encoding="utf-8") as f:
             f.write(render_builder(lang))
         print("ok", lang, "tours + builder")
@@ -558,7 +561,7 @@ def main():
     for lang in LANGS:
         d = os.path.join(ROOT, path_for(lang)); font = EXTRA_FONT.get(lang, ""); L = LD(lang)
         out = {"services.html": pages.render_services(lang, ICON, LOGO, font, names),
-               "booking.html": pages.render_booking(lang, ICON, LOGO, font, names, TD.TOURS, L),
+               "booking.html": pages.render_booking(lang, ICON, LOGO, font, names, [x for x in TD.TOURS if not x.get("draft")], L),
                "stories.html": pages.render_stories(lang, ICON, LOGO, font, names),
                "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
                "privacy.html": pages.render_legal(lang, "privacy", ICON, LOGO, font, names),

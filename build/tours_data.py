@@ -80,6 +80,9 @@ LEGS = [
     ("sevenlakes", "iskanderkul", 200, 5, "car", ""), ("dushanbe", "artuch", 200, 4.5, "car", ""),
     ("artuch", "kulikalon", 12, 4, "car", "trek"), ("kulikalon", "alaudin", 10, 6, "car", "trek"), ("alaudin", "iskanderkul", 60, 2.5, "car", ""),
     ("dushanbe", "khorog", 330, 1.1, "flight", "domestic_flight"), ("langar", "khorog", 220, 7, "car", ""),
+    # Grand Central Asia tour (4 countries)
+    ("sevenlakes", "panjakent", 65, 2.5, "car", ""), ("panjakent", "iskanderkul", 180, 4, "car", "anzob"),
+    ("dushanbe", "almaty", 1000, 1.7, "flight", "flight"), ("almaty", "bishkek", 240, 4, "border", "border"),
 ]
 
 # sight id: (city, img)
@@ -400,11 +403,34 @@ TOURS = [
    (None, [], [], "B")], ["flight", "jeep", "homestay", "permit", "meals_full"], bring=BRING_MOUNT, season="summer"),
 ]
 
+# ---------------- CENTRAL ASIA: one big 4-country programme (modelled on Advantour's 15-day "Central Asia Destinations")
+# DRAFT until the owner approves it: not on the home page, not in booking / builder lists.
+GRAND = [
+ T("ca_grand", "CA", "tj-sevenlakes", "superior", [
+   ("tashkent", [], ["tash_imam", "tash_chorsu", "tash_metro"], "D"),
+   ("khiva", [["tashkent", "urgench"], ["urgench", "khiva"]], ["khi_ichan", "khi_islamkhoja", "khi_tashhauli"], "B"),
+   ("bukhara", [["khiva", "bukhara"]], ["khi_walls"], "B"),
+   ("bukhara", [], ["buk_lyabi", "buk_domes", "buk_poikalon", "buk_ark", "buk_samanid"], "B"),
+   ("samarkand", [["bukhara", "samarkand"]], ["buk_sitorai", "buk_naqshband"], "B"),
+   ("samarkand", [], ["sam_registan", "sam_bibi", "sam_siyob", "sam_shahizinda", "sam_gurmir"], "B"),
+   ("samarkand", [], ["sam_ulugbek", "sam_imambukhari"], "B"),
+   ("panjakent", [["samarkand", "panjakent"], ["panjakent", "sevenlakes"], ["sevenlakes", "panjakent"]], ["sev_lakes", "pan_ancient"], "B,L"),
+   ("dushanbe", [["panjakent", "iskanderkul"], ["iskanderkul", "dushanbe"]], ["isk_lake", "dus_city"], "B"),
+   ("dushanbe", [], ["dus_hissar"], "B"),
+   ("almaty", [["dushanbe", "almaty"]], ["ala_bazaar"], "B"),
+   ("almaty", [], ["ala_city", "ala_koktobe", "ala_medeu"], "B"),
+   ("bishkek", [["almaty", "bishkek"]], ["bis_city"], "B"),
+   ("bishkek", [], ["bis_burana", "bis_alaarcha"], "B"),
+   (None, [], [], "B")], ["train", "flight", "dinner"], ["visa_4"], flags=["UZ", "TJ", "KZ", "KG"], season="spring_autumn"),
+]
+GRAND[0]["draft"] = True
+TOURS += GRAND
+
 # User decision 2026-11-20: 6 tours per country (24 total), the best-selling formats.
 KEEP = ["classic", "express", "silkroad", "spiritual", "nature", "fergana",
         "kz_almaty", "kz_lakes", "kz_classic", "kz_turkistan", "kz_altynemel", "kz_astana",
         "kg_issykkul", "kg_songkul", "kg_lakes", "kg_alakul", "kg_tashrabat", "kg_south",
-        "tj_fann", "tj_pamir", "tj_sevenlakes", "tj_uztj", "tj_ancient", "tj_alaudin"]
+        "tj_fann", "tj_pamir", "tj_sevenlakes", "tj_uztj", "tj_ancient", "tj_alaudin", "ca_grand"]
 TOURS = [t for k in KEEP for t in TOURS if t["id"] == k]
 USED_SIGHTS = sorted({s for t in TOURS for d in t["days"] for s in d[2]})
 USED_CITIES = sorted({c for t in TOURS for d in t["days"] for c in ([d[0]] if d[0] else []) + [x for m in d[1] for x in m]} | {SIGHTS[s][0] for s in USED_SIGHTS})

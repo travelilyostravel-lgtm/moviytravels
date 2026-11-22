@@ -57,7 +57,7 @@ ITEMS = {
   "yurt": "Nächte im Jurtencamp mit Abendessen und Frühstück", "homestay": "Übernachtung im Gästehaus oder bei Familien mit Hausmannskost",
   "jeep": "Geländewagen 4×4 mit erfahrenem Bergfahrer", "permit": "GBAO-Genehmigung für den Pamir", "meals_full": "Vollpension unterwegs (Frühstück, Mittag-, Abendessen)",
   "crew": "Trekking-Team: Guide, Koch, Zelte und Packtiere", "horses": "Pferde und ein einheimischer Pferdeführer",
-  "intl_flights": "Internationale Flüge", "visa": "Visagebühren (falls für Ihren Pass nötig)", "meals": "Mittag- und Abendessen, sofern nicht im Programm",
+  "intl_flights": "Internationale Flüge", "visa": "Visagebühren (falls für Ihren Pass nötig)", "visa_4": 'Visagebühren und Visa-Unterstützung für Tadschikistan, Kasachstan und Kirgisistan (falls für Ihren Pass nötig)', "meals": "Mittag- und Abendessen, sofern nicht im Programm",
   "photo": "Foto- und Videogebühren an manchen Orten", "insurance": "Reiseversicherung", "tips": "Trinkgelder für Reiseleiter und Fahrer, persönliche Ausgaben",
   "park": "Ökogebühren der Nationalparks können sich ändern",
   "passport": "Reisepass, mindestens 6 Monate nach der Reise gültig", "shoes": "Bequeme Schuhe — Altstädte haben Steinpflaster",
@@ -260,4 +260,5 @@ TOURS = {
   "tj_uztj": ["Samarkand & Tadschikistan", "Die Seidenstraßenstadt und die Seen des Fan-Gebirges"],
   "tj_ancient": ["Antikes Tadschikistan", "Hissar, Istarawschan, Chudschand und das sogdische Pandschakent"],
   "tj_alaudin": ["Fan-Trek: Alaudin & Kulikalon", "Zelt-Trekking zwischen smaragdgrünen Seen"],
+  "ca_grand": ['Große Zentralasien-Rundreise', 'Usbekistan, Tadschikistan, Kasachstan und Kirgisistan in 15 Tagen'],
 }
