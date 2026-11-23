@@ -19,10 +19,28 @@
 
   $("#f-login").onsubmit = async function (e) {
     e.preventDefault(); var f = e.target;
+    if (!f.password.value) return P.msg("#m-login", "Parolni yozing yoki \"Pochta orqali kirish\" tugmasini bosing.", "err");
     var r = await sb.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value });
     if (r.error) return P.msg("#m-login", /invalid login/i.test(r.error.message) ? "E-mail yoki parol noto'g'ri. Parolni unutgan bo'lsangiz — \"Parolni unutdim\" tugmasini bosing." : /not confirmed/i.test(r.error.message) ? "E-mail hali tasdiqlanmagan: pochtangizdagi tasdiqlash xatidagi havolani bosing." : r.error.message, "err");
     boot();
   };
+  // ---- log in with a 6-digit code sent to the e-mail (no password needed)
+  $("#b-code").onclick = async function () {
+    var em = $("#f-login").email.value.trim();
+    if (!em) return P.msg("#m-login", "Avval e-mailingizni yozing.", "err");
+    P.msg("#m-login", "Yuborilmoqda…");
+    var r = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname } });
+    if (r.error) return P.msg("#m-login", /rate limit/i.test(r.error.message) ? "Pochta xizmati hozir band (soatiga xatlar soni cheklangan). Bir oz kutib qayta urining yoki parol bilan kiring." : /signups not allowed|not found/i.test(r.error.message) ? "Bu e-mail jamoada yo'q. Asoschiga murojaat qiling." : r.error.message, "err");
+    $("#f-login").classList.add("hidden"); $("#f-code").classList.remove("hidden"); $("#f-code").dataset.em = em;
+    $("#code-em").textContent = em; $("#f-code").code.focus();
+  };
+  $("#f-code").onsubmit = async function (e) {
+    e.preventDefault(); var f = e.target;
+    var r = await sb.auth.verifyOtp({ email: f.dataset.em, token: f.code.value.trim(), type: "email" });
+    if (r.error) return P.msg("#m-code", "Kod noto'g'ri yoki eskirgan. Pochtadagi eng oxirgi kodni yozing.", "err");
+    f.classList.add("hidden"); $("#f-login").classList.remove("hidden"); boot();
+  };
+  $("#b-code-back").onclick = function () { $("#f-code").classList.add("hidden"); $("#f-login").classList.remove("hidden"); };
   // ---- forgot password: link by e-mail, then a new-password form on this page
   $("#b-forgot").onclick = async function () {
     var em = $("#f-login").email.value.trim();
@@ -98,10 +116,7 @@
     if (!u) return show("login");
     var p = (await sb.from("profiles").select("*").eq("id", u.id).single()).data;
     if (!p || (p.role !== "admin" && p.role !== "manager") || p.active === false) { await sb.auth.signOut(); show("login"); return P.msg("#m-login", "Bu akkaunt admin panel uchun emas.", "err"); }
-    if (p.role === "manager") {
-      if (!(await ensureAal2())) return;
-      if (!(await deviceOk())) return;
-    }
+    // 2026-11-23: no authenticator app / device approval any more — e-mail code or password is enough
     window.MNA.role = p.role; window.MNA.me = p;
     $("#v-2fa").classList.add("hidden");
     document.body.classList.toggle("is-manager", p.role === "manager");
