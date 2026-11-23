@@ -314,7 +314,7 @@ def render(lang):
 </div>
 
 <script>window.MN={js_cfg};</script>
-<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/groups.js"></script><script src="{A}js/share.js"></script>
+<script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/gd-schedule.js"></script><script src="{A}js/groups.js"></script><script src="{A}js/share.js"></script>
 <script>MN_ENGINE.onPrices(function(){{var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");}});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){{var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");}});}});</script>
 <script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/forms.js" defer></script>
 <script src="{A}js/site.js" defer></script>
@@ -429,7 +429,7 @@ def render_agent():
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Agent portal</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Log out</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="quote" class="is-on">New quote</button><button data-view="list">My bookings</button><button data-view="agency">Agency</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="quote" class="is-on">New quote</button><button data-view="list">My bookings</button><button data-view="groups">Group departures</button><button data-view="agency">Agency</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>The portal is not connected to the database yet.</div>
@@ -494,12 +494,13 @@ def render_agent():
 
   <section id="v-booking" class="hidden"></section>
 
+  <section id="v-groups" class="hidden"><div class="p-card"><h2>Guaranteed group departures — free seats</h2><p class="p-sub">Classic Uzbekistan, 8 days / 7 nights, every Saturday from Khiva. Your clients can join any group, even 1 person. Prices are public (per person, twin share); your commission applies. To book seats, send a request to your Moviy Nomad manager.</p><div id="ag-sched"></div></div></section>
   <section id="v-agency" class="hidden"><div class="p-card" id="agency-box"></div></section>
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script>
 <script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script>
-<script src="../assets/data/l10n/en.js"></script><script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/agent.js"></script>
+<script src="../assets/data/l10n/en.js"></script><script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/js/agent.js"></script>
 </body></html>
 """
 
@@ -539,7 +540,7 @@ def render_admin():
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
 <script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script>
-<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/admin-groups.js"></script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/js/admin-groups.js"></script>
 </body></html>
 """
 

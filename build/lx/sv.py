@@ -213,4 +213,5 @@ X = {
  'gr_excl': ['Flyg till Urgench/Chiva och hem från Tasjkent (bokas av dig)', 'Internationella flyg', 'Visum (vid behov)', 'Reseförsäkring', 'Måltider som inte nämns i programmet', 'Personliga utgifter och dricks'],
  'f_wa_opt': 'WhatsApp-nummer (valfritt)',
  'f_email_hint': 'Ange en fungerande e-post — dit skickar vi bokningsbekräftelse och voucher.',
+ 'gr_sched_title': 'Avgångsschema — lediga platser', 'gr_sched_date': 'Datum', 'gr_c_green': 'Platser kvar', 'gr_c_yellow': 'Få platser kvar', 'gr_c_red': 'Fullbokat',
 }

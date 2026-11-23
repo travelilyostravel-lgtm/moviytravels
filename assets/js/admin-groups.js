@@ -57,9 +57,11 @@
       (drafts ? '<button class="btn btn--outline btn--sm" id="g-pub">Barcha qoralamalarni e\'lon qilish (' + drafts + ')</button>' : '') + '</div>' +
       (notify ? '<p class="p-sub" style="margin-top:12px">📩 "Sana chiqsa xabar bering" so\'rovlari: <b>' + notify + '</b> — Mijoz so\'rovlari bo\'limida.</p>' : '') +
       '<div class="msg" id="g-msg"></div>';
+    if (up.length) h += '<h3 style="margin:16px 0 8px">Reyslar jadvali — bo\'sh joylar</h3><div id="g-sched"></div>';
     if (!all.length) h += '<div class="empty">Hali sana yo\'q. "Yillik jadval yaratish" bilan butun mavsumni bir martada qo\'shing.</div>';
     else h += table(up, "Yaqin sanalar") + (past.length ? '<details style="margin-top:18px"><summary>O\'tgan sanalar (' + past.length + ')</summary>' + table(past.reverse(), "") + '</details>' : '');
     box.innerHTML = h;
+    if ($("#g-sched") && window.MN_GDS) window.MN_GDS.render($("#g-sched"), up, { lang: "uz", range: function (x) { return P.date(x.start_date) + " — " + P.date(endDate(x)); }, title: title, onPick: function (x) { edit(x); } });
     $("#g-new").onclick = function () { edit(null); };
     $("#g-gen").onclick = generator;
     if ($("#g-pub")) $("#g-pub").onclick = async function () {
@@ -76,7 +78,7 @@
       list.map(function (x) {
         var rq = reqFor(x.id), rp = rq.reduce(function (s, r) { return s + (r.pax || 1); }, 0);
         return '<tr class="click" data-id="' + x.id + '"><td><b>' + P.date(x.start_date) + '</b><br><small>' + P.date(endDate(x)) + ' gacha</small></td><td>' + esc(title(x.tour_id)) + '<br><small>' + days(x.tour_id) + ' kun · ' + esc(KN[x.group_kind] || "") + ' · ' + x.guides + ' gid · ' + esc(x.guide_lang) + '</small></td>' +
-          '<td>' + esc(ST[x.status] || x.status) + '</td><td><b>' + x.booked + '</b> / ' + x.capacity + '<br><small>' + Math.max(0, x.capacity - x.booked) + ' bo\'sh</small></td>' +
+          '<td>' + esc(ST[x.status] || x.status) + '</td><td class="gds-c gds-c--' + (window.MN_GDS ? window.MN_GDS.color(x) : '') + '"><b>' + x.booked + '</b> / ' + x.capacity + '<br><small>' + Math.max(0, x.capacity - x.booked) + ' bo\'sh</small></td>' +
           '<td>' + (rq.length ? '<b>' + rq.length + '</b> ta (' + rp + ' kishi)' : '—') + '</td><td>' + money(x.price_pp) + (x.single_supp ? '<br><small>single +' + money(x.single_supp) + '</small>' : '') + '</td>' +
           '<td>' + (x.published ? '✅ E\'lon qilingan' : '📝 Qoralama') + '</td></tr>';
       }).join("") + '</tbody></table>';

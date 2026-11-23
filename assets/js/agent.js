@@ -5,14 +5,22 @@
 
   // ---------------------------------------------------------------- views
   function show(v) {
-    ["auth", "pending", "quote", "list", "booking", "agency"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
+    ["auth", "pending", "quote", "list", "booking", "agency", "groups"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
     $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || (v === "booking" && b.dataset.view === "list")); });
     window.scrollTo(0, 0);
   }
   $$("#tabs button").forEach(function (b) { b.onclick = function () { go(b.dataset.view); }; });
+  async function loadGroups() {
+    var box = $("#ag-sched"); box.innerHTML = '<p class="p-sub">Loading…</p>';
+    var r = await sb.from("group_departures").select("id,tour_id,start_date,capacity,booked,price_pp,status,group_kind").gte("start_date", new Date().toISOString().slice(0, 10)).order("start_date");
+    var L = window.MN_L || {}, T = window.MN_TOURS || {};
+    window.MN_GDS.render(box, r.data || [], { lang: "en", title: function (id) { return ((L.tours || {})[id] || [id])[0]; },
+      range: function (x) { var d = new Date(x.start_date + "T12:00:00"), n = (T[x.tour_id] ? T[x.tour_id].days.length : 8) - 1, e = new Date(d); e.setDate(e.getDate() + n); var f = function (z) { return z.toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }; return f(d) + " – " + f(e) + " " + e.getFullYear(); } });
+  }
   function go(v) {
     if (v === "list") loadList();
     if (v === "agency") renderAgency();
+    if (v === "groups") loadGroups();
     show(v);
   }
 

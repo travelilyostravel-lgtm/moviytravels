@@ -362,6 +362,7 @@ def render_groups(lang, icon, logo, font, names):
     body = page_head(x["gr_eyebrow"], x["gr_title"], x["gr_sub"]) + f'''
 <section class="section section--tight"><div class="container">
   <div class="gfeats">{feats}</div>
+  <div class="gds-box" id="gd-sched-box"><h2>{e(x["gr_sched_title"])}</h2><div id="gd-sched"></div></div>
   <div class="gd-head"><h2>{e(x["gr_list_title"])}</h2><select id="gd-month" class="gd-month" hidden></select></div>
   <div class="gds" id="gd-list"></div>
 </div></section>
@@ -392,5 +393,5 @@ def render_groups(lang, icon, logo, font, names):
   <div id="gd-ok" hidden></div>
 </div></div>'''
     js = (f'<script>window.MNG={gr_strings(lang)};</script><script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script>'
-          f'<script src="{A}data/tours.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/groups.js"></script>')
+          f'<script src="{A}data/tours.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/gd-schedule.js"></script><script src="{A}js/groups.js"></script>')
     return shell(lang, "group-tours.html", x["gr_title"], x["gr_sub"], body, icon, logo, font, names, "is-groups", js)

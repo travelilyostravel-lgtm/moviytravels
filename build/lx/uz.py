@@ -213,4 +213,5 @@ X = {
  'gr_excl': ["Xiva/Urganchgacha va Toshkentdan qaytish aviachiptalari (o'zingiz olasiz)", 'Xalqaro aviachiptalar', "Viza (kerak bo'lsa)", "Sayohat sug'urtasi", "Dasturda ko'rsatilmagan ovqatlar", 'Shaxsiy xarajatlar va choychaqa'],
  'f_wa_opt': 'WhatsApp raqami (ixtiyoriy)',
  'f_email_hint': "Ishlaydigan e-mail kiriting — bron tasdig'i va vaucherni shu manzilga yuboramiz.",
+ 'gr_sched_title': "Reyslar jadvali — bo'sh joylar", 'gr_sched_date': 'Sanalar', 'gr_c_green': 'Joy bor', 'gr_c_yellow': 'Joy kam qoldi', 'gr_c_red': 'Joy qolmadi',
 }

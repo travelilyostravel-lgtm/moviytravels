@@ -213,4 +213,5 @@ X = {
  'gr_excl': ["Urgenç/Hive'ye ve Taşkent'ten dönüş uçuşları (kendiniz alırsınız)", 'Uluslararası uçuşlar', 'Vize (gerekirse)', 'Seyahat sigortası', 'Programda belirtilmeyen yemekler', 'Kişisel harcamalar ve bahşişler'],
  'f_wa_opt': 'WhatsApp numarası (isteğe bağlı)',
  'f_email_hint': "Lütfen çalışan bir e-posta girin — rezervasyon onayı ve voucher'ı oraya göndereceğiz.",
+ 'gr_sched_title': 'Kalkış takvimi — boş yerler', 'gr_sched_date': 'Tarihler', 'gr_c_green': 'Yer var', 'gr_c_yellow': 'Az yer kaldı', 'gr_c_red': 'Yer kalmadı',
 }

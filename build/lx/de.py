@@ -213,4 +213,5 @@ X = {
  'gr_excl': ['Flüge nach Urgentsch/Chiwa und ab Taschkent (buchen Sie selbst)', 'Internationale Flüge', 'Visum (falls nötig)', 'Reiseversicherung', 'Nicht im Programm genannte Mahlzeiten', 'Persönliche Ausgaben und Trinkgelder'],
  'f_wa_opt': 'WhatsApp-Nummer (optional)',
  'f_email_hint': 'Bitte eine gültige E-Mail angeben — dorthin senden wir Buchungsbestätigung und Voucher.',
+ 'gr_sched_title': 'Terminübersicht — freie Plätze', 'gr_sched_date': 'Termine', 'gr_c_green': 'Plätze frei', 'gr_c_yellow': 'Nur noch wenige Plätze', 'gr_c_red': 'Ausgebucht',
 }

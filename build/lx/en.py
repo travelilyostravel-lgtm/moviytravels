@@ -224,4 +224,5 @@ X = {
  'gr_excl': ['Flights to Urgench/Khiva and home from Tashkent (booked by you)', 'International flights', 'Visa (if required)', 'Travel insurance', 'Meals not listed in the programme', 'Personal expenses and tips'],
  'f_wa_opt': 'WhatsApp number (optional)',
  'f_email_hint': 'Please enter a working e-mail — we will send your booking confirmation and voucher there.',
+ 'gr_sched_title': 'Departure schedule — free seats', 'gr_sched_date': 'Dates', 'gr_c_green': 'Seats available', 'gr_c_yellow': 'Few seats left', 'gr_c_red': 'No seats left',
 }

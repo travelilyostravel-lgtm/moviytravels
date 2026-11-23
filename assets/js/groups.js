@@ -54,7 +54,8 @@
   function priceTxt(x) { return x.price_pp ? '$' + money(x.price_pp) : G.gr_on_request; }
   function kindRow(x) {
     var left = seatsLeft(x), full = isFull(x), pct = x.capacity ? Math.min(100, Math.round(100 * (x.booked || 0) / x.capacity)) : 0;
-    return '<div class="gk"><div class="gk__info"><b>' + esc(G["gr_k_" + (x.group_kind || "large")] || "") + '</b><small>' + esc(G["gr_veh_" + (x.vehicle || "bus")] || "") + '</small>' +
+    var col = window.MN_GDS ? window.MN_GDS.color(x) : "";
+    return '<div class="gk gk--' + col + '"><div class="gk__info"><b>' + esc(G["gr_k_" + (x.group_kind || "large")] || "") + '</b><small>' + esc(G["gr_veh_" + (x.vehicle || "bus")] || "") + '</small>' +
       '<div class="gd__bar"><i style="width:' + pct + '%"></i></div><small>' + esc(full ? G.gr_full : tf(G.gr_seats_left, { n: left })) + '</small></div>' +
       '<div class="gk__price"><b class="gd-price">' + esc(priceTxt(x)) + '</b><small>' + esc(G.gr_pp) + '</small></div>' +
       '<button class="btn btn--gold btn--sm" data-gd="' + x.id + '"' + (full ? " disabled" : "") + '>' + esc(G.gr_request) + '</button></div>';
@@ -83,6 +84,11 @@
     kindSel = document.createElement("select"); kindSel.id = "gd-kind"; kindSel.className = monthSel.className; kindSel.setAttribute("aria-label", G.gr_size);
     kindSel.innerHTML = '<option value="">' + esc(G.gr_all_sizes) + '</option>' + ["small", "medium", "large"].map(function (k) { return '<option value="' + k + '">' + esc(G["gr_k_" + k]) + '</option>'; }).join("");
     monthSel.parentNode.insertBefore(kindSel, monthSel.nextSibling); kindSel.onchange = function () { drawList(); };
+  }
+  function drawSched() {
+    var h = $("#gd-sched"); if (!h || !window.MN_GDS) return;
+    window.MN_GDS.render(h, rows, { lang: LANG, title: title, range: range, onPick: function (x) { openReq(x.id); },
+      labels: { date: G.gr_sched_date, small: G.gr_k_small, medium: G.gr_k_medium, large: G.gr_k_large, left: G.gr_seats_left, full: G.gr_full, green: G.gr_c_green, yellow: G.gr_c_yellow, red: G.gr_c_red, none: G.gr_empty } });
   }
   function drawList() {
     var m = monthSel ? monthSel.value : "";
@@ -185,7 +191,7 @@
   if (!list && !home) return;
   if (list) list.innerHTML = '<p class="gd-loading">' + esc(G.gr_loading) + '</p>';
   load().then(function (r) { rows = r; }).catch(function () { rows = []; }).then(function () {
-    if (list) { fillMonths(); drawList(); if (location.hash.length > 1 && modal) { var id = location.hash.slice(1); if (rows.some(function (x) { return x.id === id; })) openReq(id); } }
+    if (list) { drawSched(); fillMonths(); drawList(); if (location.hash.length > 1 && modal) { var id = location.hash.slice(1); if (rows.some(function (x) { return x.id === id; })) openReq(id); } }
     if (home) drawHome();
   });
   if (monthSel) monthSel.onchange = drawList;

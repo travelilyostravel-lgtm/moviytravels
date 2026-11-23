@@ -119,3 +119,21 @@ body.portal{background:var(--sand);min-height:100vh}
 .btn--danger{background:#b03a3a!important;color:#fff!important;border-color:#b03a3a!important}
 .np-manual{background:#fff8e6;border-radius:12px;padding:10px 12px}
 .np-man{background:#f5b638;color:#12355b;border-radius:999px;padding:1px 7px;font-weight:700}
+/* group departures schedule (3 colours) */
+.gds-box{margin:0 0 28px}.gds-box h2{margin:0 0 10px}
+.gds-legend{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:13px;margin:0 0 10px}
+.gds-dot{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:-10px;vertical-align:middle}
+.gds-dot--green,.gds-c--green{background:#e3f4e6}.gds-dot--green{background:#2e9e4f}
+.gds-dot--yellow,.gds-c--yellow{background:#fff4d1}.gds-dot--yellow{background:#e8b10c}
+.gds-dot--red,.gds-c--red{background:#fde2de}.gds-dot--red{background:#d23b2a}
+.gds-wrap{overflow:auto;border:1px solid #e6e1d6;border-radius:12px;max-height:520px}
+.gds-t{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+.gds-t th,.gds-t td{padding:8px 10px;border-bottom:1px solid #eee;text-align:center}
+.gds-t thead th{position:sticky;top:0;background:#12355b;color:#fff;font-weight:600;z-index:1}
+.gds-t tbody th{text-align:left;white-space:nowrap;font-weight:600;background:#fff}
+.gds-t tbody th small{font-weight:400;color:#6b7785}
+.gds-c b{display:block}.gds-c small{display:block;color:#5b6b7f;font-size:12px}
+.gds-c--green b{color:#1f7a3a}.gds-c--yellow b{color:#8a6500}.gds-c--red b{color:#b3261e}
+.gds-c[data-pick]{cursor:pointer}.gds-c[data-pick]:hover{outline:2px solid #12355b;outline-offset:-2px}
+.gds-c--na{color:#aaa}.gds-none{color:#6b7785}
+.gk--green{border-left:5px solid #2e9e4f}.gk--yellow{border-left:5px solid #e8b10c}.gk--red{border-left:5px solid #d23b2a}
