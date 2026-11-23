@@ -95,7 +95,8 @@
   }
   function label(el) {
     var h = el.getAttribute && el.getAttribute("href") || "";
-    var t = (el.getAttribute("aria-label") || el.textContent || el.value || "").replace(/\s+/g, " ").trim().slice(0, 80);
+    var hd = el.querySelector && el.querySelector("h2,h3,h4,.tour__title,.card__title");
+    var t = (el.getAttribute("aria-label") || (hd && hd.textContent) || el.textContent || el.value || "").replace(/\s+/g, " ").trim().slice(0, 80);
     if (/wa\.me|whatsapp/i.test(h)) return ["contact", "WhatsApp"];
     if (/t\.me|telegram/i.test(h)) return ["contact", "Telegram"];
     if (/^mailto:/i.test(h)) return ["contact", "E-mail"];
@@ -106,8 +107,9 @@
     var el = e.target.closest && e.target.closest("a,button,[role=button],input[type=submit],summary,.tour,.card,[data-tour]");
     if (!el || freeEl(el)) return;
     if (el.closest("form") && (el.type === "submit" || (el.tagName === "BUTTON" && !el.getAttribute("type")))) return;   // the submit handler decides
+    if (el.__mnPass) return;
     var l = label(el); track(l[0], l[1]);
-    if (known() || skipped() || el.__mnPass) return;
+    if (known() || skipped()) return;
     e.preventDefault(); e.stopImmediatePropagation();
     gate(function () { el.__mnPass = true; try { el.click(); } finally { setTimeout(function () { el.__mnPass = false; }, 0); } });
   }, true);
