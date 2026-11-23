@@ -28,8 +28,8 @@ def missing_keys(lang):
     return [k for k in X("en") if k not in m.X]
 
 
-SVC_IDS = ["airport", "transfer", "car", "hotel", "train", "guide", "mice"]
-SVC_IMG = {"airport": "tashkent", "transfer": "p/kyzylkum", "car": "charvak", "hotel": "p/ichan-kala", "train": "train", "guide": "p/registan", "mice": "p/yurt"}
+SVC_IDS = ["guide", "car", "hotel", "airport", "airport_guide", "mice", "esim"]
+SVC_IMG = {"airport_guide": "p/kukeldash", "esim": "p/tashkent-sky", "airport": "tashkent", "transfer": "p/kyzylkum", "car": "charvak", "hotel": "p/ichan-kala", "train": "train", "guide": "p/registan", "mice": "p/yurt"}
 SVC_ICON = {
  "airport": '<path d="M2 16l20-6-2-3-7 2-5-6H6l3 7-5 2-2-2H1l1 6z"/><path d="M3 21h18"/>',
  "transfer": '<path d="M3 13l2-6h14l2 6v5h-2.5M5.5 18H3v-5h18"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
@@ -37,6 +37,8 @@ SVC_ICON = {
  "hotel": '<path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6M8 10h.01M12 10h.01M16 10h.01"/>',
  "train": '<rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l1.5-4M15 21l-1.5-4"/><circle cx="9" cy="14" r=".8"/><circle cx="15" cy="14" r=".8"/>',
  "guide": '<circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M16 4l3-1v6l-3-1"/>',
+ "airport_guide": '<circle cx="9" cy="6" r="3"/><path d="M3 21c0-3.9 2.7-7 6-7s6 3.1 6 7"/><path d="M14 4l7 2-7 2z"/>',
+ "esim": '<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4M9 11h6v6H9z"/>',
  "mice": '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M12 20c0-3.3 2.7-6 6-6"/>',
 }
 

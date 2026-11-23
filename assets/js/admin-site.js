@@ -3,7 +3,7 @@
   var P = window.MNP, sb = P.sb, $ = P.$, $$ = P.$$, esc = P.esc, A = window.MNA = window.MNA || {};
   if (!sb) return;
   var RS = { new: "Yangi", in_progress: "Ishlanmoqda", awaiting_payment: "30% kutilmoqda", deposit_paid: "30% to'landi, 70% kutilmoqda", paid: "100% to'landi", confirmed: "Tasdiqlandi", closed: "Yopildi", cancelled: "Bekor" };
-  var SV = { airport: "Kutib olish", transfer: "Transfer", car: "Haydovchili mashina", hotel: "Mehmonxona", train: "Poyezd chiptasi", guide: "Gid", mice: "Guruh / MICE" };
+  var SV = { airport: "Aeroportda haydovchi kutib oladi", airport_guide: "Aeroportda gid kutib oladi", transfer: "Transfer", car: "Haydovchili transport", hotel: "Mehmonxona", train: "Poyezd chiptasi", guide: "Gid", mice: "Guruh / MICE", esim: "eSIM" };
   var HC = { comfort: "Komfort 3★", superior: "Superior 4★", boutique: "Butik va tarixiy" };
   var PM = { bank: "Bank o'tkazmasi", card: "Karta havolasi", contact: "Avval bog'lanish" };
   var rFilter = "open", pFilter = "pending";

@@ -11,9 +11,9 @@
   var COUNTRY = { UZ: "O'zbekiston", KZ: "Qozog'iston", KG: "Qirg'iziston", TJ: "Tojikiston", CA: "Markaziy Osiyo katta turi (4 davlat)" };
   var ORDER = ["UZ", "CA", "KZ", "KG", "TJ"];
   // Separate services (services.html) — price per unit
-  var SVC = [["airport", "Aeroportda kutib olish va mehmonxonaga yetkazish", "mashina, 1 tomon"], ["transfer", "Shaharlararo transfer", "mashina, 1 yo'nalish"],
-    ["car", "Haydovchili mashina", "1 kun"], ["hotel", "Mehmonxona bron qilish (xizmat haqi)", "1 bron"], ["train", "Poyezd chiptasi (xizmat haqi bilan)", "1 chipta"],
-    ["guide", "Gid", "1 kun"], ["mice", "Guruh va MICE (tashkil qilish)", "1 kishi"]];
+  var SVC = [["guide", "Gid (alohida)", "1 kun"], ["car", "Haydovchili transport (transfer, shahar, safar)", "1 kun / 1 yo'nalish"], ["hotel", "Mehmonxona (bron)", "1 kecha"],
+    ["airport", "Aeroportda haydovchi kutib oladi (transport bilan)", "mashina, 1 tomon"], ["airport_guide", "Aeroportda gid kutib oladi", "1 marta"],
+    ["mice", "Guruh / MICE tashkil qilish", "1 kishi"], ["esim", "eSIM (mobil internet)", "1 paket"]];
   var CLS = C.hotelClasses.map(function (h) { return h.id; });
   var CLS_NAME = { comfort: "Komfort 3★", superior: "Superior 4★", boutique: "Butik" };
   var TR_NAME = { sedan: "Sedan", minivan: "Miniven", premium: "Premium miniven", minibus: "Mikroavtobus", bus: "Avtobus" };
@@ -54,8 +54,8 @@
   function inp(path, val, ph, extra) {
     return '<input class="np-in" type="number" min="0" step="any" data-p="' + path + '" value="' + (val === undefined || val === null || val === "" ? "" : esc(val)) + '" placeholder="' + esc(ph === undefined ? "" : ph) + '"' + (extra || "") + '>';
   }
-  var MKC = [["hotel", "Mehmonxona"], ["transport", "Transport (transfer, kutib olish, haydovchili mashina)"], ["guide", "Gid"], ["train", "Poyezd va avia chiptalari"], ["entries", "Obidalarga kirish chiptalari"], ["dinner", "Ovqat (kechki ovqat)"], ["extra", "Turdagi qo'shimcha xarajatlar"], ["mice", "Guruh / MICE tashkil qilish"]];
-  var SVC_CAT = { airport: "transport", transfer: "transport", car: "transport", hotel: "hotel", train: "train", guide: "guide", mice: "mice" };
+  var MKC = [["guide", "Gid (aeroportda gid kutib olishi ham)"], ["transport", "Transport (haydovchili mashina, aeroportda haydovchi kutib olishi)"], ["hotel", "Mehmonxona"], ["mice", "Guruh / MICE tashkil qilish"], ["esim", "eSIM"]];
+  var SVC_CAT = { airport: "transport", car: "transport", hotel: "hotel", guide: "guide", airport_guide: "guide", mice: "mice", esim: "esim" };
   function mkOf(c, cat) { var m = c && c.markups; return m && isFinite(parseFloat(m[cat])) ? parseFloat(m[cat]) : (c && c.markup !== undefined ? c.markup : DEF.markup); }
   function num(x, d) { var n = parseFloat(x); return isFinite(n) ? n : d; }
   function get(o, path) { return path.split(".").reduce(function (a, k) { return a && a[k] !== undefined ? a[k] : undefined; }, o); }
@@ -80,7 +80,7 @@
     // 1a. Service fee per kind of service
     h += '<details open class="np-sec"><summary>1a. Kampaniya xizmat haqi — har bir xizmat turiga alohida, %</summary><div class="np-grid">' +
       MKC.map(function (m) { var x = get(c, "markups." + m[0]); return '<label>' + m[1] + inp("mk." + m[0], x === undefined ? "" : Math.round(x * 1000) / 10, "standart") + '</label>'; }).join("") +
-      '</div><p class="np-note">Siz netto (tan narx) yozasiz, sayt mijozga <b>netto + shu foiz</b>ni ko\'rsatadi (B2C va B2B uchun bir xil brutto; agent komissiyasi bruttodan). Foiz mijozga ko\'rinmaydi — faqat sizga va adminlarga. To\'liq paket narxi har bir qismning o\'z foizi bilan yig\'iladi, shuning uchun alohida yig\'ilgan xizmatlar yig\'indisi bilan paket narxi bir xil chiqadi. Bo\'sh qolsa — standart foiz.</p></details>';
+      '</div><p class="np-note">Siz netto (tan narx) yozasiz, sayt mijozga <b>netto + shu foiz</b>ni ko\'rsatadi (B2C va B2B uchun bir xil brutto; agent komissiyasi bruttodan). Foiz mijozga ko\'rinmaydi — faqat sizga va adminlarga. To\'liq paket narxi har bir qismning o\'z foizi bilan yig\'iladi, shuning uchun alohida yig\'ilgan xizmatlar yig\'indisi bilan paket narxi bir xil chiqadi. Bo\'sh qolsa — standart foiz. Turlar ichidagi poyezd chiptalari, obidalarga kirish va kechki ovqat alohida sotilmaydi — ularga standart foiz qo\'shiladi.</p></details>';
     // 2. Hotels
     h += '<details open class="np-sec"><summary>2. Mehmonxonalar — xona narxi bir kechaga (2 kishilik xona), $</summary>' +
       '<p class="np-note">Shahar bo\'yicha bo\'sh qoldirilsa, "Standart" narx olinadi. Mijozdan 1 kishi uchun xona narxining yarmi olinadi.</p>' +
