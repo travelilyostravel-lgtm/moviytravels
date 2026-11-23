@@ -5,7 +5,7 @@
   var L = (function () { try { return localStorage.getItem("mn_plang") || ((navigator.language || "").slice(0, 2) === "ru" ? "ru" : "uz"); } catch (e) { return "uz"; } })();
   var D = {
     uz: {
-      title: "Hamkorlar portali", sub: "Gidlar, haydovchilar, mehmonxonalar va boshqa xizmat egalari uchun.",
+      title: "Hamkorlar portali", notP: "Bu akkaunt hamkor sifatida ro'yxatdan o'tmagan. Hamkor bo'lish uchun «Chiqish»ni bosing va boshqa e-mail bilan ro'yxatdan o'ting.", sub: "Gidlar, haydovchilar, mehmonxonalar va boshqa xizmat egalari uchun.",
       login: "Kirish", reg: "Hamkor bo'lish", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
       how: ["Ro'yxatdan o'ting — 2 daqiqa", "Hujjatlaringizni yuklang — biz 1–2 kunda tekshiramiz", "Profilingizni to'ldiring — saytda chiqasiz, mijozlarni biz olib kelamiz"],
       why: "Nega Moviy Nomad bilan?", whys: ["Chet ellik sayyohlar va agentliklar — 10 tilda", "Mijozni biz topamiz va to'lovni biz qabul qilamiz", "Yaxshi baho olsangiz — ro'yxatda birinchi turasiz", "Ro'yxatdan o'tish bepul"],
@@ -24,7 +24,7 @@
       bad: "Xatolik: "
     },
     ru: {
-      title: "Портал партнёров", sub: "Для гидов, водителей, гостиниц и других поставщиков услуг.",
+      title: "Портал партнёров", notP: "Этот аккаунт не зарегистрирован как партнёр. Нажмите «Выйти» и зарегистрируйтесь с другим e-mail.", sub: "Для гидов, водителей, гостиниц и других поставщиков услуг.",
       login: "Вход", reg: "Стать партнёром", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
       how: ["Зарегистрируйтесь — 2 минуты", "Загрузите документы — проверим за 1–2 дня", "Заполните профиль — вы на сайте, клиентов приводим мы"],
       why: "Почему Moviy Nomad?", whys: ["Иностранные туристы и агентства — на 10 языках", "Клиента находим мы и оплату принимаем мы", "Хорошие отзывы — вы первые в списке", "Регистрация бесплатная"],
@@ -190,7 +190,7 @@
     if (!me.user) return authView(location.hash === "#reg" ? "reg" : "login");
     var r = await sb.from("partners").select("*").eq("user_id", me.user.id).maybeSingle();
     me.partner = r.data;
-    if (!me.partner) { box.innerHTML = '<div class="p-card"><h2>' + t("title") + '</h2><p class="p-sub">' + esc(me.user.email) + '</p>' + help() + '</div>'; return; }
+    if (!me.partner) { box.innerHTML = '<div class="p-card"><h2>' + t("title") + '</h2><p class="p-sub">' + esc(me.user.email) + '</p><p>' + t("notP") + '</p>' + help() + '</div>'; return; }
     var p = me.partner, h = '';
     $("#pwho").textContent = p.name + " · " + t("kinds")[p.kind];
     if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2><p class="p-sub">' + t("pendingTxt") + '</p></div>' + await docsBlock() + profileForm();
