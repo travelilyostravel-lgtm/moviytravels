@@ -67,7 +67,7 @@ Deno.serve(async () => {
   let sent = 0;
   for (const row of rows || []) {
     try {
-      if (Date.now() - new Date(row.created_at).getTime() > 3 * 864e5) { await sb.from("notify_outbox").update({ status: "expired" }).eq("id", row.id); continue; }
+      if (Date.now() - new Date(row.created_at).getTime() > 3 * 864e5 && !/tasdiqlanmagan/.test(row.error || "")) { await sb.from("notify_outbox").update({ status: "expired" }).eq("id", row.id); continue; }
       const x = await record(row);
       if (!x) { await sb.from("notify_outbox").update({ status: "error", error: "record not found" }).eq("id", row.id); continue; }
       const m = render(c, row.event, row.lang in c.msg ? row.lang : "en", x);
@@ -78,6 +78,8 @@ Deno.serve(async () => {
       await sb.from("notify_outbox").update({ status: "sent", sent_at: new Date().toISOString(), subject: m.subject, error: null }).eq("id", row.id);
       sent++;
     } catch (e) {
+      // Domain not verified yet in Resend: keep the letter waiting (no attempt counted, no expiry) until it is.
+      if (/domain is not verified/i.test(String(e))) { await sb.from("notify_outbox").update({ error: "Resend: domen hali tasdiqlanmagan — kutmoqda" }).eq("id", row.id); continue; }
       const a = (row.attempts || 0) + 1;
       await sb.from("notify_outbox").update({ attempts: a, status: a >= 5 ? "error" : "pending", error: String(e).slice(0, 500) }).eq("id", row.id);
     }

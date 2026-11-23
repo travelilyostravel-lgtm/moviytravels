@@ -133,3 +133,9 @@ select cron.schedule('mn_notify_send', '* * * * *', $$
     body := '{}'::jsonb)
   where exists (select 1 from public.notify_outbox where status = 'pending');
 $$);
+
+-- The mail function reads with the project's secret key (service_role); give it access.
+grant usage on schema public to service_role;
+grant select, insert, update on public.notify_outbox to service_role;
+grant usage, select on all sequences in schema public to service_role;
+grant select on public.site_requests, public.bookings, public.agencies to service_role;
