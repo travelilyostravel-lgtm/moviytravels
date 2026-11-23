@@ -222,4 +222,6 @@ X = {
  'gr_incl': ['Hotels with breakfast (twin share): Khiva 2, Bukhara 2, Samarkand 2, Tashkent 1 night', 'Comfortable vehicle for the whole route (minibus or bus by group size)', 'English-speaking guide(s)', 'Entrance tickets as per programme', 'High-speed train tickets Bukhara → Samarkand → Tashkent', 'Welcome dinner in Khiva', 'Meeting at the hotel in Khiva on day 1 (Saturday)'],
  'gr_feats': [('Fixed dates', 'The tour departs on the announced date — book a seat and plan your flights.'), ('English-speaking guides', 'Two professional guides lead every group, whatever country you come from.'), ('3 group sizes', 'Small 12–17 (minibus), medium 30–35 or large 45–50 (bus) — every Saturday, all season.'), ('Join on your own', 'Share a twin room with another traveller of the same gender, or take a single room.')],
  'gr_excl': ['Flights to Urgench/Khiva and home from Tashkent (booked by you)', 'International flights', 'Visa (if required)', 'Travel insurance', 'Meals not listed in the programme', 'Personal expenses and tips'],
+ 'f_wa_opt': 'WhatsApp number (optional)',
+ 'f_email_hint': 'Please enter a working e-mail — we will send your booking confirmation and voucher there.',
 }

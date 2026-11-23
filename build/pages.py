@@ -243,8 +243,8 @@ def render_services(lang, icon, logo, font, names):
       <label class="mf-f"><span>{e(x["f_date"])} *</span><input type="date" name="start_date" required></label>
       <label class="mf-f"><span>{e(x["f_pax"])} *</span><input type="number" name="pax" min="1" max="500" value="2" required></label>
       <label class="mf-f"><span>{e(x["f_name"])} *</span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
-      <label class="mf-f"><span>{e(x["f_phone"])} *</span><input type="tel" name="phone" required maxlength="40" autocomplete="tel" placeholder="+"></label>
-      <label class="mf-f"><span>{e(x["f_email"])}</span><input type="email" name="email" maxlength="160" autocomplete="email"></label>
+      <label class="mf-f"><span>{e(x["f_email"])} *</span><input type="email" name="email" required maxlength="160" autocomplete="email" placeholder="name@example.com"><small class="mf-hint">{e(x.get("f_email_hint", ""))}</small></label>
+      <label class="mf-f"><span>{e(x.get("f_wa_opt", x["f_phone"]))}</span><input type="tel" name="phone" maxlength="40" autocomplete="tel" placeholder="+"></label>
       <label class="mf-f"><span>{e(x["f_citizenship"])}</span><input name="citizenship" maxlength="80"></label>
       <label class="mf-f mf-f--full"><span>{e(x["f_details"])}</span><textarea name="message" rows="3" maxlength="3000"></textarea></label>
     </div>
@@ -292,8 +292,8 @@ def render_booking(lang, icon, logo, font, names, tours, L):
     </div></fieldset>
     <fieldset><legend>{e(x["bk_lead"])}</legend><div class="mf-grid">
       <label class="mf-f"><span>{e(x["f_name"])} *</span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
-      <label class="mf-f"><span>{e(x["f_phone"])} *</span><input type="tel" name="phone" required maxlength="40" autocomplete="tel" placeholder="+"></label>
-      <label class="mf-f"><span>{e(x["f_email"])}</span><input type="email" name="email" maxlength="160" autocomplete="email"></label>
+      <label class="mf-f"><span>{e(x["f_email"])} *</span><input type="email" name="email" required maxlength="160" autocomplete="email" placeholder="name@example.com"><small class="mf-hint">{e(x.get("f_email_hint", ""))}</small></label>
+      <label class="mf-f"><span>{e(x.get("f_wa_opt", x["f_phone"]))}</span><input type="tel" name="phone" maxlength="40" autocomplete="tel" placeholder="+"></label>
       <label class="mf-f"><span>{e(x["f_citizenship"])} *</span><input name="citizenship" required maxlength="80"></label>
       <label class="mf-f"><span>{e(x["f_messenger"])}</span><select name="messenger"><option>WhatsApp</option><option>Telegram</option><option>E-mail</option><option>{e(x["f_phone"])}</option></select></label>
     </div></fieldset>
@@ -379,8 +379,8 @@ def render_groups(lang, icon, logo, font, names):
       <label class="mf-f"><span>{e(x["gr_f_seats"])} *</span><input type="number" name="pax" min="1" max="20" value="1" required></label>
       <label class="mf-f"><span>{e(x["gr_f_room"])}</span><select name="room">{rooms}</select></label>
       <label class="mf-f"><span>{e(x["f_name"])} *</span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
-      <label class="mf-f"><span>{e(x["f_phone"])} *</span><input type="tel" name="phone" required maxlength="40" autocomplete="tel" placeholder="+"></label>
-      <label class="mf-f"><span>{e(x["f_email"])}</span><input type="email" name="email" maxlength="160" autocomplete="email"></label>
+      <label class="mf-f"><span>{e(x["f_email"])} *</span><input type="email" name="email" required maxlength="160" autocomplete="email" placeholder="name@example.com"><small class="mf-hint">{e(x.get("f_email_hint", ""))}</small></label>
+      <label class="mf-f"><span>{e(x.get("f_wa_opt", x["f_phone"]))}</span><input type="tel" name="phone" maxlength="40" autocomplete="tel" placeholder="+"></label>
       <label class="mf-f"><span>{e(x["f_citizenship"])} *</span><input name="citizenship" required maxlength="80"></label>
       <label class="mf-f"><span>{e(x["f_messenger"])}</span><select name="messenger"><option>WhatsApp</option><option>Telegram</option><option>E-mail</option></select></label>
       <label class="mf-f mf-f--full"><span>{e(x["f_details"])}</span><textarea name="message" rows="2" maxlength="3000"></textarea></label>

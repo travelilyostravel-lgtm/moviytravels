@@ -211,4 +211,6 @@ X = {
  'gr_incl': ['Nonushtali mehmonxonalar (ikki kishilik xona): Xiva 2, Buxoro 2, Samarqand 2, Toshkent 1 kecha', "Butun yo'nalish bo'ylab qulay transport (guruh hajmiga qarab mikroavtobus yoki avtobus)", 'Ingliz tilidagi gid(lar)', "Dastur bo'yicha kirish chiptalari", 'Tezyurar poyezd chiptalari: Buxoro → Samarqand → Toshkent', 'Xivada tanishuv kechki ovqati', '1-kuni (shanba) Xivadagi mehmonxonada kutib olish'],
  'gr_feats': [('Aniq sanalar', "Tur e'lon qilingan kuni yo'lga chiqadi — joy band qiling va aviachiptani rejalashtiring."), ('Ingliz tilidagi gidlar', "Har bir guruhni ikki professional gid olib boradi, qaysi davlatdan bo'lishingizdan qat'i nazar."), ('3 xil guruh', "Kichik 12–17 (mikroavtobus), o'rta 30–35 yoki katta 45–50 (avtobus) — butun mavsum har shanba."), ("Yakka qo'shilish", "Ikki kishilik xonani bir jinsdagi boshqa sayohatchi bilan bo'lishing yoki bir kishilik xona oling.")],
  'gr_excl': ["Xiva/Urganchgacha va Toshkentdan qaytish aviachiptalari (o'zingiz olasiz)", 'Xalqaro aviachiptalar', "Viza (kerak bo'lsa)", "Sayohat sug'urtasi", "Dasturda ko'rsatilmagan ovqatlar", 'Shaxsiy xarajatlar va choychaqa'],
+ 'f_wa_opt': 'WhatsApp raqami (ixtiyoriy)',
+ 'f_email_hint': "Ishlaydigan e-mail kiriting — bron tasdig'i va vaucherni shu manzilga yuboramiz.",
 }

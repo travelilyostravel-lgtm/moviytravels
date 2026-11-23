@@ -211,4 +211,6 @@ X = {
  'gr_incl': ['Hotels mit Frühstück (Doppelzimmer): Chiwa 2, Buchara 2, Samarkand 2, Taschkent 1 Nacht', 'Komfortables Fahrzeug für die ganze Route (Minibus oder Bus je nach Gruppengröße)', 'Englischsprachige(r) Guide(s)', 'Eintritte laut Programm', 'Schnellzugtickets Buchara → Samarkand → Taschkent', 'Begrüßungsabendessen in Chiwa', 'Treffen im Hotel in Chiwa am 1. Tag (Samstag)'],
  'gr_feats': [('Feste Termine', 'Die Reise startet am angekündigten Tag – Platz buchen und Flüge planen.'), ('Englischsprachige Reiseleiter', 'Jede Gruppe wird von zwei professionellen Reiseleitern begleitet, egal aus welchem Land Sie kommen.'), ('3 Gruppengrößen', 'Klein 12–17 (Minibus), mittel 30–35 oder groß 45–50 (Bus) — jeden Samstag die ganze Saison.'), ('Allein mitreisen', 'Teilen Sie ein Doppelzimmer mit einem Reisenden gleichen Geschlechts oder nehmen Sie ein Einzelzimmer.')],
  'gr_excl': ['Flüge nach Urgentsch/Chiwa und ab Taschkent (buchen Sie selbst)', 'Internationale Flüge', 'Visum (falls nötig)', 'Reiseversicherung', 'Nicht im Programm genannte Mahlzeiten', 'Persönliche Ausgaben und Trinkgelder'],
+ 'f_wa_opt': 'WhatsApp-Nummer (optional)',
+ 'f_email_hint': 'Bitte eine gültige E-Mail angeben — dorthin senden wir Buchungsbestätigung und Voucher.',
 }

@@ -211,4 +211,6 @@ X = {
  'gr_incl': ['Hotell med frukost (dubbelrum): Chiva 2, Buchara 2, Samarkand 2, Tasjkent 1 natt', 'Bekvämt fordon hela rutten (minibuss eller buss efter gruppstorlek)', 'Engelsktalande guide(r)', 'Entréer enligt programmet', 'Snabbtågsbiljetter Buchara → Samarkand → Tasjkent', 'Välkomstmiddag i Chiva', 'Möte på hotellet i Chiva dag 1 (lördag)'],
  'gr_feats': [('Fasta datum', 'Resan avgår på utlovad dag – boka en plats och planera flyget.'), ('Engelsktalande guider', 'Två professionella guider leder varje grupp, oavsett vilket land du kommer från.'), ('3 gruppstorlekar', 'Liten 12–17 (minibuss), mellan 30–35 eller stor 45–50 (buss) — varje lördag hela säsongen.'), ('Res ensam', 'Dela dubbelrum med en resenär av samma kön, eller välj enkelrum.')],
  'gr_excl': ['Flyg till Urgench/Chiva och hem från Tasjkent (bokas av dig)', 'Internationella flyg', 'Visum (vid behov)', 'Reseförsäkring', 'Måltider som inte nämns i programmet', 'Personliga utgifter och dricks'],
+ 'f_wa_opt': 'WhatsApp-nummer (valfritt)',
+ 'f_email_hint': 'Ange en fungerande e-post — dit skickar vi bokningsbekräftelse och voucher.',
 }

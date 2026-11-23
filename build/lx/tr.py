@@ -211,4 +211,6 @@ X = {
  'gr_incl': ['Kahvaltılı oteller (iki kişilik oda): Hive 2, Buhara 2, Semerkant 2, Taşkent 1 gece', 'Tüm rota için konforlu araç (grup büyüklüğüne göre minibüs veya otobüs)', 'İngilizce rehber(ler)', 'Programdaki giriş biletleri', 'Hızlı tren biletleri Buhara → Semerkant → Taşkent', "Hive'de hoş geldin yemeği", "1. gün (cumartesi) Hive'deki otelde karşılama"],
  'gr_feats': [('Kesin tarihler', 'Tur ilan edilen gün yola çıkar — yerinizi ayırın, uçuşunuzu planlayın.'), ('İngilizce rehberler', 'Hangi ülkeden olursanız olun, her grubu iki profesyonel rehber yönetir.'), ('3 grup büyüklüğü', 'Küçük 12–17 (minibüs), orta 30–35 veya büyük 45–50 (otobüs) — sezon boyunca her cumartesi.'), ('Tek başınıza katılın', 'Aynı cinsiyetten bir gezginle iki kişilik oda paylaşın ya da tek kişilik oda alın.')],
  'gr_excl': ["Urgenç/Hive'ye ve Taşkent'ten dönüş uçuşları (kendiniz alırsınız)", 'Uluslararası uçuşlar', 'Vize (gerekirse)', 'Seyahat sigortası', 'Programda belirtilmeyen yemekler', 'Kişisel harcamalar ve bahşişler'],
+ 'f_wa_opt': 'WhatsApp numarası (isteğe bağlı)',
+ 'f_email_hint': "Lütfen çalışan bir e-posta girin — rezervasyon onayı ve voucher'ı oraya göndereceğiz.",
 }

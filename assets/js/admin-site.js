@@ -66,63 +66,124 @@
   function addDays(d, n) { var t = new Date(d + "T12:00:00"); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); }
   function workDays(from, n) { var t = new Date(from); while (n > 0) { t.setDate(t.getDate() + 1); var w = t.getDay(); if (w !== 0 && w !== 6) n--; } return t.toISOString().slice(0, 10); }
   function vurl(x) { return location.origin + location.pathname.replace(/admin\/.*$/, "") + "voucher.html?ref=" + encodeURIComponent(x.ref) + "&k=" + encodeURIComponent(x.voucher_key); }
+  // ---- message templates (client's language: en / ru / uz; others get English)
+  var MT = {
+    en: {
+      confirm: ["Booking confirmed — please pay the 30% deposit · {ref}", "Dear {name},\n\nThank you for choosing Moviy Nomad! Your booking {ref} — {tour}, {date}, {pax} traveller(s) — is confirmed.\n\nTour price: {total}\nDeposit (30%): {dep} — please pay within 3 working days.\nBalance (70%): {bal} — by {due}.\n\nBank details:\n{bank}\nPayment reference: {ref}\n\nWe will send a payment confirmation as soon as the money arrives.\nTerms: {terms}\n\nMoviy Nomad (MOVIY TRAVEL), licence № {lic}\nWhatsApp {phone}"],
+      received: ["Payment received — {ref}", "Dear {name},\n\nWe have received your payment of {last}. Thank you!\nPaid so far: {paid} of {total}.\n{left}\nYour booking confirmation (PDF): {doc}\n\nMoviy Nomad, WhatsApp {phone}"],
+      reminder: ["Reminder: balance due {due} — {ref}", "Dear {name},\n\nA friendly reminder: the balance of {left_amt} for your trip {tour} ({date}) is due by {due}.\n\nBank details:\n{bank}\nPayment reference: {ref}\n\nMoviy Nomad, WhatsApp {phone}"],
+      final: ["Final reminder — 48 hours — {ref}", "Dear {name},\n\nWe have not yet received the balance of {left_amt} for booking {ref}. Please pay within 48 hours, otherwise, under our terms, the booking will be cancelled and the deposit kept.\n\nBank details:\n{bank}\n\nMoviy Nomad, WhatsApp {phone}"],
+      voucher: ["Your travel voucher — {ref}", "Dear {name},\n\nYour trip {tour} ({date}) is fully paid — thank you!\nYour travel voucher (open and download PDF): {doc}\n\nPlease show it together with your passport. We are available 24/7 on WhatsApp {phone}.\n\nHave a wonderful journey!\nMoviy Nomad"],
+      cancel: ["Booking cancelled — {ref}", "Dear {name},\n\nYour booking {ref} ({tour}, {date}) has been cancelled. Any refund will follow our terms: {terms}\n\nMoviy Nomad, WhatsApp {phone}"]
+    },
+    ru: {
+      confirm: ["Бронь подтверждена — внесите предоплату 30% · {ref}", "Здравствуйте, {name}!\n\nСпасибо, что выбрали Moviy Nomad! Ваша бронь {ref} — {tour}, {date}, туристов: {pax} — подтверждена.\n\nСтоимость тура: {total}\nПредоплата (30%): {dep} — в течение 3 рабочих дней.\nОстаток (70%): {bal} — до {due}.\n\nРеквизиты:\n{bank}\nНазначение платежа: {ref}\n\nКак только деньги поступят, пришлём подтверждение.\nУсловия: {terms}\n\nMoviy Nomad (MOVIY TRAVEL), лицензия № {lic}\nWhatsApp {phone}"],
+      received: ["Оплата получена — {ref}", "Здравствуйте, {name}!\n\nМы получили вашу оплату {last}. Спасибо!\nВсего оплачено: {paid} из {total}.\n{left}\nПодтверждение брони (PDF): {doc}\n\nMoviy Nomad, WhatsApp {phone}"],
+      reminder: ["Напоминание: остаток до {due} — {ref}", "Здравствуйте, {name}!\n\nНапоминаем: остаток {left_amt} за тур {tour} ({date}) нужно оплатить до {due}.\n\nРеквизиты:\n{bank}\nНазначение: {ref}\n\nMoviy Nomad, WhatsApp {phone}"],
+      final: ["Последнее напоминание — 48 часов — {ref}", "Здравствуйте, {name}!\n\nМы пока не получили остаток {left_amt} по брони {ref}. Пожалуйста, оплатите в течение 48 часов, иначе по нашим условиям бронь будет отменена, а предоплата не возвращается.\n\nРеквизиты:\n{bank}\n\nMoviy Nomad, WhatsApp {phone}"],
+      voucher: ["Ваш ваучер — {ref}", "Здравствуйте, {name}!\n\nТур {tour} ({date}) полностью оплачен — спасибо!\nВаш ваучер (открыть и скачать PDF): {doc}\n\nПокажите его вместе с паспортом. Мы на связи 24/7 в WhatsApp {phone}.\n\nПриятного путешествия!\nMoviy Nomad"],
+      cancel: ["Бронь отменена — {ref}", "Здравствуйте, {name}!\n\nВаша бронь {ref} ({tour}, {date}) отменена. Возврат — по нашим условиям: {terms}\n\nMoviy Nomad, WhatsApp {phone}"]
+    },
+    uz: {
+      confirm: ["Bron tasdiqlandi — 30% oldindan to'lovni qiling · {ref}", "Hurmatli {name},\n\nMoviy Nomad'ni tanlaganingiz uchun rahmat! Broningiz {ref} — {tour}, {date}, {pax} kishi — tasdiqlandi.\n\nTur narxi: {total}\nOldindan to'lov (30%): {dep} — 3 ish kuni ichida.\nQolgan 70%: {bal} — {due} gacha.\n\nRekvizitlar:\n{bank}\nTo'lov maqsadi: {ref}\n\nPul tushishi bilan tasdiq yuboramiz.\nShartlar: {terms}\n\nMoviy Nomad (MOVIY TRAVEL), litsenziya № {lic}\nWhatsApp {phone}"],
+      received: ["To'lov qabul qilindi — {ref}", "Hurmatli {name},\n\n{last} to'lovingiz qabul qilindi. Rahmat!\nJami to'langan: {paid} / {total}.\n{left}\nBron tasdig'i (PDF): {doc}\n\nMoviy Nomad, WhatsApp {phone}"],
+      reminder: ["Eslatma: qolgan to'lov muddati {due} — {ref}", "Hurmatli {name},\n\nEslatamiz: {tour} ({date}) uchun qolgan {left_amt} summani {due} gacha to'lash kerak.\n\nRekvizitlar:\n{bank}\nTo'lov maqsadi: {ref}\n\nMoviy Nomad, WhatsApp {phone}"],
+      final: ["Oxirgi eslatma — 48 soat — {ref}", "Hurmatli {name},\n\n{ref} bron bo'yicha qolgan {left_amt} hali tushmadi. Iltimos, 48 soat ichida to'lang, aks holda shartlarimizga ko'ra bron bekor qilinadi va oldindan to'lov qaytarilmaydi.\n\nRekvizitlar:\n{bank}\n\nMoviy Nomad, WhatsApp {phone}"],
+      voucher: ["Sayohat vaucheringiz — {ref}", "Hurmatli {name},\n\n{tour} ({date}) to'liq to'landi — rahmat!\nVaucheringiz (ochib PDF yuklab oling): {doc}\n\nUni pasportingiz bilan birga ko'rsating. 24/7 WhatsApp: {phone}.\n\nYaxshi sayohat!\nMoviy Nomad"],
+      cancel: ["Bron bekor qilindi — {ref}", "Hurmatli {name},\n\n{ref} broningiz ({tour}, {date}) bekor qilindi. Pul qaytarish shartlarimiz bo'yicha: {terms}\n\nMoviy Nomad, WhatsApp {phone}"]
+    }
+  };
+  var MTN = { confirm: "Bron tasdiqlandi — 30% to'lang", received: "To'lov qabul qilindi (+ hujjat)", reminder: "Eslatma: qolgan to'lov muddati yaqin", final: "Oxirgi eslatma (48 soat)", voucher: "Vaucher tayyor (to'liq to'langan)", cancel: "Bron bekor qilindi" };
+  function suggest(x) {
+    var tot = +x.price_total || 0, paid = +x.paid_total || 0;
+    if (x.status === "cancelled") return "cancel";
+    if (tot && paid >= tot) return "voucher";
+    if (paid > 0) { var dd = x.balance_due ? (new Date(x.balance_due) - new Date()) / 864e5 : 99; return dd < 0 ? "final" : dd <= 10 ? "reminder" : "received"; }
+    return "confirm";
+  }
+  function fillMsg(x, key) {
+    var lang = MT[x.lang] ? x.lang : "en", t = MT[lang][key], C = window.MN_CO || {};
+    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = Math.round(tot * 0.3), left = Math.max(0, tot - paid);
+    var m = function (n) { return P.money(n); }, last = x._lastPay || paid;
+    var leftTxt = left > 0 ? { en: "Balance: " + m(left) + (x.balance_due ? " — due by " + P.date(x.balance_due) : ""), ru: "Остаток: " + m(left) + (x.balance_due ? " — до " + P.date(x.balance_due) : ""), uz: "Qoldiq: " + m(left) + (x.balance_due ? " — " + P.date(x.balance_due) + " gacha" : "") }[lang] : { en: "Your trip is fully paid.", ru: "Тур полностью оплачен.", uz: "Sayohat to'liq to'langan." }[lang];
+    var V = { ref: x.ref, name: x.contact_name || "", tour: x.tour_title || x.tour_id || "", date: x.start_date ? P.date(x.start_date) : "", pax: x.pax || "",
+      total: m(tot), dep: m(dep), bal: m(tot - dep), due: x.balance_due ? P.date(x.balance_due) : (x.start_date ? P.date(addDays(x.start_date, -14)) : ""),
+      paid: m(paid), last: m(last), left: leftTxt, left_amt: m(left), doc: x.voucher_key ? vurl(x) : "", lic: C.license || "", phone: C.phone || "",
+      terms: location.origin + location.pathname.replace(/admin\/.*$/, "") + (lang === "en" ? "" : lang + "/") + "terms.html",
+      bank: (C.company || "") + "\nINN " + (C.inn || "") + " · " + (C.bank || "") + " · MFO " + (C.mfo || "") + "\nAccount: " + (C.account || "") };
+    var f = function (s) { return s.replace(/\{(\w+)\}/g, function (_, k) { return V[k] == null ? "" : V[k]; }); };
+    return { subj: f(t[0]), body: f(t[1]) };
+  }
+  function newKey() { var a = new Uint8Array(18); crypto.getRandomValues(a); return Array.from(a, function (n) { return ("0" + n.toString(16)).slice(-2); }).join(""); }
+
   function payCard(x) {
-    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = Math.round(tot * 0.3), due = x.balance_due || (x.start_date ? addDays(x.start_date, -14) : "");
-    var est = (x.details && x.details.est_total) || "", done = x.voucher_key && ["paid", "confirmed", "closed"].indexOf(x.status) > -1;
-    var step = function (n, on, txt) { return '<div style="display:flex;gap:10px;align-items:center;margin:8px 0;opacity:' + (on ? 1 : .45) + '"><b style="flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:' + (on ? "var(--gold)" : "#ddd") + '">' + n + '</b><div style="flex:1">' + txt + '</div></div>'; };
-    var h = '<div class="p-card" id="pay-card"><h3>To\'lov va vaucher</h3>';
-    // 1) price
-    h += step(1, true, '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">Tur narxi (USD): <input type="number" min="0" step="1" id="p-total" style="width:130px" value="' + (tot || est) + '">' +
-      (tot ? '<small>30% = <b>' + P.money(dep) + '</b> · 70% = <b>' + P.money(tot - dep) + '</b>' + (due ? ' (' + P.date(due) + ' gacha)' : '') + '</small>' : '<button class="btn btn--gold btn--sm" id="p-save-total">Saqlash</button>') + '</div>');
-    // 2) money received — one click, no typing
-    var t2 = paid >= tot && tot ? '✅ To\'liq to\'langan: <b>' + P.money(paid) + '</b>' :
-      (paid ? 'Tushgan: <b>' + P.money(paid) + '</b> · qoldi: <b>' + P.money(tot - paid) + '</b><br>' : '') +
-      (paid < dep ? '<button class="btn btn--green btn--sm" id="p-30">30% tushdi (' + P.money(dep) + ')</button> ' : '') +
-      '<button class="btn btn--green btn--sm" id="p-100">' + (paid ? 'Qolgani tushdi (' + P.money(tot - paid) + ')' : '100% tushdi (' + P.money(tot) + ')') + '</button>';
-    h += step(2, !!tot, tot ? t2 : 'Pul tushganda shu yerda bitta tugmani bosasiz');
-    // 3) voucher — one click: create + send
-    var t3 = done ? '<a class="btn btn--wa btn--sm" target="_blank" rel="noopener" id="p-send" href="' + wa(x.phone) + '?text=' + encodeURIComponent("Moviy Nomad: your trip is fully paid. Your voucher: " + vurl(x)) + '">WhatsApp\'da yuborish</a> <a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="' + esc(vurl(x)) + '">Vaucherni ko\'rish</a> <button class="btn btn--outline btn--sm" id="p-copy">Havolani nusxalash</button>'
-      : (tot && paid >= tot ? '<button class="btn btn--gold" id="p-vouch">Vaucher tayyorlash va WhatsApp\'da yuborish</button>' : 'To\'liq to\'langach shu yerda tugma chiqadi');
-    h += step(3, tot && paid >= tot, t3);
-    if (tot) h += '<details style="margin-top:10px"><summary class="p-sub" style="cursor:pointer">Boshqa summa tushdimi? (qo\'lda yozish va to\'lovlar tarixi)</summary>' +
-      '<div id="p-list" style="margin-top:8px"></div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-top:8px"><div class="fld"><label>Summa (USD)</label><input type="number" step="1" id="p-amt" style="width:120px"></div>' +
-      '<div class="fld"><label>Usul</label><select id="p-m"><option value="bank">Bank</option><option value="card">Karta</option><option value="cash">Naqd</option></select></div>' +
-      '<button class="btn btn--outline btn--sm" id="p-add">Yozish</button></div></details>';
+    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = Math.round(tot * 0.3), left = Math.max(0, tot - paid), due = x.balance_due || (x.start_date ? addDays(x.start_date, -14) : "");
+    var est = (x.details && x.details.est_total) || "";
+    var step = function (n, on, head, txt) { return '<div style="display:flex;gap:12px;margin:14px 0;opacity:' + (on ? 1 : .45) + '"><b style="flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:' + (on ? "var(--gold)" : "#ddd") + '">' + n + '</b><div style="flex:1"><b>' + head + '</b><div style="margin-top:6px">' + txt + '</div></div></div>'; };
+    var h = '<div class="p-card" id="pay-card"><h3>To\'lov, hujjat va xabarlar</h3>';
+    h += step(1, true, "Tur narxi", '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><input type="number" min="0" step="1" id="p-total" style="width:140px" value="' + (tot || est) + '"> USD <button class="btn btn--gold btn--sm" id="p-save-total">Saqlash</button>' +
+      (tot ? '<small>30% = <b>' + P.money(dep) + '</b> (3 ish kunida) · 70% = <b>' + P.money(tot - dep) + '</b>' + (due ? ' (' + P.date(due) + ' gacha)' : '') + '</small>' : '') + '</div>');
+    var nextAmt = paid < dep ? dep - paid : left;
+    h += step(2, !!tot, "To'lov tushdi — summani yozing", tot ? (
+      '<div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap"><div class="fld"><label>Summa (USD)</label><input type="number" step="1" id="p-amt" style="width:130px" value="' + (left > 0 ? nextAmt : "") + '"></div>' +
+      '<div class="fld"><label>Sana</label><input type="date" id="p-date" value="' + new Date().toISOString().slice(0, 10) + '"></div>' +
+      '<div class="fld"><label>Usul</label><select id="p-m"><option value="bank">Bank o\'tkazmasi</option><option value="card">Karta (Visa/Mastercard)</option><option value="cash">Naqd</option><option value="other">Boshqa</option></select></div>' +
+      '<button class="btn btn--green btn--sm" id="p-add">✓ To\'lovni tasdiqlash</button></div>' +
+      '<p style="margin:8px 0 0">To\'langan: <b>' + P.money(paid) + '</b> / ' + P.money(tot) + (left > 0 ? ' · qoldiq: <b style="color:#c8553d">' + P.money(left) + '</b>' : ' · <b style="color:#2e7d32">to\'liq to\'langan ✓</b>') + '</p><div id="p-list"></div>') : "Avval narxni saqlang");
+    h += step(3, !!x.voucher_key, "Hujjat (bron tasdig'i / vaucher)", x.voucher_key ?
+      'To\'lov tasdiqlangach o\'zi tayyor bo\'ldi — ' + (left > 0 ? '<b>bron tasdig\'i</b> (to\'langan summa va qoldiq bilan)' : '<b>sayohat vaucheri</b>') + '. <a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="' + esc(vurl(x)) + '">Ko\'rish / PDF</a> <button class="btn btn--outline btn--sm" id="p-copy">Havolani nusxalash</button>' :
+      'Birinchi to\'lov tasdiqlanishi bilan o\'zi tayyorlanadi (Moviy Travel rekvizitlari, mijoz ma\'lumotlari, tur, to\'lovlar).');
+    var sug = suggest(x);
+    h += step(4, true, "Mijozga xabar yuborish", '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><select id="p-tpl">' + Object.keys(MTN).map(function (k) { return '<option value="' + k + '"' + (k === sug ? " selected" : "") + '>' + MTN[k] + '</option>'; }).join("") + '</select>' +
+      '<button class="btn btn--gold btn--sm" id="p-mail"' + (x.email ? "" : " disabled") + '>✉ E-mailga yuborish</button>' +
+      '<button class="btn btn--wa btn--sm" id="p-wa"' + (x.phone ? "" : " disabled") + '>WhatsApp\'ga yuborish</button></div>' +
+      '<small class="p-sub">E-mail: ' + esc(x.email || "— yo'q") + ' · WhatsApp: ' + esc(x.phone || "— yo'q") + ' · til: ' + esc((MT[x.lang] ? x.lang : "en").toUpperCase()) + '</small>' +
+      '<div class="fld" style="margin-top:8px"><label>Mavzu</label><input id="p-subj"></div><div class="fld"><label>Matn (kerak bo\'lsa tahrirlang)</label><textarea id="p-body" rows="9"></textarea></div>' +
+      ((x.messages || []).length ? '<p class="p-sub" style="margin-top:6px">Yuborilganlar: ' + x.messages.slice(-6).map(function (m) { return P.date(m.at) + " — " + esc(MTN[m.t] || m.t) + " (" + (m.ch === "email" ? "e-mail" : "WhatsApp") + ")"; }).join("; ") + '</p>' : ''));
     return h + '<div class="msg" id="m-p"></div></div>';
   }
   function bindPay(x, id) {
     var tot = +x.price_total || 0, paid0 = +x.paid_total || 0;
     async function save(patch) { patch.updated_at = new Date().toISOString(); var u = await sb.from("site_requests").update(patch).eq("id", id); if (u.error) { P.msg("#m-p", u.error.message, "err"); return false; } return true; }
-    async function pay(amount, method, note) {
-      if (!(amount > 0)) return;
-      var ins = await sb.from("payments").insert({ ref_kind: "request", ref_id: id, amount: amount, method: method || "bank", note: note || null });
-      if (ins.error) return P.msg("#m-p", ins.error.message, "err");
-      var paid = paid0 + amount, st = paid >= tot ? "paid" : paid >= Math.round(tot * 0.3) - 0.5 ? "deposit_paid" : "awaiting_payment";
-      if (["confirmed", "closed", "cancelled"].indexOf(x.status) > -1) st = x.status;
-      if (await save({ paid_total: paid, status: st })) openRequest(id);
-    }
     var b;
     if ((b = $("#p-save-total"))) b.onclick = async function () {
       var v = +$("#p-total").value; if (!(v > 0)) return P.msg("#m-p", "Narxni kiriting", "err");
       if (await save({ price_total: v, balance_due: x.start_date ? addDays(x.start_date, -14) : null, status: ["new", "in_progress"].indexOf(x.status) > -1 ? "awaiting_payment" : x.status })) openRequest(id);
     };
-    if (tot && $("#p-total")) $("#p-total").onchange = async function () { var v = +this.value; if (v > 0 && await save({ price_total: v })) openRequest(id); };
-    if ((b = $("#p-30"))) b.onclick = function () { this.disabled = true; pay(Math.round(tot * 0.3) - paid0, "bank", "30% oldindan"); };
-    if ((b = $("#p-100"))) b.onclick = function () { this.disabled = true; pay(tot - paid0, "bank", paid0 ? "qolgan qism" : "100%"); };
-    if ((b = $("#p-add"))) b.onclick = function () { var a = +$("#p-amt").value; if (!a) return P.msg("#m-p", "Summani kiriting", "err"); pay(a, $("#p-m").value, "qo'lda"); };
-    if ($("#p-list")) sb.from("payments").select("*").eq("ref_kind", "request").eq("ref_id", id).order("paid_on").then(function (r) {
-      var L = r.data || []; $("#p-list").innerHTML = L.length ? '<table class="tbl"><tbody>' + L.map(function (p) { return '<tr><td>' + P.date(p.paid_on) + '</td><td><b>' + P.money(p.amount) + '</b></td><td>' + esc(p.method || "") + '</td><td>' + esc(p.note || "") + '</td></tr>'; }).join("") + '</tbody></table>' : '<p class="p-sub">Hali to\'lov yozilmagan.</p>';
-    });
-    if ((b = $("#p-vouch"))) b.onclick = async function () {
-      var a = new Uint8Array(18); crypto.getRandomValues(a); var k = Array.from(a, function (n) { return ("0" + n.toString(16)).slice(-2); }).join("");
-      var w = window.open("about:blank", "_blank");   // open now (click), fill after save — browsers block late pop-ups
-      if (await save({ voucher_key: k, voucher_at: new Date().toISOString(), status: "confirmed" })) {
-        x.voucher_key = k;
-        if (w) w.location = wa(x.phone) + "?text=" + encodeURIComponent("Moviy Nomad: your trip is fully paid. Your voucher: " + vurl(x));
-        openRequest(id);
-      } else if (w) w.close();
+    if ((b = $("#p-add"))) b.onclick = async function () {
+      var a = +$("#p-amt").value; if (!a) return P.msg("#m-p", "Summani yozing", "err");
+      this.disabled = true;
+      var ins = await sb.from("payments").insert({ ref_kind: "request", ref_id: id, amount: a, paid_on: $("#p-date").value, method: $("#p-m").value });
+      if (ins.error) { this.disabled = false; return P.msg("#m-p", ins.error.message, "err"); }
+      var paid = paid0 + a, st = paid >= tot - 0.5 ? "paid" : paid >= Math.round(tot * 0.3) - 0.5 ? "deposit_paid" : "awaiting_payment";
+      if (["confirmed", "closed", "cancelled"].indexOf(x.status) > -1) st = x.status;
+      var patch = { paid_total: paid, status: st };
+      if (!x.voucher_key) patch.voucher_key = newKey();
+      if (st === "paid") { patch.status = "confirmed"; patch.voucher_at = new Date().toISOString(); }
+      if (await save(patch)) { window._mnLastPay = a; openRequest(id); }
     };
+    if ($("#p-list")) sb.from("payments").select("*").eq("ref_kind", "request").eq("ref_id", id).order("paid_on").then(function (r) {
+      var L = r.data || []; if (!L.length) return;
+      x._lastPay = window._mnLastPay || +L[L.length - 1].amount;
+      $("#p-list").innerHTML = '<table class="tbl" style="margin-top:6px"><tbody>' + L.map(function (p) { return '<tr><td>' + P.date(p.paid_on) + '</td><td><b>' + P.money(p.amount) + '</b></td><td>' + esc({ bank: "Bank", card: "Karta", cash: "Naqd", other: "Boshqa" }[p.method] || p.method || "") + '</td></tr>'; }).join("") + '</tbody></table>';
+      fill();
+    });
     if ((b = $("#p-copy"))) b.onclick = function () { navigator.clipboard.writeText(vurl(x)); P.msg("#m-p", "Nusxalandi", "ok"); };
+    function fill() { var m = fillMsg(x, $("#p-tpl").value); $("#p-subj").value = m.subj; $("#p-body").value = m.body; }
+    $("#p-tpl").onchange = fill; fill();
+    async function logMsg(ch) {
+      var L = (x.messages || []).concat([{ t: $("#p-tpl").value, ch: ch, at: new Date().toISOString() }]);
+      await sb.from("site_requests").update({ messages: L }).eq("id", id); x.messages = L;
+      P.msg("#m-p", ch === "email" ? "Pochta dasturi ochildi — \"Yuborish\"ni bosing." : "WhatsApp ochildi — \"Yuborish\"ni bosing.", "ok");
+    }
+    if ((b = $("#p-mail"))) b.onclick = function () {
+      location.href = "mailto:" + encodeURIComponent(x.email) + "?subject=" + encodeURIComponent($("#p-subj").value) + "&body=" + encodeURIComponent($("#p-body").value);
+      logMsg("email");
+    };
+    if ((b = $("#p-wa"))) b.onclick = function () {
+      window.open(wa(x.phone) + "?text=" + encodeURIComponent("*" + $("#p-subj").value + "*\n\n" + $("#p-body").value), "_blank", "noopener");
+      logMsg("whatsapp");
+    };
   }
 
   // ---------------------------------------------------------------- travellers' stories
