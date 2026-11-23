@@ -537,7 +537,11 @@ def render_admin():
     <h2>Admin panel</h2><p class="p-sub">Faqat Moviy Nomad xodimlari uchun.</p>
     <div class="fld"><label>E-mail</label><input type="email" name="email" required></div>
     <div class="fld" style="margin-top:12px"><label>Parol</label><input type="password" name="password" required></div>
-    <div class="msg" id="m-login"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Kirish</button><button class="btn btn--outline" type="button" id="b-staff-signup">Yangi xodim: ro'yxatdan o'tish</button></div></form>
+    <div class="msg" id="m-login"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Kirish</button><button class="btn btn--outline" type="button" id="b-forgot">Parolni unutdim</button><button class="btn btn--outline" type="button" id="b-staff-signup">Yangi xodim: ro'yxatdan o'tish</button></div></form>
+    <form id="f-newpw" class="hidden"><h2>Yangi parol</h2><p class="p-sub">Yangi parolingizni yozing (kamida 10 belgi) va saqlang.</p>
+    <div class="fld"><label>Yangi parol</label><input type="password" name="pw" minlength="10" required autocomplete="new-password"></div>
+    <div class="fld" style="margin-top:12px"><label>Yana bir marta</label><input type="password" name="pw2" minlength="10" required autocomplete="new-password"></div>
+    <div class="msg" id="m-newpw"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Saqlash</button></div></form>
     <form id="f-signup" class="hidden"><h2>Yangi xodim</h2><p class="p-sub">Asoschi sizning e-mailingizni jamoaga qo'shgan bo'lishi kerak.</p>
     <div class="fld"><label>Ism familiya</label><input name="full_name" required></div>
     <div class="fld" style="margin-top:12px"><label>E-mail (asoschi bergan)</label><input type="email" name="email" required></div>

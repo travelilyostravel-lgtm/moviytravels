@@ -20,8 +20,29 @@
   $("#f-login").onsubmit = async function (e) {
     e.preventDefault(); var f = e.target;
     var r = await sb.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value });
-    if (r.error) return P.msg("#m-login", r.error.message, "err");
+    if (r.error) return P.msg("#m-login", /invalid login/i.test(r.error.message) ? "E-mail yoki parol noto'g'ri. Parolni unutgan bo'lsangiz — \"Parolni unutdim\" tugmasini bosing." : /not confirmed/i.test(r.error.message) ? "E-mail hali tasdiqlanmagan: pochtangizdagi tasdiqlash xatidagi havolani bosing." : r.error.message, "err");
     boot();
+  };
+  // ---- forgot password: link by e-mail, then a new-password form on this page
+  $("#b-forgot").onclick = async function () {
+    var em = $("#f-login").email.value.trim();
+    if (!em) return P.msg("#m-login", "Avval yuqoriga e-mailingizni yozing, keyin \"Parolni unutdim\" ni bosing.", "err");
+    P.msg("#m-login", "Yuborilmoqda…");
+    var r = await sb.auth.resetPasswordForEmail(em, { redirectTo: location.origin + location.pathname });
+    P.msg("#m-login", r.error ? r.error.message : "Pochtangizga parolni tiklash havolasi yuborildi (Spam papkasini ham tekshiring). Havolani bosing — shu sahifada yangi parol yozasiz.", r.error ? "err" : "ok");
+  };
+  var RECOV = /type=recovery/.test(location.hash + location.search);
+  if (RECOV) { $("#f-login").classList.add("hidden"); $("#f-newpw").classList.remove("hidden"); }
+  sb.auth.onAuthStateChange(function (ev) {
+    if (ev === "PASSWORD_RECOVERY") { RECOV = true; $("#f-login").classList.add("hidden"); $("#f-signup").classList.add("hidden"); $("#f-newpw").classList.remove("hidden"); show("login"); }
+  });
+  $("#f-newpw").onsubmit = async function (e) {
+    e.preventDefault(); var f = e.target;
+    if (f.pw.value !== f.pw2.value) return P.msg("#m-newpw", "Ikkala parol bir xil emas.", "err");
+    var r = await sb.auth.updateUser({ password: f.pw.value });
+    if (r.error) return P.msg("#m-newpw", r.error.message, "err");
+    P.msg("#m-newpw", "Yangi parol saqlandi. Kirilmoqda…", "ok");
+    RECOV = false; history.replaceState(null, "", location.pathname); $("#f-newpw").classList.add("hidden"); $("#f-login").classList.remove("hidden"); boot();
   };
   $("#logout").onclick = async function () { await sb.auth.signOut(); location.reload(); };
 
@@ -72,6 +93,7 @@
   }
 
   async function boot() {
+    if (RECOV) { show("login"); return; }
     var s = await sb.auth.getSession(), u = s.data.session && s.data.session.user;
     if (!u) return show("login");
     var p = (await sb.from("profiles").select("*").eq("id", u.id).single()).data;
