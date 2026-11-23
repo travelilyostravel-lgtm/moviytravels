@@ -54,6 +54,9 @@
   function inp(path, val, ph, extra) {
     return '<input class="np-in" type="number" min="0" step="any" data-p="' + path + '" value="' + (val === undefined || val === null || val === "" ? "" : esc(val)) + '" placeholder="' + esc(ph === undefined ? "" : ph) + '"' + (extra || "") + '>';
   }
+  var MKC = [["hotel", "Mehmonxona"], ["transport", "Transport (transfer, kutib olish, haydovchili mashina)"], ["guide", "Gid"], ["train", "Poyezd va avia chiptalari"], ["entries", "Obidalarga kirish chiptalari"], ["dinner", "Ovqat (kechki ovqat)"], ["extra", "Turdagi qo'shimcha xarajatlar"], ["mice", "Guruh / MICE tashkil qilish"]];
+  var SVC_CAT = { airport: "transport", transfer: "transport", car: "transport", hotel: "hotel", train: "train", guide: "guide", mice: "mice" };
+  function mkOf(c, cat) { var m = c && c.markups; return m && isFinite(parseFloat(m[cat])) ? parseFloat(m[cat]) : (c && c.markup !== undefined ? c.markup : DEF.markup); }
   function num(x, d) { var n = parseFloat(x); return isFinite(n) ? n : d; }
   function get(o, path) { return path.split(".").reduce(function (a, k) { return a && a[k] !== undefined ? a[k] : undefined; }, o); }
 
@@ -64,7 +67,7 @@
     var h = '';
     // 1. General
     h += '<details open class="np-sec"><summary>1. Umumiy sozlamalar</summary><div class="np-grid">' +
-      '<label>Ustama (foyda), %' + inp("markup_pct", Math.round(v("markup", DEF.markup) * 1000) / 10, "", "") + '<small>Barcha xarajatlar ustiga qo\'shiladi. Mijoz narxi = xarajat × (1 + ustama).</small></label>' +
+      '<label>Standart xizmat haqi (ustama), %' + inp("markup_pct", Math.round(v("markup", DEF.markup) * 1000) / 10, "", "") + '<small>Pastdagi "1a" bo\'limida foizi yozilmagan xizmatlarga qo\'shiladi.</small></label>' +
       '<label>Single xona qo\'shimchasi, %' + inp("single_pct", Math.round(v("singleSupplement", DEF.singleSupplement) * 100), "") + '<small>1 kishilik xona uchun mehmonxona narxiga qo\'shimcha.</small></label>' +
       '<label>Narxni yaxlitlash, $' + inp("roundTo", v("roundTo", DEF.roundTo), "5") + '<small>1 kishi narxi shu songa karrali qilib yuqoriga yaxlitlanadi.</small></label>' +
       '<label>"…dan" narx necha kishi uchun' + inp("defaultPax", v("defaultPax", DEF.defaultPax), "2") + '<small>Bosh sahifadagi kartochkalar narxi.</small></label>' +
@@ -74,6 +77,10 @@
         return '<label><input type="checkbox" data-p="open.' + cc + '"' + (on ? " checked" : "") + '> ' + COUNTRY[cc] + '</label>'; }).join("") +
         '<small>Belgilanmagan davlat saytda "Tayyorlanmoqda" bo\'lib turadi: tur taqdimotlari ko\'rinadi, lekin narx va o\'zi hisoblash (B2C va B2B) yopiq, mijoz menejerga yo\'naltiriladi.</small></div>' +
       '</div></details>';
+    // 1a. Service fee per kind of service
+    h += '<details open class="np-sec"><summary>1a. Kampaniya xizmat haqi — har bir xizmat turiga alohida, %</summary><div class="np-grid">' +
+      MKC.map(function (m) { var x = get(c, "markups." + m[0]); return '<label>' + m[1] + inp("mk." + m[0], x === undefined ? "" : Math.round(x * 1000) / 10, "standart") + '</label>'; }).join("") +
+      '</div><p class="np-note">Siz netto (tan narx) yozasiz, sayt mijozga <b>netto + shu foiz</b>ni ko\'rsatadi (B2C va B2B uchun bir xil brutto; agent komissiyasi bruttodan). Foiz mijozga ko\'rinmaydi — faqat sizga va adminlarga. To\'liq paket narxi har bir qismning o\'z foizi bilan yig\'iladi, shuning uchun alohida yig\'ilgan xizmatlar yig\'indisi bilan paket narxi bir xil chiqadi. Bo\'sh qolsa — standart foiz.</p></details>';
     // 2. Hotels
     h += '<details open class="np-sec"><summary>2. Mehmonxonalar — xona narxi bir kechaga (2 kishilik xona), $</summary>' +
       '<p class="np-note">Shahar bo\'yicha bo\'sh qoldirilsa, "Standart" narx olinadi. Mijozdan 1 kishi uchun xona narxining yarmi olinadi.</p>' +
@@ -171,6 +178,7 @@
       var n = parseFloat(el.value); if (!isFinite(n) || n < 0) return;
       if (p === "markup_pct") { o.markup = n / 100; return; }
       if (p === "single_pct") { o.singleSupplement = n / 100; return; }
+      if (p.indexOf("mk.") === 0) { o.markups = o.markups || {}; o.markups[p.slice(3)] = n / 100; return; }
       var parts = p.split("."), cur = o;
       for (var i = 0; i < parts.length - 1; i++) { cur[parts[i]] = cur[parts[i]] || {}; cur = cur[parts[i]]; }
       cur[parts[parts.length - 1]] = n;
@@ -187,12 +195,19 @@
   // Selling prices for the website: every amount × (1 + margin); the margin itself is not published
   function toPublic(c) {
     var k = 1 + (c.markup || 0), r = function (x) { return Math.round(x * k * 100) / 100; };
-    var mapVals = function (obj) { var out = {}; Object.keys(obj || {}).forEach(function (key) { var x = obj[key]; out[key] = typeof x === "object" ? mapVals(x) : r(x); }); return out; };
+    var mapVals = function (obj, cat) { var kk = 1 + (cat ? mkOf(c, cat) : (c.markup || 0)), out = {}; Object.keys(obj || {}).forEach(function (key) { var x = obj[key]; out[key] = typeof x === "object" ? mapVals(x, cat) : Math.round(x * kk * 100) / 100; }); return out; };
+    var fx = c.fixed || {}, rc = function (x, cat) { return x === undefined ? undefined : Math.round(x * (1 + mkOf(c, cat)) * 100) / 100; };
+    var fixedPub = {}; Object.keys(fx).forEach(function (key) { fixedPub[key] = rc(fx[key], key === "train" || key === "flight" ? "train" : key === "welcomeDinner" ? "dinner" : "entries"); });
+    // hotels/transport/guide defaults from catalog must carry their margin too, so publish full lists
+    var hcPub = {}; Object.keys(DEF.hotelClasses).forEach(function (id) { var x = (c.hotelClasses || {})[id]; hcPub[id] = rc(x !== undefined ? x : DEF.hotelClasses[id], "hotel"); });
+    var trPub = {}; Object.keys(DEF.transport).forEach(function (id) { var x = (c.transport || {})[id]; trPub[id] = rc(x !== undefined ? x : DEF.transport[id], "transport"); });
+    var gDay = c.guide && c.guide.day !== undefined ? c.guide.day : DEF.guide.day, gLang = Object.assign({}, DEF.guide.languages, (c.guide || {}).languages || {});
+    var fxAll = Object.assign({}, DEF.fixed, fx); Object.keys(fxAll).forEach(function (key) { if (fixedPub[key] === undefined) fixedPub[key] = rc(fxAll[key], key === "train" || key === "flight" ? "train" : key === "welcomeDinner" ? "dinner" : "entries"); });
     return {
       markup: 0, singleSupplement: c.singleSupplement, roundTo: c.roundTo, defaultPax: c.defaultPax, booking_online: !!c.booking_online, openCountries: c.openCountries || DEF.openCountries,
-      hotelClasses: mapVals(c.hotelClasses), hotelCity: mapVals(c.hotelCity), transport: mapVals(c.transport),
-      guide: { day: c.guide.day !== undefined ? r(c.guide.day) : undefined, languages: mapVals(c.guide.languages) },
-      fixed: mapVals(c.fixed), legPrice: mapVals(c.legPrice), sightPrice: mapVals(c.sightPrice), tourExtra: mapVals(c.tourExtra),
+      hotelClasses: hcPub, hotelCity: mapVals(c.hotelCity, "hotel"), transport: trPub,
+      guide: { day: rc(gDay, "guide"), languages: mapVals(gLang, "guide") },
+      fixed: fixedPub, legPrice: mapVals(c.legPrice, "train"), sightPrice: mapVals(c.sightPrice, "entries"), tourExtra: mapVals(c.tourExtra, "extra"),
       // manual tour prices: only the selling price is published (brutto, or netto + margin)
       tourPrice: pubTour(c), tourComm: c.tourComm || {},
       // services: only the selling price; netto and commission stay in the admin copy
@@ -209,13 +224,13 @@
     function pubSvc(c) {
       var out = {};
       Object.keys(c.svcPrice || {}).forEach(function (id) {
-        var x = c.svcPrice[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * k) : 0);
+        var x = c.svcPrice[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * (1 + mkOf(c, SVC_CAT[id] || "extra"))) : 0);
         if (b > 0) out[id] = { brutto: b };
       });
       // guide service: if no separate price is set in section 8, use the cheapest guide day price (+ margin) — "from $…"
       if (!out.guide && c.guide && c.guide.rate) {
         var rates = Object.keys(c.guide.rate).map(function (l) { return c.guide.rate[l]; }).filter(function (x) { return x > 0; });
-        if (rates.length) out.guide = { brutto: Math.ceil(Math.min.apply(null, rates) * k), rates: mapVals(c.guide.rate) };
+        if (rates.length) out.guide = { brutto: Math.ceil(Math.min.apply(null, rates) * (1 + mkOf(c, "guide"))) };
       }
       return out;
     }
@@ -224,7 +239,7 @@
   function recalc() {
     var c = collect();
     E.applyPrices(c);
-    C.markup = c.markup;
+    C.markup = c.markup; C.markups = c.markups || null;
     $$("[data-res]").forEach(function (el) {
       var T = TOURS[el.dataset.res], pax = C.defaultPax || 2;
       var rows = CLS.map(function (cls) {
@@ -233,16 +248,20 @@
         return '<tr' + (cls === T.hotel ? ' class="np-main"' : '') + '><td>' + CLS_NAME[cls] + (cls === T.hotel ? ' <small>(saytda "…dan")</small>' : '') + (p.manual ? ' <small class="np-man">qo\'lda</small>' : '') + '</td><td>' + money(p.parts.hotel) + '</td><td>' + money(p.parts.transport) + '</td><td>' + money(p.parts.guide) +
           '</td><td>' + money(p.parts.train + p.parts.dinner) + '</td><td>' + money(p.parts.entries) + '</td><td>' + money(p.parts.extra) + '</td><td><b>' + money(net) + '</b></td><td><b class="np-gross">' + money(gross) + '</b></td><td class="' + (profit >= 0 ? "np-pos" : "np-neg") + '">' + money(profit) + ' <small>(' + (gross ? Math.round(profit / gross * 100) : 0) + '%)</small></td></tr>';
       });
-      el.innerHTML = '<table class="tbl np-tbl np-res-tbl"><thead><tr><th>' + pax + ' kishi, 1 kishi uchun</th><th>Mehmonxona</th><th>Transport</th><th>Gid</th><th>Poyezd/avia, ovqat</th><th>Kirish</th><th>Qo\'shimcha</th><th>Netto</th><th>Brutto (saytda)</th><th>Foyda</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
+      var pm = E.price(T, { pax: pax, hotel: T.hotel, _raw: true }), gpz = pm.grossParts || {}, PN = { hotel: "mehmonxona", transport: "transport", guide: "gid", train: "chiptalar", entries: "kirish", dinner: "ovqat", extra: "qo'shimcha" };
+      var prof = Object.keys(PN).map(function (k) { var net = k === "train" ? pm.parts.train : pm.parts[k], g = gpz[k] || 0; return g - net > 0.004 ? PN[k] + " " + money(g - net) : ""; }).filter(Boolean).join(" · ");
+      var foot = '<p class="np-note" style="margin:4px 0 0">Foyda (1 kishi, avtomatik narx) qayerdan: ' + (prof || "—") + '</p>';
+      el.innerHTML = foot + '<table class="tbl np-tbl np-res-tbl"><thead><tr><th>' + pax + ' kishi, 1 kishi uchun</th><th>Mehmonxona</th><th>Transport</th><th>Gid</th><th>Poyezd/avia, ovqat</th><th>Kirish</th><th>Qo\'shimcha</th><th>Netto</th><th>Brutto (saytda)</th><th>Foyda</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
     });
     $$("[data-svcres]").forEach(function (el) {
-      var x = (c.svcPrice || {})[el.dataset.svcres] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * (1 + c.markup)) : 0);
-      el.innerHTML = b && x.netto ? '<span class="' + (b - x.netto >= 0 ? "np-pos" : "np-neg") + '">' + money(b - x.netto) + '</span>' + (x.brutto > 0 ? "" : ' <small>(brutto = netto + ustama: ' + money(b) + ')</small>') : "—";
+      var id = el.dataset.svcres, cat = SVC_CAT[id] || "extra", pct = mkOf(c, cat), x = (c.svcPrice || {})[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * (1 + pct)) : 0);
+      el.innerHTML = b && x.netto ? '<span class="' + (b - x.netto >= 0 ? "np-pos" : "np-neg") + '">' + money(b - x.netto) + '</span>' + (x.brutto > 0 ? ' <small>(qo\'lda brutto)</small>' : ' <small>(brutto = netto + ' + Math.round(pct * 1000) / 10 + '%: ' + money(b) + ')</small>') : "—";
     });
     $("#np-state").textContent = "O'zgarishlar saqlanmagan";
     $("#np-state").className = "np-state is-dirty";
   }
 
+  A._toPublic = function (c) { return toPublic(c); };
   A.prices = async function () {
     A.show("prices");
     $("#np-body").innerHTML = '<p class="p-sub">Yuklanmoqda…</p>';

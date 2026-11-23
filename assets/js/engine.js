@@ -110,7 +110,12 @@
     var extra = ex ? num(ex.pp, 0) + num(ex.group, 0) / pax : 0;
     var cost = hotelPP + transportPP + guidePP + tickets + entries + dinner + extra;
     var step = num(C.roundTo, 5) || 1;
-    var gross = cost * (1 + C.markup);
+    // service fee (margin) per kind of service, set in admin → Narxlar → 1a (falls back to the general margin)
+    var mk = function (cat) { var m = C.markups; return m && isFinite(parseFloat(m[cat])) ? parseFloat(m[cat]) : C.markup; };
+    var gp = { hotel: hotelPP * (1 + mk("hotel")), transport: transportPP * (1 + mk("transport")), guide: guidePP * (1 + mk("guide")),
+      train: tickets * (1 + mk("train")), entries: entries * (1 + mk("entries")), dinner: dinner * (1 + mk("dinner")), extra: extra * (1 + mk("extra")) };
+    var gross = gp.hotel + gp.transport + gp.guide + gp.train + gp.entries + gp.dinner + gp.extra;
+    var grossAuto = gross, costAuto = cost;
     // Manual price set by the admin for this tour (Narxlar → 7): netto / brutto per person for the base
     // configuration (2 travellers, the tour's hotel class). Other options are scaled from it.
     var o = !cfg._raw && tour.id && C.tourPrice ? C.tourPrice[tour.id] : null;
@@ -119,18 +124,19 @@
       var base = price(tour, { pax: C.defaultPax, hotel: tour.hotel, _raw: true });
       if (num(o.netto, 0) > 0 && base.cost > 0) cost = cost * num(o.netto, 0) / base.cost;
       if (num(o.brutto, 0) > 0 && base.gross > 0) gross = gross * num(o.brutto, 0) / base.gross;
-      else gross = cost * (1 + C.markup);
+      else gross = costAuto > 0 ? grossAuto * cost / costAuto : cost * (1 + C.markup);
       manual = true;
     }
     var pp = Math.ceil(gross / step) * step;
     return { pp: pp, total: pp * pax, pax: pax, nights: nights, days: days, hotel: hotel, transport: tr, vehicles: vehicles, cost: cost, gross: gross, manual: manual,
-      parts: { hotel: hotelPP, transport: transportPP, guide: guidePP, tickets: tickets + entries + dinner, train: tickets, entries: entries, dinner: dinner, extra: extra } };
+      parts: { hotel: hotelPP, transport: transportPP, guide: guidePP, tickets: tickets + entries + dinner, train: tickets, entries: entries, dinner: dinner, extra: extra }, grossParts: gp };
   }
 
   // Apply a price set (from the admin panel) on top of the defaults in catalog.js
   function applyPrices(d) {
     if (!d || typeof d !== "object") return;
     if (d.markup !== undefined) C.markup = num(d.markup, C.markup);
+    C.markups = d.markups && typeof d.markups === "object" ? d.markups : null;   // per-service margins (admin copy only)
     if (d.singleSupplement !== undefined) C.singleSupplement = num(d.singleSupplement, C.singleSupplement);
     if (d.roundTo !== undefined) C.roundTo = num(d.roundTo, 5);
     if (d.defaultPax !== undefined) C.defaultPax = num(d.defaultPax, C.defaultPax);
