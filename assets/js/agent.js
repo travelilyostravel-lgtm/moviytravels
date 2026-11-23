@@ -47,7 +47,7 @@
       $("#gb-go").onclick = async function () {
         var c = calc(); if (c.n > left) return P.msg("#m-gb", "Only " + left + " seats left.", "err");
         this.disabled = true; P.msg("#m-gb", "Booking…");
-        var row = { agency_id: me.agency.id, tour_id: x.tour_id, tour_title: tname + " — group departure " + rng(x) + " (" + (KN[x.group_kind] || "") + ")", start_date: x.start_date, pax: c.n, brutto: c.br,
+        var row = { lang: window.AG_LANG || "en", agency_id: me.agency.id, tour_id: x.tour_id, tour_title: tname + " — group departure " + rng(x) + " (" + (KN[x.group_kind] || "") + ")", start_date: x.start_date, pax: c.n, brutto: c.br,
           config: { departure_id: x.id, group_kind: x.group_kind, room: $("#gb-room").value, group: true }, agent_note: $("#gb-note").value.trim() || null };
         var r2 = await sb.from("bookings").insert(row).select().single();
         this.disabled = false;
@@ -208,7 +208,7 @@
     var before = lastBr; try { await refreshAll(); } catch (e) {}
     if (before !== null && lastBr !== null && before !== lastBr) { this.disabled = false; qState("<b>" + AGT("Price updated: {0} → {1}.", P.money(before), P.money(lastBr)) + "</b>"); return P.msg("#m-quote", "The price has just been updated. Please check the new brutto with your client and press Book again.", "err"); }
     P.msg("#m-quote", "Creating the booking…");
-    var row = { agency_id: me.agency.id, tour_id: quote.tour_id, tour_title: quote.tour_title, config: quote.config, start_date: d,
+    var row = { lang: window.AG_LANG || "en", agency_id: me.agency.id, tour_id: quote.tour_id, tour_title: quote.tour_title, config: quote.config, start_date: d,
       pax: quote.price.pax, brutto: quote.price.total, agent_note: $("#q-note").value.trim() || null };
     var r = await sb.from("bookings").insert(row).select().single();
     this.disabled = false;

@@ -166,9 +166,10 @@
       '<small class="p-sub">E-mail: ' + esc(x.email || "— yo'q") + ' · WhatsApp: ' + esc(x.phone || "— yo'q") + '</small>' +
       '<div class="fld" style="margin-top:8px"><label>Mavzu</label><input id="p-subj"></div><div class="fld"><label>Matn (kerak bo\'lsa tahrirlang)</label><textarea id="p-body" rows="9"></textarea></div>' +
       ((x.messages || []).length ? '<p class="p-sub" style="margin-top:6px">Yuborilganlar: ' + x.messages.slice(-6).map(function (m) { return P.date(m.at) + " — " + esc(MTN[m.t] || m.t) + " (" + (m.ch === "email" ? "e-mail" : "WhatsApp") + (m.l ? ", " + m.l.toUpperCase() : "") + ")"; }).join("; ") + '</p>' : ''));
-    return h + '<div class="msg" id="m-p"></div></div>';
+    return h + '<div id="auto-log" style="margin-top:12px"></div><div class="msg" id="m-p"></div></div>';
   }
   function bindPay(x, id) {
+    if (window.MN_AUTOLOG) window.MN_AUTOLOG(id, $("#auto-log"));
     var tot = +x.price_total || 0, paid0 = +x.paid_total || 0, dep = Math.round(tot * 0.3), nextAmt = paid0 < dep ? dep - paid0 : Math.max(0, tot - paid0);
     async function save(patch) { patch.updated_at = new Date().toISOString(); var u = await sb.from("site_requests").update(patch).eq("id", id); if (u.error) { P.msg("#m-p", u.error.message, "err"); return false; } return true; }
     var b;

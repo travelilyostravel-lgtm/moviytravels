@@ -179,7 +179,8 @@
         '<div class="msg" id="m-svc"></div><div class="p-actions"><button class="btn btn--gold" id="a-vouch">Vaucherlarni yaratish va agentga berish (PDF)</button></div>' +
         (vc.length ? '<h3 style="margin-top:20px">Yaratilgan vaucherlar</h3><div class="files">' + vc.map(function (v) { return '<div class="file"><b>📄 ' + esc(v.title || v.kind) + ' <small>' + P.date(v.created_at) + '</small></b><button data-v="' + esc(v.file_path) + '">Ochish</button></div>'; }).join("") + '</div>' : '') + '</div>';
     }
-    box.innerHTML = h;
+    box.innerHTML = h + '<div class="p-card" id="auto-log-b"></div>';
+    if (window.MN_AUTOLOG) window.MN_AUTOLOG(id, $("#auto-log-b"));
 
     $("#back").onclick = loadBookings;
     $$("[data-p]", box).forEach(function (x) { x.onclick = function () { P.openFile("passports", x.dataset.p); }; });

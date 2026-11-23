@@ -558,7 +558,7 @@ def render_admin():
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
-<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script>
+<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-autolog.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script>
 <script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/vendor/xlsx.mini.min.js"></script><script src="../assets/vendor/jspdf.plugin.autotable.min.js"></script><script src="../assets/js/admin-groups.js"></script><script src="../assets/js/admin-roster.js"></script>
 </body></html>
 """
@@ -615,6 +615,22 @@ def main():
         print("DIQQAT: build/content.py ichida haqiqiy WhatsApp raqamini kiriting!")
 
 
+def write_notify_json():
+    """assets/data/notify.json — texts + company details for the automatic e-mails (Edge Function "notify")."""
+    import subprocess, notify_texts
+    js = open(os.path.join(ROOT, "assets", "js", "msg-templates.js"), encoding="utf-8").read()
+    out = subprocess.run(["node", "-e", "var window={};" + js + ";process.stdout.write(JSON.stringify(window.MN_MSG))"], capture_output=True, text=True, check=True).stdout
+    msg = json.loads(out)
+    for l, v in notify_texts.NEW.items():
+        msg.setdefault(l, {}).update(v)
+    for l in msg:
+        msg[l].update(notify_texts.OFFICE)
+    co = {k: CONFIG.get(k, "") for k in ("company", "address", "inn", "bank", "mfo", "account", "license", "phone", "telegram", "email")}
+    with open(os.path.join(ROOT, "assets", "data", "notify.json"), "w", encoding="utf-8") as f:
+        json.dump({"co": co, "msg": msg}, f, ensure_ascii=False)
+    print("ok assets/data/notify.json")
+
+
 def bust_cache():
     """Append ?v=<content hash> to local css/js links so browsers fetch fresh files after each update."""
     import hashlib, re as _re
@@ -636,4 +652,5 @@ def bust_cache():
 
 if __name__ == "__main__":
     main()
+    write_notify_json()
     bust_cache()
