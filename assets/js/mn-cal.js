@@ -11,6 +11,10 @@
     var off = o._off || 0; start = new Date(start.getFullYear(), start.getMonth() + off, 1);
     var mf, wf; try { mf = new Intl.DateTimeFormat(lang, { month: "long", year: "numeric" }); wf = new Intl.DateTimeFormat(lang, { weekday: "short" }); } catch (e) { mf = new Intl.DateTimeFormat("en", { month: "long", year: "numeric" }); wf = new Intl.DateTimeFormat("en", { weekday: "short" }); }
     var wd = []; for (var i = 0; i < 7; i++) wd.push(wf.format(new Date(2024, 0, 1 + i)));   // 2024-01-01 is a Monday
+    if (/^uz/.test(lang)) {   // browsers have no Uzbek month names
+      var UZM = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"];
+      mf = { format: function (d) { return UZM[d.getMonth()] + " " + d.getFullYear(); } }; wd = ["Du", "Se", "Ch", "Pa", "Ju", "Sh", "Ya"];
+    }
     var h = '<div class="mcal__nav"><button type="button" class="mcal__prev" data-free aria-label="‹"' + (off <= 0 && !o.allowPast ? " disabled" : "") + '>‹</button><button type="button" class="mcal__next" data-free aria-label="›">›</button></div><div class="mcal__months">';
     for (var m = 0; m < months; m++) {
       var first = new Date(start.getFullYear(), start.getMonth() + m, 1), days = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
