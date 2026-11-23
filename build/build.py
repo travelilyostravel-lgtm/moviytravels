@@ -423,13 +423,22 @@ PORTAL_HEAD = """<!DOCTYPE html>
 </head>"""
 
 
-def render_agent():
-    months, interests = builder_inputs(LD("en")["ui"])
+def render_agent(lang="en"):
+    import agent_i18n
+    U = LD(lang)["ui"]
+    months, interests = builder_inputs(U)
+    names = {l: T[l]["name"] for l in LANGS}
+    lang_sel = '<select class="ag-lang" id="ag-lang" aria-label="Language" data-notr>' + "".join(f'<option value="{l}"{" selected" if l == lang else ""}>{names[l]}</option>' for l in LANGS) + '</select>'
+    dict_js = json.dumps(agent_i18n.table().get(lang, {}), ensure_ascii=False) if lang != "en" else "{}"
+    head = PORTAL_HEAD.format(lang=lang, title="Agent portal — Moviy Nomad").replace('dir="ltr"', f'dir="{T[lang]["dir"]}"', 1)
+    if lang in EXTRA_FONT: head = head.replace("&display=swap", EXTRA_FONT[lang] + "&display=swap", 1)
+    redirect = """<script>(function(){try{var l=localStorage.getItem("mn_ag_lang");if(!l){var n=(navigator.language||"en").slice(0,2).toLowerCase();if(["ru","uz","tr","ar","de","sv","zh","hi","ko"].indexOf(n)>-1)l=n;}if(l&&l!=="en"&&/^[a-z]{2}$/.test(l))location.replace(l+".html"+location.search+location.hash);}catch(e){}})();</script>""" if lang == "en" else ""
+    head = head.replace("</head>", redirect + "</head>", 1)
     countries = "".join(f"<option>{c}</option>" for c in ["Germany", "Sweden", "Turkey", "United Arab Emirates", "Saudi Arabia", "China", "India", "South Korea", "Russia", "Kazakhstan", "United Kingdom", "France", "Italy", "Spain", "Netherlands", "Poland", "USA", "Japan", "Malaysia", "Indonesia", "Other"])
-    return PORTAL_HEAD.format(lang="en", title="Agent portal — Moviy Nomad") + f"""
+    return head + f"""
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Agent portal</span><span class="p-top__sp"></span>
-  <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Log out</button></div>
+  {lang_sel}<div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Log out</button></div>
   <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="quote" class="is-on">New quote</button><button data-view="list">My bookings</button><button data-view="groups">Group departures</button><button data-view="agency">Agency</button></div></nav>
 </header>
 <main class="container p-main">
@@ -476,7 +485,7 @@ def render_agent():
   </div></section>
 
   <section id="v-quote" class="hidden">
-    {builder_body(months, interests, LD("en")["ui"])}
+    {builder_body(months, interests, U)}
     <div class="p-card" id="q-box" style="margin-top:20px">
       <h3>Your quote</h3>
       <div id="q-empty" class="empty">Choose a ready tour or build a route above.</div>
@@ -503,10 +512,12 @@ def render_agent():
   <section id="v-groups" class="hidden"><div class="p-card"><h2>Guaranteed group departures — free seats</h2><p class="p-sub">Classic Uzbekistan, 8 days / 7 nights, every Saturday from Khiva. Your clients can join any group, even 1 person. Prices are public (per person, twin share); your commission applies. <b>Click a green or yellow cell to book seats</b> — the price is calculated automatically; seats are held when we confirm your 30% deposit.</p><div id="ag-sched"></div></div></section>
   <section id="v-agency" class="hidden"><div class="p-card" id="agency-box"></div></section>
 </main>
-<script>window.MN={page_cfg()};</script>
+<script>window.MN={page_cfg(lang)};window.AG_LANG="{lang}";window.AG_DICT={dict_js};</script>
+<script src="../assets/js/agent-i18n.js"></script>
+<script>document.getElementById("ag-lang").onchange=function(){{var l=this.value;try{{localStorage.setItem("mn_ag_lang",l)}}catch(e){{}}location.href=(l==="en"?"index.html":l+".html")+location.search+location.hash;}};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script>
 <script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script>
-<script src="../assets/data/l10n/en.js"></script><script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/js/agent.js"></script>
+<script src="../assets/data/l10n/{l10n_lang(lang)}.js"></script><script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/js/agent.js"></script>
 </body></html>
 """
 
@@ -587,9 +598,10 @@ def main():
             with open(os.path.join(d, fn), "w", encoding="utf-8") as f: f.write(h)
         miss = pages.missing_keys(lang)
         print("ok", lang, "pages", ("MISSING " + ",".join(miss)) if miss else "")
-    with open(os.path.join(ROOT, "agent", "index.html"), "w", encoding="utf-8") as f:
-        f.write(render_agent())
-    print("ok agent/index.html")
+    for lang in LANGS:
+        with open(os.path.join(ROOT, "agent", "index.html" if lang == "en" else lang + ".html"), "w", encoding="utf-8") as f:
+            f.write(render_agent(lang))
+    print("ok agent/ (10 languages)")
     os.makedirs(os.path.join(ROOT, "admin"), exist_ok=True)
     with open(os.path.join(ROOT, "admin", "index.html"), "w", encoding="utf-8") as f:
         f.write(render_admin())

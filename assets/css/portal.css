@@ -162,3 +162,4 @@ body.portal{background:var(--sand);min-height:100vh}
 .agp__state{margin-top:10px;font-size:13px;color:var(--muted)}
 .agp__state.is-old{color:#a0560b;background:#fff4e5;padding:8px 10px;border-radius:10px}
 @media (max-width:640px){.agp__panel{grid-template-columns:1fr}.agp__br b{font-size:28px}}
+.ag-lang{padding:7px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:transparent;color:inherit;font-weight:600;margin-inline-end:10px}.ag-lang option{color:#12355b}

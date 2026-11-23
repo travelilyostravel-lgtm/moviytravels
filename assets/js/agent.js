@@ -21,26 +21,26 @@
     function pick(x) {
       var f = $("#ag-gbook"), left = Math.max(0, x.capacity - x.booked), tname = ((L.tours || {})[x.tour_id] || [x.tour_id])[0];
       var comm = window.MN_ENGINE && window.MN_ENGINE.commission ? window.MN_ENGINE.commission(x.tour_id, me.agency.commission_pct) : Number(me.agency.commission_pct || 0), note = arguments[1] || "";
-      f.innerHTML = '<div class="p-card" style="margin-top:16px;border:2px solid #12355b"><h3>Book seats: ' + esc(tname) + ' · ' + esc(rng(x)) + '</h3><p class="p-sub">' + esc(KN[x.group_kind] || "") + ' · <b>' + left + ' seats left</b> · $' + x.price_pp + ' per person (twin share)' + (x.single_supp ? ' · single room +$' + x.single_supp : '') + '</p>' +
+      f.innerHTML = '<div class="p-card" style="margin-top:16px;border:2px solid #12355b"><h3>Book seats: ' + esc(tname) + ' · ' + esc(rng(x)) + '</h3><p class="p-sub">' + esc(AGT(KN[x.group_kind] || "")) + ' · <b>' + AGT("{0} seats left", left) + '</b> · ' + AGT("{0} per person (twin share)", "$" + x.price_pp) + (x.single_supp ? ' · ' + AGT("single room +{0}", "$" + x.single_supp) : '') + '</p>' +
         '<div class="p-grid"><div class="fld"><label>Travellers</label><input type="number" id="gb-pax" min="1" max="' + left + '" value="1"></div><div class="fld"><label>Room</label><select id="gb-room"><option value="twin">Twin / double share</option><option value="single">Single room</option></select></div>' +
         '<div class="fld" style="grid-column:1/-1"><label>Note for Moviy Nomad (optional)</label><input id="gb-note" maxlength="500"></div></div>' +
         '<div class="agp"><div class="agp__br"><small>Client price (brutto)</small><b id="gb-br"></b><span>the same price travellers see on our website</span></div>' +
         '<div class="agp__btns"><button type="button" class="btn agp__comm" id="gb-commbtn">% Commission</button><button type="button" class="btn agp__re" id="gb-re">⟳ Recalculate</button></div>' +
         '<div class="agp__panel' + (gbComm ? '' : ' hidden') + '" id="gb-cpanel"><div><small>Your commission</small><b>' + comm + '%</b></div><div><small>You earn</small><b id="gb-ca"></b></div><div><small>You pay Moviy Nomad (netto)</small><b id="gb-nt"></b></div></div>' +
-        '<p class="agp__state">' + note + 'Seats and prices checked at ' + new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) + '. If you come back later, press <b>Recalculate</b>.</p></div>' +
+        '<p class="agp__state">' + note + AGT("Seats and prices checked at {0}. If you come back later, press <b>Recalculate</b>.", new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })) + '</p></div>' +
         '<p class="p-sub">Payment: 30% within 3 working days of our invoice, 70% no later than 14 days before the start. Seats are held for you as soon as we confirm your 30% deposit.</p>' +
         '<div class="msg" id="m-gb"></div><div class="p-actions"><button class="btn btn--gold" id="gb-go">Book seats</button></div></div>';
       function calc() { var n = Math.max(1, Math.min(left, parseInt($("#gb-pax").value, 10) || 1)), br = n * x.price_pp + ($("#gb-room").value === "single" ? n * (x.single_supp || 0) : 0); $("#gb-br").textContent = P.money(br); var nt = Math.round(br * (1 - comm / 100) * 100) / 100; $("#gb-nt").textContent = P.money(nt); $("#gb-ca").textContent = P.money(Math.round((br - nt) * 100) / 100); return { n: n, br: br }; }
       $("#gb-pax").oninput = $("#gb-room").onchange = calc; calc();
       $("#gb-commbtn").onclick = function () { gbComm = !gbComm; $("#gb-cpanel").classList.toggle("hidden", !gbComm); };
       $("#gb-re").onclick = async function () {
-        this.disabled = true; this.textContent = "⟳ Updating…";
+        this.disabled = true; this.textContent = AGT("⟳ Updating…");
         var pax = $("#gb-pax").value, room = $("#gb-room").value, oldP = x.price_pp, oldL = left;
         try { await refreshAll(); await loadGroups(); } catch (e) {}
         var nx = groupRows.filter(function (g) { return g.id === x.id; })[0];
         if (!nx) { f.innerHTML = '<div class="msg msg--err" style="margin-top:16px">This departure is no longer available. Please choose another date.</div>'; return; }
         var nl = Math.max(0, nx.capacity - nx.booked);
-        pick(nx, (nx.price_pp !== oldP ? "<b>Price updated: $" + oldP + " → $" + nx.price_pp + " pp.</b> " : "") + (nl !== oldL ? "<b>Free seats now: " + nl + ".</b> " : "") + (nx.price_pp === oldP && nl === oldL ? "✓ Up to date. " : ""));
+        pick(nx, (nx.price_pp !== oldP ? "<b>" + AGT("Price updated: {0} → {1}.", "$" + oldP, "$" + nx.price_pp) + "</b> " : "") + (nl !== oldL ? "<b>" + AGT("Free seats now: {0}.", nl) + "</b> " : "") + (nx.price_pp === oldP && nl === oldL ? AGT("✓ Up to date.") + " " : ""));
         $("#gb-pax").value = Math.min(+pax || 1, nl || 1); $("#gb-room").value = room; $("#gb-pax").dispatchEvent(new Event("input"));
       };
       f.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -132,7 +132,7 @@
     var r = await sb.from("agency_documents").select("*").eq("agency_id", me.agency.id).order("created_at");
     var KIND = { registration: "Company registration", license: "Tourism license", id: "ID of the director", other: "Other" };
     box.innerHTML = (r.data || []).length ? r.data.map(function (d) {
-      return '<div class="file"><b>' + esc(KIND[d.kind] || d.kind) + ' — ' + esc(d.file_name || "") + '</b><button data-open="' + esc(d.file_path) + '">Open</button></div>';
+      return '<div class="file"><b>' + esc(AGT(KIND[d.kind] || d.kind)) + ' — ' + esc(d.file_name || "") + '</b><button data-open="' + esc(d.file_path) + '">Open</button></div>';
     }).join("") : '<div class="empty">No documents uploaded yet.</div>';
     $$("[data-open]", box).forEach(function (b) { b.onclick = function () { P.openFile("agency-docs", b.dataset.open); }; });
   }
@@ -141,7 +141,7 @@
     var st = me.agency.status;
     if (st === "rejected" || st === "blocked") {
       $("#pend-title").textContent = st === "rejected" ? "Your application was not approved" : "Your account is blocked";
-      $("#pend-text").textContent = (me.agency.admin_note || "") + " Please contact Moviy Nomad for details.";
+      $("#pend-text").textContent = (me.agency.admin_note ? me.agency.admin_note + " " : "") + AGT("Please contact Moviy Nomad for details.");
     }
     loadDocs($("#pend-docs"));
   }
@@ -166,7 +166,7 @@
     var at = window.MN_ENGINE && MN_ENGINE.pricesAt ? MN_ENGINE.pricesAt() : null, old = at && (Date.now() - at.getTime() > 10 * 60 * 1000);
     var el = $("#q-state"); if (!el) return;
     el.className = "agp__state" + (old ? " is-old" : "");
-    el.innerHTML = (extra ? extra + " " : "") + "Prices checked at " + hhmm(at) + (old ? " — they may have changed. Press <b>Recalculate</b>." : ".");
+    el.innerHTML = (extra ? extra + " " : "") + (old ? AGT("Prices checked at {0} — they may have changed. Press <b>Recalculate</b>.", hhmm(at)) : AGT("Prices checked at {0}.", hhmm(at)));
   }
   window.MN_ON_QUOTE = function (q) {
     quote = q;
@@ -192,11 +192,11 @@
     if (window.MN_ENGINE && MN_ENGINE.refreshPrices) await MN_ENGINE.refreshPrices();
   }
   $("#q-re").onclick = async function () {
-    var b = this, before = lastBr; b.disabled = true; b.textContent = "⟳ Updating…";
+    var b = this, before = lastBr; b.disabled = true; b.textContent = AGT("⟳ Updating…");
     try { await refreshAll(); } catch (e) {}
-    b.disabled = false; b.textContent = "⟳ Recalculate";
+    b.disabled = false; b.textContent = AGT("⟳ Recalculate");
     if (quote) window.MN_ON_QUOTE(quote);
-    qState(before !== null && lastBr !== null && before !== lastBr ? "<b>Price updated: " + P.money(before) + " → " + P.money(lastBr) + ".</b>" : "✓ Up to date.");
+    qState(before !== null && lastBr !== null && before !== lastBr ? "<b>" + AGT("Price updated: {0} → {1}.", P.money(before), P.money(lastBr)) + "</b>" : AGT("✓ Up to date."));
   };
   setInterval(function () { if (quote && !document.hidden) qState(); }, 60000);
   $("#q-book").onclick = async function () {
@@ -206,7 +206,7 @@
     if (new Date(d) < new Date(new Date().toDateString())) return P.msg("#m-quote", "The start date is in the past.", "err");
     this.disabled = true; P.msg("#m-quote", "Checking the latest price…");
     var before = lastBr; try { await refreshAll(); } catch (e) {}
-    if (before !== null && lastBr !== null && before !== lastBr) { this.disabled = false; qState("<b>Price updated: " + P.money(before) + " → " + P.money(lastBr) + ".</b>"); return P.msg("#m-quote", "The price has just been updated. Please check the new brutto with your client and press Book again.", "err"); }
+    if (before !== null && lastBr !== null && before !== lastBr) { this.disabled = false; qState("<b>" + AGT("Price updated: {0} → {1}.", P.money(before), P.money(lastBr)) + "</b>"); return P.msg("#m-quote", "The price has just been updated. Please check the new brutto with your client and press Book again.", "err"); }
     P.msg("#m-quote", "Creating the booking…");
     var row = { agency_id: me.agency.id, tour_id: quote.tour_id, tour_title: quote.tour_title, config: quote.config, start_date: d,
       pax: quote.price.pax, brutto: quote.price.total, agent_note: $("#q-note").value.trim() || null };
@@ -243,14 +243,14 @@
     var h = '<div class="p-card"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><button class="btn btn--outline btn--sm" id="back">← All bookings</button></div>' + P.badge(b.status) + '</div>' +
       '<h2 style="margin-top:14px">' + esc(b.ref) + ' · ' + esc(b.tour_title) + '</h2>' + P.flowLine(b.status) +
       '<div class="kv" style="margin-top:14px"><div><small>Start</small><b>' + P.date(b.start_date) + '</b></div><div><small>Travellers</small><b>' + b.pax + '</b></div><div><small>Brutto</small><b>' + P.money(b.brutto) + '</b></div><div class="hl"><small>Netto to pay (' + b.commission_pct + '% commission)</small><b>' + P.money(b.netto) + '</b></div></div>' +
-      '<p class="p-sub" style="margin-top:12px">' + route + ' · ' + esc(b.config.hotel || "") + ' · ' + esc(b.config.transport || "") + ' · Guide: ' + esc(b.config.guide || "") + '</p>' +
+      '<p class="p-sub" style="margin-top:12px">' + route + ' · ' + esc(b.config.hotel || "") + ' · ' + esc(b.config.transport || "") + ' · ' + (window.AG_LANG && AG_LANG !== "en" ? "🗣 " : "Guide: ") + esc(b.config.guide || "") + '</p>' +
       (b.agent_note ? '<p><b>Your note:</b> ' + esc(b.agent_note) + '</p>' : '') + '</div>';
 
     // Payment
     if (b.status === "request") h += '<div class="p-card"><h3>Next step</h3><p>Add all travellers with their passports below. Moviy Nomad will check availability and send you the payment details here.</p></div>';
     if (b.status === "awaiting_payment" || b.status === "payment_reported" || b.status === "deposit_paid") {
       var dep = Math.round(b.netto * 0.3), due = b.balance_due ? P.date(b.balance_due) : "14 days before the start";
-      h += '<div class="p-card"><h3>Payment</h3><div class="msg msg--info" style="white-space:pre-wrap">' + esc(b.payment_details || "") + '</div><p>Total netto: <b>' + P.money(b.netto) + '</b> · Reference: <b>' + esc(b.ref) + '</b></p>' +
+      h += '<div class="p-card"><h3>Payment</h3><div class="msg msg--info" style="white-space:pre-wrap">' + esc(b.payment_details || "") + '</div><p>' + AGT("Total netto:") + ' <b>' + P.money(b.netto) + '</b> · ' + AGT("Reference:") + ' <b>' + esc(b.ref) + '</b></p>' +
         '<table class="tbl"><tr><th>30% deposit</th><td><b>' + P.money(dep) + '</b> — within 3 working days of the invoice' + ((+b.paid_total || 0) >= dep ? ' ✅ received' : '') + '</td></tr><tr><th>70% balance</th><td><b>' + P.money(b.netto - dep) + '</b> — by ' + esc(due) + '</td></tr><tr><th>Received</th><td><b>' + P.money(+b.paid_total || 0) + '</b></td></tr></table>';
       if (b.status === "awaiting_payment" || b.status === "deposit_paid") h += '<div class="p-actions"><button class="btn btn--green" id="paid">I have paid</button></div>';
       else h += '<p class="msg msg--ok">You reported the payment. We will confirm it as soon as the money arrives.</p>';
@@ -262,9 +262,9 @@
     if (vc.length || sv.length || b.voucher_key) {
       h += '<div class="p-card"><h3>Services & vouchers</h3>' +
         (sv.length ? '<table class="tbl"><thead><tr><th>Service</th><th>City</th><th>Dates</th><th>Confirmation</th></tr></thead><tbody>' + sv.map(function (s) { return '<tr><td><b>' + esc(s.title) + '</b><br><small>' + esc(s.kind) + '</small></td><td>' + esc(s.city || "") + '</td><td>' + P.date(s.date_from) + (s.date_to ? " – " + P.date(s.date_to) : "") + '</td><td>' + esc(s.confirmation_no || "") + '</td></tr>'; }).join("") + '</tbody></table>' : '') +
-        (b.voucher_key ? '<div class="p-actions" style="margin-top:12px;align-items:center"><b>Client language:</b> <select id="vl">' + [["en","English"],["ru","Русский"],["uz","O\'zbekcha"],["tr","Türkçe"],["ar","العربية"],["de","Deutsch"],["sv","Svenska"],["zh","中文"],["hi","हिन्दी"],["ko","한국어"]].map(function (o) { return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join("") + '</select>' +
-          '<a class="btn btn--gold btn--sm" id="vl-a" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '&lang=en">🧾 Travel voucher (PDF)</a>' +
-          '<a class="btn btn--green btn--sm" id="vl-b" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '&lang=en&doc=services">Service vouchers (PDF)</a></div>' : '') +
+        (b.voucher_key ? '<div class="p-actions" style="margin-top:12px;align-items:center"><b>Client language:</b> <select id="vl">' + [["en","English"],["ru","Русский"],["uz","O\'zbekcha"],["tr","Türkçe"],["ar","العربية"],["de","Deutsch"],["sv","Svenska"],["zh","中文"],["hi","हिन्दी"],["ko","한국어"]].map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === (window.AG_LANG || "en") ? " selected" : "") + '>' + o[1] + '</option>'; }).join("") + '</select>' +
+          '<a class="btn btn--gold btn--sm" id="vl-a" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '&lang=' + (window.AG_LANG || "en") + '">🧾 Travel voucher (PDF)</a>' +
+          '<a class="btn btn--green btn--sm" id="vl-b" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '&lang=' + (window.AG_LANG || "en") + '&doc=services">Service vouchers (PDF)</a></div>' : '') +
         (vc.length ? '<div class="files" style="margin-top:14px">' + vc.map(function (v) { return '<div class="file"><b>📄 ' + esc(v.title || v.kind) + '</b><button data-v="' + esc(v.file_path) + '">Download PDF</button></div>'; }).join("") + '</div>' : '') + '</div>';
     }
 
