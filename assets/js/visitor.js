@@ -5,7 +5,7 @@
    - everything goes to Supabase (site_visitors / site_customers / site_events) and is shown in admin → "Mijozlar". */
 (function () {
   var SB = window.MN_SB || {}; if (!SB.url || !SB.anonKey) return;
-  var GOOGLE_ON = false;                       // switched on once Google sign-in is configured in Supabase
+  var GOOGLE_ON = true;                        // switched on once Google sign-in is configured in Supabase
   var LANG = (window.MN_LANG || document.documentElement.lang || "en").slice(0, 2);
   var LS = window.localStorage, SS = window.sessionStorage;
   function get(k, s) { try { return (s || LS).getItem(k); } catch (e) { return null; } }
