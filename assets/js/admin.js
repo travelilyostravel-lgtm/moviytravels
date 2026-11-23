@@ -1,6 +1,7 @@
 /* Moviy Nomad — admin panel (UI in Uzbek) */
 (function () {
   var P = window.MNP, sb = P.sb, $ = P.$, $$ = P.$$, esc = P.esc, CFG = window.MN || {};
+  var LANGS = { en: "English", ru: "Русский", uz: "O'zbekcha", tr: "Türkçe", ar: "العربية", de: "Deutsch", sv: "Svenska", zh: "中文", hi: "हिन्दी", ko: "한국어" };
   function addD(d, n) { if (!d) return null; var t = new Date(d + "T12:00:00"); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); }
   function vlink(b) { return location.origin + location.pathname.replace(/admin\/.*$/, "") + "voucher.html?ref=" + encodeURIComponent(b.ref) + "&k=" + b.voucher_key; }
   var L = "uz", bFilter = "active", aFilter = "pending";
@@ -87,7 +88,8 @@
     } else if (b.status === "paid") {
       h += '<p>Pastda mehmonxona, transport, gid va sug\'urta ma\'lumotlarini kiriting, keyin vaucherlarni yarating. Vaucherlar tayyor bo\'lgach, agent ularni yuklab oladi.</p>';
     } else if (b.status === "confirmed") {
-      h += '<p class="msg msg--ok">Vaucherlar tayyor, agent yuklab olishi mumkin.</p>' + (b.voucher_key ? '<p>Milliy dizayndagi umumiy vaucher (agent va mijoz uchun havola): <a class="link" target="_blank" rel="noopener" href="' + esc(vlink(b)) + '">' + esc(vlink(b)) + '</a></p>' : '');
+      h += '<p class="msg msg--ok">Vaucherlar tayyor, agent yuklab olishi mumkin.</p>' + (b.voucher_key ? '<div class="p-actions" style="align-items:center"><b>Hujjat tili:</b> <select id="vb-lang">' + Object.keys(LANGS).map(function (k) { return '<option value="' + k + '">' + LANGS[k] + '</option>'; }).join("") + '</select>' +
+        '<a class="btn btn--outline btn--sm" id="vb-main" target="_blank" rel="noopener" href="' + esc(vlink(b) + "&lang=en") + '">Umumiy vaucher</a><a class="btn btn--green btn--sm" id="vb-svc" target="_blank" rel="noopener" href="' + esc(vlink(b) + "&lang=en&doc=services") + '">Har bir xizmat vaucheri</a></div>' : '');
     } else h += '<p>Bekor qilingan.</p>';
     h += '<div class="fld" style="margin-top:14px"><label>Ichki izoh (agent ko\'rmaydi)</label><textarea id="e-note">' + esc(b.admin_note || "") + '</textarea></div>' +
       '<div class="msg" id="m-b"></div><div class="p-actions"><button class="btn btn--outline btn--sm" id="a-note">Izohni saqlash</button>' + (b.status !== "cancelled" && b.status !== "confirmed" ? '<button class="btn btn--red btn--sm" id="a-cancel">Bronni bekor qilish</button>' : '') + '</div></div>';
@@ -121,6 +123,7 @@
       if (tr.length < b.pax && !confirm("Sayyohlar to'liq kiritilmagan (" + tr.length + "/" + b.pax + "). Baribir yuborilsinmi?")) return;
       upd({ brutto: br, commission_pct: cm, payment_details: pay, status: "awaiting_payment", balance_due: addD(b.start_date, -14) });
     };
+    if ((x = $("#vb-lang"))) x.onchange = function () { var l = this.value; $("#vb-main").href = vlink(b) + "&lang=" + l; $("#vb-svc").href = vlink(b) + "&lang=" + l + "&doc=services"; };
     if ((x = $("#a-paid"))) x.onclick = function () { if (confirm(P.money(b.netto) + " (100%) hisobingizga tushganini tasdiqlaysizmi?")) upd({ status: "paid", paid_total: b.netto }); };
     if ((x = $("#a-dep"))) x.onclick = function () { var dep = Math.round(b.netto * 0.3); if (confirm(P.money(dep) + " (30%) tushganini tasdiqlaysizmi?")) upd({ status: "deposit_paid", paid_total: dep, payment_reported_at: null }); };
     if ((x = $("#a-back-pay"))) x.onclick = function () { if (confirm("Holat “To'lov kutilmoqda”ga qaytarilsinmi?")) upd({ status: "awaiting_payment", payment_reported_at: null }); };

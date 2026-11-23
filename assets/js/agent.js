@@ -180,7 +180,9 @@
     if (vc.length || sv.length || b.voucher_key) {
       h += '<div class="p-card"><h3>Services & vouchers</h3>' +
         (sv.length ? '<table class="tbl"><thead><tr><th>Service</th><th>City</th><th>Dates</th><th>Confirmation</th></tr></thead><tbody>' + sv.map(function (s) { return '<tr><td><b>' + esc(s.title) + '</b><br><small>' + esc(s.kind) + '</small></td><td>' + esc(s.city || "") + '</td><td>' + P.date(s.date_from) + (s.date_to ? " – " + P.date(s.date_to) : "") + '</td><td>' + esc(s.confirmation_no || "") + '</td></tr>'; }).join("") + '</tbody></table>' : '') +
-        (b.voucher_key ? '<p style="margin-top:12px"><a class="btn btn--gold btn--sm" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '">🧾 Travel voucher (PDF) — for your client</a></p>' : '') +
+        (b.voucher_key ? '<div class="p-actions" style="margin-top:12px;align-items:center"><b>Client language:</b> <select id="vl">' + [["en","English"],["ru","Русский"],["uz","O\'zbekcha"],["tr","Türkçe"],["ar","العربية"],["de","Deutsch"],["sv","Svenska"],["zh","中文"],["hi","हिन्दी"],["ko","한국어"]].map(function (o) { return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join("") + '</select>' +
+          '<a class="btn btn--gold btn--sm" id="vl-a" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '&lang=en">🧾 Travel voucher (PDF)</a>' +
+          '<a class="btn btn--green btn--sm" id="vl-b" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '&lang=en&doc=services">Service vouchers (PDF)</a></div>' : '') +
         (vc.length ? '<div class="files" style="margin-top:14px">' + vc.map(function (v) { return '<div class="file"><b>📄 ' + esc(v.title || v.kind) + '</b><button data-v="' + esc(v.file_path) + '">Download PDF</button></div>'; }).join("") + '</div>' : '') + '</div>';
     }
 
@@ -201,6 +203,7 @@
     }
     h += '</div>';
     box.innerHTML = h;
+    if ($("#vl")) $("#vl").onchange = function () { var l = this.value; ["#vl-a", "#vl-b"].forEach(function (q) { var a = $(q); a.href = a.href.replace(/lang=[a-z]+/, "lang=" + l); }); };
 
     $("#back").onclick = function () { go("list"); };
     $$("[data-v]", box).forEach(function (x) { x.onclick = function () { P.openFile("vouchers", x.dataset.v); }; });
