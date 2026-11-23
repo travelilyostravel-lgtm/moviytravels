@@ -150,6 +150,7 @@
       '<div class="fld"><label>Usul</label><select id="p-m"><option value="bank">Bank o\'tkazmasi</option><option value="card">Karta (Visa/Mastercard)</option><option value="cash">Naqd</option><option value="other">Boshqa</option></select></div>' +
       '<button class="btn btn--green btn--sm" id="p-add">✓ To\'lovni tasdiqlash</button></div><small class="p-sub" id="p-conv">Keyingi to\'lov: ' + P.money(nextAmt) + '</small>' +
       '<p style="margin:8px 0 0">To\'langan: <b>' + P.money(paid) + '</b> / ' + P.money(tot) + (left > 0 ? ' · qoldiq: <b style="color:#c8553d">' + P.money(left) + '</b>' : ' · <b style="color:#2e7d32">to\'liq to\'langan ✓</b>') + '</p><div id="p-list"></div>') : "Avval narxni saqlang");
+    if (x.kind === "group") h += '<div class="msg ' + (x.seats_held ? 'msg--ok' : 'msg--info') + '" style="margin:6px 0">' + (x.seats_held ? '✅ Guruh jadvalida <b>' + x.seats_held + ' ta joy</b> shu mijoz uchun band qilindi.' : 'Guruh joylari 30% to\'lov tasdiqlanganda jadvaldan o\'zi band qilinadi (bekor qilinsa qaytadi).') + '</div>';
     h += step(3, !!x.voucher_key, "Umumiy hujjat (bron tasdig'i → to'liq to'langach sayohat vaucheri)", x.voucher_key ?
       '<a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="' + esc(vurlL(x)) + '">Ko\'rish / PDF</a> <button class="btn btn--outline btn--sm" data-copy="0">Havolani nusxalash</button> <small>(' + window.MN_LANGS[lang] + ')</small>' :
       'Birinchi to\'lov tasdiqlanishi bilan o\'zi tayyorlanadi: Moviy Travel rekvizitlari, mijoz ma\'lumotlari, tur, to\'lovlar.');
