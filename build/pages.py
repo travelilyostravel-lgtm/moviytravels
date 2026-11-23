@@ -210,7 +210,7 @@ def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, bod
 <footer class="footer footer--sub">
   <div class="container">
     {footer_legal(lang, pre)}
-    <div class="footer__bottom"><span>© 2026 Moviy Nomad · Moviy Travel</span><span><a href="tel:+{c["whatsapp"]}" dir="ltr">{e(c["phone"])}</a> · <a href="https://t.me/{c["telegram"]}" target="_blank" rel="noopener">@{c["telegram"]}</a> · <a href="https://instagram.com/{c["instagram"]}" target="_blank" rel="noopener">@{c["instagram"]}</a></span></div>
+    <div class="footer__bottom"><span>© 2026 Moviy Nomad · Moviy Travel</span><span><a href="tel:+{c["whatsapp"]}" dir="ltr">{e(c["phone"])}</a> · <a href="https://t.me/{c["telegram"]}" target="_blank" rel="noopener">@{c["telegram"]}</a> · <a href="https://instagram.com/{c["instagram"]}" target="_blank" rel="noopener">@{c["instagram"]}</a>{(' · <a href="mailto:' + c["email"] + '">' + c["email"] + '</a>') if c.get("email") else ""}</span></div>
   </div>
 </footer>
 <script>window.MN={json.dumps({"whatsapp": c["whatsapp"], "telegram": c["telegram"], "instagram": c["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)};window.MNX={js_strings(lang)};window.MN_LANG="{lang}";</script>

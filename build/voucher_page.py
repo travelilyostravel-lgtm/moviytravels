@@ -120,7 +120,7 @@ JS = r"""
         if(s.details)rows.push([L.f_notes,s.details]);
         return '<div class="sv-page">'+C.rose+'<header class="hd">'+C.logo+'<div class="brand"><b>MOVIY NOMAD</b><small>MOVIY TRAVEL XK · '+esc(C.licence)+'</small></div><div class="ttl"><b>'+esc(L.sv_title)+'</b><span>'+esc(v.ref)+'-'+(i+1)+' · '+(i+1)+' '+esc(L.of)+' '+sv.length+'</span></div></header>'+
           '<h1>'+esc(kl)+'</h1><p class="sub">'+esc(title)+'</p><table class="svt"><tbody>'+rows.map(function(r){return'<tr><th>'+esc(r[0])+'</th><td>'+esc(r[1])+'</td></tr>';}).join("")+'</tbody></table>'+
-          '<div class="ft"><div><p><b>'+esc(L.contacts)+':</b> WhatsApp '+esc(C.phone)+' · Telegram @'+esc(C.telegram)+'</p><p>'+esc(L.sv_note)+'</p></div></div><p class="legal">'+esc(C.company)+'</p></div>';
+          '<div class="ft"><div><p><b>'+esc(L.contacts)+':</b> WhatsApp '+esc(C.phone)+' · Telegram @'+esc(C.telegram)+(C.email?' · E-mail '+esc(C.email):'')+'</p><p>'+esc(L.sv_note)+'</p></div></div><p class="legal">'+esc(C.company)+'</p></div>';
       }).join("");
       box.classList.add("v--svc"); st.hidden=true; box.hidden=false; document.getElementById("bar").hidden=false;
       document.getElementById("b-dl").textContent=L.dl; document.getElementById("b-pr").textContent=L.print; document.title=L.sv_title+" "+v.ref+" — Moviy Nomad";
@@ -132,7 +132,7 @@ JS = r"""
       '<div class="stamp">'+esc(full?L.paid:L.part)+'</div><h1>'+esc(title)+'</h1><p class="sub">'+esc(d(v.start_date))+(days?' — '+esc(d(v.start_date,days-1)):'')+'</p>'+
       '<div class="grid">'+cells.filter(function(c){return c[1];}).map(function(c){return'<div class="cell"><small>'+esc(c[0])+'</small><b>'+esc(c[1])+'</b></div>';}).join("")+'</div>'+
       client+payb+(route?'<h2>'+L.route+'</h2>'+route:'')+(trav?'<h2>'+L.pax+'</h2><table><tbody>'+trav+'</tbody></table>':'')+svc+(prog?'<h2>'+L.prog+'</h2>'+prog:'')+inc+reqb+
-      '<div class="ft"><div class="qr" title="'+esc(L.verify)+'">'+qr+'</div><div><p><b>'+esc(L.contacts)+':</b> WhatsApp '+esc(C.phone)+' · Telegram @'+esc(C.telegram)+'</p><p>'+esc(L.note)+'</p><p><small>'+esc(L.verify)+'</small></p></div></div>'+
+      '<div class="ft"><div class="qr" title="'+esc(L.verify)+'">'+qr+'</div><div><p><b>'+esc(L.contacts)+':</b> WhatsApp '+esc(C.phone)+' · Telegram @'+esc(C.telegram)+(C.email?' · E-mail '+esc(C.email):'')+'</p><p>'+esc(L.note)+'</p><p><small>'+esc(L.verify)+'</small></p></div></div>'+
       '<p class="legal">'+esc(C.company)+'</p>';
     st.hidden=true; box.hidden=false; document.getElementById("bar").hidden=false;
     document.getElementById("b-dl").textContent=L.dl; document.getElementById("b-pr").textContent=L.print; document.title=DT+" "+v.ref+" — Moviy Nomad";
@@ -156,9 +156,9 @@ JS = r"""
 
 
 def write(root, cfg, logo):
-    company = f'MOVIY TRAVEL XK · {cfg["address"]} · {cfg["phone"]} · Licence № {cfg["license"]} ({cfg["license_reg"]})'
+    company = f'MOVIY TRAVEL XK · {cfg["address"]} · {cfg["phone"]} · {cfg.get("email","")} · Licence № {cfg["license"]} ({cfg["license_reg"]})'
     data = {"labels": LABELS, "logo": logo.replace('<svg ', '<svg class="logo" ', 1), "rose": ROSE,
-            "licence": "Licence № " + cfg["license"], "req": {k: cfg[k] for k in ("company","address","inn","bank","mfo","account","license","license_reg")}, "phone": cfg["phone"], "telegram": cfg["telegram"], "company": company}
+            "licence": "Licence № " + cfg["license"], "req": {k: cfg[k] for k in ("company","address","inn","bank","mfo","account","license","license_reg")}, "phone": cfg["phone"], "telegram": cfg["telegram"], "email": cfg.get("email",""), "company": company}
     html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>Voucher — Moviy Nomad</title><style>{CSS}</style></head>
 <body><div class="bar" id="bar" hidden><button id="b-dl">Download PDF</button><button class="ghost" id="b-pr">Print</button></div>

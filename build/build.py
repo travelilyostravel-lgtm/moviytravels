@@ -40,6 +40,7 @@ ICON = {
  "moon": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>',
  "chat": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h11v8H8l-4 3z"/><path d="M15 9h5v8l-3-2.5h-6V13"/></svg>',
  "tag": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.4"/></svg>',
+ "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
  "phone": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>',
 }
 
@@ -309,6 +310,7 @@ def render(lang):
       <a class="opt opt--wa" href="{wa}" target="_blank" rel="noopener"><span class="opt__ic">{ICON["wa"]}</span><span><strong>{e(t["opt_wa"][0])}</strong><small>{e(t["opt_wa"][1])}</small></span></a>
       <a class="opt opt--tg" href="{tg}" target="_blank" rel="noopener"><span class="opt__ic">{ICON["tg"]}</span><span><strong>{e(t["opt_tg"][0])}</strong><small>{e(t["opt_tg"][1])}</small></span></a>
       <a class="opt opt--ig" href="{ig}" target="_blank" rel="noopener"><span class="opt__ic">{ICON["ig"]}</span><span><strong>{e(t["opt_ig"][0])}</strong><small>{e(t["opt_ig"][1])}</small></span></a>
+      {f'<a class="opt opt--mail" href="mailto:{cfg["email"]}?subject=Moviy%20Nomad"><span class="opt__ic">{ICON["mail"] if "mail" in ICON else "@"}</span><span><strong>{e(t["opt_mail"][0])}</strong><small dir="ltr">{e(cfg["email"])}</small></span></a>' if cfg.get("email") else ""}
       <a class="opt opt--tel" href="{tel}"><span class="opt__ic">{ICON["phone"]}</span><span><strong dir="ltr">{e(cfg.get("phone",""))}</strong><small>{e(cfg.get("manager",""))}</small></span></a>
     </div>
   </div>
