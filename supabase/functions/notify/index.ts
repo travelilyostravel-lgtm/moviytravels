@@ -3,7 +3,9 @@
 // Secrets (Supabase → Edge Functions → Secrets): RESEND_API_KEY, MAIL_FROM (e.g. "Moviy Nomad <info@moviy-travel.uz>")
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
-const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+// New projects: SUPABASE_SECRET_KEYS = {"default":"sb_secret_..."}; old projects: SUPABASE_SERVICE_ROLE_KEY
+const SK = (() => { try { const j = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}"); return j.default || Object.values(j)[0] || ""; } catch { return ""; } })() || Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+const sb = createClient(Deno.env.get("SUPABASE_URL")!, SK as string, { auth: { persistSession: false } });
 const KEY = Deno.env.get("RESEND_API_KEY") || "";
 const FROM = Deno.env.get("MAIL_FROM") || "Moviy Nomad <info@moviy-travel.uz>";
 const SITE = (Deno.env.get("SITE_URL") || "https://moviy-travel.uz").replace(/\/$/, "");
@@ -60,7 +62,8 @@ async function record(row: any) {
 Deno.serve(async () => {
   if (!KEY) return Response.json({ ok: false, reason: "RESEND_API_KEY is not set" });
   const c = await conf();
-  const { data: rows } = await sb.from("notify_outbox").select("*").eq("status", "pending").order("id").limit(20);
+  const { data: rows, error: qerr } = await sb.from("notify_outbox").select("*").eq("status", "pending").order("id").limit(20);
+  if (qerr) return Response.json({ ok: false, reason: "db: " + qerr.message });
   let sent = 0;
   for (const row of rows || []) {
     try {
