@@ -54,6 +54,7 @@
   function inp(path, val, ph, extra) {
     return '<input class="np-in" type="number" min="0" step="any" data-p="' + path + '" value="' + (val === undefined || val === null || val === "" ? "" : esc(val)) + '" placeholder="' + esc(ph === undefined ? "" : ph) + '"' + (extra || "") + '>';
   }
+  function num(x, d) { var n = parseFloat(x); return isFinite(n) ? n : d; }
   function get(o, path) { return path.split(".").reduce(function (a, k) { return a && a[k] !== undefined ? a[k] : undefined; }, o); }
 
   function render(cfg) {
@@ -90,12 +91,12 @@
     h += '<details open class="np-sec"><summary>3. Transport — bir mashina, bir kunga, $</summary><div class="np-grid">' +
       C.transport.map(function (x) { return '<label>' + (TR_NAME[x.id] || x.id) + ' <small>(' + x.seats + ' o\'rin)</small>' + inp("transport." + x.id, v("transport." + x.id, DEF.transport[x.id])) + '</label>'; }).join("") +
       '</div><p class="np-note">Turdagi barcha kunlar uchun hisoblanadi va guruhdagi odamlarga bo\'linadi. Mashina turi odam soniga qarab avtomatik tanlanadi.</p></details>';
-    // 4. Guide
-    h += '<details open class="np-sec"><summary>4. Gid — bir kunga, $</summary><div class="np-grid">' +
-      '<label>Gid (ingliz / rus tili)' + inp("guide.day", v("guide.day", DEF.guide.day)) + '</label>' +
-      Object.keys(DEF.guide.languages).filter(function (k) { return k !== "en" && k !== "ru"; }).map(function (k) {
-        return '<label>+ ' + (LANG_NAME[k] || k) + ' tili qo\'shimchasi' + inp("guide.languages." + k, v("guide.languages." + k, DEF.guide.languages[k])) + '</label>';
-      }).join("") + '</div><p class="np-note">Gid kunlari = tur kunlari − 1. Guruhdagi odamlarga bo\'linadi.</p></details>';
+    // 4. Guide — a full day price for EVERY language (owner: 2026-11-23)
+    var gd = num(get(c, "guide.day"), DEF.guide.day), gl = get(c, "guide.languages") || DEF.guide.languages;
+    var GL = ["en", "ru", "tr", "ar", "de", "zh", "ko", "hi", "sv"];
+    h += '<details open class="np-sec"><summary>4. Gid — har bir til uchun bir kunlik narx, $</summary><div class="np-grid">' +
+      GL.map(function (k) { return '<label>' + (LANG_NAME[k] || k) + ' tilidagi gid' + inp("guide.rate." + k, v("guide.rate." + k, Math.round((gd + num(gl[k], 0)) * 100) / 100)) + '</label>'; }).join("") +
+      '</div><p class="np-note">Har bir tildagi gidning <b>to\'liq kunlik narxi</b>ni yozing (qo\'shimcha emas). Sayt, tur yig\'ish, prezentatsiyalar, agent portali va guruh turlari shu narxni o\'zi oladi: mijoz qaysi tildagi gidni tanlasa, o\'sha narx hisoblanadi. Gid kunlari = tur kunlari − 1, guruhdagi odamlarga bo\'linadi.</p></details>';
     // 5. Train / flight tickets per route
     h += '<details open class="np-sec"><summary>5. Poyezd, avia va transfer chiptalari — 1 kishi uchun, $</summary><div class="np-grid">' +
       '<label>Poyezd (standart)' + inp("fixed.train", v("fixed.train", DEF.fixed.train)) + '</label>' +
@@ -175,6 +176,11 @@
       cur[parts[parts.length - 1]] = n;
     });
     if (o.markup === undefined) o.markup = DEF.markup;
+    if (o.guide.rate) {   // per-language day prices → base (English) + difference, which the price engine uses
+      var base = o.guide.rate.en !== undefined ? o.guide.rate.en : (o.guide.rate.ru !== undefined ? o.guide.rate.ru : DEF.guide.day);
+      o.guide.day = base; o.guide.languages = {};
+      Object.keys(o.guide.rate).forEach(function (k) { o.guide.languages[k] = Math.round((o.guide.rate[k] - base) * 100) / 100; });
+    }
     return o;
   }
 
@@ -206,6 +212,11 @@
         var x = c.svcPrice[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * k) : 0);
         if (b > 0) out[id] = { brutto: b };
       });
+      // guide service: if no separate price is set in section 8, use the cheapest guide day price (+ margin) — "from $…"
+      if (!out.guide && c.guide && c.guide.rate) {
+        var rates = Object.keys(c.guide.rate).map(function (l) { return c.guide.rate[l]; }).filter(function (x) { return x > 0; });
+        if (rates.length) out.guide = { brutto: Math.ceil(Math.min.apply(null, rates) * k), rates: mapVals(c.guide.rate) };
+      }
       return out;
     }
   }
