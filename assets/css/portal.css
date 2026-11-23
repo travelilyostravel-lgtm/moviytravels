@@ -137,3 +137,11 @@ body.portal{background:var(--sand);min-height:100vh}
 .gds-c[data-pick]{cursor:pointer}.gds-c[data-pick]:hover{outline:2px solid #12355b;outline-offset:-2px}
 .gds-c--na{color:#aaa}.gds-none{color:#6b7785}
 .gk--green{border-left:5px solid #2e9e4f}.gk--yellow{border-left:5px solid #e8b10c}.gk--red{border-left:5px solid #d23b2a}
+/* 1a: three ways to add the margin */
+.np-mk{display:flex;flex-direction:column;gap:10px;margin:6px 0 14px;padding:14px;border-radius:14px;background:#f4f8fb;border:1px solid #dbe7f0}
+.np-mk__opt{display:grid;grid-template-columns:22px 1fr 110px;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:#fff;border:1.5px solid #e3ebf2;cursor:pointer}
+.np-mk__opt:has(input:checked){border-color:#2b8fc4;background:#f0f8fd}
+.np-mk__opt span{display:flex;flex-direction:column;gap:2px}.np-mk__opt small{color:#5d6b7a;font-weight:400}
+.np-mk__opt .np-in:disabled{opacity:.4}
+.np-dim{opacity:.4;pointer-events:none}
+@media (max-width:700px){.np-mk__opt{grid-template-columns:22px 1fr}.np-mk__opt .np-in{grid-column:2}}

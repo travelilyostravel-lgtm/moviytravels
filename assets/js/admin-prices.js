@@ -56,6 +56,12 @@
   }
   var MKC = [["guide", "Gid (aeroportda gid kutib olishi ham)"], ["transport", "Transport (haydovchili mashina, aeroportda haydovchi kutib olishi)"], ["hotel", "Mehmonxona"], ["mice", "Guruh / MICE tashkil qilish"], ["esim", "eSIM"]];
   var SVC_CAT = { airport: "transport", car: "transport", hotel: "hotel", guide: "guide", airport_guide: "guide", mice: "mice", esim: "esim" };
+  var ALLCAT = ["hotel", "transport", "guide", "train", "entries", "dinner", "extra", "mice", "esim"];
+  // Separate services: one % for all (mode "one") or the per-service list
+  function svcMk(c, cat) { return c && c.mkMode === "one" && isFinite(parseFloat(c.mkAll)) ? parseFloat(c.mkAll) : mkOf(c, cat); }
+  // Full packages / ready tours: own single % when switched on, otherwise the same % as the separate services
+  function pkgMk(c, cat) { return c && c.pkgOn && isFinite(parseFloat(c.pkgPct)) ? parseFloat(c.pkgPct) : svcMk(c, cat); }
+  function pkgBase(c) { return c && c.pkgOn && isFinite(parseFloat(c.pkgPct)) ? parseFloat(c.pkgPct) : c && c.mkMode === "one" && isFinite(parseFloat(c.mkAll)) ? parseFloat(c.mkAll) : (c && c.markup !== undefined ? c.markup : DEF.markup); }
   function mkOf(c, cat) { var m = c && c.markups; return m && isFinite(parseFloat(m[cat])) ? parseFloat(m[cat]) : (c && c.markup !== undefined ? c.markup : DEF.markup); }
   function num(x, d) { var n = parseFloat(x); return isFinite(n) ? n : d; }
   function get(o, path) { return path.split(".").reduce(function (a, k) { return a && a[k] !== undefined ? a[k] : undefined; }, o); }
@@ -78,7 +84,13 @@
         '<small>Belgilanmagan davlat saytda "Tayyorlanmoqda" bo\'lib turadi: tur taqdimotlari ko\'rinadi, lekin narx va o\'zi hisoblash (B2C va B2B) yopiq, mijoz menejerga yo\'naltiriladi.</small></div>' +
       '</div></details>';
     // 1a. Service fee per kind of service
-    h += '<details open class="np-sec"><summary>1a. Kampaniya xizmat haqi — har bir xizmat turiga alohida, %</summary><div class="np-grid">' +
+    h += '<details open class="np-sec"><summary>1a. Kampaniya xizmat haqi (foiz) — qanday qo\'shilsin</summary>' +
+      '<div class="np-mk">' +
+      '<p class="np-note"><b>3 xil yo\'l bor.</b> Siz har doim netto (tan narx) yozasiz — sayt mijozga netto + foizni ko\'rsatadi. Foiz mijozga ko\'rinmaydi.</p>' +
+      '<label class="np-mk__opt"><input type="radio" name="mk_mode" data-p="mk_mode" value="each"' + (c.mkMode !== "one" ? " checked" : "") + '> <span><b>1) Har bir xizmatga alohida %</b><small>Pastdagi ro\'yxatda gid, transport, mehmonxona, MICE, eSIM uchun har biriga o\'z foizini yozasiz.</small></span></label>' +
+      '<label class="np-mk__opt"><input type="radio" name="mk_mode" data-p="mk_mode" value="one"' + (c.mkMode === "one" ? " checked" : "") + '> <span><b>2) Bitta % — barcha alohida xizmatlarga</b><small>Shu bitta foiz hamma alohida xizmatlarga qo\'shiladi, pastdagi alohida foizlar e\'tiborga olinmaydi (o\'chmaydi, keyin yana qaytishingiz mumkin).</small></span>' + inp("mk_all", c.mkAll === undefined ? "" : Math.round(c.mkAll * 1000) / 10, "%") + '</label>' +
+      '<label class="np-mk__opt"><input type="checkbox" data-p="pkg_on"' + (c.pkgOn ? " checked" : "") + '> <span><b>3) Full paket va tayyor turlar uchun alohida bitta %</b><small>Yoqilsa: tayyor turlar va mijoz o\'zi yig\'gan to\'liq paket narxi = barcha qismlar netto + shu foiz. O\'chiq bo\'lsa: paket har bir qismning yuqoridagi foizi bilan yig\'iladi (alohida sotib olgandek bir xil narx).</small></span>' + inp("pkg_pct", c.pkgPct === undefined ? "" : Math.round(c.pkgPct * 1000) / 10, "%") + '</label>' +
+      '</div><div class="np-grid" data-mkgrid>' +
       MKC.map(function (m) { var x = get(c, "markups." + m[0]); return '<label>' + m[1] + inp("mk." + m[0], x === undefined ? "" : Math.round(x * 1000) / 10, "standart") + '</label>'; }).join("") +
       '</div><p class="np-note">Siz netto (tan narx) yozasiz, sayt mijozga <b>netto + shu foiz</b>ni ko\'rsatadi (B2C va B2B uchun bir xil brutto; agent komissiyasi bruttodan). Foiz mijozga ko\'rinmaydi — faqat sizga va adminlarga. To\'liq paket narxi har bir qismning o\'z foizi bilan yig\'iladi, shuning uchun alohida yig\'ilgan xizmatlar yig\'indisi bilan paket narxi bir xil chiqadi. Bo\'sh qolsa — standart foiz. Turlar ichidagi poyezd chiptalari, obidalarga kirish va kechki ovqat alohida sotilmaydi — ularga standart foiz qo\'shiladi.</p></details>';
     // 2. Hotels
@@ -163,7 +175,7 @@
           inp("svcPrice." + x[0] + ".brutto", v("svcPrice." + x[0] + ".brutto", ""), "—") + '</td><td>' + inp("svcPrice." + x[0] + ".comm", v("svcPrice." + x[0] + ".comm", ""), "—") + '</td><td data-svcres="' + x[0] + '">—</td></tr>';
       }).join("") + '</tbody></table></details>';
     box.innerHTML = h;
-    $$(".np-in, input[type=checkbox][data-p]", box).forEach(function (el) { el.addEventListener("input", recalc); el.addEventListener("change", recalc); });
+    $$(".np-in, input[type=checkbox][data-p], input[type=radio][data-p]", box).forEach(function (el) { el.addEventListener("input", recalc); el.addEventListener("change", recalc); });
     recalc();
   }
 
@@ -173,10 +185,14 @@
     $$("#np-body [data-p]").forEach(function (el) {
       var p = el.dataset.p;
       if (p === "booking_online") { o.booking_online = el.checked; return; }
+      if (p === "mk_mode") { if (el.checked) o.mkMode = el.value; return; }
+      if (p === "pkg_on") { o.pkgOn = el.checked; return; }
       if (p.indexOf("open.") === 0) { o.openCountries = o.openCountries || []; if (el.checked) o.openCountries.push(p.slice(5)); return; }
       if (el.value === "") return;
       var n = parseFloat(el.value); if (!isFinite(n) || n < 0) return;
       if (p === "markup_pct") { o.markup = n / 100; return; }
+      if (p === "mk_all") { o.mkAll = n / 100; return; }
+      if (p === "pkg_pct") { o.pkgPct = n / 100; return; }
       if (p === "single_pct") { o.singleSupplement = n / 100; return; }
       if (p.indexOf("mk.") === 0) { o.markups = o.markups || {}; o.markups[p.slice(3)] = n / 100; return; }
       var parts = p.split("."), cur = o;
@@ -195,8 +211,8 @@
   // Selling prices for the website: every amount × (1 + margin); the margin itself is not published
   function toPublic(c) {
     var k = 1 + (c.markup || 0), r = function (x) { return Math.round(x * k * 100) / 100; };
-    var mapVals = function (obj, cat) { var kk = 1 + (cat ? mkOf(c, cat) : (c.markup || 0)), out = {}; Object.keys(obj || {}).forEach(function (key) { var x = obj[key]; out[key] = typeof x === "object" ? mapVals(x, cat) : Math.round(x * kk * 100) / 100; }); return out; };
-    var fx = c.fixed || {}, rc = function (x, cat) { return x === undefined ? undefined : Math.round(x * (1 + mkOf(c, cat)) * 100) / 100; };
+    var mapVals = function (obj, cat) { var kk = 1 + (cat ? pkgMk(c, cat) : pkgBase(c)), out = {}; Object.keys(obj || {}).forEach(function (key) { var x = obj[key]; out[key] = typeof x === "object" ? mapVals(x, cat) : Math.round(x * kk * 100) / 100; }); return out; };
+    var fx = c.fixed || {}, rc = function (x, cat) { return x === undefined ? undefined : Math.round(x * (1 + pkgMk(c, cat)) * 100) / 100; };
     var fixedPub = {}; Object.keys(fx).forEach(function (key) { fixedPub[key] = rc(fx[key], key === "train" || key === "flight" ? "train" : key === "welcomeDinner" ? "dinner" : "entries"); });
     // hotels/transport/guide defaults from catalog must carry their margin too, so publish full lists
     var hcPub = {}; Object.keys(DEF.hotelClasses).forEach(function (id) { var x = (c.hotelClasses || {})[id]; hcPub[id] = rc(x !== undefined ? x : DEF.hotelClasses[id], "hotel"); });
@@ -224,13 +240,13 @@
     function pubSvc(c) {
       var out = {};
       Object.keys(c.svcPrice || {}).forEach(function (id) {
-        var x = c.svcPrice[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * (1 + mkOf(c, SVC_CAT[id] || "extra"))) : 0);
+        var x = c.svcPrice[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * (1 + svcMk(c, SVC_CAT[id] || "extra"))) : 0);
         if (b > 0) out[id] = { brutto: b };
       });
       // guide service: if no separate price is set in section 8, use the cheapest guide day price (+ margin) — "from $…"
       if (!out.guide && c.guide && c.guide.rate) {
         var rates = Object.keys(c.guide.rate).map(function (l) { return c.guide.rate[l]; }).filter(function (x) { return x > 0; });
-        if (rates.length) out.guide = { brutto: Math.ceil(Math.min.apply(null, rates) * (1 + mkOf(c, "guide"))) };
+        if (rates.length) out.guide = { brutto: Math.ceil(Math.min.apply(null, rates) * (1 + svcMk(c, "guide"))) };
       }
       return out;
     }
@@ -239,7 +255,9 @@
   function recalc() {
     var c = collect();
     E.applyPrices(c);
-    C.markup = c.markup; C.markups = c.markups || null;
+    C.markup = pkgBase(c); C.markups = {}; ALLCAT.forEach(function (k) { C.markups[k] = pkgMk(c, k); });
+    var one = c.mkMode === "one"; $$("[data-mkgrid]").forEach(function (g) { g.classList.toggle("np-dim", one); });
+    $$("[data-p=mk_all]").forEach(function (i) { i.disabled = !one; }); $$("[data-p=pkg_pct]").forEach(function (i) { i.disabled = !c.pkgOn; });
     $$("[data-res]").forEach(function (el) {
       var T = TOURS[el.dataset.res], pax = C.defaultPax || 2;
       var rows = CLS.map(function (cls) {
@@ -254,7 +272,7 @@
       el.innerHTML = foot + '<table class="tbl np-tbl np-res-tbl"><thead><tr><th>' + pax + ' kishi, 1 kishi uchun</th><th>Mehmonxona</th><th>Transport</th><th>Gid</th><th>Poyezd/avia, ovqat</th><th>Kirish</th><th>Qo\'shimcha</th><th>Netto</th><th>Brutto (saytda)</th><th>Foyda</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
     });
     $$("[data-svcres]").forEach(function (el) {
-      var id = el.dataset.svcres, cat = SVC_CAT[id] || "extra", pct = mkOf(c, cat), x = (c.svcPrice || {})[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * (1 + pct)) : 0);
+      var id = el.dataset.svcres, cat = SVC_CAT[id] || "extra", pct = svcMk(c, cat), x = (c.svcPrice || {})[id] || {}, b = x.brutto > 0 ? x.brutto : (x.netto > 0 ? Math.ceil(x.netto * (1 + pct)) : 0);
       el.innerHTML = b && x.netto ? '<span class="' + (b - x.netto >= 0 ? "np-pos" : "np-neg") + '">' + money(b - x.netto) + '</span>' + (x.brutto > 0 ? ' <small>(qo\'lda brutto)</small>' : ' <small>(brutto = netto + ' + Math.round(pct * 1000) / 10 + '%: ' + money(b) + ')</small>') : "—";
     });
     $("#np-state").textContent = "O'zgarishlar saqlanmagan";
