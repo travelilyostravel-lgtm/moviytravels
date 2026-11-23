@@ -89,7 +89,7 @@ create or replace function public.auto_assign_request() returns trigger
 language plpgsql security definer set search_path = public as $$
 begin
   if tg_op = 'INSERT' and new.assigned_to is null then new.assigned_to := public.next_manager(); end if;
-  if tg_op = 'UPDATE' and new.assigned_to is distinct from old.assigned_to and not public.is_admin() then
+  if tg_op = 'UPDATE' and new.assigned_to is distinct from old.assigned_to and auth.uid() is not null and not public.is_admin() then
     raise exception 'Only the founder can reassign a client';
   end if;
   return new;
@@ -101,7 +101,7 @@ create or replace function public.auto_assign_agency() returns trigger
 language plpgsql security definer set search_path = public as $$
 begin
   if tg_op = 'INSERT' and new.manager_id is null then new.manager_id := public.next_manager(); end if;
-  if tg_op = 'UPDATE' and new.manager_id is distinct from old.manager_id and not public.is_admin() then
+  if tg_op = 'UPDATE' and new.manager_id is distinct from old.manager_id and auth.uid() is not null and not public.is_admin() then
     raise exception 'Only the founder can reassign an agency';
   end if;
   return new;
