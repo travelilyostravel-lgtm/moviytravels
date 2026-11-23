@@ -604,7 +604,7 @@ html[dir="rtl"] .fab{padding:6px 6px 6px 20px}
 .pt-card__rate{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.pt-st{color:#e9b949;letter-spacing:1px}.pt-st i{color:#d9dee5;font-style:normal}
 .pt-new{background:#eef3ff;color:#4a5fc1;font-size:12px;font-weight:700;padding:3px 9px;border-radius:20px}.pt-trips{color:#2f8f5b;font-weight:600}
 .pt-facts,.pt-langs{margin:0;color:#4b5b6c;font-size:14px}.pt-price{margin:2px 0 0;font-size:15px}.pt-price b{font-size:19px;color:var(--navy)}
-.pt-card__btns{display:flex;gap:8px;margin-top:auto;padding-top:8px}.pt-card__btns .btn{flex:1}
+.pt-card__btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}.pt-card__btns .btn{flex:1 1 auto;padding-left:12px;padding-right:12px;white-space:nowrap}
 .pt-empty{grid-column:1/-1;text-align:center;color:#5b6b7c;padding:30px 10px;background:#fff;border-radius:16px}
 .pt-why{max-width:720px;margin:26px auto 0;text-align:center}.pt-why ul{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:left}
 @media (max-width:620px){.pt-why ul{grid-template-columns:1fr}}
