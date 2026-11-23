@@ -20,17 +20,17 @@
   $("#f-login").onsubmit = async function (e) {
     e.preventDefault(); var f = e.target;
     if (!f.password.value) return P.msg("#m-login", "Parolni yozing yoki \"Pochta orqali kirish\" tugmasini bosing.", "err");
-    var r = await sb.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value });
+    var r = await sb.auth.signInWithPassword({ email: f.email.value.replace(/\s+/g, "").toLowerCase(), password: f.password.value });
     if (r.error) return P.msg("#m-login", /invalid login/i.test(r.error.message) ? "E-mail yoki parol noto'g'ri. Parolni unutgan bo'lsangiz — \"Parolni unutdim\" tugmasini bosing." : /not confirmed/i.test(r.error.message) ? "E-mail hali tasdiqlanmagan: pochtangizdagi tasdiqlash xatidagi havolani bosing." : r.error.message, "err");
     boot();
   };
   // ---- log in with a 6-digit code sent to the e-mail (no password needed)
   $("#b-code").onclick = async function () {
-    var em = $("#f-login").email.value.trim();
+    var em = $("#f-login").email.value.replace(/\s+/g, "").toLowerCase();
     if (!em) return P.msg("#m-login", "Avval e-mailingizni yozing.", "err");
     P.msg("#m-login", "Yuborilmoqda…");
     var r = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname } });
-    if (r.error) return P.msg("#m-login", /rate limit/i.test(r.error.message) ? "Pochta xizmati hozir band (soatiga xatlar soni cheklangan). Bir oz kutib qayta urining yoki parol bilan kiring." : /signups not allowed|not found/i.test(r.error.message) ? "Bu e-mail jamoada yo'q. Asoschiga murojaat qiling." : r.error.message, "err");
+    if (r.error) return P.msg("#m-login", /rate limit/i.test(r.error.message) ? "Pochta xizmati hozir band (soatiga xatlar soni cheklangan). Bir oz kutib qayta urining yoki parol bilan kiring." : /signups not allowed|not found/i.test(r.error.message) ? "Bu e-mail jamoada topilmadi: " + em + " — harflari to'g'ri yozilganini tekshiring yoki parol bilan kiring." : r.error.message, "err");
     $("#f-login").classList.add("hidden"); $("#f-code").classList.remove("hidden"); $("#f-code").dataset.em = em;
     $("#code-em").textContent = em; $("#f-code").code.focus();
   };
