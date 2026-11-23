@@ -717,3 +717,47 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .pth__m span{font-weight:700;color:var(--navy)}
 .pth__l{font-size:12.5px;color:var(--muted)}
 @media (max-width:860px){.pt-home{grid-template-columns:repeat(2,1fr);gap:10px}.pth__b b{font-size:14.5px}}
+
+/* ---- TOP-4 and numbers on partner cards ---- */
+.pt-top{margin:4px 0 26px}
+.pt-top__head{text-align:center;margin:0 auto 18px;max-width:720px}
+.pt-top__head .orn-line{justify-content:center}
+.pt-top__head h2{margin:0 0 6px;color:var(--navy);font-size:clamp(24px,2.6vw,32px)}
+.pt-top__head p{margin:0;color:var(--muted)}
+.pt-grid--top{padding:18px;border-radius:24px;background:#fffaf0;border:1px solid #efe3c8;position:relative}
+.pt-grid--top::before{content:"";position:absolute;inset:0;border-radius:24px;background:var(--orn);opacity:.08;pointer-events:none}
+.pt-grid--top .pt-card{box-shadow:0 12px 30px rgba(12,36,65,.12);position:relative}
+.pt-rest{margin:30px 0 4px;color:var(--navy);font-size:20px}
+.pt-rank{position:absolute;right:52px;top:10px;z-index:2;background:var(--navy);color:#fff;font-family:var(--font-head);font-weight:700;font-size:13px;padding:5px 10px;border-radius:999px}
+.pt-rank--1{background:linear-gradient(135deg,#f6d365,#d9982a);color:#3b2a06}
+.pt-rank--2{background:linear-gradient(135deg,#eef1f5,#aab4c0);color:#1e2a38}
+.pt-rank--3{background:linear-gradient(135deg,#f1c7a1,#b87333);color:#3a1d06}
+.pt-like{position:absolute;right:10px;top:8px;z-index:2;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);color:#b9c2cd;font-size:17px;line-height:36px;text-align:center;border:0;cursor:pointer;transition:transform .15s,color .15s}
+.pt-like:hover{transform:scale(1.08)}.pt-like.is-on{color:#e0245e}
+.pt-card__name b i{font-style:normal;font-weight:500;font-size:13px;opacity:.85}
+.pt-nums{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted);border-top:1px dashed #ece6da;padding-top:7px;margin-top:2px}
+.pt-nums b{color:var(--navy)}.pt-nums .pt-pts{margin-left:auto;color:var(--gold-dark)}.pt-nums .pt-pts b{color:var(--gold-dark)}
+.pt-rules{font-size:12.5px;color:var(--muted);text-align:center;margin:18px auto 0;max-width:760px}
+/* profile ("inner page") */
+.modal__box--wide{max-width:860px!important;width:calc(100vw - 32px)}
+.pp__hero{display:flex;gap:20px;align-items:flex-start}
+.pp__main{width:200px;height:240px;object-fit:cover;object-position:center 20%;border-radius:18px;box-shadow:0 10px 26px rgba(12,36,65,.15);flex:none}
+.pp__kind{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-dark)}
+.pp__id h3{margin:4px 0 6px;font-size:26px;color:var(--navy)}
+.pp__id p{margin:4px 0}.pp__ok{color:#23794a;font-weight:600}
+.pp__price b{font-size:20px;color:var(--navy)}
+.pp__acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.pp__btn{position:static;width:auto;height:auto;line-height:1.2;border-radius:999px;padding:9px 16px;font-size:14px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer}
+.pp__btn.pt-like{color:var(--navy)}.pp__btn.pt-like.is-on{background:#fde8ef;border-color:#f6b6c9;color:#e0245e}
+#pt-share-ok{color:#23794a;font-weight:600}
+.pp__nums{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin:18px 0 6px}
+.pp__nums div{background:var(--sand);border-radius:14px;padding:10px 8px;text-align:center}
+.pp__nums b{display:block;font-family:var(--font-head);font-size:20px;color:var(--navy)}
+.pp__nums small{font-size:11.5px;color:var(--muted)}
+.pp__info{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;margin:14px 0}
+.pp__info div{border-left:3px solid var(--gold);padding-left:10px}
+.pp__info dt{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.pp__info dd{margin:2px 0 0;font-weight:600;color:var(--ink)}
+.pp__gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin:12px 0}
+.pp__gal img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block}
+@media (max-width:640px){.pp__hero{flex-direction:column}.pp__main{width:100%;height:280px}.pp__info{grid-template-columns:1fr}}

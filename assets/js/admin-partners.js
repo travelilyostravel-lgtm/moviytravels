@@ -52,7 +52,10 @@
       ["Narx", p.price_day ? "$" + p.price_day + (p.kind === "hotel" ? " / kecha" : " / kun") + (p.price_note ? " — " + p.price_note : "") : "—"], ["Firma", p.company], ["INN", p.inn], ["Litsenziya / guvohnoma", p.license_no],
       p.kind === "driver" ? ["Mashina", [p.vehicle_type, p.vehicle_seats ? p.vehicle_seats + " o'rin" : "", p.vehicle_year].filter(Boolean).join(", ")] : null,
       p.kind === "hotel" ? ["Mehmonxona", [p.hotel_stars ? p.hotel_stars + " yulduz" : "", p.hotel_rooms ? p.hotel_rooms + " xona" : ""].filter(Boolean).join(", ")] : null,
-      p.kind === "guide" ? ["Tajriba", p.experience_years ? p.experience_years + " yil" : "—"] : null].filter(Boolean);
+      p.kind === "guide" ? ["Tajriba", p.experience_years ? p.experience_years + " yil" : "—"] : null,
+      p.kind !== "hotel" ? ["Tug'ilgan yil (yoshi)", p.birth_year ? p.birth_year + " (" + (new Date().getFullYear() - p.birth_year) + " yosh)" : "—"] : null,
+      ["Yashash joyi (saytda)", p.home_area], ["To'liq manzil (faqat sizga)", p.home_address],
+      ["Ko'rishlar · Layklar · Ulashishlar", (p.views_count || 0) + " · " + (p.likes_count || 0) + " · " + (p.shares_count || 0)]].filter(Boolean);
     var wa = String(p.whatsapp || p.phone || "").replace(/\D/g, "");
     var h = '<div class="p-card"><button class="btn btn--outline btn--sm" id="pp-back">← Hamkorlar</button>' +
       '<div style="display:flex;gap:14px;align-items:center;margin-top:12px">' + (p.photo ? '<img src="' + pub(p.photo) + '" style="width:86px;height:86px;border-radius:14px;object-fit:cover" alt="">' : '') +
@@ -69,7 +72,10 @@
       chk(npub >= nd.pub, (p.kind === "driver" ? "Mashina rasmlari" : p.kind === "hotel" ? "Xona rasmlari" : "Yakka rasmlar") + ": " + npub + " / kamida " + (p.kind === "hotel" ? 10 : nd.pub)) +
       (nd.trip ? chk(trips.length >= nd.trip, "Sayyohlar bilan rasmlar: " + trips.length + " / kamida " + nd.trip) : "") +
       chk(!!p.license_no || p.kind === "other" || p.kind === "hotel", "Litsenziya / guvohnoma raqami: " + esc(p.license_no || "—")) +
-      (p.kind === "guide" ? chk((p.languages || []).length > 0, "Tillar: " + esc((p.languages || []).join(", ") || "—")) : "") + '</ul>' +
+      (p.kind === "guide" ? chk((p.languages || []).length > 0, "Tillar: " + esc((p.languages || []).join(", ") || "—")) : "") +
+      (p.kind === "guide" ? chk((p.cities || []).length > 0 || !!p.city, "Gidlik qiladigan joylari: " + esc([p.city].concat(p.cities || []).filter(Boolean).join(", ") || "—")) : "") +
+      (p.kind !== "hotel" ? chk(!!p.birth_year, "Yoshi: " + (p.birth_year ? (new Date().getFullYear() - p.birth_year) : "—")) : "") +
+      chk(!!p.home_area && !!p.home_address, "Yashash joyi va manzili: " + esc([p.home_area, p.home_address].filter(Boolean).join(" — ") || "—")) + '</ul>' +
       (trips.length ? '<p class="p-sub" style="margin-top:10px">Sayyohlar bilan rasmlar (faqat sizga ko\'rinadi):</p><div class="pgal" id="pp-trips"></div>' : '') + '</div>';
     h += '<div class="p-card"><h3>Hujjatlar</h3>' + ((p.docs || []).length ? '<ul class="pdocs">' + p.docs.map(function (d, i) { return '<li>📄 <a href="#" data-doc="' + i + '">' + esc(DK[d.kind] || d.kind) + ' — ' + esc(d.name || "") + '</a></li>'; }).join("") + '</ul>' : '<p class="p-sub">Hali hujjat yuklamagan.</p>') +
       (reg ? '<p class="p-sub">Davlat reyestrida tekshirish: <a target="_blank" rel="noopener" href="' + reg + '">Turizm qo\'mitasi reyestri</a> (raqam: ' + esc(p.license_no || "—") + ')</p>' : '') + '</div>';

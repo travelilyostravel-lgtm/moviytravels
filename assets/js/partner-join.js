@@ -34,7 +34,9 @@
       '<fieldset><legend>' + esc(J.sec_about) + '</legend><div class="mf-grid">' +
       fld("name", J.name[kind], 1, "text", ' maxlength="120"') + fld("phone", J.phone, 1, "tel", ' maxlength="40" placeholder="+998"') +
       fld("whatsapp", J.whatsapp, 0, "tel", ' maxlength="40" placeholder="+998"') + fld("city", J.city, 1, "text", ' maxlength="80"') +
-      (ho ? "" : fld("cities", J.cities, 0, "text", ' maxlength="200"')) + fld("languages", J.languages, g || ot, "text", ' maxlength="200"') +
+      (ho ? "" : fld("cities", g ? J.works : J.cities, g, "text", ' maxlength="200"')) +
+      (ho ? "" : fld("birth_year", J.birth, 1, "number", ' min="1940" max="' + (new Date().getFullYear() - 18) + '"')) +
+      fld("home_area", ho ? J.area_h : J.area, 1, "text", ' maxlength="120"') + fld("home_address", J.addr, 1, "text", ' maxlength="250"') + fld("languages", J.languages, g || ot, "text", ' maxlength="200"') +
       (ho ? fld("inn", J.inn, 1, "text", ' maxlength="30"') + fld("license_no", J.license.hotel, 0, "text", ' maxlength="80"') + fld("hotel_stars", J.stars, 0, "number", ' min="0" max="5"') + fld("hotel_rooms", J.rooms, 1, "number", ' min="1" max="999"')
           : fld("license_no", J.license[kind], g || dr, "text", ' maxlength="80"') + fld("experience_years", J.exp, g || dr, "number", ' min="0" max="60"')) +
       (dr ? fld("vehicle_type", J.vtype, 1, "text", ' maxlength="60"') + fld("vehicle_seats", J.vseats, 1, "number", ' min="1" max="60"') + fld("vehicle_year", J.vyear, 1, "number", ' min="1990" max="2030"') : "") +
@@ -114,7 +116,8 @@
       var p = { name: v("name"), company: meta.company, inn: v("inn"), license_no: v("license_no"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"),
         cities: list(v("cities")), languages: list(v("languages")), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"), photo: photo, photos: photos,
         price_day: v("price_day"), price_note: "", vehicle_type: v("vehicle_type"), vehicle_seats: v("vehicle_seats"), vehicle_year: v("vehicle_year"),
-        hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"), docs: docs };
+        hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"), docs: docs,
+        birth_year: v("birth_year"), home_area: v("home_area"), home_address: v("home_address") };
       var s = await fetch(SB.url + "/rest/v1/rpc/partner_save", { method: "POST", headers: H(tok, { "Content-Type": "application/json" }), body: JSON.stringify({ p: p }) });
       if (!s.ok) throw new Error("save " + s.status + " " + (await s.text()).slice(0, 160));
       if (window.MN_TRACK) try { window.MN_TRACK("partner_apply", kind); } catch (x) {}

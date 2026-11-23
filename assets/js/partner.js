@@ -6,7 +6,7 @@
   var D = {
     uz: {
       title: "Hamkorlar portali", notP: "Bu akkaunt hamkor sifatida ro'yxatdan o'tmagan. Hamkor bo'lish uchun «Chiqish»ni bosing va boshqa e-mail bilan ro'yxatdan o'ting.", sub: "Gidlar, haydovchilar, mehmonxonalar va boshqa xizmat egalari uchun.",
-      login: "Kirish", reg: "Hamkor bo'lish", regGo: "Ariza saytning tegishli bo'limida beriladi: talablarni o'qiysiz, rasmlarni yuklaysiz va shu yerda kabinet ochiladi. Kim sifatida ariza berasiz?", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
+      login: "Kirish", reg: "Hamkor bo'lish", birth: "Tug'ilgan yil", area: "Yashash joyi (shahar, tuman) — saytda ko'rinadi", addr: "To'liq manzil — faqat Moviy Nomad ko'radi", regGo: "Ariza saytning tegishli bo'limida beriladi: talablarni o'qiysiz, rasmlarni yuklaysiz va shu yerda kabinet ochiladi. Kim sifatida ariza berasiz?", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
       how: ["Ro'yxatdan o'ting — 2 daqiqa", "Hujjatlaringizni yuklang — biz 1–2 kunda tekshiramiz", "Profilingizni to'ldiring — saytda chiqasiz, mijozlarni biz olib kelamiz"],
       why: "Nega Moviy Nomad bilan?", whys: ["Chet ellik sayyohlar va agentliklar — 10 tilda", "Mijozni biz topamiz va to'lovni biz qabul qilamiz", "Yaxshi baho olsangiz — ro'yxatda birinchi turasiz", "Ro'yxatdan o'tish bepul"],
       kind: "Kim sifatida?", kinds: { guide: "Gid", driver: "Haydovchi / transport", hotel: "Mehmonxona / mehmon uyi", other: "Boshqa xizmat" },
@@ -25,7 +25,7 @@
     },
     ru: {
       title: "Портал партнёров", notP: "Этот аккаунт не зарегистрирован как партнёр. Нажмите «Выйти» и зарегистрируйтесь с другим e-mail.", sub: "Для гидов, водителей, гостиниц и других поставщиков услуг.",
-      login: "Вход", reg: "Стать партнёром", regGo: "Заявка подаётся в нужном разделе сайта: читаете требования, загружаете фото — и здесь открывается кабинет. Кем вы подаёте заявку?", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
+      login: "Вход", reg: "Стать партнёром", birth: "Год рождения", area: "Где живёте (город, район) — видно на сайте", addr: "Полный адрес — видит только Moviy Nomad", regGo: "Заявка подаётся в нужном разделе сайта: читаете требования, загружаете фото — и здесь открывается кабинет. Кем вы подаёте заявку?", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
       how: ["Зарегистрируйтесь — 2 минуты", "Загрузите документы — проверим за 1–2 дня", "Заполните профиль — вы на сайте, клиентов приводим мы"],
       why: "Почему Moviy Nomad?", whys: ["Иностранные туристы и агентства — на 10 языках", "Клиента находим мы и оплату принимаем мы", "Хорошие отзывы — вы первые в списке", "Регистрация бесплатная"],
       kind: "Кто вы?", kinds: { guide: "Гид", driver: "Водитель / транспорт", hotel: "Гостиница / гостевой дом", other: "Другая услуга" },
@@ -117,7 +117,8 @@
       specialties: p.specialties || [], bio: p.bio, photo: p.photo, photos: p.photos || [], price_day: p.price_day == null ? "" : String(p.price_day), price_note: p.price_note,
       vehicle_type: p.vehicle_type, vehicle_seats: p.vehicle_seats == null ? "" : String(p.vehicle_seats), vehicle_year: p.vehicle_year == null ? "" : String(p.vehicle_year),
       hotel_stars: p.hotel_stars == null ? "" : String(p.hotel_stars), hotel_rooms: p.hotel_rooms == null ? "" : String(p.hotel_rooms),
-      experience_years: p.experience_years == null ? "" : String(p.experience_years), docs: p.docs || [] };
+      experience_years: p.experience_years == null ? "" : String(p.experience_years), docs: p.docs || [],
+      birth_year: p.birth_year == null ? "" : String(p.birth_year), home_area: p.home_area || "", home_address: p.home_address || "" };
   }
   function pub(path) { return path ? window.MN_SB.url + "/storage/v1/object/public/partner-photos/" + path : ""; }
 
@@ -129,6 +130,9 @@
       '<div class="fld full"><label>' + t("photo") + '</label>' + (p.photo ? '<img class="pphoto" src="' + esc(pub(p.photo)) + '" alt="">' : '') + '<input type="file" id="ph-main" accept="image/*"></div>' +
       '<div class="fld"><label>' + t("city") + '</label><input name="city" value="' + esc(p.city || "") + '"></div>' +
       '<div class="fld"><label>' + t("cities") + '</label><input name="cities" value="' + esc((p.cities || []).join(", ")) + '"></div>' +
+      (k !== "hotel" ? '<div class="fld"><label>' + t("birth") + '</label><input name="birth_year" type="number" min="1940" max="2010" value="' + (p.birth_year || "") + '"></div>' : '') +
+      '<div class="fld"><label>' + t("area") + '</label><input name="home_area" maxlength="120" value="' + esc(p.home_area || "") + '"></div>' +
+      '<div class="fld full"><label>' + t("addr") + '</label><input name="home_address" maxlength="250" value="' + esc(p.home_address || "") + '"></div>' +
       '<div class="fld"><label>' + t("price") + ' (' + (k === "hotel" ? t("perNight") : t("perDay")) + ')</label><input name="price_day" type="number" min="0" step="1" value="' + (p.price_day == null ? "" : p.price_day) + '"></div>' +
       '<div class="fld"><label>' + t("priceNote") + '</label><input name="price_note" value="' + esc(p.price_note || "") + '" maxlength="200"></div>' +
       (k === "guide" ? '<div class="fld"><label>' + t("exp") + '</label><input name="experience_years" type="number" min="0" max="60" value="' + (p.experience_years == null ? "" : p.experience_years) + '"></div>' : '') +
@@ -160,7 +164,7 @@
       e.preventDefault(); P.msg("#m-prof", "…");
       try {
         var p = me.partner, d = profilePayload(p);
-        ["name", "city", "price_day", "price_note", "experience_years", "vehicle_type", "vehicle_seats", "vehicle_year", "hotel_stars", "hotel_rooms", "bio", "phone", "whatsapp", "license_no", "inn"].forEach(function (k) { if (f[k]) d[k] = f[k].value.trim(); });
+        ["name", "city", "price_day", "price_note", "experience_years", "vehicle_type", "vehicle_seats", "vehicle_year", "hotel_stars", "hotel_rooms", "bio", "phone", "whatsapp", "license_no", "inn", "birth_year", "home_area", "home_address"].forEach(function (k) { if (f[k]) d[k] = f[k].value.trim(); });
         d.cities = f.cities.value.split(",").map(function (x) { return x.trim(); }).filter(Boolean);
         d.languages = $$("[name=languages]:checked", f).map(function (x) { return x.value; });
         d.specialties = $$("[name=specialties]:checked", f).map(function (x) { return x.value; });

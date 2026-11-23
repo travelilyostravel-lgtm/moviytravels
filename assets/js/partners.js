@@ -10,7 +10,22 @@
   async function rpc(n, p) { var r = await fetch(SB.url + "/rest/v1/rpc/" + n, { method: "POST", headers: hdr({ "Content-Type": "application/json" }), body: JSON.stringify({ p: p }) }); var b = await r.json().catch(function () { return null; }); if (!r.ok) throw new Error((b && b.message) || r.status); return b; }
   function img(path) { return path ? SB.url + "/storage/v1/object/public/partner-photos/" + path.split("/").map(encodeURIComponent).join("/") : ""; }
   function stars(r) { var n = Math.round(r || 0); return '<span class="pt-st">' + "★★★★★".slice(0, n) + '<i>' + "★★★★★".slice(n) + '</i></span>'; }
-  function score(p) { return (p.featured ? 1000 : 0) + (p.rating || 0) * Math.log(2 + (p.reviews_count || 0)) * 10 + (p.trips_count || 0) * 0.5; }
+  // public points: real reviews weigh most, then trips with us, likes, shares and views
+  function points(p) { return Math.round((p.reviews_count || 0) * 10 * ((p.rating || 0) / 5) + (p.trips_count || 0) * 5 + (p.likes_count || 0) * 2 + (p.shares_count || 0) * 3 + (p.views_count || 0) * 0.1 + (p.license_ok ? 5 : 0)); }
+  function score(p) { return (p.featured ? 100000 : 0) + points(p) + (p.rating || 0) * 0.01; }
+  function fmt(n) { n = +n || 0; return n >= 10000 ? Math.round(n / 1000) + "k" : n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(n); }
+  var VID = (function () { try { return localStorage.getItem("mn_vid") || ""; } catch (e) { return ""; } })();
+  function liked(id) { try { return (localStorage.getItem("mn_liked") || "").indexOf(id) > -1; } catch (e) { return false; } }
+  function setLiked(id, on) { try { var l = (localStorage.getItem("mn_liked") || "").split(",").filter(function (x) { return x && x !== id; }); if (on) l.push(id); localStorage.setItem("mn_liked", l.join(",")); } catch (e) {} }
+  async function hit(id, k) {
+    if (!VID) { try { VID = localStorage.getItem("mn_vid") || ""; } catch (e) {} }
+    if (!VID) return null;
+    try { var r = await rpc("partner_hit", { id: id, kind: k, vid: VID }); var p = ALL.filter(function (x) { return x.id === id; })[0]; if (p && r) { p.views_count = r.views; p.likes_count = r.likes; p.shares_count = r.shares; } return r; } catch (e) { return null; }
+  }
+  function stats(p) {
+    return '<div class="pt-nums"><span title="' + esc(PT.views) + '">👁 <b>' + fmt(p.views_count) + '</b></span><span title="' + esc(PT.likes) + '">❤ <b data-lc="' + p.id + '">' + fmt(p.likes_count) + '</b></span>' +
+      '<span title="' + esc(PT.shares) + '">↗ <b>' + fmt(p.shares_count) + '</b></span><span class="pt-pts" title="' + esc(PT.rules) + '">🏆 <b>' + points(p) + '</b> ' + esc(PT.points) + '</span></div>';
+  }
   var ALL = [], kind = window.MNPT_KIND || new URLSearchParams(location.search).get("k") || "", city = "", lng = "";
 
   // ---------------------------------------------------------------- home page tiles: counts
@@ -35,17 +50,18 @@
   }
   var grid = $("#pt-grid"); if (!grid) return;
 
-  function card(p) {
+  function card(p, rank) {
     var unit = p.kind === "hotel" ? PT.per_night : PT.per_day;
     var facts = [];
     if (p.kind === "guide" && p.experience_years) facts.push(p.experience_years + " " + PT.exp);
     if (p.kind === "driver" && p.vehicle_type) facts.push(esc(p.vehicle_type) + (p.vehicle_seats ? " · " + p.vehicle_seats + " " + PT.seats : ""));
     if (p.kind === "hotel" && p.hotel_stars) facts.push(p.hotel_stars + " " + PT.stars);
     return '<article class="pt-card" id="p-' + p.id + '"><div class="pt-card__img"' + (p.photo ? ' style="background-image:url(\'' + img(p.photo) + '\')"' : '') + '>' +
-      (p.license_ok ? '<span class="pt-badge">✓ ' + esc(PT.verified) + '</span>' : '') +
-      '<div class="pt-card__name"><b>' + esc(p.name) + '</b><small>📍 ' + esc([p.city].concat((p.cities || []).filter(function (c) { return c !== p.city; })).filter(Boolean).slice(0, 3).join(", ")) + '</small></div></div>' +
+      (p.license_ok ? '<span class="pt-badge">✓ ' + esc(PT.verified) + '</span>' : '') + (rank ? '<span class="pt-rank' + (rank <= 3 ? ' pt-rank--' + rank : '') + '">#' + rank + '</span>' : '') +
+      '<button type="button" class="pt-like' + (liked(p.id) ? ' is-on' : '') + '" data-like="' + p.id + '" aria-label="' + esc(PT.like) + '" data-free>❤</button>' +
+      '<div class="pt-card__name"><b>' + esc(p.name) + (p.age && p.kind !== "hotel" ? ' <i>' + p.age + ' ' + esc(PT.yrs) + '</i>' : '') + '</b><small>📍 ' + esc([p.city].concat((p.cities || []).filter(function (c) { return c !== p.city; })).filter(Boolean).slice(0, 3).join(", ")) + '</small></div></div>' +
       '<div class="pt-card__body"><div class="pt-card__rate">' + (p.reviews_count ? stars(p.rating) + ' <b>' + Number(p.rating).toFixed(1) + '</b> <small>(' + p.reviews_count + ')</small>' : '<span class="pt-new">' + esc(PT.new) + '</span>') +
-      (p.trips_count ? '<small class="pt-trips">' + p.trips_count + ' ' + esc(PT.trips) + '</small>' : '') + '</div>' +
+      (p.trips_count ? '<small class="pt-trips">' + p.trips_count + ' ' + esc(PT.trips) + '</small>' : '') + '</div>' + stats(p) +
       (facts.length ? '<p class="pt-facts">' + facts.join(" · ") + '</p>' : '') +
       ((p.languages || []).length ? '<p class="pt-langs">🗣 ' + esc(p.languages.slice(0, 4).join(", ")) + (p.languages.length > 4 ? " +" + (p.languages.length - 4) : "") + '</p>' : '') +
       (p.price_day ? '<p class="pt-price">' + esc(PT.from) + ' <b>$' + Math.round(p.price_day) + '</b> ' + esc(unit) + '</p>' : '') +
@@ -54,12 +70,39 @@
   function draw() {
     $$("#pt-tabs [data-pk]").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-pk") === kind); });
     if (!window.MNPT_KIND) $$(".ksub a").forEach(function (a) { var h = a.getAttribute("href"); a.classList.toggle("is-on", kind === "other" ? h.indexOf("k=other") > -1 : (!kind && h === "partners.html")); });
-    var list = ALL.filter(function (p) { return (!kind || p.kind === kind) && (!city || p.city === city || (p.cities || []).indexOf(city) > -1) && (!lng || (p.languages || []).indexOf(lng) > -1); })
-      .sort(function (a, b) { return score(b) - score(a); });
-    grid.innerHTML = list.length ? list.map(card).join("") : '<p class="pt-empty">' + esc(PT.empty) + '</p>';
-    $$("[data-ask]", grid).forEach(function (b) { b.onclick = function () { open(b.getAttribute("data-ask"), "ask"); }; });
-    $$("[data-prof]", grid).forEach(function (b) { b.onclick = function () { open(b.getAttribute("data-prof"), "prof"); }; });
+    var ranked = ALL.filter(function (p) { return !kind || p.kind === kind; }).sort(function (a, b) { return score(b) - score(a); });
+    var rankOf = {}; ranked.forEach(function (p, i) { rankOf[p.id] = i + 1; });
+    var list = ranked.filter(function (p) { return (!city || p.city === city || (p.cities || []).indexOf(city) > -1) && (!lng || (p.languages || []).indexOf(lng) > -1); });
+    var topBox = $("#pt-top"), top = (!city && !lng && kind && ranked.length) ? ranked.slice(0, 4) : [];
+    if (topBox) {
+      topBox.hidden = !top.length;
+      topBox.innerHTML = top.length ? '<div class="pt-top__head"><div class="orn-line"><i></i></div><h2>🏆 ' + esc(PT.top_t) + '</h2><p>' + esc(PT.top_sub) + '</p></div><div class="pt-grid pt-grid--top">' + top.map(function (p) { return card(p, rankOf[p.id]); }).join("") + '</div>' +
+        (ranked.length > 4 ? '<h3 class="pt-rest">' + esc(PT.rest_t) + '</h3>' : '') : "";
+    }
+    var rest = top.length ? list.slice(4) : list;
+    grid.innerHTML = rest.length ? rest.map(function (p) { return card(p, rankOf[p.id]); }).join("") : (top.length ? "" : '<p class="pt-empty">' + esc(PT.empty) + '</p>');
+    bindCards(topBox); bindCards(grid);
   }
+  function bindCards(root) {
+    if (!root) return;
+    $$("[data-ask]", root).forEach(function (b) { b.onclick = function () { open(b.getAttribute("data-ask"), "ask"); }; });
+    $$("[data-prof]", root).forEach(function (b) { b.onclick = function () { open(b.getAttribute("data-prof"), "prof"); }; });
+    $$("[data-like]", root).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); like(b.getAttribute("data-like")); }; });
+  }
+  async function like(id) {
+    var on = !liked(id); setLiked(id, on);
+    $$('[data-like="' + id + '"]').forEach(function (b) { b.classList.toggle("is-on", on); });
+    var r = await hit(id, on ? "like" : "unlike");
+    if (r) { setLiked(id, r.liked); $$('[data-like="' + id + '"]').forEach(function (b) { b.classList.toggle("is-on", r.liked); }); $$('[data-lc="' + id + '"]').forEach(function (b) { b.textContent = fmt(r.likes); }); }
+  }
+  async function share(id) {
+    var p = ALL.filter(function (x) { return x.id === id; })[0]; if (!p) return;
+    var url = location.origin + location.pathname + "#p-" + id, done = false;
+    try { if (navigator.share) { await navigator.share({ title: p.name + " — Moviy Nomad", url: url }); done = true; } } catch (e) { if (e && e.name === "AbortError") return; }
+    if (!done) { try { await navigator.clipboard.writeText(url); } catch (e) {} var t = $("#pt-share-ok"); if (t) { t.hidden = false; setTimeout(function () { t.hidden = true; }, 2000); } }
+    var r = await hit(id, "share"); if (r) $$('[data-sc="' + id + '"]').forEach(function (b) { b.textContent = fmt(r.shares); });
+  }
+
   $$("#pt-tabs [data-pk]").forEach(function (b) { b.onclick = function () { kind = b.getAttribute("data-pk"); history.replaceState(null, "", location.pathname + (kind ? "?k=" + kind : "")); draw(); }; });
   $("#pt-city").onchange = function () { city = this.value; draw(); };
   $("#pt-lang").onchange = function () { lng = this.value; draw(); };
@@ -72,19 +115,37 @@
     if (window.MN_TRACK) window.MN_TRACK("partner", (mode === "ask" ? "request: " : "profile: ") + cur.name);
     $("#pt-fname").textContent = cur.name;
     var box = $("#pt-prof");
+    var mbox = $(".modal__box", modal); if (mbox) mbox.classList.toggle("modal__box--wide", mode === "prof");
     if (mode === "prof") {
       var rv = await get("partner_reviews_public?partner_id=eq." + id + "&order=created_at.desc&limit=30");
-      box.innerHTML = '<div class="pt-prof">' + (cur.photo ? '<img src="' + img(cur.photo) + '" alt="">' : '') + '<div><h3>' + esc(cur.name) + '</h3>' +
-        '<p>' + (cur.reviews_count ? stars(cur.rating) + ' ' + Number(cur.rating).toFixed(1) + ' (' + cur.reviews_count + ')' : esc(PT.new)) + (cur.license_ok ? ' · ✓ ' + esc(PT.verified) : '') + '</p>' +
-        ((cur.languages || []).length ? '<p><b>' + esc(PT.langs) + ':</b> ' + esc(cur.languages.join(", ")) + '</p>' : '') +
-        (cur.price_day ? '<p>' + esc(PT.from) + ' <b>$' + Math.round(cur.price_day) + '</b> ' + esc(cur.kind === "hotel" ? PT.per_night : PT.per_day) + (cur.price_note ? ' — ' + esc(cur.price_note) : '') + '</p>' : '') + '</div></div>' +
+      var same = ALL.filter(function (x) { return x.kind === cur.kind; }).sort(function (a, b) { return score(b) - score(a); });
+      var rank = same.indexOf(cur) + 1, unit = cur.kind === "hotel" ? PT.per_night : PT.per_day;
+      var places = [cur.city].concat(cur.cities || []).filter(function (c, i, a) { return c && a.indexOf(c) === i; });
+      var cell = function (ic, n, l, attr) { return '<div><b' + (attr || "") + '>' + n + '</b><small>' + ic + ' ' + esc(l) + '</small></div>'; };
+      var nums = cell("👁", fmt(cur.views_count), PT.views, ' data-vc="' + id + '"') + cell("❤", fmt(cur.likes_count), PT.likes, ' data-lc="' + id + '"') + cell("↗", fmt(cur.shares_count), PT.shares, ' data-sc="' + id + '"') +
+        cell("🏆", points(cur), PT.points) + cell("★", cur.reviews_count ? Number(cur.rating).toFixed(1) : "—", PT.rating_l) + cell("💬", cur.reviews_count || 0, PT.reviews_l) +
+        cell("🧭", cur.trips_count || 0, PT.trips_l) + (cur.experience_years ? cell("⏳", cur.experience_years, PT.exp_l + " (" + PT.exp.split(" ")[0] + ")") : "") + (cur.age && cur.kind !== "hotel" ? cell("🎂", cur.age, PT.age) : "");
+      var row = function (l, v) { return v ? '<div><dt>' + esc(l) + '</dt><dd>' + esc(v) + '</dd></div>' : ""; };
+      var info = row(PT.langs, (cur.languages || []).join(", ")) + row(PT.works_in, places.join(", ")) + row(PT.lives, cur.home_area) + row(PT.spec, (cur.specialties || []).join(", ")) +
+        (cur.kind === "driver" ? row("🚗", [cur.vehicle_type, cur.vehicle_seats ? cur.vehicle_seats + " " + PT.seats : "", cur.vehicle_year].filter(Boolean).join(" · ")) : "") +
+        (cur.kind === "hotel" && cur.hotel_stars ? row("★", cur.hotel_stars + " " + PT.stars) : "");
+      box.innerHTML = '<div class="pp"><div class="pp__hero">' + (cur.photo ? '<img class="pp__main" src="' + img(cur.photo) + '" alt="">' : '') +
+        '<div class="pp__id"><span class="pp__kind">' + esc(PT["k_" + cur.kind] || "") + (rank ? ' · 🏆 #' + rank + (rank <= 4 ? ' · ' + esc(PT.top_t) : '') : '') + '</span>' +
+        '<h3>' + esc(cur.name) + '</h3><p>' + (cur.reviews_count ? stars(cur.rating) + ' <b>' + Number(cur.rating).toFixed(1) + '</b> (' + cur.reviews_count + ')' : '<span class="pt-new">' + esc(PT.new) + '</span>') + (cur.license_ok ? ' · <span class="pp__ok">✓ ' + esc(PT.verified) + '</span>' : '') + '</p>' +
+        (cur.price_day ? '<p class="pp__price">' + esc(PT.from) + ' <b>$' + Math.round(cur.price_day) + '</b> ' + esc(unit) + (cur.price_note ? ' — ' + esc(cur.price_note) : '') + '</p>' : '') +
+        '<div class="pp__acts"><button type="button" class="pp__btn pt-like' + (liked(id) ? ' is-on' : '') + '" data-like="' + id + '" data-free>❤ ' + esc(PT.like) + '</button><button type="button" class="pp__btn" id="pp-share" data-free>↗ ' + esc(PT.share) + '</button>' +
+        '<small id="pt-share-ok" hidden>✓ ' + esc(PT.copied) + '</small></div></div></div>' +
+        '<div class="pp__nums">' + nums + '</div>' + (info ? '<dl class="pp__info">' + info + '</dl>' : '') +
         (cur.bio ? '<p class="pt-bio">' + esc(cur.bio) + '</p>' : '') +
-        ((cur.photos || []).length ? '<div class="pt-gal">' + cur.photos.map(function (x) { return '<img loading="lazy" src="' + img(x) + '" alt="">'; }).join("") + '</div>' : '') +
-        '<h4>' + esc(PT.reviews) + '</h4>' + (rv.length ? rv.map(function (r) { return '<div class="pt-rv">' + stars(r.rating) + ' <b>' + esc(r.name) + '</b> <small>' + esc(r.country || "") + ' · ' + new Date(r.created_at).toLocaleDateString() + '</small>' + (r.body ? '<p>' + esc(r.body) + '</p>' : '') + '</div>'; }).join("") : '<p class="pt-note">—</p>') +
-        '<p class="pt-prof__btns"><button class="btn btn--gold btn--sm" id="pt-go-ask">' + esc(PT.ask) + '</button> <button class="btn btn--outline btn--sm" id="pt-go-rv">' + esc(PT.write) + '</button></p>';
+        ((cur.photos || []).length ? '<div class="pp__gal">' + cur.photos.map(function (x) { return '<a href="' + img(x) + '" target="_blank" rel="noopener" data-free><img loading="lazy" src="' + img(x) + '" alt=""></a>'; }).join("") + '</div>' : '') +
+        '<h4>' + esc(PT.reviews) + ' (' + rv.length + ')</h4>' + (rv.length ? rv.map(function (r) { return '<div class="pt-rv">' + stars(r.rating) + ' <b>' + esc(r.name) + '</b> <small>' + esc(r.country || "") + ' · ' + new Date(r.created_at).toLocaleDateString() + '</small>' + (r.body ? '<p>' + esc(r.body) + '</p>' : '') + '</div>'; }).join("") : '<p class="pt-note">' + esc(PT.rv_note) + '</p>') +
+        '<p class="pt-prof__btns"><button class="btn btn--gold btn--sm" id="pt-go-ask">' + esc(PT.ask) + '</button> <button class="btn btn--outline btn--sm" id="pt-go-rv">' + esc(PT.write) + '</button></p></div>';
       form.hidden = true; rform.hidden = true;
       $("#pt-go-ask").onclick = function () { open(id, "ask"); };
       $("#pt-go-rv").onclick = function () { box.innerHTML = ""; form.hidden = true; rform.hidden = false; msg(rform, ""); };
+      $("#pp-share").onclick = function () { share(id); };
+      bindCards(box);
+      hit(id, "view").then(function (r) { if (r) { $$('[data-vc="' + id + '"]').forEach(function (b) { b.textContent = fmt(r.views); }); setLiked(id, r.liked); $$('[data-like="' + id + '"]').forEach(function (b) { b.classList.toggle("is-on", r.liked); }); } });
     } else { box.innerHTML = ""; form.hidden = false; rform.hidden = true; msg(form, ""); }
     show();
   }

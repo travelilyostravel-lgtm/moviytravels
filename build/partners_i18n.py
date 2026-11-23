@@ -189,3 +189,25 @@ N = {
 
 def NS(lang):
     d = dict(N["en"]); d.update(N.get(lang, {})); return d
+
+
+# ---- TOP-4 and numbers on guide cards (2026-11-24)
+RK = ["top_t", "top_sub", "rest_t", "views", "likes", "shares", "points", "age", "yrs", "lives", "works_in", "spec", "trips_l", "exp_l", "rating_l", "reviews_l", "share", "like", "copied", "rules"]
+R = {
+"en": ["TOP-4 of the month", "The highest-rated on Moviy Nomad: real reviews from travellers, trips, likes and views.", "All in the ranking", "views", "likes", "shares", "points", "Age", "y.o.", "Lives in", "Works in", "Specialises in", "Trips", "Experience", "Rating", "Reviews", "Share", "Like", "Link copied", "Ranking = reviews of real travellers + trips with Moviy Nomad + likes + shares + views. Updated live."],
+"ru": ["ТОП-4 месяца", "Самые высокие рейтинги на Moviy Nomad: реальные отзывы туристов, поездки, лайки и просмотры.", "Все в рейтинге", "просмотров", "лайков", "репостов", "баллов", "Возраст", "лет", "Живёт", "Работает в", "Специализация", "Поездки", "Опыт", "Рейтинг", "Отзывы", "Поделиться", "Нравится", "Ссылка скопирована", "Рейтинг = отзывы реальных туристов + поездки с Moviy Nomad + лайки + репосты + просмотры. Обновляется сразу."],
+"uz": ["Oyning TOP-4 taligi", "Moviy Nomad'da eng yuqori reytingdagilar: sayohatchilarning haqiqiy sharhlari, safarlar, layklar va ko'rishlar.", "Reytingdagi barchasi", "ko'rish", "layk", "ulashish", "ball", "Yoshi", "yosh", "Yashaydi", "Gidlik qiladigan joylari", "Yo'nalishlari", "Safarlar", "Tajriba", "Reyting", "Sharhlar", "Ulashish", "Yoqdi", "Havola nusxalandi", "Reyting = haqiqiy sayohatchilar sharhlari + Moviy Nomad bilan safarlar + layklar + ulashishlar + ko'rishlar. Darhol yangilanadi."],
+"tr": ["Ayın TOP-4'ü", "Moviy Nomad'da en yüksek puanlılar: gerçek gezgin yorumları, turlar, beğeniler ve görüntülenmeler.", "Sıralamadaki herkes", "görüntülenme", "beğeni", "paylaşım", "puan", "Yaş", "yaşında", "Yaşadığı yer", "Çalıştığı yerler", "Uzmanlık", "Turlar", "Deneyim", "Puan", "Yorumlar", "Paylaş", "Beğen", "Bağlantı kopyalandı", "Sıralama = gerçek gezgin yorumları + Moviy Nomad turları + beğeniler + paylaşımlar + görüntülenmeler."],
+"ar": ["أفضل 4 هذا الشهر", "الأعلى تقييماً على Moviy Nomad: تقييمات حقيقية من المسافرين والرحلات والإعجابات والمشاهدات.", "الجميع في الترتيب", "مشاهدة", "إعجاب", "مشاركة", "نقطة", "العمر", "سنة", "يقيم في", "يعمل في", "التخصص", "الرحلات", "الخبرة", "التقييم", "التقييمات", "مشاركة", "أعجبني", "تم نسخ الرابط", "الترتيب = تقييمات المسافرين الحقيقيين + الرحلات مع Moviy Nomad + الإعجابات + المشاركات + المشاهدات."],
+"de": ["TOP-4 des Monats", "Die Bestbewerteten bei Moviy Nomad: echte Bewertungen von Reisenden, Touren, Likes und Aufrufe.", "Alle im Ranking", "Aufrufe", "Likes", "Geteilt", "Punkte", "Alter", "J.", "Wohnt in", "Arbeitet in", "Schwerpunkte", "Touren", "Erfahrung", "Bewertung", "Bewertungen", "Teilen", "Gefällt mir", "Link kopiert", "Ranking = Bewertungen echter Reisender + Touren mit Moviy Nomad + Likes + Teilen + Aufrufe."],
+"sv": ["Månadens TOPP-4", "Högst rankade på Moviy Nomad: riktiga omdömen från resenärer, resor, gillanden och visningar.", "Alla i rankingen", "visningar", "gillar", "delningar", "poäng", "Ålder", "år", "Bor i", "Arbetar i", "Inriktning", "Resor", "Erfarenhet", "Betyg", "Omdömen", "Dela", "Gilla", "Länken kopierad", "Ranking = omdömen från riktiga resenärer + resor med Moviy Nomad + gillanden + delningar + visningar."],
+"zh": ["本月TOP-4", "Moviy Nomad 上评分最高的伙伴：真实游客评价、行程、点赞和浏览量。", "排行榜全部", "浏览", "点赞", "分享", "分", "年龄", "岁", "居住地", "服务地区", "专长", "行程", "经验", "评分", "评价", "分享", "点赞", "链接已复制", "排名 = 真实游客评价 + Moviy Nomad 行程 + 点赞 + 分享 + 浏览。实时更新。"],
+"hi": ["इस महीने के TOP-4", "Moviy Nomad पर सबसे ऊँची रेटिंग: यात्रियों की असली समीक्षाएँ, यात्राएँ, लाइक और व्यू।", "रैंकिंग में सभी", "व्यू", "लाइक", "शेयर", "अंक", "उम्र", "वर्ष", "रहते हैं", "काम के स्थान", "विशेषज्ञता", "यात्राएँ", "अनुभव", "रेटिंग", "समीक्षाएँ", "शेयर करें", "पसंद", "लिंक कॉपी हुआ", "रैंकिंग = असली यात्रियों की समीक्षाएँ + Moviy Nomad के साथ यात्राएँ + लाइक + शेयर + व्यू।"],
+"ko": ["이달의 TOP-4", "Moviy Nomad 최고 평점: 실제 여행자 후기, 여행 횟수, 좋아요, 조회수.", "전체 순위", "조회", "좋아요", "공유", "점", "나이", "세", "거주지", "활동 지역", "전문 분야", "여행", "경력", "평점", "후기", "공유", "좋아요", "링크가 복사되었습니다", "순위 = 실제 여행자 후기 + Moviy Nomad 여행 + 좋아요 + 공유 + 조회수. 실시간 반영."],
+}
+_S_old = S
+
+
+def S(lang):
+    d = _S_old(lang); v = R.get(lang) or R["en"]; assert len(v) == len(RK), lang
+    d.update(dict(zip(RK, v))); return d
