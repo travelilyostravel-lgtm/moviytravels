@@ -369,7 +369,7 @@ def render_partners(lang, icon, logo, font, names, kind=""):
             f'<div class="pt-why"><h2 class="h2c">{e(PT["why_t"])}</h2><ul>{why}</ul></div></div></section>' + join + modal + jmodal)
     jdata = {"lang": jl, "kind": kind, "J": JT, "REQ": {k: join_i18n.req(lang, k) for k in join_i18n.SLOTS}, "SLOTS": join_i18n.SLOTS}
     js = (f'<script>window.MNPT={json.dumps(PT, ensure_ascii=False)};window.MNPT_KIND="{kind}";window.MNJ={json.dumps(jdata, ensure_ascii=False)};</script>'
-          f'<script src="{pre}assets/js/partners.js" defer></script><script src="{pre}assets/js/partner-join.js" defer></script>')
+          f'<script src="{pre}assets/js/mn-cal.js" defer></script><script src="{pre}assets/js/partners.js" defer></script><script src="{pre}assets/js/partner-join.js" defer></script>')
     return shell(lang, PT_SLUG[kind], title, sub, body, icon, logo, font, names, extra_js=js)
 
 

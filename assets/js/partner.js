@@ -6,7 +6,7 @@
   var D = {
     uz: {
       title: "Hamkorlar portali", notP: "Bu akkaunt hamkor sifatida ro'yxatdan o'tmagan. Hamkor bo'lish uchun «Chiqish»ni bosing va boshqa e-mail bilan ro'yxatdan o'ting.", sub: "Gidlar, haydovchilar, mehmonxonalar va boshqa xizmat egalari uchun.",
-      login: "Kirish", reg: "Hamkor bo'lish", birth: "Tug'ilgan yil", area: "Yashash joyi (shahar, tuman) — saytda ko'rinadi", addr: "To'liq manzil — faqat Moviy Nomad ko'radi", regGo: "Ariza saytning tegishli bo'limida beriladi: talablarni o'qiysiz, rasmlarni yuklaysiz va shu yerda kabinet ochiladi. Kim sifatida ariza berasiz?", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
+      login: "Kirish", reg: "Hamkor bo'lish", cal: "Kalendarim (band kunlarim)", calHint: "Band kunlaringizni bosing — qizil bo'ladi. Yana bossangiz izoh yozishingiz yoki kunni bo'shatishingiz mumkin. Mijozlar saytda yashil (bo'sh) kunlarni ko'rib so'rov qoldiradi, menejer siz bilan bog'lanadi. Izohlarni faqat siz va Moviy Nomad ko'radi.", calFree: "Bo'sh", calBusy: "Band", calNote: "Izoh (masalan: Germaniya guruhi, 8 kishi)", calSave: "Saqlash", calClear: "Bo'sh qilish", calUp: "Yaqin band kunlar", stats: "Ko'rishlar · Layklar · Ulashishlar", birth: "Tug'ilgan yil", area: "Yashash joyi (shahar, tuman) — saytda ko'rinadi", addr: "To'liq manzil — faqat Moviy Nomad ko'radi", regGo: "Ariza saytning tegishli bo'limida beriladi: talablarni o'qiysiz, rasmlarni yuklaysiz va shu yerda kabinet ochiladi. Kim sifatida ariza berasiz?", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
       how: ["Ro'yxatdan o'ting — 2 daqiqa", "Hujjatlaringizni yuklang — biz 1–2 kunda tekshiramiz", "Profilingizni to'ldiring — saytda chiqasiz, mijozlarni biz olib kelamiz"],
       why: "Nega Moviy Nomad bilan?", whys: ["Chet ellik sayyohlar va agentliklar — 10 tilda", "Mijozni biz topamiz va to'lovni biz qabul qilamiz", "Yaxshi baho olsangiz — ro'yxatda birinchi turasiz", "Ro'yxatdan o'tish bepul"],
       kind: "Kim sifatida?", kinds: { guide: "Gid", driver: "Haydovchi / transport", hotel: "Mehmonxona / mehmon uyi", other: "Boshqa xizmat" },
@@ -25,7 +25,7 @@
     },
     ru: {
       title: "Портал партнёров", notP: "Этот аккаунт не зарегистрирован как партнёр. Нажмите «Выйти» и зарегистрируйтесь с другим e-mail.", sub: "Для гидов, водителей, гостиниц и других поставщиков услуг.",
-      login: "Вход", reg: "Стать партнёром", birth: "Год рождения", area: "Где живёте (город, район) — видно на сайте", addr: "Полный адрес — видит только Moviy Nomad", regGo: "Заявка подаётся в нужном разделе сайта: читаете требования, загружаете фото — и здесь открывается кабинет. Кем вы подаёте заявку?", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
+      login: "Вход", reg: "Стать партнёром", cal: "Мой календарь (занятые дни)", calHint: "Нажмите на занятый день — он станет красным. Нажмите ещё раз, чтобы написать заметку или освободить день. Туристы на сайте видят зелёные (свободные) дни и оставляют заявку, менеджер свяжется с вами. Заметки видите только вы и Moviy Nomad.", calFree: "Свободно", calBusy: "Занято", calNote: "Заметка (например: группа из Германии, 8 чел.)", calSave: "Сохранить", calClear: "Освободить", calUp: "Ближайшие занятые дни", stats: "Просмотры · Лайки · Репосты", birth: "Год рождения", area: "Где живёте (город, район) — видно на сайте", addr: "Полный адрес — видит только Moviy Nomad", regGo: "Заявка подаётся в нужном разделе сайта: читаете требования, загружаете фото — и здесь открывается кабинет. Кем вы подаёте заявку?", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
       how: ["Зарегистрируйтесь — 2 минуты", "Загрузите документы — проверим за 1–2 дня", "Заполните профиль — вы на сайте, клиентов приводим мы"],
       why: "Почему Moviy Nomad?", whys: ["Иностранные туристы и агентства — на 10 языках", "Клиента находим мы и оплату принимаем мы", "Хорошие отзывы — вы первые в списке", "Регистрация бесплатная"],
       kind: "Кто вы?", kinds: { guide: "Гид", driver: "Водитель / транспорт", hotel: "Гостиница / гостевой дом", other: "Другая услуга" },
@@ -93,6 +93,50 @@
     };
   }
 
+
+  // ---------------------------------------------------------------- calendar (busy days)
+  function calCard() {
+    return '<div class="p-card"><h3>📅 ' + t("cal") + '</h3><p class="p-sub">' + t("calHint") + '</p><div id="p-cal"></div>' +
+      '<div id="p-caled" class="hidden" style="margin-top:14px;padding:14px;border-radius:14px;background:#fff7f7;border:1px solid #f3caca"><b id="p-calday"></b>' +
+      '<div class="fld" style="margin-top:8px"><label>' + t("calNote") + '</label><input id="p-calnote" maxlength="200"></div>' +
+      '<div class="p-actions"><button class="btn btn--gold btn--sm" type="button" id="p-calsave">' + t("calSave") + '</button><button class="btn btn--outline btn--sm" type="button" id="p-calfree">' + t("calClear") + '</button></div></div>' +
+      '<div class="msg" id="m-cal"></div><div id="p-calup" style="margin-top:12px;font-size:13.5px"></div></div>';
+  }
+  async function bindCal() {
+    var pid = me.partner.id, busy = {}, sel = null;
+    async function load() {
+      var r = await sb.from("partner_busy").select("day,note").eq("partner_id", pid).gte("day", window.MNCal.key(new Date(Date.now() - 86400000 * 400))).order("day");
+      busy = {}; (r.data || []).forEach(function (x) { busy[x.day] = x.note || true; }); draw();
+    }
+    function draw() {
+      window.MNCal.render($("#p-cal"), { lang: L === "ru" ? "ru" : "uz", months: window.innerWidth < 700 ? 1 : 2, busy: busy, legend: [t("calFree"), t("calBusy")], onPick: pick });
+      var today = window.MNCal.key(new Date()), up = Object.keys(busy).filter(function (d) { return d >= today; }).sort().slice(0, 8);
+      $("#p-calup").innerHTML = up.length ? '<b>' + t("calUp") + ':</b> ' + up.map(function (d) { return d.split("-").reverse().join(".") + (typeof busy[d] === "string" ? " (" + esc(busy[d]) + ")" : ""); }).join(" · ") : "";
+    }
+    async function pick(day, isBusy) {
+      if (!isBusy) {
+        busy[day] = true; draw();
+        var r = await sb.from("partner_busy").insert({ partner_id: pid, day: day });
+        if (r.error) { delete busy[day]; draw(); return P.msg("#m-cal", t("bad") + r.error.message, "err"); }
+        P.msg("#m-cal", "");
+      }
+      sel = day; $("#p-caled").classList.remove("hidden"); $("#p-calday").textContent = "📅 " + day.split("-").reverse().join(".") + " — " + t("calBusy");
+      $("#p-calnote").value = typeof busy[day] === "string" ? busy[day] : ""; $("#p-calnote").focus();
+    }
+    $("#p-calsave").onclick = async function () {
+      if (!sel) return; var n = $("#p-calnote").value.trim();
+      var r = await sb.from("partner_busy").update({ note: n || null }).eq("partner_id", pid).eq("day", sel);
+      if (r.error) return P.msg("#m-cal", t("bad") + r.error.message, "err");
+      busy[sel] = n || true; $("#p-caled").classList.add("hidden"); sel = null; draw(); P.msg("#m-cal", t("saved"), "ok");
+    };
+    $("#p-calfree").onclick = async function () {
+      if (!sel) return;
+      var r = await sb.from("partner_busy").delete().eq("partner_id", pid).eq("day", sel);
+      if (r.error) return P.msg("#m-cal", t("bad") + r.error.message, "err");
+      delete busy[sel]; $("#p-caled").classList.add("hidden"); sel = null; draw(); P.msg("#m-cal", "");
+    };
+    load();
+  }
   // ---------------------------------------------------------------- logged in
   async function docsBlock() {
     var p = me.partner, docs = p.docs || [];
@@ -191,11 +235,12 @@
     else if (p.status === "rejected") h += '<div class="p-card"><h2>' + t("rejected") + '</h2>' + (p.admin_note ? '<p>' + esc(p.admin_note) + '</p>' : '') + '</div>';
     else {
       if (p.status === "paused") h += '<div class="p-card"><h2>' + t("paused") + '</h2>' + (p.admin_note ? '<p>' + esc(p.admin_note) + '</p>' : '') + '</div>';
-      else h += '<div class="p-card"><h2>' + t("approved") + '</h2><p class="p-sub">' + t("approvedTxt") + '</p><div class="kv"><div><small>' + t("rating") + '</small><b>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " · " + p.reviews_count + " " + t("reviews") : "—") + '</b></div><div><small>' + t("trips") + '</small><b>' + (p.trips_count || 0) + '</b></div></div></div>';
-      h += profileForm() + await docsBlock();
+      else h += '<div class="p-card"><h2>' + t("approved") + '</h2><p class="p-sub">' + t("approvedTxt") + '</p><div class="kv"><div><small>' + t("rating") + '</small><b>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " · " + p.reviews_count + " " + t("reviews") : "—") + '</b></div><div><small>' + t("trips") + '</small><b>' + (p.trips_count || 0) + '</b></div><div><small>' + t("stats") + '</small><b>' + (p.views_count || 0) + ' · ' + (p.likes_count || 0) + ' · ' + (p.shares_count || 0) + '</b></div></div></div>';
+      h += calCard() + profileForm() + await docsBlock();
     }
     box.innerHTML = h + '<div class="p-card">' + help() + '</div>';
     if ($("#f-prof")) bindProfile();
+    if ($("#p-cal")) bindCal();
     if ($("#d-up")) bindDocs();
   }
   function render() { boot(); }

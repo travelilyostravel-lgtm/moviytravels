@@ -141,6 +141,7 @@
         '<div class="pp__acts"><button type="button" class="pp__btn pt-like' + (liked(id) ? ' is-on' : '') + '" data-like="' + id + '" data-free>❤ ' + esc(PT.like) + '</button><button type="button" class="pp__btn" id="pp-share" data-free>↗ ' + esc(PT.share) + '</button>' +
         '<small id="pt-share-ok" hidden>✓ ' + esc(PT.copied) + '</small></div></div></div>' +
         '<div class="pp__nums">' + nums + '</div>' + (info ? '<dl class="pp__info">' + info + '</dl>' : '') +
+        '<div class="pp__cal"><h4>📅 ' + esc(PT.cal_t) + '</h4><p>' + esc(PT.cal_hint) + '</p><div id="pp-cal"></div><div class="pp__calmsg" id="pp-calmsg"></div></div>' +
         (cur.bio ? '<p class="pt-bio">' + esc(cur.bio) + '</p>' : '') +
         ((cur.photos || []).length ? '<div class="pp__gal">' + cur.photos.map(function (x) { return '<a href="' + img(x) + '" target="_blank" rel="noopener" data-free><img loading="lazy" src="' + img(x) + '" alt=""></a>'; }).join("") + '</div>' : '') +
         '<h4>' + esc(PT.reviews) + ' (' + rv.length + ')</h4>' + (rv.length ? rv.map(function (r) { return '<div class="pt-rv">' + stars(r.rating) + ' <b>' + esc(r.name) + '</b> <small>' + esc(r.country || "") + ' · ' + new Date(r.created_at).toLocaleDateString() + '</small>' + (r.body ? '<p>' + esc(r.body) + '</p>' : '') + '</div>'; }).join("") : '<p class="pt-note">' + esc(PT.rv_note) + '</p>') +
@@ -149,6 +150,16 @@
       $("#pt-go-ask").onclick = function () { open(id, "ask"); };
       $("#pt-go-rv").onclick = function () { box.innerHTML = ""; form.hidden = true; rform.hidden = false; msg(rform, ""); };
       $("#pp-share").onclick = function () { share(id); };
+      get("partner_busy_public?select=day&partner_id=eq." + id).then(function (rows) {
+        var busy = {}; (rows || []).forEach(function (r) { busy[r.day] = true; });
+        var el = $("#pp-cal"); if (!el || !window.MNCal) return;
+        window.MNCal.render(el, { lang: LANG, months: window.innerWidth < 640 ? 1 : 2, busy: busy, legend: [esc(PT.cal_free), esc(PT.cal_busy)],
+          onPick: function (day, isBusy) {
+            var m = $("#pp-calmsg");
+            if (isBusy) { m.textContent = "⛔ " + PT.cal_busy_msg; m.style.color = "#b42323"; return; }
+            open(id, "ask").then(function () { if (form.elements.start_date) form.elements.start_date.value = day; });
+          } });
+      });
       bindCards(box);
       hit(id, "view").then(function (r) { if (r) { $$('[data-vc="' + id + '"]').forEach(function (b) { b.textContent = fmt(r.views); }); setLiked(id, r.liked); $$('[data-like="' + id + '"]').forEach(function (b) { b.classList.toggle("is-on", r.liked); }); } });
     } else { box.innerHTML = ""; form.hidden = false; rform.hidden = true; msg(form, ""); }

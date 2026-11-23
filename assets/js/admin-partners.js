@@ -88,10 +88,21 @@
       (p.status !== "approved" ? '<button class="btn btn--green" data-st="approved">✅ Tasdiqlash — saytga chiqarish</button>' : '<button class="btn btn--outline" data-st="paused">⏸ Vaqtincha yopish</button>') +
       (p.status !== "rejected" ? '<button class="btn btn--outline" data-st="rejected">❌ Rad etish</button>' : '') +
       '<button class="btn btn--gold" id="pp-save">Saqlash</button></div></div>';
+    h += '<div class="p-card"><h3>📅 Bandlik kalendari</h3><p class="p-sub">Qizil — band, yashil — bo\'sh. Bron tasdiqlansa, kunni shu yerda bosib band qiling (hamkor ham o\'z kabinetida belgilaydi). Nuqtali kunda izoh bor — ustiga sichqonchani olib boring.</p><div id="pp-cal"></div><div class="msg" id="m-ppcal"></div></div>';
     h += '<div class="p-card"><h3>Shu hamkorga kelgan so\'rovlar (' + rq.length + ')</h3>' + (rq.length ? '<table class="tbl"><tbody>' + rq.map(function (x) { return '<tr class="click" data-rq="' + x.id + '"><td><b>' + esc(x.ref) + '</b></td><td>' + esc(x.contact_name) + '</td><td>' + P.date(x.start_date) + ' · ' + (x.pax || "") + ' kishi</td><td>' + esc(x.status) + '</td></tr>'; }).join("") + '</tbody></table>' : '<p class="p-sub">Hali yo\'q.</p>') + '</div>';
     h += '<div class="p-card"><h3>Sharhlar (' + rv.length + ')</h3>' + (rv.length ? rv.map(function (r) { return '<div class="pt-rv">' + "★".repeat(r.rating) + ' <b>' + esc(r.name) + '</b> <small>' + esc(r.status) + ' · ' + P.date(r.created_at) + '</small><p>' + esc(r.body || "") + '</p></div>'; }).join("") : '<p class="p-sub">Hali yo\'q.</p>') + '</div>';
     box.innerHTML = h;
     $("#pp-back").onclick = A.partners;
+    if (window.MNCal) (async function () {
+      var busy = {}, r = await sb.from("partner_busy").select("day,note").eq("partner_id", id);
+      (r.data || []).forEach(function (x) { busy[x.day] = x.note || true; });
+      var draw = function () { window.MNCal.render($("#pp-cal"), { lang: "uz", months: 2, busy: busy, legend: ["Bo'sh", "Band"], onPick: async function (day, isB) {
+        var q = isB ? await sb.from("partner_busy").delete().eq("partner_id", id).eq("day", day) : await sb.from("partner_busy").insert({ partner_id: id, day: day, note: "Moviy Nomad bron" });
+        if (q.error) return P.msg("#m-ppcal", q.error.message, "err");
+        if (isB) delete busy[day]; else busy[day] = "Moviy Nomad bron"; draw(); P.msg("#m-ppcal", "Saqlandi", "ok");
+      } }); };
+      draw();
+    })();
     if (trips.length) { var g = $("#pp-trips"); trips.forEach(async function (d) { try { var u = await P.signed("partner-docs", d.path, 30); var im = document.createElement("img"); im.src = u; im.alt = ""; im.style.cursor = "zoom-in"; im.onclick = function () { window.open(u, "_blank"); }; g.appendChild(im); } catch (e) {} }); }
     $$("[data-doc]", box).forEach(function (a) { a.onclick = function (e) { e.preventDefault(); P.openFile("partner-docs", p.docs[+a.dataset.doc].path); }; });
     $$("[data-rq]", box).forEach(function (tr) { tr.onclick = function () { A.openRequest ? A.openRequest(tr.dataset.rq) : A.requests(); }; });

@@ -211,3 +211,24 @@ _S_old = S
 def S(lang):
     d = _S_old(lang); v = R.get(lang) or R["en"]; assert len(v) == len(RK), lang
     d.update(dict(zip(RK, v))); return d
+
+
+# ---- partner calendar (public profile)
+CK = ["cal_t", "cal_free", "cal_busy", "cal_hint", "cal_busy_msg"]
+CAL = {
+"en": ["Availability calendar", "Free", "Busy", "Pick a green (free) day — leave a request and our manager will contact you.", "This day is busy — please pick a green day."],
+"ru": ["Календарь занятости", "Свободно", "Занято", "Выберите зелёный (свободный) день — оставьте заявку, менеджер свяжется с вами.", "Этот день занят — выберите зелёный день."],
+"uz": ["Bandlik kalendari", "Bo'sh", "Band", "Yashil (bo'sh) kunni tanlang — so'rov qoldiring, menejerimiz siz bilan bog'lanadi.", "Bu kun band — yashil kunni tanlang."],
+"tr": ["Müsaitlik takvimi", "Boş", "Dolu", "Yeşil (boş) bir gün seçin — talep bırakın, yöneticimiz sizinle iletişime geçecek.", "Bu gün dolu — lütfen yeşil bir gün seçin."],
+"ar": ["تقويم التوفر", "متاح", "محجوز", "اختر يوماً أخضر (متاحاً) — اترك طلباً وسيتواصل معك مديرنا.", "هذا اليوم محجوز — اختر يوماً أخضر."],
+"de": ["Verfügbarkeitskalender", "Frei", "Belegt", "Wählen Sie einen grünen (freien) Tag — senden Sie eine Anfrage, unser Manager meldet sich.", "Dieser Tag ist belegt — bitte einen grünen Tag wählen."],
+"sv": ["Tillgänglighetskalender", "Ledig", "Upptagen", "Välj en grön (ledig) dag — skicka en förfrågan så kontaktar vår manager dig.", "Den här dagen är upptagen — välj en grön dag."],
+"zh": ["空闲日历", "空闲", "已约", "选择绿色（空闲）日期 — 留下请求，我们的经理会联系您。", "这一天已约满 — 请选择绿色日期。"],
+"hi": ["उपलब्धता कैलेंडर", "खाली", "व्यस्त", "हरा (खाली) दिन चुनें — अनुरोध छोड़ें, हमारे मैनेजर आपसे संपर्क करेंगे।", "यह दिन व्यस्त है — कृपया हरा दिन चुनें।"],
+"ko": ["예약 가능 달력", "가능", "예약됨", "초록색(가능) 날짜를 선택해 문의를 남기시면 매니저가 연락드립니다.", "이 날은 예약되어 있습니다 — 초록색 날짜를 선택하세요."],
+}
+_S_old2 = S
+
+
+def S(lang):
+    d = _S_old2(lang); v = CAL.get(lang) or CAL["en"]; d.update(dict(zip(CK, v))); return d
