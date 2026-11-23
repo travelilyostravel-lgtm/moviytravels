@@ -63,15 +63,15 @@
     if (a.data && a.data.currentLevel === "aal2") return true;
     var lf = await sb.auth.mfa.listFactors(), tot = ((lf.data && lf.data.totp) || []).filter(function (f) { return f.status === "verified"; });
     return new Promise(async function (done) {
-      var fid, qr = "";
+      var fid, qr = "", sec = "", uri = "";
       if (tot.length) fid = tot[0].id;
       else {
         ((lf.data && lf.data.all) || []).filter(function (f) { return f.status !== "verified"; }).forEach(function (f) { sb.auth.mfa.unenroll({ factorId: f.id }); });
         var en = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "Moviy Nomad " + new Date().toISOString().slice(0, 10) });
         if (en.error) { twofa('<div class="msg msg--err">' + esc(en.error.message) + '</div>'); return done(false); }
-        fid = en.data.id; qr = en.data.totp.qr_code;
+        fid = en.data.id; qr = en.data.totp.qr_code; sec = en.data.totp.secret || ""; uri = en.data.totp.uri || "";
       }
-      twofa('<h2>Ikki bosqichli kirish</h2>' + (qr ? '<p>1) Telefoningizga <b>Google Authenticator</b> (yoki Microsoft Authenticator) ilovasini o\'rnating.<br>2) Ilovada "+" → "QR kodni skanerlash" — shu kodni skanerlang:</p><div style="background:#fff;display:inline-block;padding:8px;border-radius:8px"><img alt="QR" style="width:200px;height:200px" src="' + qr + '"></div><p>3) Ilovadagi 6 xonali kodni yozing:</p>' : '<p>Telefoningizdagi Authenticator ilovasidan 6 xonali kodni yozing:</p>') +
+      twofa('<h2>Ikki bosqichli kirish</h2>' + (qr ? '<p>1) Telefoningizga <b>Google Authenticator</b> (yoki Microsoft Authenticator) ilovasini o\'rnating.<br>2) Ilovada "+" → "QR kodni skanerlash" — shu kodni skanerlang:</p><div style="background:#fff;display:inline-block;padding:8px;border-radius:8px"><img alt="QR" style="width:200px;height:200px" src="' + qr + '"></div><p><b>Telefonda o\'zida ochgan bo\'lsangiz</b> (QR ni skanerlab bo\'lmasa):' + (uri ? ' <a class="btn btn--outline btn--sm" href="' + esc(uri) + '">Authenticator ilovasida ochish</a>' : '') + '<br>yoki ilovada "+" → "Kodni qo\'lda kiritish" (Enter a setup key) → hisob nomi: <b>Moviy Nomad</b>, kalit:<br><code style="font-size:16px;letter-spacing:2px;user-select:all;word-break:break-all">' + esc(sec) + '</code></p><p>3) Ilovadagi 6 xonali kodni yozing:</p>' : '<p>Telefoningizdagi Authenticator ilovasidan 6 xonali kodni yozing:</p>') +
         '<div class="fld"><input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" style="font-size:24px;letter-spacing:6px;width:180px"></div><div class="msg" id="m-otp"></div><div class="p-actions"><button class="btn btn--gold" id="b-otp">Tasdiqlash</button><button class="btn btn--outline" id="b-otp-out">Chiqish</button></div>');
       $("#b-otp-out").onclick = async function () { await sb.auth.signOut(); location.reload(); };
       $("#b-otp").onclick = async function () {
