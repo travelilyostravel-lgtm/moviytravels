@@ -24,7 +24,7 @@
   }
   function stats(p) {
     return '<div class="pt-nums"><span title="' + esc(PT.views) + '">👁 <b>' + fmt(p.views_count) + '</b></span><span title="' + esc(PT.likes) + '">❤ <b data-lc="' + p.id + '">' + fmt(p.likes_count) + '</b></span>' +
-      '<span title="' + esc(PT.shares) + '">↗ <b>' + fmt(p.shares_count) + '</b></span><span class="pt-pts" title="' + esc(PT.rules) + '">🏆 <b>' + points(p) + '</b> ' + esc(PT.points) + '</span></div>';
+      '<button type="button" class="pt-shr" data-share="' + p.id + '" title="' + esc(PT.share) + '" data-free>↗ ' + esc(PT.share) + ' <b data-sc="' + p.id + '">' + fmt(p.shares_count) + '</b></button><span class="pt-pts" title="' + esc(PT.rules) + '">🏆 <b>' + points(p) + '</b> ' + esc(PT.points) + '</span></div>';
   }
   var ALL = [], kind = window.MNPT_KIND || new URLSearchParams(location.search).get("k") || "", city = "", lng = "";
 
@@ -63,6 +63,7 @@
       '</div>' + stats(p) +
       (facts.length ? '<p class="pt-facts">' + facts.join(" · ") + '</p>' : '') +
       ((p.languages || []).length ? '<p class="pt-langs">🗣 ' + esc(p.languages.slice(0, 4).join(", ")) + (p.languages.length > 4 ? " +" + (p.languages.length - 4) : "") + '</p>' : '') +
+      (p.price_day ? '<p class="pt-price">' + esc(PT.from) + ' <b>$' + Math.round(p.price_day) + '</b> ' + esc(unit) + '</p>' : '') +
       '<div class="pt-card__btns"><button class="btn btn--gold btn--sm" data-ask="' + p.id + '">' + esc(PT.ask) + '</button><button class="btn btn--outline btn--sm" data-prof="' + p.id + '">' + esc(PT.profile) + '</button></div></div></article>';
   }
   function draw() {
@@ -86,6 +87,7 @@
     $$("[data-ask]", root).forEach(function (b) { b.onclick = function () { open(b.getAttribute("data-ask"), "ask"); }; });
     $$("[data-prof]", root).forEach(function (b) { b.onclick = function () { open(b.getAttribute("data-prof"), "prof"); }; });
     $$("[data-like]", root).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); like(b.getAttribute("data-like")); }; });
+    $$("[data-share]", root).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); share(b.getAttribute("data-share"), b); }; });
   }
   async function like(id) {
     var on = !liked(id); setLiked(id, on);
@@ -93,11 +95,16 @@
     var r = await hit(id, on ? "like" : "unlike");
     if (r) { setLiked(id, r.liked); $$('[data-like="' + id + '"]').forEach(function (b) { b.classList.toggle("is-on", r.liked); }); $$('[data-lc="' + id + '"]').forEach(function (b) { b.textContent = fmt(r.likes); }); }
   }
-  async function share(id) {
+  async function share(id, btn) {
     var p = ALL.filter(function (x) { return x.id === id; })[0]; if (!p) return;
-    var url = location.origin + location.pathname + "#p-" + id, done = false;
+    var pg = { guide: "guides.html", driver: "transport.html", hotel: "hotels.html" }[p.kind] || "partners.html";
+    var url = location.origin + location.pathname.replace(/[^\/]*$/, "") + pg + "#p-" + id, done = false;
     try { if (navigator.share) { await navigator.share({ title: p.name + " — Moviy Nomad", url: url }); done = true; } } catch (e) { if (e && e.name === "AbortError") return; }
-    if (!done) { try { await navigator.clipboard.writeText(url); } catch (e) {} var t = $("#pt-share-ok"); if (t) { t.hidden = false; setTimeout(function () { t.hidden = true; }, 2000); } }
+    if (!done) {
+      try { await navigator.clipboard.writeText(url); } catch (e) { window.prompt("", url); }
+      var t = $("#pt-share-ok"); if (t && modal.classList.contains("is-open")) { t.hidden = false; setTimeout(function () { t.hidden = true; }, 2200); }
+      else if (btn) { var o = btn.innerHTML; btn.innerHTML = "✓ " + esc(PT.copied); btn.classList.add("is-ok"); setTimeout(function () { btn.innerHTML = o; btn.classList.remove("is-ok"); }, 2200); }
+    }
     var r = await hit(id, "share"); if (r) $$('[data-sc="' + id + '"]').forEach(function (b) { b.textContent = fmt(r.shares); });
   }
 
