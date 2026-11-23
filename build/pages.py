@@ -360,7 +360,7 @@ def render_partners(lang, icon, logo, font, names, kind=""):
   </form>
 </div></div>'''
     body = (hero +
-            f'<section class="section section--tight"><div class="container"><div class="pt-bar">' + (f'<div class="ttabs" id="pt-tabs">{tabs}</div>' if not kind else '') +
+            f'<section class="section section--tight"><div class="container"><div class="pt-bar{" pt-bar--solo" if kind else ""}">' + (f'<div class="ttabs" id="pt-tabs">{tabs}</div>' if not kind else '') +
             f'<select id="pt-city" aria-label="{e(PT["city"])}"><option value="">{e(PT["city"])}</option></select><select id="pt-lang" aria-label="{e(PT["lang"])}"><option value="">{e(PT["lang"])}</option></select></div>'
             f'<div class="pt-grid" id="pt-grid"><p class="pt-empty">…</p></div></div></section>'
             f'<section class="section section--sand section--tight"><div class="container"><div class="how">{how}</div>'

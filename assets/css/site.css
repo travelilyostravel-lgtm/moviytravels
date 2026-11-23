@@ -691,3 +691,6 @@ html[dir="rtl"] .fab{padding:6px 6px 6px 20px}
 .jf-prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
 .jf-done{text-align:center;padding:20px 6px}
 .jf-done b{font-size:44px;display:block;color:var(--gold)}
+.pt-bar--solo{justify-content:flex-start}.pt-bar--solo select{margin:0}
+.nav__ddb i{font-size:11px}
+html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
