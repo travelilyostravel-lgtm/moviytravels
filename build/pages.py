@@ -193,7 +193,8 @@ def nav_html(lang, base, on_home=False):
     svc = "".join(f'<a href="{base}services.html#{sid}">{e(x["services"][sid][0])}</a>' for sid in SVC_IDS)
     svc += f'<a href="{base}partners.html?k=other">{e(partners_i18n.S(lang)["k_other"])}</a><a class="nav__all" href="{base}services.html">{e(x["svc_more"])} →</a>'
     more = (f'<a href="{base}group-tours.html">{e(x["nav_groups"])}</a><a href="{base}stories.html">{e(x["nav_reviews"])}</a>'
-            f'<a href="{base}partners.html">{e(N["all_partners"])}</a><a href="{"#about" if on_home else base + "index.html#about"}">{e(x["nav_about"])}</a>')
+            f'<a href="{base}partners.html">{e(N["all_partners"])}</a><a href="{"#about" if on_home else base + "index.html#about"}">{e(x["nav_about"])}</a>'
+            f'<a href="{base}{"" if lang == "en" else "../"}agent/">{e(t["agent_login"])}</a>')
     dd = lambda label, inner: f'<div class="nav__dd"><button type="button" class="nav__ddb" aria-haspopup="true">{e(label)}<i aria-hidden="true">▾</i></button><div class="nav__ddm">{inner}</div></div>'
     return (f'<a href="{tours}">{e(t["nav"]["tours"])}</a><a href="{base}guides.html">{e(N["nav_guides"])}</a>'
             f'<a href="{base}transport.html">{e(N["nav_transport"])}</a><a href="{base}hotels.html">{e(N["nav_hotels"])}</a>'

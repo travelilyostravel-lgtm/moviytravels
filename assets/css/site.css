@@ -702,3 +702,4 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
   .nav__dd.is-open .nav__ddb i{transform:rotate(180deg)}
   .nav__dd:hover .nav__ddm{display:none}.nav__dd.is-open:hover .nav__ddm,.nav__dd:focus-within .nav__ddm{display:none}.nav__dd.is-open .nav__ddm{display:flex!important}
 }
+.header .agent-link{display:none!important}
