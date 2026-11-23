@@ -26,7 +26,11 @@
     return '<div class="pt-nums"><span title="' + esc(PT.views) + '">👁 <b>' + fmt(p.views_count) + '</b></span><span title="' + esc(PT.likes) + '">❤ <b data-lc="' + p.id + '">' + fmt(p.likes_count) + '</b></span>' +
       '<button type="button" class="pt-shr" data-share="' + p.id + '" title="' + esc(PT.share) + '" data-free>↗ ' + esc(PT.share) + ' <b data-sc="' + p.id + '">' + fmt(p.shares_count) + '</b></button><span class="pt-pts" title="' + esc(PT.rules) + '">🏆 <b>' + points(p) + '</b> ' + esc(PT.points) + '</span></div>';
   }
-  var ALL = [], kind = window.MNPT_KIND || new URLSearchParams(location.search).get("k") || "", city = "", lng = "";
+  var ALL = [], kind = window.MNPT_KIND || new URLSearchParams(location.search).get("k") || "", city = new URLSearchParams(location.search).get("c") || "", lng = "";
+  var CL = LANG === "uz" || LANG === "ru" ? LANG : "en";
+  function ckey(n) { return window.MNCities ? window.MNCities.key(n) : String(n || "").toLowerCase(); }
+  function cname(k) { return window.MNCities ? window.MNCities.label(k, CL) : k; }
+  function inCity(p, k) { return ckey(p.city) === k || (p.cities || []).some(function (c) { return ckey(c) === k; }); }
 
   // ---------------------------------------------------------------- home page tiles: counts
   if ($("[data-ptn]") && !$("#pt-grid")) {
@@ -58,7 +62,7 @@
     if (p.kind === "hotel" && p.hotel_stars) facts.push(p.hotel_stars + " " + PT.stars);
     return '<article class="pt-card" id="p-' + p.id + '"><div class="pt-card__img"' + (p.photo ? ' style="background-image:url(\'' + img(p.photo) + '\')"' : '') + '>' +
       (p.license_ok ? '<span class="pt-badge">✓ ' + esc(PT.verified) + '</span>' : '') + (rank ? '<span class="pt-rank' + (rank <= 3 ? ' pt-rank--' + rank : '') + '">#' + rank + '</span>' : '') +
-      '<div class="pt-card__name"><b>' + esc(p.name) + '</b><small>📍 ' + esc([p.city].concat((p.cities || []).filter(function (c) { return c !== p.city; })).filter(Boolean).slice(0, 3).join(", ")) + '</small></div></div>' +
+      '<div class="pt-card__name"><b>' + esc(p.name) + '</b><small>📍 ' + esc([p.city].concat(p.cities || []).filter(Boolean).map(function (c) { return cname(ckey(c)); }).filter(function (c, i, a) { return a.indexOf(c) === i; }).slice(0, 3).join(", ")) + '</small></div></div>' +
       '<div class="pt-card__body"><div class="pt-card__rate">' + (p.reviews_count ? stars(p.rating) + ' <b>' + Number(p.rating).toFixed(1) + '</b> <small>(' + p.reviews_count + ')</small>' : '<span class="pt-new">' + esc(PT.new) + '</span>') +
       '</div>' + stats(p) +
       (facts.length ? '<p class="pt-facts">' + facts.join(" · ") + '</p>' : '') +
@@ -69,17 +73,21 @@
   function draw() {
     $$("#pt-tabs [data-pk]").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-pk") === kind); });
     if (!window.MNPT_KIND) $$(".ksub a").forEach(function (a) { var h = a.getAttribute("href"); a.classList.toggle("is-on", kind === "other" ? h.indexOf("k=other") > -1 : (!kind && h === "partners.html")); });
-    var ranked = ALL.filter(function (p) { return !kind || p.kind === kind; }).sort(function (a, b) { return score(b) - score(a); });
+    // ranking scope = current kind + chosen city + chosen language: TOP-4 and places are counted inside that scope
+    var ranked = ALL.filter(function (p) { return (!kind || p.kind === kind) && (!city || inCity(p, city)) && (!lng || (p.languages || []).indexOf(lng) > -1); })
+      .sort(function (a, b) { return score(b) - score(a); });
     var rankOf = {}; ranked.forEach(function (p, i) { rankOf[p.id] = i + 1; });
-    var list = ranked.filter(function (p) { return (!city || p.city === city || (p.cities || []).indexOf(city) > -1) && (!lng || (p.languages || []).indexOf(lng) > -1); });
-    var topBox = $("#pt-top"), top = (!city && !lng && kind && ranked.length) ? ranked.slice(0, 4) : [];
+    var list = ranked;
+    cityChips();
+    var topBox = $("#pt-top"), top = (kind && ranked.length) ? ranked.slice(0, 4) : [];
+    var where = city ? String(PT.in_city || "— {c}").replace("{c}", cname(city)) : "— " + (PT.all_uz || "");
     if (topBox) {
       topBox.hidden = !top.length;
-      topBox.innerHTML = top.length ? '<div class="pt-top__head"><div class="orn-line"><i></i></div><h2>🏆 ' + esc(PT.top_t) + '</h2><p>' + esc(PT.top_sub) + '</p></div><div class="pt-grid pt-grid--top">' + top.map(function (p) { return card(p, rankOf[p.id]); }).join("") + '</div>' +
-        (ranked.length > 4 ? '<h3 class="pt-rest">' + esc(PT.rest_t) + '</h3>' : '') : "";
+      topBox.innerHTML = top.length ? '<div class="pt-top__head"><div class="orn-line"><i></i></div><h2>🏆 ' + esc(PT.top_t) + ' <span class="pt-where">' + esc(where) + '</span></h2><p>' + esc(PT.top_sub) + '</p></div><div class="pt-grid pt-grid--top">' + top.map(function (p) { return card(p, rankOf[p.id]); }).join("") + '</div>' +
+        (ranked.length > 4 ? '<h3 class="pt-rest">' + esc(PT.rest_t) + ' <span class="pt-where">' + esc(where) + '</span></h3>' : '') : "";
     }
     var rest = top.length ? list.slice(4) : list;
-    grid.innerHTML = rest.length ? rest.map(function (p) { return card(p, rankOf[p.id]); }).join("") : (top.length ? "" : '<p class="pt-empty">' + esc(PT.empty) + '</p>');
+    grid.innerHTML = rest.length ? rest.map(function (p) { return card(p, rankOf[p.id]); }).join("") : (top.length ? "" : '<p class="pt-empty">' + esc(city && ALL.length ? PT.no_city : PT.empty) + '</p>');
     bindCards(topBox); bindCards(grid);
   }
   function bindCards(root) {
@@ -109,7 +117,20 @@
   }
 
   $$("#pt-tabs [data-pk]").forEach(function (b) { b.onclick = function () { kind = b.getAttribute("data-pk"); history.replaceState(null, "", location.pathname + (kind ? "?k=" + kind : "")); draw(); }; });
-  $("#pt-city").onchange = function () { city = this.value; draw(); };
+  function cityChips() {
+    var box = $("#pt-cities"); if (!box) return;
+    var cnt = {}, base = ALL.filter(function (p) { return !kind || p.kind === kind; });
+    base.forEach(function (p) { var seen = {}; [p.city].concat(p.cities || []).forEach(function (c) { var k = ckey(c); if (k && !seen[k]) { seen[k] = 1; cnt[k] = (cnt[k] || 0) + 1; } }); });
+    var keys = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a] || cname(a).localeCompare(cname(b)); });
+    if (city && keys.indexOf(city) < 0) keys.unshift(city);
+    box.innerHTML = '<button type="button" data-city="" data-free class="' + (!city ? "is-on" : "") + '">🇺🇿 ' + esc(PT.all_cities) + ' <b>' + base.length + '</b></button>' +
+      keys.map(function (k) { return '<button type="button" data-city="' + esc(k) + '" data-free class="' + (city === k ? "is-on" : "") + '">📍 ' + esc(cname(k)) + ' <b>' + (cnt[k] || 0) + '</b></button>'; }).join("");
+    $$("[data-city]", box).forEach(function (b) { b.onclick = function () {
+      city = b.getAttribute("data-city"); var q = new URLSearchParams(location.search); city ? q.set("c", city) : q.delete("c");
+      history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : "")); draw();
+      var t = $("#pt-top"); if (t && !t.hidden) t.scrollIntoView({ behavior: "smooth", block: "start" });
+    }; });
+  }
   $("#pt-lang").onchange = function () { lng = this.value; draw(); };
 
   // ---------------------------------------------------------------- profile / request / review modal
@@ -196,7 +217,6 @@
     ALL = rows || [];
     var cities = {}, langs = {};
     ALL.forEach(function (p) { [p.city].concat(p.cities || []).filter(Boolean).forEach(function (c) { cities[c] = 1; }); (p.languages || []).forEach(function (l) { langs[l] = 1; }); });
-    $("#pt-city").innerHTML = '<option value="">' + esc(PT.city) + '</option>' + Object.keys(cities).sort().map(function (c) { return '<option>' + esc(c) + '</option>'; }).join("");
     $("#pt-lang").innerHTML = '<option value="">' + esc(PT.lang) + '</option>' + Object.keys(langs).sort().map(function (c) { return '<option>' + esc(c) + '</option>'; }).join("");
     draw();
     var h = location.hash.match(/^#p-(.+)$/); if (h) { var el = document.getElementById("p-" + h[1]); if (el) el.scrollIntoView({ block: "center" }); if (ALL.some(function (p) { return p.id === h[1]; })) open(h[1], "prof"); }

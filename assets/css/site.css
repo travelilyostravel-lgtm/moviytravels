@@ -789,3 +789,14 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .pp__cal{background:#fffdf8;border:1px solid #efe3c8;border-radius:18px;padding:16px 18px;margin:16px 0}
 .pp__cal h4{margin:0 0 4px;color:var(--navy)}.pp__cal p{margin:0 0 12px;font-size:13.5px;color:var(--muted)}
 .pp__calmsg{font-size:13.5px;font-weight:600;margin-top:8px;min-height:18px}
+/* city filter chips */
+.pt-cities{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;margin-bottom:6px;scrollbar-width:thin}
+.pt-cities button{flex:none;border:1px solid #e3dccd;background:#fff;color:var(--navy);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
+.pt-cities button b{font-size:12px;background:var(--sand);color:var(--muted);border-radius:999px;padding:1px 7px;margin-left:4px}
+.pt-cities button:hover{border-color:var(--gold)}
+.pt-cities button.is-on{background:var(--navy);border-color:var(--navy);color:#fff}
+.pt-cities button.is-on b{background:var(--gold);color:var(--navy-3)}
+.pt-where{color:var(--gold-dark);font-weight:600}
+.jf-cities{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.jf-cities label{display:inline-flex;gap:5px;align-items:center;font-size:13px;background:#fffdf8;border:1px solid #e9dfca;border-radius:999px;padding:5px 10px;cursor:pointer}
+.jf-cities label:has(input:checked){background:#e9f3fb;border-color:#9cc3e6}

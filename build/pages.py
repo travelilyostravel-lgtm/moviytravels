@@ -362,14 +362,14 @@ def render_partners(lang, icon, logo, font, names, kind=""):
   </form>
 </div></div>'''
     body = (hero +
-            f'<section class="section section--tight"><div class="container"><div class="pt-bar{" pt-bar--solo" if kind else ""}">' + (f'<div class="ttabs" id="pt-tabs">{tabs}</div>' if not kind else '') +
-            f'<select id="pt-city" aria-label="{e(PT["city"])}"><option value="">{e(PT["city"])}</option></select><select id="pt-lang" aria-label="{e(PT["lang"])}"><option value="">{e(PT["lang"])}</option></select></div>'
+            f'<section class="section section--tight"><div class="container"><div class="pt-cities" id="pt-cities" aria-label="{e(PT["city"])}"></div><div class="pt-bar{" pt-bar--solo" if kind else ""}">' + (f'<div class="ttabs" id="pt-tabs">{tabs}</div>' if not kind else '') +
+            f'<select id="pt-lang" aria-label="{e(PT["lang"])}"><option value="">{e(PT["lang"])}</option></select></div>'
             f'<div class="pt-top" id="pt-top" hidden></div><div class="pt-grid" id="pt-grid"><p class="pt-empty">…</p></div><p class="pt-rules">ℹ️ {e(PT["rules"])}</p></div></section>'
             f'<section class="section section--sand section--tight"><div class="container"><div class="how">{how}</div>'
             f'<div class="pt-why"><h2 class="h2c">{e(PT["why_t"])}</h2><ul>{why}</ul></div></div></section>' + join + modal + jmodal)
     jdata = {"lang": jl, "kind": kind, "J": JT, "REQ": {k: join_i18n.req(lang, k) for k in join_i18n.SLOTS}, "SLOTS": join_i18n.SLOTS}
     js = (f'<script>window.MNPT={json.dumps(PT, ensure_ascii=False)};window.MNPT_KIND="{kind}";window.MNJ={json.dumps(jdata, ensure_ascii=False)};</script>'
-          f'<script src="{pre}assets/js/mn-cal.js" defer></script><script src="{pre}assets/js/partners.js" defer></script><script src="{pre}assets/js/partner-join.js" defer></script>')
+          f'<script src="{pre}assets/js/mn-cal.js" defer></script><script src="{pre}assets/js/mn-cities.js" defer></script><script src="{pre}assets/js/partners.js" defer></script><script src="{pre}assets/js/partner-join.js" defer></script>')
     return shell(lang, PT_SLUG[kind], title, sub, body, icon, logo, font, names, extra_js=js)
 
 

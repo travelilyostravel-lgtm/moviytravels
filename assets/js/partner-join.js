@@ -22,6 +22,15 @@
   }
 
   // ------------------------------------------------------------ step 2: the form
+  var CL = D.lang === "ru" ? "ru" : "uz", CITIES = (window.MNCities && window.MNCities.list) || [];
+  function citySel(label) {
+    return '<label class="mf-f"><span>' + esc(label) + ' *</span><select name="city" required><option value=""></option>' +
+      CITIES.map(function (c) { return '<option value="' + esc(c[1]) + '">' + esc(window.MNCities.label(c[0], CL)) + '</option>'; }).join("") + '</select></label>';
+  }
+  function cityChips(label, req) {
+    return '<div class="mf-f mf-f--full"><span>' + esc(label) + (req ? " *" : "") + '</span><div class="pchips jf-cities"' + (req ? ' data-req="1"' : '') + '>' +
+      CITIES.map(function (c) { return '<label><input type="checkbox" name="cities_x" value="' + esc(c[1]) + '"> ' + esc(window.MNCities.label(c[0], CL)) + '</label>'; }).join("") + '</div></div>';
+  }
   function fld(name, label, req, type, extra) {
     return '<label class="mf-f' + (type === "textarea" ? " mf-f--full" : "") + '"><span>' + esc(label) + (req ? " *" : "") + '</span>' +
       (type === "textarea" ? '<textarea name="' + name + '" rows="4" maxlength="1500"' + (req ? " required" : "") + '></textarea>'
@@ -33,8 +42,8 @@
       '<details style="margin:0 0 14px"><summary style="cursor:pointer;font-weight:700;color:var(--navy)">' + esc(J.req_t) + ' (' + D.REQ[kind].length + ')' + '</summary><ol style="font-size:13.5px;line-height:1.5;margin:8px 0 0">' + D.REQ[kind].map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") + '</ol></details>' +
       '<fieldset><legend>' + esc(J.sec_about) + '</legend><div class="mf-grid">' +
       fld("name", J.name[kind], 1, "text", ' maxlength="120"') + fld("phone", J.phone, 1, "tel", ' maxlength="40" placeholder="+998"') +
-      fld("whatsapp", J.whatsapp, 0, "tel", ' maxlength="40" placeholder="+998"') + fld("city", J.city, 1, "text", ' maxlength="80"') +
-      (ho ? "" : fld("cities", g ? J.works : J.cities, g, "text", ' maxlength="200"')) +
+      fld("whatsapp", J.whatsapp, 0, "tel", ' maxlength="40" placeholder="+998"') + citySel(J.city) +
+      (ho ? "" : cityChips(g ? J.works : J.cities, g)) +
       (ho ? "" : fld("birth_year", J.birth, 1, "number", ' min="1940" max="' + (new Date().getFullYear() - 18) + '"')) +
       fld("home_area", ho ? J.area_h : J.area, 1, "text", ' maxlength="120"') + fld("home_address", J.addr, 1, "text", ' maxlength="250"') + fld("languages", J.languages, g || ot, "text", ' maxlength="200"') +
       (ho ? fld("inn", J.inn, 1, "text", ' maxlength="30"') + fld("license_no", J.license.hotel, 0, "text", ' maxlength="80"') + fld("hotel_stars", J.stars, 0, "number", ' min="0" max="5"') + fld("hotel_rooms", J.rooms, 1, "number", ' min="1" max="999"')
@@ -83,6 +92,7 @@
   async function submit(kind, fm) {
     var miss = $$("[required]", fm).filter(function (i) { return i.type === "checkbox" ? !i.checked : !String(i.value).trim() || (i.minLength > 0 && i.value.length < i.minLength) || (i.type === "email" && !/^\S+@\S+\.\S+$/.test(i.value.trim())); })
       .map(function (i) { var l = i.closest("label"); return l ? (l.querySelector("span") || l).textContent.replace(/\s*\*$/, "").trim() : i.name; });
+    var cc = $(".jf-cities[data-req]", fm); if (cc && !$$("input:checked", cc).length) miss.push(cc.parentNode.querySelector("span").textContent.replace(/\s*\*$/, ""));
     if (miss.length) { msg(fm, J.need + " " + miss.slice(0, 4).join(", ") + (miss.length > 4 ? "…" : ""), "err"); return; }
     var ph = $$("input[type=file]", fm).filter(function (i) { return i.files.length < +i.getAttribute("data-min"); })
       .map(function (i) { return J.ph[i.getAttribute("data-slot")][0] + " (" + i.files.length + "/" + i.getAttribute("data-min") + ")"; });
@@ -114,7 +124,7 @@
         done++; $("i", bar).style.width = Math.round(done / files.length * 100) + "%";
       }
       var p = { name: v("name"), company: meta.company, inn: v("inn"), license_no: v("license_no"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"),
-        cities: list(v("cities")), languages: list(v("languages")), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"), photo: photo, photos: photos,
+        cities: $$("[name=cities_x]:checked", fm).map(function (x) { return x.value; }), languages: list(v("languages")), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"), photo: photo, photos: photos,
         price_day: v("price_day"), price_note: "", vehicle_type: v("vehicle_type"), vehicle_seats: v("vehicle_seats"), vehicle_year: v("vehicle_year"),
         hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"), docs: docs,
         birth_year: v("birth_year"), home_area: v("home_area"), home_address: v("home_address") };

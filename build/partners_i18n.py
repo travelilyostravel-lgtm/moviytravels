@@ -232,3 +232,24 @@ _S_old2 = S
 
 def S(lang):
     d = _S_old2(lang); v = CAL.get(lang) or CAL["en"]; d.update(dict(zip(CK, v))); return d
+
+
+# ---- city filter and per-city ranking
+CTK = ["all_cities", "all_uz", "in_city", "no_city"]
+CT = {
+"en": ["All cities", "all of Uzbekistan", "in {c}", "No partners in this city yet — send a request and we will find one for you."],
+"ru": ["Все города", "весь Узбекистан", "— {c}", "В этом городе пока нет партнёров — оставьте заявку, мы подберём сами."],
+"uz": ["Barcha shaharlar", "butun O'zbekiston", "— {c}", "Bu shaharda hozircha hamkor yo'q — so'rov qoldiring, o'zimiz topib beramiz."],
+"tr": ["Tüm şehirler", "tüm Özbekistan", "— {c}", "Bu şehirde henüz ortak yok — talep bırakın, biz bulalım."],
+"ar": ["كل المدن", "كل أوزبكستان", "— {c}", "لا يوجد شركاء في هذه المدينة بعد — اترك طلباً وسنجد لك واحداً."],
+"de": ["Alle Städte", "ganz Usbekistan", "in {c}", "In dieser Stadt gibt es noch keine Partner — senden Sie eine Anfrage, wir finden jemanden."],
+"sv": ["Alla städer", "hela Uzbekistan", "i {c}", "Inga partner i den här staden än — skicka en förfrågan så hittar vi någon."],
+"zh": ["全部城市", "整个乌兹别克斯坦", "— {c}", "该城市暂无合作伙伴 — 留下请求，我们为您寻找。"],
+"hi": ["सभी शहर", "पूरा उज़्बेकिस्तान", "— {c}", "इस शहर में अभी कोई पार्टनर नहीं — अनुरोध भेजें, हम ढूँढ देंगे।"],
+"ko": ["모든 도시", "우즈베키스탄 전체", "— {c}", "이 도시에는 아직 파트너가 없습니다 — 문의를 남기시면 찾아 드립니다."],
+}
+_S_old3 = S
+
+
+def S(lang):
+    d = _S_old3(lang); v = CT.get(lang) or CT["en"]; d.update(dict(zip(CTK, v))); return d
