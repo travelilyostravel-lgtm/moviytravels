@@ -14,7 +14,34 @@
     var box = $("#ag-sched"); box.innerHTML = '<p class="p-sub">Loading…</p>';
     var r = await sb.from("group_departures").select("id,tour_id,start_date,capacity,booked,price_pp,status,group_kind").gte("start_date", new Date().toISOString().slice(0, 10)).order("start_date");
     var L = window.MN_L || {}, T = window.MN_TOURS || {};
-    window.MN_GDS.render(box, r.data || [], { lang: "en", title: function (id) { return ((L.tours || {})[id] || [id])[0]; },
+    var rows = r.data || [];
+    var rng = function (x) { var d = new Date(x.start_date + "T12:00:00"), n = (T[x.tour_id] ? T[x.tour_id].days.length : 8) - 1, e = new Date(d); e.setDate(e.getDate() + n); var f = function (z) { return z.toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }; return f(d) + " – " + f(e) + " " + e.getFullYear(); };
+    var KN = { small: "Small group 12–17", medium: "Medium group 30–35", large: "Large group 45–50" };
+    function pick(x) {
+      var f = $("#ag-gbook"), left = Math.max(0, x.capacity - x.booked), tname = ((L.tours || {})[x.tour_id] || [x.tour_id])[0];
+      var comm = window.MN_ENGINE && window.MN_ENGINE.commission ? window.MN_ENGINE.commission(x.tour_id, me.agency.commission_pct) : Number(me.agency.commission_pct || 0);
+      f.innerHTML = '<div class="p-card" style="margin-top:16px;border:2px solid #12355b"><h3>Book seats: ' + esc(tname) + ' · ' + esc(rng(x)) + '</h3><p class="p-sub">' + esc(KN[x.group_kind] || "") + ' · <b>' + left + ' seats left</b> · $' + x.price_pp + ' per person (twin share)' + (x.single_supp ? ' · single room +$' + x.single_supp : '') + '</p>' +
+        '<div class="p-grid"><div class="fld"><label>Travellers</label><input type="number" id="gb-pax" min="1" max="' + left + '" value="1"></div><div class="fld"><label>Room</label><select id="gb-room"><option value="twin">Twin / double share</option><option value="single">Single room</option></select></div>' +
+        '<div class="fld" style="grid-column:1/-1"><label>Note for Moviy Nomad (optional)</label><input id="gb-note" maxlength="500"></div></div>' +
+        '<div class="kv" style="margin-top:10px"><div><small>Brutto (client price)</small><b id="gb-br"></b></div><div class="hl"><small>Your net to pay (' + comm + '% commission)</small><b id="gb-nt"></b></div></div>' +
+        '<p class="p-sub">Payment: 30% within 3 working days of our invoice, 70% no later than 14 days before the start. Seats are held for you as soon as we confirm your 30% deposit.</p>' +
+        '<div class="msg" id="m-gb"></div><div class="p-actions"><button class="btn btn--gold" id="gb-go">Book seats</button></div></div>';
+      function calc() { var n = Math.max(1, Math.min(left, parseInt($("#gb-pax").value, 10) || 1)), br = n * x.price_pp + ($("#gb-room").value === "single" ? n * (x.single_supp || 0) : 0); $("#gb-br").textContent = P.money(br); $("#gb-nt").textContent = P.money(Math.round(br * (1 - comm / 100) * 100) / 100); return { n: n, br: br }; }
+      $("#gb-pax").oninput = $("#gb-room").onchange = calc; calc();
+      f.scrollIntoView({ behavior: "smooth", block: "start" });
+      $("#gb-go").onclick = async function () {
+        var c = calc(); if (c.n > left) return P.msg("#m-gb", "Only " + left + " seats left.", "err");
+        this.disabled = true; P.msg("#m-gb", "Booking…");
+        var row = { agency_id: me.agency.id, tour_id: x.tour_id, tour_title: tname + " — group departure " + rng(x) + " (" + (KN[x.group_kind] || "") + ")", start_date: x.start_date, pax: c.n, brutto: c.br,
+          config: { departure_id: x.id, group_kind: x.group_kind, room: $("#gb-room").value, group: true }, agent_note: $("#gb-note").value.trim() || null };
+        var r2 = await sb.from("bookings").insert(row).select().single();
+        this.disabled = false;
+        if (r2.error) return P.msg("#m-gb", r2.error.message, "err");
+        openBooking(r2.data.id);
+      };
+    }
+    if (!$("#ag-gbook")) box.insertAdjacentHTML("afterend", '<div id="ag-gbook"></div>');
+    window.MN_GDS.render(box, rows, { lang: "en", title: function (id) { return ((L.tours || {})[id] || [id])[0]; }, onPick: pick,
       range: function (x) { var d = new Date(x.start_date + "T12:00:00"), n = (T[x.tour_id] ? T[x.tour_id].days.length : 8) - 1, e = new Date(d); e.setDate(e.getDate() + n); var f = function (z) { return z.toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }; return f(d) + " – " + f(e) + " " + e.getFullYear(); } });
   }
   function go(v) {

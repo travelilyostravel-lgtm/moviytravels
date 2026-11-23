@@ -494,7 +494,7 @@ def render_agent():
 
   <section id="v-booking" class="hidden"></section>
 
-  <section id="v-groups" class="hidden"><div class="p-card"><h2>Guaranteed group departures — free seats</h2><p class="p-sub">Classic Uzbekistan, 8 days / 7 nights, every Saturday from Khiva. Your clients can join any group, even 1 person. Prices are public (per person, twin share); your commission applies. To book seats, send a request to your Moviy Nomad manager.</p><div id="ag-sched"></div></div></section>
+  <section id="v-groups" class="hidden"><div class="p-card"><h2>Guaranteed group departures — free seats</h2><p class="p-sub">Classic Uzbekistan, 8 days / 7 nights, every Saturday from Khiva. Your clients can join any group, even 1 person. Prices are public (per person, twin share); your commission applies. <b>Click a green or yellow cell to book seats</b> — the price is calculated automatically; seats are held when we confirm your 30% deposit.</p><div id="ag-sched"></div></div></section>
   <section id="v-agency" class="hidden"><div class="p-card" id="agency-box"></div></section>
 </main>
 <script>window.MN={page_cfg()};</script>
