@@ -17,28 +17,44 @@
   window.MNA = window.MNA || {}; window.MNA.show = show;
   $$("#tabs button").forEach(function (b) { b.onclick = function () { var v = b.dataset.view; v === "bookings" ? loadBookings() : v === "agencies" ? loadAgencies() : window.MNA[v] && window.MNA[v](); }; });
 
+  // ---- staff login: e-mail + password, then a 6-digit code sent to that e-mail (founder's rule, 2026-11-23).
+  // EMAIL_CODE is switched on once the site sends mail through its own Gmail (Supabase → SMTP settings).
+  var EMAIL_CODE = false;
+  function normEm(v) { return String(v || "").replace(/\s+/g, "").toLowerCase(); }
+  function errUz(m) {
+    return /invalid login/i.test(m) ? "E-mail yoki parol noto'g'ri." :
+      /rate limit/i.test(m) ? "Pochta xizmati hozir band. 1–2 daqiqadan keyin qayta urining." :
+      /not confirmed/i.test(m) ? "Bu e-mail hali tasdiqlanmagan — asoschiga ayting." :
+      /signups not allowed|not found/i.test(m) ? "Bu e-mail jamoada yo'q — asoschiga ayting." : m;
+  }
   $("#f-login").onsubmit = async function (e) {
-    e.preventDefault(); var f = e.target;
-    if (!f.password.value) return P.msg("#m-login", "Parolni yozing yoki \"Pochta orqali kirish\" tugmasini bosing.", "err");
-    var r = await sb.auth.signInWithPassword({ email: f.email.value.replace(/\s+/g, "").toLowerCase(), password: f.password.value });
-    if (r.error) return P.msg("#m-login", /invalid login/i.test(r.error.message) ? "E-mail yoki parol noto'g'ri. Parolni unutgan bo'lsangiz — \"Parolni unutdim\" tugmasini bosing." : /not confirmed/i.test(r.error.message) ? "E-mail hali tasdiqlanmagan: pochtangizdagi tasdiqlash xatidagi havolani bosing." : r.error.message, "err");
-    boot();
-  };
-  // ---- log in with a 6-digit code sent to the e-mail (no password needed)
-  $("#b-code").onclick = async function () {
-    var em = $("#f-login").email.value.replace(/\s+/g, "").toLowerCase();
-    if (!em) return P.msg("#m-login", "Avval e-mailingizni yozing.", "err");
-    P.msg("#m-login", "Yuborilmoqda…");
-    var r = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname } });
-    if (r.error) return P.msg("#m-login", /rate limit/i.test(r.error.message) ? "Pochta xizmati hozir band (soatiga xatlar soni cheklangan). Bir oz kutib qayta urining yoki parol bilan kiring." : /signups not allowed|not found/i.test(r.error.message) ? "Bu e-mail jamoada topilmadi: " + em + " — harflari to'g'ri yozilganini tekshiring yoki parol bilan kiring." : r.error.message, "err");
+    e.preventDefault(); var f = e.target, em = normEm(f.email.value);
+    if (!em || !f.password.value) return P.msg("#m-login", "E-mail va parolni yozing.", "err");
+    P.msg("#m-login", "Tekshirilmoqda…");
+    var r = await sb.auth.signInWithPassword({ email: em, password: f.password.value });
+    if (r.error) return P.msg("#m-login", errUz(r.error.message) + " (" + em + ")", "err");
+    var p = (await sb.from("profiles").select("role,active").eq("id", r.data.user.id).single()).data;
+    if (!p || (p.role !== "admin" && p.role !== "manager") || p.active === false) { await sb.auth.signOut(); return P.msg("#m-login", "Bu e-mailga admin panelga kirish ruxsati berilmagan — asoschiga ayting.", "err"); }
+    if (!EMAIL_CODE) { P.msg("#m-login", ""); return boot(); }
+    await sb.auth.signOut({ scope: "local" });
+    P.msg("#m-login", "Pochtangizga kod yuborilmoqda…");
+    var o = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: false } });
+    if (o.error) return P.msg("#m-login", errUz(o.error.message), "err");
+    P.msg("#m-login", "");
     $("#f-login").classList.add("hidden"); $("#f-code").classList.remove("hidden"); $("#f-code").dataset.em = em;
-    $("#code-em").textContent = em; $("#f-code").code.focus();
+    $("#code-em").textContent = em; $("#f-code").code.value = ""; $("#f-code").code.focus();
   };
   $("#f-code").onsubmit = async function (e) {
     e.preventDefault(); var f = e.target;
-    var r = await sb.auth.verifyOtp({ email: f.dataset.em, token: f.code.value.trim(), type: "email" });
+    P.msg("#m-code", "Tekshirilmoqda…");
+    var r = await sb.auth.verifyOtp({ email: f.dataset.em, token: f.code.value.replace(/\D/g, ""), type: "email" });
     if (r.error) return P.msg("#m-code", "Kod noto'g'ri yoki eskirgan. Pochtadagi eng oxirgi kodni yozing.", "err");
-    f.classList.add("hidden"); $("#f-login").classList.remove("hidden"); boot();
+    P.msg("#m-code", ""); f.classList.add("hidden"); $("#f-login").classList.remove("hidden"); boot();
+  };
+  $("#b-code-resend").onclick = async function () {
+    var em = $("#f-code").dataset.em; P.msg("#m-code", "Yangi kod yuborilmoqda…");
+    var o = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: false } });
+    P.msg("#m-code", o.error ? errUz(o.error.message) : "Yangi kod yuborildi.", o.error ? "err" : "ok");
   };
   $("#b-code-back").onclick = function () { $("#f-code").classList.add("hidden"); $("#f-login").classList.remove("hidden"); };
   // ---- forgot password: link by e-mail, then a new-password form on this page
