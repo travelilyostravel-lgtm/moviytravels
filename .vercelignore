@@ -1,0 +1,4 @@
+build/
+supabase/
+README.md
+*.py

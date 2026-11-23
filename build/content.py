@@ -29,7 +29,7 @@ CONFIG = {
     "account": "2020 8000 8071 4735 4001",
     "bank": "\u201cIpoteka Bank\u201d ATB yagona filiali",
     # Sayt manzili (SEO uchun)
-    "site_url": "https://moviytravel.uz",
+    "site_url": "https://moviy-travel.uz",
 }
 
 # Turlar: narx USD da, 1 kishi uchun. None bo'lsa — "Narx so'rov bo'yicha" chiqadi.
