@@ -344,7 +344,7 @@
     var a = (await sb.from("agencies").select("*").eq("id", id).single()).data;
     var docs = (await sb.from("agency_documents").select("*").eq("agency_id", id).order("created_at")).data || [];
     var cnt = (await sb.from("bookings").select("id", { count: "exact", head: true }).eq("agency_id", id)).count || 0;
-    var info = [["Davlat / shahar", [a.country, a.city].filter(Boolean).join(", ")], ["Manzil", a.address], ["Sayt", a.website], ["Litsenziya", a.license_no], ["Kontakt", a.contact_name], ["E-mail", a.email], ["Telefon", a.phone], ["WhatsApp", a.whatsapp], ["Bronlar soni", cnt]];
+    var info = [["Davlat / shahar", [a.country, a.city].filter(Boolean).join(", ")], ["Manzil", a.address], ["Sayt", a.website], ["INN (soliq raqami)", a.tax_id], ["Litsenziya", a.license_no], ["Kontakt", a.contact_name], ["E-mail", a.email], ["Telefon", a.phone], ["WhatsApp", a.whatsapp], ["Bronlar soni", cnt]];
     box.innerHTML = '<div class="p-card"><div style="display:flex;justify-content:space-between;gap:12px"><button class="btn btn--outline btn--sm" id="back">← Agentliklar</button>' + P.badge(a.status, L) + '</div>' +
       '<h2 style="margin-top:14px">' + esc(a.name) + '</h2><table class="tbl" style="margin:10px 0 20px">' + info.map(function (i) { return '<tr><td style="width:200px;color:var(--muted)">' + i[0] + '</td><td><b>' + esc(i[1] == null || i[1] === "" ? "—" : i[1]) + '</b></td></tr>'; }).join("") + '</table>' +
       '<h3>Hujjatlar</h3><div class="files">' + (docs.length ? docs.map(function (d) { return '<div class="file"><b>' + esc(d.kind) + ' — ' + esc(d.file_name || "") + '</b><button data-d="' + esc(d.file_path) + '">Ochish</button></div>'; }).join("") : '<div class="empty">Hujjat yuklanmagan.</div>') + '</div>' +

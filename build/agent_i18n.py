@@ -1,6 +1,7 @@
 # Agent portal translations. EN phrase -> list for [ru, uz, tr, ar, de, sv, zh, hi, ko]. {0},{1} = values.
 LANGS = ["ru", "uz", "tr", "ar", "de", "sv", "zh", "hi", "ko"]
 P = [
+("Company tax number (INN / TIN / VAT) *", ["ИНН компании (налоговый номер) *","Firma INN raqami (soliq raqami) *","Şirket vergi numarası (VKN) *","الرقم الضريبي للشركة *","Steuernummer der Firma (USt-IdNr.) *","Företagets skattenummer (org.nr / moms) *","公司税号 *","कंपनी कर संख्या (GST/PAN) *","사업자 등록번호(세금 번호) *"]),
 ("City *", ["Город *","Shahar *","Şehir *","المدينة *","Stadt *","Stad *","城市 *","शहर *","도시 *"]),
 ("Legal address (registered office) *", ["Юридический адрес (зарегистрированный офис) *","Yuridik manzil (ro'yxatdan o'tgan rasmiy ofis) *","Yasal adres (kayıtlı ofis) *","العنوان القانوني (المكتب المسجل) *","Rechtsadresse (eingetragener Firmensitz) *","Juridisk adress (registrerat kontor) *","注册地址（官方登记办公室） *","कानूनी पता (पंजीकृत कार्यालय) *","법인 등록 주소(공식 사무실) *"]),
 ("Street, building, office", ["Улица, дом, офис","Ko'cha, uy, ofis","Cadde, bina, ofis","الشارع، المبنى، المكتب","Straße, Gebäude, Büro","Gata, byggnad, kontor","街道、楼号、办公室","सड़क, भवन, कार्यालय","도로명, 건물, 사무실"]),

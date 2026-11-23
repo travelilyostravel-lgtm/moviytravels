@@ -463,6 +463,7 @@ def render_agent(lang="en"):
         <div class="fld"><label>City *</label><input name="city" required></div>
         <div class="fld full"><label>Legal address (registered office) *</label><input name="address" required placeholder="Street, building, office"></div>
         <div class="fld"><label>Website</label><input name="website" placeholder="https://"></div>
+        <div class="fld"><label>Company tax number (INN / TIN / VAT) *</label><input name="tax_id" required></div>
         <div class="fld"><label>License / registration no.</label><input name="license_no"></div>
         <div class="fld"><label>Contact person *</label><input name="contact_name" required></div>
         <div class="fld"><label>Phone</label><input name="phone"></div>

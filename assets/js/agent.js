@@ -91,7 +91,7 @@
   };
   $("#f-register").onsubmit = async function (e) {
     e.preventDefault(); var f = e.target, data = {};
-    ["agency_name", "country", "city", "address", "website", "license_no", "contact_name", "phone", "whatsapp"].forEach(function (k) { data[k] = f[k].value.trim(); });
+    ["agency_name", "country", "city", "address", "website", "license_no", "tax_id", "contact_name", "phone", "whatsapp"].forEach(function (k) { data[k] = f[k].value.trim(); });
     P.msg("#m-register", "Sending…");
     var r = await sb.auth.signUp({ email: f.email.value.trim(), password: f.password.value, options: { data: data, emailRedirectTo: location.href.split("#")[0] } });
     if (r.error) return P.msg("#m-register", r.error.message, "err");
