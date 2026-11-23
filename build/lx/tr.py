@@ -220,4 +220,5 @@ X = {
  'svc_page_sub': 'Özbekistan genelinde rehber, ulaşım, otel, havalimanı karşılama ve eSIM. Neye ihtiyacınız olduğunu yazın — genellikle birkaç saat içinde fiyatla dönüyoruz.',
  # ---- home weather widget + contact sticker (2026-11-23)
  'wx': {'title': "Özbekistan'da hava", 'feels': 'Hissedilen', 'max': 'Maks.', 'min': 'Min.', 'hum': 'Nem', 'wind': 'Rüzgâr', 'kmh': 'km/sa', 'more': 'Aylara göre hava →', 'f7': 'Önümüzdeki 7 gün', 'monthly': 'Aylık ortalama', 'pick': 'Ne zaman geliyorsunuz?', 'avg_note': 'Uzun yıllar ortalaması (yaklaşık) — gerçek hava farklı olabilir.', 'rain_days': 'yağışlı gün', 'great': 'Seyahat için harika', 'hot': 'Çok sıcak — sabah ve akşam gezin', 'cold': 'Soğuk — kalın giysi gerekli', 'ok': 'Seyahat için iyi', 'close': 'Kapat', 'cities': ['Taşkent', 'Semerkant', 'Buhara', 'Hive', 'Fergana', 'Nukus'], 'codes': ['Açık', 'Parçalı bulutlu', 'Bulutlu', 'Sis', 'Çisenti', 'Yağmur', 'Kar', 'Fırtına'], 'fab_hint': "Madina'ya sorun"},
+ 'svc_page_title': "Özbekistan'da seyahat hizmetleri",
 }

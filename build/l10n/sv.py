@@ -40,7 +40,7 @@ UI = {
   "nav_ready": "Färdiga resor", "nav_faq": "Vanliga frågor",
   "months": ["Inte bestämt än", "Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
   "interests": ["Historia & arkitektur", "Andligt / pilgrimsfärd", "Mat & basarer", "Berg & natur", "Öken & jurtor", "Hantverk & siden", "Fotografi"],
-  "h_eyebrow": "Färdiga resor", "h_title": "Färdiga resor genom Centralasien",
+  "h_eyebrow": "Färdiga resor", "h_title": "Färdiga resor genom Uzbekistan",
   "h_sub": "Sex beprövade rutter i varje land — öppna en resa för att se kartan, dag-för-dag-programmet och priset.",
   "view_tour": "Se resan", "contact_us": "Kontakta oss", "follow": "Följ oss",
   'lock_badge': 'Kommer snart',

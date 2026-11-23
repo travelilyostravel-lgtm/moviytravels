@@ -220,4 +220,5 @@ X = {
  'svc_page_sub': "O'zbekiston bo'ylab gid, transport, mehmonxona, aeroportda kutib olish va eSIM. Nima kerakligini yozing — odatda bir necha soat ichida narx bilan javob beramiz.",
  # ---- home weather widget + contact sticker (2026-11-23)
  'wx': {'title': "O'zbekistonda ob-havo", 'feels': 'His etilishi', 'max': 'Maks.', 'min': 'Min.', 'hum': 'Namlik', 'wind': 'Shamol', 'kmh': 'km/soat', 'more': "Oylar bo'yicha ob-havo →", 'f7': 'Keyingi 7 kun', 'monthly': "Oylar bo'yicha o'rtacha", 'pick': 'Qachon kelasiz?', 'avg_note': "Ko'p yillik o'rtacha (taxminiy) — haqiqiy ob-havo farq qilishi mumkin.", 'rain_days': "yomg'irli kun", 'great': 'Sayohat uchun ajoyib', 'hot': 'Juda issiq — ertalab va kechqurun sayr qiling', 'cold': 'Sovuq — issiq kiyim kerak', 'ok': 'Sayohat uchun yaxshi', 'close': 'Yopish', 'cities': ['Toshkent', 'Samarqand', 'Buxoro', 'Xiva', "Farg'ona", 'Nukus'], 'codes': ['Ochiq', 'Qisman bulutli', 'Bulutli', 'Tuman', "Mayda yomg'ir", "Yomg'ir", 'Qor', 'Momaqaldiroq'], 'fab_hint': "Madinadan so'rang"},
+ 'svc_page_title': "O'zbekistonda sayohat xizmatlari",
 }

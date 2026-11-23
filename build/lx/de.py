@@ -220,4 +220,5 @@ X = {
  'svc_page_sub': 'Guides, Transport, Hotels, Flughafenempfang und eSIM in ganz Usbekistan. Schreiben Sie uns, was Sie brauchen — meist antworten wir innerhalb weniger Stunden mit einem Preis.',
  # ---- home weather widget + contact sticker (2026-11-23)
  'wx': {'title': 'Wetter in Usbekistan', 'feels': 'Gefühlt', 'max': 'Max.', 'min': 'Min.', 'hum': 'Feuchte', 'wind': 'Wind', 'kmh': 'km/h', 'more': 'Wetter nach Monat →', 'f7': 'Nächste 7 Tage', 'monthly': 'Monatsdurchschnitt', 'pick': 'Wann kommen Sie?', 'avg_note': 'Langjährige Mittelwerte (ca.) — das echte Wetter kann abweichen.', 'rain_days': 'Regentage', 'great': 'Ideal zum Reisen', 'hot': 'Sehr heiß — morgens & abends unterwegs sein', 'cold': 'Kalt — warme Kleidung nötig', 'ok': 'Gut zum Reisen', 'close': 'Schließen', 'cities': ['Taschkent', 'Samarkand', 'Buchara', 'Chiwa', 'Fergana', 'Nukus'], 'codes': ['Klar', 'Teils bewölkt', 'Bewölkt', 'Nebel', 'Niesel', 'Regen', 'Schnee', 'Gewitter'], 'fab_hint': 'Fragen Sie Madina'},
+ 'svc_page_title': 'Reiseleistungen in Usbekistan',
 }

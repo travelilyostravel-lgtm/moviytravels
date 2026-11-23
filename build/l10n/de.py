@@ -40,7 +40,7 @@ UI = {
   "nav_ready": "Fertige Reisen", "nav_faq": "FAQ",
   "months": ["Noch offen", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
   "interests": ["Geschichte & Architektur", "Spirituell / Pilgerreise", "Essen & Basare", "Berge & Natur", "Wüste & Jurten", "Handwerk & Seide", "Fotografie"],
-  "h_eyebrow": "Fertige Reisen", "h_title": "Fertige Reisen durch Zentralasien",
+  "h_eyebrow": "Fertige Reisen", "h_title": "Fertige Reisen durch Usbekistan",
   "h_sub": "Sechs bewährte Routen in jedem Land — öffnen Sie eine Reise, um Karte, Tagesprogramm und Preis zu sehen.",
   "view_tour": "Reise ansehen", "contact_us": "Kontakt", "follow": "Folgen Sie uns",
   'lock_badge': 'In Vorbereitung',

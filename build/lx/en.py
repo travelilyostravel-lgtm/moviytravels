@@ -231,4 +231,5 @@ X = {
  'svc_page_sub': 'Guides, transport, hotels, airport welcome and eSIM across Uzbekistan. Tell us what you need — we usually reply with a price within a few hours.',
  # ---- home weather widget + contact sticker (2026-11-23)
  'wx': {'title': 'Weather in Uzbekistan', 'feels': 'Feels like', 'max': 'Max', 'min': 'Min', 'hum': 'Humidity', 'wind': 'Wind', 'kmh': 'km/h', 'more': 'Weather by month →', 'f7': 'Next 7 days', 'monthly': 'Average by month', 'pick': 'When are you coming?', 'avg_note': 'Long-term averages (approx.) — real weather can differ.', 'rain_days': 'rainy days', 'great': 'Great for travel', 'hot': 'Very hot — plan mornings & evenings', 'cold': 'Cold — warm clothes needed', 'ok': 'Good for travel', 'close': 'Close', 'cities': ['Tashkent', 'Samarkand', 'Bukhara', 'Khiva', 'Fergana', 'Nukus'], 'codes': ['Clear', 'Partly cloudy', 'Cloudy', 'Fog', 'Drizzle', 'Rain', 'Snow', 'Thunderstorm'], 'fab_hint': 'Ask Madina'},
+ 'svc_page_title': 'Travel services in Uzbekistan',
 }

@@ -220,4 +220,5 @@ X = {
  'svc_page_sub': 'Guider, transport, hotell, flygplatsmottagning och eSIM i hela Uzbekistan. Berätta vad du behöver — vi svarar oftast med pris inom några timmar.',
  # ---- home weather widget + contact sticker (2026-11-23)
  'wx': {'title': 'Väder i Uzbekistan', 'feels': 'Känns som', 'max': 'Max', 'min': 'Min', 'hum': 'Fukt', 'wind': 'Vind', 'kmh': 'km/h', 'more': 'Väder per månad →', 'f7': 'Kommande 7 dagar', 'monthly': 'Månadsmedel', 'pick': 'När kommer du?', 'avg_note': 'Långtidsmedel (ungefär) — verkligt väder kan skilja sig.', 'rain_days': 'regndagar', 'great': 'Perfekt för resa', 'hot': 'Mycket varmt — res morgon & kväll', 'cold': 'Kallt — varma kläder behövs', 'ok': 'Bra för resa', 'close': 'Stäng', 'cities': ['Tasjkent', 'Samarkand', 'Buchara', 'Chiva', 'Fergana', 'Nukus'], 'codes': ['Klart', 'Halvklart', 'Molnigt', 'Dimma', 'Duggregn', 'Regn', 'Snö', 'Åska'], 'fab_hint': 'Fråga Madina'},
+ 'svc_page_title': 'Resetjänster i Uzbekistan',
 }

@@ -40,7 +40,7 @@ UI = {
   "nav_ready": "Hazır turlar", "nav_faq": "SSS",
   "months": ["Henüz belli değil", "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
   "interests": ["Tarih ve mimari", "Manevi / ziyaret", "Yemek ve pazarlar", "Dağlar ve doğa", "Çöl ve yurtlar", "El sanatları ve ipek", "Fotoğrafçılık"],
-  "h_eyebrow": "Hazır turlar", "h_title": "Orta Asya'da hazır yolculuklar",
+  "h_eyebrow": "Hazır turlar", "h_title": "Özbekistan'da hazır yolculuklar",
   "h_sub": "Her ülkede altı denenmiş rota — haritayı, günlük programı ve fiyatı görmek için bir tur açın.",
   "view_tour": "Turu gör", "contact_us": "Bize ulaşın", "follow": "Bizi takip edin",
   'lock_badge': 'Hazırlanıyor',

@@ -40,7 +40,7 @@ UI = {
   "nav_ready": "Tayyor turlar", "nav_faq": "Savollar",
   "months": ["Hali aniq emas", "Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
   "interests": ["Tarix va me'morchilik", "Ziyorat", "Taomlar va bozorlar", "Tog'lar va tabiat", "Cho'l va o'tovlar", "Hunarmandchilik va ipak", "Fotografiya"],
-  "h_eyebrow": "Tayyor turlar", "h_title": "Markaziy Osiyo bo'ylab tayyor sayohatlar",
+  "h_eyebrow": "Tayyor turlar", "h_title": "O'zbekiston bo'ylab tayyor sayohatlar",
   "h_sub": "Har bir davlatda oltitadan sinalgan yo'nalish — xarita, kunma-kun dastur va narxni ko'rish uchun turni oching.",
   "view_tour": "Turni ko'rish", "contact_us": "Biz bilan bog'laning", "follow": "Bizni kuzating",
   'lock_badge': 'Tayyorlanmoqda',

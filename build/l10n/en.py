@@ -44,7 +44,7 @@ UI = {
   "months": ["Not sure yet", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
   "interests": ["History & architecture", "Spiritual / ziyarat", "Food & bazaars", "Mountains & nature", "Desert & yurts", "Crafts & silk", "Photography"],
   # home
-  "h_eyebrow": "Ready tours", "h_title": "Ready-made journeys across Central Asia",
+  "h_eyebrow": "Ready tours", "h_title": "Ready-made journeys across Uzbekistan",
   "h_sub": "Six proven routes in each country — open any tour to see the map, the day-by-day program and the price.",
   "view_tour": "View the tour", "contact_us": "Contact us", "follow": "Follow us",
   'lock_badge': 'Coming soon',
