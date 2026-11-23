@@ -18,13 +18,17 @@
     $$("#rf button").forEach(function (b) { b.onclick = function () { rFilter = b.dataset.f; A.requests(); }; });
     var q = sb.from("site_requests").select("*").order("created_at", { ascending: false }).limit(300);
     if (rFilter === "open") q = q.not("status", "in", "(closed,cancelled,confirmed)"); else if (rFilter !== "all") q = q.eq("status", rFilter);
+    var mh = $("#rm"); if (!mh) { mh = document.createElement("div"); mh.id = "rm"; mh.className = "filters"; $("#rf").after(mh); }
+    if (A.mgrChips) await A.mgrChips(mh, A.requests);
+    var isOwner = A.role === "admin";
     var r = await q, box = $("#rlist");
+    if (!r.error && isOwner) r.data = r.data.filter(function (x) { return A.mgrPass(x.assigned_to); });
     if (r.error) { box.innerHTML = '<div class="msg msg--err">' + esc(r.error.message) + '</div>'; return; }
     if (!r.data.length) { box.innerHTML = '<div class="empty">So\'rov yo\'q.</div>'; return; }
-    box.innerHTML = '<table class="tbl"><thead><tr><th>Raqam</th><th>Turi</th><th>Mijoz</th><th>Sana</th><th>Kishi</th><th>To\'lov</th><th>Holat</th></tr></thead><tbody>' +
+    box.innerHTML = '<table class="tbl"><thead><tr><th>Raqam</th><th>Turi</th><th>Mijoz</th><th>Sana</th><th>Kishi</th><th>To\'lov</th><th>Holat</th>' + (isOwner ? '<th>Menejer</th>' : '') + '</tr></thead><tbody>' +
       r.data.map(function (x) {
         var what = x.kind === "tour" ? "🧭 " + esc(x.tour_title || x.tour_id || "Tur") : x.kind === "group" ? "👥 Guruh: " + esc(x.tour_title || "") : "🛎 " + esc(SV[x.service] || x.service || "Xizmat");
-        return '<tr class="click" data-id="' + x.id + '"><td><b>' + esc(x.ref) + '</b><br><small>' + P.date(x.created_at) + ' · ' + esc((x.lang || "").toUpperCase()) + '</small></td><td>' + what + '</td><td>' + esc(x.contact_name) + '<br><small>' + esc(x.phone) + (x.citizenship ? " · " + esc(x.citizenship) : "") + '</small></td><td>' + P.date(x.start_date) + '</td><td>' + (x.pax || "—") + '</td><td><small>' + (x.price_total ? P.money(x.paid_total || 0) + ' / ' + P.money(x.price_total) : esc(PM[x.pay_method] || "—")) + (x.balance_due && x.status === 'deposit_paid' ? '<br>70% muddati: ' + P.date(x.balance_due) : '') + '</small></td><td>' + badge(x.status) + '</td></tr>';
+        return '<tr class="click" data-id="' + x.id + '"><td><b>' + esc(x.ref) + '</b><br><small>' + P.date(x.created_at) + ' · ' + esc((x.lang || "").toUpperCase()) + '</small></td><td>' + what + '</td><td>' + esc(x.contact_name) + '<br><small>' + esc(x.phone) + (x.citizenship ? " · " + esc(x.citizenship) : "") + '</small></td><td>' + P.date(x.start_date) + '</td><td>' + (x.pax || "—") + '</td><td><small>' + (x.price_total ? P.money(x.paid_total || 0) + ' / ' + P.money(x.price_total) : esc(PM[x.pay_method] || "—")) + (x.balance_due && x.status === 'deposit_paid' ? '<br>70% muddati: ' + P.date(x.balance_due) : '') + '</small></td><td>' + badge(x.status) + '</td>' + (isOwner ? '<td><small>' + esc(A.staffName(x.assigned_to) || "— tayinlanmagan") + '</small></td>' : '') + '</tr>';
       }).join("") + '</tbody></table>';
     $$("tr[data-id]", box).forEach(function (tr) { tr.onclick = function () { openRequest(tr.dataset.id); }; });
   };
@@ -48,13 +52,15 @@
       '<div class="p-actions"><a class="btn btn--wa btn--sm" target="_blank" rel="noopener" href="' + wa(x.phone) + '">WhatsApp\'da yozish</a>' + (x.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(x.email) + '">E-mail</a>' : '') + '</div></div>';
     if (tr.length) h += '<div class="p-card"><h3>Sayohatchilar (' + tr.length + ')</h3><table class="tbl"><thead><tr><th>#</th><th>Ism</th><th>Familiya</th><th>Jinsi</th><th>Tug\'ilgan</th></tr></thead><tbody>' +
       tr.map(function (t, i) { return '<tr><td>' + (i + 1) + '</td><td>' + esc(t.first) + '</td><td>' + esc(t.last) + '</td><td>' + esc(t.gender) + '</td><td>' + esc(t.dob) + '</td></tr>'; }).join("") + '</tbody></table></div>';
-    h += '<div class="p-card"><h3>Holat va izoh</h3><div class="fld"><label>Holat</label><select id="r-st">' + Object.keys(RS).map(function (k) { return '<option value="' + k + '"' + (k === x.status ? " selected" : "") + '>' + RS[k] + '</option>'; }).join("") + '</select></div>' +
+    var mgSel = A.role === "admin" && A.mgrSelect ? await A.mgrSelect(x.assigned_to, "r-mgr") : "";
+    h += '<div class="p-card"><h3>Holat va izoh</h3>' + (mgSel ? '<div class="fld" style="margin-bottom:12px"><label>Menejer (kimning mijozi)</label>' + mgSel + '</div>' : (A.role === "manager" ? '' : '')) + '<div class="fld"><label>Holat</label><select id="r-st">' + Object.keys(RS).map(function (k) { return '<option value="' + k + '"' + (k === x.status ? " selected" : "") + '>' + RS[k] + '</option>'; }).join("") + '</select></div>' +
       '<div class="fld" style="margin-top:12px"><label>Ichki izoh (mijoz ko\'rmaydi)</label><textarea id="r-note">' + esc(x.admin_note || "") + '</textarea></div><div class="msg" id="m-r"></div>' +
       '<div class="p-actions"><button class="btn btn--gold btn--sm" id="r-save">Saqlash</button></div></div>';
     h += payCard(x);
     box.innerHTML = h;
     bindPay(x, id);
     $("#r-back").onclick = function (e) { e.preventDefault(); A.requests(); };
+    if ($("#r-mgr")) $("#r-mgr").onchange = async function () { var u = await sb.from("site_requests").update({ assigned_to: this.value || null }).eq("id", id); P.msg("#m-r", u.error ? u.error.message : "Menejer o'zgartirildi", u.error ? "err" : "ok"); };
     $("#r-save").onclick = async function () {
       var u = await sb.from("site_requests").update({ status: $("#r-st").value, admin_note: $("#r-note").value.trim() || null, updated_at: new Date().toISOString() }).eq("id", id);
       if (u.error) return P.msg("#m-r", u.error.message, "err");

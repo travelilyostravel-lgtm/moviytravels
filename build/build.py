@@ -509,7 +509,7 @@ def render_admin():
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button><button data-view="requests">Mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button><button data-view="requests">Mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button><button data-view="team" data-owner="1">Jamoa</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
@@ -517,7 +517,14 @@ def render_admin():
     <h2>Admin panel</h2><p class="p-sub">Faqat Moviy Nomad xodimlari uchun.</p>
     <div class="fld"><label>E-mail</label><input type="email" name="email" required></div>
     <div class="fld" style="margin-top:12px"><label>Parol</label><input type="password" name="password" required></div>
-    <div class="msg" id="m-login"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Kirish</button></div></form></div></section>
+    <div class="msg" id="m-login"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Kirish</button><button class="btn btn--outline" type="button" id="b-staff-signup">Yangi xodim: ro'yxatdan o'tish</button></div></form>
+    <form id="f-signup" class="hidden"><h2>Yangi xodim</h2><p class="p-sub">Asoschi sizning e-mailingizni jamoaga qo'shgan bo'lishi kerak.</p>
+    <div class="fld"><label>Ism familiya</label><input name="full_name" required></div>
+    <div class="fld" style="margin-top:12px"><label>E-mail (asoschi bergan)</label><input type="email" name="email" required></div>
+    <div class="fld" style="margin-top:12px"><label>Parol (kamida 10 belgi)</label><input type="password" name="password" minlength="10" required></div>
+    <div class="msg" id="m-signup"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Ro'yxatdan o'tish</button><button class="btn btn--outline" type="button" id="b-back-login">Orqaga</button></div></form>
+    <div id="v-2fa" class="hidden"></div></div></section>
+  <section id="v-team" class="hidden"></section>
   <section id="v-bookings" class="hidden"><div class="p-card"><h2>Bronlar</h2><div class="filters" id="bf"></div><div id="blist"></div></div></section>
   <section id="v-booking" class="hidden"></section>
   <section id="v-agencies" class="hidden"><div class="p-card"><h2>Agentliklar</h2><div class="filters" id="af"></div><div id="alist"></div></div></section>
@@ -531,7 +538,7 @@ def render_admin():
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
-<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-site.js"></script>
+<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script>
 <script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/admin-groups.js"></script>
 </body></html>
 """

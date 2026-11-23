@@ -10,7 +10,7 @@
   if (!P.configured) { $("#notcfg").hidden = false; show("login"); return; }
 
   function show(v) {
-    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts", "prices", "groups", "group"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
+    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts", "prices", "groups", "group", "team"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
     $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || b.dataset.view + "s" === v || (v === "booking" && b.dataset.view === "bookings") || (v === "agency" && b.dataset.view === "agencies") || (v === "request" && b.dataset.view === "requests") || (v === "group" && b.dataset.view === "groups")); });
     window.scrollTo(0, 0);
   }
@@ -25,13 +25,68 @@
   };
   $("#logout").onclick = async function () { await sb.auth.signOut(); location.reload(); };
 
+  // ---- new staff sign-up (only e-mails invited by the founder become managers)
+  $("#b-staff-signup").onclick = function () { $("#f-login").classList.add("hidden"); $("#f-signup").classList.remove("hidden"); };
+  $("#b-back-login").onclick = function () { $("#f-signup").classList.add("hidden"); $("#f-login").classList.remove("hidden"); };
+  $("#f-signup").onsubmit = async function (e) {
+    e.preventDefault(); var f = e.target;
+    var r = await sb.auth.signUp({ email: f.email.value.trim(), password: f.password.value, options: { data: { contact_name: f.full_name.value.trim() }, emailRedirectTo: location.href.split("?")[0] } });
+    if (r.error) return P.msg("#m-signup", r.error.message, "err");
+    P.msg("#m-signup", "Tayyor! E-mailingizga tasdiqlash xati keldi — havolani bosing, so'ng shu yerda kiring.", "ok");
+  };
+
+  // ---- 2-step login (authenticator app) for managers
+  function twofa(html) { $("#f-login").classList.add("hidden"); $("#f-signup").classList.add("hidden"); var b = $("#v-2fa"); b.classList.remove("hidden"); b.innerHTML = html; show("login"); }
+  async function ensureAal2() {
+    var a = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (a.data && a.data.currentLevel === "aal2") return true;
+    var lf = await sb.auth.mfa.listFactors(), tot = ((lf.data && lf.data.totp) || []).filter(function (f) { return f.status === "verified"; });
+    return new Promise(async function (done) {
+      var fid, qr = "";
+      if (tot.length) fid = tot[0].id;
+      else {
+        ((lf.data && lf.data.all) || []).filter(function (f) { return f.status !== "verified"; }).forEach(function (f) { sb.auth.mfa.unenroll({ factorId: f.id }); });
+        var en = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "Moviy Nomad " + new Date().toISOString().slice(0, 10) });
+        if (en.error) { twofa('<div class="msg msg--err">' + esc(en.error.message) + '</div>'); return done(false); }
+        fid = en.data.id; qr = en.data.totp.qr_code;
+      }
+      twofa('<h2>Ikki bosqichli kirish</h2>' + (qr ? '<p>1) Telefoningizga <b>Google Authenticator</b> (yoki Microsoft Authenticator) ilovasini o\'rnating.<br>2) Ilovada "+" → "QR kodni skanerlash" — shu kodni skanerlang:</p><div style="background:#fff;display:inline-block;padding:8px;border-radius:8px"><img alt="QR" style="width:200px;height:200px" src="' + qr + '"></div><p>3) Ilovadagi 6 xonali kodni yozing:</p>' : '<p>Telefoningizdagi Authenticator ilovasidan 6 xonali kodni yozing:</p>') +
+        '<div class="fld"><input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" style="font-size:24px;letter-spacing:6px;width:180px"></div><div class="msg" id="m-otp"></div><div class="p-actions"><button class="btn btn--gold" id="b-otp">Tasdiqlash</button><button class="btn btn--outline" id="b-otp-out">Chiqish</button></div>');
+      $("#b-otp-out").onclick = async function () { await sb.auth.signOut(); location.reload(); };
+      $("#b-otp").onclick = async function () {
+        var r = await sb.auth.mfa.challengeAndVerify({ factorId: fid, code: $("#otp").value.trim() });
+        if (r.error) return P.msg("#m-otp", "Kod noto'g'ri yoki eskirgan. Ilovadagi yangi kodni yozing.", "err");
+        done(true);
+      };
+    });
+  }
+  async function deviceOk() {
+    var r = await sb.rpc("register_device", { p_label: navigator.userAgent.slice(0, 180) });
+    if (r.data === "approved") return true;
+    var em = (await sb.rpc("founder_emails")).data || "";
+    twofa('<h2>Yangi qurilma</h2><div class="msg msg--info">Siz bu qurilmadan birinchi marta kiryapsiz. Xavfsizlik uchun <b>asoschi tasdiqlashi kerak</b>. Tasdiqlangach shu sahifani yangilang.</div>' +
+      '<div class="p-actions">' + (em ? '<a class="btn btn--gold" href="mailto:' + esc(em) + '?subject=' + encodeURIComponent("Moviy Nomad: yangi qurilmani tasdiqlang") + '&body=' + encodeURIComponent("Assalomu alaykum! Admin panelga yangi qurilmadan kiryapman. Iltimos, admin → Jamoa bo'limida tasdiqlang.\n" + navigator.userAgent) + '">Asoschiga xat yuborish</a>' : '') +
+      '<button class="btn btn--outline" onclick="location.reload()">Tekshirish</button><button class="btn btn--outline" id="b-dev-out">Chiqish</button></div>');
+    $("#b-dev-out").onclick = async function () { await sb.auth.signOut(); location.reload(); };
+    return false;
+  }
+
   async function boot() {
     var s = await sb.auth.getSession(), u = s.data.session && s.data.session.user;
     if (!u) return show("login");
     var p = (await sb.from("profiles").select("*").eq("id", u.id).single()).data;
-    if (!p || p.role !== "admin") { await sb.auth.signOut(); show("login"); return P.msg("#m-login", "Bu akkaunt admin emas.", "err"); }
-    $("#who").innerHTML = "<b>" + esc(p.full_name || "Admin") + "</b>" + esc(u.email);
+    if (!p || (p.role !== "admin" && p.role !== "manager") || p.active === false) { await sb.auth.signOut(); show("login"); return P.msg("#m-login", "Bu akkaunt admin panel uchun emas.", "err"); }
+    if (p.role === "manager") {
+      if (!(await ensureAal2())) return;
+      if (!(await deviceOk())) return;
+    }
+    window.MNA.role = p.role; window.MNA.me = p;
+    $("#v-2fa").classList.add("hidden");
+    document.body.classList.toggle("is-manager", p.role === "manager");
+    $("#who").innerHTML = "<b>" + esc(p.full_name || "Admin") + (p.role === "manager" ? " · menejer" : " · asoschi") + "</b>" + esc(u.email);
     $("#who").classList.remove("hidden"); $("#logout").classList.remove("hidden"); $("#tabs").classList.remove("hidden");
+    if (p.role === "manager") $$("#tabs button").forEach(function (b) { if (["agencies", "groups", "posts", "prices", "team"].indexOf(b.dataset.view) > -1) b.remove(); });
+    if (window.MNA.teamBadge && p.role === "admin") window.MNA.teamBadge();
     loadBookings();
   }
 
@@ -41,14 +96,18 @@
     show("bookings");
     $("#bf").innerHTML = BF.map(function (f) { return '<button data-f="' + f[0] + '" class="' + (f[0] === bFilter ? "is-on" : "") + '">' + f[1] + '</button>'; }).join("");
     $$("#bf button").forEach(function (b) { b.onclick = function () { bFilter = b.dataset.f; loadBookings(); }; });
-    var q = sb.from("bookings").select("id,ref,tour_title,start_date,pax,brutto,netto,commission_pct,status,created_at,agencies(name,country)").order("created_at", { ascending: false }).limit(300);
+    var mh = $("#bm"); if (!mh) { mh = document.createElement("div"); mh.id = "bm"; mh.className = "filters"; $("#bf").after(mh); }
+    if (window.MNA.mgrChips) await window.MNA.mgrChips(mh, loadBookings);
+    var isOwner = window.MNA.role === "admin";
+    var q = sb.from("bookings").select("id,ref,tour_title,start_date,pax,brutto,netto,commission_pct,status,created_at,agencies(name,country,manager_id)").order("created_at", { ascending: false }).limit(300);
     if (bFilter === "active") q = q.in("status", ["request", "awaiting_payment", "payment_reported", "paid"]);
     else if (bFilter !== "all") q = q.eq("status", bFilter);
     var r = await q, box = $("#blist");
     if (r.error) { box.innerHTML = '<div class="msg msg--err">' + esc(r.error.message) + '</div>'; return; }
+    if (isOwner) r.data = r.data.filter(function (b) { return window.MNA.mgrPass(b.agencies && b.agencies.manager_id); });
     if (!r.data.length) { box.innerHTML = '<div class="empty">Bron yo\'q.</div>'; return; }
-    box.innerHTML = '<table class="tbl"><thead><tr><th>Raqam</th><th>Agentlik</th><th>Tur</th><th>Boshlanish</th><th>Kishi</th><th class="num">Brutto</th><th class="num">Netto</th><th>Holat</th></tr></thead><tbody>' +
-      r.data.map(function (b) { return '<tr class="click" data-id="' + b.id + '"><td><b>' + esc(b.ref) + '</b><br><small>' + P.date(b.created_at) + '</small></td><td>' + esc(b.agencies ? b.agencies.name : "") + '<br><small>' + esc(b.agencies ? b.agencies.country : "") + '</small></td><td>' + esc(b.tour_title) + '</td><td>' + P.date(b.start_date) + '</td><td>' + b.pax + '</td><td class="num">' + P.money(b.brutto) + '</td><td class="num"><b>' + P.money(b.netto) + '</b><br><small>' + b.commission_pct + '%</small></td><td>' + P.badge(b.status, L) + '</td></tr>'; }).join("") + '</tbody></table>';
+    box.innerHTML = '<table class="tbl"><thead><tr><th>Raqam</th><th>Agentlik</th><th>Tur</th><th>Boshlanish</th><th>Kishi</th><th class="num">Brutto</th><th class="num">Netto</th><th>Holat</th>' + (isOwner ? '<th>Menejer</th>' : '') + '</tr></thead><tbody>' +
+      r.data.map(function (b) { return '<tr class="click" data-id="' + b.id + '"><td><b>' + esc(b.ref) + '</b><br><small>' + P.date(b.created_at) + '</small></td><td>' + esc(b.agencies ? b.agencies.name : "") + '<br><small>' + esc(b.agencies ? b.agencies.country : "") + '</small></td><td>' + esc(b.tour_title) + '</td><td>' + P.date(b.start_date) + '</td><td>' + b.pax + '</td><td class="num">' + P.money(b.brutto) + '</td><td class="num"><b>' + P.money(b.netto) + '</b><br><small>' + b.commission_pct + '%</small></td><td>' + P.badge(b.status, L) + '</td>' + (isOwner ? '<td><small>' + esc(window.MNA.staffName(b.agencies && b.agencies.manager_id) || "— tayinlanmagan") + '</small></td>' : '') + '</tr>'; }).join("") + '</tbody></table>';
     $$("tr[data-id]", box).forEach(function (tr) { tr.onclick = function () { openBooking(tr.dataset.id); }; });
   }
 
@@ -216,7 +275,8 @@
       '<h2 style="margin-top:14px">' + esc(a.name) + '</h2><table class="tbl" style="margin:10px 0 20px">' + info.map(function (i) { return '<tr><td style="width:200px;color:var(--muted)">' + i[0] + '</td><td><b>' + esc(i[1] == null || i[1] === "" ? "—" : i[1]) + '</b></td></tr>'; }).join("") + '</table>' +
       '<h3>Hujjatlar</h3><div class="files">' + (docs.length ? docs.map(function (d) { return '<div class="file"><b>' + esc(d.kind) + ' — ' + esc(d.file_name || "") + '</b><button data-d="' + esc(d.file_path) + '">Ochish</button></div>'; }).join("") : '<div class="empty">Hujjat yuklanmagan.</div>') + '</div>' +
       '<div class="p-grid" style="margin-top:20px"><div class="fld"><label>Komissiya, %</label><input type="number" step="0.5" min="0" max="50" id="ag-comm" value="' + a.commission_pct + '"></div>' +
-      '<div class="fld"><label>Izoh (rad etilsa agent ko\'radi)</label><input id="ag-note" value="' + esc(a.admin_note || "") + '"></div></div>' +
+      '<div class="fld"><label>Izoh (rad etilsa agent ko\'radi)</label><input id="ag-note" value="' + esc(a.admin_note || "") + '"></div>' +
+      '<div class="fld"><label>Menejer (shu agentlik bronlari kimda)</label>' + (await window.MNA.mgrSelect(a.manager_id, "ag-mgr")) + '</div></div>' +
       '<div class="msg" id="m-ag"></div><div class="p-actions"><button class="btn btn--green" data-st="approved">Tasdiqlash</button><button class="btn btn--navy" data-st="">Faqat saqlash</button><button class="btn btn--outline" data-st="rejected">Rad etish</button><button class="btn btn--red" data-st="blocked">Bloklash</button></div></div>';
     $("#back").onclick = loadAgencies;
     $$("[data-d]", box).forEach(function (x) { x.onclick = function () { P.openFile("agency-docs", x.dataset.d); }; });
@@ -224,7 +284,7 @@
       x.onclick = async function () {
         var cm = parseFloat($("#ag-comm").value);
         if (isNaN(cm) || cm < 0 || cm > 50) return P.msg("#m-ag", "Komissiya 0–50% oralig'ida bo'lsin.", "err");
-        var f = { commission_pct: cm, admin_note: $("#ag-note").value.trim() || null };
+        var f = { commission_pct: cm, admin_note: $("#ag-note").value.trim() || null, manager_id: $("#ag-mgr").value || null };
         if (x.dataset.st) f.status = x.dataset.st;
         if (x.dataset.st === "approved" && !docs.length && !confirm("Hujjat yuklanmagan. Baribir tasdiqlansinmi?")) return;
         var r = await sb.from("agencies").update(f).eq("id", id);

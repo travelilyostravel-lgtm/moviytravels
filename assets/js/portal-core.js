@@ -2,7 +2,10 @@
 (function () {
   var cfg = window.MN_SB || {};
   var configured = !!(cfg.url && cfg.anonKey && window.supabase);
-  var sb = configured ? window.supabase.createClient(cfg.url, cfg.anonKey, { auth: { persistSession: true, autoRefreshToken: true } }) : null;
+  // a random id for this browser/device (managers must log in from approved devices)
+  var dev = null;
+  try { dev = localStorage.getItem("mn_dev"); if (!dev || dev.length < 32) { var a = new Uint8Array(16); crypto.getRandomValues(a); dev = Array.from(a, function (n) { return ("0" + n.toString(16)).slice(-2); }).join(""); localStorage.setItem("mn_dev", dev); } } catch (e) {}
+  var sb = configured ? window.supabase.createClient(cfg.url, cfg.anonKey, { auth: { persistSession: true, autoRefreshToken: true }, global: { headers: dev ? { "x-device-id": dev } : {} } }) : null;
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function money(n, cur) { if (n == null || isNaN(n)) return "—"; return (cur === "EUR" ? "€" : "$") + Number(n).toLocaleString("en", { minimumFractionDigits: 0, maximumFractionDigits: 2 }); }
