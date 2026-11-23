@@ -8,6 +8,7 @@
   var nav = document.querySelector('.nav');
   document.querySelector('.burger').addEventListener('click', function () { nav.classList.toggle('is-open'); });
   nav.addEventListener('click', function (e) { if (e.target.tagName === 'A') nav.classList.remove('is-open'); });
+  [].forEach.call(nav.querySelectorAll('.nav__ddb'), function (b) { b.addEventListener('click', function () { if (window.innerWidth <= 860) b.parentNode.classList.toggle('is-open'); }); });
 
   // Language menu
   var lang = document.querySelector('.lang');
