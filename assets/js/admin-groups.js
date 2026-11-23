@@ -53,7 +53,7 @@
     var up = all.filter(function (x) { return x.start_date >= today; }), past = all.filter(function (x) { return x.start_date < today; });
     var drafts = up.filter(function (x) { return !x.published; }).length;
     var notify = reqs.filter(function (x) { return !(x.details || {}).departure_id; }).length;
-    var h = '<div class="p-actions" style="margin-top:0"><button class="btn btn--gold btn--sm" id="g-new">+ Yangi sana</button><button class="btn btn--outline btn--sm" id="g-gen">Yillik jadval yaratish</button>' +
+    var h = '<div class="p-actions" style="margin-top:0"><button class="btn btn--gold btn--sm" id="g-new">+ Yangi sana</button><button class="btn btn--outline btn--sm" id="g-gen">Yillik jadval yaratish</button><button class="btn btn--green btn--sm" id="g-roster-all">⬇ Barcha guruhlar ro\'yxati (Excel)</button>' +
       (drafts ? '<button class="btn btn--outline btn--sm" id="g-pub">Barcha qoralamalarni e\'lon qilish (' + drafts + ')</button>' : '') + '</div>' +
       (notify ? '<p class="p-sub" style="margin-top:12px">📩 "Sana chiqsa xabar bering" so\'rovlari: <b>' + notify + '</b> — Mijoz so\'rovlari bo\'limida.</p>' : '') +
       '<div class="msg" id="g-msg"></div>';
@@ -64,6 +64,7 @@
     if ($("#g-sched") && window.MN_GDS) window.MN_GDS.render($("#g-sched"), up, { lang: "uz", range: function (x) { return P.date(x.start_date) + " — " + P.date(endDate(x)); }, title: title, onPick: function (x) { edit(x); } });
     $("#g-new").onclick = function () { edit(null); };
     $("#g-gen").onclick = generator;
+    $("#g-roster-all").onclick = async function () { this.disabled = true; this.textContent = "Tayyorlanmoqda…"; await A.rosterAll(up); this.disabled = false; this.textContent = "⬇ Barcha guruhlar ro'yxati (Excel)"; };
     if ($("#g-pub")) $("#g-pub").onclick = async function () {
       var ids = up.filter(function (x) { return !x.published; }).map(function (x) { return x.id; });
       var u = await sb.from("group_departures").update({ published: true, updated_at: new Date().toISOString() }).in("id", ids);
@@ -117,6 +118,7 @@
         rq.map(function (r) { return '<tr><td><b>' + esc(r.ref) + '</b><br><small>' + P.date(r.created_at) + '</small></td><td>' + esc(r.contact_name) + '<br><small>' + esc(r.phone) + (r.citizenship ? " · " + esc(r.citizenship) : "") + '</small></td><td>' + (r.pax || 1) + '</td><td>' + esc(ROOM[(r.details || {}).room] || "—") + '</td><td>' + esc(r.status) + '</td></tr>'; }).join("") +
         '</tbody></table><p class="p-sub">Holatni «Mijoz so\'rovlari» bo\'limida o\'zgartirasiz. To\'lov qilganlarni «Band qilingan joylar»ga qo\'shing.</p></div>' : '');
     $("#g-back").onclick = function (e) { e.preventDefault(); A.groups(); };
+    if (x.id && A.rosterBox) { box.insertAdjacentHTML("beforeend", '<div id="g-roster"></div>'); A.rosterBox(x, $("#g-roster")); }
     function upd() {
       var tid = $("#g-tour").value, cap = parseInt($("#g-cap").value, 10) || 50, g = parseInt($("#g-guides").value, 10) || 1;
       var dt = $("#g-date").value; $("#g-end").textContent = dt ? "Tugashi: " + P.date(endDate({ start_date: dt, tour_id: tid })) : "";
