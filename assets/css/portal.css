@@ -145,3 +145,20 @@ body.portal{background:var(--sand);min-height:100vh}
 .np-mk__opt .np-in:disabled{opacity:.4}
 .np-dim{opacity:.4;pointer-events:none}
 @media (max-width:700px){.np-mk__opt{grid-template-columns:22px 1fr}.np-mk__opt .np-in{grid-column:2}}
+/* Agent price box: brutto first, commission behind a button, recalculate (2026-11-23) */
+.agp{margin-top:14px;padding:18px;border-radius:18px;background:#f6f9fc;border:1.5px solid #d9e5ef}
+.agp__br small{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.agp__br b{display:block;font-family:var(--font-head);font-size:34px;color:var(--navy);line-height:1.15}
+.agp__br span{font-size:13px;color:var(--muted)}
+.agp__btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.agp__comm{background:#6d3fc0;color:#fff;border:0;box-shadow:0 6px 16px rgba(109,63,192,.28)}
+.agp__comm:hover{background:#5b31a8}
+.agp__comm[aria-expanded="true"]{background:#4a2690}
+.agp__re{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+.agp__re:disabled{opacity:.6}
+.agp__panel{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;padding:12px;border-radius:14px;background:#f1ebfb;border:1.5px dashed #9b7bd6}
+.agp__panel small{display:block;color:#5c4a7d;font-size:12px}
+.agp__panel b{font-size:20px;color:#3d2178}
+.agp__state{margin-top:10px;font-size:13px;color:var(--muted)}
+.agp__state.is-old{color:#a0560b;background:#fff4e5;padding:8px 10px;border-radius:10px}
+@media (max-width:640px){.agp__panel{grid-template-columns:1fr}.agp__br b{font-size:28px}}

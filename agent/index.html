@@ -5,7 +5,7 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=ccebf071"><link rel="stylesheet" href="../assets/css/deck.css?v=cd9ae6d7"><link rel="stylesheet" href="../assets/css/portal.css?v=76686394">
+<link rel="stylesheet" href="../assets/css/site.css?v=ccebf071"><link rel="stylesheet" href="../assets/css/deck.css?v=cd9ae6d7"><link rel="stylesheet" href="../assets/css/portal.css?v=da6d72dc">
 </head>
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Agent portal</span><span class="p-top__sp"></span>
@@ -83,8 +83,13 @@
       <h3>Your quote</h3>
       <div id="q-empty" class="empty">Choose a ready tour or build a route above.</div>
       <div id="q-body" class="hidden">
-        <div class="kv"><div><small>Tour</small><b id="q-title"></b></div><div><small>Travellers</small><b id="q-pax"></b></div><div><small>Brutto (client price)</small><b id="q-brutto"></b></div><div class="hl"><small>Your netto</small><b id="q-netto"></b></div></div>
-        <p class="p-sub" style="margin-top:10px" id="q-comm"></p>
+        <div class="kv"><div><small>Tour</small><b id="q-title"></b></div><div><small>Travellers</small><b id="q-pax"></b></div></div>
+        <div class="agp">
+          <div class="agp__br"><small>Client price (brutto)</small><b id="q-brutto"></b><span id="q-pp"></span></div>
+          <div class="agp__btns"><button type="button" class="btn agp__comm" id="q-commbtn" aria-expanded="false">% Commission</button><button type="button" class="btn agp__re" id="q-re">⟳ Recalculate</button></div>
+          <div class="agp__panel hidden" id="q-cpanel"><div><small>Your commission</small><b id="q-cpct"></b></div><div><small>You earn</small><b id="q-camt"></b></div><div><small>You pay Moviy Nomad (netto)</small><b id="q-netto"></b></div></div>
+          <p class="agp__state" id="q-state"></p>
+        </div>
         <div class="msg" style="margin-top:10px;font-size:13.5px;line-height:1.5"><b>Payment &amp; cancellation (summary).</b> 30% deposit within 3 working days of our invoice; the remaining 70% no later than 14 days before the start (100% at once if booked later). Unpaid balance: one reminder + 48 h, then the booking is cancelled and the deposit is kept. Cancellation fees: 31+ days — bank fees and non-refundable tickets only; 30–15 days — 15%; 14–8 days — 50%; 7–3 days — 75%; 2 days or less / no-show — 100%. An agent who refuses to pay twice is suspended. <a href="../terms.html" target="_blank">Full terms</a></div>
         <div class="p-grid"><div class="fld"><label>Start date *</label><input type="date" id="q-date"></div><div class="fld"><label>Note for Moviy Nomad</label><input id="q-note" placeholder="Arrival flight, special wishes…"></div></div>
         <div class="msg" id="m-quote"></div>
@@ -103,5 +108,5 @@
 <script>window.MN={"whatsapp": "998999804214", "telegram": "moviy_safina", "instagram": "moviy_nomad", "msgGeneral": "Hello Moviy Nomad! I'd like to plan a trip to Uzbekistan.", "msgTour": "Hello Moviy Nomad! I'm interested in the \"{tour}\" tour. Please send me the program and price.", "bookLabel": "Book online", "bookReqLabel": "Send a request"};</script>
 <script src="../assets/vendor/supabase.js?v=1e521513"></script><script src="../assets/js/sb-config.js?v=770b2c91"></script><script src="../assets/js/portal-core.js?v=391e0da1"></script>
 <script src="../assets/data/catalog.js?v=7b955866"></script><script src="../assets/data/places.js?v=b7d83857"></script><script src="../assets/data/geo.js?v=66ac0701"></script><script src="../assets/data/tours.js?v=891c97e6"></script>
-<script src="../assets/data/l10n/en.js?v=dd36ea65"></script><script src="../assets/js/engine.js?v=fc20cba8"></script><script src="../assets/js/builder.js?v=00048f71"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/agent.js?v=9bc913c5"></script>
+<script src="../assets/data/l10n/en.js?v=dd36ea65"></script><script src="../assets/js/engine.js?v=f93ef7e0"></script><script src="../assets/js/builder.js?v=00048f71"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/agent.js?v=33e5a0a8"></script>
 </body></html>

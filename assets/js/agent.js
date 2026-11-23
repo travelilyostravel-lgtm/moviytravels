@@ -10,24 +10,39 @@
     window.scrollTo(0, 0);
   }
   $$("#tabs button").forEach(function (b) { b.onclick = function () { go(b.dataset.view); }; });
+  var groupRows = [], gbComm = false;
   async function loadGroups() {
     var box = $("#ag-sched"); box.innerHTML = '<p class="p-sub">Loading…</p>';
-    var r = await sb.from("group_departures").select("id,tour_id,start_date,capacity,booked,price_pp,status,group_kind").gte("start_date", new Date().toISOString().slice(0, 10)).order("start_date");
+    var r = await sb.from("group_departures").select("id,tour_id,start_date,capacity,booked,price_pp,single_supp,status,group_kind").gte("start_date", new Date().toISOString().slice(0, 10)).order("start_date");
     var L = window.MN_L || {}, T = window.MN_TOURS || {};
-    var rows = r.data || [];
+    var rows = r.data || []; groupRows = rows;
     var rng = function (x) { var d = new Date(x.start_date + "T12:00:00"), n = (T[x.tour_id] ? T[x.tour_id].days.length : 8) - 1, e = new Date(d); e.setDate(e.getDate() + n); var f = function (z) { return z.toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }; return f(d) + " – " + f(e) + " " + e.getFullYear(); };
     var KN = { small: "Small group 12–17", medium: "Medium group 30–35", large: "Large group 45–50" };
     function pick(x) {
       var f = $("#ag-gbook"), left = Math.max(0, x.capacity - x.booked), tname = ((L.tours || {})[x.tour_id] || [x.tour_id])[0];
-      var comm = window.MN_ENGINE && window.MN_ENGINE.commission ? window.MN_ENGINE.commission(x.tour_id, me.agency.commission_pct) : Number(me.agency.commission_pct || 0);
+      var comm = window.MN_ENGINE && window.MN_ENGINE.commission ? window.MN_ENGINE.commission(x.tour_id, me.agency.commission_pct) : Number(me.agency.commission_pct || 0), note = arguments[1] || "";
       f.innerHTML = '<div class="p-card" style="margin-top:16px;border:2px solid #12355b"><h3>Book seats: ' + esc(tname) + ' · ' + esc(rng(x)) + '</h3><p class="p-sub">' + esc(KN[x.group_kind] || "") + ' · <b>' + left + ' seats left</b> · $' + x.price_pp + ' per person (twin share)' + (x.single_supp ? ' · single room +$' + x.single_supp : '') + '</p>' +
         '<div class="p-grid"><div class="fld"><label>Travellers</label><input type="number" id="gb-pax" min="1" max="' + left + '" value="1"></div><div class="fld"><label>Room</label><select id="gb-room"><option value="twin">Twin / double share</option><option value="single">Single room</option></select></div>' +
         '<div class="fld" style="grid-column:1/-1"><label>Note for Moviy Nomad (optional)</label><input id="gb-note" maxlength="500"></div></div>' +
-        '<div class="kv" style="margin-top:10px"><div><small>Brutto (client price)</small><b id="gb-br"></b></div><div class="hl"><small>Your net to pay (' + comm + '% commission)</small><b id="gb-nt"></b></div></div>' +
+        '<div class="agp"><div class="agp__br"><small>Client price (brutto)</small><b id="gb-br"></b><span>the same price travellers see on our website</span></div>' +
+        '<div class="agp__btns"><button type="button" class="btn agp__comm" id="gb-commbtn">% Commission</button><button type="button" class="btn agp__re" id="gb-re">⟳ Recalculate</button></div>' +
+        '<div class="agp__panel' + (gbComm ? '' : ' hidden') + '" id="gb-cpanel"><div><small>Your commission</small><b>' + comm + '%</b></div><div><small>You earn</small><b id="gb-ca"></b></div><div><small>You pay Moviy Nomad (netto)</small><b id="gb-nt"></b></div></div>' +
+        '<p class="agp__state">' + note + 'Seats and prices checked at ' + new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) + '. If you come back later, press <b>Recalculate</b>.</p></div>' +
         '<p class="p-sub">Payment: 30% within 3 working days of our invoice, 70% no later than 14 days before the start. Seats are held for you as soon as we confirm your 30% deposit.</p>' +
         '<div class="msg" id="m-gb"></div><div class="p-actions"><button class="btn btn--gold" id="gb-go">Book seats</button></div></div>';
-      function calc() { var n = Math.max(1, Math.min(left, parseInt($("#gb-pax").value, 10) || 1)), br = n * x.price_pp + ($("#gb-room").value === "single" ? n * (x.single_supp || 0) : 0); $("#gb-br").textContent = P.money(br); $("#gb-nt").textContent = P.money(Math.round(br * (1 - comm / 100) * 100) / 100); return { n: n, br: br }; }
+      function calc() { var n = Math.max(1, Math.min(left, parseInt($("#gb-pax").value, 10) || 1)), br = n * x.price_pp + ($("#gb-room").value === "single" ? n * (x.single_supp || 0) : 0); $("#gb-br").textContent = P.money(br); var nt = Math.round(br * (1 - comm / 100) * 100) / 100; $("#gb-nt").textContent = P.money(nt); $("#gb-ca").textContent = P.money(Math.round((br - nt) * 100) / 100); return { n: n, br: br }; }
       $("#gb-pax").oninput = $("#gb-room").onchange = calc; calc();
+      $("#gb-commbtn").onclick = function () { gbComm = !gbComm; $("#gb-cpanel").classList.toggle("hidden", !gbComm); };
+      $("#gb-re").onclick = async function () {
+        this.disabled = true; this.textContent = "⟳ Updating…";
+        var pax = $("#gb-pax").value, room = $("#gb-room").value, oldP = x.price_pp, oldL = left;
+        try { await refreshAll(); await loadGroups(); } catch (e) {}
+        var nx = groupRows.filter(function (g) { return g.id === x.id; })[0];
+        if (!nx) { f.innerHTML = '<div class="msg msg--err" style="margin-top:16px">This departure is no longer available. Please choose another date.</div>'; return; }
+        var nl = Math.max(0, nx.capacity - nx.booked);
+        pick(nx, (nx.price_pp !== oldP ? "<b>Price updated: $" + oldP + " → $" + nx.price_pp + " pp.</b> " : "") + (nl !== oldL ? "<b>Free seats now: " + nl + ".</b> " : "") + (nx.price_pp === oldP && nl === oldL ? "✓ Up to date. " : ""));
+        $("#gb-pax").value = Math.min(+pax || 1, nl || 1); $("#gb-room").value = room; $("#gb-pax").dispatchEvent(new Event("input"));
+      };
       f.scrollIntoView({ behavior: "smooth", block: "start" });
       $("#gb-go").onclick = async function () {
         var c = calc(); if (c.n > left) return P.msg("#m-gb", "Only " + left + " seats left.", "err");
@@ -144,6 +159,15 @@
   };
 
   // ---------------------------------------------------------------- quote (builder hook)
+  // Brutto is shown first (the agent can show the screen to the client); commission and netto open with the "% Commission" button.
+  var lastBr = null, commOpen = false;
+  var hhmm = function (d) { return d ? d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) : "—"; };
+  function qState(extra) {
+    var at = window.MN_ENGINE && MN_ENGINE.pricesAt ? MN_ENGINE.pricesAt() : null, old = at && (Date.now() - at.getTime() > 10 * 60 * 1000);
+    var el = $("#q-state"); if (!el) return;
+    el.className = "agp__state" + (old ? " is-old" : "");
+    el.innerHTML = (extra ? extra + " " : "") + "Prices checked at " + hhmm(at) + (old ? " — they may have changed. Press <b>Recalculate</b>." : ".");
+  }
   window.MN_ON_QUOTE = function (q) {
     quote = q;
     $("#q-empty").classList.toggle("hidden", !!q); $("#q-body").classList.toggle("hidden", !q);
@@ -151,16 +175,39 @@
     var c = window.MN_ENGINE && window.MN_ENGINE.commission ? window.MN_ENGINE.commission(q.tour_id, me.agency.commission_pct) : Number(me.agency.commission_pct || 0), brutto = q.price.total, netto = Math.round(brutto * (1 - c / 100) * 100) / 100;
     $("#q-title").textContent = q.tour_title + " · " + q.price.days + " days";
     $("#q-pax").textContent = q.price.pax + (q.config.single ? " (single rooms)" : "");
-    $("#q-brutto").textContent = P.money(brutto) + " (" + P.money(q.price.pp) + " pp)";
+    $("#q-brutto").textContent = P.money(brutto);
+    $("#q-pp").textContent = P.money(q.price.pp) + " per person — the same price travellers see on our website";
+    $("#q-cpct").textContent = c + "%";
+    $("#q-camt").textContent = P.money(Math.round((brutto - netto) * 100) / 100);
     $("#q-netto").textContent = P.money(netto);
-    $("#q-comm").textContent = "Your commission: " + c + "% = " + P.money(brutto - netto) + ". Sell to your client at the brutto price — the same price travellers see on our website.";
+    $("#q-cpanel").classList.toggle("hidden", !commOpen);
+    lastBr = brutto; qState();
   };
+  $("#q-commbtn").onclick = function () { commOpen = !commOpen; this.setAttribute("aria-expanded", commOpen); $("#q-cpanel").classList.toggle("hidden", !commOpen); };
+  // Re-read the agency commission and the latest prices from the server, then everything on the screen is recalculated
+  function refreshAll() { return Promise.race([refreshAll0(), new Promise(function (_, no) { setTimeout(function () { no(new Error("timeout")); }, 10000); })]); }
+  async function refreshAll0() {
+    var a = me.agency && me.agency.id ? await sb.from("agencies").select("*").eq("id", me.agency.id).single() : null;
+    if (a && a.data) me.agency = a.data;
+    if (window.MN_ENGINE && MN_ENGINE.refreshPrices) await MN_ENGINE.refreshPrices();
+  }
+  $("#q-re").onclick = async function () {
+    var b = this, before = lastBr; b.disabled = true; b.textContent = "⟳ Updating…";
+    try { await refreshAll(); } catch (e) {}
+    b.disabled = false; b.textContent = "⟳ Recalculate";
+    if (quote) window.MN_ON_QUOTE(quote);
+    qState(before !== null && lastBr !== null && before !== lastBr ? "<b>Price updated: " + P.money(before) + " → " + P.money(lastBr) + ".</b>" : "✓ Up to date.");
+  };
+  setInterval(function () { if (quote && !document.hidden) qState(); }, 60000);
   $("#q-book").onclick = async function () {
     if (!quote) return;
     var d = $("#q-date").value;
     if (!d) return P.msg("#m-quote", "Choose the start date.", "err");
     if (new Date(d) < new Date(new Date().toDateString())) return P.msg("#m-quote", "The start date is in the past.", "err");
-    this.disabled = true; P.msg("#m-quote", "Creating the booking…");
+    this.disabled = true; P.msg("#m-quote", "Checking the latest price…");
+    var before = lastBr; try { await refreshAll(); } catch (e) {}
+    if (before !== null && lastBr !== null && before !== lastBr) { this.disabled = false; qState("<b>Price updated: " + P.money(before) + " → " + P.money(lastBr) + ".</b>"); return P.msg("#m-quote", "The price has just been updated. Please check the new brutto with your client and press Book again.", "err"); }
+    P.msg("#m-quote", "Creating the booking…");
     var row = { agency_id: me.agency.id, tour_id: quote.tour_id, tour_title: quote.tour_title, config: quote.config, start_date: d,
       pax: quote.price.pax, brutto: quote.price.total, agent_note: $("#q-note").value.trim() || null };
     var r = await sb.from("bookings").insert(row).select().single();

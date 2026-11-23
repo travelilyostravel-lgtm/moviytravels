@@ -171,11 +171,25 @@
       .then(function (rows) {
         clearTimeout(timer);
         var d = rows && rows[0] && rows[0].data, txt = d ? JSON.stringify(d) : null;
-        if (d && txt !== cached) { applyPrices(d); try { localStorage.setItem(KEY, txt); } catch (e) {} firePrices(); }
+        pricesAt = new Date(); if (d && txt !== cached) { applyPrices(d); try { localStorage.setItem(KEY, txt); } catch (e) {} firePrices(); }
         else if (!pricesLoaded) firePrices();
       })
       .catch(function () { clearTimeout(timer); if (!pricesLoaded) firePrices(); });
   })();
+
+  // Force a fresh read of the selling prices (agent "Recalculate" button); always re-runs the price callbacks
+  var pricesAt = null;
+  function refreshPrices() {
+    var SB = window.MN_SB;
+    if (!SB || !SB.url || !window.fetch) return Promise.resolve(false);
+    return fetch(SB.url + "/rest/v1/price_config?id=eq.public&select=data&_=" + Date.now(), { cache: "no-store", headers: { apikey: SB.anonKey, Authorization: "Bearer " + SB.anonKey } })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        var d = rows && rows[0] && rows[0].data; if (!d) return false;
+        applyPrices(d); try { localStorage.setItem("mn_prices_v1", JSON.stringify(d)); } catch (e) {}
+        pricesAt = new Date(); firePrices(); return true;
+      });
+  }
 
   // Countries whose prices / calculator are open to the public (others: presentation only, "coming soon")
   function isOpen(cc) { return (C.openCountries || ["UZ"]).indexOf(cc) > -1; }
@@ -267,5 +281,5 @@
     svg.innerHTML = out;
   }
 
-  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, commission: function (tid, agencyPct) { var x = C.tourComm && tid ? C.tourComm[tid] : undefined; return x !== undefined && x !== null && x !== "" ? num(x, 0) : num(agencyPct, 0); }, isOpen: isOpen, tourOpen: tourOpen, cityOpen: cityOpen, applyPrices: applyPrices, onPrices: onPrices, roomPrice: roomPrice, legTicket: legTicket, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
+  window.MN_ENGINE = { t: t, L: L, img: img, leg: leg, hours: hours, price: price, fromPrice: fromPrice, commission: function (tid, agencyPct) { var x = C.tourComm && tid ? C.tourComm[tid] : undefined; return x !== undefined && x !== null && x !== "" ? num(x, 0) : num(agencyPct, 0); }, isOpen: isOpen, tourOpen: tourOpen, cityOpen: cityOpen, applyPrices: applyPrices, onPrices: onPrices, refreshPrices: refreshPrices, pricesAt: function () { return pricesAt; }, roomPrice: roomPrice, legTicket: legTicket, route: route, drawMap: drawMap, autoTransport: autoTransport, MODE_ICON: MODE_ICON, MODE_NAME: MODE_NAME, byId: byId };
 })();
