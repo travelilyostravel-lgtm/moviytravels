@@ -288,3 +288,11 @@ create policy mn_files_insert on storage.objects for insert to authenticated wit
 
 -- ---------------------------------------------------------------- give existing unassigned clients to nobody (founder keeps them)
 -- (nothing to do: old requests stay "Tayinlanmagan" until the founder assigns them)
+
+-- ---------------------------------------------------------------- managers may VIEW prices and group dates (not change them)
+drop policy if exists price_mgr_read on public.price_config;
+create policy price_mgr_read on public.price_config for select to authenticated using (public.is_manager());
+drop policy if exists price_log_mgr on public.price_config_log;
+create policy price_log_mgr on public.price_config_log for select to authenticated using (public.is_manager());
+drop policy if exists group_departures_mgr_read on public.group_departures;
+create policy group_departures_mgr_read on public.group_departures for select to authenticated using (public.is_manager());

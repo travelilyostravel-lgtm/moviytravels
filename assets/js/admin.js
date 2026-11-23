@@ -85,7 +85,19 @@
     document.body.classList.toggle("is-manager", p.role === "manager");
     $("#who").innerHTML = "<b>" + esc(p.full_name || "Admin") + (p.role === "manager" ? " · menejer" : " · asoschi") + "</b>" + esc(u.email);
     $("#who").classList.remove("hidden"); $("#logout").classList.remove("hidden"); $("#tabs").classList.remove("hidden");
-    if (p.role === "manager") $$("#tabs button").forEach(function (b) { if (["agencies", "groups", "posts", "prices", "team"].indexOf(b.dataset.view) > -1) b.remove(); });
+    if (p.role === "manager") {
+      $$("#tabs button").forEach(function (b) { if (["agencies", "posts", "team"].indexOf(b.dataset.view) > -1) b.remove(); });
+      // prices and group dates: view only for managers (the database refuses changes anyway)
+      ["#v-prices", "#v-groups", "#v-group"].forEach(function (q) {
+        var el = $(q); if (!el) return;
+        var lock = function () {
+          if (!$(".ro-note", el)) { var n = document.createElement("div"); n.className = "msg msg--info ro-note"; n.textContent = "Faqat ko'rish rejimi: narx va sanalarni faqat asoschi o'zgartiradi."; el.prepend(n); }
+          $$("input,select,textarea", el).forEach(function (i) { if (!i.closest(".filters") && i.id !== "gd-month") i.disabled = true; });
+          $$("button", el).forEach(function (bt) { if (/btn--(gold|green|red|danger|navy)/.test(bt.className) || /saqla|yarat|o'chir|e'lon|nashr|qo'sh/i.test(bt.textContent)) bt.style.display = "none"; });
+        };
+        new MutationObserver(function () { clearTimeout(el._ro); el._ro = setTimeout(lock, 60); }).observe(el, { childList: true, subtree: true });
+      });
+    }
     if (window.MNA.teamBadge && p.role === "admin") window.MNA.teamBadge();
     loadBookings();
   }
