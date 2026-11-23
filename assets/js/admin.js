@@ -10,7 +10,7 @@
   if (!P.configured) { $("#notcfg").hidden = false; show("login"); return; }
 
   function show(v) {
-    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts", "prices", "groups", "group", "team", "customers"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
+    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts", "prices", "groups", "group", "team", "customers", "partners"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
     $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || b.dataset.view + "s" === v || (v === "booking" && b.dataset.view === "bookings") || (v === "agency" && b.dataset.view === "agencies") || (v === "request" && b.dataset.view === "requests") || (v === "group" && b.dataset.view === "groups")); });
     window.scrollTo(0, 0);
   }
@@ -145,7 +145,7 @@
     $("#who").innerHTML = "<b>" + esc(p.full_name || "Admin") + (p.role === "manager" ? " · menejer" : " · asoschi") + "</b>" + esc(u.email);
     $("#who").classList.remove("hidden"); $("#logout").classList.remove("hidden"); $("#tabs").classList.remove("hidden");
     if (p.role === "manager") {
-      $$("#tabs button").forEach(function (b) { if (["agencies", "posts", "team", "customers"].indexOf(b.dataset.view) > -1) b.remove(); });
+      $$("#tabs button").forEach(function (b) { if (["agencies", "posts", "team", "customers", "partners"].indexOf(b.dataset.view) > -1) b.remove(); });
       // prices and group dates: view only for managers (the database refuses changes anyway)
       ["#v-prices", "#v-groups", "#v-group"].forEach(function (q) {
         var el = $(q); if (!el) return;
@@ -157,7 +157,7 @@
         new MutationObserver(function () { clearTimeout(el._ro); el._ro = setTimeout(lock, 60); }).observe(el, { childList: true, subtree: true });
       });
     }
-    if (window.MNA.teamBadge && p.role === "admin") { window.MNA.teamBadge(); clearInterval(window.__tb); window.__tb = setInterval(window.MNA.teamBadge, 15000); }
+    if (window.MNA.teamBadge && p.role === "admin") { window.MNA.teamBadge(); clearInterval(window.__tb); window.__tb = setInterval(window.MNA.teamBadge, 15000); if (window.MNA.partnersBadge) window.MNA.partnersBadge(); }
     loadBookings();
   }
 
