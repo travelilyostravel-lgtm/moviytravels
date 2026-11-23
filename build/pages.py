@@ -214,7 +214,7 @@ def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, bod
   </div>
 </footer>
 <script>window.MN={json.dumps({"whatsapp": c["whatsapp"], "telegram": c["telegram"], "instagram": c["instagram"], "msgGeneral": t["msg_general"], "msgTour": t["msg_tour"]}, ensure_ascii=False)};window.MNX={js_strings(lang)};window.MN_LANG="{lang}";</script>
-<script src="{A}js/sb-config.js"></script><script src="{A}data/l10n/{lang}.js"></script><script>window.MN_SHARE_TXT=(window.MN_L||{{}}).ui||{{}};</script><script src="{A}js/share.js"></script><script src="{A}js/forms.js"></script>{extra_js}<script src="{A}js/site.js" defer></script>
+<script src="{A}js/sb-config.js"></script><script src="{A}data/l10n/{lang}.js"></script><script>window.MN_SHARE_TXT=(window.MN_L||{{}}).ui||{{}};</script><script src="{A}js/share.js"></script><script src="{A}js/forms.js"></script>{extra_js}<script src="{A}js/site.js" defer></script><script src="{A}js/visitor.js" defer></script>
 </body>
 </html>
 '''

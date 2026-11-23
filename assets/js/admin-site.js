@@ -33,6 +33,7 @@
     $$("tr[data-id]", box).forEach(function (tr) { tr.onclick = function () { openRequest(tr.dataset.id); }; });
   };
 
+  A.openRequest = function (id) { return openRequest(id); };
   async function openRequest(id, lang) {
     A.show("request");
     var box = $("#v-request"); box.innerHTML = '<div class="p-card">…</div>';
