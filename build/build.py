@@ -206,6 +206,7 @@ def render(lang):
 
 {pages.groups_home(lang)}
 {XB["services"]}
+{XB["partners"]}
 
   <section class="section builder-cta">
     <div class="container">
@@ -284,6 +285,7 @@ def render(lang):
         <li><a href="{ig}" target="_blank" rel="noopener">Instagram @{cfg["instagram"]}</a></li>
         <li><a href="https://instagram.com/{cfg["parent_instagram"]}" target="_blank" rel="noopener">Moviy Travel @{cfg["parent_instagram"]}</a></li>
         <li><a href="services.html">{e(XX["nav_services"])}</a> · <a href="booking.html">{e(XX["bk_btn"])}</a></li>
+        <li><a href="partners.html">{e(__import__("partners_i18n").S(lang)["eyebrow"])}</a> · <a href="{pre}partner/#reg">{e(__import__("partners_i18n").S(lang)["become"])}</a></li>
         {f'<li><a href="mailto:{cfg["email"]}">{cfg["email"]}</a></li>' if cfg["email"] else ""}
         <li><a href="{pre}agent/">{e(t["agent_login"])} →</a></li>
       </ul></div>
@@ -320,7 +322,7 @@ def render(lang):
 <script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/gd-schedule.js"></script><script src="{A}js/groups.js"></script><script src="{A}js/share.js"></script>
 <script>MN_ENGINE.onPrices(function(){{var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");}});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){{var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");}});}});</script>
 <script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/forms.js" defer></script>
-<script src="{A}js/site.js" defer></script><script src="{A}js/hero-extra.js" defer></script><script src="{A}js/visitor.js" defer></script>
+<script src="{A}js/site.js" defer></script><script src="{A}js/hero-extra.js" defer></script><script src="{A}js/visitor.js" defer></script><script>window.MNPT={{"partners_count":{json.dumps(__import__("partners_i18n").S(lang)["partners_count"], ensure_ascii=False)}}};</script><script src="{A}js/partners.js" defer></script>
 </body>
 </html>
 '''
@@ -529,6 +531,18 @@ def render_agent(lang="en"):
 """
 
 
+
+def render_partner():
+    return PORTAL_HEAD.format(lang="uz", title="Hamkorlar portali — Moviy Nomad") + f"""
+<body class="portal">
+<header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Partner</span><span class="p-top__sp"></span>
+  <div class="p-top__who" id="pwho"></div><button class="btn btn--ghost btn--sm" id="plang">Русский</button><button class="btn btn--ghost btn--sm hidden" id="plogout">Chiqish</button></div></header>
+<main class="container p-main"><div id="pv"><div class="p-card">…</div></div></main>
+<script>window.MN_CFG={json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"]})};</script>
+<script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/partner.js"></script>
+</body></html>
+"""
+
 def render_admin():
     return PORTAL_HEAD.format(lang="uz", title="Admin panel — Moviy Nomad") + f"""
 <body class="portal">
@@ -606,6 +620,7 @@ def main():
         out = {"services.html": pages.render_services(lang, ICON, LOGO, font, names),
                "booking.html": pages.render_booking(lang, ICON, LOGO, font, names, [x for x in TD.TOURS if not x.get("draft")], L),
                "stories.html": pages.render_stories(lang, ICON, LOGO, font, names),
+               "partners.html": pages.render_partners(lang, ICON, LOGO, font, names),
                "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
                "privacy.html": pages.render_legal(lang, "privacy", ICON, LOGO, font, names),
                "terms.html": pages.render_legal(lang, "terms", ICON, LOGO, font, names)}
@@ -621,6 +636,10 @@ def main():
     with open(os.path.join(ROOT, "admin", "index.html"), "w", encoding="utf-8") as f:
         f.write(render_admin())
     print("ok admin/index.html")
+    os.makedirs(os.path.join(ROOT, "partner"), exist_ok=True)
+    with open(os.path.join(ROOT, "partner", "index.html"), "w", encoding="utf-8") as f:
+        f.write(render_partner())
+    print("ok partner/index.html")
     # favicon
     with open(os.path.join(ROOT, "assets", "favicon.svg"), "w") as f:
         f.write(LOGO.replace('<svg viewBox="0 0 180 120" aria-hidden="true">', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -30 200 180"><rect x="-10" y="-30" width="200" height="180" rx="36" fill="#12355b"/>'))

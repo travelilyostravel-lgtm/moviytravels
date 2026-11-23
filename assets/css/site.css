@@ -580,3 +580,34 @@ html[dir="rtl"] .fab{padding:6px 6px 6px 20px}
 }
 .wx__stats b small{font-size:10px;font-weight:600;color:#cfe0f0}
 .opt--mail{color:#b5482f} .opt--mail .opt__ic{background:#d4583a}
+
+/* ---- partners: home tiles (half screen) */
+.section--tight{padding-top:56px;padding-bottom:56px}.section-head--tight{margin-bottom:22px}
+.pt-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1040px;margin:0 auto}
+.pt-tile{position:relative;aspect-ratio:1/1;max-height:230px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding:18px;border-radius:18px;background:#fff;border:1px solid rgba(18,53,91,.1);box-shadow:0 6px 20px rgba(12,36,65,.06);color:var(--navy);text-decoration:none;transition:transform .25s,box-shadow .25s}
+.pt-tile:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(12,36,65,.12)}
+.pt-tile__ic{position:absolute;top:16px;left:16px;width:48px;height:48px;border-radius:14px;background:#fff6e0;display:flex;align-items:center;justify-content:center;color:var(--gold-2,#c9962b)}
+.pt-tile__ic svg{width:26px;height:26px}.pt-tile b{font-family:var(--font-head);font-size:17px}.pt-tile small{color:#5b6b7c;font-size:13px;line-height:1.35}
+.pt-tile__n{position:absolute;top:18px;right:16px;font-size:12px;font-weight:700;color:#2f8f5b}
+.pt-more{text-align:center;margin-top:22px}.pt-become{margin-left:14px;font-weight:600;color:var(--navy);text-decoration:underline}
+@media (max-width:820px){.pt-tiles{grid-template-columns:repeat(2,1fr);gap:12px}.pt-tile{max-height:none;padding:14px}.pt-tile__ic{width:40px;height:40px;top:12px;left:12px}.pt-tile b{font-size:15px}.pt-tile small{font-size:12px}}
+/* ---- partners page */
+.pt-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:18px}.pt-bar select{padding:9px 12px;border-radius:10px;border:1px solid #d6dde6;background:#fff}
+.pt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.pt-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 18px rgba(12,36,65,.08);display:flex;flex-direction:column}
+.pt-card__img{position:relative;aspect-ratio:4/3;background:#dfe6ee center/cover no-repeat}
+.pt-card__img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,25,45,.75))}
+.pt-card__name{position:absolute;left:14px;right:14px;bottom:12px;color:#fff;z-index:1}.pt-card__name b{display:block;font-size:18px;font-family:var(--font-head)}.pt-card__name small{opacity:.9}
+.pt-badge{position:absolute;top:12px;left:12px;z-index:1;background:rgba(255,255,255,.95);color:#2f7d4f;font-size:12px;font-weight:700;padding:5px 10px;border-radius:20px}
+.pt-card__body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pt-card__rate{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.pt-st{color:#e9b949;letter-spacing:1px}.pt-st i{color:#d9dee5;font-style:normal}
+.pt-new{background:#eef3ff;color:#4a5fc1;font-size:12px;font-weight:700;padding:3px 9px;border-radius:20px}.pt-trips{color:#2f8f5b;font-weight:600}
+.pt-facts,.pt-langs{margin:0;color:#4b5b6c;font-size:14px}.pt-price{margin:2px 0 0;font-size:15px}.pt-price b{font-size:19px;color:var(--navy)}
+.pt-card__btns{display:flex;gap:8px;margin-top:auto;padding-top:8px}.pt-card__btns .btn{flex:1}
+.pt-empty{grid-column:1/-1;text-align:center;color:#5b6b7c;padding:30px 10px;background:#fff;border-radius:16px}
+.pt-why{max-width:720px;margin:26px auto 0;text-align:center}.pt-why ul{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:left}
+@media (max-width:620px){.pt-why ul{grid-template-columns:1fr}}
+.pt-prof{display:flex;gap:14px;align-items:flex-start}.pt-prof img{width:96px;height:96px;border-radius:14px;object-fit:cover}.pt-prof h3{margin:0 0 4px}.pt-prof p{margin:2px 0}
+.pt-bio{white-space:pre-line}.pt-gal{display:flex;gap:8px;overflow-x:auto;margin:8px 0}.pt-gal img{height:110px;border-radius:10px}
+.pt-rv{border-top:1px solid #eef1f5;padding:8px 0}.pt-rv p{margin:4px 0 0}.pt-note{color:#6b7a8a;font-size:13.5px}.pt-prof__btns{margin-top:12px}
+.pt-stars{display:flex;gap:4px}.pt-stars input{position:absolute;opacity:0}.pt-stars b{font-size:26px;color:#d9dee5;cursor:pointer}.pt-stars label:has(input:checked) b,.pt-stars label:has(~ label input:checked) b{color:#e9b949}

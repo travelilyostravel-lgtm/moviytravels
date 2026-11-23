@@ -166,3 +166,15 @@ body.portal{background:var(--sand);min-height:100vh}
 .autolog{padding:12px 14px;border-radius:12px;background:#f4f8fb;border:1px solid #dbe7f0}.autolog ul{margin:6px 0 0;padding-left:18px}.autolog li{margin:3px 0}
 
 .ag-help{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(18,53,91,.2)}.ag-help .p-sub{margin:0 0 6px}
+
+/* partner portal */
+.psteps{margin:8px 0 16px;padding-left:20px;color:#3b4b5c}.psteps li{margin:4px 0}
+.pkinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.pk{display:block;cursor:pointer}.pk input{position:absolute;opacity:0}.pk span{display:block;padding:14px 10px;border:2px solid #dfe5ec;border-radius:12px;text-align:center;font-weight:700;color:#12355b;background:#fff}
+.pk input:checked+span{border-color:var(--gold);background:#fff8e6}
+.pwhy{margin-top:18px;background:#f5f1ea;border-radius:12px;padding:14px 16px}.pwhy h3{margin:0 0 6px}.pwhy ul{margin:0;padding-left:20px}
+.pchips{display:flex;flex-wrap:wrap;gap:6px}.pchips label{background:#f1f4f8;border-radius:20px;padding:5px 10px;font-size:13.5px;cursor:pointer}
+.pphoto{display:block;width:120px;height:120px;object-fit:cover;border-radius:12px;margin:6px 0}
+.pgal{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}.pgal span{position:relative}.pgal img{width:90px;height:90px;object-fit:cover;border-radius:10px}
+.pgal button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:#c8553d;color:#fff;cursor:pointer}
+.pdocs{margin:0 0 10px;padding-left:4px;list-style:none}

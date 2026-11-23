@@ -111,6 +111,19 @@ def home_blocks(lang, pre, A, icon):
       <p style="margin-top:28px"><a class="btn btn--outline" href="services.html">{e(x["svc_more"])} →</a></p>
     </div>
   </section>'''
+    import partners_i18n
+    PT = partners_i18n.S(lang)
+    tiles = "".join(
+        f'<a class="pt-tile" href="partners.html?k={k}"><span class="pt-tile__ic">{svc_icon(ic)}</span><b>{e(PT["k_" + k])}</b><small>{e(PT["d_" + k])}</small><span class="pt-tile__n" data-ptn="{k}"></span></a>'
+        for k, ic in (("guide", "guide"), ("driver", "car"), ("hotel", "hotel"), ("other", "mice")))
+    partners = f'''
+  <section class="section section--tight" id="partners">
+    <div class="container">
+      <div class="section-head section-head--tight reveal"><span class="eyebrow">{e(PT["eyebrow"])}</span><h2>{e(PT["title"])}</h2><p>{e(PT["sub"])}</p></div>
+      <div class="pt-tiles">{tiles}</div>
+      <p class="pt-more"><a class="btn btn--outline" href="partners.html">{e(PT["see_all"])} →</a> <a class="pt-become" href="{pre}partner/#reg">{e(PT["become"])}</a></p>
+    </div>
+  </section>'''
     revs = "".join(
         f'<figure class="rev reveal"><div class="rev__stars">★★★★★</div><blockquote>“{e(txt)}”</blockquote><figcaption><b>{e(name)}</b><span>{e(trip)}</span></figcaption></figure>'
         for name, trip, txt in x["reviews"])
@@ -129,7 +142,7 @@ def home_blocks(lang, pre, A, icon):
       <p class="gal__actions"><a class="btn btn--gold" href="stories.html#share">{e(x["gal_btn"])}</a> <a class="btn btn--outline" href="stories.html">{e(x["gal_all"])} →</a></p>
     </div>
   </section>'''
-    return {"about": about, "services": services, "reviews": reviews}
+    return {"about": about, "services": services, "reviews": reviews, "partners": partners}
 
 
 def footer_legal(lang, pre):
@@ -261,6 +274,55 @@ def render_services(lang, icon, logo, font, names):
             f'<section class="section section--sand section--tight"><div class="container"><h2 class="h2c">{e(x["svc_how_title"])}</h2><div class="how">{how}</div>'
             f'<div class="side2">{sec_box(x)}{contact_box(x, icon)}</div></div></section>' + modal)
     return shell(lang, "services.html", x["svc_page_title"], x["svc_page_sub"], body, icon, logo, font, names)
+
+
+# ------------------------------------------------------------------ partners (guides, drivers, hotels, other)
+def render_partners(lang, icon, logo, font, names):
+    import partners_i18n
+    x = X(lang); PT = partners_i18n.S(lang); pre = "" if lang == "en" else "../"
+    tabs = "".join(f'<button class="ttab{" is-on" if k == "" else ""}" data-pk="{k}">{e(PT["all"] if k == "" else PT["k_" + k])}</button>' for k in ("", "guide", "driver", "hotel", "other"))
+    how = "".join(f'<div class="how__i"><b>{n + 1}</b><h3>{e(PT[k])}</h3></div>' for n, k in enumerate(("how1", "how2", "how3")))
+    why = "".join(f'<li>✓ {e(PT[k])}</li>' for k in ("why1", "why2", "why3", "why4"))
+    modal = f'''<div class="modal" id="pt-modal" role="dialog" aria-modal="true"><div class="modal__box modal__box--form">
+  <button class="modal__close" aria-label="{e(PT["close"])}">×</button>
+  <div id="pt-prof"></div>
+  <form class="mf" id="pt-form" novalidate>
+    <h3>{e(PT["ask"])}: <span id="pt-fname"></span></h3>
+    <div class="mf-grid">
+      <label class="mf-f"><span>{e(x["f_date"])} *</span><input type="date" name="start_date" required></label>
+      <label class="mf-f"><span>{e(x["f_pax"])} *</span><input type="number" name="pax" min="1" max="500" value="2" required></label>
+      <label class="mf-f"><span>{e(x["f_name"])} *</span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
+      <label class="mf-f"><span>{e(x["f_email"])} *</span><input type="email" name="email" required maxlength="160" autocomplete="email"></label>
+      <label class="mf-f"><span>{e(x.get("f_wa_opt", x["f_phone"]))}</span><input type="tel" name="phone" maxlength="40" autocomplete="tel" placeholder="+"></label>
+      <label class="mf-f"><span>{e(x["f_citizenship"])}</span><input name="citizenship" maxlength="80"></label>
+      <label class="mf-f mf-f--full"><span>{e(x["f_details"])}</span><textarea name="message" rows="3" maxlength="3000"></textarea></label>
+    </div>
+    {consent_label(lang, x)}
+    <div class="mf-msg" role="status"></div>
+    <button class="btn btn--gold" type="submit">{e(x["f_send"])}</button>
+  </form>
+  <form class="mf" id="pt-rform" novalidate hidden>
+    <h3>{e(PT["write"])}</h3><p class="pt-note">{e(PT["rv_note"])}</p>
+    <div class="mf-grid">
+      <label class="mf-f"><span>{e(PT["rv_ref"])} *</span><input name="trip_ref" required maxlength="20"></label>
+      <label class="mf-f"><span>{e(PT["rv_email"])} *</span><input type="email" name="email" required maxlength="160"></label>
+      <label class="mf-f"><span>{e(PT["rv_name"])} *</span><input name="name" required maxlength="80"></label>
+      <label class="mf-f"><span>{e(PT["rv_country"])}</span><input name="country" maxlength="60"></label>
+      <label class="mf-f mf-f--full"><span>{e(PT["rv_rating"])} *</span><span class="pt-stars">{"".join(f'<label><input type="radio" name="rating" value="{i}"{" checked" if i == 5 else ""}><b>★</b></label>' for i in range(1, 6))}</span></label>
+      <label class="mf-f mf-f--full"><span>{e(PT["rv_text"])}</span><textarea name="body" rows="4" maxlength="1500"></textarea></label>
+    </div>
+    <div class="mf-msg" role="status"></div>
+    <button class="btn btn--gold" type="submit">{e(PT["rv_send"])}</button>
+  </form>
+</div></div>'''
+    body = (page_head(PT["eyebrow"], PT["page_title"], PT["page_sub"]) +
+            f'<section class="section section--tight"><div class="container"><div class="pt-bar"><div class="ttabs" id="pt-tabs">{tabs}</div>'
+            f'<select id="pt-city" aria-label="{e(PT["city"])}"><option value="">{e(PT["city"])}</option></select><select id="pt-lang" aria-label="{e(PT["lang"])}"><option value="">{e(PT["lang"])}</option></select></div>'
+            f'<div class="pt-grid" id="pt-grid"><p class="pt-empty">…</p></div></div></section>'
+            f'<section class="section section--sand section--tight"><div class="container"><div class="how">{how}</div>'
+            f'<div class="pt-why"><h2 class="h2c">{e(PT["why_t"])}</h2><ul>{why}</ul><p><a class="btn btn--outline btn--sm" href="{pre}partner/#reg">{e(PT["become"])} →</a></p></div></div></section>' + modal)
+    js = f'<script>window.MNPT={json.dumps(PT, ensure_ascii=False)};</script><script src="{pre}assets/js/partners.js" defer></script>'
+    return shell(lang, "partners.html", PT["page_title"], PT["page_sub"], body, icon, logo, font, names, extra_js=js)
 
 
 # ------------------------------------------------------------------ booking
