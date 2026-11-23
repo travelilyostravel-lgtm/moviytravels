@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="../assets/img/hero.webp">
-<link rel="stylesheet" href="../assets/css/site.css?v=b951c8ff">
+<link rel="stylesheet" href="../assets/css/site.css?v=ccebf071">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad", "description": "Litsenziyalangan mahalliy tur operatordan O'zbekiston bo'ylab shaxsiy va guruh turlari. Xiva, Buxoro, Samarqand va Toshkent o'z jamoamiz bilan. WhatsApp yoki Telegram orqali bron qiling.", "url": "https://moviytravel.uz/uz/", "image": "https://moviytravel.uz/assets/img/hero.webp", "areaServed": ["Uzbekistan", "Kazakhstan", "Kyrgyzstan", "Tajikistan"], "sameAs": ["https://instagram.com/moviy_nomad", "https://t.me/moviy_safina"], "parentOrganization": {"@type": "Organization", "name": "Moviy Travel"}}</script>
 </head>
 <body>
@@ -33,8 +33,8 @@
 
 <main>
   <section class="hero">
-    <div class="hero__bg" style="background-image:url(../assets/img/hero.webp)"></div>
-    <div class="container">
+    <div class="hero__bg" data-base="../assets/img/" data-slides="p/registan,p/khiva-air,p/uz-snowpeaks,p/lyabi-hauz,p/uz-charvak,p/uz-shahizinda2,p/uz-fabrics,p/ichan-kala"></div>
+    <div class="container hero__grid">
       <div class="hero__content">
         <span class="eyebrow">O&#x27;zbekiston · Xiva · Buxoro · Samarqand · Toshkent</span>
         <h1><em>Ipak yo'li</em>ni mahalliy jamoa bilan kashf eting</h1>
@@ -46,6 +46,7 @@
         </div>
         <div class="chips"><span class="chip">Shaxsiy va guruh turlari</span><span class="chip">Halol taomlar</span><span class="chip">Mahalliy gidlar</span><span class="chip">24/7 aloqa</span></div>
       </div>
+      <aside class="wx" id="wx" hidden aria-live="polite"></aside>
     </div>
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
@@ -427,7 +428,7 @@
   <a class="sbar__ig" href="https://instagram.com/moviy_nomad" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
 </div>
 
-<button class="fab" data-contact aria-label="Bog&#x27;lanish"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>Bog&#x27;lanish</span></button>
+<button class="fab" data-contact aria-label="Bog&#x27;lanish"><img class="fab__girl" src="../assets/img/ui/sticker-girl.svg" alt="" width="56" height="56"><span>Bog&#x27;lanish</span></button>
 
 <div class="modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal__box">
@@ -446,7 +447,7 @@
 <script>window.MN={"whatsapp": "998999804214", "telegram": "moviy_safina", "instagram": "moviy_nomad", "msgGeneral": "Assalomu alaykum, Moviy Nomad! Markaziy Osiyoga sayohat rejalashtirmoqchiman.", "msgTour": "Assalomu alaykum, Moviy Nomad! \"{tour}\" turi qiziqtirdi. Dastur va narxini yuborsangiz.", "bookLabel": "Onlayn bron qilish", "bookReqLabel": "So'rov qoldirish"};</script>
 <script src="../assets/data/catalog.js?v=7b955866"></script><script src="../assets/data/places.js?v=b7d83857"></script><script src="../assets/data/tours.js?v=891c97e6"></script><script src="../assets/data/l10n/uz.js?v=9a12a71c"></script><script src="../assets/js/sb-config.js?v=770b2c91"></script><script src="../assets/js/engine.js?v=fc20cba8"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/groups.js?v=46966590"></script><script src="../assets/js/share.js?v=fb8c2990"></script>
 <script>MN_ENGINE.onPrices(function(){var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");});});</script>
-<script>window.MNX={"f_sending": "Yuborilmoqda…", "f_send": "So'rov yuborish", "f_required": "Iltimos, majburiy maydonlarni to'ldiring.", "f_ok_title": "Rahmat! So'rovingiz qabul qilindi", "f_ok_text": "So'rov raqamingiz: {ref}. Menejer tez orada bog'lanadi — odatda bir necha soat ichida.", "f_err": "Xatolik yuz berdi. Qaytadan urinib ko'ring yoki bizga WhatsApp'da yozing.", "f_close": "Yopish", "bk_first": "Ism", "bk_last": "Familiya", "bk_gender": "Jinsi", "bk_m": "Erkak", "bk_f": "Ayol", "bk_dob": "Tug'ilgan sana", "bk_remove": "O'chirish", "bk_ok": {"bank": "Tez orada to'lov rekvizitlari bilan hisob-faktura yuboramiz. Menejer narx va sanalarni tasdiqlamaguncha to'lov qilmang.", "card": "Menejer narx va sanalarni tasdiqlagach, xavfsiz karta to'lovi havolasini yuboradi.", "contact": "Menejer tez orada siz bilan bog'lanib, sayohatni muhokama qiladi. Hozir to'lov shart emas."}, "bk_ok_req": "Menejer tez orada siz bilan bog'lanib, tafsilotlar va to'lovni kelishib oladi.", "bk_submit_req": "So'rov yuborish", "ts_send": "Hikoyamni e'lon qilish", "ts_uploading": "Suratlar yuklanmoqda… {n}/{t}", "ts_ok": "Rahmat! Hikoyangiz tekshiruvdan so'ng saytda paydo bo'ladi (odatda 24 soat ichida).", "ts_too_many": "Ko'pi bilan 6 ta surat.", "gal_empty": "Hozircha hikoyalar yo'q — birinchi bo'lib ulashing.", "bk_submit": "Bron so'rovini yuborish", "rev_traveller": "Sayohatchi", "services": {"airport": "Aeroportda haydovchi kutib oladi", "car": "Haydovchili transport", "hotel": "Mehmonxona bron qilish", "guide": "Litsenziyali gidlar", "mice": "Guruhlar, tadbirlar va MICE", "airport_guide": "Aeroportda gid kutib oladi", "esim": "O'zbekiston uchun eSIM"}};window.MN_LANG="uz";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
-<script src="../assets/js/site.js?v=26e77fd9" defer></script>
+<script>window.MNX={"f_sending": "Yuborilmoqda…", "f_send": "So'rov yuborish", "f_required": "Iltimos, majburiy maydonlarni to'ldiring.", "f_ok_title": "Rahmat! So'rovingiz qabul qilindi", "f_ok_text": "So'rov raqamingiz: {ref}. Menejer tez orada bog'lanadi — odatda bir necha soat ichida.", "f_err": "Xatolik yuz berdi. Qaytadan urinib ko'ring yoki bizga WhatsApp'da yozing.", "f_close": "Yopish", "bk_first": "Ism", "bk_last": "Familiya", "bk_gender": "Jinsi", "bk_m": "Erkak", "bk_f": "Ayol", "bk_dob": "Tug'ilgan sana", "bk_remove": "O'chirish", "bk_ok": {"bank": "Tez orada to'lov rekvizitlari bilan hisob-faktura yuboramiz. Menejer narx va sanalarni tasdiqlamaguncha to'lov qilmang.", "card": "Menejer narx va sanalarni tasdiqlagach, xavfsiz karta to'lovi havolasini yuboradi.", "contact": "Menejer tez orada siz bilan bog'lanib, sayohatni muhokama qiladi. Hozir to'lov shart emas."}, "bk_ok_req": "Menejer tez orada siz bilan bog'lanib, tafsilotlar va to'lovni kelishib oladi.", "bk_submit_req": "So'rov yuborish", "ts_send": "Hikoyamni e'lon qilish", "ts_uploading": "Suratlar yuklanmoqda… {n}/{t}", "ts_ok": "Rahmat! Hikoyangiz tekshiruvdan so'ng saytda paydo bo'ladi (odatda 24 soat ichida).", "ts_too_many": "Ko'pi bilan 6 ta surat.", "gal_empty": "Hozircha hikoyalar yo'q — birinchi bo'lib ulashing.", "bk_submit": "Bron so'rovini yuborish", "rev_traveller": "Sayohatchi", "services": {"airport": "Aeroportda haydovchi kutib oladi", "car": "Haydovchili transport", "hotel": "Mehmonxona bron qilish", "guide": "Litsenziyali gidlar", "mice": "Guruhlar, tadbirlar va MICE", "airport_guide": "Aeroportda gid kutib oladi", "esim": "O'zbekiston uchun eSIM"}, "wx": {"title": "O'zbekistonda ob-havo", "feels": "His etilishi", "max": "Maks.", "min": "Min.", "hum": "Namlik", "wind": "Shamol", "kmh": "km/soat", "more": "Oylar bo'yicha ob-havo →", "f7": "Keyingi 7 kun", "monthly": "Oylar bo'yicha o'rtacha", "pick": "Qachon kelasiz?", "avg_note": "Ko'p yillik o'rtacha (taxminiy) — haqiqiy ob-havo farq qilishi mumkin.", "rain_days": "yomg'irli kun", "great": "Sayohat uchun ajoyib", "hot": "Juda issiq — ertalab va kechqurun sayr qiling", "cold": "Sovuq — issiq kiyim kerak", "ok": "Sayohat uchun yaxshi", "close": "Yopish", "cities": ["Toshkent", "Samarqand", "Buxoro", "Xiva", "Farg'ona", "Nukus"], "codes": ["Ochiq", "Qisman bulutli", "Bulutli", "Tuman", "Mayda yomg'ir", "Yomg'ir", "Qor", "Momaqaldiroq"], "fab_hint": "Madinadan so'rang"}};window.MN_LANG="uz";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
+<script src="../assets/js/site.js?v=26e77fd9" defer></script><script src="../assets/js/hero-extra.js?v=223248c2" defer></script>
 </body>
 </html>

@@ -168,8 +168,8 @@ def render(lang):
 
 <main>
   <section class="hero">
-    <div class="hero__bg" style="background-image:url({A}img/hero.webp)"></div>
-    <div class="container">
+    <div class="hero__bg" data-base="{A}img/" data-slides="p/registan,p/khiva-air,p/uz-snowpeaks,p/lyabi-hauz,p/uz-charvak,p/uz-shahizinda2,p/uz-fabrics,p/ichan-kala"></div>
+    <div class="container hero__grid">
       <div class="hero__content">
         <span class="eyebrow">{e(t["hero_eyebrow"])}</span>
         <h1>{t["hero_title"]}</h1>
@@ -181,6 +181,7 @@ def render(lang):
         </div>
         <div class="chips">{chips}</div>
       </div>
+      <aside class="wx" id="wx" hidden aria-live="polite"></aside>
     </div>
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
@@ -297,7 +298,7 @@ def render(lang):
   <a class="sbar__ig" href="{ig}" target="_blank" rel="noopener" aria-label="Instagram">{ICON["ig"]}</a>
 </div>
 
-<button class="fab" data-contact aria-label="{e(t["fab"])}">{ICON["chat-bubble"]}<span>{e(t["fab"])}</span></button>
+<button class="fab" data-contact aria-label="{e(t["fab"])}"><img class="fab__girl" src="{A}img/ui/sticker-girl.svg" alt="" width="56" height="56"><span>{e(t["fab"])}</span></button>
 
 <div class="modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal__box">
@@ -317,7 +318,7 @@ def render(lang):
 <script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/gd-schedule.js"></script><script src="{A}js/groups.js"></script><script src="{A}js/share.js"></script>
 <script>MN_ENGINE.onPrices(function(){{var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");}});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){{var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");}});}});</script>
 <script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/forms.js" defer></script>
-<script src="{A}js/site.js" defer></script>
+<script src="{A}js/site.js" defer></script><script src="{A}js/hero-extra.js" defer></script>
 </body>
 </html>
 '''

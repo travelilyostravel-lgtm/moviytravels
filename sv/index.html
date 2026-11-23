@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="../assets/img/hero.webp">
-<link rel="stylesheet" href="../assets/css/site.css?v=b951c8ff">
+<link rel="stylesheet" href="../assets/css/site.css?v=ccebf071">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad", "description": "Privata resor och gruppresor i Uzbekistan från en licensierad lokal researrangör. Chiva, Buchara, Samarkand och Tasjkent med vårt eget team. Boka via WhatsApp eller Telegram.", "url": "https://moviytravel.uz/sv/", "image": "https://moviytravel.uz/assets/img/hero.webp", "areaServed": ["Uzbekistan", "Kazakhstan", "Kyrgyzstan", "Tajikistan"], "sameAs": ["https://instagram.com/moviy_nomad", "https://t.me/moviy_safina"], "parentOrganization": {"@type": "Organization", "name": "Moviy Travel"}}</script>
 </head>
 <body>
@@ -33,8 +33,8 @@
 
 <main>
   <section class="hero">
-    <div class="hero__bg" style="background-image:url(../assets/img/hero.webp)"></div>
-    <div class="container">
+    <div class="hero__bg" data-base="../assets/img/" data-slides="p/registan,p/khiva-air,p/uz-snowpeaks,p/lyabi-hauz,p/uz-charvak,p/uz-shahizinda2,p/uz-fabrics,p/ichan-kala"></div>
+    <div class="container hero__grid">
       <div class="hero__content">
         <span class="eyebrow">Uzbekistan · Chiva · Buchara · Samarkand · Tasjkent</span>
         <h1>Upptäck <em>Sidenvägen</em> med ett lokalt team</h1>
@@ -46,6 +46,7 @@
         </div>
         <div class="chips"><span class="chip">Privata &amp; gruppresor</span><span class="chip">Halal-vänligt</span><span class="chip">Lokala guider</span><span class="chip">Support dygnet runt</span></div>
       </div>
+      <aside class="wx" id="wx" hidden aria-live="polite"></aside>
     </div>
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
@@ -427,7 +428,7 @@
   <a class="sbar__ig" href="https://instagram.com/moviy_nomad" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
 </div>
 
-<button class="fab" data-contact aria-label="Kontakta oss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>Kontakta oss</span></button>
+<button class="fab" data-contact aria-label="Kontakta oss"><img class="fab__girl" src="../assets/img/ui/sticker-girl.svg" alt="" width="56" height="56"><span>Kontakta oss</span></button>
 
 <div class="modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal__box">
@@ -446,7 +447,7 @@
 <script>window.MN={"whatsapp": "998999804214", "telegram": "moviy_safina", "instagram": "moviy_nomad", "msgGeneral": "Hej Moviy Nomad! Jag vill planera en resa till Centralasien.", "msgTour": "Hej Moviy Nomad! Jag är intresserad av resan \"{tour}\". Skicka gärna program och pris.", "bookLabel": "Boka online", "bookReqLabel": "Skicka förfrågan"};</script>
 <script src="../assets/data/catalog.js?v=7b955866"></script><script src="../assets/data/places.js?v=b7d83857"></script><script src="../assets/data/tours.js?v=891c97e6"></script><script src="../assets/data/l10n/sv.js?v=c2c41414"></script><script src="../assets/js/sb-config.js?v=770b2c91"></script><script src="../assets/js/engine.js?v=fc20cba8"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/groups.js?v=46966590"></script><script src="../assets/js/share.js?v=fb8c2990"></script>
 <script>MN_ENGINE.onPrices(function(){var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");});});</script>
-<script>window.MNX={"f_sending": "Skickar…", "f_send": "Skicka förfrågan", "f_required": "Fyll i de obligatoriska fälten.", "f_ok_title": "Tack! Vi har tagit emot din förfrågan", "f_ok_text": "Ditt förfrågningsnummer: {ref}. En handläggare hör av sig snart – oftast inom några timmar.", "f_err": "Något gick fel. Försök igen eller skriv till oss på WhatsApp.", "f_close": "Stäng", "bk_first": "Förnamn", "bk_last": "Efternamn", "bk_gender": "Kön", "bk_m": "Man", "bk_f": "Kvinna", "bk_dob": "Födelsedatum", "bk_remove": "Ta bort", "bk_ok": {"bank": "Vi skickar snart fakturan med betalningsuppgifter. Betala inte förrän handläggaren har bekräftat pris och datum.", "card": "När pris och datum är bekräftade skickar handläggaren en säker länk för kortbetalning.", "contact": "En handläggare kontaktar dig snart för att prata om resan. Ingen betalning behövs nu."}, "bk_ok_req": "En handläggare kontaktar dig snart för att gå igenom detaljer och betalning.", "bk_submit_req": "Skicka förfrågan", "ts_send": "Publicera min berättelse", "ts_uploading": "Laddar upp bilder… {n}/{t}", "ts_ok": "Tack! Din berättelse visas på webbplatsen efter granskning (oftast inom 24 timmar).", "ts_too_many": "Högst 6 bilder.", "gal_empty": "Inga berättelser än – bli först med att dela.", "bk_submit": "Skicka bokningsförfrågan", "rev_traveller": "Resenär", "services": {"airport": "Flygplatshämtning med chaufför", "car": "Transport med chaufför", "hotel": "Hotellbokning", "guide": "Licensierade guider", "mice": "Grupper, evenemang & MICE", "airport_guide": "Mottagning på flygplatsen av guide", "esim": "eSIM för Uzbekistan"}};window.MN_LANG="sv";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
-<script src="../assets/js/site.js?v=26e77fd9" defer></script>
+<script>window.MNX={"f_sending": "Skickar…", "f_send": "Skicka förfrågan", "f_required": "Fyll i de obligatoriska fälten.", "f_ok_title": "Tack! Vi har tagit emot din förfrågan", "f_ok_text": "Ditt förfrågningsnummer: {ref}. En handläggare hör av sig snart – oftast inom några timmar.", "f_err": "Något gick fel. Försök igen eller skriv till oss på WhatsApp.", "f_close": "Stäng", "bk_first": "Förnamn", "bk_last": "Efternamn", "bk_gender": "Kön", "bk_m": "Man", "bk_f": "Kvinna", "bk_dob": "Födelsedatum", "bk_remove": "Ta bort", "bk_ok": {"bank": "Vi skickar snart fakturan med betalningsuppgifter. Betala inte förrän handläggaren har bekräftat pris och datum.", "card": "När pris och datum är bekräftade skickar handläggaren en säker länk för kortbetalning.", "contact": "En handläggare kontaktar dig snart för att prata om resan. Ingen betalning behövs nu."}, "bk_ok_req": "En handläggare kontaktar dig snart för att gå igenom detaljer och betalning.", "bk_submit_req": "Skicka förfrågan", "ts_send": "Publicera min berättelse", "ts_uploading": "Laddar upp bilder… {n}/{t}", "ts_ok": "Tack! Din berättelse visas på webbplatsen efter granskning (oftast inom 24 timmar).", "ts_too_many": "Högst 6 bilder.", "gal_empty": "Inga berättelser än – bli först med att dela.", "bk_submit": "Skicka bokningsförfrågan", "rev_traveller": "Resenär", "services": {"airport": "Flygplatshämtning med chaufför", "car": "Transport med chaufför", "hotel": "Hotellbokning", "guide": "Licensierade guider", "mice": "Grupper, evenemang & MICE", "airport_guide": "Mottagning på flygplatsen av guide", "esim": "eSIM för Uzbekistan"}, "wx": {"title": "Väder i Uzbekistan", "feels": "Känns som", "max": "Max", "min": "Min", "hum": "Fukt", "wind": "Vind", "kmh": "km/h", "more": "Väder per månad →", "f7": "Kommande 7 dagar", "monthly": "Månadsmedel", "pick": "När kommer du?", "avg_note": "Långtidsmedel (ungefär) — verkligt väder kan skilja sig.", "rain_days": "regndagar", "great": "Perfekt för resa", "hot": "Mycket varmt — res morgon & kväll", "cold": "Kallt — varma kläder behövs", "ok": "Bra för resa", "close": "Stäng", "cities": ["Tasjkent", "Samarkand", "Buchara", "Chiva", "Fergana", "Nukus"], "codes": ["Klart", "Halvklart", "Molnigt", "Dimma", "Duggregn", "Regn", "Snö", "Åska"], "fab_hint": "Fråga Madina"}};window.MN_LANG="sv";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
+<script src="../assets/js/site.js?v=26e77fd9" defer></script><script src="../assets/js/hero-extra.js?v=223248c2" defer></script>
 </body>
 </html>

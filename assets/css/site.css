@@ -506,3 +506,76 @@ a.tour__img{display:block}
 .gds-c[data-pick]{cursor:pointer}.gds-c[data-pick]:hover{outline:2px solid #12355b;outline-offset:-2px}
 .gds-c--na{color:#aaa}.gds-none{color:#6b7785}
 .gk--green{border-left:5px solid #2e9e4f}.gk--yellow{border-left:5px solid #e8b10c}.gk--red{border-left:5px solid #d23b2a}
+
+/* Home hero: animated slides (2026-11-23) */
+.hero__slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.8s ease;transform:scale(1.04)}
+.hero__slide.is-on{opacity:1;animation:kenburns 9s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.04)}to{transform:scale(1.14) translate(-1%,-1%)}}
+.hero__bg::after{z-index:1}
+.hero__dots{position:absolute;bottom:22px;inset-inline-start:50%;transform:translateX(-50%);z-index:3;display:flex;gap:8px}
+html[dir="rtl"] .hero__dots{transform:translateX(50%)}
+.hero__dots button{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.45);transition:.3s;padding:0}
+.hero__dots button.is-on{width:26px;background:var(--gold)}
+.hero__grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:40px;align-items:center}
+.hero .hero__scroll{display:none}
+
+/* Live weather card */
+.wx{align-self:center;padding:22px;border-radius:24px;background:rgba(12,36,65,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);color:#fff;font-size:14px}
+.wx svg{width:1em;height:1em;vertical-align:-.12em}
+.wx__top{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#cfe0f0;font-weight:700}
+.wx__city{font-family:var(--font-head);font-size:22px;font-weight:700;margin:12px 0 4px}
+.wx__now{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.wx__big{display:flex;align-items:flex-start;gap:8px;font-family:var(--font-head);line-height:1}
+.wx__big svg{width:52px;height:52px;margin-top:4px;color:var(--gold)}
+.wx__big b{font-size:58px;font-weight:800}.wx__big sup{font-size:16px;margin-top:6px}
+.wx__desc{text-align:end;display:flex;flex-direction:column;gap:3px}.wx__desc b{font-size:16px}.wx__desc small{color:#cfe0f0}
+.wx__stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
+.wx__stats span{display:flex;flex-direction:column;align-items:center;padding:9px 4px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:12px;color:#cfe0f0}
+.wx__stats b{color:#fff;font-size:15px}
+.wx__cities{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.wx__cities button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;transition:.2s}
+.wx__cities button:hover,.wx__cities button.is-on{border-color:var(--gold);background:rgba(255,255,255,.14)}
+.wx__cities small{font-size:12px;color:#dbe7f3}.wx__cities b{font-size:15px;display:flex;gap:5px;align-items:center}
+.wx__more{width:100%;margin-top:12px;padding:11px;border-radius:14px;background:var(--gold);color:#1d1407;font-family:var(--font-head);font-weight:700}
+.wxm{position:fixed;inset:0;z-index:110;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(8,22,40,.6);backdrop-filter:blur(4px)}
+.wxm.is-open{display:flex;animation:fade .25s}
+.wxm__box{position:relative;width:min(720px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:24px;padding:28px 24px;color:var(--ink,#1b2a3a)}
+.wxm__x{position:absolute;top:12px;inset-inline-end:12px;width:38px;height:38px;border-radius:50%;background:var(--sand);font-size:22px}
+.wxm h4{font-size:15px;color:var(--navy);margin:18px 0 10px}
+.wxm__tabs{display:flex;flex-wrap:wrap;gap:8px;padding-inline-end:44px}
+.wxm__tabs button{padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);font-weight:600}
+.wxm__tabs button.is-on{background:var(--navy);border-color:var(--navy);color:#fff}
+.wxm__days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.wxm__days span{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border-radius:14px;background:var(--sand);font-size:13px}
+.wxm__days svg{width:24px;height:24px;color:var(--sky)}.wxm__days em{font-style:normal;color:#7a8796}
+.wxm__pick{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.wxm__pick select{padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);font-size:15px}
+.wxm__res{flex:1;min-width:220px;display:flex;flex-direction:column;padding:10px 14px;border-radius:14px;background:#eef7ee}
+.wxm__res--hot{background:#fff1e6}.wxm__res--cold{background:#eaf2fb}.wxm__res--ok{background:#f6f3e8}
+.wxm__bars{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+.wxm__bars button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;border-radius:10px;font-size:11px}
+.wxm__bars button.is-on{background:var(--sand);outline:1.5px solid var(--gold)}
+.wxm__bars i{position:relative;width:10px;height:110px;border-radius:99px;background:#eef1f4}
+.wxm__bars s{position:absolute;left:0;right:0;border-radius:99px;background:linear-gradient(#f39c4a,#5aaed6)}
+.wxm__bar--great s{background:linear-gradient(#f6b343,#3fb27f)}
+.wxm__bars em{font-style:normal;color:#7a8796}
+.wxm__note{font-size:12px;color:#7a8796;margin-top:10px}
+
+/* Contact button with sticker */
+.fab{padding:6px 20px 6px 6px}
+html[dir="rtl"] .fab{padding:6px 6px 6px 20px}
+.fab__girl{width:56px;height:56px;border-radius:50%;border:3px solid #fff;background:#bfe6f3;flex:none;animation:wave 4s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes wave{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-8deg)}90%{transform:rotate(7deg)}95%{transform:rotate(-4deg)}}
+@media (max-width:980px){
+  .hero__grid{grid-template-columns:1fr;gap:0}
+  .wx{margin:-40px 0 70px}
+  .hero__dots{bottom:14px}
+}
+@media (max-width:760px){
+  .fab{padding:4px}
+  .fab__girl{width:60px;height:60px}
+  .wxm__days{grid-template-columns:repeat(4,1fr)}
+  .wxm__bars{grid-template-columns:repeat(6,1fr);row-gap:10px}
+  .wxm__bars i{height:80px}
+}
+.wx__stats b small{font-size:10px;font-weight:600;color:#cfe0f0}

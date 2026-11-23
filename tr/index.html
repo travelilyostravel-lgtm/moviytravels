@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="../assets/img/hero.webp">
-<link rel="stylesheet" href="../assets/css/site.css?v=b951c8ff">
+<link rel="stylesheet" href="../assets/css/site.css?v=ccebf071">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad", "description": "Lisanslı yerel tur operatöründen Özbekistan'da özel ve grup turları. Kendi ekibimizle Hive, Buhara, Semerkant ve Taşkent. WhatsApp veya Telegram'dan rezervasyon.", "url": "https://moviytravel.uz/tr/", "image": "https://moviytravel.uz/assets/img/hero.webp", "areaServed": ["Uzbekistan", "Kazakhstan", "Kyrgyzstan", "Tajikistan"], "sameAs": ["https://instagram.com/moviy_nomad", "https://t.me/moviy_safina"], "parentOrganization": {"@type": "Organization", "name": "Moviy Travel"}}</script>
 </head>
 <body>
@@ -33,8 +33,8 @@
 
 <main>
   <section class="hero">
-    <div class="hero__bg" style="background-image:url(../assets/img/hero.webp)"></div>
-    <div class="container">
+    <div class="hero__bg" data-base="../assets/img/" data-slides="p/registan,p/khiva-air,p/uz-snowpeaks,p/lyabi-hauz,p/uz-charvak,p/uz-shahizinda2,p/uz-fabrics,p/ichan-kala"></div>
+    <div class="container hero__grid">
       <div class="hero__content">
         <span class="eyebrow">Özbekistan · Hive · Buhara · Semerkant · Taşkent</span>
         <h1><em>İpek Yolu</em>'nu yerel bir ekiple keşfedin</h1>
@@ -46,6 +46,7 @@
         </div>
         <div class="chips"><span class="chip">Özel ve grup turları</span><span class="chip">Helal yemek</span><span class="chip">Yerel rehberler</span><span class="chip">7/24 destek</span></div>
       </div>
+      <aside class="wx" id="wx" hidden aria-live="polite"></aside>
     </div>
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
@@ -427,7 +428,7 @@
   <a class="sbar__ig" href="https://instagram.com/moviy_nomad" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
 </div>
 
-<button class="fab" data-contact aria-label="Bize ulaşın"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>Bize ulaşın</span></button>
+<button class="fab" data-contact aria-label="Bize ulaşın"><img class="fab__girl" src="../assets/img/ui/sticker-girl.svg" alt="" width="56" height="56"><span>Bize ulaşın</span></button>
 
 <div class="modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal__box">
@@ -446,7 +447,7 @@
 <script>window.MN={"whatsapp": "998999804214", "telegram": "moviy_safina", "instagram": "moviy_nomad", "msgGeneral": "Merhaba Moviy Nomad! Orta Asya'ya bir seyahat planlamak istiyorum.", "msgTour": "Merhaba Moviy Nomad! \"{tour}\" turuyla ilgileniyorum. Program ve fiyatı gönderebilir misiniz?", "bookLabel": "Online rezervasyon", "bookReqLabel": "Talep bırak"};</script>
 <script src="../assets/data/catalog.js?v=7b955866"></script><script src="../assets/data/places.js?v=b7d83857"></script><script src="../assets/data/tours.js?v=891c97e6"></script><script src="../assets/data/l10n/tr.js?v=80df12c3"></script><script src="../assets/js/sb-config.js?v=770b2c91"></script><script src="../assets/js/engine.js?v=fc20cba8"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/groups.js?v=46966590"></script><script src="../assets/js/share.js?v=fb8c2990"></script>
 <script>MN_ENGINE.onPrices(function(){var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");});});</script>
-<script>window.MNX={"f_sending": "Gönderiliyor…", "f_send": "Talep gönder", "f_required": "Lütfen zorunlu alanları doldurun.", "f_ok_title": "Teşekkürler! Talebiniz alındı", "f_ok_text": "Talep numaranız: {ref}. Temsilcimiz kısa süre içinde — genellikle birkaç saatte — sizinle iletişime geçecek.", "f_err": "Bir sorun oluştu. Lütfen tekrar deneyin veya bize WhatsApp'tan yazın.", "f_close": "Kapat", "bk_first": "Ad", "bk_last": "Soyad", "bk_gender": "Cinsiyet", "bk_m": "Erkek", "bk_f": "Kadın", "bk_dob": "Doğum tarihi", "bk_remove": "Kaldır", "bk_ok": {"bank": "Ödeme bilgilerini içeren faturayı kısa süre içinde göndereceğiz. Lütfen temsilci fiyat ve tarihleri onaylamadan ödeme yapmayın.", "card": "Temsilci fiyat ve tarihleri onayladıktan sonra güvenli kart ödeme bağlantısını gönderecek.", "contact": "Temsilcimiz geziyi konuşmak için kısa süre içinde size ulaşacak. Şimdi ödeme gerekmez."}, "bk_ok_req": "Temsilcimiz detayları ve ödemeyi netleştirmek için kısa süre içinde sizinle iletişime geçecek.", "bk_submit_req": "Talep gönder", "ts_send": "Hikâyemi yayınla", "ts_uploading": "Fotoğraflar yükleniyor… {n}/{t}", "ts_ok": "Teşekkürler! Hikâyeniz moderasyondan sonra sitede görünecek (genellikle 24 saat içinde).", "ts_too_many": "En fazla 6 fotoğraf.", "gal_empty": "Henüz hikâye yok — ilk paylaşan siz olun.", "bk_submit": "Rezervasyon talebi gönder", "rev_traveller": "Gezgin", "services": {"airport": "Havalimanında şoför karşılama", "car": "Şoförlü ulaşım", "hotel": "Otel rezervasyonu", "guide": "Lisanslı rehberler", "mice": "Gruplar, etkinlikler ve MICE", "airport_guide": "Havalimanında rehber karşılama", "esim": "Özbekistan için eSIM"}};window.MN_LANG="tr";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
-<script src="../assets/js/site.js?v=26e77fd9" defer></script>
+<script>window.MNX={"f_sending": "Gönderiliyor…", "f_send": "Talep gönder", "f_required": "Lütfen zorunlu alanları doldurun.", "f_ok_title": "Teşekkürler! Talebiniz alındı", "f_ok_text": "Talep numaranız: {ref}. Temsilcimiz kısa süre içinde — genellikle birkaç saatte — sizinle iletişime geçecek.", "f_err": "Bir sorun oluştu. Lütfen tekrar deneyin veya bize WhatsApp'tan yazın.", "f_close": "Kapat", "bk_first": "Ad", "bk_last": "Soyad", "bk_gender": "Cinsiyet", "bk_m": "Erkek", "bk_f": "Kadın", "bk_dob": "Doğum tarihi", "bk_remove": "Kaldır", "bk_ok": {"bank": "Ödeme bilgilerini içeren faturayı kısa süre içinde göndereceğiz. Lütfen temsilci fiyat ve tarihleri onaylamadan ödeme yapmayın.", "card": "Temsilci fiyat ve tarihleri onayladıktan sonra güvenli kart ödeme bağlantısını gönderecek.", "contact": "Temsilcimiz geziyi konuşmak için kısa süre içinde size ulaşacak. Şimdi ödeme gerekmez."}, "bk_ok_req": "Temsilcimiz detayları ve ödemeyi netleştirmek için kısa süre içinde sizinle iletişime geçecek.", "bk_submit_req": "Talep gönder", "ts_send": "Hikâyemi yayınla", "ts_uploading": "Fotoğraflar yükleniyor… {n}/{t}", "ts_ok": "Teşekkürler! Hikâyeniz moderasyondan sonra sitede görünecek (genellikle 24 saat içinde).", "ts_too_many": "En fazla 6 fotoğraf.", "gal_empty": "Henüz hikâye yok — ilk paylaşan siz olun.", "bk_submit": "Rezervasyon talebi gönder", "rev_traveller": "Gezgin", "services": {"airport": "Havalimanında şoför karşılama", "car": "Şoförlü ulaşım", "hotel": "Otel rezervasyonu", "guide": "Lisanslı rehberler", "mice": "Gruplar, etkinlikler ve MICE", "airport_guide": "Havalimanında rehber karşılama", "esim": "Özbekistan için eSIM"}, "wx": {"title": "Özbekistan'da hava", "feels": "Hissedilen", "max": "Maks.", "min": "Min.", "hum": "Nem", "wind": "Rüzgâr", "kmh": "km/sa", "more": "Aylara göre hava →", "f7": "Önümüzdeki 7 gün", "monthly": "Aylık ortalama", "pick": "Ne zaman geliyorsunuz?", "avg_note": "Uzun yıllar ortalaması (yaklaşık) — gerçek hava farklı olabilir.", "rain_days": "yağışlı gün", "great": "Seyahat için harika", "hot": "Çok sıcak — sabah ve akşam gezin", "cold": "Soğuk — kalın giysi gerekli", "ok": "Seyahat için iyi", "close": "Kapat", "cities": ["Taşkent", "Semerkant", "Buhara", "Hive", "Fergana", "Nukus"], "codes": ["Açık", "Parçalı bulutlu", "Bulutlu", "Sis", "Çisenti", "Yağmur", "Kar", "Fırtına"], "fab_hint": "Madina'ya sorun"}};window.MN_LANG="tr";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
+<script src="../assets/js/site.js?v=26e77fd9" defer></script><script src="../assets/js/hero-extra.js?v=223248c2" defer></script>
 </body>
 </html>

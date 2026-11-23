@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="../assets/img/hero.webp">
-<link rel="stylesheet" href="../assets/css/site.css?v=b951c8ff">
+<link rel="stylesheet" href="../assets/css/site.css?v=ccebf071">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad", "description": "رحلات خاصة وجماعية في أوزبكستان من منظم رحلات محلي مرخّص. خيوة وبخارى وسمرقند وطشقند مع فريقنا. احجز عبر واتساب أو تيليجرام.", "url": "https://moviytravel.uz/ar/", "image": "https://moviytravel.uz/assets/img/hero.webp", "areaServed": ["Uzbekistan", "Kazakhstan", "Kyrgyzstan", "Tajikistan"], "sameAs": ["https://instagram.com/moviy_nomad", "https://t.me/moviy_safina"], "parentOrganization": {"@type": "Organization", "name": "Moviy Travel"}}</script>
 </head>
 <body>
@@ -33,8 +33,8 @@
 
 <main>
   <section class="hero">
-    <div class="hero__bg" style="background-image:url(../assets/img/hero.webp)"></div>
-    <div class="container">
+    <div class="hero__bg" data-base="../assets/img/" data-slides="p/registan,p/khiva-air,p/uz-snowpeaks,p/lyabi-hauz,p/uz-charvak,p/uz-shahizinda2,p/uz-fabrics,p/ichan-kala"></div>
+    <div class="container hero__grid">
       <div class="hero__content">
         <span class="eyebrow">أوزبكستان · خيوة · بخارى · سمرقند · طشقند</span>
         <h1>اكتشف <em>طريق الحرير</em> مع فريق محلي</h1>
@@ -46,6 +46,7 @@
         </div>
         <div class="chips"><span class="chip">رحلات خاصة وجماعية</span><span class="chip">طعام حلال</span><span class="chip">مرشدون محليون</span><span class="chip">دعم على مدار الساعة</span></div>
       </div>
+      <aside class="wx" id="wx" hidden aria-live="polite"></aside>
     </div>
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
@@ -427,7 +428,7 @@
   <a class="sbar__ig" href="https://instagram.com/moviy_nomad" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
 </div>
 
-<button class="fab" data-contact aria-label="تواصل معنا"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>تواصل معنا</span></button>
+<button class="fab" data-contact aria-label="تواصل معنا"><img class="fab__girl" src="../assets/img/ui/sticker-girl.svg" alt="" width="56" height="56"><span>تواصل معنا</span></button>
 
 <div class="modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal__box">
@@ -446,7 +447,7 @@
 <script>window.MN={"whatsapp": "998999804214", "telegram": "moviy_safina", "instagram": "moviy_nomad", "msgGeneral": "مرحبًا Moviy Nomad! أرغب في التخطيط لرحلة إلى آسيا الوسطى.", "msgTour": "مرحبًا Moviy Nomad! أنا مهتم برحلة \"{tour}\". أرجو إرسال البرنامج والسعر.", "bookLabel": "احجز عبر الإنترنت", "bookReqLabel": "اترك طلبًا"};</script>
 <script src="../assets/data/catalog.js?v=7b955866"></script><script src="../assets/data/places.js?v=b7d83857"></script><script src="../assets/data/tours.js?v=891c97e6"></script><script src="../assets/data/l10n/ar.js?v=ca43dbd1"></script><script src="../assets/js/sb-config.js?v=770b2c91"></script><script src="../assets/js/engine.js?v=fc20cba8"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/groups.js?v=46966590"></script><script src="../assets/js/share.js?v=fb8c2990"></script>
 <script>MN_ENGINE.onPrices(function(){var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");});});</script>
-<script>window.MNX={"f_sending": "جارٍ الإرسال…", "f_send": "إرسال الطلب", "f_required": "يرجى ملء الحقول المطلوبة.", "f_ok_title": "شكرًا! تم استلام طلبك", "f_ok_text": "رقم طلبك: {ref}. سيتواصل معك المدير قريبًا — عادةً خلال ساعات قليلة.", "f_err": "حدث خطأ ما. حاول مرة أخرى أو راسلنا على واتساب.", "f_close": "إغلاق", "bk_first": "الاسم", "bk_last": "اسم العائلة", "bk_gender": "الجنس", "bk_m": "ذكر", "bk_f": "أنثى", "bk_dob": "تاريخ الميلاد", "bk_remove": "حذف", "bk_ok": {"bank": "سنرسل لك الفاتورة مع بيانات الدفع قريبًا. يرجى عدم الدفع قبل أن يؤكد المدير السعر والتواريخ.", "card": "بعد تأكيد السعر والتواريخ سيرسل لك المدير رابطًا آمنًا للدفع بالبطاقة.", "contact": "سيتواصل معك المدير قريبًا لمناقشة الرحلة. لا حاجة للدفع الآن."}, "bk_ok_req": "سيتواصل معك المدير قريبًا لتأكيد التفاصيل والدفع.", "bk_submit_req": "إرسال الطلب", "ts_send": "انشر قصتي", "ts_uploading": "جارٍ رفع الصور… {n}/{t}", "ts_ok": "شكرًا! ستظهر قصتك على الموقع بعد المراجعة (عادةً خلال 24 ساعة).", "ts_too_many": "6 صور كحد أقصى.", "gal_empty": "لا توجد قصص بعد — كن أول من يشارك.", "bk_submit": "إرسال طلب الحجز", "rev_traveller": "مسافر", "services": {"airport": "استقبال في المطار بواسطة سائق", "car": "نقل مع سائق", "hotel": "حجز الفنادق", "guide": "مرشدون مرخّصون", "mice": "المجموعات والفعاليات والمؤتمرات", "airport_guide": "استقبال في المطار بواسطة مرشد", "esim": "شريحة eSIM لأوزبكستان"}};window.MN_LANG="ar";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
-<script src="../assets/js/site.js?v=26e77fd9" defer></script>
+<script>window.MNX={"f_sending": "جارٍ الإرسال…", "f_send": "إرسال الطلب", "f_required": "يرجى ملء الحقول المطلوبة.", "f_ok_title": "شكرًا! تم استلام طلبك", "f_ok_text": "رقم طلبك: {ref}. سيتواصل معك المدير قريبًا — عادةً خلال ساعات قليلة.", "f_err": "حدث خطأ ما. حاول مرة أخرى أو راسلنا على واتساب.", "f_close": "إغلاق", "bk_first": "الاسم", "bk_last": "اسم العائلة", "bk_gender": "الجنس", "bk_m": "ذكر", "bk_f": "أنثى", "bk_dob": "تاريخ الميلاد", "bk_remove": "حذف", "bk_ok": {"bank": "سنرسل لك الفاتورة مع بيانات الدفع قريبًا. يرجى عدم الدفع قبل أن يؤكد المدير السعر والتواريخ.", "card": "بعد تأكيد السعر والتواريخ سيرسل لك المدير رابطًا آمنًا للدفع بالبطاقة.", "contact": "سيتواصل معك المدير قريبًا لمناقشة الرحلة. لا حاجة للدفع الآن."}, "bk_ok_req": "سيتواصل معك المدير قريبًا لتأكيد التفاصيل والدفع.", "bk_submit_req": "إرسال الطلب", "ts_send": "انشر قصتي", "ts_uploading": "جارٍ رفع الصور… {n}/{t}", "ts_ok": "شكرًا! ستظهر قصتك على الموقع بعد المراجعة (عادةً خلال 24 ساعة).", "ts_too_many": "6 صور كحد أقصى.", "gal_empty": "لا توجد قصص بعد — كن أول من يشارك.", "bk_submit": "إرسال طلب الحجز", "rev_traveller": "مسافر", "services": {"airport": "استقبال في المطار بواسطة سائق", "car": "نقل مع سائق", "hotel": "حجز الفنادق", "guide": "مرشدون مرخّصون", "mice": "المجموعات والفعاليات والمؤتمرات", "airport_guide": "استقبال في المطار بواسطة مرشد", "esim": "شريحة eSIM لأوزبكستان"}, "wx": {"title": "الطقس في أوزبكستان", "feels": "الإحساس", "max": "العظمى", "min": "الصغرى", "hum": "الرطوبة", "wind": "الرياح", "kmh": "كم/س", "more": "الطقس حسب الشهر ←", "f7": "الأيام السبعة القادمة", "monthly": "المتوسط الشهري", "pick": "متى ستأتي؟", "avg_note": "متوسطات طويلة الأمد (تقريبية) — قد يختلف الطقس الفعلي.", "rain_days": "أيام ممطرة", "great": "ممتاز للسفر", "hot": "حار جدًا — تجوّل صباحًا ومساءً", "cold": "بارد — تحتاج ملابس دافئة", "ok": "جيد للسفر", "close": "إغلاق", "cities": ["طشقند", "سمرقند", "بخارى", "خيوة", "فرغانة", "نوكوس"], "codes": ["صافٍ", "غائم جزئيًا", "غائم", "ضباب", "رذاذ", "مطر", "ثلج", "عاصفة رعدية"], "fab_hint": "اسأل مدينة"}};window.MN_LANG="ar";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
+<script src="../assets/js/site.js?v=26e77fd9" defer></script><script src="../assets/js/hero-extra.js?v=223248c2" defer></script>
 </body>
 </html>

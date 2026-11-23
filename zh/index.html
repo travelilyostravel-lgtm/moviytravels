@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="../assets/img/hero.webp">
-<link rel="stylesheet" href="../assets/css/site.css?v=b951c8ff">
+<link rel="stylesheet" href="../assets/css/site.css?v=ccebf071">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad", "description": "持牌本地地接社提供的乌兹别克斯坦私人团和小团旅游。与我们的团队一起游希瓦、布哈拉、撒马尔罕和塔什干。通过 WhatsApp 或 Telegram 预订。", "url": "https://moviytravel.uz/zh/", "image": "https://moviytravel.uz/assets/img/hero.webp", "areaServed": ["Uzbekistan", "Kazakhstan", "Kyrgyzstan", "Tajikistan"], "sameAs": ["https://instagram.com/moviy_nomad", "https://t.me/moviy_safina"], "parentOrganization": {"@type": "Organization", "name": "Moviy Travel"}}</script>
 </head>
 <body>
@@ -33,8 +33,8 @@
 
 <main>
   <section class="hero">
-    <div class="hero__bg" style="background-image:url(../assets/img/hero.webp)"></div>
-    <div class="container">
+    <div class="hero__bg" data-base="../assets/img/" data-slides="p/registan,p/khiva-air,p/uz-snowpeaks,p/lyabi-hauz,p/uz-charvak,p/uz-shahizinda2,p/uz-fabrics,p/ichan-kala"></div>
+    <div class="container hero__grid">
       <div class="hero__content">
         <span class="eyebrow">乌兹别克斯坦 · 希瓦 · 布哈拉 · 撒马尔罕 · 塔什干</span>
         <h1>与本地团队一起探索<em>丝绸之路</em></h1>
@@ -46,6 +46,7 @@
         </div>
         <div class="chips"><span class="chip">私人团与小团</span><span class="chip">清真友好</span><span class="chip">本地导游</span><span class="chip">24小时服务</span></div>
       </div>
+      <aside class="wx" id="wx" hidden aria-live="polite"></aside>
     </div>
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
@@ -427,7 +428,7 @@
   <a class="sbar__ig" href="https://instagram.com/moviy_nomad" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
 </div>
 
-<button class="fab" data-contact aria-label="联系我们"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>联系我们</span></button>
+<button class="fab" data-contact aria-label="联系我们"><img class="fab__girl" src="../assets/img/ui/sticker-girl.svg" alt="" width="56" height="56"><span>联系我们</span></button>
 
 <div class="modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal__box">
@@ -446,7 +447,7 @@
 <script>window.MN={"whatsapp": "998999804214", "telegram": "moviy_safina", "instagram": "moviy_nomad", "msgGeneral": "您好，Moviy Nomad！我想规划一次中亚之旅。", "msgTour": "您好，Moviy Nomad！我对“{tour}”线路感兴趣，请发送行程和报价。", "bookLabel": "在线预订", "bookReqLabel": "提交需求"};</script>
 <script src="../assets/data/catalog.js?v=7b955866"></script><script src="../assets/data/places.js?v=b7d83857"></script><script src="../assets/data/tours.js?v=891c97e6"></script><script src="../assets/data/l10n/zh.js?v=b382f5dc"></script><script src="../assets/js/sb-config.js?v=770b2c91"></script><script src="../assets/js/engine.js?v=fc20cba8"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/groups.js?v=46966590"></script><script src="../assets/js/share.js?v=fb8c2990"></script>
 <script>MN_ENGINE.onPrices(function(){var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");});});</script>
-<script>window.MNX={"f_sending": "正在发送…", "f_send": "提交需求", "f_required": "请填写必填项。", "f_ok_title": "谢谢！我们已收到您的需求", "f_ok_text": "您的需求编号：{ref}。客服会尽快联系您——通常在几小时内。", "f_err": "出了点问题。请重试或通过 WhatsApp 联系我们。", "f_close": "关闭", "bk_first": "名", "bk_last": "姓", "bk_gender": "性别", "bk_m": "男", "bk_f": "女", "bk_dob": "出生日期", "bk_remove": "删除", "bk_ok": {"bank": "我们会尽快发送含付款信息的账单。请在客服确认价格和日期之前不要付款。", "card": "客服确认价格和日期后，会给您发送安全的银行卡支付链接。", "contact": "客服会尽快联系您沟通行程。现在无需付款。"}, "bk_ok_req": "客服会尽快联系您，确认细节和付款方式。", "bk_submit_req": "提交需求", "ts_send": "发布我的故事", "ts_uploading": "正在上传照片… {n}/{t}", "ts_ok": "谢谢！审核后你的故事会出现在网站上（通常 24 小时内）。", "ts_too_many": "最多 6 张照片。", "gal_empty": "还没有故事——来做第一个分享的人吧。", "bk_submit": "提交预订需求", "rev_traveller": "旅行者", "services": {"airport": "司机机场接机", "car": "带司机用车", "hotel": "酒店预订", "guide": "持证导游", "mice": "团队、活动与会奖 (MICE)", "airport_guide": "导游机场迎接", "esim": "乌兹别克斯坦 eSIM"}};window.MN_LANG="zh";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
-<script src="../assets/js/site.js?v=26e77fd9" defer></script>
+<script>window.MNX={"f_sending": "正在发送…", "f_send": "提交需求", "f_required": "请填写必填项。", "f_ok_title": "谢谢！我们已收到您的需求", "f_ok_text": "您的需求编号：{ref}。客服会尽快联系您——通常在几小时内。", "f_err": "出了点问题。请重试或通过 WhatsApp 联系我们。", "f_close": "关闭", "bk_first": "名", "bk_last": "姓", "bk_gender": "性别", "bk_m": "男", "bk_f": "女", "bk_dob": "出生日期", "bk_remove": "删除", "bk_ok": {"bank": "我们会尽快发送含付款信息的账单。请在客服确认价格和日期之前不要付款。", "card": "客服确认价格和日期后，会给您发送安全的银行卡支付链接。", "contact": "客服会尽快联系您沟通行程。现在无需付款。"}, "bk_ok_req": "客服会尽快联系您，确认细节和付款方式。", "bk_submit_req": "提交需求", "ts_send": "发布我的故事", "ts_uploading": "正在上传照片… {n}/{t}", "ts_ok": "谢谢！审核后你的故事会出现在网站上（通常 24 小时内）。", "ts_too_many": "最多 6 张照片。", "gal_empty": "还没有故事——来做第一个分享的人吧。", "bk_submit": "提交预订需求", "rev_traveller": "旅行者", "services": {"airport": "司机机场接机", "car": "带司机用车", "hotel": "酒店预订", "guide": "持证导游", "mice": "团队、活动与会奖 (MICE)", "airport_guide": "导游机场迎接", "esim": "乌兹别克斯坦 eSIM"}, "wx": {"title": "乌兹别克斯坦天气", "feels": "体感", "max": "最高", "min": "最低", "hum": "湿度", "wind": "风速", "kmh": "公里/时", "more": "按月查看天气 →", "f7": "未来7天", "monthly": "月平均", "pick": "您什么时候来？", "avg_note": "多年平均值（约）——实际天气可能不同。", "rain_days": "雨天", "great": "非常适合旅行", "hot": "非常炎热——早晚出行", "cold": "寒冷——需带保暖衣物", "ok": "适合旅行", "close": "关闭", "cities": ["塔什干", "撒马尔罕", "布哈拉", "希瓦", "费尔干纳", "努库斯"], "codes": ["晴", "局部多云", "多云", "雾", "毛毛雨", "雨", "雪", "雷暴"], "fab_hint": "问问玛蒂娜"}};window.MN_LANG="zh";</script><script src="../assets/js/forms.js?v=961056e4" defer></script>
+<script src="../assets/js/site.js?v=26e77fd9" defer></script><script src="../assets/js/hero-extra.js?v=223248c2" defer></script>
 </body>
 </html>

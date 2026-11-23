@@ -148,6 +148,7 @@ def js_strings(lang):
             "bk_remove", "bk_ok", "bk_ok_req", "bk_submit_req", "ts_send", "ts_uploading", "ts_ok", "ts_too_many", "gal_empty", "bk_submit", "rev_traveller"]
     d = {k: x[k] for k in keys}
     d["services"] = {k: v[0] for k, v in x["services"].items()}
+    d["wx"] = x["wx"]
     return json.dumps(d, ensure_ascii=False)
 
 
