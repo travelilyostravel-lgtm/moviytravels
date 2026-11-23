@@ -298,7 +298,7 @@ def render(lang):
   <a class="sbar__ig" href="{ig}" target="_blank" rel="noopener" aria-label="Instagram">{ICON["ig"]}</a>
 </div>
 
-<button class="fab" data-contact aria-label="{e(t["fab"])}"><img class="fab__girl" src="{A}img/ui/sticker-girl.svg" alt="" width="56" height="56"><span>{e(t["fab"])}</span></button>
+<button class="fab" data-contact aria-label="{e(t["fab"])}"><img class="fab__girl" src="{A}img/ui/sticker-safina.webp" alt="Safina" width="56" height="56"><span>{e(t["fab"])}</span></button>
 
 <div class="modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal__box">
