@@ -182,7 +182,7 @@
   function refreshPrices() {
     var SB = window.MN_SB;
     if (!SB || !SB.url || !window.fetch) return Promise.resolve(false);
-    return fetch(SB.url + "/rest/v1/price_config?id=eq.public&select=data&_=" + Date.now(), { cache: "no-store", headers: { apikey: SB.anonKey, Authorization: "Bearer " + SB.anonKey } })
+    return fetch(SB.url + "/rest/v1/price_config?id=eq.public&select=data", { cache: "no-store", headers: { apikey: SB.anonKey, Authorization: "Bearer " + SB.anonKey } })
       .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (rows) {
         var d = rows && rows[0] && rows[0].data; if (!d) return false;
