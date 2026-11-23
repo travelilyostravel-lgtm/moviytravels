@@ -103,6 +103,7 @@
     if (bFilter === "active") q = q.in("status", ["request", "awaiting_payment", "payment_reported", "paid"]);
     else if (bFilter !== "all") q = q.eq("status", bFilter);
     var r = await q, box = $("#blist");
+    if (r.error && /manager_id/.test(r.error.message)) { var q2 = sb.from("bookings").select("id,ref,tour_title,start_date,pax,brutto,netto,commission_pct,status,created_at,agencies(name,country)").order("created_at", { ascending: false }).limit(300); if (bFilter === "active") q2 = q2.in("status", ["request", "awaiting_payment", "payment_reported", "paid"]); else if (bFilter !== "all") q2 = q2.eq("status", bFilter); r = await q2; }
     if (r.error) { box.innerHTML = '<div class="msg msg--err">' + esc(r.error.message) + '</div>'; return; }
     if (isOwner) r.data = r.data.filter(function (b) { return window.MNA.mgrPass(b.agencies && b.agencies.manager_id); });
     if (!r.data.length) { box.innerHTML = '<div class="empty">Bron yo\'q.</div>'; return; }
