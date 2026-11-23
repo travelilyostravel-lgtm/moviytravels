@@ -45,6 +45,11 @@
     var r = await sb.from("admin_devices").select("id", { count: "exact", head: true }).eq("approved", false);
     var b = $('#tabs button[data-view="team"]'); if (!b) return;
     b.textContent = "Jamoa" + (r.count ? " 🔴 " + r.count : "");
+    var bn = $("#mn-wait");
+    if (r.count) {
+      if (!bn) { bn = document.createElement("div"); bn.id = "mn-wait"; bn.style.cssText = "position:fixed;left:50%;transform:translateX(-50%);top:12px;z-index:9999;background:#c8553d;color:#fff;padding:12px 18px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);cursor:pointer;font-weight:600"; bn.onclick = function () { A.team(); }; document.body.appendChild(bn); }
+      bn.textContent = "🔴 " + r.count + " ta xodim kirishni kutyapti — tasdiqlash uchun bosing";
+    } else if (bn) bn.remove();
   };
 
   var RSN = { new: "Yangi", in_progress: "Ishlanmoqda", awaiting_payment: "30% kutilmoqda", deposit_paid: "70% kutilmoqda", paid: "To'landi", confirmed: "Tasdiqlandi", closed: "Yopildi", cancelled: "Bekor" };
@@ -86,30 +91,37 @@
       }).join("") +
       '<tr><td><b>Tayinlanmagan</b><br><small>asoschida</small></td><td></td><td class="num"><b>' + un.open + '</b></td><td class="num">' + un.all + '</td><td class="num">' + P.money(un.sum) + '</td><td class="num">' + P.money(un.paid) + '</td><td class="num">' + un.ag + ' / ' + un.bk + '</td><td></td><td><button class="btn btn--outline btn--sm" data-view-m="none">Ko\'rish</button></td></tr>' +
       '</tbody></table></div>' + (mg.length ? '<p class="p-sub" style="margin-top:10px">Bir nechta menejerni birga ko\'rish: "Mijoz so\'rovlari" yoki "Bronlar" tepasidagi menejer tugmalaridan bir nechtasini bosing.</p>' : '') + '</div>';
-    // invite
-    h += '<div class="p-card"><h3>Yangi menejer qo\'shish</h3><p class="p-sub">1) Bu yerga menejerning e-mailini yozing. 2) Unga admin panel havolasini yuboring: u "Yangi xodim: ro\'yxatdan o\'tish"ni bosib, shu e-mail va o\'z paroli bilan ro\'yxatdan o\'tadi. 3) Birinchi kirishda telefoniga Google Authenticator ulaydi (ikki bosqichli kod). 4) U kirgan birinchi qurilma o\'zi tasdiqlanadi; boshqa qurilmadan kirsa — siz shu sahifada tasdiqlaysiz.</p>' +
-      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end"><div class="fld"><label>Ism familiya</label><input id="i-name"></div><div class="fld"><label>E-mail</label><input type="email" id="i-email"></div><button class="btn btn--gold btn--sm" id="i-add">Qo\'shish</button>' +
-      '<a class="btn btn--outline btn--sm" id="i-link" target="_blank" rel="noopener">Taklif xatini yuborish</a></div><div class="msg" id="m-inv"></div>' +
-      (inv.length ? '<table class="tbl" style="margin-top:10px"><tbody>' + inv.map(function (i) { return '<tr><td><b>' + esc(i.full_name || "") + '</b></td><td>' + esc(i.email) + '</td><td>' + (i.used_at ? '✅ ro\'yxatdan o\'tgan' : '⏳ kutilmoqda') + '</td><td>' + (i.used_at ? '' : '<button class="btn btn--outline btn--sm" data-inv-del="' + esc(i.email) + '">O\'chirish</button>') + '</td></tr>'; }).join("") + '</tbody></table>' : '') + '</div>';
+    // new staff: founder sets e-mail + password
+    h += '<div class="p-card"><h3>Yangi xodim (menejer) qo\'shish</h3><p class="p-sub">E-mail, ism va parolni yozing → <b>Yaratish</b>. Xodimga shu e-mail va parolni ayting. U admin panelda kiradi; har bir yangi qurilmadan kirganda sizga shu yerda (va tepada qizil yozuv) tasdiqlash so\'rovi keladi.</p>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end"><div class="fld"><label>Ism familiya</label><input id="i-name"></div><div class="fld"><label>E-mail (login)</label><input type="email" id="i-email" autocomplete="off"></div><div class="fld"><label>Parol (kamida 8 belgi)</label><input type="text" id="i-pw" autocomplete="new-password"></div><button class="btn btn--gold btn--sm" id="i-add">Yaratish</button></div><div class="msg" id="m-inv"></div></div>';
+    if (mg.length) h += '<div class="p-card"><h3>Xodimlar: login va parol</h3><table class="tbl"><tbody>' + mg.map(function (m) {
+      return '<tr><td><b>' + esc(m.full_name || "—") + '</b><br><small>' + esc(m.email) + '</small></td><td><input type="text" placeholder="yangi parol" data-pw-in="' + m.id + '" style="width:160px" autocomplete="new-password"> <button class="btn btn--outline btn--sm" data-pw="' + m.id + '">Parolni o\'zgartirish</button></td><td><button class="btn btn--outline btn--sm" data-del="' + m.id + '">O\'chirish</button></td></tr>';
+    }).join("") + '</tbody></table><div class="msg" id="m-pw"></div></div>';
     // devices
     var ok = dv.filter(function (d) { return d.approved; });
     h += '<div class="p-card"><h3>Tasdiqlangan qurilmalar</h3>' + (ok.length ? '<table class="tbl"><tbody>' + ok.map(function (d) {
       return '<tr><td><b>' + esc(A.staffName(d.user_id)) + '</b></td><td><small>' + esc(d.label || "") + '</small></td><td><small>Oxirgi kirish: ' + (d.last_seen ? new Date(d.last_seen).toLocaleString("ru-RU") : "—") + '</small></td><td><button class="btn btn--outline btn--sm" data-no="' + d.id + '">Bekor qilish</button></td></tr>';
     }).join("") + '</tbody></table>' : '<p class="p-sub">Hali yo\'q.</p>') + '</div>';
     box.innerHTML = h;
-    var adminUrl = location.origin + location.pathname;
-    function invLink() {
-      var n = $("#i-name").value.trim(), e = $("#i-email").value.trim();
-      $("#i-link").href = "mailto:" + encodeURIComponent(e) + "?subject=" + encodeURIComponent("Moviy Nomad — admin panelga taklif") + "&body=" + encodeURIComponent("Assalomu alaykum" + (n ? ", " + n : "") + "!\n\nSizni Moviy Nomad jamoasiga menejer sifatida qo'shdim.\n1) Shu havolani oching: " + adminUrl + "\n2) \"Yangi xodim: ro'yxatdan o'tish\" — shu e-mail (" + e + ") va o'zingiz o'ylagan parol bilan.\n3) E-mailga kelgan tasdiqlash havolasini bosing.\n4) Kirishda telefoningizga Google Authenticator ilovasini o'rnatib, QR kodni skanerlaysiz.\n\nParolingizni hech kimga bermang.");
-    }
-    $("#i-name").oninput = $("#i-email").oninput = invLink; invLink();
     $("#i-add").onclick = async function () {
-      var e = $("#i-email").value.trim().toLowerCase(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) return P.msg("#m-inv", "E-mailni to'g'ri yozing", "err");
-      var r = await sb.from("staff_invites").upsert({ email: e, full_name: $("#i-name").value.trim() || null, used_at: null });
+      var e = $("#i-email").value.replace(/\s+/g, "").toLowerCase(), pw = $("#i-pw").value, n = $("#i-name").value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) return P.msg("#m-inv", "E-mailni to'g'ri yozing", "err");
+      if (pw.length < 8) return P.msg("#m-inv", "Parol kamida 8 belgi bo'lsin", "err");
+      P.msg("#m-inv", "Yaratilmoqda…");
+      var r = await sb.rpc("admin_create_staff", { p_email: e, p_password: pw, p_name: n });
       if (r.error) return P.msg("#m-inv", r.error.message, "err");
-      P.msg("#m-inv", "Qo'shildi. Endi \"Taklif xatini yuborish\"ni bosing.", "ok"); setTimeout(A.team, 1500);
+      P.msg("#m-inv", "Tayyor! Login: " + e + " — parolni xodimga ayting. U kirganda shu sahifada tasdiqlaysiz.", "ok"); setTimeout(A.team, 2500);
     };
-    $$("[data-inv-del]", box).forEach(function (b) { b.onclick = async function () { await sb.from("staff_invites").delete().eq("email", b.dataset.invDel); A.team(); }; });
+    $$("[data-pw]", box).forEach(function (b) { b.onclick = async function () {
+      var v = $('[data-pw-in="' + b.dataset.pw + '"]').value; if (v.length < 8) return P.msg("#m-pw", "Parol kamida 8 belgi bo'lsin", "err");
+      var r = await sb.rpc("admin_set_staff_password", { p_user: b.dataset.pw, p_password: v });
+      P.msg("#m-pw", r.error ? r.error.message : "Parol o'zgartirildi.", r.error ? "err" : "ok");
+    }; });
+    $$("[data-del]", box).forEach(function (b) { b.onclick = async function () {
+      if (b.dataset.sure !== "1") { b.dataset.sure = "1"; b.textContent = "Rostdan o'chirilsinmi? Yana bosing"; return; }
+      var r = await sb.rpc("admin_delete_staff", { p_user: b.dataset.del });
+      if (r.error) return P.msg("#m-pw", r.error.message, "err"); A.team();
+    }; });
     $$("[data-ok]", box).forEach(function (b) { b.onclick = async function () { await sb.from("admin_devices").update({ approved: true, approved_at: new Date().toISOString() }).eq("id", b.dataset.ok); A.teamBadge(); A.team(); }; });
     $$("[data-no]", box).forEach(function (b) { b.onclick = async function () { await sb.from("admin_devices").delete().eq("id", b.dataset.no); A.teamBadge(); A.team(); }; });
     $$("[data-act]", box).forEach(function (b) { b.onclick = async function () { var m = mg.filter(function (x) { return x.id === b.dataset.act; })[0]; await sb.from("profiles").update({ active: !m.active }).eq("id", m.id); A.team(); }; });

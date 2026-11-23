@@ -534,10 +534,10 @@ def render_admin():
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
   <section id="v-login" class="p-auth hidden"><div class="p-card"><form id="f-login">
-    <h2>Admin panel</h2><p class="p-sub">Faqat Moviy Nomad xodimlari uchun.</p>
+    <h2>Admin panel</h2><p class="p-sub">Faqat Moviy Nomad xodimlari uchun. E-mail va parolni asoschi beradi.</p>
     <div class="fld"><label>E-mail</label><input type="email" name="email" required></div>
     <div class="fld" style="margin-top:12px"><label>Parol</label><input type="password" name="password" required autocomplete="current-password"></div>
-    <div class="msg" id="m-login"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Kirish</button><button class="btn btn--outline" type="button" id="b-forgot">Parolni unutdim</button><button class="btn btn--outline" type="button" id="b-staff-signup">Yangi xodim: ro'yxatdan o'tish</button></div></form>
+    <div class="msg" id="m-login"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Kirish</button><button class="btn btn--outline" type="button" id="b-forgot">Parolni unutdim</button><button class="btn btn--outline hidden" type="button" id="b-staff-signup"></button></div></form>
     <form id="f-code" class="hidden"><h2>Tasdiqlash kodi</h2><p class="p-sub"><b id="code-em"></b> pochtasiga 6 xonali kod yuborildi (Spam papkasini ham tekshiring). Kodni yozing:</p>
     <div class="fld"><input name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="8" required style="font-size:24px;letter-spacing:6px;width:200px"></div>
     <div class="msg" id="m-code"></div><div class="p-actions"><button class="btn btn--gold" type="submit">Kirish</button><button class="btn btn--outline" type="button" id="b-code-resend">Kodni qayta yuborish</button><button class="btn btn--outline" type="button" id="b-code-back">Orqaga</button></div></form>

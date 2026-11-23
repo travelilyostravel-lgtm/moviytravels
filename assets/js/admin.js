@@ -119,10 +119,15 @@
     var r = await sb.rpc("register_device", { p_label: navigator.userAgent.slice(0, 180) });
     if (r.data === "approved") return true;
     var em = (await sb.rpc("founder_emails")).data || "";
-    twofa('<h2>Yangi qurilma</h2><div class="msg msg--info">Siz bu qurilmadan birinchi marta kiryapsiz. Xavfsizlik uchun <b>asoschi tasdiqlashi kerak</b>. Tasdiqlangach shu sahifani yangilang.</div>' +
-      '<div class="p-actions">' + (em ? '<a class="btn btn--gold" href="mailto:' + esc(em) + '?subject=' + encodeURIComponent("Moviy Nomad: yangi qurilmani tasdiqlang") + '&body=' + encodeURIComponent("Assalomu alaykum! Admin panelga yangi qurilmadan kiryapman. Iltimos, admin → Jamoa bo'limida tasdiqlang.\n" + navigator.userAgent) + '">Asoschiga xat yuborish</a>' : '') +
-      '<button class="btn btn--outline" onclick="location.reload()">Tekshirish</button><button class="btn btn--outline" id="b-dev-out">Chiqish</button></div>');
-    $("#b-dev-out").onclick = async function () { await sb.auth.signOut(); location.reload(); };
+    twofa('<h2>Asoschi tasdig\'i kutilmoqda</h2><div class="msg msg--info">Kirish so\'rovingiz asoschiga yuborildi. Asoschi o\'z kabinetida (<b>Jamoa</b> bo\'limi) <b>Tasdiqlash</b>ni bosishi bilan panel shu yerda <b>o\'zi ochiladi</b> — sahifani yopmang.</div>' +
+      '<p class="p-sub">Bu qurilma: ' + esc(navigator.userAgent.slice(0, 120)) + '</p>' +
+      '<div class="p-actions"><button class="btn btn--outline" id="b-dev-out">Chiqish</button></div>');
+    $("#b-dev-out").onclick = async function () { clearInterval(window.__devPoll); await sb.auth.signOut(); location.reload(); };
+    clearInterval(window.__devPoll);
+    window.__devPoll = setInterval(async function () {
+      var c = await sb.rpc("register_device", { p_label: navigator.userAgent.slice(0, 180) });
+      if (c.data === "approved") { clearInterval(window.__devPoll); boot(); }
+    }, 5000);
     return false;
   }
 
@@ -132,7 +137,8 @@
     if (!u) return show("login");
     var p = (await sb.from("profiles").select("*").eq("id", u.id).single()).data;
     if (!p || (p.role !== "admin" && p.role !== "manager") || p.active === false) { await sb.auth.signOut(); show("login"); return P.msg("#m-login", "Bu akkaunt admin panel uchun emas.", "err"); }
-    // 2026-11-23: no authenticator app / device approval any more — e-mail code or password is enough
+    // 2026-11-23 (founder): password set by the founder; every new device waits for the founder's approval
+    if (p.role === "manager" && !(await deviceOk())) return;
     window.MNA.role = p.role; window.MNA.me = p;
     $("#v-2fa").classList.add("hidden");
     document.body.classList.toggle("is-manager", p.role === "manager");
@@ -151,7 +157,7 @@
         new MutationObserver(function () { clearTimeout(el._ro); el._ro = setTimeout(lock, 60); }).observe(el, { childList: true, subtree: true });
       });
     }
-    if (window.MNA.teamBadge && p.role === "admin") window.MNA.teamBadge();
+    if (window.MNA.teamBadge && p.role === "admin") { window.MNA.teamBadge(); clearInterval(window.__tb); window.__tb = setInterval(window.MNA.teamBadge, 15000); }
     loadBookings();
   }
 
