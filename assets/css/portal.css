@@ -78,7 +78,7 @@ body.portal{background:var(--sand);min-height:100vh}
 .svc{display:grid;grid-template-columns:120px 1.4fr 1fr 130px 130px;gap:8px;align-items:end;padding:12px;border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
 .svc .wide{grid-column:span 2}
 @media (max-width:900px){.p-grid,.kv,.trav,.svc{grid-template-columns:1fr 1fr}.portal .bwrap{grid-template-columns:1fr}.quote{position:static}}
-@media (max-width:560px){.p-grid,.kv,.trav,.svc{grid-template-columns:1fr}.p-tabs{overflow-x:auto}}
+@media (max-width:560px){.p-grid,.kv,.trav,.svc{grid-template-columns:1fr}.p-tabs .container{flex-wrap:wrap;padding-left:6px;padding-right:6px}.p-tabs button{padding:10px 10px;font-size:13.5px;white-space:nowrap;flex:0 0 auto}}
 .link{color:var(--sky);font-weight:700;font-size:14px}
 
 /* ===== Admin: price control ===== */
