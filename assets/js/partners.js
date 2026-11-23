@@ -41,7 +41,7 @@
         var unit = p.kind === "hotel" ? PT.per_night : PT.per_day;
         return '<a class="pth" href="' + (page[p.kind] || "partners.html?k=other") + '#p-' + p.id + '"><span class="pth__img" style="background-image:url(\'' + img(p.photo) + '\')">' + (p.license_ok ? '<i>✓ ' + esc(PT.verified) + '</i>' : '') + '</span>' +
           '<span class="pth__b"><small>' + esc(PT["k_" + p.kind] || "") + ' · ' + esc(p.city || "") + '</small><b>' + esc(p.name) + '</b>' +
-          '<span class="pth__m">' + (p.reviews_count ? stars(p.rating) + ' ' + Number(p.rating).toFixed(1) : '<em>' + esc(PT["new"]) + '</em>') + (p.price_day ? '<span>$' + Math.round(p.price_day) + ' ' + esc(unit) + '</span>' : '') + '</span>' +
+          '<span class="pth__m">' + (p.reviews_count ? stars(p.rating) + ' ' + Number(p.rating).toFixed(1) : '<em>' + esc(PT["new"]) + '</em>') + '</span>' +
           ((p.languages || []).length ? '<span class="pth__l">🗣 ' + esc(p.languages.slice(0, 3).join(", ")) + '</span>' : '') + '</span></a>';
       }).join("");
       box.hidden = false;
@@ -58,13 +58,11 @@
     if (p.kind === "hotel" && p.hotel_stars) facts.push(p.hotel_stars + " " + PT.stars);
     return '<article class="pt-card" id="p-' + p.id + '"><div class="pt-card__img"' + (p.photo ? ' style="background-image:url(\'' + img(p.photo) + '\')"' : '') + '>' +
       (p.license_ok ? '<span class="pt-badge">✓ ' + esc(PT.verified) + '</span>' : '') + (rank ? '<span class="pt-rank' + (rank <= 3 ? ' pt-rank--' + rank : '') + '">#' + rank + '</span>' : '') +
-      '<button type="button" class="pt-like' + (liked(p.id) ? ' is-on' : '') + '" data-like="' + p.id + '" aria-label="' + esc(PT.like) + '" data-free>❤</button>' +
-      '<div class="pt-card__name"><b>' + esc(p.name) + (p.age && p.kind !== "hotel" ? ' <i>' + p.age + ' ' + esc(PT.yrs) + '</i>' : '') + '</b><small>📍 ' + esc([p.city].concat((p.cities || []).filter(function (c) { return c !== p.city; })).filter(Boolean).slice(0, 3).join(", ")) + '</small></div></div>' +
+      '<div class="pt-card__name"><b>' + esc(p.name) + '</b><small>📍 ' + esc([p.city].concat((p.cities || []).filter(function (c) { return c !== p.city; })).filter(Boolean).slice(0, 3).join(", ")) + '</small></div></div>' +
       '<div class="pt-card__body"><div class="pt-card__rate">' + (p.reviews_count ? stars(p.rating) + ' <b>' + Number(p.rating).toFixed(1) + '</b> <small>(' + p.reviews_count + ')</small>' : '<span class="pt-new">' + esc(PT.new) + '</span>') +
-      (p.trips_count ? '<small class="pt-trips">' + p.trips_count + ' ' + esc(PT.trips) + '</small>' : '') + '</div>' + stats(p) +
+      '</div>' + stats(p) +
       (facts.length ? '<p class="pt-facts">' + facts.join(" · ") + '</p>' : '') +
       ((p.languages || []).length ? '<p class="pt-langs">🗣 ' + esc(p.languages.slice(0, 4).join(", ")) + (p.languages.length > 4 ? " +" + (p.languages.length - 4) : "") + '</p>' : '') +
-      (p.price_day ? '<p class="pt-price">' + esc(PT.from) + ' <b>$' + Math.round(p.price_day) + '</b> ' + esc(unit) + '</p>' : '') +
       '<div class="pt-card__btns"><button class="btn btn--gold btn--sm" data-ask="' + p.id + '">' + esc(PT.ask) + '</button><button class="btn btn--outline btn--sm" data-prof="' + p.id + '">' + esc(PT.profile) + '</button></div></div></article>';
   }
   function draw() {
