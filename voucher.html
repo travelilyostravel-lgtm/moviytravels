@@ -58,7 +58,7 @@ table{width:100%;border-collapse:collapse;font-size:12.5px}td,th{padding:1.7mm 2
     var title=(M.tours&&M.tours[v.tour_id]&&M.tours[v.tour_id][0])||v.tour_title||"";
     var det=v.details||{}, cfg=v.config||{}, full=v.kind==="b2b"||!v.total||(+v.paid||0)>=(+v.total||0)-0.5, DT=full?L.title:L.conf_title;
     var trav=(v.travellers||[]).map(function(t,i){return'<tr><td>'+(i+1)+'</td><td><b>'+esc(((t.last||"")+" "+(t.first||"")).trim()||t.name||"")+'</b></td><td>'+esc(t.nationality||t.citizenship||v.citizenship||"")+'</td><td>'+esc(t.passport||"")+'</td></tr>';}).join("");
-    var cells=[[L.no,v.ref],[L.dates,d(v.start_date)+(days?" — "+d(v.start_date,days-1):"")],[L.tour,days?L.dur.replace("{d}",days).replace("{n}",nights):""],[L.pax,v.pax]];
+    var cells=[[full?L.no:"№",v.ref],[L.dates,d(v.start_date)+(days?" — "+d(v.start_date,days-1):"")],[L.tour,days?L.dur.replace("{d}",days).replace("{n}",nights):""],[L.pax,v.pax]];
     if(v.kind==="b2b") cells.push([L.agency,v.agency]); else cells.push([L.lead,v.lead]);
     cells.push([L.hotel,name("hotels",det.hotel||cfg.hotel||(T&&T.hotel))]); if(det.room) cells.push([L.room,{twin_share:"Twin (shared)",twin:"Twin",single:"Single"}[det.room]||det.room]);
     cells.push([L.guide,det.guide_lang||cfg.guide||"English"]); var iss=v.issued?new Date(v.issued):new Date(); cells.push([L.issued,d(iss.getFullYear()+"-"+String(iss.getMonth()+1).padStart(2,"0")+"-"+String(iss.getDate()).padStart(2,"0"))]);
@@ -80,7 +80,7 @@ table{width:100%;border-collapse:collapse;font-size:12.5px}td,th{padding:1.7mm 2
     var R=C.req, reqb='<h2>'+L.req+'</h2><table class="req"><tbody><tr><th style="width:34%">'+esc(R.company)+'</th><td>'+esc(L.addr)+': '+esc(R.address)+'</td></tr><tr><th>'+esc(L.inn)+': '+esc(R.inn)+'</th><td>'+esc(L.bank)+': '+esc(R.bank)+' · '+esc(L.mfo)+': '+esc(R.mfo)+'</td></tr><tr><th>'+esc(L.acc)+'</th><td>'+esc(R.account)+'</td></tr><tr><th>'+esc(L.lic)+'</th><td>№ '+esc(R.license)+' ('+esc(R.license_reg)+')</td></tr></tbody></table>';
     var url=location.origin+location.pathname+"?ref="+encodeURIComponent(ref)+"&k="+encodeURIComponent(key);
     var qr=""; try{var q=qrcode(0,"M");q.addData(url);q.make();qr=q.createSvgTag({cellSize:3,margin:0});}catch(e){}
-    box.innerHTML=C.rose+'<header class="hd">'+C.logo+'<div class="brand"><b>MOVIY NOMAD</b><small>MOVIY TRAVEL XK · '+esc(C.licence)+'</small></div><div class="ttl"><b>'+esc(L.title)+'</b><span>'+esc(v.ref)+'</span></div></header>'+
+    box.innerHTML=C.rose+'<header class="hd">'+C.logo+'<div class="brand"><b>MOVIY NOMAD</b><small>MOVIY TRAVEL XK · '+esc(C.licence)+'</small></div><div class="ttl"><b>'+esc(DT)+'</b><span>'+esc(v.ref)+'</span></div></header>'+
       '<div class="stamp">'+esc(full?L.paid:L.part)+'</div><h1>'+esc(title)+'</h1><p class="sub">'+esc(d(v.start_date))+(days?' — '+esc(d(v.start_date,days-1)):'')+'</p>'+
       '<div class="grid">'+cells.filter(function(c){return c[1];}).map(function(c){return'<div class="cell"><small>'+esc(c[0])+'</small><b>'+esc(c[1])+'</b></div>';}).join("")+'</div>'+
       client+payb+(route?'<h2>'+L.route+'</h2>'+route:'')+(trav?'<h2>'+L.pax+'</h2><table><tbody>'+trav+'</tbody></table>':'')+svc+(prog?'<h2>'+L.prog+'</h2>'+prog:'')+inc+reqb+
