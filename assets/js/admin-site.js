@@ -67,56 +67,60 @@
   function workDays(from, n) { var t = new Date(from); while (n > 0) { t.setDate(t.getDate() + 1); var w = t.getDay(); if (w !== 0 && w !== 6) n--; } return t.toISOString().slice(0, 10); }
   function vurl(x) { return location.origin + location.pathname.replace(/admin\/.*$/, "") + "voucher.html?ref=" + encodeURIComponent(x.ref) + "&k=" + encodeURIComponent(x.voucher_key); }
   function payCard(x) {
-    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = Math.round(tot * 0.3), bal = x.balance_due || (x.start_date ? addDays(x.start_date, -14) : "");
-    var late = x.start_date && addDays(x.start_date, -14) <= new Date().toISOString().slice(0, 10);
-    var h = '<div class="p-card" id="pay-card"><h3>To\'lov (30% oldindan, 70% — 14 kun oldin)</h3>' +
-      '<div class="fld"><label>Tur narxi, jami (USD) — mijoz bilan kelishilgan</label><input type="number" min="0" step="1" id="p-total" value="' + (tot || (x.details && x.details.est_total) || "") + '"></div>';
-    if (tot) {
-      h += '<table class="tbl" style="margin-top:10px"><tr><th style="width:240px">Oldindan to\'lov (30%)</th><td><b>' + P.money(late ? tot : dep) + '</b>' + (late ? ' — sayohatga 14 kundan kam qoldi: <b>100% darhol</b>' : ' — hisob-fakturadan keyin 3 ish kunida (taxminan ' + P.date(workDays(x.updated_at || x.created_at, 3)) + ' gacha)') + '</td></tr>' +
-        '<tr><th>Qolgan 70%</th><td><b>' + P.money(tot - dep) + '</b> — ' + (bal ? P.date(bal) + ' gacha' : 'sana kiritilmagan') + '</td></tr>' +
-        '<tr><th>To\'langan</th><td><b>' + P.money(paid) + '</b> · qoldiq: <b>' + P.money(Math.max(tot - paid, 0)) + '</b></td></tr></table>' +
-        '<div id="p-list" style="margin-top:10px"></div>' +
-        '<div class="row2" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px"><div class="fld"><label>Tushgan summa (USD)</label><input type="number" step="1" id="p-amt"></div>' +
-        '<div class="fld"><label>Sana</label><input type="date" id="p-date" value="' + new Date().toISOString().slice(0, 10) + '"></div>' +
-        '<div class="fld"><label>Usul</label><select id="p-m"><option value="bank">Bank o\'tkazmasi</option><option value="card">Karta (Visa/Mastercard)</option><option value="cash">Naqd</option><option value="other">Boshqa</option></select></div>' +
-        '<div class="fld"><label>Izoh</label><input id="p-note" placeholder="masalan: 30% avans"></div></div>' +
-        '<div class="p-actions"><button class="btn btn--gold btn--sm" id="p-add">+ To\'lovni yozish</button></div>';
-    } else h += '<div class="p-actions"><button class="btn btn--gold btn--sm" id="p-save-total">Narxni saqlash</button></div>';
-    if (x.voucher_key && ["paid", "confirmed", "closed"].indexOf(x.status) > -1) {
-      var u = vurl(x);
-      h += '<div class="msg msg--ok" style="margin-top:12px">✅ Vaucher tayyor. Mijozga shu havolani yuboring — u ochib PDF yuklab oladi:<br><a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a></div>' +
-        '<div class="p-actions"><a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="' + esc(u) + '">Vaucherni ochish</a><button class="btn btn--outline btn--sm" id="p-copy">Havolani nusxalash</button>' +
-        '<a class="btn btn--wa btn--sm" target="_blank" rel="noopener" href="' + wa(x.phone) + '?text=' + encodeURIComponent("Moviy Nomad: your trip is fully paid. Your voucher: " + u) + '">WhatsApp\'da yuborish</a></div>';
-    } else if (tot && paid >= tot) h += '<div class="p-actions"><button class="btn btn--gold" id="p-vouch">✅ 100% to\'landi — vaucher yaratish</button></div>';
-    else if (tot) h += '<p class="p-sub" style="margin-top:8px">Vaucher 100% to\'langandan keyin yaratiladi.</p>';
+    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = Math.round(tot * 0.3), due = x.balance_due || (x.start_date ? addDays(x.start_date, -14) : "");
+    var est = (x.details && x.details.est_total) || "", done = x.voucher_key && ["paid", "confirmed", "closed"].indexOf(x.status) > -1;
+    var step = function (n, on, txt) { return '<div style="display:flex;gap:10px;align-items:center;margin:8px 0;opacity:' + (on ? 1 : .45) + '"><b style="flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:' + (on ? "var(--gold)" : "#ddd") + '">' + n + '</b><div style="flex:1">' + txt + '</div></div>'; };
+    var h = '<div class="p-card" id="pay-card"><h3>To\'lov va vaucher</h3>';
+    // 1) price
+    h += step(1, true, '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">Tur narxi (USD): <input type="number" min="0" step="1" id="p-total" style="width:130px" value="' + (tot || est) + '">' +
+      (tot ? '<small>30% = <b>' + P.money(dep) + '</b> · 70% = <b>' + P.money(tot - dep) + '</b>' + (due ? ' (' + P.date(due) + ' gacha)' : '') + '</small>' : '<button class="btn btn--gold btn--sm" id="p-save-total">Saqlash</button>') + '</div>');
+    // 2) money received — one click, no typing
+    var t2 = paid >= tot && tot ? '✅ To\'liq to\'langan: <b>' + P.money(paid) + '</b>' :
+      (paid ? 'Tushgan: <b>' + P.money(paid) + '</b> · qoldi: <b>' + P.money(tot - paid) + '</b><br>' : '') +
+      (paid < dep ? '<button class="btn btn--green btn--sm" id="p-30">30% tushdi (' + P.money(dep) + ')</button> ' : '') +
+      '<button class="btn btn--green btn--sm" id="p-100">' + (paid ? 'Qolgani tushdi (' + P.money(tot - paid) + ')' : '100% tushdi (' + P.money(tot) + ')') + '</button>';
+    h += step(2, !!tot, tot ? t2 : 'Pul tushganda shu yerda bitta tugmani bosasiz');
+    // 3) voucher — one click: create + send
+    var t3 = done ? '<a class="btn btn--wa btn--sm" target="_blank" rel="noopener" id="p-send" href="' + wa(x.phone) + '?text=' + encodeURIComponent("Moviy Nomad: your trip is fully paid. Your voucher: " + vurl(x)) + '">WhatsApp\'da yuborish</a> <a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="' + esc(vurl(x)) + '">Vaucherni ko\'rish</a> <button class="btn btn--outline btn--sm" id="p-copy">Havolani nusxalash</button>'
+      : (tot && paid >= tot ? '<button class="btn btn--gold" id="p-vouch">Vaucher tayyorlash va WhatsApp\'da yuborish</button>' : 'To\'liq to\'langach shu yerda tugma chiqadi');
+    h += step(3, tot && paid >= tot, t3);
+    if (tot) h += '<details style="margin-top:10px"><summary class="p-sub" style="cursor:pointer">Boshqa summa tushdimi? (qo\'lda yozish va to\'lovlar tarixi)</summary>' +
+      '<div id="p-list" style="margin-top:8px"></div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-top:8px"><div class="fld"><label>Summa (USD)</label><input type="number" step="1" id="p-amt" style="width:120px"></div>' +
+      '<div class="fld"><label>Usul</label><select id="p-m"><option value="bank">Bank</option><option value="card">Karta</option><option value="cash">Naqd</option></select></div>' +
+      '<button class="btn btn--outline btn--sm" id="p-add">Yozish</button></div></details>';
     return h + '<div class="msg" id="m-p"></div></div>';
   }
   function bindPay(x, id) {
-    var tot = +x.price_total || 0;
+    var tot = +x.price_total || 0, paid0 = +x.paid_total || 0;
     async function save(patch) { patch.updated_at = new Date().toISOString(); var u = await sb.from("site_requests").update(patch).eq("id", id); if (u.error) { P.msg("#m-p", u.error.message, "err"); return false; } return true; }
+    async function pay(amount, method, note) {
+      if (!(amount > 0)) return;
+      var ins = await sb.from("payments").insert({ ref_kind: "request", ref_id: id, amount: amount, method: method || "bank", note: note || null });
+      if (ins.error) return P.msg("#m-p", ins.error.message, "err");
+      var paid = paid0 + amount, st = paid >= tot ? "paid" : paid >= Math.round(tot * 0.3) - 0.5 ? "deposit_paid" : "awaiting_payment";
+      if (["confirmed", "closed", "cancelled"].indexOf(x.status) > -1) st = x.status;
+      if (await save({ paid_total: paid, status: st })) openRequest(id);
+    }
     var b;
     if ((b = $("#p-save-total"))) b.onclick = async function () {
       var v = +$("#p-total").value; if (!(v > 0)) return P.msg("#m-p", "Narxni kiriting", "err");
       if (await save({ price_total: v, balance_due: x.start_date ? addDays(x.start_date, -14) : null, status: ["new", "in_progress"].indexOf(x.status) > -1 ? "awaiting_payment" : x.status })) openRequest(id);
     };
-    if ($("#p-total") && tot) $("#p-total").onchange = async function () { var v = +this.value; if (v > 0 && await save({ price_total: v })) openRequest(id); };
+    if (tot && $("#p-total")) $("#p-total").onchange = async function () { var v = +this.value; if (v > 0 && await save({ price_total: v })) openRequest(id); };
+    if ((b = $("#p-30"))) b.onclick = function () { this.disabled = true; pay(Math.round(tot * 0.3) - paid0, "bank", "30% oldindan"); };
+    if ((b = $("#p-100"))) b.onclick = function () { this.disabled = true; pay(tot - paid0, "bank", paid0 ? "qolgan qism" : "100%"); };
+    if ((b = $("#p-add"))) b.onclick = function () { var a = +$("#p-amt").value; if (!a) return P.msg("#m-p", "Summani kiriting", "err"); pay(a, $("#p-m").value, "qo'lda"); };
     if ($("#p-list")) sb.from("payments").select("*").eq("ref_kind", "request").eq("ref_id", id).order("paid_on").then(function (r) {
-      var L = r.data || []; $("#p-list").innerHTML = L.length ? '<table class="tbl"><thead><tr><th>Sana</th><th>Summa</th><th>Usul</th><th>Izoh</th></tr></thead><tbody>' +
-        L.map(function (p) { return '<tr><td>' + P.date(p.paid_on) + '</td><td><b>' + P.money(p.amount) + '</b></td><td>' + esc(p.method || "") + '</td><td>' + esc(p.note || "") + '</td></tr>'; }).join("") + '</tbody></table>' : '<p class="p-sub">Hali to\'lov yozilmagan.</p>';
+      var L = r.data || []; $("#p-list").innerHTML = L.length ? '<table class="tbl"><tbody>' + L.map(function (p) { return '<tr><td>' + P.date(p.paid_on) + '</td><td><b>' + P.money(p.amount) + '</b></td><td>' + esc(p.method || "") + '</td><td>' + esc(p.note || "") + '</td></tr>'; }).join("") + '</tbody></table>' : '<p class="p-sub">Hali to\'lov yozilmagan.</p>';
     });
-    if ((b = $("#p-add"))) b.onclick = async function () {
-      var a = +$("#p-amt").value; if (!a) return P.msg("#m-p", "Summani kiriting", "err");
-      var ins = await sb.from("payments").insert({ ref_kind: "request", ref_id: id, amount: a, paid_on: $("#p-date").value, method: $("#p-m").value, note: $("#p-note").value.trim() || null });
-      if (ins.error) return P.msg("#m-p", ins.error.message, "err");
-      var all = (await sb.from("payments").select("amount").eq("ref_kind", "request").eq("ref_id", id)).data || [];
-      var paid = all.reduce(function (s, p) { return s + (+p.amount); }, 0), st = x.status;
-      if (paid >= tot) st = "paid"; else if (paid >= Math.round(tot * 0.3) - 0.5) st = "deposit_paid"; else if (["new", "in_progress"].indexOf(st) > -1) st = "awaiting_payment";
-      if (["confirmed", "closed", "cancelled"].indexOf(x.status) > -1) st = x.status;
-      if (await save({ paid_total: paid, status: st })) openRequest(id);
-    };
     if ((b = $("#p-vouch"))) b.onclick = async function () {
       var a = new Uint8Array(18); crypto.getRandomValues(a); var k = Array.from(a, function (n) { return ("0" + n.toString(16)).slice(-2); }).join("");
-      if (await save({ voucher_key: k, voucher_at: new Date().toISOString(), status: "confirmed" })) openRequest(id);
+      var w = window.open("about:blank", "_blank");   // open now (click), fill after save — browsers block late pop-ups
+      if (await save({ voucher_key: k, voucher_at: new Date().toISOString(), status: "confirmed" })) {
+        x.voucher_key = k;
+        if (w) w.location = wa(x.phone) + "?text=" + encodeURIComponent("Moviy Nomad: your trip is fully paid. Your voucher: " + vurl(x));
+        openRequest(id);
+      } else if (w) w.close();
     };
     if ((b = $("#p-copy"))) b.onclick = function () { navigator.clipboard.writeText(vurl(x)); P.msg("#m-p", "Nusxalandi", "ok"); };
   }
