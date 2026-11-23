@@ -144,8 +144,9 @@
     document.body.classList.toggle("is-manager", p.role === "manager");
     $("#who").innerHTML = "<b>" + esc(p.full_name || "Admin") + (p.role === "manager" ? " · menejer" : " · asoschi") + "</b>" + esc(u.email);
     $("#who").classList.remove("hidden"); $("#logout").classList.remove("hidden"); $("#tabs").classList.remove("hidden");
+    if (window.MNA.partnersBadge) { window.MNA.partnersBadge(); clearInterval(window.__pb); window.__pb = setInterval(window.MNA.partnersBadge, 60000); }
     if (p.role === "manager") {
-      $$("#tabs button").forEach(function (b) { if (["agencies", "posts", "team", "customers", "partners"].indexOf(b.dataset.view) > -1) b.remove(); });
+      $$("#tabs button").forEach(function (b) { if (["agencies", "posts", "team", "customers"].indexOf(b.dataset.view) > -1) b.remove(); });
       // prices and group dates: view only for managers (the database refuses changes anyway)
       ["#v-prices", "#v-groups", "#v-group"].forEach(function (q) {
         var el = $(q); if (!el) return;
@@ -157,7 +158,7 @@
         new MutationObserver(function () { clearTimeout(el._ro); el._ro = setTimeout(lock, 60); }).observe(el, { childList: true, subtree: true });
       });
     }
-    if (window.MNA.teamBadge && p.role === "admin") { window.MNA.teamBadge(); clearInterval(window.__tb); window.__tb = setInterval(window.MNA.teamBadge, 15000); if (window.MNA.partnersBadge) window.MNA.partnersBadge(); }
+    if (window.MNA.teamBadge && p.role === "admin") { window.MNA.teamBadge(); clearInterval(window.__tb); window.__tb = setInterval(window.MNA.teamBadge, 15000); }
     loadBookings();
   }
 

@@ -15,9 +15,21 @@
 
   // ---------------------------------------------------------------- home page tiles: counts
   if ($("[data-ptn]") && !$("#pt-grid")) {
-    get("partners_public?select=kind").then(function (rows) {
+    get("partners_public?select=*").then(function (rows) {
       var c = {}; rows.forEach(function (r) { c[r.kind] = (c[r.kind] || 0) + 1; });
       $$("[data-ptn]").forEach(function (el) { var n = c[el.getAttribute("data-ptn")]; if (n) el.textContent = n + " " + (PT.partners_count || ""); });
+      // approved guides (then others) appear on the home page as soon as the founder or a manager approves them
+      var box = $("#pt-home"), page = { guide: "guides.html", driver: "transport.html", hotel: "hotels.html" };
+      var top = rows.filter(function (p) { return p.photo; }).sort(function (a, b) { return (a.kind === "guide" ? 0 : 1) - (b.kind === "guide" ? 0 : 1) || score(b) - score(a); }).slice(0, 4);
+      if (!box || !top.length) return;
+      box.innerHTML = top.map(function (p) {
+        var unit = p.kind === "hotel" ? PT.per_night : PT.per_day;
+        return '<a class="pth" href="' + (page[p.kind] || "partners.html?k=other") + '#p-' + p.id + '"><span class="pth__img" style="background-image:url(\'' + img(p.photo) + '\')">' + (p.license_ok ? '<i>✓ ' + esc(PT.verified) + '</i>' : '') + '</span>' +
+          '<span class="pth__b"><small>' + esc(PT["k_" + p.kind] || "") + ' · ' + esc(p.city || "") + '</small><b>' + esc(p.name) + '</b>' +
+          '<span class="pth__m">' + (p.reviews_count ? stars(p.rating) + ' ' + Number(p.rating).toFixed(1) : '<em>' + esc(PT["new"]) + '</em>') + (p.price_day ? '<span>$' + Math.round(p.price_day) + ' ' + esc(unit) + '</span>' : '') + '</span>' +
+          ((p.languages || []).length ? '<span class="pth__l">🗣 ' + esc(p.languages.slice(0, 3).join(", ")) + '</span>' : '') + '</span></a>';
+      }).join("");
+      box.hidden = false;
     });
     return;
   }
@@ -110,6 +122,6 @@
     $("#pt-city").innerHTML = '<option value="">' + esc(PT.city) + '</option>' + Object.keys(cities).sort().map(function (c) { return '<option>' + esc(c) + '</option>'; }).join("");
     $("#pt-lang").innerHTML = '<option value="">' + esc(PT.lang) + '</option>' + Object.keys(langs).sort().map(function (c) { return '<option>' + esc(c) + '</option>'; }).join("");
     draw();
-    var h = location.hash.match(/^#p-(.+)$/); if (h) { var el = document.getElementById("p-" + h[1]); if (el) el.scrollIntoView({ block: "center" }); }
+    var h = location.hash.match(/^#p-(.+)$/); if (h) { var el = document.getElementById("p-" + h[1]); if (el) el.scrollIntoView({ block: "center" }); if (ALL.some(function (p) { return p.id === h[1]; })) open(h[1], "prof"); }
   });
 })();

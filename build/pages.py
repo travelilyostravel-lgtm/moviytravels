@@ -120,6 +120,7 @@ def home_blocks(lang, pre, A, icon):
   <section class="section section--tight" id="partners">
     <div class="container">
       <div class="section-head section-head--tight reveal"><span class="eyebrow">{e(PT["eyebrow"])}</span><h2>{e(PT["title"])}</h2><p>{e(PT["sub"])}</p></div>
+      <div class="pt-home" id="pt-home" hidden></div>
       <div class="pt-tiles">{tiles}</div>
       <p class="pt-more"><a class="btn btn--outline" href="partners.html">{e(PT["see_all"])} →</a> <a class="pt-become" href="partners.html#join">{e(PT["become"])}</a></p>
     </div>

@@ -1,4 +1,4 @@
-/* Moviy Nomad — admin: partners (guides, drivers, hotels, other) and their reviews. Founder only. UI in Uzbek. */
+/* Moviy Nomad — admin: partners (guides, drivers, hotels, other) and their reviews. Founder and managers approve. UI in Uzbek. */
 (function () {
   var P = window.MNP, sb = P && P.sb, $ = P.$, $$ = P.$$, esc = P.esc, A = window.MNA = window.MNA || {};
   if (!sb) return;
@@ -25,7 +25,7 @@
     var list = all.filter(function (p) { return flt === "all" || p.status === flt; });
     var h = '<div class="p-card"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><h2 style="margin:0">Hamkorlar</h2>' +
       '<div><a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="../partner/#reg">Ro\'yxatdan o\'tish sahifasi</a> <a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="../uz/partners.html">Saytda ko\'rish</a></div></div>' +
-      '<p class="p-sub">Gid, haydovchi va mehmonxonalar o\'zlari ro\'yxatdan o\'tadi. Siz hujjatini tekshirib <b>Tasdiqlash</b>ni bosasiz — shundan keyin saytda chiqadi. Aloqa raqamlari saytda ko\'rinmaydi: mijoz so\'rovi bizga keladi.</p>' +
+      '<p class="p-sub">Gid, haydovchi va mehmonxonalar o\'zlari ro\'yxatdan o\'tadi. Asoschi yoki menejer hujjat va rasmlarni tekshirib <b>Tasdiqlash</b>ni bosadi — shundan keyin kartochka saytda (bosh sahifada ham) chiqadi. Aloqa raqamlari saytda ko\'rinmaydi: mijoz so\'rovi bizga keladi.</p>' +
       '<div class="filters">' + [["pending", "Tekshiruvda"], ["approved", "Saytda"], ["paused", "Yopiq"], ["rejected", "Rad etilgan"], ["all", "Hammasi"]].map(function (f) { return '<button data-pf="' + f[0] + '" class="' + (flt === f[0] ? "is-on" : "") + '">' + f[1] + (f[0] !== "all" && cnt[f[0]] ? " (" + cnt[f[0]] + ")" : "") + '</button>'; }).join("") + '</div>' +
       (list.length ? '<table class="tbl" style="margin-top:10px"><thead><tr><th>Hamkor</th><th>Turi</th><th>Shahar</th><th>Reyting</th><th>Holat</th><th>Ro\'yxatdan</th></tr></thead><tbody>' + list.map(function (p) {
         return '<tr class="click" data-pid="' + p.id + '"><td><b>' + esc(p.name) + '</b><br><small>' + esc(p.email || "") + ' · ' + esc(p.phone || "") + '</small></td><td>' + esc(KIND[p.kind]) + '</td><td>' + esc(p.city || "") + '</td><td>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " (" + p.reviews_count + ")" : "—") + '</td><td>' + esc(ST[p.status]) + (p.license_ok ? '<br><small>✓ litsenziya</small>' : '') + '</td><td><small>' + P.date(p.created_at) + '</small></td></tr>';
