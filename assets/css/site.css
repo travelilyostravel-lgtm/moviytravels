@@ -800,3 +800,4 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .jf-cities{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .jf-cities label{display:inline-flex;gap:5px;align-items:center;font-size:13px;background:#fffdf8;border:1px solid #e9dfca;border-radius:999px;padding:5px 10px;cursor:pointer}
 .jf-cities label:has(input:checked){background:#e9f3fb;border-color:#9cc3e6}
+.pt-nums{align-items:center}.pt-shr{padding:2px 9px}

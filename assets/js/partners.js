@@ -24,7 +24,7 @@
   }
   function stats(p) {
     return '<div class="pt-nums"><span title="' + esc(PT.views) + '">👁 <b>' + fmt(p.views_count) + '</b></span><span title="' + esc(PT.likes) + '">❤ <b data-lc="' + p.id + '">' + fmt(p.likes_count) + '</b></span>' +
-      '<button type="button" class="pt-shr" data-share="' + p.id + '" title="' + esc(PT.share) + '" data-free>↗ ' + esc(PT.share) + ' <b data-sc="' + p.id + '">' + fmt(p.shares_count) + '</b></button><span class="pt-pts" title="' + esc(PT.rules) + '">🏆 <b>' + points(p) + '</b> ' + esc(PT.points) + '</span></div>';
+      '<button type="button" class="pt-shr" data-share="' + p.id + '" title="' + esc(PT.share) + '" aria-label="' + esc(PT.share) + '" data-free>↗ <b data-sc="' + p.id + '">' + fmt(p.shares_count) + '</b></button><span class="pt-pts" title="' + esc(PT.rules) + '">🏆 <b>' + points(p) + '</b> ' + esc(PT.points) + '</span></div>';
   }
   var ALL = [], kind = window.MNPT_KIND || new URLSearchParams(location.search).get("k") || "", city = new URLSearchParams(location.search).get("c") || "", lng = "";
   var CL = LANG === "uz" || LANG === "ru" ? LANG : "en";
