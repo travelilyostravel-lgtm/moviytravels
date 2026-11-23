@@ -466,13 +466,15 @@ def render_agent(lang="en"):
         <div class="fld"><label>License / registration no.</label><input name="license_no"></div>
         <div class="fld"><label>Contact person *</label><input name="contact_name" required></div>
         <div class="fld"><label>Phone</label><input name="phone"></div>
-        <div class="fld"><label>WhatsApp</label><input name="whatsapp"></div>
-        <div class="fld"><label>E-mail (login) *</label><input type="email" name="email" required autocomplete="email"></div>
+        <div class="fld"><label>Main WhatsApp number *</label><input name="whatsapp" type="tel" required placeholder="+90 5xx xxx xx xx" pattern="[+0-9 ()-]{{7,}}"></div>
+        <div class="fld"><label>Main e-mail (login) *</label><input type="email" name="email" required autocomplete="email"></div>
         <div class="fld full"><label>Password * <small>(min. 8 characters)</small></label><input type="password" name="password" minlength="8" required autocomplete="new-password"></div>
         <label class="chk full"><input type="checkbox" required> I agree that Moviy Nomad checks my agency documents and stores my clients' passport data only to arrange their trip.</label>
       </div>
       <div class="msg" id="m-register"></div>
       <div class="p-actions"><button class="btn btn--gold" type="submit">Send application</button></div>
+      <div class="ag-help"><p class="p-sub">No WhatsApp or business e-mail? Write to our manager directly:</p>
+        <div class="p-actions"><a class="btn btn--outline" href="https://wa.me/{CONFIG["whatsapp"]}?text=Hello%2C%20I%20am%20a%20travel%20agency%20and%20would%20like%20to%20become%20a%20Moviy%20Nomad%20partner." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--outline" href="https://t.me/{CONFIG["telegram"]}" target="_blank" rel="noopener">Telegram</a><a class="btn btn--outline" href="mailto:{CONFIG["email"]}?subject=Partner%20agency%20application">E-mail</a></div></div>
     </form>
   </div></section>
 
@@ -484,6 +486,8 @@ def render_agent(lang="en"):
       <div class="fld"><label>File (PDF or image)</label><input type="file" id="doc-file" accept=".pdf,image/*"></div></div>
     <div class="msg" id="m-docs"></div>
     <div class="p-actions"><button class="btn btn--navy" id="doc-up">Upload document</button></div>
+    <div class="ag-help"><p class="p-sub">Questions? Write to our manager directly:</p>
+      <div class="p-actions"><a class="btn btn--outline" href="https://wa.me/{CONFIG["whatsapp"]}" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--outline" href="https://t.me/{CONFIG["telegram"]}" target="_blank" rel="noopener">Telegram</a><a class="btn btn--outline" href="mailto:{CONFIG["email"]}">E-mail</a></div></div>
   </div></section>
 
   <section id="v-quote" class="hidden">

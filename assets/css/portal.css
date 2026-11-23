@@ -164,3 +164,5 @@ body.portal{background:var(--sand);min-height:100vh}
 @media (max-width:640px){.agp__panel{grid-template-columns:1fr}.agp__br b{font-size:28px}}
 .ag-lang{padding:7px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:transparent;color:inherit;font-weight:600;margin-inline-end:10px}.ag-lang option{color:#12355b}
 .autolog{padding:12px 14px;border-radius:12px;background:#f4f8fb;border:1px solid #dbe7f0}.autolog ul{margin:6px 0 0;padding-left:18px}.autolog li{margin:3px 0}
+
+.ag-help{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(18,53,91,.2)}.ag-help .p-sub{margin:0 0 6px}

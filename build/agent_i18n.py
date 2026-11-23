@@ -1,6 +1,10 @@
 # Agent portal translations. EN phrase -> list for [ru, uz, tr, ar, de, sv, zh, hi, ko]. {0},{1} = values.
 LANGS = ["ru", "uz", "tr", "ar", "de", "sv", "zh", "hi", "ko"]
 P = [
+("Main WhatsApp number *", ["Основной номер WhatsApp *","Asosiy WhatsApp raqami *","Ana WhatsApp numarası *","رقم واتساب الرئيسي *","Haupt-WhatsApp-Nummer *","Huvudnummer för WhatsApp *","主要WhatsApp号码 *","मुख्य WhatsApp नंबर *","대표 WhatsApp 번호 *"]),
+("Main e-mail (login) *", ["Основной e-mail (логин) *","Asosiy e-mail (login) *","Ana e-posta (giriş) *","البريد الرئيسي (تسجيل الدخول) *","Haupt-E-Mail (Login) *","Huvud-e-post (inloggning) *","主要邮箱（登录名） *","मुख्य ई-मेल (लॉगिन) *","대표 이메일(로그인) *"]),
+("No WhatsApp or business e-mail? Write to our manager directly:", ["Нет WhatsApp или рабочей почты? Напишите нашему менеджеру напрямую:","WhatsApp yoki ish pochtangiz yo'qmi? Menejerimizga to'g'ridan-to'g'ri yozing:","WhatsApp veya kurumsal e-postanız yok mu? Doğrudan yöneticimize yazın:","لا يوجد واتساب أو بريد عمل؟ راسل مديرنا مباشرة:","Kein WhatsApp oder keine Firmen-E-Mail? Schreiben Sie direkt unserem Manager:","Inget WhatsApp eller företagsmejl? Skriv direkt till vår manager:","没有WhatsApp或工作邮箱？请直接联系我们的经理：","WhatsApp या व्यावसायिक ई-मेल नहीं है? सीधे हमारे मैनेजर को लिखें:","WhatsApp나 업무용 이메일이 없나요? 매니저에게 바로 연락하세요:"]),
+("Questions? Write to our manager directly:", ["Вопросы? Напишите нашему менеджеру напрямую:","Savollar bormi? Menejerimizga to'g'ridan-to'g'ri yozing:","Sorularınız mı var? Doğrudan yöneticimize yazın:","أسئلة؟ راسل مديرنا مباشرة:","Fragen? Schreiben Sie direkt unserem Manager:","Frågor? Skriv direkt till vår manager:","有问题？请直接联系我们的经理：","सवाल हैं? सीधे हमारे मैनेजर को लिखें:","문의 사항이 있나요? 매니저에게 바로 연락하세요:"]),
 ("Agent portal", ["Портал агентов","Agentlar portali","Acente portalı","بوابة الوكلاء","Agentenportal","Agentportal","旅行社门户","एजेंट पोर्टल","여행사 포털"]),
 ("Log out", ["Выйти","Chiqish","Çıkış","تسجيل الخروج","Abmelden","Logga ut","退出","लॉग आउट","로그아웃"]),
 ("New quote", ["Новый расчёт","Yangi hisob","Yeni teklif","عرض جديد","Neues Angebot","Ny offert","新报价","नया कोटेशन","새 견적"]),

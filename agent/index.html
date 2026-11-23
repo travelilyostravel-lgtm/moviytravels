@@ -5,7 +5,7 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css?v=8c0a198b"><link rel="stylesheet" href="../assets/css/deck.css?v=cd9ae6d7"><link rel="stylesheet" href="../assets/css/portal.css?v=2d6421bd">
+<link rel="stylesheet" href="../assets/css/site.css?v=8c0a198b"><link rel="stylesheet" href="../assets/css/deck.css?v=cd9ae6d7"><link rel="stylesheet" href="../assets/css/portal.css?v=c7f04e69">
 <script>(function(){try{var l=localStorage.getItem("mn_ag_lang");if(!l){var n=(navigator.language||"en").slice(0,2).toLowerCase();if(["ru","uz","tr","ar","de","sv","zh","hi","ko"].indexOf(n)>-1)l=n;}if(l&&l!=="en"&&/^[a-z]{2}$/.test(l))location.replace(l+".html"+location.search+location.hash);}catch(e){}})();</script></head>
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Agent portal</span><span class="p-top__sp"></span>
@@ -35,13 +35,15 @@
         <div class="fld"><label>License / registration no.</label><input name="license_no"></div>
         <div class="fld"><label>Contact person *</label><input name="contact_name" required></div>
         <div class="fld"><label>Phone</label><input name="phone"></div>
-        <div class="fld"><label>WhatsApp</label><input name="whatsapp"></div>
-        <div class="fld"><label>E-mail (login) *</label><input type="email" name="email" required autocomplete="email"></div>
+        <div class="fld"><label>Main WhatsApp number *</label><input name="whatsapp" type="tel" required placeholder="+90 5xx xxx xx xx" pattern="[+0-9 ()-]{7,}"></div>
+        <div class="fld"><label>Main e-mail (login) *</label><input type="email" name="email" required autocomplete="email"></div>
         <div class="fld full"><label>Password * <small>(min. 8 characters)</small></label><input type="password" name="password" minlength="8" required autocomplete="new-password"></div>
         <label class="chk full"><input type="checkbox" required> I agree that Moviy Nomad checks my agency documents and stores my clients' passport data only to arrange their trip.</label>
       </div>
       <div class="msg" id="m-register"></div>
       <div class="p-actions"><button class="btn btn--gold" type="submit">Send application</button></div>
+      <div class="ag-help"><p class="p-sub">No WhatsApp or business e-mail? Write to our manager directly:</p>
+        <div class="p-actions"><a class="btn btn--outline" href="https://wa.me/998999804214?text=Hello%2C%20I%20am%20a%20travel%20agency%20and%20would%20like%20to%20become%20a%20Moviy%20Nomad%20partner." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--outline" href="https://t.me/moviy_safina" target="_blank" rel="noopener">Telegram</a><a class="btn btn--outline" href="mailto:moviynomad4214@gmail.com?subject=Partner%20agency%20application">E-mail</a></div></div>
     </form>
   </div></section>
 
@@ -53,6 +55,8 @@
       <div class="fld"><label>File (PDF or image)</label><input type="file" id="doc-file" accept=".pdf,image/*"></div></div>
     <div class="msg" id="m-docs"></div>
     <div class="p-actions"><button class="btn btn--navy" id="doc-up">Upload document</button></div>
+    <div class="ag-help"><p class="p-sub">Questions? Write to our manager directly:</p>
+      <div class="p-actions"><a class="btn btn--outline" href="https://wa.me/998999804214" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--outline" href="https://t.me/moviy_safina" target="_blank" rel="noopener">Telegram</a><a class="btn btn--outline" href="mailto:moviynomad4214@gmail.com">E-mail</a></div></div>
   </div></section>
 
   <section id="v-quote" class="hidden">
