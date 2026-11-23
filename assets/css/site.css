@@ -764,3 +764,4 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .pt-shr{border:1px solid #e3dccd;background:#fffaf0;color:var(--navy);border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .15s}
 .pt-shr:hover{background:var(--gold);border-color:var(--gold)}
 .pt-shr.is-ok{background:#e3f4ea;border-color:#9fd4b4;color:#23794a}
+#pt-modal form[hidden],#jn-modal form[hidden]{display:none!important}
