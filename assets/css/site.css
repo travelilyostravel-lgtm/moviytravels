@@ -612,3 +612,82 @@ html[dir="rtl"] .fab{padding:6px 6px 6px 20px}
 .pt-bio{white-space:pre-line}.pt-gal{display:flex;gap:8px;overflow-x:auto;margin:8px 0}.pt-gal img{height:110px;border-radius:10px}
 .pt-rv{border-top:1px solid #eef1f5;padding:8px 0}.pt-rv p{margin:4px 0 0}.pt-note{color:#6b7a8a;font-size:13.5px}.pt-prof__btns{margin-top:12px}
 .pt-stars{display:flex;gap:4px}.pt-stars input{position:absolute;opacity:0}.pt-stars b{font-size:26px;color:#d9dee5;cursor:pointer}.pt-stars label:has(input:checked) b,.pt-stars label:has(~ label input:checked) b{color:#e9b949}
+
+/* ---- Main menu: dropdowns (Xizmatlar, Yana) ---- */
+.nav{align-items:center}
+.nav__dd{position:relative}
+.nav__ddb{color:inherit;font:inherit;opacity:.88;padding:6px 0;display:inline-flex;align-items:center;gap:5px;background:none;border:0;cursor:pointer;white-space:nowrap}
+.nav__ddb i{font-style:normal;font-size:10px;opacity:.75;transition:transform .2s}
+.nav__dd:hover .nav__ddb,.nav__dd:focus-within .nav__ddb{opacity:1}
+.nav__dd:hover .nav__ddb i,.nav__dd:focus-within .nav__ddb i{transform:rotate(180deg)}
+.nav__ddm{position:absolute;top:100%;left:-16px;min-width:270px;padding:10px;margin-top:8px;background:#fffdf8;color:var(--ink);border-radius:14px;box-shadow:0 18px 44px rgba(12,36,65,.22);border-top:3px solid var(--gold);display:none;flex-direction:column;z-index:60}
+.nav__ddm::before{content:"";position:absolute;inset:-12px 0 auto;height:12px}
+.nav__dd:hover .nav__ddm,.nav__dd:focus-within .nav__ddm{display:flex}
+.nav .nav__ddm a{opacity:1;padding:9px 12px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink)}
+.nav .nav__ddm a::after{display:none}
+.nav .nav__ddm a:hover{background:var(--sand);color:var(--navy)}
+.nav .nav__ddm a.nav__all{color:var(--gold-dark);font-weight:600;border-top:1px solid var(--line);border-radius:0 0 9px 9px;margin-top:4px}
+@media (max-width:1360px){.nav{gap:18px;font-size:14px}}
+@media (max-width:1180px){.header .agent-link{display:none}}
+@media (max-width:860px){
+  .nav{max-height:calc(100vh - 78px);overflow-y:auto}
+  .nav__dd{width:100%}
+  .nav__ddb{width:100%;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08);justify-content:space-between;opacity:1}
+  .nav__ddb i{display:none}
+  .nav__ddm{position:static;display:flex;background:none;box-shadow:none;border:0;margin:0;padding:4px 0 8px 14px;min-width:0}
+  .nav .nav__ddm a{color:#c5d4e6;padding:9px 0;font-size:14px;border-bottom:0}
+  .nav .nav__ddm a:hover{background:none;color:#fff}
+  .nav .nav__ddm a.nav__all{border-top:0;color:var(--gold)}
+}
+
+/* ---- National ornament (girih star), used softly ---- */
+:root{--orn:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23f3b443' stroke-width='1'%3E%3Crect x='17' y='17' width='22' height='22'/%3E%3Crect x='17' y='17' width='22' height='22' transform='rotate(45 28 28)'/%3E%3Ccircle cx='28' cy='28' r='4.5'/%3E%3Cpath d='M0 0l9 9M56 0l-9 9M0 56l9-9M56 56l-9-9'/%3E%3C/g%3E%3C/svg%3E")}
+.orn-line{display:flex;align-items:center;gap:10px;color:var(--gold);margin:0 0 14px}
+.orn-line::before,.orn-line::after{content:"";height:1px;width:46px;background:currentColor;opacity:.7}
+.orn-line i{width:9px;height:9px;transform:rotate(45deg);border:1.5px solid currentColor;display:block}
+
+/* ---- Kind pages: Gidlar / Transport / Mehmonxonalar ---- */
+.khero{position:relative;color:#fff;padding:86px 0 70px;background:var(--navy-3) center/cover no-repeat;overflow:hidden}
+.khero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(12,36,65,.94) 0%,rgba(12,36,65,.78) 48%,rgba(12,36,65,.35) 100%)}
+.khero::after{content:"";position:absolute;inset:0;background:var(--orn);opacity:.07}
+.khero .container{position:relative;z-index:1}
+.khero h1{font-size:clamp(30px,4.2vw,50px);margin:6px 0 14px;max-width:760px;line-height:1.12}
+.khero p{color:#d6e2ef;font-size:17.5px;line-height:1.65;max-width:640px;margin:0 0 26px}
+.khero__btns{display:flex;gap:12px;flex-wrap:wrap}
+.khero__btns .btn--ghost{border:1px solid rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.06)}
+.khero__btns .btn--ghost:hover{background:rgba(255,255,255,.14)}
+.ksub{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.ksub a{font-size:13.5px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#e8eef6}
+.ksub a:hover,.ksub a.is-on{background:var(--gold);border-color:var(--gold);color:var(--navy-3)}
+
+/* ---- "Become a partner" band ---- */
+.join{position:relative;background:#fffaf0;border:1px solid #efe3c8;border-radius:24px;padding:44px 46px;display:grid;grid-template-columns:1.05fr 1fr;gap:40px;overflow:hidden}
+.join::before{content:"";position:absolute;inset:0 0 0 auto;width:42%;background:var(--orn);opacity:.13;-webkit-mask:linear-gradient(90deg,transparent,#000 60%);mask:linear-gradient(90deg,transparent,#000 60%)}
+.join>*{position:relative}
+.join h2{font-size:clamp(24px,2.6vw,32px);margin:0 0 12px;color:var(--navy)}
+.join p{color:var(--muted);line-height:1.65;margin:0 0 22px}
+.join__req{background:#fff;border-radius:18px;padding:24px 26px;box-shadow:0 10px 30px rgba(12,36,65,.07);border-top:3px solid var(--gold)}
+.join__req h3{margin:0 0 12px;font-size:16px;color:var(--navy);letter-spacing:.02em}
+.join__req ol{margin:0;padding-left:20px;display:grid;gap:9px;font-size:14.5px;line-height:1.5;color:var(--ink)}
+.join__req ol li::marker{color:var(--gold-dark);font-weight:700}
+@media (max-width:860px){.join{grid-template-columns:1fr;padding:30px 22px;gap:24px}.khero{padding:64px 0 52px}}
+
+/* ---- Application modal ---- */
+.jf h3{margin:0 0 4px;color:var(--navy)}
+.jf .jf-note{font-size:14px;color:var(--muted);margin:0 0 16px;line-height:1.55}
+.jf fieldset{border:0;border-top:1px solid var(--line);padding:16px 0 4px;margin:0}
+.jf legend{font-family:var(--font-head);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dark);padding-right:10px}
+.jf-ph{border:1.5px dashed #d9cfbb;border-radius:14px;padding:14px 16px;background:#fffdf8;display:block;margin-bottom:12px}
+.jf-ph b{display:block;color:var(--navy);font-size:14.5px}
+.jf-ph small{display:block;color:var(--muted);font-size:13px;margin:3px 0 10px;line-height:1.45}
+.jf-ph input[type=file]{font-size:13px;width:100%}
+.jf-ph .jf-cnt{font-size:12.5px;font-weight:700;color:#b4541b;margin-top:6px;display:block}
+.jf-ph .jf-cnt.ok{color:#23794a}
+.jf-thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.jf-thumbs img{width:46px;height:46px;object-fit:cover;border-radius:8px}
+.jf-agree{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5;margin:10px 0;color:var(--ink)}
+.jf-agree input{margin-top:3px;flex:none}
+.jf-prog{height:6px;border-radius:9px;background:var(--line);overflow:hidden;margin:10px 0 0;display:none}
+.jf-prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.jf-done{text-align:center;padding:20px 6px}
+.jf-done b{font-size:44px;display:block;color:var(--gold)}

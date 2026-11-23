@@ -11,7 +11,7 @@
   function img(path) { return path ? SB.url + "/storage/v1/object/public/partner-photos/" + path.split("/").map(encodeURIComponent).join("/") : ""; }
   function stars(r) { var n = Math.round(r || 0); return '<span class="pt-st">' + "★★★★★".slice(0, n) + '<i>' + "★★★★★".slice(n) + '</i></span>'; }
   function score(p) { return (p.featured ? 1000 : 0) + (p.rating || 0) * Math.log(2 + (p.reviews_count || 0)) * 10 + (p.trips_count || 0) * 0.5; }
-  var ALL = [], kind = new URLSearchParams(location.search).get("k") || "", city = "", lng = "";
+  var ALL = [], kind = window.MNPT_KIND || new URLSearchParams(location.search).get("k") || "", city = "", lng = "";
 
   // ---------------------------------------------------------------- home page tiles: counts
   if ($("[data-ptn]") && !$("#pt-grid")) {
@@ -41,6 +41,7 @@
   }
   function draw() {
     $$("#pt-tabs [data-pk]").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-pk") === kind); });
+    if (!window.MNPT_KIND) $$(".ksub a").forEach(function (a) { var h = a.getAttribute("href"); a.classList.toggle("is-on", kind === "other" ? h.indexOf("k=other") > -1 : (!kind && h === "partners.html")); });
     var list = ALL.filter(function (p) { return (!kind || p.kind === kind) && (!city || p.city === city || (p.cities || []).indexOf(city) > -1) && (!lng || (p.languages || []).indexOf(lng) > -1); })
       .sort(function (a, b) { return score(b) - score(a); });
     grid.innerHTML = list.length ? list.map(card).join("") : '<p class="pt-empty">' + esc(PT.empty) + '</p>';

@@ -6,7 +6,7 @@
   var D = {
     uz: {
       title: "Hamkorlar portali", notP: "Bu akkaunt hamkor sifatida ro'yxatdan o'tmagan. Hamkor bo'lish uchun «Chiqish»ni bosing va boshqa e-mail bilan ro'yxatdan o'ting.", sub: "Gidlar, haydovchilar, mehmonxonalar va boshqa xizmat egalari uchun.",
-      login: "Kirish", reg: "Hamkor bo'lish", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
+      login: "Kirish", reg: "Hamkor bo'lish", regGo: "Ariza saytning tegishli bo'limida beriladi: talablarni o'qiysiz, rasmlarni yuklaysiz va shu yerda kabinet ochiladi. Kim sifatida ariza berasiz?", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
       how: ["Ro'yxatdan o'ting — 2 daqiqa", "Hujjatlaringizni yuklang — biz 1–2 kunda tekshiramiz", "Profilingizni to'ldiring — saytda chiqasiz, mijozlarni biz olib kelamiz"],
       why: "Nega Moviy Nomad bilan?", whys: ["Chet ellik sayyohlar va agentliklar — 10 tilda", "Mijozni biz topamiz va to'lovni biz qabul qilamiz", "Yaxshi baho olsangiz — ro'yxatda birinchi turasiz", "Ro'yxatdan o'tish bepul"],
       kind: "Kim sifatida?", kinds: { guide: "Gid", driver: "Haydovchi / transport", hotel: "Mehmonxona / mehmon uyi", other: "Boshqa xizmat" },
@@ -25,7 +25,7 @@
     },
     ru: {
       title: "Портал партнёров", notP: "Этот аккаунт не зарегистрирован как партнёр. Нажмите «Выйти» и зарегистрируйтесь с другим e-mail.", sub: "Для гидов, водителей, гостиниц и других поставщиков услуг.",
-      login: "Вход", reg: "Стать партнёром", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
+      login: "Вход", reg: "Стать партнёром", regGo: "Заявка подаётся в нужном разделе сайта: читаете требования, загружаете фото — и здесь открывается кабинет. Кем вы подаёте заявку?", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
       how: ["Зарегистрируйтесь — 2 минуты", "Загрузите документы — проверим за 1–2 дня", "Заполните профиль — вы на сайте, клиентов приводим мы"],
       why: "Почему Moviy Nomad?", whys: ["Иностранные туристы и агентства — на 10 языках", "Клиента находим мы и оплату принимаем мы", "Хорошие отзывы — вы первые в списке", "Регистрация бесплатная"],
       kind: "Кто вы?", kinds: { guide: "Гид", driver: "Водитель / транспорт", hotel: "Гостиница / гостевой дом", other: "Другая услуга" },
@@ -62,17 +62,7 @@
     box.innerHTML = '<div class="p-card p-auth-card"><div class="seg"><button data-t="login" class="' + (tab !== "reg" ? "is-on" : "") + '">' + t("login") + '</button><button data-t="reg" class="' + (tab === "reg" ? "is-on" : "") + '">' + t("reg") + '</button></div>' +
       (tab === "reg" ?
         '<h2>' + t("reg") + '</h2><ol class="psteps">' + t("how").map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ol>' +
-        '<form id="f-reg"><div class="fld"><label>' + t("kind") + ' *</label><div class="pkinds">' + kinds + '</div></div><div class="p-grid">' +
-        '<div class="fld full"><label>' + t("name") + ' *</label><input name="partner_name" required maxlength="120"></div>' +
-        '<div class="fld"><label>' + t("phone") + ' *</label><input name="phone" type="tel" required></div>' +
-        '<div class="fld"><label>' + t("wa") + '</label><input name="whatsapp" type="tel"></div>' +
-        '<div class="fld"><label>' + t("city") + ' *</label><input name="city" required></div>' +
-        '<div class="fld"><label>' + t("lic") + '</label><input name="license_no"></div>' +
-        '<div class="fld"><label>' + t("company") + '</label><input name="company"></div>' +
-        '<div class="fld"><label>' + t("inn") + '</label><input name="inn"></div>' +
-        '<div class="fld"><label>' + t("email") + ' *</label><input name="email" type="email" required autocomplete="email"></div>' +
-        '<div class="fld"><label>' + t("pass8") + ' *</label><input name="password" type="password" minlength="8" required autocomplete="new-password"></div>' +
-        '<label class="chk full"><input type="checkbox" required> ' + t("agree") + '</label></div><div class="msg" id="m-reg"></div><div class="p-actions"><button class="btn btn--gold" type="submit">' + t("send") + '</button></div></form>' +
+        '<p class="p-sub">' + t("regGo") + '</p><div class="pkinds" style="grid-template-columns:repeat(2,1fr)">' + [["guide", "guides.html"], ["driver", "transport.html"], ["hotel", "hotels.html"], ["other", "partners.html"]].map(function (x) { return '<a class="pk" style="text-align:center;padding:16px" href="../' + L + '/' + x[1] + '#join"><span>' + esc(t("kinds")[x[0]]) + ' →</span></a>'; }).join("") + '</div>' +
         '<div class="pwhy"><h3>' + t("why") + '</h3><ul>' + t("whys").map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ul></div>'
       :
         '<h2>' + t("title") + '</h2><p class="p-sub">' + t("sub") + '</p><form id="f-log"><div class="fld"><label>' + t("email") + '</label><input name="email" type="email" required autocomplete="email"></div>' +

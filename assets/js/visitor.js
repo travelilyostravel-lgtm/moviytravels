@@ -115,7 +115,7 @@
   }, true);
   // forms on the site (request, booking, story): the e-mail typed there joins the customer base automatically
   document.addEventListener("submit", function (e) {
-    var f = e.target; if (!f || f.closest(".mng") || f.__mnPass) return;
+    var f = e.target; if (!f || f.closest(".mng,[data-noreg]") || f.__mnPass) return;
     var fe = f.querySelector("input[type=email],input[name*=mail]"), em = fe ? fe.value.replace(/\s+/g, "").toLowerCase() : "";
     var what = (f.getAttribute("data-kind") || f.id || "form") + (f.querySelector("[name=tour_title],[name=tour]") ? ": " + (f.querySelector("[name=tour_title],[name=tour]").value || "") : "");
     if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) {

@@ -4,7 +4,8 @@
   if (!sb) return;
   var KIND = { guide: "Gid", driver: "Haydovchi / transport", hotel: "Mehmonxona", other: "Boshqa xizmat" };
   var ST = { pending: "⏳ Tekshiruvda", approved: "✅ Saytda", rejected: "❌ Rad etilgan", paused: "⏸ Vaqtincha yopiq" };
-  var DK = { license: "Litsenziya / guvohnoma", id: "Pasport / ID", car: "Texpasport", cert: "Sertifikat", other: "Boshqa" };
+  var DK = { license: "Litsenziya / guvohnoma", id: "Pasport / ID", car: "Texpasport", cert: "Sertifikat", other: "Boshqa", trip: "Sayyohlar bilan rasm", extra: "Qo'shimcha rasm" };
+  var NEED = { guide: { main: 1, pub: 3, trip: 10 }, driver: { main: 1, pub: 6, trip: 10 }, hotel: { main: 1, pub: 8, trip: 0 }, other: { main: 1, pub: 3, trip: 10 } };
   var flt = "pending";
   function pub(p) { return p ? window.MN_SB.url + "/storage/v1/object/public/partner-photos/" + p : ""; }
 
@@ -60,6 +61,16 @@
       (p.bio ? '<p style="white-space:pre-line;margin-top:12px">' + esc(p.bio) + '</p>' : '') +
       ((p.photos || []).length ? '<div class="pgal">' + p.photos.map(function (x) { return '<img src="' + pub(x) + '" alt="">'; }).join("") + '</div>' : '') +
       '<div class="p-actions">' + (wa ? '<a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + (p.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(p.email) + '">E-mail</a>' : '') + '</div></div>';
+    var nd = NEED[p.kind] || NEED.other, docs = p.docs || [], trips = docs.filter(function (d) { return d.kind === "trip"; }), extra = docs.filter(function (d) { return d.kind === "extra"; });
+    var npub = (p.photos || []).length + extra.length;
+    var chk = function (ok, txt) { return '<li style="color:' + (ok ? "#23794a" : "#b4541b") + '">' + (ok ? "✅ " : "❌ ") + txt + '</li>'; };
+    h += '<div class="p-card"><h3>Talablar tekshiruvi</h3><ul class="pdocs">' +
+      chk(!!p.photo, "Asosiy rasm (klassik yoki milliy kiyimda) — tepada, o'zingiz ko'ring") +
+      chk(npub >= nd.pub, (p.kind === "driver" ? "Mashina rasmlari" : p.kind === "hotel" ? "Xona rasmlari" : "Yakka rasmlar") + ": " + npub + " / kamida " + (p.kind === "hotel" ? 10 : nd.pub)) +
+      (nd.trip ? chk(trips.length >= nd.trip, "Sayyohlar bilan rasmlar: " + trips.length + " / kamida " + nd.trip) : "") +
+      chk(!!p.license_no || p.kind === "other" || p.kind === "hotel", "Litsenziya / guvohnoma raqami: " + esc(p.license_no || "—")) +
+      (p.kind === "guide" ? chk((p.languages || []).length > 0, "Tillar: " + esc((p.languages || []).join(", ") || "—")) : "") + '</ul>' +
+      (trips.length ? '<p class="p-sub" style="margin-top:10px">Sayyohlar bilan rasmlar (faqat sizga ko\'rinadi):</p><div class="pgal" id="pp-trips"></div>' : '') + '</div>';
     h += '<div class="p-card"><h3>Hujjatlar</h3>' + ((p.docs || []).length ? '<ul class="pdocs">' + p.docs.map(function (d, i) { return '<li>📄 <a href="#" data-doc="' + i + '">' + esc(DK[d.kind] || d.kind) + ' — ' + esc(d.name || "") + '</a></li>'; }).join("") + '</ul>' : '<p class="p-sub">Hali hujjat yuklamagan.</p>') +
       (reg ? '<p class="p-sub">Davlat reyestrida tekshirish: <a target="_blank" rel="noopener" href="' + reg + '">Turizm qo\'mitasi reyestri</a> (raqam: ' + esc(p.license_no || "—") + ')</p>' : '') + '</div>';
     h += '<div class="p-card"><h3>Qaror</h3><div class="p-grid">' +
@@ -75,6 +86,7 @@
     h += '<div class="p-card"><h3>Sharhlar (' + rv.length + ')</h3>' + (rv.length ? rv.map(function (r) { return '<div class="pt-rv">' + "★".repeat(r.rating) + ' <b>' + esc(r.name) + '</b> <small>' + esc(r.status) + ' · ' + P.date(r.created_at) + '</small><p>' + esc(r.body || "") + '</p></div>'; }).join("") : '<p class="p-sub">Hali yo\'q.</p>') + '</div>';
     box.innerHTML = h;
     $("#pp-back").onclick = A.partners;
+    if (trips.length) { var g = $("#pp-trips"); trips.forEach(async function (d) { try { var u = await P.signed("partner-docs", d.path, 30); var im = document.createElement("img"); im.src = u; im.alt = ""; im.style.cursor = "zoom-in"; im.onclick = function () { window.open(u, "_blank"); }; g.appendChild(im); } catch (e) {} }); }
     $$("[data-doc]", box).forEach(function (a) { a.onclick = function (e) { e.preventDefault(); P.openFile("partner-docs", p.docs[+a.dataset.doc].path); }; });
     $$("[data-rq]", box).forEach(function (tr) { tr.onclick = function () { A.openRequest ? A.openRequest(tr.dataset.rq) : A.requests(); }; });
     async function save(extra) {

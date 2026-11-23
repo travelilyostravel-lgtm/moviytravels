@@ -131,7 +131,7 @@ def render(lang):
 
     links = [("destinations", "#destinations"), ("tours", "#tours"), ("why", "#why"), ("faq", "#faq"), ("contact", "#contact-us")]
     _x = pages.X(lang)
-    navhtml = f'<a href="#tours">{e(nav["tours"])}</a><a href="services.html">{e(_x["nav_services"])}</a><a href="group-tours.html">{e(_x["nav_groups"])}</a><a href="builder.html" class="nav__build">{e(t["build_nav"])}</a><a href="#reviews">{e(_x["nav_reviews"])}</a><a href="#about">{e(_x["nav_about"])}</a>'
+    navhtml = pages.nav_html(lang, "", on_home=True)
     year = "2026"
 
     return f'''<!DOCTYPE html>
@@ -285,7 +285,7 @@ def render(lang):
         <li><a href="{ig}" target="_blank" rel="noopener">Instagram @{cfg["instagram"]}</a></li>
         <li><a href="https://instagram.com/{cfg["parent_instagram"]}" target="_blank" rel="noopener">Moviy Travel @{cfg["parent_instagram"]}</a></li>
         <li><a href="services.html">{e(XX["nav_services"])}</a> · <a href="booking.html">{e(XX["bk_btn"])}</a></li>
-        <li><a href="partners.html">{e(__import__("partners_i18n").S(lang)["eyebrow"])}</a> · <a href="{pre}partner/#reg">{e(__import__("partners_i18n").S(lang)["become"])}</a></li>
+        <li><a href="partners.html">{e(__import__("partners_i18n").S(lang)["eyebrow"])}</a> · <a href="partners.html#join">{e(__import__("partners_i18n").S(lang)["become"])}</a></li>
         {f'<li><a href="mailto:{cfg["email"]}">{cfg["email"]}</a></li>' if cfg["email"] else ""}
         <li><a href="{pre}agent/">{e(t["agent_login"])} →</a></li>
       </ul></div>
@@ -622,6 +622,9 @@ def main():
                "booking.html": pages.render_booking(lang, ICON, LOGO, font, names, [x for x in TD.TOURS if not x.get("draft")], L),
                "stories.html": pages.render_stories(lang, ICON, LOGO, font, names),
                "partners.html": pages.render_partners(lang, ICON, LOGO, font, names),
+               "guides.html": pages.render_partners(lang, ICON, LOGO, font, names, "guide"),
+               "transport.html": pages.render_partners(lang, ICON, LOGO, font, names, "driver"),
+               "hotels.html": pages.render_partners(lang, ICON, LOGO, font, names, "hotel"),
                "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
                "privacy.html": pages.render_legal(lang, "privacy", ICON, LOGO, font, names),
                "terms.html": pages.render_legal(lang, "terms", ICON, LOGO, font, names)}

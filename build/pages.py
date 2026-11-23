@@ -114,14 +114,14 @@ def home_blocks(lang, pre, A, icon):
     import partners_i18n
     PT = partners_i18n.S(lang)
     tiles = "".join(
-        f'<a class="pt-tile" href="partners.html?k={k}"><span class="pt-tile__ic">{svc_icon(ic)}</span><b>{e(PT["k_" + k])}</b><small>{e(PT["d_" + k])}</small><span class="pt-tile__n" data-ptn="{k}"></span></a>'
+        f'<a class="pt-tile" href="{ {"guide": "guides.html", "driver": "transport.html", "hotel": "hotels.html"}.get(k, "partners.html?k=" + k)}"><span class="pt-tile__ic">{svc_icon(ic)}</span><b>{e(PT["k_" + k])}</b><small>{e(PT["d_" + k])}</small><span class="pt-tile__n" data-ptn="{k}"></span></a>'
         for k, ic in (("guide", "guide"), ("driver", "car"), ("hotel", "hotel"), ("other", "mice")))
     partners = f'''
   <section class="section section--tight" id="partners">
     <div class="container">
       <div class="section-head section-head--tight reveal"><span class="eyebrow">{e(PT["eyebrow"])}</span><h2>{e(PT["title"])}</h2><p>{e(PT["sub"])}</p></div>
       <div class="pt-tiles">{tiles}</div>
-      <p class="pt-more"><a class="btn btn--outline" href="partners.html">{e(PT["see_all"])} →</a> <a class="pt-become" href="{pre}partner/#reg">{e(PT["become"])}</a></p>
+      <p class="pt-more"><a class="btn btn--outline" href="partners.html">{e(PT["see_all"])} →</a> <a class="pt-become" href="partners.html#join">{e(PT["become"])}</a></p>
     </div>
   </section>'''
     revs = "".join(
@@ -184,14 +184,28 @@ def groups_home(lang):
 <script>window.MNG={gr_strings(lang)};</script>'''
 
 
+
+# ------------------------------------------------------------------ main menu (same on every page)
+def nav_html(lang, base, on_home=False):
+    import partners_i18n
+    t = T[lang]; x = X(lang); N = partners_i18n.NS(lang)
+    tours = "#tours" if on_home else f"{base}index.html#tours"
+    svc = "".join(f'<a href="{base}services.html#{sid}">{e(x["services"][sid][0])}</a>' for sid in SVC_IDS)
+    svc += f'<a href="{base}partners.html?k=other">{e(partners_i18n.S(lang)["k_other"])}</a><a class="nav__all" href="{base}services.html">{e(x["svc_more"])} →</a>'
+    more = (f'<a href="{base}group-tours.html">{e(x["nav_groups"])}</a><a href="{base}stories.html">{e(x["nav_reviews"])}</a>'
+            f'<a href="{base}partners.html">{e(N["all_partners"])}</a><a href="{"#about" if on_home else base + "index.html#about"}">{e(x["nav_about"])}</a>')
+    dd = lambda label, inner: f'<div class="nav__dd"><button type="button" class="nav__ddb" aria-haspopup="true">{e(label)}<i aria-hidden="true">▾</i></button><div class="nav__ddm">{inner}</div></div>'
+    return (f'<a href="{tours}">{e(t["nav"]["tours"])}</a><a href="{base}guides.html">{e(N["nav_guides"])}</a>'
+            f'<a href="{base}transport.html">{e(N["nav_transport"])}</a><a href="{base}hotels.html">{e(N["nav_hotels"])}</a>'
+            + dd(x["nav_services"], svc) + f'<a href="{base}builder.html" class="nav__build">{e(t["build_nav"])}</a>' + dd(N["nav_more"], more))
+
 # ------------------------------------------------------------------ page shell
 def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, body_cls="", extra_js=""):
     t = T[lang]; x = X(lang); pre = "" if lang == "en" else "../"; A = pre + "assets/"
     c = CONFIG; home = f"{pre}{path(lang)}"
     langs = "".join(f'<a href="{pre}{path(l)}{slug}" hreflang="{l}" lang="{l}"{" aria-current=\"page\"" if l == lang else ""}>{lang_names[l]}<small>{l.upper()}</small></a>' for l in LANGS)
     alts = "".join(f'<link rel="alternate" hreflang="{l}" href="{c["site_url"]}/{path(l)}{slug}">' for l in LANGS)
-    nav = (f'<a href="{home}index.html#tours">{e(t["nav"]["tours"])}</a><a href="{home}services.html">{e(x["nav_services"])}</a>'
-           f'<a href="{home}group-tours.html">{e(x["nav_groups"])}</a><a href="{home}builder.html" class="nav__build">{e(t["build_nav"])}</a><a href="{home}stories.html">{e(x["nav_reviews"])}</a><a href="{home}index.html#about">{e(x["nav_about"])}</a>')
+    nav = nav_html(lang, home)
     return f'''<!DOCTYPE html>
 <html lang="{lang}" dir="{t["dir"]}" data-base="{pre}">
 <head>
@@ -238,15 +252,20 @@ def page_head(eyebrow, title, sub):
 
 
 # ------------------------------------------------------------------ services
+SVC_PAGE = {"guide": ("guide", "guides.html"), "car": ("driver", "transport.html"), "hotel": ("hotel", "hotels.html")}
+
+
 def render_services(lang, icon, logo, font, names):
-    x = X(lang)
+    import partners_i18n
+    x = X(lang); PT = partners_i18n.S(lang)
     pre = "" if lang == "en" else "../"
     cards = ""
     for sid in SVC_IDS:
         ttl, short, pts = x["services"][sid]
         cards += (f'<article class="svc" id="{sid}"><div class="svc__img" style="background-image:url({pre}assets/img/{SVC_IMG[sid]}.webp)"><span class="svc__ic">{svc_icon(sid)}</span></div>'
                   f'<div class="svc__body"><h2>{e(ttl)}</h2><p>{e(short)}</p><ul>' + "".join(f'<li>{e(p)}</li>' for p in pts) +
-                  f'</ul><div class="svc__price" data-svcp="{sid}" data-tpl="{e(x["svc_from"])}" hidden></div><button class="btn btn--gold btn--sm" data-svc="{sid}">{e(x["svc_request"])} →</button></div></article>')
+                  f'</ul><div class="svc__price" data-svcp="{sid}" data-tpl="{e(x["svc_from"])}" hidden></div><button class="btn btn--gold btn--sm" data-svc="{sid}">{e(x["svc_request"])} →</button>'
+                  + (f' <a class="btn btn--outline btn--sm" href="{SVC_PAGE[sid][1]}">{e(PT["k_" + SVC_PAGE[sid][0]])} →</a>' if sid in SVC_PAGE else '') + '</div></article>')
     how = "".join(f'<div class="how__i"><b>{n + 1}</b><h3>{e(h)}</h3><p>{e(p)}</p></div>' for n, (h, p) in enumerate(x["svc_how"]))
     opts = "".join(f'<option value="{sid}">{e(x["services"][sid][0])}</option>' for sid in SVC_IDS)
     modal = f'''<div class="modal" id="svc-modal" role="dialog" aria-modal="true"><div class="modal__box modal__box--form">
@@ -277,12 +296,37 @@ def render_services(lang, icon, logo, font, names):
 
 
 # ------------------------------------------------------------------ partners (guides, drivers, hotels, other)
-def render_partners(lang, icon, logo, font, names):
-    import partners_i18n
-    x = X(lang); PT = partners_i18n.S(lang); pre = "" if lang == "en" else "../"
+PT_SLUG = {"": "partners.html", "guide": "guides.html", "driver": "transport.html", "hotel": "hotels.html"}
+PT_IMG = {"": "p/lyabi-hauz", "guide": "p/registan", "driver": "p/uz-fergana-road", "hotel": "p/ichan-kala", "other": "p/uz-pottery"}
+
+
+def render_partners(lang, icon, logo, font, names, kind=""):
+    import partners_i18n, join_i18n
+    x = X(lang); PT = partners_i18n.S(lang); N = partners_i18n.NS(lang); pre = "" if lang == "en" else "../"
+    jl = join_i18n.jl(lang); JT = join_i18n.J[jl]
     tabs = "".join(f'<button class="ttab{" is-on" if k == "" else ""}" data-pk="{k}">{e(PT["all"] if k == "" else PT["k_" + k])}</button>' for k in ("", "guide", "driver", "hotel", "other"))
     how = "".join(f'<div class="how__i"><b>{n + 1}</b><h3>{e(PT[k])}</h3></div>' for n, k in enumerate(("how1", "how2", "how3")))
     why = "".join(f'<li>✓ {e(PT[k])}</li>' for k in ("why1", "why2", "why3", "why4"))
+    jk = kind or "guide"
+    title = N["t_" + kind] if kind else PT["page_title"]
+    sub = N["s_" + kind] if kind else PT["page_sub"]
+    links = [("guide", "guides.html"), ("driver", "transport.html"), ("hotel", "hotels.html"), ("other", "partners.html?k=other")]
+    ksub = "".join(f'<a href="{u}"{" class=\"is-on\"" if k == kind else ""}>{e(PT["k_" + k])}</a>' for k, u in links) + f'<a href="partners.html"{" class=\"is-on\"" if not kind else ""}>{e(PT["all"])}</a>'
+    hero = (f'<section class="khero" style="background-image:url({pre}assets/img/{PT_IMG[kind]}.webp)"><div class="container">'
+            f'<div class="orn-line"><i></i></div><span class="eyebrow">{e(PT["eyebrow"])}</span><h1>{e(title)}</h1><p>{e(sub)}</p>'
+            f'<div class="khero__btns"><a class="btn btn--gold" href="#pt-grid">{e(PT["ask"])} ↓</a>'
+            f'<button class="btn btn--ghost" type="button" data-join="{kind}" data-free>{e(N["jb_" + jk] if kind else PT["become"])}</button></div>'
+            f'<nav class="ksub" aria-label="{e(PT["eyebrow"])}">{ksub}</nav></div></section>')
+    reqs = "".join(f'<li>{e(r)}</li>' for r in join_i18n.req(lang, jk))
+    jtitle = N.get("jt_" + jk) if lang in ("uz", "ru", "en") else partners_i18n.NS("en")["jt_" + jk]
+    jsub = N["j_sub"] if lang in ("uz", "ru", "en") else partners_i18n.NS("en")["j_sub"]
+    jbtn = (N if lang in ("uz", "ru", "en") else partners_i18n.NS("en"))["jb_" + jk]
+    join = (f'<section class="section section--tight" id="join"><div class="container"><div class="join">'
+            f'<div><div class="orn-line"><i></i></div><h2>{e(jtitle)}</h2><p>{e(jsub)}</p>'
+            f'<button class="btn btn--gold" type="button" data-join="{kind}" data-free>{e(jbtn)} →</button>'
+            f'<p style="margin:16px 0 0;font-size:13.5px"><a href="{pre}partner/">moviy-travel.uz/partner/</a> — {e(JT["cab"])}</p></div>'
+            f'<div class="join__req"><h3>{e((N if lang in ("uz", "ru", "en") else partners_i18n.NS("en"))["j_req"])}</h3><ol>{reqs}</ol></div></div></div></section>')
+    jmodal = f'<div class="modal" id="jn-modal" role="dialog" aria-modal="true"><div class="modal__box modal__box--form"><button class="modal__close" aria-label="{e(PT["close"])}">×</button><div id="jn-body"></div></div></div>'
     modal = f'''<div class="modal" id="pt-modal" role="dialog" aria-modal="true"><div class="modal__box modal__box--form">
   <button class="modal__close" aria-label="{e(PT["close"])}">×</button>
   <div id="pt-prof"></div>
@@ -315,14 +359,16 @@ def render_partners(lang, icon, logo, font, names):
     <button class="btn btn--gold" type="submit">{e(PT["rv_send"])}</button>
   </form>
 </div></div>'''
-    body = (page_head(PT["eyebrow"], PT["page_title"], PT["page_sub"]) +
-            f'<section class="section section--tight"><div class="container"><div class="pt-bar"><div class="ttabs" id="pt-tabs">{tabs}</div>'
+    body = (hero +
+            f'<section class="section section--tight"><div class="container"><div class="pt-bar">' + (f'<div class="ttabs" id="pt-tabs">{tabs}</div>' if not kind else '') +
             f'<select id="pt-city" aria-label="{e(PT["city"])}"><option value="">{e(PT["city"])}</option></select><select id="pt-lang" aria-label="{e(PT["lang"])}"><option value="">{e(PT["lang"])}</option></select></div>'
             f'<div class="pt-grid" id="pt-grid"><p class="pt-empty">…</p></div></div></section>'
             f'<section class="section section--sand section--tight"><div class="container"><div class="how">{how}</div>'
-            f'<div class="pt-why"><h2 class="h2c">{e(PT["why_t"])}</h2><ul>{why}</ul><p><a class="btn btn--outline btn--sm" href="{pre}partner/#reg">{e(PT["become"])} →</a></p></div></div></section>' + modal)
-    js = f'<script>window.MNPT={json.dumps(PT, ensure_ascii=False)};</script><script src="{pre}assets/js/partners.js" defer></script>'
-    return shell(lang, "partners.html", PT["page_title"], PT["page_sub"], body, icon, logo, font, names, extra_js=js)
+            f'<div class="pt-why"><h2 class="h2c">{e(PT["why_t"])}</h2><ul>{why}</ul></div></div></section>' + join + modal + jmodal)
+    jdata = {"lang": jl, "kind": kind, "J": JT, "REQ": {k: join_i18n.req(lang, k) for k in join_i18n.SLOTS}, "SLOTS": join_i18n.SLOTS}
+    js = (f'<script>window.MNPT={json.dumps(PT, ensure_ascii=False)};window.MNPT_KIND="{kind}";window.MNJ={json.dumps(jdata, ensure_ascii=False)};</script>'
+          f'<script src="{pre}assets/js/partners.js" defer></script><script src="{pre}assets/js/partner-join.js" defer></script>')
+    return shell(lang, PT_SLUG[kind], title, sub, body, icon, logo, font, names, extra_js=js)
 
 
 # ------------------------------------------------------------------ booking
