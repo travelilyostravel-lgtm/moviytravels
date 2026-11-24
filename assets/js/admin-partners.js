@@ -7,6 +7,11 @@
   var DK = { license: "Litsenziya / guvohnoma", id: "Pasport / ID", car: "Texpasport", cert: "Sertifikat", other: "Boshqa", trip: "Sayyohlar bilan rasm", extra: "Qo'shimcha rasm" };
   var NEED = { guide: { main: 1, pub: 3, trip: 10 }, driver: { main: 1, pub: 6, trip: 10 }, hotel: { main: 1, pub: 8, trip: 0 }, other: { main: 1, pub: 3, trip: 10 } };
   var flt = "pending";
+  function tgBtn(v) {
+    v = String(v || "").trim(); if (!v) return "";
+    var d = v.replace(/\D/g, ""), href = /^@/.test(v) ? "https://t.me/" + v.slice(1) : d.length >= 9 ? "https://t.me/+" + d : "";
+    return href ? '<a class="btn btn--gold btn--sm" target="_blank" rel="noopener" href="' + href + '">✈ Telegram</a> ' : "";
+  }
   function pub(p) { return p ? window.MN_SB.url + "/storage/v1/object/public/partner-photos/" + p : ""; }
 
   A.partnersBadge = async function () {
@@ -48,7 +53,7 @@
     var rq = (await sb.from("site_requests").select("id,ref,start_date,pax,status,contact_name,created_at").eq("tour_id", id).order("created_at", { ascending: false }).limit(50)).data || [];
     var rv = (await sb.from("partner_reviews").select("*").eq("partner_id", id).order("created_at", { ascending: false })).data || [];
     var reg = p.kind === "guide" ? "https://gov.uz/oz/uzbektourism/pages/gidlar-reestri" : p.kind === "hotel" ? "https://gov.uz/oz/uzbektourism/pages/joylashtirish-vositalarining-reyestri" : "";
-    var info = [["Turi", KIND[p.kind]], ["E-mail", p.email], ["Telefon", p.phone], ["WhatsApp", p.whatsapp], ["Shahar", [p.city].concat(p.cities || []).filter(Boolean).join(", ")], ["Tillar", (p.languages || []).join(", ")],
+    var info = [["Turi", KIND[p.kind]], ["E-mail", p.email], ["Telefon", p.phone], ["Telegram", p.telegram], ["WhatsApp", p.whatsapp], ["Shahar", [p.city].concat(p.cities || []).filter(Boolean).join(", ")], ["Tillar", (p.languages || []).join(", ")],
       ["Narx", p.price_day ? "$" + p.price_day + (p.kind === "hotel" ? " / kecha" : " / kun") + (p.price_note ? " — " + p.price_note : "") : "—"], p.kind === "hotel" || p.kind === "other" ? ["Firma", p.company] : null, p.kind === "hotel" || p.kind === "other" ? ["INN", p.inn] : null, ["Litsenziya / guvohnoma", p.license_no],
       p.kind === "driver" ? ["Mashina", [p.vehicle_type, p.vehicle_seats ? p.vehicle_seats + " o'rin" : "", p.vehicle_year].filter(Boolean).join(", ")] : null,
       p.kind === "hotel" ? ["Mehmonxona", [p.hotel_stars ? p.hotel_stars + " yulduz" : "", p.hotel_rooms ? p.hotel_rooms + " xona" : ""].filter(Boolean).join(", ")] : null,
@@ -63,7 +68,7 @@
       '<div class="kv" style="margin-top:12px">' + info.map(function (r) { return '<div><small>' + r[0] + '</small><b>' + esc(r[1] || "—") + '</b></div>'; }).join("") + '</div>' +
       (p.bio ? '<p style="white-space:pre-line;margin-top:12px">' + esc(p.bio) + '</p>' : '') +
       ((p.photos || []).length ? '<div class="pgal">' + p.photos.map(function (x) { return '<img src="' + pub(x) + '" alt="">'; }).join("") + '</div>' : '') +
-      '<div class="p-actions">' + (wa ? '<a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + (p.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(p.email) + '">E-mail</a>' : '') + '</div></div>';
+      '<div class="p-actions">' + tgBtn(p.telegram) + (wa ? '<a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + (p.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(p.email) + '">E-mail</a>' : '') + '</div></div>';
     var nd = NEED[p.kind] || NEED.other, docs = p.docs || [], trips = docs.filter(function (d) { return d.kind === "trip"; }), extra = docs.filter(function (d) { return d.kind === "extra"; });
     var npub = (p.photos || []).length + extra.length;
     var chk = function (ok, txt) { return '<li style="color:' + (ok ? "#23794a" : "#b4541b") + '">' + (ok ? "✅ " : "❌ ") + txt + '</li>'; };
@@ -75,6 +80,7 @@
       (p.kind === "guide" ? chk((p.languages || []).length > 0, "Tillar: " + esc((p.languages || []).join(", ") || "—")) : "") +
       (p.kind === "guide" ? chk((p.cities || []).length > 0 || !!p.city, "Gidlik qiladigan joylari: " + esc([p.city].concat(p.cities || []).filter(Boolean).join(", ") || "—")) : "") +
       (p.kind !== "hotel" ? chk(!!p.birth_year, "Yoshi: " + (p.birth_year ? (new Date().getFullYear() - p.birth_year) : "—")) : "") +
+      chk(!!p.telegram, "Telegram: " + esc(p.telegram || "—")) +
       chk(!!p.home_area && !!p.home_address, "Yashash joyi va manzili: " + esc([p.home_area, p.home_address].filter(Boolean).join(" — ") || "—")) + '</ul>' +
       (trips.length ? '<p class="p-sub" style="margin-top:10px">Sayyohlar bilan rasmlar (faqat sizga ko\'rinadi):</p><div class="pgal" id="pp-trips"></div>' : '') + '</div>';
     h += '<div class="p-card"><h3>Hujjatlar</h3>' + ((p.docs || []).length ? '<ul class="pdocs">' + p.docs.map(function (d, i) { return '<li>📄 <a href="#" data-doc="' + i + '">' + esc(DK[d.kind] || d.kind) + ' — ' + esc(d.name || "") + '</a></li>'; }).join("") + '</ul>' : '<p class="p-sub">Hali hujjat yuklamagan.</p>') +

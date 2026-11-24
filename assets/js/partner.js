@@ -10,7 +10,7 @@
       how: ["Ro'yxatdan o'ting — 2 daqiqa", "Hujjatlaringizni yuklang — biz 1–2 kunda tekshiramiz", "Profilingizni to'ldiring — saytda chiqasiz, mijozlarni biz olib kelamiz"],
       why: "Nega Moviy Nomad bilan?", whys: ["Chet ellik sayyohlar va agentliklar — 10 tilda", "Mijozni biz topamiz va to'lovni biz qabul qilamiz", "Yaxshi baho olsangiz — ro'yxatda birinchi turasiz", "Ro'yxatdan o'tish bepul"],
       kind: "Kim sifatida?", kinds: { guide: "Gid", driver: "Haydovchi / transport", hotel: "Mehmonxona / mehmon uyi", other: "Boshqa xizmat" },
-      name: "Ism familiya yoki mehmonxona nomi", phone: "Telefon", wa: "WhatsApp", city: "Asosiy shahar", lic: "Litsenziya / gid guvohnomasi / sertifikat raqami", inn: "INN (bo'lsa)", company: "Firma nomi (bo'lsa)",
+      name: "Ism familiya yoki mehmonxona nomi", phone: "Telefon", wa: "WhatsApp (ixtiyoriy)", tg: "Telegram (@username yoki raqam)", city: "Asosiy shahar", lic: "Litsenziya / gid guvohnomasi / sertifikat raqami", inn: "INN (bo'lsa)", company: "Firma nomi (bo'lsa)",
       agree: "Moviy Nomad ma'lumotlarimni tekshirishiga va saytda (aloqa raqamlarimsiz) ko'rsatishiga roziman.",
       send: "Ro'yxatdan o'tish", done: "Tayyor! Endi kiring va hujjatlaringizni yuklang.",
       pending: "Arizangiz tekshirilmoqda", pendingTxt: "Hujjatlaringizni yuklang (litsenziya/guvohnoma, pasport yoki ID, transport uchun texpasport, mehmonxona uchun sertifikat). Odatda 1–2 ish kunida tekshiramiz.",
@@ -29,7 +29,7 @@
       how: ["Зарегистрируйтесь — 2 минуты", "Загрузите документы — проверим за 1–2 дня", "Заполните профиль — вы на сайте, клиентов приводим мы"],
       why: "Почему Moviy Nomad?", whys: ["Иностранные туристы и агентства — на 10 языках", "Клиента находим мы и оплату принимаем мы", "Хорошие отзывы — вы первые в списке", "Регистрация бесплатная"],
       kind: "Кто вы?", kinds: { guide: "Гид", driver: "Водитель / транспорт", hotel: "Гостиница / гостевой дом", other: "Другая услуга" },
-      name: "Имя и фамилия или название гостиницы", phone: "Телефон", wa: "WhatsApp", city: "Основной город", lic: "Номер лицензии / удостоверения гида / сертификата", inn: "ИНН (если есть)", company: "Название фирмы (если есть)",
+      name: "Имя и фамилия или название гостиницы", phone: "Телефон", wa: "WhatsApp (необязательно)", tg: "Telegram (@username или номер)", city: "Основной город", lic: "Номер лицензии / удостоверения гида / сертификата", inn: "ИНН (если есть)", company: "Название фирмы (если есть)",
       agree: "Согласен, что Moviy Nomad проверит мои данные и покажет профиль на сайте (без моих контактов).",
       send: "Зарегистрироваться", done: "Готово! Теперь войдите и загрузите документы.",
       pending: "Заявка на проверке", pendingTxt: "Загрузите документы (лицензия/удостоверение, паспорт или ID, техпаспорт для транспорта, сертификат для гостиницы). Обычно проверяем за 1–2 рабочих дня.",
@@ -162,7 +162,7 @@
       vehicle_type: p.vehicle_type, vehicle_seats: p.vehicle_seats == null ? "" : String(p.vehicle_seats), vehicle_year: p.vehicle_year == null ? "" : String(p.vehicle_year),
       hotel_stars: p.hotel_stars == null ? "" : String(p.hotel_stars), hotel_rooms: p.hotel_rooms == null ? "" : String(p.hotel_rooms),
       experience_years: p.experience_years == null ? "" : String(p.experience_years), docs: p.docs || [],
-      birth_year: p.birth_year == null ? "" : String(p.birth_year), home_area: p.home_area || "", home_address: p.home_address || "" };
+      telegram: p.telegram || "", birth_year: p.birth_year == null ? "" : String(p.birth_year), home_area: p.home_area || "", home_address: p.home_address || "" };
   }
   function pub(path) { return path ? window.MN_SB.url + "/storage/v1/object/public/partner-photos/" + path : ""; }
 
@@ -186,7 +186,7 @@
       (k === "guide" ? '<div class="fld full"><label>' + t("spec") + '</label>' + chk(SPEC, p.specialties, "specialties") + '</div>' : '') +
       '<div class="fld full"><label>' + t("bio") + '</label><textarea name="bio" rows="5" maxlength="1500">' + esc(p.bio || "") + '</textarea></div>' +
       '<div class="fld full"><label>' + t("gallery") + '</label><div class="pgal">' + (p.photos || []).map(function (x, i) { return '<span><img src="' + esc(pub(x)) + '" alt=""><button type="button" data-rm="' + i + '">×</button></span>'; }).join("") + '</div><input type="file" id="ph-more" accept="image/*" multiple></div>' +
-      '<div class="fld"><label>' + t("phone") + '</label><input name="phone" value="' + esc(p.phone || "") + '"></div><div class="fld"><label>' + t("wa") + '</label><input name="whatsapp" value="' + esc(p.whatsapp || "") + '"></div>' +
+      '<div class="fld"><label>' + t("phone") + '</label><input name="phone" value="' + esc(p.phone || "") + '"></div><div class="fld"><label>' + t("tg") + ' *</label><input name="telegram" required maxlength="64" placeholder="@username" value="' + esc(p.telegram || "") + '"></div><div class="fld"><label>' + t("wa") + '</label><input name="whatsapp" value="' + esc(p.whatsapp || "") + '"></div>' +
       '<div class="fld"><label>' + t("lic") + '</label><input name="license_no" value="' + esc(p.license_no || "") + '"></div>' + (k === "hotel" || k === "other" ? '<div class="fld"><label>' + t("inn") + '</label><input name="inn" value="' + esc(p.inn || "") + '"></div>' : '') +
       '</div><div class="msg" id="m-prof"></div><div class="p-actions"><button class="btn btn--gold" type="submit">' + t("save") + '</button>' +
       (p.status === "approved" ? '<a class="btn btn--outline" target="_blank" rel="noopener" href="../partners.html#p-' + p.id + '">' + t("view") + '</a>' : '') + '</div></form></div>';
@@ -208,7 +208,7 @@
       e.preventDefault(); P.msg("#m-prof", "…");
       try {
         var p = me.partner, d = profilePayload(p);
-        ["name", "city", "price_day", "price_note", "experience_years", "vehicle_type", "vehicle_seats", "vehicle_year", "hotel_stars", "hotel_rooms", "bio", "phone", "whatsapp", "license_no", "inn", "birth_year", "home_area", "home_address"].forEach(function (k) { if (f[k]) d[k] = f[k].value.trim(); });
+        ["name", "city", "price_day", "price_note", "experience_years", "vehicle_type", "vehicle_seats", "vehicle_year", "hotel_stars", "hotel_rooms", "bio", "phone", "whatsapp", "license_no", "inn", "birth_year", "home_area", "home_address", "telegram"].forEach(function (k) { if (f[k]) d[k] = f[k].value.trim(); });
         d.cities = f.cities.value.split(",").map(function (x) { return x.trim(); }).filter(Boolean);
         d.languages = $$("[name=languages]:checked", f).map(function (x) { return x.value; });
         d.specialties = $$("[name=specialties]:checked", f).map(function (x) { return x.value; });

@@ -41,7 +41,7 @@
     var f = '<form class="jf mf" id="jn-form" novalidate data-noreg><h3>' + esc(J.title[kind]) + '</h3><p class="jf-note">' + esc(J.note) + '</p>' +
       '<details style="margin:0 0 14px"><summary style="cursor:pointer;font-weight:700;color:var(--navy)">' + esc(J.req_t) + ' (' + D.REQ[kind].length + ')' + '</summary><ol style="font-size:13.5px;line-height:1.5;margin:8px 0 0">' + D.REQ[kind].map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") + '</ol></details>' +
       '<fieldset><legend>' + esc(J.sec_about) + '</legend><div class="mf-grid">' +
-      fld("name", J.name[kind], 1, "text", ' maxlength="120"') + fld("phone", J.phone, 1, "tel", ' maxlength="40" placeholder="+998"') +
+      fld("name", J.name[kind], 1, "text", ' maxlength="120"') + fld("phone", J.phone, 1, "tel", ' maxlength="40" placeholder="+998"') + fld("telegram", J.tg, 1, "text", ' maxlength="64" placeholder="@username"') +
       fld("whatsapp", J.whatsapp, 0, "tel", ' maxlength="40" placeholder="+998"') + citySel(J.city) +
       (ho ? "" : cityChips(g ? J.works : J.cities, g)) +
       (ho ? "" : fld("birth_year", J.birth, 1, "number", ' min="1940" max="' + (new Date().getFullYear() - 18) + '"')) +
@@ -88,11 +88,18 @@
     var r = await fetch(SB.url + "/storage/v1/object/" + bucket + "/" + path, { method: "POST", headers: H(tok, { "Content-Type": file.type || "image/webp", "x-upsert": "false" }), body: file });
     if (!r.ok) throw new Error("upload " + r.status + " " + (await r.text()).slice(0, 120)); return path;
   }
+  // "@name", "name", "t.me/name", "https://t.me/name" → "@name"; phone numbers kept as "+998…"
+  function normTg(v) {
+    v = String(v || "").trim().replace(/^https?:\/\//i, "").replace(/^(t\.me|telegram\.me)\//i, "").replace(/\s+/g, "");
+    if (/^\+?\d[\d\-()]{8,}$/.test(v)) return "+" + v.replace(/\D/g, "");
+    v = v.replace(/^@/, ""); return /^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(v) ? "@" + v : "";
+  }
   function list(v) { return String(v || "").split(/[,;]/).map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 12); }
   async function submit(kind, fm) {
     var miss = $$("[required]", fm).filter(function (i) { return i.type === "checkbox" ? !i.checked : !String(i.value).trim() || (i.minLength > 0 && i.value.length < i.minLength) || (i.type === "email" && !/^\S+@\S+\.\S+$/.test(i.value.trim())); })
       .map(function (i) { var l = i.closest("label"); return l ? (l.querySelector("span") || l).textContent.replace(/\s*\*$/, "").trim() : i.name; });
     var cc = $(".jf-cities[data-req]", fm); if (cc && !$$("input:checked", cc).length) miss.push(cc.parentNode.querySelector("span").textContent.replace(/\s*\*$/, ""));
+    var tgv = normTg(fm.elements.telegram.value); if (!miss.length && !tgv) { msg(fm, J.tg_bad, "err"); fm.elements.telegram.focus(); return; }
     if (miss.length) { msg(fm, J.need + " " + miss.slice(0, 4).join(", ") + (miss.length > 4 ? "…" : ""), "err"); return; }
     var ph = $$("input[type=file]", fm).filter(function (i) { return i.files.length < +i.getAttribute("data-min"); })
       .map(function (i) { return J.ph[i.getAttribute("data-slot")][0] + " (" + i.files.length + "/" + i.getAttribute("data-min") + ")"; });
@@ -123,7 +130,7 @@
         else docs.push({ kind: slot === "trip" ? "trip" : "extra", path: path, name: files[k][1].name || slot, at: new Date().toISOString() });
         done++; $("i", bar).style.width = Math.round(done / files.length * 100) + "%";
       }
-      var p = { name: v("name"), company: meta.company, inn: v("inn"), license_no: v("license_no"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"),
+      var p = { telegram: normTg(v("telegram")), name: v("name"), company: meta.company, inn: v("inn"), license_no: v("license_no"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"),
         cities: $$("[name=cities_x]:checked", fm).map(function (x) { return x.value; }), languages: list(v("languages")), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"), photo: photo, photos: photos,
         price_day: v("price_day"), price_note: "", vehicle_type: v("vehicle_type"), vehicle_seats: v("vehicle_seats"), vehicle_year: v("vehicle_year"),
         hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"), docs: docs,
