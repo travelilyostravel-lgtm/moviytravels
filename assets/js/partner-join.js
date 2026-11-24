@@ -79,7 +79,7 @@
       var img = await createImageBitmap(file), s = Math.min(1, max / Math.max(img.width, img.height));
       var c = document.createElement("canvas"); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
       c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-      var b = await new Promise(function (r) { c.toBlob(r, "image/webp", 0.85); });
+      var b = await new Promise(function (r) { c.toBlob(r, "image/webp", 0.8); });
       return b ? new File([b], (file.name || "photo").replace(/\.\w+$/, "") + ".webp", { type: "image/webp" }) : file;
     } catch (e) { return file; }
   }
@@ -106,42 +106,77 @@
     if (ph.length) { msg(fm, J.need_ph + " " + ph.join(", "), "err"); return; }
     var btn = $("button[type=submit]", fm), bar = $(".jf-prog", fm); btn.disabled = true; bar.style.display = "block"; msg(fm, J.sending);
     var v = function (n) { var el = fm.elements[n]; return el ? String(el.value).trim() : ""; };
+    var warnLeave = function (e) { e.preventDefault(); e.returnValue = ""; };
+    window.addEventListener("beforeunload", warnLeave);
     try {
-      var email = v("email").replace(/\s+/g, "").toLowerCase();
+      var email = v("email").replace(/\s+/g, "").toLowerCase(), pw = fm.elements.password.value;
       var meta = { partner_kind: kind, partner_name: v("name"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"), license_no: v("license_no"), company: kind === "hotel" ? v("name") : "", inn: v("inn") };
-      var r = await fetch(SB.url + "/auth/v1/signup", { method: "POST", headers: H(null, { "Content-Type": "application/json" }), body: JSON.stringify({ email: email, password: fm.elements.password.value, data: meta }) });
+      // 1) account: new sign-up, or — if this e-mail was already used (e.g. a first try broke half way) — sign in with the same password and continue
+      var r = await fetch(SB.url + "/auth/v1/signup", { method: "POST", headers: H(null, { "Content-Type": "application/json" }), body: JSON.stringify({ email: email, password: pw, data: meta }) });
       var a = await r.json().catch(function () { return {}; });
-      if (!r.ok) { var em = (a.msg || a.message || a.error_description || "") + ""; throw new Error(/already|registered|exists/i.test(em + (a.error_code || "")) ? J.exists : em || r.status); }
+      if (!r.ok) {
+        var em = (a.msg || a.message || a.error_description || "") + "";
+        if (!/already|registered|exists/i.test(em + (a.error_code || ""))) throw new Error(em || r.status);
+        var li = await fetch(SB.url + "/auth/v1/token?grant_type=password", { method: "POST", headers: H(null, { "Content-Type": "application/json" }), body: JSON.stringify({ email: email, password: pw }) });
+        a = await li.json().catch(function () { return {}; });
+        if (!li.ok) throw new Error(J.exists);
+      }
       var tok = a.access_token, uid = a.user && a.user.id;
       if (!tok || !uid) throw new Error(J.exists);
-      var pid = null;
-      for (var i = 0; i < 3 && !pid; i++) {
-        var pr = await fetch(SB.url + "/rest/v1/partners?select=id&user_id=eq." + uid, { headers: H(tok) }); var rows = pr.ok ? await pr.json() : [];
-        pid = rows[0] && rows[0].id; if (!pid) await new Promise(function (ok) { setTimeout(ok, 900); });
+      var pid = null, old = null;
+      for (var i = 0; i < 4 && !pid; i++) {
+        var pr = await fetch(SB.url + "/rest/v1/partners?select=id,photo,photos,docs&user_id=eq." + uid, { headers: H(tok) }); var rows = pr.ok ? await pr.json() : [];
+        old = rows[0] || null; pid = old && old.id; if (!pid) await new Promise(function (ok) { setTimeout(ok, 900); });
       }
-      if (!pid) throw new Error("partner row");
-      var files = []; $$("input[type=file]", fm).forEach(function (inp) { [].slice.call(inp.files).forEach(function (f) { files.push([inp.getAttribute("data-slot"), f]); }); });
-      var done = 0, photo = null, photos = [], docs = [];
-      for (var k = 0; k < files.length; k++) {
-        var slot = files[k][0], fl = await resize(files[k][1], slot === "main" ? 1400 : 1600);
-        var pub = slot === "main" || ((slot === "solo" || slot === "car" || slot === "rooms") && photos.length < 8);
-        var path = await up(tok, pub ? "partner-photos" : "partner-docs", pid, fl, slot);
-        if (slot === "main") photo = path; else if (pub) photos.push(path);
-        else docs.push({ kind: slot === "trip" ? "trip" : "extra", path: path, name: files[k][1].name || slot, at: new Date().toISOString() });
-        done++; $("i", bar).style.width = Math.round(done / files.length * 100) + "%";
-      }
+      if (!pid) throw new Error(J.exists);
       var p = { telegram: normTg(v("telegram")), name: v("name"), company: meta.company, inn: v("inn"), license_no: v("license_no"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"),
-        cities: $$("[name=cities_x]:checked", fm).map(function (x) { return x.value; }), languages: list(v("languages")), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"), photo: photo, photos: photos,
+        cities: $$("[name=cities_x]:checked", fm).map(function (x) { return x.value; }), languages: list(v("languages")), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"),
+        photo: old.photo || null, photos: old.photos || [], docs: old.docs || [],
         price_day: v("price_day"), price_note: "", vehicle_type: v("vehicle_type"), vehicle_seats: v("vehicle_seats"), vehicle_year: v("vehicle_year"),
-        hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"), docs: docs,
+        hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"),
         birth_year: v("birth_year"), home_area: v("home_area"), home_address: v("home_address") };
-      var s = await fetch(SB.url + "/rest/v1/rpc/partner_save", { method: "POST", headers: H(tok, { "Content-Type": "application/json" }), body: JSON.stringify({ p: p }) });
-      if (!s.ok) throw new Error("save " + s.status + " " + (await s.text()).slice(0, 160));
+      var save = async function () {
+        var sv = await fetch(SB.url + "/rest/v1/rpc/partner_save", { method: "POST", headers: H(tok, { "Content-Type": "application/json" }), body: JSON.stringify({ p: p }) });
+        if (!sv.ok) throw new Error("save " + sv.status + " " + (await sv.text()).slice(0, 160));
+      };
+      // 2) save the text first — nothing typed is lost even if the photos fail later
+      await save();
+      // 3) photos: 3 at a time, each tried up to 3 times; the profile is saved again after each finished photo
+      var files = []; $$("input[type=file]", fm).forEach(function (inp) { [].slice.call(inp.files).forEach(function (f) { files.push([inp.getAttribute("data-slot"), f]); }); });
+      var done = 0, failed = 0, next = 0, pubCount = p.photos.length, dirty = false;
+      var one = async function (slot, file) {
+        var fl = await resize(file, slot === "main" ? 1280 : 1400), isPub = slot === "main" || ((slot === "solo" || slot === "car" || slot === "rooms") && pubCount < 8);
+        if (isPub && slot !== "main") pubCount++;
+        for (var t = 0; t < 3; t++) {
+          try {
+            var path = await up(tok, isPub ? "partner-photos" : "partner-docs", pid, fl, slot);
+            if (slot === "main") p.photo = path; else if (isPub) p.photos.push(path);
+            else p.docs.push({ kind: slot === "trip" ? "trip" : "extra", path: path, name: file.name || slot, at: new Date().toISOString() });
+            dirty = true; return true;
+          } catch (e) { await new Promise(function (ok) { setTimeout(ok, 1500 * (t + 1)); }); }
+        }
+        if (isPub && slot !== "main") pubCount--;
+        return false;
+      };
+      var worker = async function () {
+        while (next < files.length) {
+          var f = files[next++], ok = await one(f[0], f[1]);
+          done++; if (!ok) failed++;
+          $("i", bar).style.width = Math.round(done / files.length * 100) + "%"; msg(fm, J.sending + " " + done + " / " + files.length);
+          if (dirty && done % 3 === 0) { dirty = false; try { await save(); } catch (e) {} }
+        }
+      };
+      await Promise.all([worker(), worker(), worker()]);
+      await save();
+      window.removeEventListener("beforeunload", warnLeave);
       if (window.MN_TRACK) try { window.MN_TRACK("partner_apply", kind); } catch (x) {}
       var base = document.documentElement.getAttribute("data-base") || "";
-      body.innerHTML = '<div class="jf-done"><b>✓</b><h3>' + esc(J.done_t) + '</h3><p class="jf-note">' + esc(J.done) + '</p><a class="btn btn--gold" href="' + base + 'partner/">' + esc(J.cab) + '</a></div>';
+      body.innerHTML = '<div class="jf-done"><b>✓</b><h3>' + esc(J.done_t) + '</h3><p class="jf-note">' + esc(J.done) + '</p>' +
+        (failed ? '<p class="jf-note" style="color:#b4541b;font-weight:600">⚠ ' + esc(J.part.replace("{n}", failed)) + '</p>' : '') +
+        '<a class="btn btn--gold" href="' + base + 'partner/">' + esc(J.cab) + '</a></div>';
     } catch (err) {
-      btn.disabled = false; bar.style.display = "none"; msg(fm, (String(err.message) === J.exists ? "" : J.err) + err.message, "err");
+      window.removeEventListener("beforeunload", warnLeave);
+      btn.disabled = false; bar.style.display = "none"; msg(fm, (String(err.message) === J.exists ? "" : J.err + " ") + err.message + (String(err.message) === J.exists ? "" : " — " + J.retry), "err");
     }
   }
 

@@ -110,7 +110,8 @@ J = {
   works="Qayerlarda gidlik qila olasiz (bir nechtasini belgilang)",
   req_t="Talablar", min="kamida", sel="tanlandi", email="E-mail", password="Parol (kamida 8 belgi)", login_note="Shu e-mail va parol bilan keyin moviy-travel.uz/partner/ kabinetiga kirasiz.",
   agree1="Talablar bilan tanishdim va ularga javob beraman.", agree2="Moviy Nomad orqali kelgan mijoz bilan to'g'ridan-to'g'ri kelishmayman.",
-  send="Arizani yuborish", sending="Yuborilmoqda… rasmlar yuklanmoqda", need="Iltimos, to'ldiring:", need_ph="Rasmlar yetarli emas:", exists="Bu e-mail allaqachon ro'yxatdan o'tgan. Kabinetga kiring: moviy-travel.uz/partner/",
+  send="Arizani yuborish", sending="Yuborilmoqda… rasmlar yuklanmoqda", need="Iltimos, to'ldiring:", need_ph="Rasmlar yetarli emas:", exists="Bu e-mail allaqachon ro'yxatdan o'tgan va parol mos kelmadi. Kabinetga kiring: moviy-travel.uz/partner/",
+  part="{n} ta rasm internet sababli yuklanmadi — ularni hamkor kabinetida qo'shing.", retry="internetni tekshirib, «Arizani yuborish»ni qayta bosing: kiritganlaringiz saqlangan.",
   done_t="Arizangiz qabul qilindi!", done="Asoschi 1–3 ish kunida ko'rib chiqadi. Natijani hamkor kabinetida ko'rasiz: moviy-travel.uz/partner/", cab="Hamkor kabinetiga o'tish", err="Xatolik: "),
 "ru": dict(
   title={"guide": "Заявка: стать гидом", "driver": "Заявка: водитель-партнёр", "hotel": "Заявка: добавить отель", "other": "Заявка: стать партнёром"},
@@ -134,6 +135,7 @@ J = {
   req_t="Требования", min="минимум", sel="выбрано", email="E-mail", password="Пароль (минимум 8 символов)", login_note="С этим e-mail и паролем вы потом входите в кабинет moviy-travel.uz/partner/.",
   agree1="Я ознакомился с требованиями и соответствую им.", agree2="Я не договариваюсь напрямую с клиентами, пришедшими через Moviy Nomad.",
   send="Отправить заявку", sending="Отправляем… загружаем фото", need="Пожалуйста, заполните:", need_ph="Недостаточно фото:", exists="Этот e-mail уже зарегистрирован. Войдите в кабинет: moviy-travel.uz/partner/",
+  part="{n} фото не загрузились из-за интернета — добавьте их в кабинете партнёра.", retry="проверьте интернет и нажмите «Отправить заявку» ещё раз: введённое сохранено.",
   done_t="Заявка принята!", done="Основатель рассмотрит её за 1–3 рабочих дня. Результат увидите в кабинете партнёра: moviy-travel.uz/partner/", cab="Перейти в кабинет партнёра", err="Ошибка: "),
 "en": dict(
   title={"guide": "Application: become a guide", "driver": "Application: driver partner", "hotel": "Application: add a hotel", "other": "Application: become a partner"},
@@ -157,6 +159,7 @@ J = {
   req_t="Requirements", min="at least", sel="selected", email="E-mail", password="Password (at least 8 characters)", login_note="Use this e-mail and password later to sign in at moviy-travel.uz/partner/.",
   agree1="I have read the requirements and meet them.", agree2="I will not make direct deals with clients who came through Moviy Nomad.",
   send="Send application", sending="Sending… uploading photos", need="Please fill in:", need_ph="Not enough photos:", exists="This e-mail is already registered. Sign in: moviy-travel.uz/partner/",
+  part="{n} photos did not upload because of the connection — add them in your partner account.", retry="check your connection and press «Send application» again: what you entered is saved.",
   done_t="Application received!", done="The founder will review it within 1–3 working days. You will see the result in your partner account: moviy-travel.uz/partner/", cab="Open partner account", err="Error: "),
 }
 
