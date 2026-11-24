@@ -187,7 +187,7 @@
       '<div class="fld full"><label>' + t("bio") + '</label><textarea name="bio" rows="5" maxlength="1500">' + esc(p.bio || "") + '</textarea></div>' +
       '<div class="fld full"><label>' + t("gallery") + '</label><div class="pgal">' + (p.photos || []).map(function (x, i) { return '<span><img src="' + esc(pub(x)) + '" alt=""><button type="button" data-rm="' + i + '">×</button></span>'; }).join("") + '</div><input type="file" id="ph-more" accept="image/*" multiple></div>' +
       '<div class="fld"><label>' + t("phone") + '</label><input name="phone" value="' + esc(p.phone || "") + '"></div><div class="fld"><label>' + t("wa") + '</label><input name="whatsapp" value="' + esc(p.whatsapp || "") + '"></div>' +
-      '<div class="fld"><label>' + t("lic") + '</label><input name="license_no" value="' + esc(p.license_no || "") + '"></div><div class="fld"><label>' + t("inn") + '</label><input name="inn" value="' + esc(p.inn || "") + '"></div>' +
+      '<div class="fld"><label>' + t("lic") + '</label><input name="license_no" value="' + esc(p.license_no || "") + '"></div>' + (k === "hotel" || k === "other" ? '<div class="fld"><label>' + t("inn") + '</label><input name="inn" value="' + esc(p.inn || "") + '"></div>' : '') +
       '</div><div class="msg" id="m-prof"></div><div class="p-actions"><button class="btn btn--gold" type="submit">' + t("save") + '</button>' +
       (p.status === "approved" ? '<a class="btn btn--outline" target="_blank" rel="noopener" href="../partners.html#p-' + p.id + '">' + t("view") + '</a>' : '') + '</div></form></div>';
     return h;

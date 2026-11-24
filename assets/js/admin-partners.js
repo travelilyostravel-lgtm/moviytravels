@@ -49,7 +49,7 @@
     var rv = (await sb.from("partner_reviews").select("*").eq("partner_id", id).order("created_at", { ascending: false })).data || [];
     var reg = p.kind === "guide" ? "https://gov.uz/oz/uzbektourism/pages/gidlar-reestri" : p.kind === "hotel" ? "https://gov.uz/oz/uzbektourism/pages/joylashtirish-vositalarining-reyestri" : "";
     var info = [["Turi", KIND[p.kind]], ["E-mail", p.email], ["Telefon", p.phone], ["WhatsApp", p.whatsapp], ["Shahar", [p.city].concat(p.cities || []).filter(Boolean).join(", ")], ["Tillar", (p.languages || []).join(", ")],
-      ["Narx", p.price_day ? "$" + p.price_day + (p.kind === "hotel" ? " / kecha" : " / kun") + (p.price_note ? " — " + p.price_note : "") : "—"], ["Firma", p.company], ["INN", p.inn], ["Litsenziya / guvohnoma", p.license_no],
+      ["Narx", p.price_day ? "$" + p.price_day + (p.kind === "hotel" ? " / kecha" : " / kun") + (p.price_note ? " — " + p.price_note : "") : "—"], p.kind === "hotel" || p.kind === "other" ? ["Firma", p.company] : null, p.kind === "hotel" || p.kind === "other" ? ["INN", p.inn] : null, ["Litsenziya / guvohnoma", p.license_no],
       p.kind === "driver" ? ["Mashina", [p.vehicle_type, p.vehicle_seats ? p.vehicle_seats + " o'rin" : "", p.vehicle_year].filter(Boolean).join(", ")] : null,
       p.kind === "hotel" ? ["Mehmonxona", [p.hotel_stars ? p.hotel_stars + " yulduz" : "", p.hotel_rooms ? p.hotel_rooms + " xona" : ""].filter(Boolean).join(", ")] : null,
       p.kind === "guide" ? ["Tajriba", p.experience_years ? p.experience_years + " yil" : "—"] : null,
