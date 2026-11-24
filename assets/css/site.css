@@ -849,3 +849,4 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 @keyframes seeallPulse{0%{box-shadow:0 12px 28px rgba(12,36,65,.25),0 0 0 0 rgba(243,180,67,.55)}70%{box-shadow:0 12px 28px rgba(12,36,65,.25),0 0 0 14px rgba(243,180,67,0)}100%{box-shadow:0 12px 28px rgba(12,36,65,.25),0 0 0 0 rgba(243,180,67,0)}}
 @keyframes seeallBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 @media (prefers-reduced-motion:reduce){.pt-seeall button,.pt-seeall i{animation:none}}
+@media (max-width:640px){.pt-card__img{aspect-ratio:1/1}}
