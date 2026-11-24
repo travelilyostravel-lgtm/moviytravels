@@ -253,3 +253,13 @@ _S_old3 = S
 
 def S(lang):
     d = _S_old3(lang); v = CT.get(lang) or CT["en"]; d.update(dict(zip(CTK, v))); return d
+
+
+# ---- "See all" button under the TOP-4
+SA = {"en": "See all {n} in the ranking", "ru": "Смотреть всех ({n}) в рейтинге", "uz": "Reytingdagi barchasini ko'rish ({n})", "tr": "Sıralamadaki tümünü gör ({n})",
+      "ar": "عرض الجميع في الترتيب ({n})", "de": "Alle {n} im Ranking ansehen", "sv": "Visa alla {n} i rankingen", "zh": "查看排行榜全部（{n}）", "hi": "रैंकिंग में सभी {n} देखें", "ko": "순위 전체 보기 ({n})"}
+_S_old4 = S
+
+
+def S(lang):
+    d = _S_old4(lang); d["see_all"] = SA.get(lang, SA["en"]); return d

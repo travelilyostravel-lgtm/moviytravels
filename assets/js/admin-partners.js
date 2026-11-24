@@ -116,21 +116,31 @@
       ((p.photos || []).length ? '<div class="pgal">' + p.photos.map(function (x) { return '<img src="' + pub(x) + '" alt="">'; }).join("") + '</div>' : '') +
       '<div class="p-actions">' + tgBtn(p.telegram) + (wa ? '<a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + (p.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(p.email) + '">E-mail</a>' : '') + '</div></div>';
     var nd = NEED[p.kind] || NEED.other, docs = p.docs || [], trips = docs.filter(function (d) { return d.kind === "trip"; }), extra = docs.filter(function (d) { return d.kind === "extra"; });
+    var lics = docs.filter(function (d) { return d.kind === "license"; });
+    // automatic checks of the licence / diploma number (the state registry page is not available online)
+    var ln = String(p.license_no || "").trim(), warn = [];
+    var dm = ln.match(/^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{2,4})$/);
+    if (!ln) warn.push("raqam yozilmagan");
+    else if (dm) { var dd = new Date((dm[3].length === 2 ? "20" + dm[3] : dm[3]) + "-" + dm[2] + "-" + dm[1]); warn.push("raqam o'rniga sana yozilgan (" + ln + ")" + (dd < new Date() ? " — muddati o'tgan" : " — bu amal qilish muddati bo'lishi mumkin; raqamini so'rang")); }
+    else if (ln.replace(/\W/g, "").length < 4) warn.push("raqam juda qisqa");
+    if (ln) { var dup = (await sb.from("partners").select("name").eq("license_no", ln).neq("id", p.id)).data || []; if (dup.length) warn.push("shu raqam boshqa hamkorda ham bor: " + dup.map(function (x) { return x.name; }).join(", ")); }
     var npub = (p.photos || []).length + extra.length;
     var chk = function (ok, txt) { return '<li style="color:' + (ok ? "#23794a" : "#b4541b") + '">' + (ok ? "✅ " : "❌ ") + txt + '</li>'; };
     h += '<div class="p-card"><h3>Talablar tekshiruvi</h3><ul class="pdocs">' +
       chk(!!p.photo, "Asosiy rasm (klassik yoki milliy kiyimda) — tepada, o'zingiz ko'ring") +
       chk(npub >= nd.pub, (p.kind === "driver" ? "Mashina rasmlari" : p.kind === "hotel" ? "Xona rasmlari" : "Yakka rasmlar") + ": " + npub + " / kamida " + (p.kind === "hotel" ? 10 : nd.pub)) +
       (nd.trip ? chk(trips.length >= nd.trip, "Sayyohlar bilan rasmlar: " + trips.length + " / kamida " + nd.trip) : "") +
-      chk(!!p.license_no || p.kind === "other" || p.kind === "hotel", "Litsenziya / guvohnoma raqami: " + esc(p.license_no || "—")) +
+      chk((!!ln && !warn.length) || p.kind === "other" || p.kind === "hotel", "Guvohnoma / diplom raqami: " + esc(ln || "—") + (warn.length && p.kind !== "other" && p.kind !== "hotel" ? " — ⚠ " + esc(warn.join("; ")) : "")) +
+      (p.kind === "guide" || p.kind === "driver" ? chk(lics.length > 0, "Guvohnoma / diplom rasmi: " + (lics.length ? lics.length + " ta yuklangan — pastda" : "yuklanmagan")) : "") +
       (p.kind === "guide" ? chk((p.languages || []).length > 0, "Tillar: " + esc((p.languages || []).join(", ") || "—")) : "") +
       (p.kind === "guide" ? chk((p.cities || []).length > 0 || !!p.city, "Gidlik qiladigan joylari: " + esc([p.city].concat(p.cities || []).filter(Boolean).join(", ") || "—")) : "") +
       (p.kind !== "hotel" ? chk(!!p.birth_year, "Yoshi: " + (p.birth_year ? (new Date().getFullYear() - p.birth_year) : "—")) : "") +
       chk(!!p.telegram, "Telegram: " + esc(p.telegram || "—")) +
       chk(!!p.home_area && !!p.home_address, "Yashash joyi va manzili: " + esc([p.home_area, p.home_address].filter(Boolean).join(" — ") || "—")) + '</ul>' +
+      (lics.length ? '<p class="p-sub" style="margin-top:10px">Guvohnoma / diplom (bosib kattalashtiring, raqam va ismni rasmdagi bilan solishtiring):</p><div class="pgal" id="pp-lics"></div>' : '') +
       (trips.length ? '<p class="p-sub" style="margin-top:10px">Sayyohlar bilan rasmlar (faqat sizga ko\'rinadi):</p><div class="pgal" id="pp-trips"></div>' : '') + '</div>';
     h += '<div class="p-card"><h3>Hujjatlar</h3>' + ((p.docs || []).length ? '<ul class="pdocs">' + p.docs.map(function (d, i) { return '<li>📄 <a href="#" data-doc="' + i + '">' + esc(DK[d.kind] || d.kind) + ' — ' + esc(d.name || "") + '</a></li>'; }).join("") + '</ul>' : '<p class="p-sub">Hali hujjat yuklamagan.</p>') +
-      (reg ? '<p class="p-sub">Davlat reyestrida tekshirish: <a target="_blank" rel="noopener" href="' + reg + '">Turizm qo\'mitasi reyestri</a> (raqam: ' + esc(p.license_no || "—") + ')</p>' : '') + '</div>';
+      (reg ? '<p class="p-sub">Davlat reyestri sahifasi (gov.uz) hozir ochilmayapti. Shubha bo\'lsa, Turizm qo\'mitasi ishonch telefoni: +99871 200-00-88 yoki 1163.</p>' : '') + '</div>';
     h += '<div class="p-card"><h3>Qaror</h3><div class="p-grid">' +
       '<label class="chk"><input type="checkbox" id="pp-lic"' + (p.license_ok ? " checked" : "") + '> Litsenziya/guvohnoma tekshirildi (saytda "✓" belgisi)</label>' +
       '<label class="chk"><input type="checkbox" id="pp-feat"' + (p.featured ? " checked" : "") + '> Tavsiya etilgan (ro\'yxatda birinchi)</label>' +
@@ -155,6 +165,7 @@
       } }); };
       draw();
     })();
+    if (lics.length) { var gl = $("#pp-lics"); lics.forEach(async function (d) { try { var u = await P.signed("partner-docs", d.path, 30); var im = document.createElement("img"); im.src = u; im.alt = ""; im.style.cursor = "zoom-in"; im.onclick = function () { window.open(u, "_blank"); }; gl.appendChild(im); } catch (e) {} }); }
     if (trips.length) { var g = $("#pp-trips"); trips.forEach(async function (d) { try { var u = await P.signed("partner-docs", d.path, 30); var im = document.createElement("img"); im.src = u; im.alt = ""; im.style.cursor = "zoom-in"; im.onclick = function () { window.open(u, "_blank"); }; g.appendChild(im); } catch (e) {} }); }
     $$("[data-doc]", box).forEach(function (a) { a.onclick = function (e) { e.preventDefault(); P.openFile("partner-docs", p.docs[+a.dataset.doc].path); }; });
     $$("[data-rq]", box).forEach(function (tr) { tr.onclick = function () { A.openRequest ? A.openRequest(tr.dataset.rq) : A.requests(); }; });

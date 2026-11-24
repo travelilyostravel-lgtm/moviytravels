@@ -151,7 +151,7 @@
           try {
             var path = await up(tok, isPub ? "partner-photos" : "partner-docs", pid, fl, slot);
             if (slot === "main") p.photo = path; else if (isPub) p.photos.push(path);
-            else p.docs.push({ kind: slot === "trip" ? "trip" : "extra", path: path, name: file.name || slot, at: new Date().toISOString() });
+            else p.docs.push({ kind: slot === "trip" ? "trip" : slot === "lic" ? "license" : "extra", path: path, name: file.name || slot, at: new Date().toISOString() });
             dirty = true; return true;
           } catch (e) { await new Promise(function (ok) { setTimeout(ok, 1500 * (t + 1)); }); }
         }

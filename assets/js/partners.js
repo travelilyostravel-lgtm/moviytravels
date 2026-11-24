@@ -43,7 +43,7 @@
       if (!box || !top.length) return;
       box.innerHTML = top.map(function (p) {
         var unit = p.kind === "hotel" ? PT.per_night : PT.per_day;
-        return '<a class="pth" href="' + (page[p.kind] || "partners.html?k=other") + '#p-' + p.id + '"><span class="pth__img" style="background-image:url(\'' + img(p.photo) + '\')">' + (p.license_ok ? '<i>✓ ' + esc(PT.verified) + '</i>' : '') + '</span>' +
+        return '<a class="pth" href="' + (page[p.kind] || "partners.html?k=other") + '#p-' + p.id + '"><span class="pth__img" style="--ph:url(\'' + img(p.photo) + '\')"><img src="' + img(p.photo) + '" alt="" loading="lazy">' + (p.license_ok ? '<i>✓ ' + esc(PT.verified) + '</i>' : '') + '</span>' +
           '<span class="pth__b"><small>' + esc(PT["k_" + p.kind] || "") + ' · ' + esc(p.city || "") + '</small><b>' + esc(p.name) + '</b>' +
           '<span class="pth__m">' + (p.reviews_count ? stars(p.rating) + ' ' + Number(p.rating).toFixed(1) : '<em>' + esc(PT["new"]) + '</em>') + '</span>' +
           ((p.languages || []).length ? '<span class="pth__l">🗣 ' + esc(p.languages.slice(0, 3).join(", ")) + '</span>' : '') + '</span></a>';
@@ -60,7 +60,7 @@
     if (p.kind === "guide" && p.experience_years) facts.push(p.experience_years + " " + PT.exp);
     if (p.kind === "driver" && p.vehicle_type) facts.push(esc(p.vehicle_type) + (p.vehicle_seats ? " · " + p.vehicle_seats + " " + PT.seats : ""));
     if (p.kind === "hotel" && p.hotel_stars) facts.push(p.hotel_stars + " " + PT.stars);
-    return '<article class="pt-card" id="p-' + p.id + '"><div class="pt-card__img"' + (p.photo ? ' style="background-image:url(\'' + img(p.photo) + '\')"' : '') + '>' +
+    return '<article class="pt-card" id="p-' + p.id + '"><div class="pt-card__img"' + (p.photo ? ' style="--ph:url(\'' + img(p.photo) + '\')"' : '') + '>' + (p.photo ? '<img class="pt-card__ph" src="' + img(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy">' : '') +
       (p.license_ok ? '<span class="pt-badge">✓ ' + esc(PT.verified) + '</span>' : '') + (rank ? '<span class="pt-rank' + (rank <= 3 ? ' pt-rank--' + rank : '') + '">#' + rank + '</span>' : '') +
       '<div class="pt-card__name"><b>' + esc(p.name) + '</b><small>📍 ' + esc([p.city].concat(p.cities || []).filter(Boolean).map(function (c) { return cname(ckey(c)); }).filter(function (c, i, a) { return a.indexOf(c) === i; }).slice(0, 3).join(", ")) + '</small></div></div>' +
       '<div class="pt-card__body"><div class="pt-card__rate">' + (p.reviews_count ? stars(p.rating) + ' <b>' + Number(p.rating).toFixed(1) + '</b> <small>(' + p.reviews_count + ')</small>' : '<span class="pt-new">' + esc(PT.new) + '</span>') +
@@ -84,7 +84,9 @@
     if (topBox) {
       topBox.hidden = !top.length;
       topBox.innerHTML = top.length ? '<div class="pt-top__head"><div class="orn-line"><i></i></div><h2>🏆 ' + esc(PT.top_t) + ' <span class="pt-where">' + esc(where) + '</span></h2><p>' + esc(PT.top_sub) + '</p></div><div class="pt-grid pt-grid--top">' + top.map(function (p) { return card(p, rankOf[p.id]); }).join("") + '</div>' +
-        (ranked.length > 4 ? '<h3 class="pt-rest">' + esc(PT.rest_t) + ' <span class="pt-where">' + esc(where) + '</span></h3>' : '') : "";
+        (ranked.length > 4 ? '<div class="pt-seeall"><button type="button" id="pt-seeall" data-free>' + esc(String(PT.see_all || "{n}").replace("{n}", ranked.length)) + '<i aria-hidden="true">↓</i></button></div>' +
+          '<h3 class="pt-rest" id="pt-rest">' + esc(PT.rest_t) + ' <span class="pt-where">' + esc(where) + '</span></h3>' : '') : "";
+      var sa = $("#pt-seeall"); if (sa) sa.onclick = function () { var r = $("#pt-rest"); if (r) window.scrollTo({ top: r.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" }); };
     }
     var rest = top.length ? list.slice(4) : list;
     grid.innerHTML = rest.length ? rest.map(function (p) { return card(p, rankOf[p.id]); }).join("") : (top.length ? "" : '<p class="pt-empty">' + esc(city && ALL.length ? PT.no_city : PT.empty) + '</p>');
@@ -155,7 +157,7 @@
       var info = row(PT.langs, (cur.languages || []).join(", ")) + row(PT.works_in, places.join(", ")) + row(PT.lives, cur.home_area) + row(PT.spec, (cur.specialties || []).join(", ")) +
         (cur.kind === "driver" ? row("🚗", [cur.vehicle_type, cur.vehicle_seats ? cur.vehicle_seats + " " + PT.seats : "", cur.vehicle_year].filter(Boolean).join(" · ")) : "") +
         (cur.kind === "hotel" && cur.hotel_stars ? row("★", cur.hotel_stars + " " + PT.stars) : "");
-      box.innerHTML = '<div class="pp"><div class="pp__hero">' + (cur.photo ? '<img class="pp__main" src="' + img(cur.photo) + '" alt="">' : '') +
+      box.innerHTML = '<div class="pp"><div class="pp__hero">' + (cur.photo ? '<span class="pp__mainw" style="--ph:url(\'' + img(cur.photo) + '\')"><img class="pp__main" src="' + img(cur.photo) + '" alt=""></span>' : '') +
         '<div class="pp__id"><span class="pp__kind">' + esc(PT["k_" + cur.kind] || "") + (rank ? ' · 🏆 #' + rank + (rank <= 4 ? ' · ' + esc(PT.top_t) : '') : '') + '</span>' +
         '<h3>' + esc(cur.name) + '</h3><p>' + (cur.reviews_count ? stars(cur.rating) + ' <b>' + Number(cur.rating).toFixed(1) + '</b> (' + cur.reviews_count + ')' : '<span class="pt-new">' + esc(PT.new) + '</span>') + (cur.license_ok ? ' · <span class="pp__ok">✓ ' + esc(PT.verified) + '</span>' : '') + '</p>' +
         (cur.price_day ? '<p class="pp__price">' + esc(PT.from) + ' <b>$' + Math.round(cur.price_day) + '</b> ' + esc(unit) + (cur.price_note ? ' — ' + esc(cur.price_note) : '') + '</p>' : '') +

@@ -6,7 +6,7 @@ NO_DIRECT = {"uz": "Moviy Nomad orqali kelgan mijoz bilan to'g'ridan-to'g'ri kel
 
 REQ = {
 "uz": {
-  "guide": ["Turizm qo'mitasining gid guvohnomasi (litsenziya) bo'lishi shart.",
+  "guide": ["Turizm qo'mitasining gid guvohnomasi yoki gidlik diplomi — raqami yoziladi va rasmi yuklanadi.",
             "Kamida bitta chet tilida erkin gaplasha olish.",
             "Asosiy rasm: klassik (kostyum, oq ko'ylak) yoki milliy kiyimda, yuz aniq ko'rinadigan sifatli portret.",
             "O'zingizning yakka rasmlaringiz — kamida 3 ta.",
@@ -31,7 +31,7 @@ REQ = {
             "Vaqtga aniqlik, sifat va madaniy muomala."],
 },
 "ru": {
-  "guide": ["Обязательно удостоверение гида (лицензия) Комитета по туризму.",
+  "guide": ["Удостоверение гида Комитета по туризму или диплом гида — указывается номер и загружается фото.",
             "Свободное владение хотя бы одним иностранным языком.",
             "Главное фото: в классической (костюм, белая рубашка) или национальной одежде, качественный портрет, лицо хорошо видно.",
             "Ваши личные фото — не меньше 3.",
@@ -56,7 +56,7 @@ REQ = {
             "Пунктуальность, качество и вежливое общение."],
 },
 "en": {
-  "guide": ["A state guide licence (certificate) from the Tourism Committee is required.",
+  "guide": ["A Tourism Committee guide licence or a guide diploma — enter the number and upload a photo.",
             "Fluent in at least one foreign language.",
             "Main photo: in classic (suit, white shirt) or national dress, a quality portrait with the face clearly visible.",
             "Photos of yourself — at least 3.",
@@ -83,8 +83,8 @@ REQ = {
 }
 
 # photo slots: (key, minimum, public?) — "main" always 1 and public
-SLOTS = {"guide": [("main", 1), ("solo", 3), ("trip", 10)],
-         "driver": [("main", 1), ("car", 6), ("trip", 10)],
+SLOTS = {"guide": [("main", 1), ("lic", 1), ("solo", 3), ("trip", 10)],
+         "driver": [("main", 1), ("lic", 1), ("car", 6), ("trip", 10)],
          "hotel": [("main", 1), ("rooms", 10)],
          "other": [("main", 1), ("solo", 3), ("trip", 10)]}
 
@@ -96,12 +96,13 @@ J = {
   sec_about="Siz haqingizda", sec_photo="Rasmlar", sec_login="Hamkor kabinetiga kirish",
   name={"guide": "Ism va familiya", "driver": "Ism va familiya", "hotel": "Mehmonxona nomi", "other": "Ism yoki brend nomi"},
   phone="Telefon", tg="Telegram (@username yoki raqam)", tg_bad="Telegram: @username (kamida 5 harf) yoki telefon raqamini yozing", whatsapp="WhatsApp (ixtiyoriy)", city="Asosiy shahar", cities="Yana qaysi shaharlarda ishlaysiz", languages="Tillar (vergul bilan: English, Русский)",
-  license={"guide": "Gid guvohnomasi (litsenziya) raqami", "driver": "Haydovchilik guvohnomasi raqami", "hotel": "Reyestr raqami (bo'lsa)", "other": "Guvohnoma raqami (bo'lsa)"},
+  license={"guide": "Gid guvohnomasi yoki gidlik diplomi raqami", "driver": "Haydovchilik guvohnomasi raqami", "hotel": "Reyestr raqami (bo'lsa)", "other": "Guvohnoma raqami (bo'lsa)"},
   inn="INN (soliq raqami)", exp="Tajriba (yil)", vtype="Mashina (masalan: Chevrolet Cobalt)", vseats="Yo'lovchi o'rni", vyear="Ishlab chiqarilgan yili",
   stars="Yulduz (bo'lsa)", rooms="Xonalar soni", spec="Xizmat turi (masalan: fotograf, osh master-klass)",
   price={"guide": "Narx, $ / kun", "driver": "Narx, $ / kun", "hotel": "Narx, $ / kecha (2 kishilik xona)", "other": "Narx, $ / xizmat"},
   bio={"guide": "O'zingiz haqingizda: qaysi turlarni yaxshi bilasiz, qanday sayyohlar bilan ishlagansiz", "driver": "O'zingiz va mashinangiz haqida", "hotel": "Mehmonxona haqida: joylashuvi, sharoitlari, nonushta", "other": "Xizmatingiz haqida batafsil"},
   ph={"main": ("Asosiy rasm", {"guide": "Klassik yoki milliy kiyimda, yuz aniq ko'rinadigan portret. Saytda kartochkangizda chiqadi.", "driver": "Klassik yoki milliy kiyimda, yuz aniq ko'rinadigan rasm.", "hotel": "Bino fasadi yoki milliy uslubdagi hovli / qabulxona.", "other": "Klassik yoki milliy kiyimda, sifatli portret."}),
+      "lic": ("Guvohnoma yoki diplom rasmi", {"guide": "Gid guvohnomasi yoki gidlik diplomining aniq rasmi: raqami va ismingiz o'qilsin. Faqat biz ko'ramiz.", "driver": "Haydovchilik guvohnomasining aniq rasmi. Faqat biz ko'ramiz.", "hotel": "", "other": ""}),
       "solo": ("Yakka rasmlaringiz", "O'zingiz tushgan rasmlar. Saytdagi profilingizda chiqadi."),
       "car": ("Mashina rasmlari", "Tashqi ko'rinish, salon, yuk joyi. Saytdagi profilda chiqadi."),
       "rooms": ("Xonalar va hudud rasmlari", "Yorug' va haqiqiy rasmlar. Birinchi 8 tasi saytdagi profilda chiqadi."),
@@ -120,12 +121,13 @@ J = {
   sec_about="О вас", sec_photo="Фотографии", sec_login="Вход в кабинет партнёра",
   name={"guide": "Имя и фамилия", "driver": "Имя и фамилия", "hotel": "Название отеля", "other": "Имя или название бренда"},
   phone="Телефон", tg="Telegram (@username или номер)", tg_bad="Telegram: укажите @username (от 5 символов) или номер телефона", whatsapp="WhatsApp (необязательно)", city="Основной город", cities="В каких ещё городах работаете", languages="Языки (через запятую: English, Русский)",
-  license={"guide": "Номер удостоверения гида (лицензии)", "driver": "Номер водительского удостоверения", "hotel": "Номер в реестре (если есть)", "other": "Номер справки (если есть)"},
+  license={"guide": "Номер удостоверения или диплома гида", "driver": "Номер водительского удостоверения", "hotel": "Номер в реестре (если есть)", "other": "Номер справки (если есть)"},
   inn="ИНН", exp="Опыт (лет)", vtype="Машина (например: Chevrolet Cobalt)", vseats="Мест для пассажиров", vyear="Год выпуска",
   stars="Звёзды (если есть)", rooms="Количество номеров", spec="Вид услуги (например: фотограф, мастер-класс плова)",
   price={"guide": "Цена, $ / день", "driver": "Цена, $ / день", "hotel": "Цена, $ / ночь (двухместный номер)", "other": "Цена, $ / услуга"},
   bio={"guide": "О себе: какие туры знаете лучше всего, с какими туристами работали", "driver": "О себе и машине", "hotel": "Об отеле: расположение, удобства, завтрак", "other": "Подробно о вашей услуге"},
   ph={"main": ("Главное фото", {"guide": "В классической или национальной одежде, портрет, лицо хорошо видно. Будет на вашей карточке на сайте.", "driver": "В классической или национальной одежде, лицо хорошо видно.", "hotel": "Фасад здания или двор / ресепшн в национальном стиле.", "other": "В классической или национальной одежде, качественный портрет."}),
+      "lic": ("Фото удостоверения или диплома", {"guide": "Чёткое фото удостоверения или диплома гида: видны номер и ФИО. Видим только мы.", "driver": "Чёткое фото водительского удостоверения. Видим только мы.", "hotel": "", "other": ""}),
       "solo": ("Ваши личные фото", "Фото, где вы одни. Будут в вашем профиле на сайте."),
       "car": ("Фото машины", "Снаружи, салон, багажник. Будут в профиле на сайте."),
       "rooms": ("Фото номеров и территории", "Светлые и настоящие. Первые 8 будут в профиле на сайте."),
@@ -144,12 +146,13 @@ J = {
   sec_about="About you", sec_photo="Photos", sec_login="Partner account login",
   name={"guide": "Full name", "driver": "Full name", "hotel": "Hotel name", "other": "Name or brand"},
   phone="Phone", tg="Telegram (@username or number)", tg_bad="Telegram: enter an @username (5+ characters) or a phone number", whatsapp="WhatsApp (optional)", city="Main city", cities="Other cities you work in", languages="Languages (comma separated: English, Русский)",
-  license={"guide": "Guide licence number", "driver": "Driving licence number", "hotel": "Registry number (if any)", "other": "Certificate number (if any)"},
+  license={"guide": "Guide licence or diploma number", "driver": "Driving licence number", "hotel": "Registry number (if any)", "other": "Certificate number (if any)"},
   inn="Tax number (INN)", exp="Experience (years)", vtype="Car (e.g. Chevrolet Cobalt)", vseats="Passenger seats", vyear="Year",
   stars="Stars (if any)", rooms="Number of rooms", spec="Service (e.g. photographer, plov master class)",
   price={"guide": "Price, $ / day", "driver": "Price, $ / day", "hotel": "Price, $ / night (double room)", "other": "Price, $ / service"},
   bio={"guide": "About you: tours you know best, travellers you have worked with", "driver": "About you and your car", "hotel": "About the hotel: location, facilities, breakfast", "other": "About your service in detail"},
   ph={"main": ("Main photo", {"guide": "In classic or national dress, a portrait with the face clearly visible. Shown on your card on the site.", "driver": "In classic or national dress, face clearly visible.", "hotel": "The building or a national-style courtyard / reception.", "other": "In classic or national dress, a quality portrait."}),
+      "lic": ("Photo of the licence or diploma", {"guide": "A clear photo of your guide licence or diploma: number and name readable. Only we see it.", "driver": "A clear photo of your driving licence. Only we see it.", "hotel": "", "other": ""}),
       "solo": ("Photos of yourself", "Photos of you alone. Shown in your profile on the site."),
       "car": ("Car photos", "Outside, inside, boot. Shown in your profile on the site."),
       "rooms": ("Rooms and grounds", "Bright and real. The first 8 are shown in your profile."),
