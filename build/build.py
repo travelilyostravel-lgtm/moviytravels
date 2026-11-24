@@ -206,13 +206,13 @@ def render(lang):
         <span class="eyebrow">{e(t["hero_eyebrow"])}</span>
         <h1>{t["hero_title"]}</h1>
         <p class="hero__sub">{e(t["hero_sub"])}</p>
+        {videos.hero_button(lang)}
         <div class="hero__actions">
           <a class="btn btn--wa" href="{wa}" data-wa target="_blank" rel="noopener">{ICON["wa"]}{e(t["btn_wa"])}</a>
           <a class="btn btn--tg" href="{tg}" target="_blank" rel="noopener">{ICON["tg"]}{e(t["btn_tg"])}</a>
           <a class="btn btn--ig" href="{ig}" target="_blank" rel="noopener">{ICON["ig"]}Instagram</a>
         </div>
         <div class="chips">{chips}</div>
-        {videos.hero_button(lang)}
         <div class="hcount" id="hcount" hidden data-t="{e(HC.get(lang, HC["en"])[0])}" data-d="{e(HC.get(lang, HC["en"])[1])}"><i class="hcount__dot" aria-hidden="true"></i><span class="hcount__t"></span></div>
       </div>
       <aside class="wx" id="wx" hidden aria-live="polite"></aside>
@@ -237,6 +237,7 @@ def render(lang):
     </div>
   </section>
 
+{videos.section(lang, cfg.get("youtube", ""))}
 {pages.groups_home(lang)}
 {XB["services"]}
 {XB["partners"]}
@@ -258,7 +259,6 @@ def render(lang):
     </div>
   </section>
 
-{videos.section(lang, cfg.get("youtube", ""))}
   <section class="section section--navy" id="why">
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(t["why_eyebrow"])}</span><h2>{e(t["why_title"])}</h2></div>
