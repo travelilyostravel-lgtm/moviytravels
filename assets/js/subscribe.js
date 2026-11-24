@@ -3,7 +3,7 @@
    presentation, the end of a guides/partners list, or the bottom of any page. The e-mail goes into the
    customer base (register_customer) and the action is logged as "subscribe" in the customer's card. */
 (function () {
-  if (window.__mnSub) return; window.__mnSub = 1;
+  if (window.__mnSub || /account\.html/.test(location.pathname)) return; window.__mnSub = 1;   /* not on the client cabinet */
   var L = (document.documentElement.lang || "en").slice(0, 2);
   var TX = {
     en: ["Subscribe to Moviy Nomad", "New tours, group dates and special offers — straight to your inbox, about once a month.", "Your e-mail", "WhatsApp (optional)", "Subscribe", "Thank you! You're subscribed.", "Please enter a valid e-mail.", "Subscribe", "No spam. Unsubscribe any time."],
