@@ -149,7 +149,8 @@
         photo: old.photo || null, photos: old.photos || [], docs: old.docs || [],
         price_day: v("price_day"), price_note: "", vehicle_type: v("vehicle_type"), vehicle_seats: v("vehicle_seats"), vehicle_year: v("vehicle_year"),
         hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"),
-        birth_year: v("birth_year"), home_area: v("home_area"), home_address: v("home_address") };
+        birth_year: v("birth_year"), home_area: v("home_area"), home_address: v("home_address"),
+        resubmit: true };   // a rejected partner who fills the form again sends the application back for review
       var save = async function () {
         var sv = await fetch(SB.url + "/rest/v1/rpc/partner_save", { method: "POST", headers: H(tok, { "Content-Type": "application/json" }), body: JSON.stringify({ p: p }) });
         if (!sv.ok) throw new Error("save " + sv.status + " " + (await sv.text()).slice(0, 160));

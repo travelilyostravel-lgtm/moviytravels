@@ -21,7 +21,9 @@
       cities: "Qaysi shaharlarda ishlaysiz (vergul bilan)", langs: "Tillar", spec: "Yo'nalishlar", price: "Narx, USD", perDay: "kuniga", perNight: "bir kechaga", priceNote: "Narx izohi (masalan: 8 soat, yoqilg'i bilan)",
       exp: "Tajriba (yil)", vType: "Mashina rusumi", seats: "O'rinlar soni", year: "Yili", stars: "Yulduz", rooms: "Xonalar soni",
       save: "Saqlash", saved: "Saqlandi ✅", view: "Saytda ko'rish", rating: "Reyting", reviews: "sharh", trips: "Moviy Nomad bilan safarlar",
-      bad: "Xatolik: "
+      bad: "Xatolik: ",
+      rejHow: "Kamchiliklarni tuzating: ma'lumotlarni to'g'rilang, kerakli rasm va hujjatlarni yuklang, so'ng «Tuzatib qayta yuborish»ni bosing. Arizangiz qayta ko'rib chiqiladi — buni necha marta bo'lsa ham qilishingiz mumkin.",
+      rejWhy: "Rad etish sababi", rejCom: "Nimani tuzatdingiz? (adminga qisqacha)", rejSend: "Tuzatib qayta yuborish", rejSent: "Arizangiz qayta yuborildi ✅ Tez orada ko'rib chiqamiz.", rejNeed: "Nimani tuzatganingizni qisqacha yozing.", rejN: "Qayta yuborilgan"
     },
     ru: {
       title: "Портал партнёров", notP: "Этот аккаунт не зарегистрирован как партнёр. Нажмите «Выйти» и зарегистрируйтесь с другим e-mail.", sub: "Для гидов, водителей, гостиниц и других поставщиков услуг.",
@@ -40,7 +42,9 @@
       cities: "В каких городах работаете (через запятую)", langs: "Языки", spec: "Направления", price: "Цена, USD", perDay: "в день", perNight: "за ночь", priceNote: "Пояснение к цене (например: 8 часов, с топливом)",
       exp: "Опыт (лет)", vType: "Марка авто", seats: "Мест", year: "Год", stars: "Звёзд", rooms: "Номеров",
       save: "Сохранить", saved: "Сохранено ✅", view: "Посмотреть на сайте", rating: "Рейтинг", reviews: "отзывов", trips: "Поездок с Moviy Nomad",
-      bad: "Ошибка: "
+      bad: "Ошибка: ",
+      rejHow: "Исправьте недочёты: поправьте данные, загрузите нужные фото и документы и нажмите «Исправить и отправить снова». Заявку рассмотрят заново — отправлять можно сколько угодно раз.",
+      rejWhy: "Причина отказа", rejCom: "Что вы исправили? (кратко для администратора)", rejSend: "Исправить и отправить снова", rejSent: "Заявка отправлена повторно ✅ Скоро рассмотрим.", rejNeed: "Кратко напишите, что исправили.", rejN: "Отправлено повторно"
     }
   };
   var LANGS = ["English", "Русский", "O'zbek", "Türkçe", "Deutsch", "Français", "Español", "Italiano", "العربية", "中文", "한국어", "日本語", "हिन्दी", "Svenska"];
@@ -195,7 +199,8 @@
       '<div class="fld"><label>' + t("phone") + '</label><input name="phone" value="' + esc(p.phone || "") + '"></div><div class="fld"><label>' + t("tg") + ' *</label><input name="telegram" required maxlength="64" placeholder="@username" value="' + esc(p.telegram || "") + '"></div><div class="fld"><label>' + t("wa") + '</label><input name="whatsapp" value="' + esc(p.whatsapp || "") + '"></div>' +
       '<div class="fld"><label>' + t("lic") + '</label><input name="license_no" value="' + esc(p.license_no || "") + '"></div>' + (k === "hotel" || k === "other" ? '<div class="fld"><label>' + t("inn") + '</label><input name="inn" value="' + esc(p.inn || "") + '"></div>' : '') +
       (live ? '<div class="fld full"><label>' + t("chCom") + '</label><textarea name="ch_comment" rows="2" maxlength="1000" required></textarea></div>' : '') +
-      '</div><div class="msg" id="m-prof"></div><div class="p-actions"><button class="btn btn--gold" type="submit">' + (live ? t("chSend") : t("save")) + '</button>' +
+      (p.status === "rejected" ? '<div class="fld full"><label>' + t("rejCom") + '</label><textarea name="rs_comment" rows="2" maxlength="500" required></textarea></div>' : '') +
+      '</div><div class="msg" id="m-prof"></div><div class="p-actions"><button class="btn btn--gold" type="submit">' + (live ? t("chSend") : p.status === "rejected" ? "↻ " + t("rejSend") : t("save")) + '</button>' +
       (p.status === "approved" ? '<a class="btn btn--outline" target="_blank" rel="noopener" href="../partners.html#p-' + p.id + '">' + t("view") + '</a>' : '') + '</div></form></div>';
     return h;
   }
@@ -237,8 +242,10 @@
           var rq = await sb.rpc("partner_request_change", { p: d, comment: cm }); if (rq.error) throw rq.error;
           P.msg("#m-prof", t("chSent"), "ok"); setTimeout(boot, 1500); return;
         }
+        var rej = p.status === "rejected";
+        if (rej) { var rc = f.rs_comment.value.trim(); if (rc.length < 3) { f.rs_comment.focus(); return P.msg("#m-prof", t("rejNeed"), "err"); } d.resubmit_comment = rc; }
         var r = await sb.rpc("partner_save", { p: d }); if (r.error) throw r.error;
-        P.msg("#m-prof", t("saved"), "ok"); setTimeout(boot, 700);
+        P.msg("#m-prof", rej ? t("rejSent") : t("saved"), "ok"); setTimeout(boot, rej ? 1800 : 700);
       } catch (e2) { P.msg("#m-prof", t("bad") + P.err(e2), "err"); }
     };
   }
@@ -262,8 +269,8 @@
       else if (Date.now() - new Date(lc[0].decided_at).getTime() < 7 * 864e5) h += '<div class="p-card" style="border:2px solid #9fd4b4"><h3>✅ ' + t("chOk") + ' <small>(' + dt + ')</small></h3>' + (lc[0].admin_note ? '<p>' + esc(lc[0].admin_note) + '</p>' : '') + '</div>';
     }
     $("#pwho").textContent = p.name + " · " + t("kinds")[p.kind];
-    if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2><p class="p-sub">' + t("pendingTxt") + '</p></div>' + await docsBlock() + profileForm();
-    else if (p.status === "rejected") h += '<div class="p-card"><h2>' + t("rejected") + '</h2>' + (p.admin_note ? '<p>' + esc(p.admin_note) + '</p>' : '') + '</div>';
+    if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2>' + (p.resubmit_count ? '<p class="p-sub">↻ ' + t("rejN") + ': ' + p.resubmit_count + '</p>' : '') + '<p class="p-sub">' + t("pendingTxt") + '</p></div>' + await docsBlock() + profileForm();
+    else if (p.status === "rejected") h += '<div class="p-card" style="border:2px solid #efa5a5"><h2>❌ ' + t("rejected") + '</h2>' + (p.admin_note ? '<p><b>' + t("rejWhy") + ':</b> ' + esc(p.admin_note) + '</p>' : '') + '<p class="p-sub">' + t("rejHow") + '</p></div>' + await docsBlock() + profileForm();
     else {
       if (p.status === "paused") h += '<div class="p-card"><h2>' + t("paused") + '</h2>' + (p.admin_note ? '<p>' + esc(p.admin_note) + '</p>' : '') + '</div>';
       else h += '<div class="p-card"><h2>' + t("approved") + '</h2><p class="p-sub">' + t("approvedTxt") + '</p><div class="kv"><div><small>' + t("rating") + '</small><b>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " · " + p.reviews_count + " " + t("reviews") : "—") + '</b></div><div><small>' + t("trips") + '</small><b>' + (p.trips_count || 0) + '</b></div><div><small>' + t("stats") + '</small><b>' + (p.views_count || 0) + ' · ' + (p.likes_count || 0) + ' · ' + (p.shares_count || 0) + '</b></div></div></div>';

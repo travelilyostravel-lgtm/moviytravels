@@ -34,7 +34,7 @@
       '<p class="p-sub">Gid, haydovchi va mehmonxonalar o\'zlari ro\'yxatdan o\'tadi. Asoschi yoki menejer hujjat va rasmlarni tekshirib <b>Tasdiqlash</b>ni bosadi — shundan keyin kartochka saytda (bosh sahifada ham) chiqadi. Aloqa raqamlari saytda ko\'rinmaydi: mijoz so\'rovi bizga keladi.</p>' +
       '<div class="filters">' + [["pending", "Tekshiruvda"], ["approved", "Saytda"], ["paused", "Yopiq"], ["rejected", "Rad etilgan"], ["all", "Hammasi"]].map(function (f) { return '<button data-pf="' + f[0] + '" class="' + (flt === f[0] ? "is-on" : "") + '">' + f[1] + (f[0] !== "all" && cnt[f[0]] ? " (" + cnt[f[0]] + ")" : "") + '</button>'; }).join("") + '</div>' +
       (list.length ? '<table class="tbl" style="margin-top:10px"><thead><tr><th>Hamkor</th><th>Turi</th><th>Shahar</th><th>Reyting</th><th>Holat</th><th>Ro\'yxatdan</th></tr></thead><tbody>' + list.map(function (p) {
-        return '<tr class="click" data-pid="' + p.id + '"><td><b>' + esc(p.name) + '</b><br><small>' + esc(p.email || "") + ' · ' + esc(p.phone || "") + '</small></td><td>' + esc(KIND[p.kind]) + '</td><td>' + esc(p.city || "") + '</td><td>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " (" + p.reviews_count + ")" : "—") + '</td><td>' + esc(ST[p.status]) + (p.license_ok ? '<br><small>✓ litsenziya</small>' : '') + '</td><td><small>' + P.date(p.created_at) + '</small></td></tr>';
+        return '<tr class="click" data-pid="' + p.id + '"><td><b>' + esc(p.name) + '</b><br><small>' + esc(p.email || "") + ' · ' + esc(p.phone || "") + '</small></td><td>' + esc(KIND[p.kind]) + '</td><td>' + esc(p.city || "") + '</td><td>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " (" + p.reviews_count + ")" : "—") + '</td><td>' + esc(ST[p.status]) + (p.resubmit_count ? '<br><small style="color:#b4541b">↻ qayta yuborilgan: ' + p.resubmit_count + '-marta</small>' : '') + (p.license_ok ? '<br><small>✓ litsenziya</small>' : '') + '</td><td><small>' + P.date(p.created_at) + '</small></td></tr>';
       }).join("") + '</tbody></table>' : '<p class="p-sub" style="margin-top:10px">Bu ro\'yxatda hech kim yo\'q.</p>') + '</div>';
     var chg = (await sb.from("partner_changes").select("id,partner_id,comment,created_at").eq("status", "pending").order("created_at")).data || [];
     if (chg.length) {
@@ -115,6 +115,9 @@
       (p.bio ? '<p style="white-space:pre-line;margin-top:12px">' + esc(p.bio) + '</p>' : '') +
       ((p.photos || []).length ? '<div class="pgal">' + p.photos.map(function (x) { return '<img src="' + pub(x) + '" alt="">'; }).join("") + '</div>' : '') +
       '<div class="p-actions">' + tgBtn(p.telegram) + (wa ? '<a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + (p.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(p.email) + '">E-mail</a>' : '') + '</div></div>';
+    var hist = p.reject_history || [];
+    if (hist.length) h += '<div class="p-card" style="border:2px solid #e9b949"><h3>↻ Qayta yuborilgan ariza (' + hist.length + '-marta)</h3><p class="p-sub">Oldin rad etilgan edi; hamkor tuzatib qayta yubordi. Oxirgi yuborilgan: ' + P.date(p.resubmitted_at) + '. Talablarni qayta tekshirib, qaror qiling.</p><table class="tbl"><thead><tr><th>Qayta yuborilgan</th><th>Bizning rad etish sababimiz</th><th>Hamkor: nimani tuzatdi</th></tr></thead><tbody>' +
+      hist.slice().reverse().map(function (x) { return '<tr><td><small>' + P.date(x.resent_at) + '</small></td><td>' + esc(x.rejected_note || "—") + '</td><td>' + esc(x.comment || "—") + '</td></tr>'; }).join("") + '</tbody></table></div>';
     var nd = NEED[p.kind] || NEED.other, docs = p.docs || [], trips = docs.filter(function (d) { return d.kind === "trip"; }), extra = docs.filter(function (d) { return d.kind === "extra"; });
     var pubTrips = (p.photos || []).filter(function (x) { return /\/trip-/.test(x); });   // photos with travellers that are in the open gallery
     var lics = docs.filter(function (d) { return d.kind === "license"; });
@@ -146,7 +149,7 @@
       '<label class="chk"><input type="checkbox" id="pp-lic"' + (p.license_ok ? " checked" : "") + '> Litsenziya/guvohnoma tekshirildi (saytda "✓" belgisi)</label>' +
       '<label class="chk"><input type="checkbox" id="pp-feat"' + (p.featured ? " checked" : "") + '> Tavsiya etilgan (ro\'yxatda birinchi)</label>' +
       '<div class="fld"><label>Moviy Nomad bilan safarlar soni</label><input type="number" id="pp-trips" min="0" value="' + (p.trips_count || 0) + '"></div>' +
-      '<div class="fld full"><label>Hamkorga izoh (rad etsangiz yoki yopsangiz u ko\'radi)</label><textarea id="pp-note" rows="2">' + esc(p.admin_note || "") + '</textarea></div></div>' +
+      '<div class="fld full"><label>Hamkorga izoh — rad etsangiz, SABABINI yozing: hamkor ko\'radi, tuzatib qayta yuboradi</label><textarea id="pp-note" rows="2">' + esc(p.admin_note || "") + '</textarea></div></div>' +
       '<div class="msg" id="m-pp"></div><div class="p-actions">' +
       (p.status !== "approved" ? '<button class="btn btn--green" data-st="approved">✅ Tasdiqlash — saytga chiqarish</button>' : '<button class="btn btn--outline" data-st="paused">⏸ Vaqtincha yopish</button>') +
       (p.status !== "rejected" ? '<button class="btn btn--outline" data-st="rejected">❌ Rad etish</button>' : '') +
@@ -177,6 +180,6 @@
       P.msg("#m-pp", "Saqlandi", "ok"); A.partnersBadge(); setTimeout(function () { A.partner(id); }, 600);
     }
     $("#pp-save").onclick = function () { save(); };
-    $$("[data-st]", box).forEach(function (b) { b.onclick = function () { var s = b.dataset.st; save({ status: s, approved_at: s === "approved" ? new Date().toISOString() : p.approved_at }); }; });
+    $$("[data-st]", box).forEach(function (b) { b.onclick = function () { var s = b.dataset.st; if (s === "rejected" && !$("#pp-note").value.trim()) { $("#pp-note").focus(); return P.msg("#m-pp", "Rad etish sababini yozing — hamkor uni ko'radi va tuzatib qayta yuboradi", "err"); } save({ status: s, approved_at: s === "approved" ? new Date().toISOString() : p.approved_at }); }; });
   };
 })();
