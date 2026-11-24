@@ -179,3 +179,26 @@ body.portal{background:var(--sand);min-height:100vh}
 .pgal button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:#c8553d;color:#fff;cursor:pointer}
 .pdocs{margin:0 0 10px;padding-left:4px;list-style:none}
 .rseg button{font-size:14px;padding:9px 16px}.rseg button.is-on{background:var(--navy);color:#fff;border-color:var(--navy)}
+/* admin statistics */
+.st-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:8px 0 18px}
+.st-kpi div{background:var(--sand);border-radius:14px;padding:14px}
+.st-kpi b{display:block;font-family:var(--font-head);font-size:28px;color:var(--navy)}
+.st-kpi small{color:var(--muted);font-size:12.5px}
+.st-kpi .st-live{background:#e3f4ea}.st-kpi .st-live b{color:#1d6b3f}
+.st-chart{display:flex;align-items:flex-end;gap:4px;height:220px;padding:6px 0;border-bottom:1px solid var(--line);overflow-x:auto}
+.st-bar{flex:1;min-width:22px;display:flex;flex-direction:column;align-items:center;height:100%}
+.st-bar__c{position:relative;flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.st-bar__c i{position:absolute;bottom:0;border-radius:6px 6px 0 0}
+.st-bar .st-p{width:80%;background:#d9e6f5}
+.st-bar .st-v{width:50%;background:var(--navy)}
+.st-bar b{font-size:11px;color:var(--navy);height:14px;margin-top:3px}
+.st-bar small{font-size:10px;color:var(--muted);white-space:nowrap}
+.st-leg{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.st-leg i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+.st-leg .st-v{background:var(--navy)}.st-leg .st-p{background:#d9e6f5}
+.st-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.st-list h3{margin:0 0 10px}
+.st-row{display:grid;grid-template-columns:150px 1fr 54px;align-items:center;gap:10px;margin:6px 0;font-size:13.5px}
+.st-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.st-row i{display:block;height:8px;border-radius:9px;background:var(--gold);min-width:3px}
+.st-row b{text-align:right;color:var(--navy)}

@@ -27,6 +27,21 @@ AGS = {
     "ko": ("여행사 또는 투어 운영사이신가요? B2B 특별 요금", "에이전트 등록"),
 }
 
+
+# Home page: live visitor counter ({n} = all visitors, {t} = today)
+HC = {
+    "en": ("{n} travellers have used Moviy Nomad", "{t} today"),
+    "ru": ("{n} путешественников уже пользуются Moviy Nomad", "сегодня {t}"),
+    "uz": ("{n} sayohatchi Moviy Nomad'dan foydalangan", "bugun {t}"),
+    "tr": ("{n} gezgin Moviy Nomad'ı kullandı", "bugün {t}"),
+    "ar": ("{n} مسافرًا استخدموا Moviy Nomad", "اليوم {t}"),
+    "de": ("{n} Reisende nutzen Moviy Nomad", "heute {t}"),
+    "sv": ("{n} resenärer har använt Moviy Nomad", "i dag {t}"),
+    "zh": ("已有 {n} 位旅行者使用 Moviy Nomad", "今天 {t}"),
+    "hi": ("{n} यात्रियों ने Moviy Nomad का उपयोग किया", "आज {t}"),
+    "ko": ("{n}명의 여행자가 Moviy Nomad를 이용했습니다", "오늘 {t}명"),
+}
+
 def LD(lang):
     """Localized tour/ui texts (falls back to English for anything not translated yet)."""
     if lang not in _LD:
@@ -197,6 +212,7 @@ def render(lang):
           <a class="btn btn--ig" href="{ig}" target="_blank" rel="noopener">{ICON["ig"]}Instagram</a>
         </div>
         <div class="chips">{chips}</div>
+        <div class="hcount" id="hcount" hidden data-t="{e(HC.get(lang, HC["en"])[0])}" data-d="{e(HC.get(lang, HC["en"])[1])}"><i class="hcount__dot" aria-hidden="true"></i><span class="hcount__t"></span></div>
       </div>
       <aside class="wx" id="wx" hidden aria-live="polite"></aside>
     </div>
@@ -564,7 +580,7 @@ def render_admin():
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">🏢 B2B — agent bronlari</button><button data-view="agencies">Agentliklar</button><button data-view="requests">🧳 B2C — mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button><button data-view="partners">Hamkorlar</button><button data-view="customers" data-owner="1">Mijozlar bazasi</button><button data-view="team" data-owner="1">Jamoa</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">🏢 B2B — agent bronlari</button><button data-view="agencies">Agentliklar</button><button data-view="requests">🧳 B2C — mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button><button data-view="partners">Hamkorlar</button><button data-view="stats">📈 Statistika</button><button data-view="customers" data-owner="1">Mijozlar bazasi</button><button data-view="team" data-owner="1">Jamoa</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
@@ -588,6 +604,7 @@ def render_admin():
     <div id="v-2fa" class="hidden"></div></div></section>
   <section id="v-team" class="hidden"></section>
   <section id="v-customers" class="hidden"></section>
+  <section id="v-stats" class="hidden"></section>
   <section id="v-partners" class="hidden"></section>
   <section id="v-bookings" class="hidden"><div class="p-card"><h2>🏢 B2B — agent bronlari</h2><p class="p-sub">Turagent va turoperatorlar agent portali orqali yuborgan bronlar (B2B narxlar).</p><div class="filters" id="bf"></div><div id="blist"></div></div></section>
   <section id="v-booking" class="hidden"></section>
@@ -602,7 +619,7 @@ def render_admin():
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
-<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-autolog.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script><script src="../assets/js/admin-customers.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/admin-partners.js"></script>
+<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-autolog.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script><script src="../assets/js/admin-customers.js"></script><script src="../assets/js/admin-stats.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/admin-partners.js"></script>
 <script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/vendor/xlsx.mini.min.js"></script><script src="../assets/vendor/jspdf.plugin.autotable.min.js"></script><script src="../assets/js/admin-groups.js"></script><script src="../assets/js/admin-roster.js"></script>
 </body></html>
 """

@@ -33,7 +33,23 @@
   var T = TX[LANG] || TX.en;
 
   // ---------------------------------------------------------------- page view
-  rpc("track_visit", { vid: vid, lang: LANG, page: page, title: document.title, ref: document.referrer ? document.referrer.slice(0, 300) : "", dev: navigator.userAgent.slice(0, 200) })
+  // our own staff (founder, managers) are not counted as visitors
+  var STAFF = get("mn_staff") === "1";
+  // home page: live counter of visitors
+  (function () {
+    var box = document.getElementById("hcount"); if (!box) return;
+    fetch(SB.url + "/rest/v1/rpc/site_counter", { method: "POST", headers: hdr(), body: "{}" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (c) {
+      if (!c || !c.total) return;
+      var span = box.querySelector(".hcount__t"), tpl = box.getAttribute("data-t"), dtp = box.getAttribute("data-d"), fmt = function (n) { try { return n.toLocaleString(LANG === "uz" ? "ru" : LANG); } catch (e) { return String(n); } };
+      box.hidden = false; var t0 = performance.now(), dur = 1400;
+      (function step(now) {
+        var k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        span.innerHTML = tpl.replace("{n}", "<b>" + fmt(Math.round(c.total * e)) + "</b>") + (c.today ? ' <span class="hcount__d">· ' + dtp.replace("{t}", "<b>" + fmt(Math.round(c.today * e)) + "</b>") + '</span>' : "");
+        if (k < 1) requestAnimationFrame(step);
+      })(t0);
+    }).catch(function () {});
+  })();
+  if (!STAFF) rpc("track_visit", { vid: vid, lang: LANG, page: page, title: document.title, ref: document.referrer ? document.referrer.slice(0, 300) : "", dev: navigator.userAgent.slice(0, 200) })
     .then(function (r) { if (r === "known") put("mn_cust", "1"); }).catch(function () {});
 
   // ---------------------------------------------------------------- back from Google
