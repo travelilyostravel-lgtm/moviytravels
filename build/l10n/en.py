@@ -281,6 +281,7 @@ TOURS = {
   "kz_turkistan": ["Turkistan & Otrar", "Pilgrimage to the spiritual capital of the Turkic world"],
   "kz_altynemel": ["Altyn-Emel & the Singing Dune", "Ancient petroglyphs, colourful mountains and a singing dune"],
   "kz_astana": ["Astana & Burabay", "The futuristic capital and the 'Kazakh Switzerland'"],
+  "kg_classic": ["Classic Kyrgyzstan: Issyk-Kul & Tien Shan", "Burana tower, Issyk-Kul, Altyn-Arashan hot springs, Jeti-Oguz, Skazka canyon and eagle hunters"],
   "kg_issykkul": ["Around Issyk-Kul", "The warm lake, red rocks, eagle hunters and canyons"],
   "kg_songkul": ["Song-Kul: Nomad Life", "Yurts, horses and the high lake at 3,016 m"],
   "kg_lakes": ["Two Lakes: Issyk-Kul & Song-Kul", "The best of Kyrgyzstan in nine days"],

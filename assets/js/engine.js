@@ -193,7 +193,7 @@
 
   // Countries whose prices / calculator are open to the public (others: presentation only, "coming soon")
   function isOpen(cc) { return (C.openCountries || ["UZ"]).indexOf(cc) > -1; }
-  function tourOpen(tour) { return !!tour && isOpen(tour.country); }
+  function tourOpen(tour) { return !!tour && (tour.open === true || isOpen(tour.country)); }
   function cityOpen(id) { var c = C.cities[id]; return !!c && isOpen(c.country); }
 
   function fromPrice(tour) { return price(tour, { pax: C.defaultPax, hotel: tour.hotel }).pp; }

@@ -249,6 +249,7 @@ TOURS = {
   "kz_turkistan": ["Turkiston va O'tror", "Turkiy dunyoning ma'naviy poytaxtiga ziyorat"],
   "kz_altynemel": ["Oltin-Emel va kuylovchi barxan", "Qadimiy petrogliflar, rangli tog'lar va kuylovchi qum"],
   "kz_astana": ["Astana va Burabay", "Futuristik poytaxt va «qozoq Shveytsariyasi»"],
+  "kg_classic": ["Klassik Qirg'iziston: Issiqko'l va Tyan-Shan", "Burana minorasi, Issiqko'l, Oltin-Arashan issiq buloqlari, Jeti-O'g'iz, Ertak kanyoni va burgutchilar"],
   "kg_issykkul": ["Issiqko'l atrofida", "Iliq ko'l, qizil qoyalar, burgutchilar va kanyonlar"],
   "kg_songkul": ["Sonko'l: ko'chmanchilar hayoti", "O'tovlar, otlar va 3016 m dagi ko'l"],
   "kg_lakes": ["Ikki ko'l: Issiqko'l va Sonko'l", "Qirg'izistonning eng yaxshisi to'qqiz kunda"],

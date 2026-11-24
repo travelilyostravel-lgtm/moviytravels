@@ -248,6 +248,7 @@ TOURS = {
   "kz_turkistan": ["Turkistan & Otrar", "Pilgrimsfärd till den turkiska världens andliga huvudstad"],
   "kz_altynemel": ["Altyn-Emel & Sjungande sanddynen", "Hällristningar, färgglada berg och en sjungande dyn"],
   "kz_astana": ["Astana & Burabay", "Den futuristiska huvudstaden och ”Kazakstans Schweiz”"],
+  "kg_classic": ["Klassiska Kirgizistan: Issyk-Kul och Tian Shan", "Buranatornet, Issyk-Kul, Altyn-Arashans varma källor, Jeti-Oguz, Sagokanjonen och örnjägare"],
   "kg_issykkul": ["Runt Issyk-Kul", "Den varma sjön, röda klippor, örnjägare och kanjoner"],
   "kg_songkul": ["Song-Kul: nomadliv", "Jurtor, hästar och högfjällssjön på 3 016 m"],
   "kg_lakes": ["Två sjöar: Issyk-Kul & Song-Kul", "Det bästa av Kirgizistan på nio dagar"],

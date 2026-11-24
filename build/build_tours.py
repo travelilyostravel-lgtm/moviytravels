@@ -26,7 +26,7 @@ def tours():
         hl = []
         for d in t["days"]:
             if d[2] and d[2][0] not in hl: hl.append(d[2][0])
-        out[t["id"]] = {"id": t["id"], "country": t["country"], "cover": t["cover"], "hotel": t["hotel"], "flags": t["flags"], "season": t["season"],
+        out[t["id"]] = {"id": t["id"], "country": t["country"], "cover": t["cover"], "hotel": t["hotel"], "flags": t["flags"], "season": t["season"], "open": bool(t.get("open")),
                         "days": days, "hl": hl[1:5] if len(hl) > 4 else hl, "inc": t["inc"], "exc": t["exc"], "bring": t["bring"]}
     return out
 

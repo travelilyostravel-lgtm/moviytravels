@@ -425,11 +425,28 @@ GRAND = [
 # Approved by the owner 2026-11-23 (shown on the home page with the Uzbekistan tours)
 TOURS += GRAND
 
+# Owner 2026-11-25: one best-selling Kyrgyzstan programme on the home page "popular" list, priced and open
+# even while Kyrgyzstan is "in preparation". Modelled on the market's classic Issyk-Kul loop
+# (Ak-Sai Travel "Classical Kyrgyzstan"; partner DMC for the first bookings: Ak-Sai Travel, Bishkek).
+FEATURED = [
+ T("kg_classic", "KG", "kg-jetioguz", "comfort", [
+   ("bishkek", [], ["bis_city"], "D"),
+   ("issykkul", [["bishkek", "issykkul"]], ["bis_burana", "iss_cholpon"], "B"),
+   ("karakol", [["issykkul", "karakol"]], ["iss_beach", "kar_dungan"], "B"),
+   ("altynarashan", [["karakol", "altynarashan"]], ["kar_arashan"], "B,L,D"),
+   ("karakol", [["altynarashan", "karakol"]], ["kar_jeti"], "B,L"),
+   ("bokonbaeva", [["karakol", "bokonbaeva"]], ["bok_skazka", "bok_eagle"], "B,D"),
+   ("bishkek", [["bokonbaeva", "bishkek"]], ["bis_alaarcha"], "B"),
+   (None, [], [], "B")], ["jeep", "yurt", "dinner"], bring=BRING_MOUNT, season="spring_autumn"),
+]
+for _t in FEATURED: _t["open"] = True
+TOURS += FEATURED
+
 # User decision 2026-11-20: 6 tours per country (24 total), the best-selling formats.
 KEEP = ["classic", "express", "silkroad", "spiritual", "nature", "fergana",
         "kz_almaty", "kz_lakes", "kz_classic", "kz_turkistan", "kz_altynemel", "kz_astana",
         "kg_issykkul", "kg_songkul", "kg_lakes", "kg_alakul", "kg_tashrabat", "kg_south",
-        "tj_fann", "tj_pamir", "tj_sevenlakes", "tj_uztj", "tj_ancient", "tj_alaudin", "ca_grand"]
+        "tj_fann", "tj_pamir", "tj_sevenlakes", "tj_uztj", "tj_ancient", "tj_alaudin", "ca_grand", "kg_classic"]
 TOURS = [t for k in KEEP for t in TOURS if t["id"] == k]
 USED_SIGHTS = sorted({s for t in TOURS for d in t["days"] for s in d[2]})
 USED_CITIES = sorted({c for t in TOURS for d in t["days"] for c in ([d[0]] if d[0] else []) + [x for m in d[1] for x in m]} | {SIGHTS[s][0] for s in USED_SIGHTS})

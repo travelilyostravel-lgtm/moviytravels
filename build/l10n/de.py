@@ -248,6 +248,7 @@ TOURS = {
   "kz_turkistan": ["Turkistan & Otrar", "Pilgerreise zur spirituellen Hauptstadt der Turkwelt"],
   "kz_altynemel": ["Altyn-Emel & die Singende Düne", "Felsbilder, bunte Berge und eine singende Düne"],
   "kz_astana": ["Astana & Burabay", "Die futuristische Hauptstadt und die „kasachische Schweiz“"],
+  "kg_classic": ["Klassisches Kirgistan: Issyk-Kul & Tian Shan", "Burana-Turm, Issyk-Kul, heiße Quellen von Altyn-Araschan, Dschety-Oguz, Märchenschlucht und Adlerjäger"],
   "kg_issykkul": ["Rund um den Issyk-Kul", "Warmer See, rote Felsen, Adlerjäger und Canyons"],
   "kg_songkul": ["Song-Köl: Nomadenleben", "Jurten, Pferde und der Hochsee auf 3016 m"],
   "kg_lakes": ["Zwei Seen: Issyk-Kul & Song-Köl", "Das Beste Kirgistans in neun Tagen"],

@@ -248,6 +248,7 @@ TOURS = {
   "kz_turkistan": ["Türkistan ve Otrar", "Türk dünyasının manevi başkentine ziyaret"],
   "kz_altynemel": ["Altın Emel ve Şarkı Söyleyen Kum", "Antik petroglifler, renkli dağlar ve şarkı söyleyen kum"],
   "kz_astana": ["Astana ve Burabay", "Fütüristik başkent ve 'Kazak İsviçresi'"],
+  "kg_classic": ["Klasik Kırgızistan: Issık Göl ve Tanrı Dağları", "Burana kulesi, Issık Göl, Altın-Araşan kaplıcaları, Jeti-Oğuz, Masal Kanyonu ve kartalcılar"],
   "kg_issykkul": ["Issık Göl Çevresi", "Ilık göl, kızıl kayalar, kartalcılar ve kanyonlar"],
   "kg_songkul": ["Song Göl: Göçebe Yaşamı", "Yurtlar, atlar ve 3016 m'deki göl"],
   "kg_lakes": ["İki Göl: Issık Göl ve Song Göl", "Kırgızistan'ın en iyileri dokuz günde"],

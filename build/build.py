@@ -122,7 +122,7 @@ def render(lang):
     def lk(c): return c.upper() not in OPEN
     soon = f'<span class="lock-tag">🔒 {e(U["lock_badge"])}</span>'
     ttabs = "".join(f'<button class="ttab{" is-locked" if lk(c) else ""}" role="tab" data-tc="{c}" aria-selected="{"true" if i == 0 else "false"}"{" disabled aria-disabled=\"true\"" if lk(c) else ""} title="{e(U["lock_title"]) if lk(c) else ""}">{e(U["country_" + c])}{soon}</button>' for i, c in enumerate(TD.COUNTRIES))
-    tgrids = "".join(f'<div class="tours tgrid{" is-active" if i == 0 else ""}" data-tc-panel="{c}">' + "".join(tour_card(x) for x in TD.TOURS if (x["country"] == c or (c == "UZ" and x["country"] == "CA")) and x["id"] not in TD.HOME_HIDE) + '</div>' for i, c in enumerate(TD.COUNTRIES))
+    tgrids = "".join(f'<div class="tours tgrid{" is-active" if i == 0 else ""}" data-tc-panel="{c}">' + "".join(tour_card(x) for x in TD.TOURS if (x["country"] == c or (c == "UZ" and (x["country"] == "CA" or x.get("open")))) and x["id"] not in TD.HOME_HIDE) + '</div>' for i, c in enumerate(TD.COUNTRIES))
 
     tabs = "".join(
         f'<button class="tab{" is-locked" if lk(c["id"]) else ""}" role="tab" data-tc="{c["id"].upper()}" aria-selected="{"true" if i == 0 else "false"}" aria-controls="c-{c["id"]}"{" disabled aria-disabled=\"true\"" if lk(c["id"]) else ""} title="{e(U["lock_title"]) if lk(c["id"]) else ""}">{e(t["countries"][c["id"]][0])}{soon}</button>'
