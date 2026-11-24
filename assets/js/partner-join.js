@@ -23,6 +23,12 @@
 
   // ------------------------------------------------------------ step 2: the form
   var CL = D.lang === "ru" ? "ru" : "uz", CITIES = (window.MNCities && window.MNCities.list) || [];
+  function langPick(label, req) {
+    var LL = (window.MNLangs && window.MNLangs.list) || [];
+    return '<div class="mf-f mf-f--full"><span>' + esc(label.replace(/\s*\(.*\)\s*$/, "")) + (req ? " *" : "") + '</span><div class="pchips jf-cities jf-langs"' + (req ? ' data-req="1"' : '') + '>' +
+      LL.map(function (l) { return '<label><input type="checkbox" name="lang_x" value="' + esc(window.MNLangs.label(l[0], "en")) + '"> ' + l[1] + ' ' + esc(window.MNLangs.label(l[0], D.lang)) + '</label>'; }).join("") +
+      '</div><input name="languages" maxlength="200" placeholder="+ ' + esc(D.lang === "ru" ? "другие языки" : D.lang === "uz" ? "boshqa tillar" : "other languages") + '" style="margin-top:6px"></div>';
+  }
   function citySel(label) {
     return '<label class="mf-f"><span>' + esc(label) + ' *</span><select name="city" required><option value=""></option>' +
       CITIES.map(function (c) { return '<option value="' + esc(c[1]) + '">' + esc(window.MNCities.label(c[0], CL)) + '</option>'; }).join("") + '</select></label>';
@@ -45,7 +51,7 @@
       fld("whatsapp", J.whatsapp, 0, "tel", ' maxlength="40" placeholder="+998"') + citySel(J.city) +
       (ho ? "" : cityChips(g ? J.works : J.cities, g)) +
       (ho ? "" : fld("birth_year", J.birth, 1, "number", ' min="1940" max="' + (new Date().getFullYear() - 18) + '"')) +
-      fld("home_area", ho ? J.area_h : J.area, 1, "text", ' maxlength="120"') + fld("home_address", J.addr, 1, "text", ' maxlength="250"') + fld("languages", J.languages, g || ot, "text", ' maxlength="200"') +
+      fld("home_area", ho ? J.area_h : J.area, 1, "text", ' maxlength="120"') + fld("home_address", J.addr, 1, "text", ' maxlength="250"') + langPick(J.languages, g || ot) +
       (ho ? fld("inn", J.inn, 1, "text", ' maxlength="30"') + fld("license_no", J.license.hotel, 0, "text", ' maxlength="80"') + fld("hotel_stars", J.stars, 0, "number", ' min="0" max="5"') + fld("hotel_rooms", J.rooms, 1, "number", ' min="1" max="999"')
           : fld("license_no", J.license[kind], g || dr, "text", ' maxlength="80"') + fld("experience_years", J.exp, g || dr, "number", ' min="0" max="60"')) +
       (dr ? fld("vehicle_type", J.vtype, 1, "text", ' maxlength="60"') + fld("vehicle_seats", J.vseats, 1, "number", ' min="1" max="60"') + fld("vehicle_year", J.vyear, 1, "number", ' min="1990" max="2030"') : "") +
@@ -102,11 +108,12 @@
     if (/^\+?\d[\d\-()]{8,}$/.test(v)) return "+" + v.replace(/\D/g, "");
     v = v.replace(/^@/, ""); return /^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(v) ? "@" + v : "";
   }
+  function v0(fm, n) { var el = fm.elements[n]; return el ? String(el.value).trim() : ""; }
   function list(v) { return String(v || "").split(/[,;]/).map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 12); }
   async function submit(kind, fm) {
     var miss = $$("[required]", fm).filter(function (i) { return i.type === "checkbox" ? !i.checked : !String(i.value).trim() || (i.minLength > 0 && i.value.length < i.minLength) || (i.type === "email" && !/^\S+@\S+\.\S+$/.test(i.value.trim())); })
       .map(function (i) { var l = i.closest("label"); return l ? (l.querySelector("span") || l).textContent.replace(/\s*\*$/, "").trim() : i.name; });
-    var cc = $(".jf-cities[data-req]", fm); if (cc && !$$("input:checked", cc).length) miss.push(cc.parentNode.querySelector("span").textContent.replace(/\s*\*$/, ""));
+    $$(".jf-cities[data-req]", fm).forEach(function (cc) { if (!$$("input:checked", cc).length && !(cc.classList.contains("jf-langs") && v0(fm, "languages"))) miss.push(cc.parentNode.querySelector("span").textContent.replace(/\s*\*$/, "")); });
     var tgv = normTg(fm.elements.telegram.value); if (!miss.length && !tgv) { msg(fm, J.tg_bad, "err"); fm.elements.telegram.focus(); return; }
     if (miss.length) { msg(fm, J.need + " " + miss.slice(0, 4).join(", ") + (miss.length > 4 ? "…" : ""), "err"); return; }
     var ph = $$("input[type=file]", fm).filter(function (i) { return i.files.length < +i.getAttribute("data-min"); })
@@ -138,7 +145,7 @@
       }
       if (!pid) throw new Error(J.exists);
       var p = { telegram: normTg(v("telegram")), name: v("name"), company: meta.company, inn: v("inn"), license_no: v("license_no"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"),
-        cities: $$("[name=cities_x]:checked", fm).map(function (x) { return x.value; }), languages: list(v("languages")), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"),
+        cities: $$("[name=cities_x]:checked", fm).map(function (x) { return x.value; }), languages: $$("[name=lang_x]:checked", fm).map(function (x) { return x.value; }).concat(list(v("languages"))).slice(0, 12), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"),
         photo: old.photo || null, photos: old.photos || [], docs: old.docs || [],
         price_day: v("price_day"), price_note: "", vehicle_type: v("vehicle_type"), vehicle_seats: v("vehicle_seats"), vehicle_year: v("vehicle_year"),
         hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"),

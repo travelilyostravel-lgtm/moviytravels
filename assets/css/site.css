@@ -879,3 +879,15 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .glb__bar{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:14px;align-items:center;color:#dfe8f2;font-size:14px}
 .glb__like{border:0;border-radius:999px;padding:9px 18px;font-weight:700;font-size:15px;background:#fff;color:#8c96a3;cursor:pointer}
 .glb__like b{color:var(--navy)}.glb__like.is-on{color:#e0245e}
+/* "Which language do you need?" */
+.pt-langq{background:#fffaf0;border:1px solid #efe3c8;border-radius:18px;padding:14px 16px;margin:4px 0 18px}
+.pt-langq>b{display:block;color:var(--navy);font-family:var(--font-head);font-size:16px;margin:0 0 10px}
+.pt-langq__c{display:flex;gap:8px;flex-wrap:wrap}
+.pt-langq__c button{border:1px solid #e3dccd;background:#fff;color:var(--navy);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;cursor:pointer}
+.pt-langq__c button b{font-size:12px;background:var(--sand);color:var(--muted);border-radius:999px;padding:1px 7px;margin-left:3px}
+.pt-langq__c button:hover{border-color:var(--gold)}
+.pt-langq__c button.is-on{background:var(--gold);border-color:var(--gold);color:var(--navy-3)}
+.pt-langq__c button.is-on b{background:rgba(255,255,255,.6);color:var(--navy-3)}
+.pt-langs{display:flex;flex-wrap:wrap;gap:4px}
+.pt-lg{font-size:12px;background:#eef4fb;color:var(--navy);border-radius:999px;padding:2px 8px}
+.pt-lg.is-on{background:var(--gold);color:var(--navy-3);font-weight:700}

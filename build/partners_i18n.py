@@ -310,3 +310,21 @@ _S_old7 = S
 
 def S(lang):
     d = _S_old7(lang); g = GAL.get(lang, GAL["en"]); d.update(gal_t=g[0], gal_all=g[1], gal_less=g[2]); return d
+
+
+# ---- "Which language do you need?" chips
+LQ = {"en": ("Which language should your guide speak?", "Which language should they speak?", "All languages"),
+      "ru": ("На каком языке нужен гид?", "На каком языке общаться?", "Все языки"),
+      "uz": ("Sizga qaysi tildagi gid kerak?", "Qaysi tilda gaplashsin?", "Barcha tillar"),
+      "tr": ("Rehberiniz hangi dili konuşsun?", "Hangi dilde konuşsun?", "Tüm diller"),
+      "ar": ("بأي لغة تريد المرشد؟", "بأي لغة يتحدث؟", "كل اللغات"),
+      "de": ("Welche Sprache soll Ihr Guide sprechen?", "Welche Sprache soll gesprochen werden?", "Alle Sprachen"),
+      "sv": ("Vilket språk ska guiden tala?", "Vilket språk ska talas?", "Alla språk"),
+      "zh": ("您需要说哪种语言的导游？", "需要说哪种语言？", "全部语言"),
+      "hi": ("आपको किस भाषा का गाइड चाहिए?", "किस भाषा में बात करनी है?", "सभी भाषाएँ"),
+      "ko": ("어떤 언어의 가이드가 필요하세요?", "어떤 언어로 소통할까요?", "모든 언어")}
+_S_old8 = S
+
+
+def S(lang):
+    d = _S_old8(lang); q = LQ.get(lang, LQ["en"]); d.update(lang_q_guide=q[0], lang_q=q[1], all_langs=q[2]); return d

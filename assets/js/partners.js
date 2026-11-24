@@ -26,7 +26,10 @@
     return '<div class="pt-nums"><span title="' + esc(PT.views) + '">👁 <b>' + fmt(p.views_count) + '</b></span><span title="' + esc(PT.likes) + '">❤ <b data-lc="' + p.id + '">' + fmt(p.likes_count) + '</b></span>' +
       '<button type="button" class="pt-shr" data-share="' + p.id + '" title="' + esc(PT.share) + '" aria-label="' + esc(PT.share) + '" data-free>↗ <b data-sc="' + p.id + '">' + fmt(p.shares_count) + '</b></button><span class="pt-pts" title="' + esc(PT.rules) + '">🏆 <b>' + points(p) + '</b> ' + esc(PT.points) + '</span></div>';
   }
-  var ALL = [], kind = window.MNPT_KIND || new URLSearchParams(location.search).get("k") || "", city = new URLSearchParams(location.search).get("c") || "", lng = "";
+  var ALL = [], kind = window.MNPT_KIND || new URLSearchParams(location.search).get("k") || "", city = new URLSearchParams(location.search).get("c") || "", lng = new URLSearchParams(location.search).get("l") || "";
+  function lkeys(p) { var out = []; (p.languages || []).forEach(function (l) { var k = window.MNLangs ? window.MNLangs.key(l) : l; if (k && out.indexOf(k) < 0) out.push(k); }); return out; }
+  function lname(k) { return window.MNLangs ? window.MNLangs.label(k, LANG) : k; }
+  function lflag(k) { return window.MNLangs ? window.MNLangs.flag(k) : "🗣"; }
   var CL = LANG === "uz" || LANG === "ru" ? LANG : "en";
   function ckey(n) { return window.MNCities ? window.MNCities.key(n) : String(n || "").toLowerCase(); }
   function cname(k) { return window.MNCities ? window.MNCities.label(k, CL) : k; }
@@ -66,7 +69,7 @@
       '<div class="pt-card__body"><div class="pt-card__rate">' + (p.reviews_count ? stars(p.rating) + ' <b>' + Number(p.rating).toFixed(1) + '</b> <small>(' + p.reviews_count + ')</small>' : '<span class="pt-new">' + esc(PT.new) + '</span>') +
       '</div>' + stats(p) +
       (facts.length ? '<p class="pt-facts">' + facts.join(" · ") + '</p>' : '') +
-      ((p.languages || []).length ? '<p class="pt-langs">🗣 ' + esc(p.languages.slice(0, 4).join(", ")) + (p.languages.length > 4 ? " +" + (p.languages.length - 4) : "") + '</p>' : '') +
+      (lkeys(p).length ? '<p class="pt-langs">' + lkeys(p).slice(0, 4).map(function (k) { return '<span class="pt-lg' + (k === lng ? ' is-on' : '') + '">' + lflag(k) + ' ' + esc(lname(k)) + '</span>'; }).join("") + (lkeys(p).length > 4 ? ' <span class="pt-lg">+' + (lkeys(p).length - 4) + '</span>' : '') + '</p>' : '') +
       (p.price_day ? '<p class="pt-price">' + esc(PT.from) + ' <b>$' + Math.round(p.price_day) + '</b> ' + esc(unit) + '</p>' : '') +
       '<div class="pt-card__btns"><button class="btn btn--gold btn--sm" data-ask="' + p.id + '">' + esc(PT.ask) + '</button><button class="btn btn--outline btn--sm" data-prof="' + p.id + '">' + esc(PT.profile) + '</button></div></div></article>';
   }
@@ -74,11 +77,11 @@
     $$("#pt-tabs [data-pk]").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-pk") === kind); });
     if (!window.MNPT_KIND) $$(".ksub a").forEach(function (a) { var h = a.getAttribute("href"); a.classList.toggle("is-on", kind === "other" ? h.indexOf("k=other") > -1 : (!kind && h === "partners.html")); });
     // ranking scope = current kind + chosen city + chosen language: TOP-4 and places are counted inside that scope
-    var ranked = ALL.filter(function (p) { return (!kind || p.kind === kind) && (!city || inCity(p, city)) && (!lng || (p.languages || []).indexOf(lng) > -1); })
+    var ranked = ALL.filter(function (p) { return (!kind || p.kind === kind) && (!city || inCity(p, city)) && (!lng || lkeys(p).indexOf(lng) > -1); })
       .sort(function (a, b) { return score(b) - score(a); });
     var rankOf = {}; ranked.forEach(function (p, i) { rankOf[p.id] = i + 1; });
     var list = ranked;
-    cityChips();
+    cityChips(); langChips();
     var topBox = $("#pt-top"), top = (kind && ranked.length) ? ranked.slice(0, 4) : [];
     var where = city ? String(PT.in_city || "— {c}").replace("{c}", cname(city)) : "— " + (PT.all_uz || "");
     if (topBox) {
@@ -177,7 +180,20 @@
       var t = $("#pt-top"); if (t && !t.hidden) t.scrollIntoView({ behavior: "smooth", block: "start" });
     }; });
   }
-  $("#pt-lang").onchange = function () { lng = this.value; draw(); };
+  // "Which language do you need?" — chips with the languages partners of this kind speak (in the chosen city)
+  function langChips() {
+    var box = $("#pt-langc"); if (!box) return;
+    var cnt = {}, base = ALL.filter(function (p) { return (!kind || p.kind === kind) && (!city || inCity(p, city)); });
+    base.forEach(function (p) { lkeys(p).forEach(function (k) { cnt[k] = (cnt[k] || 0) + 1; }); });
+    var keys = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a] || lname(a).localeCompare(lname(b)); });
+    if (lng && keys.indexOf(lng) < 0) keys.unshift(lng);
+    box.innerHTML = '<button type="button" data-lng="" data-free class="' + (!lng ? "is-on" : "") + '">🌐 ' + esc(PT.all_langs) + '</button>' +
+      keys.map(function (k) { return '<button type="button" data-lng="' + esc(k) + '" data-free class="' + (lng === k ? "is-on" : "") + '">' + lflag(k) + ' ' + esc(lname(k)) + ' <b>' + (cnt[k] || 0) + '</b></button>'; }).join("");
+    $$("[data-lng]", box).forEach(function (b) { b.onclick = function () {
+      lng = b.getAttribute("data-lng"); var q = new URLSearchParams(location.search); lng ? q.set("l", lng) : q.delete("l");
+      history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : "")); draw();
+    }; });
+  }
 
   // ---------------------------------------------------------------- profile / request / review modal
   var modal = $("#pt-modal"), form = $("#pt-form"), rform = $("#pt-rform"), cur = null;
@@ -198,7 +214,7 @@
         cell("🏆", points(cur), PT.points) + cell("★", cur.reviews_count ? Number(cur.rating).toFixed(1) : "—", PT.rating_l) + cell("💬", cur.reviews_count || 0, PT.reviews_l) +
         cell("🧭", cur.trips_count || 0, PT.trips_l) + (cur.experience_years ? cell("⏳", cur.experience_years, PT.exp_l + " (" + PT.exp.split(" ")[0] + ")") : "") + (cur.age && cur.kind !== "hotel" ? cell("🎂", cur.age, PT.age) : "");
       var row = function (l, v) { return v ? '<div><dt>' + esc(l) + '</dt><dd>' + esc(v) + '</dd></div>' : ""; };
-      var info = row(PT.langs, (cur.languages || []).join(", ")) + row(PT.works_in, places.join(", ")) + row(PT.lives, cur.home_area) + row(PT.spec, (cur.specialties || []).join(", ")) +
+      var info = row(PT.langs, lkeys(cur).map(function (k) { return lflag(k) + " " + lname(k); }).join(", ")) + row(PT.works_in, places.join(", ")) + row(PT.lives, cur.home_area) + row(PT.spec, (cur.specialties || []).join(", ")) +
         (cur.kind === "driver" ? row("🚗", [cur.vehicle_type, cur.vehicle_seats ? cur.vehicle_seats + " " + PT.seats : "", cur.vehicle_year].filter(Boolean).join(" · ")) : "") +
         (cur.kind === "hotel" && cur.hotel_stars ? row("★", cur.hotel_stars + " " + PT.stars) : "");
       box.innerHTML = '<div class="pp"><div class="pp__hero">' + (cur.photo ? '<span class="pp__mainw" style="--ph:url(\'' + img(cur.photo) + '\')"><img class="pp__main" src="' + img(cur.photo) + '" alt=""></span>' : '') +
@@ -287,7 +303,6 @@
     ALL = rows || [];
     var cities = {}, langs = {};
     ALL.forEach(function (p) { [p.city].concat(p.cities || []).filter(Boolean).forEach(function (c) { cities[c] = 1; }); (p.languages || []).forEach(function (l) { langs[l] = 1; }); });
-    $("#pt-lang").innerHTML = '<option value="">' + esc(PT.lang) + '</option>' + Object.keys(langs).sort().map(function (c) { return '<option>' + esc(c) + '</option>'; }).join("");
     draw();
     var h = location.hash.match(/^#p-(.+)$/); if (h) { var el = document.getElementById("p-" + h[1]); if (el) el.scrollIntoView({ block: "center" }); if (ALL.some(function (p) { return p.id === h[1]; })) open(h[1], "prof"); }
   });
