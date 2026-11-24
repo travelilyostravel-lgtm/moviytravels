@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from content import CONFIG, COUNTRIES, EXPERIENCES, LANGS, T
 import tours_data as TD
 import build_tours
-import pages
+import pages, videos
 
 _LD = {}
 
@@ -212,6 +212,7 @@ def render(lang):
           <a class="btn btn--ig" href="{ig}" target="_blank" rel="noopener">{ICON["ig"]}Instagram</a>
         </div>
         <div class="chips">{chips}</div>
+        {videos.hero_button(lang)}
         <div class="hcount" id="hcount" hidden data-t="{e(HC.get(lang, HC["en"])[0])}" data-d="{e(HC.get(lang, HC["en"])[1])}"><i class="hcount__dot" aria-hidden="true"></i><span class="hcount__t"></span></div>
       </div>
       <aside class="wx" id="wx" hidden aria-live="polite"></aside>
@@ -257,6 +258,7 @@ def render(lang):
     </div>
   </section>
 
+{videos.section(lang, cfg.get("youtube", ""))}
   <section class="section section--navy" id="why">
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(t["why_eyebrow"])}</span><h2>{e(t["why_title"])}</h2></div>
@@ -354,7 +356,7 @@ def render(lang):
 <script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script><script src="{A}data/tours.js"></script><script src="{A}data/l10n/{l10n_lang(lang)}.js"></script><script src="{A}js/sb-config.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/gd-schedule.js"></script><script src="{A}js/groups.js"></script><script src="{A}js/share.js"></script>
 <script>MN_ENGINE.onPrices(function(){{var E=MN_ENGINE;document.querySelectorAll("[data-from]").forEach(function(el){{var t=MN_TOURS[el.getAttribute("data-from")];if(!t)return;var open=E.tourOpen(t),card=el.closest(".tour"),pr=el.closest(".price");if(card)card.classList.toggle("is-locked",!open);if(pr)pr.classList.toggle("price--lock",!open);el.textContent=open?"$"+E.fromPrice(t).toLocaleString("en"):E.t("lock_price");}});document.querySelectorAll(".ttab[data-tc],.tab[data-tc]").forEach(function(b){{var l=!E.isOpen(b.getAttribute("data-tc").toUpperCase());b.classList.toggle("is-locked",l);b.disabled=l;if(l)b.setAttribute("aria-disabled","true");else b.removeAttribute("aria-disabled");}});}});</script>
 <script>window.MNX={pages.js_strings(lang)};window.MN_LANG="{lang}";</script><script src="{A}js/forms.js" defer></script>
-<script src="{A}js/site.js" defer></script><script src="{A}js/hero-extra.js" defer></script><script src="{A}js/visitor.js" defer></script><script>window.MNPT={json.dumps(__import__("partners_i18n").S(lang), ensure_ascii=False)};</script><script src="{A}js/partners.js" defer></script>
+<script src="{A}js/site.js" defer></script><script src="{A}js/hero-extra.js" defer></script><script src="{A}js/visitor.js" defer></script><script src="{A}js/videos.js" defer></script><script>window.MNPT={json.dumps(__import__("partners_i18n").S(lang), ensure_ascii=False)};</script><script src="{A}js/partners.js" defer></script>
 </body>
 </html>
 '''
