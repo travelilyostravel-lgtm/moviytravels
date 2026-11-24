@@ -102,7 +102,7 @@
         .catch(function () { w.querySelector("#mng-e").textContent = T[10]; });
     };
   }
-  window.MN_GATE = gate;
+  window.MN_GATE = gate; window.MNtrack = function (a, b) { try { track(a, b); } catch (e) {} };
 
   // ---------------------------------------------------------------- what counts as an "action"
   function freeEl(el) {

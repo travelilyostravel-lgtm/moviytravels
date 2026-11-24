@@ -43,7 +43,7 @@ def section(lang, own_channel=""):
     b, eyebrow, title, sub, cats, note, watch, ask = txt(lang)
     chips = "".join(f'<button type="button" class="vtab{" is-on" if c == "all" else ""}" data-vcat="{c}">{e(n)}</button>' for c, n in zip(CATS, cats))
     cards = "".join(
-        f'<figure class="vcard" data-cat="{c}"><button type="button" class="vcard__play" data-yt="{vid}" aria-label="▶ {e(t)}">'
+        f'<figure class="vcard" data-cat="{c}" data-free><button type="button" class="vcard__play" data-yt="{vid}" aria-label="▶ {e(t)}">'
         f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><i aria-hidden="true">▶</i></button>'
         f'<figcaption>{e(t)}</figcaption></figure>' for vid, c, t in VIDEOS)
     own = f' · <a href="{e(own_channel)}" target="_blank" rel="noopener">Moviy Nomad YouTube</a>' if own_channel else ""
@@ -51,7 +51,7 @@ def section(lang, own_channel=""):
   <section class="section section--sand" id="videos">
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(eyebrow)}</span><h2>{e(title)}</h2><p>{e(sub)}</p></div>
-      <div class="vtabs" role="tablist">{chips}</div>
+      <div class="vtabs" role="tablist" data-free>{chips}</div>
       <div class="vgrid">{cards}</div>
       <p class="vnote">{e(note)} · <a href="{CHANNEL}" target="_blank" rel="noopener">{e(watch)} →</a>{own}</p>
       <p class="vask"><a class="btn btn--gold" href="#contact-us">{e(ask)} →</a></p>
