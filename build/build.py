@@ -656,9 +656,9 @@ def main():
                "hotels.html": pages.render_partners(lang, ICON, LOGO, font, names, "hotel"),
                "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
                "account.html": pages.shell(lang, "account.html", pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])[0], pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])[1],
-                   pages.page_head("👤", *pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])) + '<section class="section section--tight"><div class="container"><div class="cab" id="cab"><div class="cab-loading">…</div></div></div></section>',
+                   pages.page_head("👤", *pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])) + '<section class="section section--tight"><div class="container"><div class="cab" id="cab" data-free data-noreg><div class="cab-loading">…</div></div></div></section>',
                    ICON, LOGO, font, names, "is-account",
-                   '<script src="' + ("" if lang == "en" else "../") + 'assets/js/account-i18n.js?v=1"></script><script src="' + ("" if lang == "en" else "../") + 'assets/js/account.js?v=1" defer></script>'),
+                   '<script src="' + ("" if lang == "en" else "../") + 'assets/js/account-i18n.js?v=1"></script><script src="' + ("" if lang == "en" else "../") + 'assets/js/account.js?v=2" defer></script>'),
                "videos.html": pages.shell(lang, "videos.html", videos.MORE.get(lang, videos.MORE["en"])[2], videos.txt(lang)[3], videos.page(lang, CONFIG, ICON), ICON, LOGO, font, names, extra_js='<script src="' + ("" if lang == "en" else "../") + 'assets/js/videos.js" defer></script>'),
                "privacy.html": pages.render_legal(lang, "privacy", ICON, LOGO, font, names),
                "terms.html": pages.render_legal(lang, "terms", ICON, LOGO, font, names)}
