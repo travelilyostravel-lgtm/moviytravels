@@ -145,7 +145,7 @@
       var files = []; $$("input[type=file]", fm).forEach(function (inp) { [].slice.call(inp.files).forEach(function (f) { files.push([inp.getAttribute("data-slot"), f]); }); });
       var done = 0, failed = 0, next = 0, pubCount = p.photos.length, dirty = false;
       var one = async function (slot, file) {
-        var fl = await resize(file, slot === "main" ? 1280 : 1400), isPub = slot === "main" || ((slot === "solo" || slot === "car" || slot === "rooms") && pubCount < 8);
+        var fl = await resize(file, slot === "main" ? 1280 : 1400), isPub = slot === "main" || (slot !== "lic" && pubCount < 30);
         if (isPub && slot !== "main") pubCount++;
         for (var t = 0; t < 3; t++) {
           try {

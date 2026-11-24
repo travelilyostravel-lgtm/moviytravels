@@ -223,7 +223,7 @@
         d.specialties = $$("[name=specialties]:checked", f).map(function (x) { return x.value; });
         var mf = $("#ph-main").files[0]; if (mf) d.photo = await P.upload("partner-photos", p.id, await resize(mf, 1200));
         var more = [].slice.call($("#ph-more").files || []);
-        for (var i = 0; i < more.length && d.photos.length < 8; i++) d.photos.push(await P.upload("partner-photos", p.id, await resize(more[i], 1600)));
+        for (var i = 0; i < more.length && d.photos.length < 30; i++) d.photos.push(await P.upload("partner-photos", p.id, await resize(more[i], 1600)));
         if (p.status === "approved" || p.status === "paused") {
           var cm = f.ch_comment.value.trim(); if (cm.length < 3) { f.ch_comment.focus(); return P.msg("#m-prof", t("chNeed"), "err"); }
           var rq = await sb.rpc("partner_request_change", { p: d, comment: cm }); if (rq.error) throw rq.error;

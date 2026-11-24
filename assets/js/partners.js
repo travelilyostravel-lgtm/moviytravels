@@ -92,6 +92,50 @@
     grid.innerHTML = rest.length ? rest.map(function (p) { return card(p, rankOf[p.id]); }).join("") : (top.length ? "" : '<p class="pt-empty">' + esc(city && ALL.length ? PT.no_city : PT.empty) + '</p>');
     bindCards(topBox); bindCards(grid);
   }
+
+  // ---- open portfolio: all photos as a mosaic, likes per photo, the most liked first, 10 shown then "see all"
+  function plLiked(path) { try { return (localStorage.getItem("mn_plike") || "").split("|").indexOf(path) > -1; } catch (e) { return false; } }
+  function plSet(path, on) { try { var l = (localStorage.getItem("mn_plike") || "").split("|").filter(function (x) { return x && x !== path; }); if (on) l.push(path); localStorage.setItem("mn_plike", l.slice(-400).join("|")); } catch (e) {} }
+  async function gallery(p) {
+    var box = $("#pp-gal"); if (!box) return;
+    var likes = {}; (await get("partner_photo_likes_public?select=path,likes&partner_id=eq." + p.id) || []).forEach(function (r) { likes[r.path] = r.likes; });
+    var list = p.photos.map(function (x, i) { return { path: x, i: i, n: likes[x] || 0 }; }).sort(function (a, b) { return b.n - a.n || a.i - b.i; });
+    var all = false;
+    function tile(x, k) {
+      return '<figure class="gph' + (k === 0 ? ' gph--big' : '') + '" data-k="' + k + '"><img loading="lazy" src="' + img(x.path) + '" alt="">' +
+        '<button type="button" class="gph__like' + (plLiked(x.path) ? ' is-on' : '') + '" data-pl="' + k + '" aria-label="' + esc(PT.like) + '" data-free>❤ <b>' + x.n + '</b></button></figure>';
+    }
+    function draw() {
+      box.innerHTML = list.slice(0, all ? 30 : 10).map(tile).join("");
+      $$("[data-pl]", box).forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); likePhoto(list[+b.getAttribute("data-pl")]); }; });
+      $$(".gph", box).forEach(function (f) { f.onclick = function () { lightbox(+f.getAttribute("data-k")); }; });
+      var m = $("#pp-gal-more"); if (m) m.textContent = all ? PT.gal_less : String(PT.gal_all).replace("{n}", list.length);
+    }
+    async function likePhoto(x) {
+      if (!VID) { try { VID = localStorage.getItem("mn_vid") || ""; } catch (e) {} }
+      var on = !plLiked(x.path); plSet(x.path, on); x.n = Math.max(0, x.n + (on ? 1 : -1)); draw(); lbSync();
+      try { var r = await rpc("partner_photo_like", { id: p.id, path: x.path, vid: VID || ("v" + Math.random().toString(36).slice(2, 12)), on: on }); if (r) { x.n = r.likes; plSet(x.path, r.liked); draw(); lbSync(); } } catch (e) {}
+    }
+    var lb = null, cur = 0;
+    function lbSync() { if (!lb || lb.hidden) return; var x = list[cur]; lb.querySelector("img").src = img(x.path); var b = lb.querySelector(".glb__like"); b.classList.toggle("is-on", plLiked(x.path)); b.querySelector("b").textContent = x.n; lb.querySelector(".glb__n").textContent = (cur + 1) + " / " + list.length; }
+    function lightbox(k) {
+      if (!lb) {
+        lb = document.createElement("div"); lb.className = "glb"; lb.setAttribute("data-free", "");
+        lb.innerHTML = '<button type="button" class="glb__x" aria-label="×">×</button><button type="button" class="glb__p" aria-label="‹">‹</button><img alt=""><button type="button" class="glb__nx" aria-label="›">›</button>' +
+          '<div class="glb__bar"><span class="glb__n"></span><button type="button" class="glb__like">❤ <b>0</b></button></div>';
+        document.body.appendChild(lb);
+        lb.querySelector(".glb__x").onclick = function () { lb.hidden = true; };
+        lb.onclick = function (e) { if (e.target === lb) lb.hidden = true; };
+        lb.querySelector(".glb__p").onclick = function () { cur = (cur - 1 + list.length) % list.length; lbSync(); };
+        lb.querySelector(".glb__nx").onclick = function () { cur = (cur + 1) % list.length; lbSync(); };
+        lb.querySelector(".glb__like").onclick = function () { likePhoto(list[cur]); };
+        document.addEventListener("keydown", function (e) { if (lb.hidden) return; if (e.key === "Escape") lb.hidden = true; if (e.key === "ArrowRight") lb.querySelector(".glb__nx").click(); if (e.key === "ArrowLeft") lb.querySelector(".glb__p").click(); });
+      }
+      cur = k; lb.hidden = false; lbSync();
+    }
+    var more = $("#pp-gal-more"); if (more) more.onclick = function () { all = !all; draw(); };
+    draw();
+  }
   function bindCards(root) {
     if (!root) return;
     $$("[data-ask]", root).forEach(function (b) { b.onclick = function () { open(b.getAttribute("data-ask"), "ask"); }; });
@@ -166,13 +210,15 @@
         '<div class="pp__nums">' + nums + '</div>' + (info ? '<dl class="pp__info">' + info + '</dl>' : '') +
         '<div class="pp__cal"><h4>📅 ' + esc(PT.cal_t) + '</h4><p>' + esc(PT.cal_hint) + '</p><div id="pp-cal"></div><div class="pp__calmsg" id="pp-calmsg"></div></div>' +
         (cur.bio ? '<p class="pt-bio">' + esc(cur.bio) + '</p>' : '') +
-        ((cur.photos || []).length ? '<div class="pp__gal">' + cur.photos.map(function (x) { return '<a href="' + img(x) + '" target="_blank" rel="noopener" data-free><img loading="lazy" src="' + img(x) + '" alt=""></a>'; }).join("") + '</div>' : '') +
+        ((cur.photos || []).length ? '<div class="pp__galw"><h4>📸 ' + esc(PT.gal_t) + ' <small>(' + cur.photos.length + ')</small></h4><div class="gmos" id="pp-gal"></div>' +
+          (cur.photos.length > 10 ? '<p class="gmos__more"><button type="button" class="btn btn--outline btn--sm" id="pp-gal-more" data-free>' + esc(String(PT.gal_all).replace("{n}", cur.photos.length)) + '</button></p>' : '') + '</div>' : '') +
         '<h4>' + esc(PT.reviews) + ' (' + rv.length + ')</h4>' + (rv.length ? rv.map(function (r) { return '<div class="pt-rv">' + stars(r.rating) + ' <b>' + esc(r.name) + '</b> <small>' + esc(r.country || "") + ' · ' + new Date(r.created_at).toLocaleDateString() + '</small>' + (r.body ? '<p>' + esc(r.body) + '</p>' : '') + '</div>'; }).join("") : '<p class="pt-note">' + esc(PT.rv_note) + '</p>') +
         '<p class="pt-prof__btns"><button class="btn btn--gold btn--sm" id="pt-go-ask">' + esc(PT.ask) + '</button> <button class="btn btn--outline btn--sm" id="pt-go-rv">' + esc(PT.write) + '</button></p></div>';
       form.hidden = true; rform.hidden = true;
       $("#pt-go-ask").onclick = function () { open(id, "ask"); };
       $("#pt-go-rv").onclick = function () { box.innerHTML = ""; form.hidden = true; rform.hidden = false; msg(rform, ""); };
       $("#pp-share").onclick = function () { share(id); };
+      if ((cur.photos || []).length) gallery(cur);
       get("partner_busy_public?select=day&partner_id=eq." + id).then(function (rows) {
         var busy = {}; (rows || []).forEach(function (r) { busy[r.day] = true; });
         var el = $("#pp-cal"); if (!el || !window.MNCal) return;

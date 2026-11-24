@@ -116,6 +116,7 @@
       ((p.photos || []).length ? '<div class="pgal">' + p.photos.map(function (x) { return '<img src="' + pub(x) + '" alt="">'; }).join("") + '</div>' : '') +
       '<div class="p-actions">' + tgBtn(p.telegram) + (wa ? '<a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + (p.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(p.email) + '">E-mail</a>' : '') + '</div></div>';
     var nd = NEED[p.kind] || NEED.other, docs = p.docs || [], trips = docs.filter(function (d) { return d.kind === "trip"; }), extra = docs.filter(function (d) { return d.kind === "extra"; });
+    var pubTrips = (p.photos || []).filter(function (x) { return /\/trip-/.test(x); });   // photos with travellers that are in the open gallery
     var lics = docs.filter(function (d) { return d.kind === "license"; });
     // automatic checks of the licence / diploma number (the state registry page is not available online)
     var ln = String(p.license_no || "").trim(), warn = [];
@@ -124,12 +125,12 @@
     else if (dm) { var dd = new Date((dm[3].length === 2 ? "20" + dm[3] : dm[3]) + "-" + dm[2] + "-" + dm[1]); warn.push("raqam o'rniga sana yozilgan (" + ln + ")" + (dd < new Date() ? " — muddati o'tgan" : " — bu amal qilish muddati bo'lishi mumkin; raqamini so'rang")); }
     else if (ln.replace(/\W/g, "").length < 4) warn.push("raqam juda qisqa");
     if (ln) { var dup = (await sb.from("partners").select("name").eq("license_no", ln).neq("id", p.id)).data || []; if (dup.length) warn.push("shu raqam boshqa hamkorda ham bor: " + dup.map(function (x) { return x.name; }).join(", ")); }
-    var npub = (p.photos || []).length + extra.length;
+    var npub = (p.photos || []).filter(function (x) { return !/\/trip-/.test(x); }).length + extra.length;
     var chk = function (ok, txt) { return '<li style="color:' + (ok ? "#23794a" : "#b4541b") + '">' + (ok ? "✅ " : "❌ ") + txt + '</li>'; };
     h += '<div class="p-card"><h3>Talablar tekshiruvi</h3><ul class="pdocs">' +
       chk(!!p.photo, "Asosiy rasm (klassik yoki milliy kiyimda) — tepada, o'zingiz ko'ring") +
       chk(npub >= nd.pub, (p.kind === "driver" ? "Mashina rasmlari" : p.kind === "hotel" ? "Xona rasmlari" : "Yakka rasmlar") + ": " + npub + " / kamida " + (p.kind === "hotel" ? 10 : nd.pub)) +
-      (nd.trip ? chk(trips.length >= nd.trip, "Sayyohlar bilan rasmlar: " + trips.length + " / kamida " + nd.trip) : "") +
+      (nd.trip ? chk(trips.length + pubTrips.length >= nd.trip, "Sayyohlar bilan rasmlar: " + (trips.length + pubTrips.length) + " / kamida " + nd.trip + (pubTrips.length ? " (saytdagi galereyada " + pubTrips.length + " ta)" : "")) : "") +
       chk((!!ln && !warn.length) || p.kind === "other" || p.kind === "hotel", "Guvohnoma / diplom raqami: " + esc(ln || "—") + (warn.length && p.kind !== "other" && p.kind !== "hotel" ? " — ⚠ " + esc(warn.join("; ")) : "")) +
       (p.kind === "guide" || p.kind === "driver" ? chk(lics.length > 0, "Guvohnoma / diplom rasmi: " + (lics.length ? lics.length + " ta yuklangan — pastda" : "yuklanmagan")) : "") +
       (p.kind === "guide" ? chk((p.languages || []).length > 0, "Tillar: " + esc((p.languages || []).join(", ") || "—")) : "") +

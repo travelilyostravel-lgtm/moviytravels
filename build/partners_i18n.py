@@ -297,3 +297,16 @@ _S_old6 = S
 
 def S(lang):
     d = _S_old6(lang); v = RQ2.get(lang, RQ2["en"]); d.update(rq_phone=v[0], rq_email_opt=v[1], rq_e_phone=v[2]); return d
+
+
+# ---- open portfolio gallery
+GAL = {"en": ("Portfolio — photos from trips", "See all photos ({n})", "Show fewer"), "ru": ("Портфолио — фото с поездок", "Смотреть все фото ({n})", "Свернуть"),
+       "uz": ("Portfolio — safarlardan rasmlar", "Barcha rasmlarni ko'rish ({n})", "Yig'ish"), "tr": ("Portfolyo — gezilerden fotoğraflar", "Tüm fotoğrafları gör ({n})", "Daha az göster"),
+       "ar": ("معرض الأعمال — صور من الرحلات", "عرض كل الصور ({n})", "عرض أقل"), "de": ("Portfolio — Fotos von Touren", "Alle Fotos ansehen ({n})", "Weniger anzeigen"),
+       "sv": ("Portfolio — bilder från resor", "Visa alla bilder ({n})", "Visa färre"), "zh": ("作品集 — 旅途照片", "查看全部照片（{n}）", "收起"),
+       "hi": ("पोर्टफ़ोलियो — यात्राओं की तस्वीरें", "सभी तस्वीरें देखें ({n})", "कम दिखाएँ"), "ko": ("포트폴리오 — 여행 사진", "사진 전체 보기 ({n})", "접기")}
+_S_old7 = S
+
+
+def S(lang):
+    d = _S_old7(lang); g = GAL.get(lang, GAL["en"]); d.update(gal_t=g[0], gal_all=g[1], gal_less=g[2]); return d
