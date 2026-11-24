@@ -850,3 +850,9 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 @keyframes seeallBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 @media (prefers-reduced-motion:reduce){.pt-seeall button,.pt-seeall i{animation:none}}
 @media (max-width:640px){.pt-card__img{aspect-ratio:1/1}}
+/* request form: tourist or agent */
+.mf-seg{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 14px}
+.mf-seg>span{font-size:13px;font-weight:700;color:var(--muted);margin-right:4px}
+.mf-seg label{display:inline-flex;align-items:center;gap:7px;border:1.5px solid #e3dccd;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;background:#fff}
+.mf-seg label:has(input:checked){border-color:var(--navy);background:#eef4fb;color:var(--navy)}
+.mf-seg input{accent-color:var(--navy)}

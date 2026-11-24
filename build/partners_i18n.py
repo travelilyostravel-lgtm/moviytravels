@@ -263,3 +263,24 @@ _S_old4 = S
 
 def S(lang):
     d = _S_old4(lang); d["see_all"] = SA.get(lang, SA["en"]); return d
+
+
+# ---- request form: tourist or agent, country from a list, WhatsApp / Telegram rules
+RQK = ["rq_who", "rq_tourist", "rq_agent", "rq_company", "rq_country", "rq_country_ph", "rq_wa", "rq_wa_opt", "rq_tg", "rq_e_country", "rq_e_wa", "rq_e_tg", "rq_e_company"]
+RQ = {
+"en": ["You are", "Tourist (personal trip)", "Travel agent / company", "Company name", "Country", "Start typing: Germany, India…", "WhatsApp number", "WhatsApp (optional)", "Telegram (@username or number)", "Please choose your country from the list.", "Please leave your WhatsApp number — our manager will write to you there.", "Please leave your Telegram (@username or number).", "Please enter your company name."],
+"ru": ["Вы", "Турист (личная поездка)", "Турагент / компания", "Название компании", "Страна", "Начните вводить: Германия, Индия…", "Номер WhatsApp", "WhatsApp (необязательно)", "Telegram (@username или номер)", "Выберите страну из списка.", "Оставьте номер WhatsApp — менеджер напишет вам туда.", "Оставьте Telegram (@username или номер).", "Укажите название компании."],
+"uz": ["Siz kimsiz", "Turist (shaxsiy sayohat)", "Turagent / kompaniya", "Kompaniya nomi", "Davlat", "Yozishni boshlang: Germaniya, Hindiston…", "WhatsApp raqami", "WhatsApp (ixtiyoriy)", "Telegram (@username yoki raqam)", "Davlatingizni ro'yxatdan tanlang.", "WhatsApp raqamingizni qoldiring — menejer sizga o'sha yerda yozadi.", "Telegram (@username yoki raqam) qoldiring.", "Kompaniya nomini yozing."],
+"tr": ["Siz", "Turist (kişisel seyahat)", "Seyahat acentesi / şirket", "Şirket adı", "Ülke", "Yazmaya başlayın: Almanya, Hindistan…", "WhatsApp numarası", "WhatsApp (isteğe bağlı)", "Telegram (@kullanıcı adı veya numara)", "Lütfen ülkenizi listeden seçin.", "Lütfen WhatsApp numaranızı bırakın — yöneticimiz size oradan yazacak.", "Lütfen Telegram bırakın (@kullanıcı adı veya numara).", "Lütfen şirket adını yazın."],
+"ar": ["أنت", "سائح (رحلة شخصية)", "وكيل سفر / شركة", "اسم الشركة", "الدولة", "ابدأ الكتابة: ألمانيا، الهند…", "رقم واتساب", "واتساب (اختياري)", "تيليغرام (اسم المستخدم أو الرقم)", "يرجى اختيار دولتك من القائمة.", "يرجى ترك رقم واتساب — سيكتب لك مديرنا هناك.", "يرجى ترك تيليغرام (اسم المستخدم أو الرقم).", "يرجى كتابة اسم الشركة."],
+"de": ["Sie sind", "Tourist (private Reise)", "Reisebüro / Unternehmen", "Firmenname", "Land", "Tippen Sie: Deutschland, Indien…", "WhatsApp-Nummer", "WhatsApp (optional)", "Telegram (@Benutzername oder Nummer)", "Bitte wählen Sie Ihr Land aus der Liste.", "Bitte hinterlassen Sie Ihre WhatsApp-Nummer — unser Manager schreibt Ihnen dort.", "Bitte hinterlassen Sie Telegram (@Benutzername oder Nummer).", "Bitte geben Sie den Firmennamen ein."],
+"sv": ["Du är", "Turist (privat resa)", "Resebyrå / företag", "Företagsnamn", "Land", "Börja skriva: Tyskland, Indien…", "WhatsApp-nummer", "WhatsApp (valfritt)", "Telegram (@användarnamn eller nummer)", "Välj ditt land i listan.", "Lämna ditt WhatsApp-nummer — vår manager skriver till dig där.", "Lämna Telegram (@användarnamn eller nummer).", "Skriv företagets namn."],
+"zh": ["您是", "游客（个人旅行）", "旅行社 / 公司", "公司名称", "国家", "开始输入：德国、印度……", "WhatsApp 号码", "WhatsApp（可选）", "Telegram（用户名或号码）", "请从列表中选择您的国家。", "请留下 WhatsApp 号码 — 我们的经理会在那里联系您。", "请留下 Telegram（用户名或号码）。", "请填写公司名称。"],
+"hi": ["आप हैं", "पर्यटक (निजी यात्रा)", "ट्रैवल एजेंट / कंपनी", "कंपनी का नाम", "देश", "लिखना शुरू करें: जर्मनी, भारत…", "WhatsApp नंबर", "WhatsApp (वैकल्पिक)", "Telegram (@यूज़रनेम या नंबर)", "कृपया सूची से अपना देश चुनें।", "कृपया अपना WhatsApp नंबर दें — हमारे मैनेजर वहीं लिखेंगे।", "कृपया Telegram (@यूज़रनेम या नंबर) दें।", "कृपया कंपनी का नाम लिखें।"],
+"ko": ["고객 유형", "관광객 (개인 여행)", "여행사 / 회사", "회사명", "국가", "입력하세요: 독일, 인도…", "WhatsApp 번호", "WhatsApp (선택)", "Telegram (@아이디 또는 번호)", "목록에서 국가를 선택해 주세요.", "WhatsApp 번호를 남겨 주세요 — 매니저가 그곳으로 연락드립니다.", "Telegram(@아이디 또는 번호)을 남겨 주세요.", "회사명을 입력해 주세요."],
+}
+_S_old5 = S
+
+
+def S(lang):
+    d = _S_old5(lang); v = RQ.get(lang) or RQ["en"]; assert len(v) == len(RQK), lang; d.update(dict(zip(RQK, v))); return d

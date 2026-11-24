@@ -11,12 +11,19 @@
   function wa(phone) { var d = String(phone || "").replace(/\D/g, ""); return d ? "https://wa.me/" + d : "#"; }
 
   // ---------------------------------------------------------------- requests
+  var rSeg = "all";
   A.requests = async function () {
     A.show("requests");
     var F = [["open", "Ochiq"], ["new", "Yangi"], ["in_progress", "Ishlanmoqda"], ["awaiting_payment", "30% kutilmoqda"], ["deposit_paid", "70% kutilmoqda"], ["paid", "To'landi"], ["confirmed", "Tasdiqlandi"], ["all", "Hammasi"]];
     $("#rf").innerHTML = F.map(function (f) { return '<button data-f="' + f[0] + '" class="' + (f[0] === rFilter ? "is-on" : "") + '">' + f[1] + '</button>'; }).join("");
     $$("#rf button").forEach(function (b) { b.onclick = function () { rFilter = b.dataset.f; A.requests(); }; });
+    // B2C (tourists) / B2B (travel agents) — chosen by the visitor in the guide/partner request form
+    var sh = $("#rseg"); if (!sh) { sh = document.createElement("div"); sh.id = "rseg"; sh.className = "seg"; sh.style.margin = "0 0 10px"; $("#rf").before(sh); }
+    var cnt = await Promise.all(["b2c", "b2b"].map(function (g) { return sb.from("site_requests").select("id", { count: "exact", head: true }).eq("segment", g).not("status", "in", "(closed,cancelled,confirmed)"); }));
+    sh.innerHTML = [["all", "Hammasi"], ["b2c", "🧳 B2C — turistlar (" + (cnt[0].count || 0) + " ochiq)"], ["b2b", "🏢 B2B — agentlar (" + (cnt[1].count || 0) + " ochiq)"]].map(function (g) { return '<button data-seg="' + g[0] + '" class="' + (g[0] === rSeg ? "is-on" : "") + '">' + g[1] + '</button>'; }).join("");
+    $$("#rseg button").forEach(function (b) { b.onclick = function () { rSeg = b.dataset.seg; A.requests(); }; });
     var q = sb.from("site_requests").select("*").order("created_at", { ascending: false }).limit(300);
+    if (rSeg !== "all") q = q.eq("segment", rSeg);
     if (rFilter === "open") q = q.not("status", "in", "(closed,cancelled,confirmed)"); else if (rFilter !== "all") q = q.eq("status", rFilter);
     var mh = $("#rm"); if (!mh) { mh = document.createElement("div"); mh.id = "rm"; mh.className = "filters"; $("#rf").after(mh); }
     if (A.mgrChips) await A.mgrChips(mh, A.requests);
@@ -28,7 +35,7 @@
     box.innerHTML = '<table class="tbl"><thead><tr><th>Raqam</th><th>Turi</th><th>Mijoz</th><th>Sana</th><th>Kishi</th><th>To\'lov</th><th>Holat</th>' + (isOwner ? '<th>Menejer</th>' : '') + '</tr></thead><tbody>' +
       r.data.map(function (x) {
         var what = x.kind === "tour" ? "🧭 " + esc(x.tour_title || x.tour_id || "Tur") : x.kind === "group" ? "👥 Guruh: " + esc(x.tour_title || "") : "🛎 " + esc(SV[x.service] || x.service || "Xizmat");
-        return '<tr class="click" data-id="' + x.id + '"><td><b>' + esc(x.ref) + '</b><br><small>' + P.date(x.created_at) + ' · ' + esc((x.lang || "").toUpperCase()) + '</small></td><td>' + what + '</td><td>' + esc(x.contact_name) + '<br><small>' + esc(x.phone) + (x.citizenship ? " · " + esc(x.citizenship) : "") + '</small></td><td>' + P.date(x.start_date) + '</td><td>' + (x.pax || "—") + '</td><td><small>' + (x.price_total ? P.money(x.paid_total || 0) + ' / ' + P.money(x.price_total) : esc(PM[x.pay_method] || "—")) + (x.balance_due && x.status === 'deposit_paid' ? '<br>70% muddati: ' + P.date(x.balance_due) : '') + '</small></td><td>' + badge(x.status) + '</td>' + (isOwner ? '<td><small>' + esc(A.staffName(x.assigned_to) || "— tayinlanmagan") + '</small></td>' : '') + '</tr>';
+        return '<tr class="click" data-id="' + x.id + '"><td><b>' + esc(x.ref) + '</b><br><small>' + P.date(x.created_at) + ' · ' + esc((x.lang || "").toUpperCase()) + '</small></td><td>' + what + '</td><td>' + (x.segment === "b2b" ? '<span class="pill" style="background:#e8eefb;color:#1f3f7a">🏢 B2B</span> ' + (x.company ? '<b>' + esc(x.company) + '</b><br>' : '') : '') + esc(x.contact_name) + '<br><small>' + esc(x.phone || "") + (x.messenger && /telegram/.test(x.messenger) ? " · " + esc(x.messenger) : "") + (x.citizenship ? " · " + esc(x.citizenship) : "") + '</small></td><td>' + P.date(x.start_date) + '</td><td>' + (x.pax || "—") + '</td><td><small>' + (x.price_total ? P.money(x.paid_total || 0) + ' / ' + P.money(x.price_total) : esc(PM[x.pay_method] || "—")) + (x.balance_due && x.status === 'deposit_paid' ? '<br>70% muddati: ' + P.date(x.balance_due) : '') + '</small></td><td>' + badge(x.status) + '</td>' + (isOwner ? '<td><small>' + esc(A.staffName(x.assigned_to) || "— tayinlanmagan") + '</small></td>' : '') + '</tr>';
       }).join("") + '</tbody></table>';
     $$("tr[data-id]", box).forEach(function (tr) { tr.onclick = function () { openRequest(tr.dataset.id); }; });
   };
@@ -47,10 +54,13 @@
       ["Saytdagi taxminiy jami", d.est_total ? "$" + d.est_total : ""], ["Tur", x.tour_title], ["Shahar / yo'nalish", d.city],
       ["Boshlanish", P.date(x.start_date)], ["Kishi soni", x.pax + (d.adults != null ? " (kattalar " + d.adults + ", bolalar " + (d.children || 0) + ")" : "")],
       ["Mehmonxona", HC[d.hotel] || d.hotel], ["Gid tili", d.guide_lang], ["To'lov usuli", PM[x.pay_method]],
-      ["Mijoz", x.contact_name], ["Telefon", x.phone], ["E-mail", x.email], ["Bog'lanish", x.messenger], ["Fuqarolik", x.citizenship], ["Izoh", x.message]];
-    var h = '<p><a href="#" id="r-back">← Mijoz so\'rovlari</a></p><div class="p-card"><h2>' + esc(x.ref) + ' ' + badge(x.status) + '</h2><table class="tbl">' +
+      ["Kim", x.segment === "b2b" ? "🏢 B2B — turagent / kompaniya" : (d.segment ? "🧳 B2C — turist" : "")], ["Kompaniya", x.company],
+      ["Hamkor (gid)", d.partner_name],
+      ["Mijoz", x.contact_name], ["Telefon / WhatsApp", x.phone], ["Telegram", d.telegram], ["E-mail", x.email], ["Bog'lanish", x.messenger], ["Fuqarolik", x.citizenship], ["Izoh", x.message]];
+    var h = '<p><a href="#" id="r-back">← So\'rovlar</a></p><div class="p-card"><h2>' + esc(x.ref) + ' ' + badge(x.status) + '</h2><table class="tbl">' +
       rows.filter(function (a) { return a[1] != null && a[1] !== "" && a[1] !== "—"; }).map(function (a) { return '<tr><th style="width:200px">' + esc(a[0]) + '</th><td style="white-space:pre-wrap">' + esc(a[1]) + '</td></tr>'; }).join("") + '</table>' +
-      '<div class="p-actions"><a class="btn btn--wa btn--sm" target="_blank" rel="noopener" href="' + wa(x.phone) + '">WhatsApp\'da yozish</a>' + (x.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(x.email) + '">E-mail</a>' : '') + '</div></div>';
+      '<div class="p-actions">' + (x.phone ? '<a class="btn btn--wa btn--sm" target="_blank" rel="noopener" href="' + wa(x.phone) + '">WhatsApp\'da yozish</a>' : '') +
+      (d.telegram ? '<a class="btn btn--gold btn--sm" target="_blank" rel="noopener" href="' + (/^@/.test(d.telegram) || !/^\+?[\d\s-]+$/.test(d.telegram) ? "https://t.me/" + d.telegram.replace(/^@/, "") : "https://t.me/+" + d.telegram.replace(/\D/g, "")) + '">✈ Telegram</a>' : '') + (x.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(x.email) + '">E-mail</a>' : '') + '</div></div>';
     if (tr.length) h += '<div class="p-card"><h3>Sayohatchilar (' + tr.length + ')</h3><table class="tbl"><thead><tr><th>#</th><th>Ism</th><th>Familiya</th><th>Jinsi</th><th>Tug\'ilgan</th></tr></thead><tbody>' +
       tr.map(function (t, i) { return '<tr><td>' + (i + 1) + '</td><td>' + esc(t.first) + '</td><td>' + esc(t.last) + '</td><td>' + esc(t.gender) + '</td><td>' + esc(t.dob) + '</td></tr>'; }).join("") + '</tbody></table></div>';
     var mgSel = A.role === "admin" && A.mgrSelect ? await A.mgrSelect(x.assigned_to, "r-mgr") : "";

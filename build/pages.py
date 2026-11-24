@@ -334,13 +334,18 @@ def render_partners(lang, icon, logo, font, names, kind=""):
   <div id="pt-prof"></div>
   <form class="mf" id="pt-form" novalidate>
     <h3>{e(PT["ask"])}: <span id="pt-fname"></span></h3>
+    <div class="mf-seg" role="radiogroup" aria-label="{e(PT["rq_who"])}"><span>{e(PT["rq_who"])} *</span>
+      <label><input type="radio" name="segment" value="b2c" checked> 🧳 {e(PT["rq_tourist"])}</label>
+      <label><input type="radio" name="segment" value="b2b"> 🏢 {e(PT["rq_agent"])}</label></div>
     <div class="mf-grid">
+      <label class="mf-f mf-f--full" id="rq-company" hidden><span>{e(PT["rq_company"])} *</span><input name="company" maxlength="160" autocomplete="organization"></label>
       <label class="mf-f"><span>{e(x["f_date"])} *</span><input type="date" name="start_date" required></label>
       <label class="mf-f"><span>{e(x["f_pax"])} *</span><input type="number" name="pax" min="1" max="500" value="2" required></label>
       <label class="mf-f"><span>{e(x["f_name"])} *</span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
       <label class="mf-f"><span>{e(x["f_email"])} *</span><input type="email" name="email" required maxlength="160" autocomplete="email"></label>
-      <label class="mf-f"><span>{e(x.get("f_wa_opt", x["f_phone"]))}</span><input type="tel" name="phone" maxlength="40" autocomplete="tel" placeholder="+"></label>
-      <label class="mf-f"><span>{e(x["f_citizenship"])}</span><input name="citizenship" maxlength="80"></label>
+      <label class="mf-f"><span>{e(PT["rq_country"])} *</span><input name="country" maxlength="80" placeholder="{e(PT["rq_country_ph"])}" required></label>
+      <label class="mf-f"><span id="rq-wa-l" data-req="{e(PT["rq_wa"])} *" data-opt="{e(PT["rq_wa_opt"])}">{e(PT["rq_wa"])} *</span><input type="tel" name="phone" maxlength="40" autocomplete="tel" placeholder="+"></label>
+      <label class="mf-f" id="rq-tg" hidden><span>{e(PT["rq_tg"])} *</span><input name="telegram" maxlength="64" placeholder="@username"></label>
       <label class="mf-f mf-f--full"><span>{e(x["f_details"])}</span><textarea name="message" rows="3" maxlength="3000"></textarea></label>
     </div>
     {consent_label(lang, x)}
@@ -369,7 +374,7 @@ def render_partners(lang, icon, logo, font, names, kind=""):
             f'<div class="pt-why"><h2 class="h2c">{e(PT["why_t"])}</h2><ul>{why}</ul></div></div></section>' + join + modal + jmodal)
     jdata = {"lang": jl, "kind": kind, "J": JT, "REQ": {k: join_i18n.req(lang, k) for k in join_i18n.SLOTS}, "SLOTS": join_i18n.SLOTS}
     js = (f'<script>window.MNPT={json.dumps(PT, ensure_ascii=False)};window.MNPT_KIND="{kind}";window.MNJ={json.dumps(jdata, ensure_ascii=False)};</script>'
-          f'<script src="{pre}assets/js/mn-cal.js" defer></script><script src="{pre}assets/js/mn-cities.js" defer></script><script src="{pre}assets/js/partners.js" defer></script><script src="{pre}assets/js/partner-join.js" defer></script>')
+          f'<script src="{pre}assets/js/mn-cal.js" defer></script><script src="{pre}assets/js/mn-cities.js" defer></script><script src="{pre}assets/js/mn-countries.js" defer></script><script src="{pre}assets/js/partners.js" defer></script><script src="{pre}assets/js/partner-join.js" defer></script>')
     return shell(lang, PT_SLUG[kind], title, sub, body, icon, logo, font, names, extra_js=js)
 
 
