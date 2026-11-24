@@ -17,7 +17,8 @@
   A.partnersBadge = async function () {
     var a = await sb.from("partners").select("id", { count: "exact", head: true }).eq("status", "pending");
     var r = await sb.from("partner_reviews").select("id", { count: "exact", head: true }).eq("status", "pending");
-    var n = (a.count || 0) + (r.count || 0), b = $('#tabs button[data-view="partners"]');
+    var ch = await sb.from("partner_changes").select("id", { count: "exact", head: true }).eq("status", "pending");
+    var n = (a.count || 0) + (r.count || 0) + (ch.count || 0), b = $('#tabs button[data-view="partners"]');
     if (b) b.textContent = "Hamkorlar" + (n ? " 🔴 " + n : "");
   };
 
@@ -35,15 +36,60 @@
       (list.length ? '<table class="tbl" style="margin-top:10px"><thead><tr><th>Hamkor</th><th>Turi</th><th>Shahar</th><th>Reyting</th><th>Holat</th><th>Ro\'yxatdan</th></tr></thead><tbody>' + list.map(function (p) {
         return '<tr class="click" data-pid="' + p.id + '"><td><b>' + esc(p.name) + '</b><br><small>' + esc(p.email || "") + ' · ' + esc(p.phone || "") + '</small></td><td>' + esc(KIND[p.kind]) + '</td><td>' + esc(p.city || "") + '</td><td>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " (" + p.reviews_count + ")" : "—") + '</td><td>' + esc(ST[p.status]) + (p.license_ok ? '<br><small>✓ litsenziya</small>' : '') + '</td><td><small>' + P.date(p.created_at) + '</small></td></tr>';
       }).join("") + '</tbody></table>' : '<p class="p-sub" style="margin-top:10px">Bu ro\'yxatda hech kim yo\'q.</p>') + '</div>';
+    var chg = (await sb.from("partner_changes").select("id,partner_id,comment,created_at").eq("status", "pending").order("created_at")).data || [];
+    if (chg.length) {
+      var nm = {}; all.forEach(function (p) { nm[p.id] = p.name; });
+      h = h.replace('<div class="filters">', '<div class="p-card" style="border:2px solid #e9b949;margin:12px 0"><h3 style="margin-top:0">✏ Kartochka o\'zgarishlari — tasdiq kutyapti (' + chg.length + ')</h3><table class="tbl"><tbody>' + chg.map(function (c) {
+        return '<tr class="click" data-chg="' + c.id + '"><td><b>' + esc(nm[c.partner_id] || "—") + '</b><br><small>' + P.date(c.created_at) + '</small></td><td>' + esc(c.comment) + '</td><td style="white-space:nowrap"><button class="btn btn--gold btn--sm">Ko\'rish →</button></td></tr>';
+      }).join("") + '</tbody></table></div><div class="filters">');
+    }
     if (rv.length) h += '<div class="p-card" style="border:2px solid #e9b949"><h3>Tasdiq kutayotgan sharhlar (' + rv.length + ')</h3><table class="tbl"><tbody>' + rv.map(function (r) {
       return '<tr><td><b>' + esc(r.partners && r.partners.name) + '</b><br><small>' + "★".repeat(r.rating) + ' · ' + esc(r.name) + ' (' + esc(r.country || "") + ') · bron ' + esc(r.trip_ref) + '</small><p style="margin:4px 0 0">' + esc(r.body || "") + '</p></td><td style="white-space:nowrap"><button class="btn btn--green btn--sm" data-rok="' + r.id + '">Chiqarish</button> <button class="btn btn--outline btn--sm" data-rno="' + r.id + '">Rad etish</button></td></tr>';
     }).join("") + '</tbody></table><p class="p-sub">Sharhni faqat to\'langan safari bor sayyoh yoza oladi (bron raqami + e-mail tekshiriladi).</p></div>';
     box.innerHTML = h;
     $$("[data-pf]", box).forEach(function (b) { b.onclick = function () { flt = b.dataset.pf; A.partners(); }; });
     $$("[data-pid]", box).forEach(function (tr) { tr.onclick = function () { A.partner(tr.dataset.pid); }; });
+    $$("[data-chg]", box).forEach(function (tr) { tr.onclick = function () { A.partnerChange(+tr.dataset.chg); }; });
     $$("[data-rok]", box).forEach(function (b) { b.onclick = async function () { await sb.from("partner_reviews").update({ status: "approved" }).eq("id", b.dataset.rok); A.partnersBadge(); A.partners(); }; });
     $$("[data-rno]", box).forEach(function (b) { b.onclick = async function () { await sb.from("partner_reviews").update({ status: "rejected" }).eq("id", b.dataset.rno); A.partnersBadge(); A.partners(); }; });
     A.partnersBadge();
+  };
+
+
+  // ---- a partner's change request: before → after, approve or reject
+  var F = [["name", "Ism / nomi"], ["city", "Asosiy shahar"], ["cities", "Gidlik qiladigan joylari"], ["languages", "Tillar"], ["specialties", "Yo'nalishlar"], ["price_day", "Narx"], ["price_note", "Narx izohi"],
+    ["experience_years", "Tajriba (yil)"], ["birth_year", "Tug'ilgan yil"], ["home_area", "Yashash joyi (saytda)"], ["home_address", "To'liq manzil"], ["phone", "Telefon"], ["telegram", "Telegram"], ["whatsapp", "WhatsApp"],
+    ["license_no", "Litsenziya / guvohnoma"], ["inn", "INN"], ["vehicle_type", "Mashina"], ["vehicle_seats", "O'rinlar"], ["vehicle_year", "Mashina yili"], ["hotel_stars", "Yulduz"], ["hotel_rooms", "Xonalar"], ["bio", "O'zi haqida"]];
+  function show(v) { return Array.isArray(v) ? v.join(", ") : (v == null ? "" : String(v)); }
+  A.partnerChange = async function (cid) {
+    A.show("partners");
+    var box = $("#v-partners"); box.innerHTML = '<div class="p-card">Yuklanmoqda…</div>';
+    var c = (await sb.from("partner_changes").select("*").eq("id", cid).single()).data; if (!c) return A.partners();
+    var p = (await sb.from("partners").select("*").eq("id", c.partner_id).single()).data, d = c.data || {};
+    var rows = F.filter(function (f) { return f[0] in d && show(d[f[0]]).trim() !== show(p[f[0]]).trim() && !(show(d[f[0]]) === "" && p[f[0]] == null); }).map(function (f) {
+      return '<tr><td><b>' + f[1] + '</b></td><td style="color:#b42323;text-decoration:line-through">' + esc(show(p[f[0]]) || "—") + '</td><td style="color:#23794a;font-weight:600">' + esc(show(d[f[0]]) || "—") + '</td></tr>';
+    }).join("");
+    var oldPh = p.photos || [], newPh = d.photos || [], added = newPh.filter(function (x) { return oldPh.indexOf(x) < 0; }), removed = oldPh.filter(function (x) { return newPh.indexOf(x) < 0; });
+    var img = function (x, col) { return '<a href="' + pub(x) + '" target="_blank" rel="noopener"><img src="' + pub(x) + '" alt="" style="outline:3px solid ' + col + ';outline-offset:-3px"></a>'; };
+    var ph = (d.photo && d.photo !== p.photo ? '<p><b>Asosiy rasm:</b> eski → yangi</p><div class="pgal">' + (p.photo ? img(p.photo, "#efa5a5") : '') + img(d.photo, "#9fd4b4") + '</div>' : '') +
+      (added.length ? '<p><b>Qo\'shilgan rasmlar (' + added.length + '):</b></p><div class="pgal">' + added.map(function (x) { return img(x, "#9fd4b4"); }).join("") + '</div>' : '') +
+      (removed.length ? '<p><b>O\'chirilgan rasmlar (' + removed.length + '):</b></p><div class="pgal">' + removed.map(function (x) { return img(x, "#efa5a5"); }).join("") + '</div>' : '');
+    box.innerHTML = '<div class="p-card"><button class="btn btn--outline btn--sm" id="pc-back">← Hamkorlar</button>' +
+      '<h2 style="margin:12px 0 4px">✏ ' + esc(p.name) + ' — kartochka o\'zgarishi</h2><p class="p-sub">' + P.date(c.created_at) + ' · holati: ' + esc(c.status) + '</p>' +
+      '<div style="background:#fffaf0;border-left:4px solid var(--gold);padding:10px 14px;border-radius:8px;margin:10px 0"><small>Hamkor izohi:</small><br><b>' + esc(c.comment) + '</b></div>' +
+      (rows ? '<table class="tbl"><thead><tr><th>Maydon</th><th>Hozir saytda</th><th>Yangi</th></tr></thead><tbody>' + rows + '</tbody></table>' : '<p class="p-sub">Matnli maydonlarda o\'zgarish yo\'q.</p>') +
+      (ph ? '<h3 style="margin-top:18px">Rasmlar</h3>' + ph : '') +
+      (c.status === "pending" ? '<div class="fld full" style="margin-top:14px"><label>Hamkorga izoh (ixtiyoriy, rad etsangiz yozing)</label><textarea id="pc-note" rows="2" maxlength="500"></textarea></div><div class="msg" id="m-pc"></div>' +
+        '<div class="p-actions"><button class="btn btn--green" id="pc-ok">✅ Tasdiqlash — saytda yangilash</button><button class="btn btn--outline" id="pc-no">❌ Rad etish</button><button class="btn btn--outline" id="pc-card">Hamkor kartochkasi</button></div>' : '') + '</div>';
+    $("#pc-back").onclick = A.partners;
+    if (c.status !== "pending") return;
+    $("#pc-card").onclick = function () { A.partner(p.id); };
+    var go = async function (ok) {
+      var r = await sb.rpc("partner_change_decide", { cid: cid, ok: ok, note: $("#pc-note").value.trim() || null });
+      if (r.error) return P.msg("#m-pc", r.error.message, "err");
+      P.msg("#m-pc", ok ? "Tasdiqlandi — kartochka saytda yangilandi" : "Rad etildi — hamkor kabinetida ko'radi", "ok"); A.partnersBadge(); setTimeout(A.partners, 900);
+    };
+    $("#pc-ok").onclick = function () { go(true); }; $("#pc-no").onclick = function () { go(false); };
   };
 
   A.partner = async function (id) {

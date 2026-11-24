@@ -6,7 +6,7 @@
   var D = {
     uz: {
       title: "Hamkorlar portali", notP: "Bu akkaunt hamkor sifatida ro'yxatdan o'tmagan. Hamkor bo'lish uchun «Chiqish»ni bosing va boshqa e-mail bilan ro'yxatdan o'ting.", sub: "Gidlar, haydovchilar, mehmonxonalar va boshqa xizmat egalari uchun.",
-      login: "Kirish", reg: "Hamkor bo'lish", cal: "Kalendarim (band kunlarim)", calHint: "Band kunlaringizni bosing — qizil bo'ladi. Yana bossangiz izoh yozishingiz yoki kunni bo'shatishingiz mumkin. Mijozlar saytda yashil (bo'sh) kunlarni ko'rib so'rov qoldiradi, menejer siz bilan bog'lanadi. Izohlarni faqat siz va Moviy Nomad ko'radi.", calFree: "Bo'sh", calBusy: "Band", calNote: "Izoh (masalan: Germaniya guruhi, 8 kishi)", calSave: "Saqlash", calClear: "Bo'sh qilish", calUp: "Yaqin band kunlar", stats: "Ko'rishlar · Layklar · Ulashishlar", birth: "Tug'ilgan yil", area: "Yashash joyi (shahar, tuman) — saytda ko'rinadi", addr: "To'liq manzil — faqat Moviy Nomad ko'radi", regGo: "Ariza saytning tegishli bo'limida beriladi: talablarni o'qiysiz, rasmlarni yuklaysiz va shu yerda kabinet ochiladi. Kim sifatida ariza berasiz?", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
+      login: "Kirish", reg: "Hamkor bo'lish", chT: "Kartochkani o'zgartirish", chHint: "Siz saytdasiz: o'zgarishlar (til, shahar, rasm, narx, bio va boshqalar) avval Moviy Nomad'ga boradi. Admin tasdiqlagach saytdagi kartochkangiz yangilanadi.", chCom: "Adminga izoh: nimani o'zgartirdingiz va nega? *", chSend: "Tasdiqlashga yuborish", chSent: "Yuborildi ✅ Admin tasdiqlagach kartochkangiz yangilanadi.", chPend: "O'zgarishlaringiz tekshiruvda", chYour: "Izohingiz", chRej: "Oxirgi o'zgarishingiz rad etildi", chOk: "Oxirgi o'zgarishingiz tasdiqlandi va saytda yangilandi", chNeed: "Iltimos, adminga izoh yozing: nimani o'zgartirdingiz.", chPendNote: "Quyidagi formada yuborgan (hali tasdiqlanmagan) ma'lumotlaringiz turibdi. Yana o'zgartirib yuborsangiz, eski so'rov yangisi bilan almashadi.", cal: "Kalendarim (band kunlarim)", calHint: "Band kunlaringizni bosing — qizil bo'ladi. Yana bossangiz izoh yozishingiz yoki kunni bo'shatishingiz mumkin. Mijozlar saytda yashil (bo'sh) kunlarni ko'rib so'rov qoldiradi, menejer siz bilan bog'lanadi. Izohlarni faqat siz va Moviy Nomad ko'radi.", calFree: "Bo'sh", calBusy: "Band", calNote: "Izoh (masalan: Germaniya guruhi, 8 kishi)", calSave: "Saqlash", calClear: "Bo'sh qilish", calUp: "Yaqin band kunlar", stats: "Ko'rishlar · Layklar · Ulashishlar", birth: "Tug'ilgan yil", area: "Yashash joyi (shahar, tuman) — saytda ko'rinadi", addr: "To'liq manzil — faqat Moviy Nomad ko'radi", regGo: "Ariza saytning tegishli bo'limida beriladi: talablarni o'qiysiz, rasmlarni yuklaysiz va shu yerda kabinet ochiladi. Kim sifatida ariza berasiz?", email: "E-mail", pass: "Parol", pass8: "Parol (kamida 8 belgi)", forgot: "Parolni unutdim", logout: "Chiqish",
       how: ["Ro'yxatdan o'ting — 2 daqiqa", "Hujjatlaringizni yuklang — biz 1–2 kunda tekshiramiz", "Profilingizni to'ldiring — saytda chiqasiz, mijozlarni biz olib kelamiz"],
       why: "Nega Moviy Nomad bilan?", whys: ["Chet ellik sayyohlar va agentliklar — 10 tilda", "Mijozni biz topamiz va to'lovni biz qabul qilamiz", "Yaxshi baho olsangiz — ro'yxatda birinchi turasiz", "Ro'yxatdan o'tish bepul"],
       kind: "Kim sifatida?", kinds: { guide: "Gid", driver: "Haydovchi / transport", hotel: "Mehmonxona / mehmon uyi", other: "Boshqa xizmat" },
@@ -25,7 +25,7 @@
     },
     ru: {
       title: "Портал партнёров", notP: "Этот аккаунт не зарегистрирован как партнёр. Нажмите «Выйти» и зарегистрируйтесь с другим e-mail.", sub: "Для гидов, водителей, гостиниц и других поставщиков услуг.",
-      login: "Вход", reg: "Стать партнёром", cal: "Мой календарь (занятые дни)", calHint: "Нажмите на занятый день — он станет красным. Нажмите ещё раз, чтобы написать заметку или освободить день. Туристы на сайте видят зелёные (свободные) дни и оставляют заявку, менеджер свяжется с вами. Заметки видите только вы и Moviy Nomad.", calFree: "Свободно", calBusy: "Занято", calNote: "Заметка (например: группа из Германии, 8 чел.)", calSave: "Сохранить", calClear: "Освободить", calUp: "Ближайшие занятые дни", stats: "Просмотры · Лайки · Репосты", birth: "Год рождения", area: "Где живёте (город, район) — видно на сайте", addr: "Полный адрес — видит только Moviy Nomad", regGo: "Заявка подаётся в нужном разделе сайта: читаете требования, загружаете фото — и здесь открывается кабинет. Кем вы подаёте заявку?", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
+      login: "Вход", reg: "Стать партнёром", chT: "Изменить карточку", chHint: "Вы на сайте: изменения (языки, города, фото, цена, био и др.) сначала уходят в Moviy Nomad. После одобрения администратором карточка на сайте обновится.", chCom: "Комментарий администратору: что вы изменили и почему? *", chSend: "Отправить на проверку", chSent: "Отправлено ✅ Карточка обновится после одобрения администратором.", chPend: "Ваши изменения на проверке", chYour: "Ваш комментарий", chRej: "Последнее изменение отклонено", chOk: "Последнее изменение одобрено и опубликовано", chNeed: "Пожалуйста, напишите комментарий: что вы изменили.", chPendNote: "В форме ниже — отправленные (ещё не одобренные) данные. Если измените и отправите снова, старая заявка заменится новой.", cal: "Мой календарь (занятые дни)", calHint: "Нажмите на занятый день — он станет красным. Нажмите ещё раз, чтобы написать заметку или освободить день. Туристы на сайте видят зелёные (свободные) дни и оставляют заявку, менеджер свяжется с вами. Заметки видите только вы и Moviy Nomad.", calFree: "Свободно", calBusy: "Занято", calNote: "Заметка (например: группа из Германии, 8 чел.)", calSave: "Сохранить", calClear: "Освободить", calUp: "Ближайшие занятые дни", stats: "Просмотры · Лайки · Репосты", birth: "Год рождения", area: "Где живёте (город, район) — видно на сайте", addr: "Полный адрес — видит только Moviy Nomad", regGo: "Заявка подаётся в нужном разделе сайта: читаете требования, загружаете фото — и здесь открывается кабинет. Кем вы подаёте заявку?", email: "E-mail", pass: "Пароль", pass8: "Пароль (не менее 8 символов)", forgot: "Забыли пароль", logout: "Выйти",
       how: ["Зарегистрируйтесь — 2 минуты", "Загрузите документы — проверим за 1–2 дня", "Заполните профиль — вы на сайте, клиентов приводим мы"],
       why: "Почему Moviy Nomad?", whys: ["Иностранные туристы и агентства — на 10 языках", "Клиента находим мы и оплату принимаем мы", "Хорошие отзывы — вы первые в списке", "Регистрация бесплатная"],
       kind: "Кто вы?", kinds: { guide: "Гид", driver: "Водитель / транспорт", hotel: "Гостиница / гостевой дом", other: "Другая услуга" },
@@ -169,11 +169,17 @@
   function profileForm() {
     var p = me.partner, k = p.kind;
     var chk = function (list, have, name) { return '<div class="pchips">' + list.map(function (x) { return '<label><input type="checkbox" name="' + name + '" value="' + esc(x) + '"' + ((have || []).indexOf(x) > -1 ? " checked" : "") + '> ' + esc(x) + '</label>'; }).join("") + '</div>'; };
-    var h = '<div class="p-card"><h3>' + t("profile") + '</h3><form id="f-prof"><div class="p-grid">' +
+    var live = p.status === "approved" || p.status === "paused", C = (window.MNCities && window.MNCities.list) || [], CL = L === "ru" ? "ru" : "uz";
+    if (live && me.pending) p = Object.assign({}, p, me.pending.data);
+    var cityKey = window.MNCities ? window.MNCities.key(p.city) : "", hasCity = C.some(function (c) { return c[0] === cityKey; });
+    var citySel = C.length ? '<select name="city"><option value=""></option>' + (p.city && !hasCity ? '<option selected>' + esc(p.city) + '</option>' : '') + C.map(function (c) { return '<option value="' + esc(c[1]) + '"' + (c[0] === cityKey ? " selected" : "") + '>' + esc(window.MNCities.label(c[0], CL)) + '</option>'; }).join("") + '</select>' : '<input name="city" value="' + esc(p.city || "") + '">';
+    var haveK = (p.cities || []).map(function (x) { return window.MNCities ? window.MNCities.key(x) : x; });
+    var cityChips = C.length ? '<div class="pchips">' + C.map(function (c) { return '<label><input type="checkbox" name="cities_x" value="' + esc(c[1]) + '"' + (haveK.indexOf(c[0]) > -1 ? " checked" : "") + '> ' + esc(window.MNCities.label(c[0], CL)) + '</label>'; }).join("") + '</div>' : '<input name="cities" value="' + esc((p.cities || []).join(", ")) + '">';
+    var h = '<div class="p-card"><h3>' + (live ? t("chT") : t("profile")) + '</h3>' + (live ? '<p class="p-sub">' + t("chHint") + '</p>' + (me.pending ? '<p class="p-sub" style="color:#b4541b">' + t("chPendNote") + '</p>' : '') : '') + '<form id="f-prof"><div class="p-grid">' +
       '<div class="fld full"><label>' + t("name") + '</label><input name="name" value="' + esc(p.name) + '" maxlength="120"></div>' +
       '<div class="fld full"><label>' + t("photo") + '</label>' + (p.photo ? '<img class="pphoto" src="' + esc(pub(p.photo)) + '" alt="">' : '') + '<input type="file" id="ph-main" accept="image/*"></div>' +
-      '<div class="fld"><label>' + t("city") + '</label><input name="city" value="' + esc(p.city || "") + '"></div>' +
-      '<div class="fld"><label>' + t("cities") + '</label><input name="cities" value="' + esc((p.cities || []).join(", ")) + '"></div>' +
+      '<div class="fld"><label>' + t("city") + '</label>' + citySel + '</div>' +
+      '<div class="fld full"><label>' + t("cities") + '</label>' + cityChips + '</div>' +
       (k !== "hotel" ? '<div class="fld"><label>' + t("birth") + '</label><input name="birth_year" type="number" min="1940" max="2010" value="' + (p.birth_year || "") + '"></div>' : '') +
       '<div class="fld"><label>' + t("area") + '</label><input name="home_area" maxlength="120" value="' + esc(p.home_area || "") + '"></div>' +
       '<div class="fld full"><label>' + t("addr") + '</label><input name="home_address" maxlength="250" value="' + esc(p.home_address || "") + '"></div>' +
@@ -188,7 +194,8 @@
       '<div class="fld full"><label>' + t("gallery") + '</label><div class="pgal">' + (p.photos || []).map(function (x, i) { return '<span><img src="' + esc(pub(x)) + '" alt=""><button type="button" data-rm="' + i + '">×</button></span>'; }).join("") + '</div><input type="file" id="ph-more" accept="image/*" multiple></div>' +
       '<div class="fld"><label>' + t("phone") + '</label><input name="phone" value="' + esc(p.phone || "") + '"></div><div class="fld"><label>' + t("tg") + ' *</label><input name="telegram" required maxlength="64" placeholder="@username" value="' + esc(p.telegram || "") + '"></div><div class="fld"><label>' + t("wa") + '</label><input name="whatsapp" value="' + esc(p.whatsapp || "") + '"></div>' +
       '<div class="fld"><label>' + t("lic") + '</label><input name="license_no" value="' + esc(p.license_no || "") + '"></div>' + (k === "hotel" || k === "other" ? '<div class="fld"><label>' + t("inn") + '</label><input name="inn" value="' + esc(p.inn || "") + '"></div>' : '') +
-      '</div><div class="msg" id="m-prof"></div><div class="p-actions"><button class="btn btn--gold" type="submit">' + t("save") + '</button>' +
+      (live ? '<div class="fld full"><label>' + t("chCom") + '</label><textarea name="ch_comment" rows="2" maxlength="1000" required></textarea></div>' : '') +
+      '</div><div class="msg" id="m-prof"></div><div class="p-actions"><button class="btn btn--gold" type="submit">' + (live ? t("chSend") : t("save")) + '</button>' +
       (p.status === "approved" ? '<a class="btn btn--outline" target="_blank" rel="noopener" href="../partners.html#p-' + p.id + '">' + t("view") + '</a>' : '') + '</div></form></div>';
     return h;
   }
@@ -203,18 +210,25 @@
   }
   function bindProfile() {
     var f = $("#f-prof");
-    $$("[data-rm]", f).forEach(function (b) { b.onclick = function () { me.partner.photos.splice(+b.dataset.rm, 1); b.parentNode.remove(); }; });
+    me.rmPhotos = [];
+    $$("[data-rm]", f).forEach(function (b) { b.onclick = function () { var img = b.parentNode.querySelector("img"); me.rmPhotos.push(decodeURIComponent((img.getAttribute("src") || "").split("/partner-photos/")[1] || "")); b.parentNode.remove(); }; });
     f.onsubmit = async function (e) {
       e.preventDefault(); P.msg("#m-prof", "…");
       try {
-        var p = me.partner, d = profilePayload(p);
+        var p = me.partner, d = profilePayload((p.status === "approved" || p.status === "paused") && me.pending ? Object.assign({}, p, me.pending.data) : p);
+        if (me.rmPhotos) d.photos = d.photos.filter(function (x) { return me.rmPhotos.indexOf(x) < 0; });
         ["name", "city", "price_day", "price_note", "experience_years", "vehicle_type", "vehicle_seats", "vehicle_year", "hotel_stars", "hotel_rooms", "bio", "phone", "whatsapp", "license_no", "inn", "birth_year", "home_area", "home_address", "telegram"].forEach(function (k) { if (f[k]) d[k] = f[k].value.trim(); });
-        d.cities = f.cities.value.split(",").map(function (x) { return x.trim(); }).filter(Boolean);
+        d.cities = f.cities ? f.cities.value.split(",").map(function (x) { return x.trim(); }).filter(Boolean) : $$("[name=cities_x]:checked", f).map(function (x) { return x.value; });
         d.languages = $$("[name=languages]:checked", f).map(function (x) { return x.value; });
         d.specialties = $$("[name=specialties]:checked", f).map(function (x) { return x.value; });
         var mf = $("#ph-main").files[0]; if (mf) d.photo = await P.upload("partner-photos", p.id, await resize(mf, 1200));
         var more = [].slice.call($("#ph-more").files || []);
         for (var i = 0; i < more.length && d.photos.length < 8; i++) d.photos.push(await P.upload("partner-photos", p.id, await resize(more[i], 1600)));
+        if (p.status === "approved" || p.status === "paused") {
+          var cm = f.ch_comment.value.trim(); if (cm.length < 3) { f.ch_comment.focus(); return P.msg("#m-prof", t("chNeed"), "err"); }
+          var rq = await sb.rpc("partner_request_change", { p: d, comment: cm }); if (rq.error) throw rq.error;
+          P.msg("#m-prof", t("chSent"), "ok"); setTimeout(boot, 1500); return;
+        }
         var r = await sb.rpc("partner_save", { p: d }); if (r.error) throw r.error;
         P.msg("#m-prof", t("saved"), "ok"); setTimeout(boot, 700);
       } catch (e2) { P.msg("#m-prof", t("bad") + P.err(e2), "err"); }
@@ -230,6 +244,15 @@
     me.partner = r.data;
     if (!me.partner) { box.innerHTML = '<div class="p-card"><h2>' + t("title") + '</h2><p class="p-sub">' + esc(me.user.email) + '</p><p>' + t("notP") + '</p>' + help() + '</div>'; return; }
     var p = me.partner, h = '';
+    me.pending = null;
+    var lc = (await sb.from("partner_changes").select("*").eq("partner_id", p.id).order("created_at", { ascending: false }).limit(1)).data || [];
+    if (lc[0] && lc[0].status === "pending") me.pending = lc[0];
+    if (lc[0]) {
+      var dt = new Date(lc[0].decided_at || lc[0].created_at).toLocaleDateString();
+      if (lc[0].status === "pending") h += '<div class="p-card" style="border:2px solid #e9b949"><h3>⏳ ' + t("chPend") + ' <small>(' + dt + ')</small></h3><p class="p-sub">' + t("chYour") + ': ' + esc(lc[0].comment) + '</p></div>';
+      else if (lc[0].status === "rejected") h += '<div class="p-card" style="border:2px solid #efa5a5"><h3>❌ ' + t("chRej") + ' <small>(' + dt + ')</small></h3>' + (lc[0].admin_note ? '<p>' + esc(lc[0].admin_note) + '</p>' : '') + '</div>';
+      else if (Date.now() - new Date(lc[0].decided_at).getTime() < 7 * 864e5) h += '<div class="p-card" style="border:2px solid #9fd4b4"><h3>✅ ' + t("chOk") + ' <small>(' + dt + ')</small></h3>' + (lc[0].admin_note ? '<p>' + esc(lc[0].admin_note) + '</p>' : '') + '</div>';
+    }
     $("#pwho").textContent = p.name + " · " + t("kinds")[p.kind];
     if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2><p class="p-sub">' + t("pendingTxt") + '</p></div>' + await docsBlock() + profileForm();
     else if (p.status === "rejected") h += '<div class="p-card"><h2>' + t("rejected") + '</h2>' + (p.admin_note ? '<p>' + esc(p.admin_note) + '</p>' : '') + '</div>';

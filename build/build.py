@@ -555,7 +555,7 @@ def render_partner():
   <div class="p-top__who" id="pwho"></div><button class="btn btn--ghost btn--sm" id="plang">Русский</button><button class="btn btn--ghost btn--sm hidden" id="plogout">Chiqish</button></div></header>
 <main class="container p-main"><div id="pv"><div class="p-card">…</div></div></main>
 <script>window.MN_CFG={json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"]})};</script>
-<script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/partner.js"></script>
+<script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/mn-cities.js"></script><script src="../assets/js/partner.js"></script>
 </body></html>
 """
 
