@@ -122,7 +122,7 @@ SIGHTS = {
     "ski_shymbulak": ("almaty", "kz-ski"), "eth_huns": ("almaty", "kz-eagle"),
     "bis_city": ("bishkek", "kg-bishkek"), "bis_alaarcha": ("bishkek", "kg-alaarcha"), "bis_burana": ("bishkek", "kg-valley"),
     "iss_cholpon": ("issykkul", "kg-cholponata"), "iss_beach": ("issykkul", "kg-issykkul"), "kar_dungan": ("karakol", "kg-karakol"),
-    "kar_jeti": ("karakol", "kg-jetioguz"), "kar_arashan": ("altynarashan", "kg-arashan"), "kar_alakul": ("altynarashan", "kg-alakul"),
+    "kar_jeti": ("karakol", "kg-jetioguz"), "iss_grigor": ("issykkul", "kg-valley"), "iss_semenov": ("issykkul", "kg-horse"), "bar_gorge": ("bokonbaeva", "kg-arashan"), "kar_arashan": ("altynarashan", "kg-arashan"), "kar_alakul": ("altynarashan", "kg-alakul"),
     "bok_eagle": ("bokonbaeva", "kz-eagle"), "bok_skazka": ("bokonbaeva", "kg-skazka"), "koch_felt": ("kochkor", "kg-felt"),
     "song_lake": ("songkul", "kg-songkul"), "song_yurt": ("songkul", "kg-yurt"), "song_horse": ("songkul", "kg-horse"),
     "nar_city": ("naryn", "kg-naryn"), "tash_rabat": ("tashrabat", "kg-tashrabat"), "osh_sulaiman": ("osh", "kg-osh"),
@@ -432,10 +432,10 @@ FEATURED = [
  T("kg_classic", "KG", "kg-jetioguz", "comfort", [
    ("bishkek", [], ["bis_city"], "D"),
    ("issykkul", [["bishkek", "issykkul"]], ["bis_burana", "iss_cholpon"], "B"),
-   ("karakol", [["issykkul", "karakol"]], ["iss_beach", "kar_dungan"], "B"),
+   ("karakol", [["issykkul", "karakol"]], ["iss_grigor", "iss_semenov", "kar_dungan"], "B,L"),
    ("altynarashan", [["karakol", "altynarashan"]], ["kar_arashan"], "B,L,D"),
    ("karakol", [["altynarashan", "karakol"]], ["kar_jeti"], "B,L"),
-   ("bokonbaeva", [["karakol", "bokonbaeva"]], ["bok_skazka", "bok_eagle"], "B,D"),
+   ("bokonbaeva", [["karakol", "bokonbaeva"]], ["bar_gorge", "bok_skazka", "bok_eagle"], "B,L,D"),
    ("bishkek", [["bokonbaeva", "bishkek"]], ["bis_alaarcha"], "B"),
    (None, [], [], "B")], ["jeep", "yurt", "dinner"], bring=BRING_MOUNT, season="spring_autumn"),
 ]
