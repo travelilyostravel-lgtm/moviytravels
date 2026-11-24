@@ -36,7 +36,6 @@
       '<button type="button" class="msub__x" aria-label="×">×</button>' +
       '<div class="msub__ico" aria-hidden="true">🔔</div><h4>' + esc(T[0]) + '</h4><p>' + esc(T[1]) + '</p>' +
       '<form class="msub__f" data-noreg novalidate><input type="email" name="email" required placeholder="' + esc(T[2]) + '" autocomplete="email">' +
-      '<input type="tel" name="whatsapp" placeholder="' + esc(T[3]) + '" autocomplete="tel">' +
       '<button type="submit" class="btn btn--gold">' + esc(T[4]) + '</button><small class="msub__err" aria-live="polite"></small></form>' +
       '<small class="msub__note">' + esc(T[8]) + '</small></div>' +
     '<button type="button" class="msub__btn" aria-label="' + esc(T[0]) + '"><span aria-hidden="true">🔔</span><b>' + esc(T[7]) + '</b></button>';
@@ -49,10 +48,10 @@
   wrap.querySelector("form").onsubmit = function (e) {
     e.preventDefault(); var f = e.target, em = f.email.value.replace(/\s+/g, "").toLowerCase(), err = f.querySelector(".msub__err");
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { err.textContent = T[6]; return; }
-    var vid = get("mn_vid") || "", page = location.pathname, wa = f.whatsapp.value.trim();
+    var vid = get("mn_vid") || "", page = location.pathname;
     f.querySelector("button").disabled = true;
-    rpc("register_customer", { vid: vid, provider: "email", email: em, phone: wa, lang: L, page: page })
-      .then(function () { put("mn_cust", "1"); return rpc("track_event", { vid: vid, event: "subscribe", detail: "newsletter · " + em + (wa ? " · " + wa : ""), page: page }).catch(function () {}); })
+    rpc("register_customer", { vid: vid, provider: "email", email: em, lang: L, page: page })
+      .then(function () { put("mn_cust", "1"); return rpc("track_event", { vid: vid, event: "subscribe", detail: "newsletter · " + em, page: page }).catch(function () {}); })
       .then(function () { put("mn_sub", "1"); card.innerHTML = '<div class="msub__ok">✅ ' + esc(T[5]) + '</div>'; setTimeout(function () { wrap.remove(); }, 3500); })
       .catch(function () { f.querySelector("button").disabled = false; err.textContent = T[6]; });
   };
