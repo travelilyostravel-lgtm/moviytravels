@@ -564,7 +564,7 @@ def render_admin():
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">Bronlar</button><button data-view="agencies">Agentliklar</button><button data-view="requests">Mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button><button data-view="partners">Hamkorlar</button><button data-view="customers" data-owner="1">Mijozlar bazasi</button><button data-view="team" data-owner="1">Jamoa</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">🏢 B2B — agent bronlari</button><button data-view="agencies">Agentliklar</button><button data-view="requests">🧳 B2C — mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button><button data-view="partners">Hamkorlar</button><button data-view="customers" data-owner="1">Mijozlar bazasi</button><button data-view="team" data-owner="1">Jamoa</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
@@ -589,11 +589,11 @@ def render_admin():
   <section id="v-team" class="hidden"></section>
   <section id="v-customers" class="hidden"></section>
   <section id="v-partners" class="hidden"></section>
-  <section id="v-bookings" class="hidden"><div class="p-card"><h2>Bronlar</h2><div class="filters" id="bf"></div><div id="blist"></div></div></section>
+  <section id="v-bookings" class="hidden"><div class="p-card"><h2>🏢 B2B — agent bronlari</h2><p class="p-sub">Turagent va turoperatorlar agent portali orqali yuborgan bronlar (B2B narxlar).</p><div class="filters" id="bf"></div><div id="blist"></div></div></section>
   <section id="v-booking" class="hidden"></section>
   <section id="v-agencies" class="hidden"><div class="p-card"><h2>Agentliklar</h2><div class="filters" id="af"></div><div id="alist"></div></div></section>
   <section id="v-agency" class="hidden"></section>
-  <section id="v-requests" class="hidden"><div class="p-card"><h2>Mijoz so'rovlari (sayt: bron va xizmatlar)</h2><div class="filters" id="rf"></div><div id="rlist"></div></div></section>
+  <section id="v-requests" class="hidden"><div class="p-card"><h2>🧳 B2C — mijoz so'rovlari</h2><p class="p-sub">Sayt (moviy-travel.uz) orqali kelgan so'rovlar: turlar, xizmatlar, gidlar. Narxlar B2C.</p><div class="filters" id="rf"></div><div id="rlist"></div></div></section>
   <section id="v-request" class="hidden"></section>
   <section id="v-groups" class="hidden"><div class="p-card"><h2>Guruh sanalari (kafolatlangan reyslar)</h2><p class="p-sub">Yakka sayohatchilar uchun sanasi aniq guruh turlari: ingliz tilidagi gidlar, 50 kishigacha guruh. Saytda faqat e'lon qilingan kelgusi sanalar ko'rinadi.</p><div id="glist"></div></div></section>
   <section id="v-group" class="hidden"></section>

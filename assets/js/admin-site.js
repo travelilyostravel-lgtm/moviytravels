@@ -49,7 +49,7 @@
       ["Mehmonxona", HC[d.hotel] || d.hotel], ["Gid tili", d.guide_lang], ["To'lov usuli", PM[x.pay_method]],
       ["Hamkor (gid)", d.partner_name],
       ["Mijoz", x.contact_name], ["Telefon / WhatsApp", x.phone], ["Telegram", d.telegram], ["E-mail", x.email], ["Bog'lanish", x.messenger], ["Fuqarolik", x.citizenship], ["Izoh", x.message]];
-    var h = '<p><a href="#" id="r-back">← So\'rovlar</a></p><div class="p-card"><h2>' + esc(x.ref) + ' ' + badge(x.status) + '</h2><table class="tbl">' +
+    var h = '<p><a href="#" id="r-back">← B2C so\'rovlar</a></p><div class="p-card"><h2><span class="pill" style="background:#fff4dc;color:#8a5a00">🧳 B2C</span> ' + esc(x.ref) + ' ' + badge(x.status) + '</h2><table class="tbl">' +
       rows.filter(function (a) { return a[1] != null && a[1] !== "" && a[1] !== "—"; }).map(function (a) { return '<tr><th style="width:200px">' + esc(a[0]) + '</th><td style="white-space:pre-wrap">' + esc(a[1]) + '</td></tr>'; }).join("") + '</table>' +
       '<div class="p-actions">' + (x.phone ? '<a class="btn btn--wa btn--sm" target="_blank" rel="noopener" href="' + wa(x.phone) + '">WhatsApp\'da yozish</a>' : '') +
       (d.telegram ? '<a class="btn btn--gold btn--sm" target="_blank" rel="noopener" href="' + (/^@/.test(d.telegram) || !/^\+?[\d\s-]+$/.test(d.telegram) ? "https://t.me/" + d.telegram.replace(/^@/, "") : "https://t.me/+" + d.telegram.replace(/\D/g, "")) + '">✈ Telegram</a>' : '') + (x.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(x.email) + '">E-mail</a>' : '') + '</div></div>';
