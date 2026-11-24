@@ -189,6 +189,7 @@ def render(lang):
     <a class="logo" href="{pre}{path_for(lang)}" aria-label="Moviy Nomad">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
     <nav class="nav">{navhtml}</nav>
     <div class="header__right">
+      {pages.acct_link(lang, "")}
       <a class="agent-link" href="{pre}agent/">{e(t["agent_login"])}</a>
       <button class="hshare" data-share="site" aria-label="{e(U["share"])}" title="{e(U["share"])}">{ICON["share"]}</button>
       <div class="lang"><button class="lang__btn" aria-label="Language">{ICON["globe"]}{lang.upper()}</button><div class="lang__menu">{langs_menu}</div></div>
@@ -654,6 +655,10 @@ def main():
                "transport.html": pages.render_partners(lang, ICON, LOGO, font, names, "driver"),
                "hotels.html": pages.render_partners(lang, ICON, LOGO, font, names, "hotel"),
                "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
+               "account.html": pages.shell(lang, "account.html", pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])[0], pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])[1],
+                   pages.page_head("👤", *pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])) + '<section class="section section--tight"><div class="container"><div class="cab" id="cab" data-free data-noreg><div class="cab-loading">…</div></div></div></section>',
+                   ICON, LOGO, font, names, "is-account",
+                   '<script src="' + ("" if lang == "en" else "../") + 'assets/js/account-i18n.js?v=1"></script><script src="' + ("" if lang == "en" else "../") + 'assets/js/account.js?v=2" defer></script>'),
                "videos.html": pages.shell(lang, "videos.html", videos.MORE.get(lang, videos.MORE["en"])[2], videos.txt(lang)[3], videos.page(lang, CONFIG, ICON), ICON, LOGO, font, names, extra_js='<script src="' + ("" if lang == "en" else "../") + 'assets/js/videos.js" defer></script>'),
                "privacy.html": pages.render_legal(lang, "privacy", ICON, LOGO, font, names),
                "terms.html": pages.render_legal(lang, "terms", ICON, LOGO, font, names)}

@@ -159,6 +159,7 @@
     $$(".is-bad", form).forEach(function (el) { el.classList.remove("is-bad"); });
     var m = form.querySelector(".mf-msg");
     if (bad.length) { bad.forEach(function (el) { (el.closest(".mf-f") || el.closest(".mf-check") || el).classList.add("is-bad"); }); m.className = "mf-msg mf-msg--err"; m.textContent = G.f_required; return; }
+    if (window.MN_CHECK_CIT && !window.MN_CHECK_CIT(form)) return;
     var v = function (n) { return String((form.elements[n] || {}).value || "").trim(); };
     var dep = rows.filter(function (x) { return x.id === v("dep"); })[0];
     var btn = form.querySelector("button[type=submit]"); btn.disabled = true; m.className = "mf-msg"; m.textContent = G.f_sending;

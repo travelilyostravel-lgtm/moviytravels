@@ -32,6 +32,7 @@ function render(c: any, ev: string, lang: string, x: any) {
     doc: vurl, svc: vurl ? vurl + "&doc=services" : "", lic: C.license || "", phone: C.phone || "", email: C.email || "",
     terms: `${SITE}/${lang === "en" ? "" : lang + "/"}terms.html`, site: SITE, kind: x.kind_label || "", contact: x.contact || "",
     bank: `${C.company}\nINN ${C.inn} · ${C.bank} · MFO ${C.mfo}\nAccount (UZS): ${C.account}`,
+    cab: `${SITE}/${lang === "en" ? "" : lang + "/"}account.html`, msg: x.msg || "",
   };
   const f = (s: string) => s.replace(/\{(\w+)\}/g, (_, k) => V[k] ?? "");
   const subject = f(t[0]), text = f(t[1]);
@@ -45,6 +46,16 @@ function render(c: any, ev: string, lang: string, x: any) {
 }
 
 async function record(row: any) {
+  if (row.ref_table === "site_customers") {
+    // client cabinet letters: new message / cabinet approved / office alerts
+    const { data: c } = await sb.from("site_customers").select("*").eq("id", row.ref_id).single();
+    if (!c) return null;
+    const author = row.event === "admin_msg" ? "client" : "admin";
+    const { data: m } = await sb.from("request_messages").select("body").eq("customer_id", c.id).eq("author", author).order("created_at", { ascending: false }).limit(1);
+    const body = m && m[0] ? String(m[0].body) : "";
+    return { ref: "", name: c.name || c.email, tour: "", start_date: null, pax: "", total: 0, paid_total: 0, balance_due: null, voucher_key: null,
+      kind_label: "Mijoz kabineti", contact: [c.email, c.phone].filter(Boolean).join(", "), msg: body.length > 600 ? body.slice(0, 600) + "…" : body };
+  }
   if (row.ref_table === "site_requests") {
     const { data: r } = await sb.from("site_requests").select("*").eq("id", row.ref_id).single();
     if (!r) return null;

@@ -26,3 +26,32 @@ OFFICE = {
   "admin_new": ["🆕 Yangi so'rov/bron: {ref} — {tour}", "Yangi so'rov yoki bron keldi.\n\nRaqam: {ref}\nTur/xizmat: {tour}\nSana: {date}, {pax} kishi\nKimdan: {name} ({kind})\nAloqa: {contact}\n\nAdmin panel: {site}/admin/"],
   "admin_paid": ["💳 Agent to'lov qildim dedi: {ref}", "Agent to'lov qilganini bildirdi.\n\nRaqam: {ref}\nTur: {tour}, {date}, {pax} kishi\nAgent: {name} ({kind})\n\nPulni tekshirib, admin panelda tasdiqlang: {site}/admin/"],
 }
+
+# Client cabinet (2026-11-25). {cab} = link to the client's cabinet in his language, {msg} = the message text.
+CAB = {
+"en": {"message": ["New message from Moviy Nomad", "Dear {name},\n\nYou have a new message from Moviy Nomad in your personal cabinet:\n\n«{msg}»\n\nOpen your cabinet to read it and reply: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["Your Moviy Nomad cabinet is open", "Dear {name},\n\nYour personal cabinet on Moviy Nomad has been approved. There you can see your requests and bookings, payments, documents and vouchers, and write to us.\n\nSign in: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+"ru": {"message": ["Новое сообщение от Moviy Nomad", "Здравствуйте, {name}!\n\nВ вашем личном кабинете новое сообщение от Moviy Nomad:\n\n«{msg}»\n\nОткройте кабинет, чтобы прочитать и ответить: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["Ваш кабинет Moviy Nomad открыт", "Здравствуйте, {name}!\n\nВаш личный кабинет на Moviy Nomad подтверждён. В нём вы видите свои заявки и бронирования, оплаты, документы и ваучеры и можете написать нам.\n\nВойти: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+"uz": {"message": ["Moviy Nomad'dan yangi xabar", "Hurmatli {name},\n\nShaxsiy kabinetingizda Moviy Nomad'dan yangi xabar bor:\n\n«{msg}»\n\nO'qish va javob yozish uchun kabinetingizni oching: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["Moviy Nomad kabinetingiz ochildi", "Hurmatli {name},\n\nMoviy Nomad'dagi shaxsiy kabinetingiz tasdiqlandi. U yerda so'rov va bronlaringiz, to'lovlar, hujjatlar va vaucherlarni ko'rasiz hamda bizga yozishingiz mumkin.\n\nKirish: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+"tr": {"message": ["Moviy Nomad'dan yeni mesaj", "Sayın {name},\n\nKişisel kabininizde Moviy Nomad'dan yeni bir mesaj var:\n\n«{msg}»\n\nOkumak ve yanıtlamak için kabininizi açın: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["Moviy Nomad kabininiz açıldı", "Sayın {name},\n\nMoviy Nomad'daki kişisel kabininiz onaylandı. Orada taleplerinizi ve rezervasyonlarınızı, ödemeleri, belgeleri ve kuponları görebilir, bize yazabilirsiniz.\n\nGiriş: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+"ar": {"message": ["رسالة جديدة من Moviy Nomad", "عزيزي {name}،\n\nلديك رسالة جديدة من Moviy Nomad في حسابك الشخصي:\n\n«{msg}»\n\nافتح حسابك للقراءة والرد: {cab}\n\nMoviy Nomad — واتساب {phone} · {email}"],
+       "account_ok": ["تم فتح حسابك في Moviy Nomad", "عزيزي {name}،\n\nتمت الموافقة على حسابك الشخصي في Moviy Nomad. يمكنك فيه رؤية طلباتك وحجوزاتك والمدفوعات والمستندات والقسائم ومراسلتنا.\n\nتسجيل الدخول: {cab}\n\nMoviy Nomad — واتساب {phone} · {email}"]},
+"de": {"message": ["Neue Nachricht von Moviy Nomad", "Liebe/r {name},\n\nin Ihrem persönlichen Bereich gibt es eine neue Nachricht von Moviy Nomad:\n\n«{msg}»\n\nÖffnen Sie Ihren Bereich, um sie zu lesen und zu antworten: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["Ihr Moviy-Nomad-Bereich ist freigeschaltet", "Liebe/r {name},\n\nIhr persönlicher Bereich bei Moviy Nomad wurde freigegeben. Dort sehen Sie Ihre Anfragen und Buchungen, Zahlungen, Dokumente und Voucher und können uns schreiben.\n\nAnmelden: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+"sv": {"message": ["Nytt meddelande från Moviy Nomad", "Hej {name},\n\nDu har ett nytt meddelande från Moviy Nomad i ditt personliga konto:\n\n«{msg}»\n\nÖppna kontot för att läsa och svara: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["Ditt Moviy Nomad-konto är öppnat", "Hej {name},\n\nDitt personliga konto hos Moviy Nomad är godkänt. Där ser du dina förfrågningar och bokningar, betalningar, dokument och vouchers och kan skriva till oss.\n\nLogga in: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+"zh": {"message": ["来自 Moviy Nomad 的新消息", "尊敬的 {name}：\n\n您的个人中心有一条来自 Moviy Nomad 的新消息：\n\n«{msg}»\n\n打开个人中心阅读并回复：{cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["您的 Moviy Nomad 个人中心已开通", "尊敬的 {name}：\n\n您在 Moviy Nomad 的个人中心已通过审核。您可以在其中查看询价和预订、付款、文件和凭证，并给我们留言。\n\n登录：{cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+"hi": {"message": ["Moviy Nomad से नया संदेश", "प्रिय {name},\n\nआपके व्यक्तिगत कैबिनेट में Moviy Nomad का नया संदेश है:\n\n«{msg}»\n\nपढ़ने और जवाब देने के लिए कैबिनेट खोलें: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["आपका Moviy Nomad कैबिनेट खुल गया", "प्रिय {name},\n\nMoviy Nomad पर आपका व्यक्तिगत कैबिनेट स्वीकृत हो गया है। वहाँ आप अपने अनुरोध और बुकिंग, भुगतान, दस्तावेज़ और वाउचर देख सकते हैं और हमें लिख सकते हैं।\n\nसाइन इन: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+"ko": {"message": ["Moviy Nomad의 새 메시지", "{name}님 안녕하세요,\n\n마이페이지에 Moviy Nomad의 새 메시지가 있습니다:\n\n«{msg}»\n\n읽고 답장하려면 마이페이지를 여세요: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+       "account_ok": ["Moviy Nomad 마이페이지가 열렸습니다", "{name}님 안녕하세요,\n\nMoviy Nomad 마이페이지가 승인되었습니다. 문의와 예약, 결제, 서류와 바우처를 확인하고 저희에게 메시지를 보낼 수 있습니다.\n\n로그인: {cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]},
+}
+for _l, _v in CAB.items(): NEW.setdefault(_l, {}).update(_v)
+OFFICE.update({
+  "admin_msg": ["💬 Mijoz kabinetdan yozdi: {name}", "Mijoz shaxsiy kabinetidan yozdi.\n\nKim: {name} ({contact})\nXabar: «{msg}»\n\nJavob berish: admin panel → Mijozlar bazasi → mijoz kartochkasi\n{site}/admin/"],
+  "admin_reg": ["👤 Kabinetga ro'yxatdan o'tish so'rovi: {name}", "Saytda yangi mijoz shaxsiy kabinet ochishni so'radi.\n\nKim: {name} ({contact})\n\nTasdiqlash: admin panel → Mijozlar bazasi → \"Kabinet so'rovlari\"\n{site}/admin/"],
+})
