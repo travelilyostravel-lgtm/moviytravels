@@ -252,13 +252,6 @@ def render(lang):
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal"><span class="eyebrow">{e(t["exp_eyebrow"])}</span><h2>{e(t["exp_title"])}</h2><p>{e(t["exp_sub"])}</p></div>
-      <div class="mosaic">{mosaic}</div>
-    </div>
-  </section>
-
   <section class="section section--navy" id="why">
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(t["why_eyebrow"])}</span><h2>{e(t["why_title"])}</h2></div>
