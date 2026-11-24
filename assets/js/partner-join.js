@@ -75,16 +75,24 @@
   // ------------------------------------------------------------ step 3: send
   function msg(fm, t, cls) { var m = $(".mf-msg", fm); m.textContent = t; m.className = "mf-msg" + (cls ? " is-" + cls : ""); }
   async function resize(file, max) {
+    // 1) createImageBitmap; 2) if the phone browser can't, load it as an <img>; 3) if both fail, send the original
+    var src = null;
+    try { src = await createImageBitmap(file); } catch (e) {
+      try { src = await new Promise(function (ok, no) { var im = new Image(); im.onload = function () { ok(im); }; im.onerror = no; im.src = URL.createObjectURL(file); }); } catch (e2) { src = null; }
+    }
+    if (!src) return file;
     try {
-      var img = await createImageBitmap(file), s = Math.min(1, max / Math.max(img.width, img.height));
-      var c = document.createElement("canvas"); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
-      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      var w = src.width || src.naturalWidth, h = src.height || src.naturalHeight, s = Math.min(1, max / Math.max(w, h));
+      var c = document.createElement("canvas"); c.width = Math.round(w * s); c.height = Math.round(h * s);
+      c.getContext("2d").drawImage(src, 0, 0, c.width, c.height);
       var b = await new Promise(function (r) { c.toBlob(r, "image/webp", 0.8); });
-      return b ? new File([b], (file.name || "photo").replace(/\.\w+$/, "") + ".webp", { type: "image/webp" }) : file;
+      if (!b || b.type !== "image/webp") b = await new Promise(function (r) { c.toBlob(r, "image/jpeg", 0.82); });   // old Safari: no WebP encoder
+      return b ? new File([b], (file.name || "photo").replace(/\.\w+$/, "") + (b.type === "image/jpeg" ? ".jpg" : ".webp"), { type: b.type }) : file;
     } catch (e) { return file; }
   }
+
   async function up(tok, bucket, pid, file, tag) {
-    var path = pid + "/" + tag + "-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6) + ".webp";
+    var path = pid + "/" + tag + "-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6) + (file.type === "image/jpeg" ? ".jpg" : file.type === "image/png" ? ".png" : ".webp");
     var r = await fetch(SB.url + "/storage/v1/object/" + bucket + "/" + path, { method: "POST", headers: H(tok, { "Content-Type": file.type || "image/webp", "x-upsert": "false" }), body: file });
     if (!r.ok) throw new Error("upload " + r.status + " " + (await r.text()).slice(0, 120)); return path;
   }

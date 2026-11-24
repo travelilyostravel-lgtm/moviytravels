@@ -200,14 +200,22 @@
     return h;
   }
   async function resize(file, max) {
+    // 1) createImageBitmap; 2) if the phone browser can't, load it as an <img>; 3) if both fail, send the original
+    var src = null;
+    try { src = await createImageBitmap(file); } catch (e) {
+      try { src = await new Promise(function (ok, no) { var im = new Image(); im.onload = function () { ok(im); }; im.onerror = no; im.src = URL.createObjectURL(file); }); } catch (e2) { src = null; }
+    }
+    if (!src) return file;
     try {
-      var img = await createImageBitmap(file), s = Math.min(1, max / Math.max(img.width, img.height));
-      var c = document.createElement("canvas"); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
-      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-      var b = await new Promise(function (r) { c.toBlob(r, "image/webp", 0.85); });
-      return new File([b], (file.name || "photo").replace(/\.\w+$/, "") + ".webp", { type: "image/webp" });
+      var w = src.width || src.naturalWidth, h = src.height || src.naturalHeight, s = Math.min(1, max / Math.max(w, h));
+      var c = document.createElement("canvas"); c.width = Math.round(w * s); c.height = Math.round(h * s);
+      c.getContext("2d").drawImage(src, 0, 0, c.width, c.height);
+      var b = await new Promise(function (r) { c.toBlob(r, "image/webp", 0.8); });
+      if (!b || b.type !== "image/webp") b = await new Promise(function (r) { c.toBlob(r, "image/jpeg", 0.82); });   // old Safari: no WebP encoder
+      return b ? new File([b], (file.name || "photo").replace(/\.\w+$/, "") + (b.type === "image/jpeg" ? ".jpg" : ".webp"), { type: b.type }) : file;
     } catch (e) { return file; }
   }
+
   function bindProfile() {
     var f = $("#f-prof");
     me.rmPhotos = [];
