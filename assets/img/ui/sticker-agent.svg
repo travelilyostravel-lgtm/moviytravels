@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Moviy Nomad">
+  <!-- Original illustration: a young Uzbek man in a doppi (skullcap) with a call-centre headset -->
+  <defs>
+    <clipPath id="c"><circle cx="60" cy="60" r="60"/></clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfeaf6"/><stop offset="1" stop-color="#9fd3ea"/></linearGradient>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="120" height="120" fill="url(#bg)"/>
+    <!-- chapan (striped robe) and white shirt -->
+    <path d="M14 120c2-20 16-31 34-34h24c18 3 32 14 34 34z" fill="#12355b"/>
+    <path d="M22 120c3-15 12-25 26-29l6 29z M98 120c-3-15-12-25-26-29l-6 29z" fill="#1f5c8f"/>
+    <path d="M30 120l4-24M38 120l3-29M90 120l-4-24M82 120l-3-29" stroke="#e7b54a" stroke-width="2.2"/>
+    <path d="M48 86l12 16 12-16z" fill="#fff"/>
+    <!-- neck -->
+    <path d="M51 74h18v14c-3 4-15 4-18 0z" fill="#c98b5e"/>
+    <!-- ears -->
+    <ellipse cx="34" cy="58" rx="5" ry="7" fill="#d79a6c"/>
+    <ellipse cx="86" cy="58" rx="5" ry="7" fill="#d79a6c"/>
+    <!-- face -->
+    <path d="M36 50c0-15 11-24 24-24s24 9 24 24v8c0 15-11 25-24 25S36 73 36 58z" fill="#e0a678"/>
+    <!-- hair under the cap -->
+    <path d="M36 52c0-10 4-17 9-20 3 6 9 8 15 8s12-2 15-8c5 3 9 10 9 20v-6H36z" fill="#1d140f"/>
+    <!-- doppi: black four-sided cap with white pepper (qalampir) motifs -->
+    <path d="M35 37c2-11 12-18 25-18s23 7 25 18c-8 3-17 4-25 4s-17-1-25-4z" fill="#141414"/>
+    <path d="M35 37c8 3 17 4 25 4s17-1 25-4v4c-8 3-17 4-25 4s-17-1-25-4z" fill="#2a2a2a"/>
+    <path d="M60 20v21" stroke="#3a3a3a" stroke-width="1.2"/>
+    <path d="M45 31c2-5 6-7 6-7s1 5-1 9c-2 3-6 2-5-2zM75 31c-2-5-6-7-6-7s-1 5 1 9c2 3 6 2 5-2z" fill="#fff"/>
+    <path d="M55 28c1-4 5-6 5-6s4 2 5 6c0 3-3 5-5 5s-5-2-5-5z" fill="#fff" opacity=".95"/>
+    <!-- eyebrows, eyes, smile -->
+    <path d="M44 51c3-2 7-2 10 0M66 51c3-2 7-2 10 0" stroke="#2b1a10" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+    <circle cx="49" cy="57" r="2.6" fill="#2b1a10"/>
+    <circle cx="71" cy="57" r="2.6" fill="#2b1a10"/>
+    <path d="M60 58c-1 4-2 6 1 7" stroke="#b97a4f" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <path d="M50 69c6 6 14 6 20 0" stroke="#7a3a24" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <circle cx="44" cy="64" r="3" fill="#e98c74" opacity=".35"/>
+    <circle cx="76" cy="64" r="3" fill="#e98c74" opacity=".35"/>
+    <!-- headset: band over the cap, ear cups, microphone boom -->
+    <path d="M31 54c0-22 13-33 29-33s29 11 29 33" stroke="#0f2a46" stroke-width="3.4" fill="none"/>
+    <rect x="26" y="49" width="10" height="16" rx="4.5" fill="#0f2a46"/>
+    <rect x="84" y="49" width="10" height="16" rx="4.5" fill="#0f2a46"/>
+    <rect x="28.5" y="52" width="5" height="10" rx="2.5" fill="#e7b54a"/>
+    <path d="M31 64c1 9 8 13 18 12" stroke="#0f2a46" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <ellipse cx="51" cy="76" rx="4" ry="3" fill="#e7b54a"/>
+  </g>
+</svg>

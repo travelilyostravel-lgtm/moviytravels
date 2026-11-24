@@ -3,7 +3,7 @@
 (function () {
   var P = window.MNP, sb = P && P.sb, $ = P.$, $$ = P.$$, esc = P.esc, A = window.MNA = window.MNA || {};
   if (!sb) return;
-  var EV = { visit: "Saytga kirdi", page: "Sahifani ko'rdi", click: "Bosdi", contact: "Bog'lanish tugmasi", signin: "Ro'yxatdan o'tdi", signin_start: "Google orqali kirishni boshladi", signin_later: "\"Keyinroq\" ni bosdi", request: "So'rov / bron yubordi" };
+  var EV = { visit: "Saytga kirdi", page: "Sahifani ko'rdi", click: "Bosdi", contact: "Bog'lanish tugmasi", signin: "Ro'yxatdan o'tdi", signin_start: "Google orqali kirishni boshladi", signin_later: "\"Keyinroq\" ni bosdi", request: "So'rov / bron yubordi", subscribe: "🔔 Obuna bo'ldi", subscribe_prompt: "Obuna oynasi ko'rindi" };
   var PROV = { google: "Google", email: "E-mail", facebook: "Facebook" };
   function dt(s) { return s ? new Date(s).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—"; }
   var q = "", prov = "";

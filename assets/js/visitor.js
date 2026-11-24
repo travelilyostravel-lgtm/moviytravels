@@ -102,7 +102,8 @@
         .catch(function () { w.querySelector("#mng-e").textContent = T[10]; });
     };
   }
-  window.MN_GATE = gate; window.MNtrack = function (a, b) { try { track(a, b); } catch (e) {} };
+  window.MN_GATE = gate;
+  (function () { if (/\/(admin|agent|partner)\//.test(location.pathname)) return; var me = document.querySelector('script[src*="visitor.js"]'); if (!me) return; var sc = document.createElement("script"); sc.src = me.src.replace(/visitor\.js.*$/, "subscribe.js"); sc.defer = true; document.body.appendChild(sc); })(); window.MNtrack = function (a, b) { try { track(a, b); } catch (e) {} };
 
   // ---------------------------------------------------------------- what counts as an "action"
   function freeEl(el) {
