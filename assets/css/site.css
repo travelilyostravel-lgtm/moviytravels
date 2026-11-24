@@ -801,3 +801,26 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .jf-cities label{display:inline-flex;gap:5px;align-items:center;font-size:13px;background:#fffdf8;border:1px solid #e9dfca;border-radius:999px;padding:5px 10px;cursor:pointer}
 .jf-cities label:has(input:checked){background:#e9f3fb;border-color:#9cc3e6}
 .pt-nums{align-items:center}.pt-shr{padding:2px 9px}
+
+/* Home: agent strip above the menu (hidden after scrolling) */
+.hstrip{background:rgba(8,24,44,.55);border-bottom:1px solid rgba(255,255,255,.1);font-size:13px;color:#d6e2ef;overflow:hidden;max-height:40px;transition:max-height .25s,opacity .25s}
+.hstrip .container{display:flex;justify-content:flex-end;align-items:center;gap:14px;height:34px}
+.hstrip a{color:var(--gold);font-weight:700;white-space:nowrap}
+.hstrip a:hover{text-decoration:underline}
+.header.is-solid .hstrip{max-height:0;opacity:0;border:0}
+@media (max-width:860px){.hstrip .container{justify-content:center;gap:8px}.hstrip span{display:none}}
+
+/* Weather: smaller and more see-through so the photo stays visible */
+.wx{padding:14px 16px;border-radius:20px;background:rgba(12,36,65,.26);border-color:rgba(255,255,255,.2);backdrop-filter:blur(4px);font-size:13px;max-width:300px;justify-self:end}
+.wx__top{font-size:11px}
+.wx__city{font-size:18px;margin:8px 0 2px}
+.wx__big svg{width:36px;height:36px}
+.wx__big b{font-size:40px}.wx__big sup{font-size:13px;margin-top:4px}
+.wx__desc b{font-size:14px}
+.wx__stats{gap:6px;margin:10px 0}
+.wx__stats span{padding:6px 2px;font-size:11px;background:rgba(255,255,255,.06)}
+.wx__stats b{font-size:13px}
+.wx__cities{gap:6px}
+.wx__cities button{padding:5px 2px;background:rgba(255,255,255,.05)}
+.wx__cities small{font-size:11px}.wx__cities b{font-size:13px}
+.wx__more{margin-top:8px;padding:8px;font-size:13px;border-radius:12px}

@@ -74,6 +74,7 @@
       $("#f-register").classList.toggle("hidden", b.dataset.auth !== "register");
     };
   });
+  if (location.hash === "#register") { var rb = $('[data-auth="register"]'); if (rb) rb.click(); }
   if (!P.configured) { $("#notcfg").hidden = false; show("auth"); return; }
 
   $("#f-login").onsubmit = async function (e) {

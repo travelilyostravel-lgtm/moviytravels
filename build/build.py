@@ -12,6 +12,21 @@ import build_tours
 import pages
 
 _LD = {}
+
+# Home page: slim strip above the menu so travel agents find the B2B registration
+AGS = {
+    "en": ("Travel agent or tour operator? Special B2B rates", "Register as an agent"),
+    "ru": ("Вы турагент или туроператор? Специальные B2B-цены", "Регистрация агента"),
+    "uz": ("Turagent yoki turoperatormisiz? Maxsus B2B narxlar", "Agent bo'lib ro'yxatdan o'tish"),
+    "tr": ("Seyahat acentesi veya tur operatörü müsünüz? Özel B2B fiyatlar", "Acente olarak kaydolun"),
+    "ar": ("وكيل سفر أو منظم رحلات؟ أسعار خاصة للشركات", "سجّل كوكيل"),
+    "de": ("Reisebüro oder Reiseveranstalter? Spezielle B2B-Preise", "Als Agent registrieren"),
+    "sv": ("Resebyrå eller researrangör? Särskilda B2B-priser", "Registrera dig som agent"),
+    "zh": ("您是旅行社或旅游运营商吗？专属B2B价格", "注册成为代理商"),
+    "hi": ("ट्रैवल एजेंट या टूर ऑपरेटर हैं? विशेष B2B दरें", "एजेंट के रूप में पंजीकरण करें"),
+    "ko": ("여행사 또는 투어 운영사이신가요? B2B 특별 요금", "에이전트 등록"),
+}
+
 def LD(lang):
     """Localized tour/ui texts (falls back to English for anything not translated yet)."""
     if lang not in _LD:
@@ -154,6 +169,7 @@ def render(lang):
 </head>
 <body>
 <header class="header">
+  <div class="hstrip"><div class="container"><span>{e(AGS.get(lang, AGS["en"])[0])}</span><a href="{pre}agent/#register">{e(AGS.get(lang, AGS["en"])[1])} →</a></div></div>
   <div class="container header__bar">
     <a class="logo" href="{pre}{path_for(lang)}" aria-label="Moviy Nomad">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
     <nav class="nav">{navhtml}</nav>
