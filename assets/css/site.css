@@ -824,3 +824,6 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .wx__cities button{padding:5px 2px;background:rgba(255,255,255,.05)}
 .wx__cities small{font-size:11px}.wx__cities b{font-size:13px}
 .wx__more{margin-top:8px;padding:8px;font-size:13px;border-radius:12px}
+.hstrip a{background:var(--gold);color:var(--navy-3);padding:4px 12px;border-radius:999px;font-size:12.5px}
+.hstrip a:hover{text-decoration:none;filter:brightness(1.06)}
+.hstrip span{color:#e8eff7}
