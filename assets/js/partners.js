@@ -191,39 +191,38 @@
   function msg(f, t, k) { var m = $(".mf-msg", f); if (m) { m.className = "mf-msg" + (k ? " mf-msg--" + k : ""); m.textContent = t || ""; } }
   function v(f, n) { var el = f.elements[n]; return el ? String(el.value || "").trim() : ""; }
   function req(f) { var bad = $$("[required]", f).filter(function (el) { return el.type === "checkbox" ? !el.checked : !String(el.value || "").trim(); }); if (bad.length) { msg(f, X.f_required || "*", "err"); bad[0].focus(); return false; } return true; }
-  // tourist (B2C) or travel agent (B2B); country from the list: Uzbekistan → Telegram required, WhatsApp optional; other countries → WhatsApp required
+  // B2C portal: everyone fills the same form. Country from the list:
+  // Uzbekistan → Telegram + phone number required, e-mail optional; any other country → WhatsApp number + e-mail required
   function rqRules() {
-    var b2b = (form.querySelector("[name=segment]:checked") || {}).value === "b2b";
-    $("#rq-company").hidden = !b2b; form.elements.company.required = b2b;
-    var cc = window.MNCountries ? window.MNCountries.code(form.elements.country) : "", uz = cc === "UZ", wl = $("#rq-wa-l");
+    var cc = window.MNCountries ? window.MNCountries.code(form.elements.country) : "", uz = cc === "UZ", wl = $("#rq-wa-l"), el = $("#rq-em-l");
     $("#rq-tg").hidden = !uz; form.elements.telegram.required = uz;
-    form.elements.phone.required = !uz; wl.textContent = uz ? wl.getAttribute("data-opt") : wl.getAttribute("data-req");
+    form.elements.phone.required = true; wl.textContent = uz ? wl.getAttribute("data-opt") : wl.getAttribute("data-req");
+    form.elements.email.required = !uz; el.textContent = uz ? el.getAttribute("data-opt") : el.getAttribute("data-req");
     return cc;
   }
   if (window.MNCountries) window.MNCountries.attach(form.elements.country, LANG);
-  ["change", "input"].forEach(function (ev) { form.addEventListener(ev, function (e) { if (e.target.name === "segment" || e.target.name === "country") rqRules(); }); });
+  ["change", "input"].forEach(function (ev) { form.addEventListener(ev, function (e) { if (e.target.name === "country") rqRules(); }); });
   form.onsubmit = async function (e) {
     e.preventDefault();
-    var cc = rqRules(), b2b = (form.querySelector("[name=segment]:checked") || {}).value === "b2b";
-    if (b2b && !v(form, "company")) { msg(form, PT.rq_e_company, "err"); form.elements.company.focus(); return; }
+    var cc = rqRules();
     if (!cc) { msg(form, PT.rq_e_country, "err"); form.elements.country.focus(); return; }
     var tg = v(form, "telegram"), wa = v(form, "phone");
     if (cc === "UZ" && tg.replace(/^@/, "").length < 5) { msg(form, PT.rq_e_tg, "err"); form.elements.telegram.focus(); return; }
-    if (cc !== "UZ" && wa.replace(/\D/g, "").length < 7) { msg(form, PT.rq_e_wa, "err"); form.elements.phone.focus(); return; }
+    if (wa.replace(/\D/g, "").length < 7) { msg(form, cc === "UZ" ? PT.rq_e_phone : PT.rq_e_wa, "err"); form.elements.phone.focus(); return; }
     if (!req(form)) return; var b = $("button[type=submit]", form); b.disabled = true;
     try {
       var ref = await rpc("submit_site_request", {
         kind: "service", service: "partner", tour_id: cur.id, tour_title: (PT["k_" + cur.kind] || "") + ": " + cur.name,
-        start_date: v(form, "start_date"), pax: v(form, "pax"), contact_name: v(form, "contact_name"), email: v(form, "email"), phone: wa || (/^\+?\d[\d\s-]{6,}$/.test(tg) ? tg : ""),
-        messenger: tg ? "telegram " + tg : (wa ? "whatsapp" : ""),
+        start_date: v(form, "start_date"), pax: v(form, "pax"), contact_name: v(form, "contact_name"), email: v(form, "email"), phone: wa,
+        messenger: cc === "UZ" ? "telegram " + tg : "whatsapp",
         citizenship: window.MNCountries.name(cc, "en"), message: v(form, "message"),
-        details: { partner_id: cur.id, partner_kind: cur.kind, partner_name: cur.name, segment: b2b ? "b2b" : "b2c", company: b2b ? v(form, "company") : "", country_code: cc, telegram: tg, whatsapp: wa },
+        details: { partner_id: cur.id, partner_kind: cur.kind, partner_name: cur.name, country_code: cc, telegram: tg, whatsapp: wa },
         consent: form.elements.consent ? form.elements.consent.checked : true, lang: LANG });
       if (window.MN_TRACK) window.MN_TRACK("request", "partner " + cur.name + " " + ref);
       msg(form, (X.f_ok_title || "OK") + " — " + String(X.f_ok_text || "{ref}").replace("{ref}", ref), "ok"); form.reset(); rqRules();
     } catch (er) {
       var m = String(er && er.message || er);
-      msg(form, /whatsapp_required/.test(m) ? PT.rq_e_wa : /telegram_required/.test(m) ? PT.rq_e_tg : /country_required/.test(m) ? PT.rq_e_country : /company_required/.test(m) ? PT.rq_e_company : (X.f_err || m), "err");
+      msg(form, /whatsapp_required/.test(m) ? PT.rq_e_wa : /telegram_required/.test(m) ? PT.rq_e_tg : /phone_required/.test(m) ? PT.rq_e_phone : /country_required/.test(m) ? PT.rq_e_country : /email_required|contact_required/.test(m) ? (X.f_err || m) : (X.f_err || m), "err");
     }
     b.disabled = false;
   };

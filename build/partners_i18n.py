@@ -284,3 +284,16 @@ _S_old5 = S
 
 def S(lang):
     d = _S_old5(lang); v = RQ.get(lang) or RQ["en"]; assert len(v) == len(RQK), lang; d.update(dict(zip(RQK, v))); return d
+
+
+# ---- B2C only: phone label for Uzbekistan, e-mail optional for Uzbekistan
+RQ2 = {"en": ("Phone number", "E-mail (optional)", "Please leave your phone number."), "ru": ("Номер телефона", "E-mail (необязательно)", "Оставьте номер телефона."),
+       "uz": ("Telefon raqami", "E-mail (ixtiyoriy)", "Telefon raqamingizni qoldiring."), "tr": ("Telefon numarası", "E-posta (isteğe bağlı)", "Lütfen telefon numaranızı bırakın."),
+       "ar": ("رقم الهاتف", "البريد الإلكتروني (اختياري)", "يرجى ترك رقم هاتفك."), "de": ("Telefonnummer", "E-Mail (optional)", "Bitte hinterlassen Sie Ihre Telefonnummer."),
+       "sv": ("Telefonnummer", "E-post (valfritt)", "Lämna ditt telefonnummer."), "zh": ("电话号码", "电子邮箱（可选）", "请留下您的电话号码。"),
+       "hi": ("फ़ोन नंबर", "ई-मेल (वैकल्पिक)", "कृपया अपना फ़ोन नंबर दें।"), "ko": ("전화번호", "이메일 (선택)", "전화번호를 남겨 주세요.")}
+_S_old6 = S
+
+
+def S(lang):
+    d = _S_old6(lang); v = RQ2.get(lang, RQ2["en"]); d.update(rq_phone=v[0], rq_email_opt=v[1], rq_e_phone=v[2]); return d

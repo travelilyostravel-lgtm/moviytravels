@@ -334,17 +334,13 @@ def render_partners(lang, icon, logo, font, names, kind=""):
   <div id="pt-prof"></div>
   <form class="mf" id="pt-form" novalidate>
     <h3>{e(PT["ask"])}: <span id="pt-fname"></span></h3>
-    <div class="mf-seg" role="radiogroup" aria-label="{e(PT["rq_who"])}"><span>{e(PT["rq_who"])} *</span>
-      <label><input type="radio" name="segment" value="b2c" checked> 🧳 {e(PT["rq_tourist"])}</label>
-      <label><input type="radio" name="segment" value="b2b"> 🏢 {e(PT["rq_agent"])}</label></div>
     <div class="mf-grid">
-      <label class="mf-f mf-f--full" id="rq-company" hidden><span>{e(PT["rq_company"])} *</span><input name="company" maxlength="160" autocomplete="organization"></label>
       <label class="mf-f"><span>{e(x["f_date"])} *</span><input type="date" name="start_date" required></label>
       <label class="mf-f"><span>{e(x["f_pax"])} *</span><input type="number" name="pax" min="1" max="500" value="2" required></label>
       <label class="mf-f"><span>{e(x["f_name"])} *</span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
-      <label class="mf-f"><span>{e(x["f_email"])} *</span><input type="email" name="email" required maxlength="160" autocomplete="email"></label>
+      <label class="mf-f"><span id="rq-em-l" data-req="{e(x["f_email"])} *" data-opt="{e(PT["rq_email_opt"])}">{e(x["f_email"])} *</span><input type="email" name="email" required maxlength="160" autocomplete="email"></label>
       <label class="mf-f"><span>{e(PT["rq_country"])} *</span><input name="country" maxlength="80" placeholder="{e(PT["rq_country_ph"])}" required></label>
-      <label class="mf-f"><span id="rq-wa-l" data-req="{e(PT["rq_wa"])} *" data-opt="{e(PT["rq_wa_opt"])}">{e(PT["rq_wa"])} *</span><input type="tel" name="phone" maxlength="40" autocomplete="tel" placeholder="+"></label>
+      <label class="mf-f"><span id="rq-wa-l" data-req="{e(PT["rq_wa"])} *" data-opt="{e(PT["rq_phone"])} *">{e(PT["rq_wa"])} *</span><input type="tel" name="phone" maxlength="40" autocomplete="tel" placeholder="+"></label>
       <label class="mf-f" id="rq-tg" hidden><span>{e(PT["rq_tg"])} *</span><input name="telegram" maxlength="64" placeholder="@username"></label>
       <label class="mf-f mf-f--full"><span>{e(x["f_details"])}</span><textarea name="message" rows="3" maxlength="3000"></textarea></label>
     </div>
