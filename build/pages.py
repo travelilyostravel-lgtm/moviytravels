@@ -205,6 +205,18 @@ def nav_html(lang, base, on_home=False):
             f'<a href="{base}transport.html">{e(N["nav_transport"])}</a><a href="{base}hotels.html">{e(N["nav_hotels"])}</a>'
             + dd(x["nav_services"], svc) + f'<a href="{base}builder.html" class="nav__build">{e(t["build_nav"])}</a>' + dd(N["nav_more"], more))
 
+CAB_LINK = {"en": "My cabinet", "ru": "Мой кабинет", "uz": "Kabinetim", "tr": "Kabinim", "ar": "حسابي", "de": "Mein Bereich", "sv": "Mitt konto", "zh": "个人中心", "hi": "मेरा कैबिनेट", "ko": "마이페이지"}
+CAB_TITLE = {"en": ("My cabinet", "Your requests, bookings, payments, documents and messages — in one place."), "ru": ("Мой кабинет", "Ваши заявки, бронирования, оплаты, документы и сообщения — в одном месте."),
+  "uz": ("Mening kabinetim", "So'rov va bronlaringiz, to'lovlar, hujjatlar va xabarlar — bir joyda."), "tr": ("Kabinim", "Talepleriniz, rezervasyonlarınız, ödemeler, belgeler ve mesajlar — tek yerde."),
+  "ar": ("حسابي", "طلباتك وحجوزاتك ومدفوعاتك ومستنداتك ورسائلك — في مكان واحد."), "de": ("Mein Bereich", "Ihre Anfragen, Buchungen, Zahlungen, Dokumente und Nachrichten — an einem Ort."),
+  "sv": ("Mitt konto", "Dina förfrågningar, bokningar, betalningar, dokument och meddelanden — på ett ställe."), "zh": ("个人中心", "您的询价、预订、付款、文件和消息——集中在一处。"),
+  "hi": ("मेरा कैबिनेट", "आपके अनुरोध, बुकिंग, भुगतान, दस्तावेज़ और संदेश — एक ही जगह।"), "ko": ("마이페이지", "문의, 예약, 결제, 서류, 메시지를 한곳에서.")}
+
+def acct_link(lang, base):
+    """Header button 'My cabinet' with a red mark for unread messages (cabdot.js)."""
+    return (f'<a class="acct-link" href="{base}account.html" data-free><i class="acct-ico" aria-hidden="true">👤</i>'
+            f'<span>{e(CAB_LINK.get(lang, CAB_LINK["en"]))}</span><i class="acct-dot" hidden></i></a>')
+
 # ------------------------------------------------------------------ page shell
 def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, body_cls="", extra_js=""):
     t = T[lang]; x = X(lang); pre = "" if lang == "en" else "../"; A = pre + "assets/"
@@ -230,6 +242,7 @@ def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, bod
     <a class="logo" href="{home}" aria-label="Moviy Nomad">{logo}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
     <nav class="nav">{nav}</nav>
     <div class="header__right">
+      {acct_link(lang, home)}
       <button class="hshare" data-share="site" aria-label="Share" title="Share">{icon["share"]}</button>
       <div class="lang"><button class="lang__btn" aria-label="Language">{icon["globe"]}{lang.upper()}</button><div class="lang__menu">{langs}</div></div>
       <a class="btn btn--gold btn--sm header__cta" href="https://wa.me/{c["whatsapp"]}" target="_blank" rel="noopener">{icon["wa"]}WhatsApp</a>

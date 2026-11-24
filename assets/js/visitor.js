@@ -103,7 +103,11 @@
     };
   }
   window.MN_GATE = gate;
-  (function () { if (/\/(admin|agent|partner)\//.test(location.pathname)) return; var me = document.querySelector('script[src*="visitor.js"]'); if (!me) return; var sc = document.createElement("script"); sc.src = me.src.replace(/visitor\.js.*$/, "subscribe.js?v=3");  /* bump the number whenever subscribe.js changes (browser cache) */ sc.defer = true; document.body.appendChild(sc); })(); window.MNtrack = function (a, b) { try { track(a, b); } catch (e) {} };
+  (function () {   /* extra small scripts on public pages; bump ?v= when the file changes (browser cache) */
+    if (/\/(admin|agent|partner)\//.test(location.pathname)) return;
+    var me = document.querySelector('script[src*="visitor.js"]'); if (!me) return;
+    ["subscribe.js?v=4", "cabdot.js?v=1"].forEach(function (f) { var sc = document.createElement("script"); sc.src = me.src.replace(/visitor\.js.*$/, f); sc.defer = true; document.body.appendChild(sc); });
+  })();
 
   // ---------------------------------------------------------------- what counts as an "action"
   function freeEl(el) {
