@@ -25,10 +25,12 @@
     if (!r.error && isOwner) r.data = r.data.filter(function (x) { return A.mgrPass(x.assigned_to); });
     if (r.error) { box.innerHTML = '<div class="msg msg--err">' + esc(r.error.message) + '</div>'; return; }
     if (!r.data.length) { box.innerHTML = '<div class="empty">So\'rov yo\'q.</div>'; return; }
+    var unr = {}; ((await sb.from("request_messages").select("customer_id,request_id").eq("author", "client").is("read_at", null).limit(3000)).data || []).forEach(function (m) { unr[m.request_id || ("c" + m.customer_id)] = 1; });
+    r.data.sort(function (a, b) { var ua = unr[a.id] || unr["c" + a.customer_id] ? 1 : 0, ub = unr[b.id] || unr["c" + b.customer_id] ? 1 : 0; return ub - ua; });
     box.innerHTML = '<table class="tbl"><thead><tr><th>Raqam</th><th>Turi</th><th>Mijoz</th><th>Sana</th><th>Kishi</th><th>To\'lov</th><th>Holat</th>' + (isOwner ? '<th>Menejer</th>' : '') + '</tr></thead><tbody>' +
       r.data.map(function (x) {
         var what = x.kind === "tour" ? "🧭 " + esc(x.tour_title || x.tour_id || "Tur") : x.kind === "group" ? "👥 Guruh: " + esc(x.tour_title || "") : "🛎 " + esc(SV[x.service] || x.service || "Xizmat");
-        return '<tr class="click" data-id="' + x.id + '"><td><b>' + esc(x.ref) + '</b><br><small>' + P.date(x.created_at) + ' · ' + esc((x.lang || "").toUpperCase()) + '</small></td><td>' + what + '</td><td>' + esc(x.contact_name) + '<br><small>' + esc(x.phone || "") + (x.messenger && /telegram/.test(x.messenger) ? " · " + esc(x.messenger) : "") + (x.citizenship ? " · " + esc(x.citizenship) : "") + '</small></td><td>' + P.date(x.start_date) + '</td><td>' + (x.pax || "—") + '</td><td><small>' + (x.price_total ? P.money(x.paid_total || 0) + ' / ' + P.money(x.price_total) : esc(PM[x.pay_method] || "—")) + (x.balance_due && x.status === 'deposit_paid' ? '<br>70% muddati: ' + P.date(x.balance_due) : '') + '</small></td><td>' + badge(x.status) + '</td>' + (isOwner ? '<td><small>' + esc(A.staffName(x.assigned_to) || "— tayinlanmagan") + '</small></td>' : '') + '</tr>';
+        return '<tr class="click" data-id="' + x.id + '"><td><b>' + esc(x.ref) + '</b>' + (unr[x.id] || unr["c" + x.customer_id] ? ' <b style="color:#e53935" title="Mijoz yozdi — o\'qilmagan">🔴 xabar</b>' : '') + '<br><small>' + P.date(x.created_at) + ' · ' + esc((x.lang || "").toUpperCase()) + '</small></td><td>' + what + '</td><td>' + esc(x.contact_name) + '<br><small>' + esc(x.phone || "") + (x.messenger && /telegram/.test(x.messenger) ? " · " + esc(x.messenger) : "") + (x.citizenship ? " · " + esc(x.citizenship) : "") + '</small></td><td>' + P.date(x.start_date) + '</td><td>' + (x.pax || "—") + '</td><td><small>' + (x.price_total ? P.money(x.paid_total || 0) + ' / ' + P.money(x.price_total) : esc(PM[x.pay_method] || "—")) + (x.balance_due && x.status === 'deposit_paid' ? '<br>70% muddati: ' + P.date(x.balance_due) : '') + '</small></td><td>' + badge(x.status) + '</td>' + (isOwner ? '<td><small>' + esc(A.staffName(x.assigned_to) || "— tayinlanmagan") + '</small></td>' : '') + '</tr>';
       }).join("") + '</tbody></table>';
     $$("tr[data-id]", box).forEach(function (tr) { tr.onclick = function () { openRequest(tr.dataset.id); }; });
   };
@@ -57,20 +59,61 @@
       tr.map(function (t, i) { return '<tr><td>' + (i + 1) + '</td><td>' + esc(t.first) + '</td><td>' + esc(t.last) + '</td><td>' + esc(t.gender) + '</td><td>' + esc(t.dob) + '</td></tr>'; }).join("") + '</tbody></table></div>';
     var mgSel = A.role === "admin" && A.mgrSelect ? await A.mgrSelect(x.assigned_to, "r-mgr") : "";
     h += '<div class="p-card"><h3>Holat va izoh</h3>' + (mgSel ? '<div class="fld" style="margin-bottom:12px"><label>Menejer (kimning mijozi)</label>' + mgSel + '</div>' : (A.role === "manager" ? '' : '')) + '<div class="fld"><label>Holat</label><select id="r-st">' + Object.keys(RS).map(function (k) { return '<option value="' + k + '"' + (k === x.status ? " selected" : "") + '>' + RS[k] + '</option>'; }).join("") + '</select></div>' +
-      '<div class="fld" style="margin-top:12px"><label>Ichki izoh (mijoz ko\'rmaydi)</label><textarea id="r-note">' + esc(x.admin_note || "") + '</textarea></div><div class="msg" id="m-r"></div>' +
+      '<div class="fld" id="r-cr-w" style="margin-top:12px' + (x.status === "cancelled" ? "" : ";display:none") + '"><label>Bekor qilish sababi (mijoz kabinetida ko\'rinadi)</label><input id="r-cr" maxlength="300" value="' + esc(x.cancel_reason || "") + '" placeholder="Masalan: sanada joy qolmadi — boshqa sana tanlang"></div>' +
+      '<div class="fld" style="margin-top:12px"><label>🔒 Ichki izoh (mijoz KO\'RMAYDI)</label><textarea id="r-note">' + esc(x.admin_note || "") + '</textarea></div><div class="msg" id="m-r"></div>' +
       '<div class="p-actions"><button class="btn btn--gold btn--sm" id="r-save">Saqlash</button></div></div>';
+    h += '<div class="p-card" id="r-chat"><h3>💬 Mijozga izoh (saytda, mijoz kabinetida ko\'rinadi)</h3><div id="r-thread"><p class="p-sub">…</p></div>' +
+      '<div class="fld" style="margin-top:8px"><textarea id="r-cm" rows="3" maxlength="3000" placeholder="Mijozga yozing — u kabinetida ko\'radi va e-mail xabarnoma oladi"></textarea></div>' +
+      '<div class="p-actions"><button class="btn btn--gold btn--sm" id="r-cm-send"' + (x.customer_id ? '' : ' disabled') + '>Mijozga yuborish</button><span id="r-acct"></span></div><div class="msg" id="m-cm"></div></div>';
     h += payCard(x);
     box.innerHTML = h;
     bindPay(x, id);
     $("#r-back").onclick = function (e) { e.preventDefault(); A.requests(); };
     if ($("#r-mgr")) $("#r-mgr").onchange = async function () { var u = await sb.from("site_requests").update({ assigned_to: this.value || null }).eq("id", id); P.msg("#m-r", u.error ? u.error.message : "Menejer o'zgartirildi", u.error ? "err" : "ok"); };
+    $("#r-st").onchange = function () { $("#r-cr-w").style.display = this.value === "cancelled" ? "" : "none"; };
+    chat(x, id);
     $("#r-save").onclick = async function () {
-      var u = await sb.from("site_requests").update({ status: $("#r-st").value, admin_note: $("#r-note").value.trim() || null, updated_at: new Date().toISOString() }).eq("id", id);
+      var st = $("#r-st").value, cr = $("#r-cr").value.trim();
+      if (st === "cancelled" && !cr) return P.msg("#m-r", "Bekor qilish sababini yozing — mijoz kabinetida ko'radi va tuzatib qayta yubora oladi", "err");
+      var u = await sb.from("site_requests").update({ status: st, cancel_reason: st === "cancelled" ? cr : null, admin_note: $("#r-note").value.trim() || null, updated_at: new Date().toISOString() }).eq("id", id);
       if (u.error) return P.msg("#m-r", u.error.message, "err");
       P.msg("#m-r", "Saqlandi", "ok"); setTimeout(function () { openRequest(id); }, 500);
     };
   }
 
+
+  // ---------------------------------------------------------------- conversation with the client (request_messages, visible in the cabinet)
+  var ACST = { none: "Kabinet ochmagan", pending: "⏳ Kabinet so'rovi — tasdiqlash kerak", approved: "✅ Kabinet ochiq", blocked: "⛔ Kabinet bloklangan" };
+  function bubbles(L) {
+    if (!L.length) return '<p class="p-sub">Hali yozishma yo\'q.</p>';
+    return '<div style="display:flex;flex-direction:column;gap:6px;max-height:360px;overflow:auto">' + L.map(function (m) {
+      var me = m.author === "admin";
+      return '<div style="max-width:80%;align-self:' + (me ? "flex-end" : "flex-start") + ';background:' + (me ? "#eef3fb" : "#fff4dc") + ';border-radius:10px;padding:8px 11px"><div style="white-space:pre-wrap">' + esc(m.body) + '</div><small class="p-sub">' +
+        (me ? "Biz" : "Mijoz") + ' · ' + new Date(m.created_at).toLocaleString("ru-RU") + (me ? (m.read_at ? " · ✓✓ o'qidi" : " · ✓ yuborildi") : (m.read_at ? "" : ' · <b style="color:#e53935">🔴 yangi</b>')) + (m.request_id ? "" : " · umumiy") + '</small></div>';
+    }).join("") + '</div>';
+  }
+  async function chat(x, id) {
+    if (!x.customer_id) { $("#r-thread").innerHTML = '<p class="p-sub">Bu so\'rovda e-mail yo\'q — mijoz kartasi bog\'lanmagan, shuning uchun saytdagi yozishma ishlamaydi. WhatsApp orqali yozing.</p>'; return; }
+    var r = await sb.from("request_messages").select("*").eq("customer_id", x.customer_id).or("request_id.eq." + id + ",request_id.is.null").order("created_at");
+    $("#r-thread").innerHTML = r.error ? '<div class="msg msg--err">' + esc(r.error.message) + '</div>' : bubbles(r.data || []);
+    if ((r.data || []).some(function (m) { return m.author === "client" && !m.read_at; })) sb.rpc("staff_read", { p_customer: x.customer_id }).then(function () { A.inbox && A.inbox(); });
+    var c = await sb.from("site_customers").select("id,account_status,email").eq("id", x.customer_id).single();
+    if (c.data) {
+      var st = c.data.account_status || "none";
+      $("#r-acct").innerHTML = ' <small class="p-sub">' + ACST[st] + '</small>' + (st === "pending" ? ' <button class="btn btn--green btn--sm" id="r-acc-ok">✓ Kabinetni tasdiqlash</button>' : '') +
+        (st === "none" ? ' <small class="p-sub">(izoh e-mail bilan boradi; mijoz kabinet ochsa, saytda ham ko\'radi)</small>' : '');
+      if ($("#r-acc-ok")) $("#r-acc-ok").onclick = async function () { var u = await sb.rpc("cabinet_set_status", { p_customer: x.customer_id, p_status: "approved" }); P.msg("#m-cm", u.error ? u.error.message : "Kabinet tasdiqlandi — mijozga xat ketdi", u.error ? "err" : "ok"); chat(x, id); };
+    }
+    $("#r-cm-send").onclick = async function () {
+      var b = $("#r-cm").value.trim(); if (!b) return P.msg("#m-cm", "Matn yozing", "err");
+      this.disabled = true;
+      var u = await sb.from("request_messages").insert({ customer_id: x.customer_id, request_id: id, author: "admin", body: b });
+      this.disabled = false;
+      if (u.error) return P.msg("#m-cm", u.error.message, "err");
+      $("#r-cm").value = ""; P.msg("#m-cm", "Yuborildi — mijoz kabinetida 🔴 belgisi bilan ko'radi va e-mail oladi", "ok"); chat(x, id);
+    };
+  }
+  A.bubbles = bubbles;
 
   // ---------------------------------------------------------------- payments (30% / 70%) and voucher
   function addDays(d, n) { var t = new Date(d + "T12:00:00"); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); }
@@ -80,10 +123,14 @@
   var MTN = { confirm: "Bron tasdiqlandi — 30% to'lang", received: "To'lov qabul qilindi (+ hujjat)", reminder: "Eslatma: qolgan to'lov muddati yaqin", final: "Oxirgi eslatma (48 soat)", voucher: "Vaucherlar tayyor (to'liq to'langan)", cancel: "Bron bekor qilindi" };
   var SK = { meet: "Kutib olish", transfer: "Transfer / transport", train: "Poyezd", flight: "Avia", hotel: "Mehmonxona", guide: "Gid", excursion: "Ekskursiya / chipta", meal: "Ovqat", other: "Boshqa" };
   var TRAIN = { "bukhara-samarkand": 1, "samarkand-bukhara": 1, "samarkand-tashkent": 1, "tashkent-samarkand": 1, "bukhara-tashkent": 1, "tashkent-bukhara": 1 };
+  // less than 14 days before the start -> the whole price at once; otherwise 30% deposit
+  function fullNow(x) { return !!x.start_date && addDays(x.start_date, -14) <= new Date().toISOString().slice(0, 10); }
+  function depOf(x) { var tot = +x.price_total || 0; return fullNow(x) ? tot : Math.round(tot * 0.3); }
   function suggest(x) {
-    var tot = +x.price_total || 0, paid = +x.paid_total || 0;
+    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = depOf(x);
     if (x.status === "cancelled") return "cancel";
     if (tot && paid >= tot - 0.5) return "voucher";
+    if (paid > 0 && paid < dep - 0.5) return "received";   // deposit not complete yet: no "final reminder"
     if (paid > 0) { var dd = x.balance_due ? (new Date(x.balance_due) - new Date()) / 864e5 : 99; return dd < 0 ? "final" : dd <= 10 ? "reminder" : "received"; }
     return "confirm";
   }
@@ -91,7 +138,7 @@
   function vurlL(x, svc) { return vurl(x) + "&lang=" + docLang(x) + (svc ? "&doc=services" : ""); }
   function fillMsg(x, key) {
     var lang = docLang(x), T = window.MN_MSG[lang] || window.MN_MSG.en, t = T[key], C = window.MN_CO || {};
-    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = Math.round(tot * 0.3), left = Math.max(0, tot - paid);
+    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = depOf(x), left = Math.max(0, tot - paid);
     var m = function (n) { return P.money(n); };
     var leftTxt = left > 0 ? T.w.bal + ": " + m(left) + (x.balance_due ? " — " + T.w.by + " " + P.date(x.balance_due) : "") : T.w.full;
     var V = { ref: x.ref, name: x.contact_name || "", tour: x.tour_title || x.tour_id || "", date: x.start_date ? P.date(x.start_date) : "", pax: x.pax || "",
@@ -137,13 +184,13 @@
   }
 
   function payCard(x) {
-    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = Math.round(tot * 0.3), left = Math.max(0, tot - paid), due = x.balance_due || (x.start_date ? addDays(x.start_date, -14) : "");
+    var tot = +x.price_total || 0, paid = +x.paid_total || 0, dep = depOf(x), left = Math.max(0, tot - paid), due = x.balance_due || (x.start_date ? addDays(x.start_date, -14) : "");
     var est = (x.details && x.details.est_total) || "", full = tot && paid >= tot - 0.5, lang = docLang(x);
     var step = function (n, on, head, txt) { return '<div style="display:flex;gap:12px;margin:16px 0;opacity:' + (on ? 1 : .45) + '"><b style="flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:' + (on ? "var(--gold)" : "#ddd") + '">' + n + '</b><div style="flex:1;min-width:0"><b>' + head + '</b><div style="margin-top:6px">' + txt + '</div></div></div>'; };
     var h = '<div class="p-card" id="pay-card"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><h3 style="margin:0">To\'lov, hujjatlar va xabarlar</h3>' +
       '<label style="display:flex;gap:6px;align-items:center"><b>Hujjat va xabar tili:</b> <select id="p-lang">' + Object.keys(window.MN_LANGS).map(function (k) { return '<option value="' + k + '"' + (k === lang ? " selected" : "") + '>' + window.MN_LANGS[k] + '</option>'; }).join("") + '</select></label></div>';
     h += step(1, true, "Tur narxi (USD)", '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><input type="number" min="0" step="1" id="p-total" style="width:140px" value="' + (tot || est) + '"> <button class="btn btn--gold btn--sm" id="p-save-total">Saqlash</button>' +
-      (tot ? '<small>30% = <b>' + P.money(dep) + '</b> (3 ish kunida) · 70% = <b>' + P.money(tot - dep) + '</b>' + (due ? ' (' + P.date(due) + ' gacha)' : '') + '</small>' : '') + '</div>');
+      (tot ? (fullNow(x) ? '<small style="color:#c8553d">⚠ Sayohatgacha 14 kundan kam: <b>100% = ' + P.money(tot) + '</b> darhol to\'lanadi</small>' : '<small>30% = <b>' + P.money(dep) + '</b> (3 ish kunida) · 70% = <b>' + P.money(tot - dep) + '</b>' + (due ? ' (' + P.date(due) + ' gacha)' : '') + '</small>') : '') + '</div>');
     var nextAmt = paid < dep ? dep - paid : left;
     h += step(2, !!tot, "To'lov tushdi — summani yozing", tot ? (
       '<div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap"><div class="fld"><label>Valyuta</label><select id="p-cur"><option value="UZS">so\'m (UZS)</option><option value="USD">USD</option><option value="EUR">EUR</option></select></div>' +
@@ -173,14 +220,14 @@
   }
   function bindPay(x, id) {
     if (window.MN_AUTOLOG) window.MN_AUTOLOG(id, $("#auto-log"));
-    var tot = +x.price_total || 0, paid0 = +x.paid_total || 0, dep = Math.round(tot * 0.3), nextAmt = paid0 < dep ? dep - paid0 : Math.max(0, tot - paid0);
+    var tot = +x.price_total || 0, paid0 = +x.paid_total || 0, dep = depOf(x), nextAmt = paid0 < dep ? dep - paid0 : Math.max(0, tot - paid0);
     async function save(patch) { patch.updated_at = new Date().toISOString(); var u = await sb.from("site_requests").update(patch).eq("id", id); if (u.error) { P.msg("#m-p", u.error.message, "err"); return false; } return true; }
     var b;
     $("#p-lang").onchange = function () { x._lang = this.value; var y = Object.assign({}, x); box_refresh(); };
     function box_refresh() { var card = $("#pay-card"); var tmp = document.createElement("div"); tmp.innerHTML = payCard(x); card.replaceWith(tmp.firstChild); bindPay(x, id); }
     if ((b = $("#p-save-total"))) b.onclick = async function () {
       var v = +$("#p-total").value; if (!(v > 0)) return P.msg("#m-p", "Narxni kiriting", "err");
-      if (await save({ price_total: v, balance_due: x.start_date ? addDays(x.start_date, -14) : null, status: ["new", "in_progress"].indexOf(x.status) > -1 ? "awaiting_payment" : x.status })) openRequest(id);
+      if (await save({ price_total: v, balance_due: x.start_date ? (fullNow(x) ? new Date().toISOString().slice(0, 10) : addDays(x.start_date, -14)) : null, status: ["new", "in_progress"].indexOf(x.status) > -1 ? "awaiting_payment" : x.status })) openRequest(id);
     };
     // currency + CBU rate
     async function setRate() {

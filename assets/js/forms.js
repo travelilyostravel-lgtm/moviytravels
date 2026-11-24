@@ -26,6 +26,32 @@
     return true;
   }
   function val(form, n) { var el = form.elements[n]; return el ? String(el.value || "").trim() : ""; }
+  // ---- extra checks: citizenship from the list, birth dates, no duplicate travellers, trip-date warning
+  var V = {
+    en: ["Choose the citizenship from the list.", "Enter first name, last name and date of birth for every traveller.", "Check the date of birth.", "This traveller is listed twice.", "Less than 14 days before the trip: the full price is paid at once after confirmation."],
+    ru: ["Выберите гражданство из списка.", "Укажите имя, фамилию и дату рождения каждого путешественника.", "Проверьте дату рождения.", "Этот путешественник указан дважды.", "До поездки меньше 14 дней: после подтверждения оплачивается вся сумма сразу."],
+    uz: ["Fuqarolikni ro'yxatdan tanlang.", "Har bir sayohatchining ismi, familiyasi va tug'ilgan sanasini kiriting.", "Tug'ilgan sanani tekshiring.", "Bu sayohatchi ikki marta yozilgan.", "Sayohatgacha 14 kundan kam: tasdiqlangandan keyin butun summa birdaniga to'lanadi."],
+    tr: ["Vatandaşlığı listeden seçin.", "Her yolcu için ad, soyad ve doğum tarihi girin.", "Doğum tarihini kontrol edin.", "Bu yolcu iki kez yazılmış.", "Seyahate 14 günden az: onaydan sonra tutarın tamamı tek seferde ödenir."],
+    ar: ["اختر الجنسية من القائمة.", "أدخل الاسم واللقب وتاريخ الميلاد لكل مسافر.", "تحقق من تاريخ الميلاد.", "هذا المسافر مكتوب مرتين.", "أقل من 14 يومًا قبل الرحلة: يُدفع المبلغ كاملًا بعد التأكيد."],
+    de: ["Wählen Sie die Staatsangehörigkeit aus der Liste.", "Vorname, Nachname und Geburtsdatum für jeden Reisenden angeben.", "Geburtsdatum prüfen.", "Dieser Reisende steht doppelt in der Liste.", "Weniger als 14 Tage vor der Reise: der volle Preis wird nach Bestätigung sofort gezahlt."],
+    sv: ["Välj medborgarskap från listan.", "Ange förnamn, efternamn och födelsedatum för varje resenär.", "Kontrollera födelsedatumet.", "Denna resenär finns två gånger.", "Mindre än 14 dagar före resan: hela priset betalas direkt efter bekräftelse."],
+    zh: ["请从列表中选择国籍。", "请填写每位旅客的名、姓和出生日期。", "请检查出生日期。", "该旅客重复填写。", "距出发不足 14 天：确认后需一次性付清全款。"],
+    hi: ["सूची से नागरिकता चुनें।", "हर यात्री का नाम, उपनाम और जन्म तिथि लिखें।", "जन्म तिथि जाँचें।", "यह यात्री दो बार लिखा है।", "यात्रा में 14 दिन से कम: पुष्टि के बाद पूरी राशि एक साथ चुकाई जाती है।"],
+    ko: ["목록에서 국적을 선택하세요.", "모든 여행자의 이름, 성, 생년월일을 입력하세요.", "생년월일을 확인하세요.", "이 여행자가 두 번 입력되었습니다.", "출발까지 14일 미만: 확정 후 전액을 한 번에 결제합니다."]
+  }[LANG] || null;
+  if (!V) V = ["Choose the citizenship from the list.", "Enter first name, last name and date of birth for every traveller.", "Check the date of birth.", "This traveller is listed twice.", "Less than 14 days before the trip: the full price is paid at once after confirmation."];
+  var cits = $$('input[name="citizenship"]');
+  if (cits.length) {
+    var go = function () { cits.forEach(function (i) { window.MNCountries.attach(i, LANG); }); };
+    if (window.MNCountries) go(); else { var me = $('script[src*="forms.js"]'); if (me) { var sc = document.createElement("script"); sc.src = me.src.replace(/forms\.js.*$/, "mn-countries.js"); sc.onload = go; document.head.appendChild(sc); } }
+  }
+  function bad(el, text, form) { (el.closest(".mf-f") || el).classList.add("is-bad"); msg(form, text, "err"); el.focus(); return false; }
+  function checkCitizenship(form) {
+    var el = form.elements.citizenship; if (!el || !window.MNCountries || !String(el.value || "").trim()) return true;
+    var c = window.MNCountries.code(el); if (c) { el.value = window.MNCountries.name(c, LANG); return true; }
+    return bad(el, V[0], form);
+  }
+  window.MN_CHECK_CIT = checkCitizenship;
   function busy(form, on, label) { var b = $("button[type=submit]", form); if (!b) return; if (on) { b.dataset.t = b.textContent; b.textContent = label || X.f_sending; } else if (b.dataset.t) b.textContent = b.dataset.t; b.disabled = !!on; }
   function niceErr(e) { var m = String(e && e.message || e); return /too_many/.test(m) ? X.f_err : X.f_err; }
 
@@ -48,7 +74,7 @@
     $$("[data-svc]").forEach(function (b) { b.onclick = function () { openSvc(b.getAttribute("data-svc")); }; });
     sf.elements.service.onchange = function () { $("#svc-title").textContent = (X.services || {})[sf.elements.service.value] || ""; };
     sf.onsubmit = async function (ev) {
-      ev.preventDefault(); if (!check(sf)) return;
+      ev.preventDefault(); if (!check(sf) || !checkCitizenship(sf)) return;
       busy(sf, true);
       try {
         var ref = await rpc("submit_site_request", {
@@ -72,7 +98,7 @@
         '<label class="mf-f"><span>' + esc(X.bk_first) + ' *</span><input data-k="first" required maxlength="60" autocomplete="off"></label>' +
         '<label class="mf-f"><span>' + esc(X.bk_last) + ' *</span><input data-k="last" required maxlength="60" autocomplete="off"></label>' +
         '<label class="mf-f mf-f--s"><span>' + esc(X.bk_gender) + '</span><select data-k="gender"><option value="M">' + esc(X.bk_m) + '</option><option value="F">' + esc(X.bk_f) + '</option></select></label>' +
-        '<label class="mf-f mf-f--s"><span>' + esc(X.bk_dob) + '</span><input type="date" data-k="dob"></label>' +
+        '<label class="mf-f mf-f--s"><span>' + esc(X.bk_dob) + ' *</span><input type="date" data-k="dob" required min="1920-01-01" max="' + new Date().toISOString().slice(0, 10) + '"></label>' +
         '<button type="button" class="trav__rm" aria-label="' + esc(X.bk_remove) + '" title="' + esc(X.bk_remove) + '">×</button>';
       list.appendChild(d); renumber();
     }
@@ -91,6 +117,26 @@
     var q = new URLSearchParams(location.search).get("tour");
     if (q && $('option[value="' + CSS.escape(q) + '"]', bf.elements.tour_id)) bf.elements.tour_id.value = q;
     var today = new Date(); today.setDate(today.getDate() + 3); bf.elements.start_date.min = today.toISOString().slice(0, 10);
+    var near = document.createElement("p"); near.className = "mf-near"; near.hidden = true; near.style.cssText = "background:#fff4e0;border-radius:8px;padding:8px 12px;font-size:14px;margin:6px 0";
+    near.textContent = "⚠ " + V[4]; var sd = bf.elements.start_date; (sd.closest(".mf-f") || sd).after(near);
+    sd.addEventListener("change", function () { var t = new Date(); t.setDate(t.getDate() + 14); near.hidden = !sd.value || sd.value > t.toISOString().slice(0, 10); });
+    // "Correct and send again" from the client cabinet: fill the form with the cancelled request
+    if (/[?&]resubmit=/.test(location.search)) {
+      try {
+        var R = JSON.parse(sessionStorage.getItem("mn_resubmit") || "null");
+        if (R) {
+          var setv = function (n, v) { if (bf.elements[n] && v != null && v !== "") bf.elements[n].value = v; };
+          if (R.tour_id && $('option[value="' + CSS.escape(R.tour_id) + '"]', bf.elements.tour_id)) bf.elements.tour_id.value = R.tour_id;
+          setv("adults", R.adults); setv("children", R.children); setv("hotel", R.hotel); setv("guide_lang", R.guide_lang);
+          setv("contact_name", R.contact_name); setv("email", R.email); setv("phone", R.phone); setv("citizenship", R.citizenship);
+          setv("message", R.message ? "(" + R.ref + ") " + R.message : "(" + R.ref + ")");
+          if (R.start_date && R.start_date >= sd.min) sd.value = R.start_date;
+          list.innerHTML = ""; (R.travellers || []).forEach(function (t) { travRow(); var r = $$(".trav", list).pop(); ["first", "last", "gender", "dob"].forEach(function (k) { var i = $('[data-k="' + k + '"]', r); if (i && t[k]) i.value = t[k]; }); });
+          syncRows(); sd.dispatchEvent(new Event("change")); sessionStorage.removeItem("mn_resubmit");
+          setTimeout(function () { bf.scrollIntoView({ behavior: "smooth" }); }, 300);
+        }
+      } catch (e) {}
+    }
     // Online booking + payment can be switched on from the admin panel (Narxlar → "Onlayn bron va to'lov yoqilgan").
     // While it is off, the page works as a request form: payment options are shown as "coming soon".
     var online = false;
@@ -111,6 +157,15 @@
 
     bf.onsubmit = async function (ev) {
       ev.preventDefault(); if (!check(bf)) return;
+      if (!checkCitizenship(bf)) return;
+      var seen = {}, rows = $$(".trav", list), today0 = new Date().toISOString().slice(0, 10);
+      for (var ri = 0; ri < rows.length; ri++) {
+        var g = function (k) { return $('[data-k="' + k + '"]', rows[ri]); };
+        if (!g("first").value.trim() || !g("last").value.trim() || !g("dob").value) return bad(!g("first").value.trim() ? g("first") : !g("last").value.trim() ? g("last") : g("dob"), V[1], bf);
+        var dob = g("dob").value; if (dob < "1920-01-01" || dob > today0) return bad(g("dob"), V[2], bf);
+        var key = (g("first").value + "|" + g("last").value + "|" + dob).toLowerCase().replace(/\s+/g, " ").trim();
+        if (seen[key]) return bad(g("first"), V[3], bf); seen[key] = 1;
+      }
       var opt = bf.elements.tour_id.selectedOptions[0];
       var pm = online ? ((bf.querySelector("input[name=pay_method]:checked") || {}).value || "contact") : "contact";
       var trav = $$(".trav", list).map(function (r) { var o = {}; $$("[data-k]", r).forEach(function (i) { o[i.dataset.k] = i.value.trim(); }); return o; });
