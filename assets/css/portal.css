@@ -178,3 +178,4 @@ body.portal{background:var(--sand);min-height:100vh}
 .pgal{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}.pgal span{position:relative}.pgal img{width:90px;height:90px;object-fit:cover;border-radius:10px}
 .pgal button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:#c8553d;color:#fff;cursor:pointer}
 .pdocs{margin:0 0 10px;padding-left:4px;list-style:none}
+.rseg button{font-size:14px;padding:9px 16px}.rseg button.is-on{background:var(--navy);color:#fff;border-color:var(--navy)}

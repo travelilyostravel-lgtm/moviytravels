@@ -3,7 +3,7 @@
   var P = window.MNP, sb = P.sb, $ = P.$, $$ = P.$$, esc = P.esc, A = window.MNA = window.MNA || {};
   if (!sb) return;
   var RS = { new: "Yangi", in_progress: "Ishlanmoqda", awaiting_payment: "30% kutilmoqda", deposit_paid: "30% to'landi, 70% kutilmoqda", paid: "100% to'landi", confirmed: "Tasdiqlandi", closed: "Yopildi", cancelled: "Bekor" };
-  var SV = { airport: "Aeroportda haydovchi kutib oladi", airport_guide: "Aeroportda gid kutib oladi", transfer: "Transfer", car: "Haydovchili transport", hotel: "Mehmonxona", train: "Poyezd chiptasi", guide: "Gid", mice: "Guruh / MICE", esim: "eSIM" };
+  var SV = { airport: "Aeroportda haydovchi kutib oladi", airport_guide: "Aeroportda gid kutib oladi", transfer: "Transfer", car: "Haydovchili transport", hotel: "Mehmonxona", train: "Poyezd chiptasi", guide: "Gid", mice: "Guruh / MICE", esim: "eSIM", partner: "Gid / hamkorga so'rov" };
   var HC = { comfort: "Komfort 3★", superior: "Superior 4★", boutique: "Butik va tarixiy" };
   var PM = { bank: "Bank o'tkazmasi", card: "Karta havolasi", contact: "Avval bog'lanish" };
   var rFilter = "open", pFilter = "pending";
@@ -18,7 +18,7 @@
     $("#rf").innerHTML = F.map(function (f) { return '<button data-f="' + f[0] + '" class="' + (f[0] === rFilter ? "is-on" : "") + '">' + f[1] + '</button>'; }).join("");
     $$("#rf button").forEach(function (b) { b.onclick = function () { rFilter = b.dataset.f; A.requests(); }; });
     // B2C (tourists) / B2B (travel agents) — chosen by the visitor in the guide/partner request form
-    var sh = $("#rseg"); if (!sh) { sh = document.createElement("div"); sh.id = "rseg"; sh.className = "seg"; sh.style.margin = "0 0 10px"; $("#rf").before(sh); }
+    var sh = $("#rseg"); if (!sh) { sh = document.createElement("div"); sh.id = "rseg"; sh.className = "filters rseg"; sh.style.margin = "0 0 10px"; $("#rf").before(sh); }
     var cnt = await Promise.all(["b2c", "b2b"].map(function (g) { return sb.from("site_requests").select("id", { count: "exact", head: true }).eq("segment", g).not("status", "in", "(closed,cancelled,confirmed)"); }));
     sh.innerHTML = [["all", "Hammasi"], ["b2c", "🧳 B2C — turistlar (" + (cnt[0].count || 0) + " ochiq)"], ["b2b", "🏢 B2B — agentlar (" + (cnt[1].count || 0) + " ochiq)"]].map(function (g) { return '<button data-seg="' + g[0] + '" class="' + (g[0] === rSeg ? "is-on" : "") + '">' + g[1] + '</button>'; }).join("");
     $$("#rseg button").forEach(function (b) { b.onclick = function () { rSeg = b.dataset.seg; A.requests(); }; });
