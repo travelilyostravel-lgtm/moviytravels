@@ -654,6 +654,7 @@ def main():
                "transport.html": pages.render_partners(lang, ICON, LOGO, font, names, "driver"),
                "hotels.html": pages.render_partners(lang, ICON, LOGO, font, names, "hotel"),
                "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
+               "videos.html": pages.shell(lang, "videos.html", videos.MORE.get(lang, videos.MORE["en"])[2], videos.txt(lang)[3], videos.page(lang, CONFIG, ICON), ICON, LOGO, font, names, extra_js='<script src="' + ("" if lang == "en" else "../") + 'assets/js/videos.js" defer></script>'),
                "privacy.html": pages.render_legal(lang, "privacy", ICON, LOGO, font, names),
                "terms.html": pages.render_legal(lang, "terms", ICON, LOGO, font, names)}
         for fn, h in out.items():

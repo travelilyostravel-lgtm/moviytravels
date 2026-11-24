@@ -61,6 +61,20 @@ L = {
  'hi': ('उज़्बेकिस्तान के बारे में और जानें', 'वीडियो', 'वीडियो में उज़्बेकिस्तान देखें', 'शहरों, संस्कृति और प्रकृति पर छोटी फ़िल्में — यात्रा से पहले देखें।', ('सभी', 'परिचय', 'शहर', 'पहाड़ और रेगिस्तान', 'खाना, फल और बाज़ार', 'संस्कृति और परंपराएँ'), 'वीडियो उज़्बेकिस्तान पर्यटन समिति के आधिकारिक चैनल और अंतरराष्ट्रीय मीडिया (Euronews, BBC, Insider, Eater) से', 'YouTube पर देखें', 'पसंद आया? टूर के बारे में पूछें'),
  'ko': ('우즈베키스탄 더 알아보기', '영상', '영상으로 만나는 우즈베키스탄', '도시, 문화, 자연에 관한 짧은 영상 — 여행 전에 보세요.', ('전체', '개요', '도시', '산과 사막', '음식·과일·시장', '문화와 전통'), '우즈베키스탄 관광위원회 공식 채널 및 국제 언론(Euronews, BBC, Insider, Eater) 영상', 'YouTube에서 보기', '마음에 드셨나요? 투어를 문의하세요'),
 }
+MORE = {
+ "en": ("All videos", "See all {n} videos", "Videos about Uzbekistan", "Liked a place? Ask us about a tour", "Subscribe to new videos and tours"),
+ "ru": ("Все видео", "Смотреть все {n} видео", "Видео об Узбекистане", "Понравилось место? Спросите нас о туре", "Подписаться на новые видео и туры"),
+ "uz": ("Barcha videolar", "Barcha {n} ta videoni ko'rish", "O'zbekiston haqida videolar", "Joy yoqdimi? Tur haqida bizga yozing", "Yangi video va turlarga obuna bo'lish"),
+ "tr": ("Tüm videolar", "{n} videonun tümünü gör", "Özbekistan videoları", "Bir yeri beğendiniz mi? Tur için bize yazın", "Yeni video ve turlara abone olun"),
+ "ar": ("كل الفيديوهات", "شاهد كل الفيديوهات ({n})", "فيديوهات عن أوزبكستان", "أعجبك مكان؟ اسألنا عن جولة", "اشترك لتصلك الفيديوهات والجولات الجديدة"),
+ "de": ("Alle Videos", "Alle {n} Videos ansehen", "Videos über Usbekistan", "Ein Ort gefällt Ihnen? Fragen Sie nach einer Tour", "Neue Videos und Touren abonnieren"),
+ "sv": ("Alla videor", "Se alla {n} videor", "Videor om Uzbekistan", "Gillade du en plats? Fråga oss om en resa", "Prenumerera på nya videor och resor"),
+ "zh": ("全部视频", "查看全部 {n} 个视频", "乌兹别克斯坦视频", "喜欢某个地方？向我们咨询行程", "订阅新视频和新线路"),
+ "hi": ("सभी वीडियो", "सभी {n} वीडियो देखें", "उज़्बेकिस्तान के वीडियो", "कोई जगह पसंद आई? टूर के बारे में पूछें", "नए वीडियो और टूर की सदस्यता लें"),
+ "ko": ("모든 영상", "영상 {n}개 모두 보기", "우즈베키스탄 영상", "마음에 드는 곳이 있나요? 투어를 문의하세요", "새 영상과 투어 구독하기"),
+}
+HOME_LIMIT = 6
+
 CATS = ("all", "overview", "cities", "nature", "food", "culture")
 
 def txt(lang):
@@ -69,7 +83,7 @@ def txt(lang):
 def hero_button(lang):
     return f'<a class="btn btn--video" href="#videos"><span aria-hidden="true">▶</span>{e(txt(lang)[0])}</a>'
 
-def section(lang, own_channel=""):
+def section(lang, own_channel="", home=True, contact=""):
     b, eyebrow, title, sub, cats, note, watch, ask = txt(lang)
     chips = "".join(f'<button type="button" class="vtab{" is-on" if c == "all" else ""}" data-vcat="{c}">{e(n)}</button>' for c, n in zip(CATS, cats))
     def dur(sec):
@@ -78,15 +92,37 @@ def section(lang, own_channel=""):
         f'<figure class="vcard" data-cat="{c}" data-free><button type="button" class="vcard__play" data-yt="{alt.get(lang, vid)}" aria-label="▶ {e(t)}">'
         f'<img src="https://i.ytimg.com/vi/{alt.get(lang, vid)}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><i aria-hidden="true">▶</i><b class="vcard__dur">{dur(sec)}</b></button>'
         f'<figcaption>{e(t)}<small>{e(src)}</small></figcaption></figure>' for vid, c, t, src, sec, alt in VIDEOS)
+    M = MORE.get(lang, MORE["en"])
+    if home:
+        # "All" tab on the home page: first 6 videos + a tile that opens the separate video page
+        idx = [0]
+        def lim(m):
+            idx[0] += 1
+            return m.group(0) if idx[0] <= HOME_LIMIT else m.group(0).replace('data-free>', 'data-free data-over hidden>', 1)
+        import re as _re
+        cards = _re.sub(r'<figure class="vcard"[^>]*>', lim, cards)
+        cards += (f'<a class="vmore" href="videos.html" data-free><span class="vmore__ico" aria-hidden="true">▶</span>'
+                  f'<b>{e(M[1].replace("{n}", str(len(VIDEOS))))}</b><i aria-hidden="true">→</i></a>')
     own = f' · <a href="{e(own_channel)}" target="_blank" rel="noopener">Moviy Nomad YouTube</a>' if own_channel else ""
     return f'''
-  <section class="section section--sand" id="videos">
+  <section class="section section--sand{"" if home else " vpage"}" id="videos"{"" if home else " data-sub-trigger"}>
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(eyebrow)}</span><h2>{e(title)}</h2><p>{e(sub)}</p></div>
       <div class="vtabs" role="tablist" data-free>{chips}</div>
-      <div class="vgrid">{cards}</div>
+      <div class="vgrid" data-home="{1 if home else 0}">{cards}</div>
       <p class="vnote">{e(note)} · <a href="{CHANNEL}" target="_blank" rel="noopener">{e(watch)} →</a>{own}</p>
-      <p class="vask"><a class="btn btn--gold" href="#contact-us">{e(ask)} →</a></p>
+      <p class="vask">{('<a class="btn btn--gold" href="#contact-us">' + e(ask) + ' →</a>') if home else contact}</p>
     </div>
   </section>
 '''
+
+
+def page(lang, cfg, icon):
+    """Separate page with ONLY the videos (+ contact / subscribe), no other site sections."""
+    b, eyebrow, title, sub, cats, note, watch, ask = txt(lang)
+    M = MORE.get(lang, MORE["en"])
+    contact = (f'<a class="btn btn--wa" href="https://wa.me/{cfg["whatsapp"]}" target="_blank" rel="noopener">{icon["wa"]}WhatsApp</a> '
+               f'<a class="btn btn--tg" href="https://t.me/{cfg["telegram"]}" target="_blank" rel="noopener">{icon["tg"]}Telegram</a> '
+               f'<button type="button" class="btn btn--outline" data-sub-open data-free>🔔 {e(M[4])}</button>'
+               f'<span class="vask__lead">{e(M[3])}</span>')
+    return section(lang, cfg.get("youtube", ""), home=False, contact=contact)

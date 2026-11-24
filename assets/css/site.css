@@ -939,3 +939,13 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .msub__ok{padding:14px 4px;font-weight:600;color:var(--navy,#12355b)}
 @keyframes msubIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media (max-width:640px){.msub{inset-inline-end:12px;bottom:88px}.msub__btn b{display:none}.msub__btn{padding:12px}}
+/* "see all videos" tile on the home page + video-only page */
+.vmore{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:220px;border-radius:16px;background:linear-gradient(135deg,var(--navy,#12355b),#1f5c8f);color:#fff;text-align:center;padding:24px;box-shadow:0 6px 20px rgba(18,53,91,.15);transition:transform .25s}
+.vmore[hidden]{display:none}
+.vmore:hover{transform:translateY(-3px)}
+.vmore__ico{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--gold,#e7b54a);color:var(--navy,#12355b);font-size:20px;padding-left:4px}
+.vmore b{font-family:var(--font-head);font-size:17px;line-height:1.3}
+.vmore i{font-style:normal;font-size:22px}
+.vpage{padding-top:40px}
+.vpage .vask{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center}
+.vask__lead{flex-basis:100%;order:-1;color:var(--muted,#5b6b7b);font-weight:600;margin-bottom:4px}

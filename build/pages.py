@@ -194,7 +194,7 @@ def nav_html(lang, base, on_home=False):
     svc = "".join(f'<a href="{base}services.html#{sid}">{e(x["services"][sid][0])}</a>' for sid in SVC_IDS)
     svc += f'<a href="{base}partners.html?k=other">{e(partners_i18n.S(lang)["k_other"])}</a><a class="nav__all" href="{base}services.html">{e(x["svc_more"])} →</a>'
     VID = {"en":"Videos about Uzbekistan","ru":"Видео об Узбекистане","uz":"O'zbekiston haqida videolar","tr":"Özbekistan videoları","ar":"فيديوهات عن أوزبكستان","de":"Videos über Usbekistan","sv":"Videor om Uzbekistan","zh":"乌兹别克斯坦视频","hi":"उज़्बेकिस्तान के वीडियो","ko":"우즈베키스탄 영상"}
-    more = (f'<a href="{"#videos" if on_home else base + "index.html#videos"}">▶ {e(VID.get(lang, VID["en"]))}</a>'
+    more = (f'<a href="{base}videos.html">▶ {e(VID.get(lang, VID["en"]))}</a>'
             f'<a href="{base}group-tours.html">{e(x["nav_groups"])}</a><a href="{base}stories.html">{e(x["nav_reviews"])}</a>'
             f'<a href="{base}partners.html">{e(N["all_partners"])}</a><a href="{"#about" if on_home else base + "index.html#about"}">{e(x["nav_about"])}</a>'
             f'<a href="{base}{"" if lang == "en" else "../"}agent/">{e(t["agent_login"])}</a>')

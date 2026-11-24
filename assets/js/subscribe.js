@@ -42,6 +42,7 @@
   document.body.appendChild(wrap);
   var card = wrap.querySelector(".msub__card");
   function open() { wrap.hidden = false; card.hidden = false; wrap.classList.add("is-open"); }
+  window.MN_SUB_OPEN = open;
   function close() { card.hidden = true; wrap.classList.remove("is-open"); put("mn_sub_later", String(Date.now() + 7 * 864e5)); }
   wrap.querySelector(".msub__btn").onclick = function () { if (card.hidden) open(); else close(); };
   wrap.querySelector(".msub__x").onclick = close;
