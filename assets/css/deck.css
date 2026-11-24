@@ -205,3 +205,4 @@ body.is-locked .calc-only{display:none!important}
 .cgroup.is-locked .lock-note{display:block;font-size:13.5px;color:var(--muted);margin:-2px 0 10px;line-height:1.5}
 .lock-link{color:var(--sky);font-weight:700;white-space:nowrap}
 .cchip:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(1)}
+.tb-home span:first-child{font-size:16px}@media(max-width:560px){.tb-home span:last-child{display:none}}

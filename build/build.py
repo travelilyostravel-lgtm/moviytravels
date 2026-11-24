@@ -395,7 +395,7 @@ def render_tour(tid, lang):
     L = LD(lang); home = "../index.html#tours"
     return head(lang, base, f"{L['tours'][tid][0]} — Moviy Nomad", L["tours"][tid][1]) + f"""
 <body class="deck-page" data-tour="{tid}" onclick="var m=document.querySelector('.lang.is-open');if(m)m.classList.remove('is-open')">
-<header class="topbar"><a class="logo" href="{home}" aria-label="Moviy Nomad">{LOGO}</a><div class="topbar__title" id="t-title"></div><button class="tb-btn" id="share" data-share="tour" title="{e(L['ui']['share'])}">{ICON["share"]}<span>{e(L['ui']['share'])}</span></button>{lang_menu(lang, base, "tours/" + tid + ".html")}<span class="topbar__count" id="count"></span><a class="close" href="{home}" aria-label="{e(L['ui']['close'])}">×</a></header>
+<header class="topbar"><a class="logo" href="{home}" aria-label="Moviy Nomad">{LOGO}</a><a class="tb-btn tb-home" href="../index.html"><span aria-hidden="true">⌂</span><span>{e({"en":"Home","ru":"Главная","uz":"Bosh sahifa","tr":"Ana sayfa","ar":"الرئيسية","de":"Startseite","sv":"Hem","zh":"首页","hi":"होम","ko":"홈"}.get(lang,"Home"))}</span></a><div class="topbar__title" id="t-title"></div><button class="tb-btn" id="share" data-share="tour" title="{e(L['ui']['share'])}">{ICON["share"]}<span>{e(L['ui']['share'])}</span></button>{lang_menu(lang, base, "tours/" + tid + ".html")}<span class="topbar__count" id="count"></span><a class="close" href="{home}" aria-label="{e(L['ui']['close'])}">×</a></header>
 <div class="bar" id="bar"></div>
 <div class="sample" id="sample" hidden></div>
 <main id="deck"></main>
@@ -442,7 +442,7 @@ def render_builder(lang):
     return head(lang, base, f'{U["b_title"]} — Moviy Nomad', U["b_sub"]) + f"""
 <body class="builder-page">
 <header class="header is-solid"><div class="container header__bar"><a class="logo" href="index.html" aria-label="Moviy Nomad">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a>
-<nav class="nav" style="display:flex"><a href="index.html#tours">{e(U["nav_ready"])}</a><a href="index.html#faq">{e(U["nav_faq"])}</a></nav>{lang_menu(lang, base, "builder.html")}</div></header>
+<nav class="nav" style="display:flex"><a href="index.html" class="nav__home"><i aria-hidden="true">⌂</i> {e({"en":"Home","ru":"Главная","uz":"Bosh sahifa","tr":"Ana sayfa","ar":"الرئيسية","de":"Startseite","sv":"Hem","zh":"首页","hi":"होम","ko":"홈"}.get(lang,"Home"))}</a><a href="index.html#tours">{e(U["nav_ready"])}</a><a href="index.html#faq">{e(U["nav_faq"])}</a></nav>{lang_menu(lang, base, "builder.html")}</div></header>
 <div class="sample" id="sample" hidden style="top:86px"></div>
 {builder_body(months, interests, U)}
 """ + SCRIPTS.format(base=base, cfg=page_cfg(lang), js="builder", l10n=l10n_lang(lang)) + "\n</body></html>\n"

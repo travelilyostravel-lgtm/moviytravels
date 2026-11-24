@@ -197,7 +197,9 @@ def nav_html(lang, base, on_home=False):
             f'<a href="{base}partners.html">{e(N["all_partners"])}</a><a href="{"#about" if on_home else base + "index.html#about"}">{e(x["nav_about"])}</a>'
             f'<a href="{base}{"" if lang == "en" else "../"}agent/">{e(t["agent_login"])}</a>')
     dd = lambda label, inner: f'<div class="nav__dd"><button type="button" class="nav__ddb" aria-haspopup="true">{e(label)}<i aria-hidden="true">▾</i></button><div class="nav__ddm">{inner}</div></div>'
-    return (f'<a href="{tours}">{e(t["nav"]["tours"])}</a><a href="{base}guides.html">{e(N["nav_guides"])}</a>'
+    HOME = {"en":"Home","ru":"Главная","uz":"Bosh sahifa","tr":"Ana sayfa","ar":"الرئيسية","de":"Startseite","sv":"Hem","zh":"首页","hi":"होम","ko":"홈"}
+    home_href = "#top" if on_home else (base or "./")
+    return (f'<a href="{home_href}" class="nav__home"><i aria-hidden="true">⌂</i> {e(HOME.get(lang, "Home"))}</a><a href="{tours}">{e(t["nav"]["tours"])}</a><a href="{base}guides.html">{e(N["nav_guides"])}</a>'
             f'<a href="{base}transport.html">{e(N["nav_transport"])}</a><a href="{base}hotels.html">{e(N["nav_hotels"])}</a>'
             + dd(x["nav_services"], svc) + f'<a href="{base}builder.html" class="nav__build">{e(t["build_nav"])}</a>' + dd(N["nav_more"], more))
 
