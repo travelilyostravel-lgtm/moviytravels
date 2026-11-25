@@ -85,3 +85,28 @@ Xat ketmasa ham, saytdagi kabinet va 🔴 belgilar to'liq ishlaydi.
 - **Admin fayllari:** `assets/js/admin-site.js` (so'rov kartasi), `admin-customers.js` (kabinetlar, xatlar jurnali).
 - **Xat matnlari:** `build/notify_texts.py`; edge function `notify`.
 - **PR:** github.com/travelilyostravel-lgtm/moviytravels/pull/2
+
+---
+
+# Hamkorlar: rad etilgan arizani qayta yuborish
+
+*Qo'shilgan: 25.11.2026*
+
+Gid, haydovchi, mehmonxona yoki boshqa xizmat egasi rad etilsa ham, arizasini tuzatib, qayta yubora oladi. Buni **necha marta bo'lsa ham** qilishi mumkin.
+
+**Siz rad etganda**
+- Admin → Hamkorlar → hamkor kartasi → "Hamkorga izoh" maydoniga **sababini** yozing (nimani tuzatish kerak) → "❌ Rad etish".
+- Sababsiz rad etib bo'lmaydi, chunki hamkor nimani tuzatishni bilishi kerak.
+
+**Hamkor nima qiladi**
+- Kabinetiga kiradi (moviy-travel.uz/partner/) va sababni qizil ramkada ko'radi.
+- Ma'lumot, rasm va hujjatlarni tuzatadi, "nimani tuzatdim" deb yozadi va **"↻ Tuzatib qayta yuborish"** tugmasini bosadi.
+- Yoki saytdagi "Hamkor bo'lish" formasini o'sha e-mail va parol bilan qayta to'ldiradi.
+- Faqat hujjat yuklash arizani qayta yubormaydi. Shunda chala ariza sizga kelib qolmaydi.
+
+**Sizga qanday ko'rinadi**
+- Ariza yana "Tekshiruvda" ro'yxatiga tushadi, yonida "↻ qayta yuborilgan: N-marta" yoziladi.
+- Hamkor kartasida jadval bor: har safargi sizning sababingiz va hamkor nimani tuzatgani.
+- Talablarni qayta tekshirib, tasdiqlaysiz yoki yana sabab yozib rad etasiz.
+
+**Texnik ma'lumot:** baza fayli `supabase/partner_resubmit.sql`; sayt fayllari `assets/js/partner.js`, `partner-join.js`, `admin-partners.js`.
