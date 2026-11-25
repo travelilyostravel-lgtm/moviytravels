@@ -501,7 +501,9 @@ def render_agent(lang="en"):
         <div class="fld"><label>Phone</label><input name="phone"></div>
         <div class="fld"><label>Main WhatsApp number *</label><input name="whatsapp" type="tel" required placeholder="+90 5xx xxx xx xx" pattern="[+0-9 ()-]{{7,}}"></div>
         <div class="fld"><label>Main e-mail (login) *</label><input type="email" name="email" required autocomplete="email"></div>
-        <div class="fld full"><label>Password * <small>(min. 8 characters)</small></label><input type="password" name="password" minlength="8" required autocomplete="new-password"></div>
+        <div class="fld"><label>Company registration (PDF or image)</label><input type="file" name="doc_registration" accept=".pdf,image/*"></div>
+        <div class="fld"><label>Tourism license (PDF or image)</label><input type="file" name="doc_license" accept=".pdf,image/*"></div>
+        <p class="p-sub full">No password is needed now. We check your application and documents, then send you a password — your login is the e-mail above.</p>
         <label class="chk full"><input type="checkbox" required> I agree that Moviy Nomad checks my agency documents and stores my clients' passport data only to arrange their trip.</label>
       </div>
       <div class="msg" id="m-register"></div>

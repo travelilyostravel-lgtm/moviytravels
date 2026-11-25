@@ -38,7 +38,9 @@
         <div class="fld"><label>Phone</label><input name="phone"></div>
         <div class="fld"><label>Main WhatsApp number *</label><input name="whatsapp" type="tel" required placeholder="+90 5xx xxx xx xx" pattern="[+0-9 ()-]{7,}"></div>
         <div class="fld"><label>Main e-mail (login) *</label><input type="email" name="email" required autocomplete="email"></div>
-        <div class="fld full"><label>Password * <small>(min. 8 characters)</small></label><input type="password" name="password" minlength="8" required autocomplete="new-password"></div>
+        <div class="fld"><label>Company registration (PDF or image)</label><input type="file" name="doc_registration" accept=".pdf,image/*"></div>
+        <div class="fld"><label>Tourism license (PDF or image)</label><input type="file" name="doc_license" accept=".pdf,image/*"></div>
+        <p class="p-sub full">No password is needed now. We check your application and documents, then send you a password — your login is the e-mail above.</p>
         <label class="chk full"><input type="checkbox" required> I agree that Moviy Nomad checks my agency documents and stores my clients' passport data only to arrange their trip.</label>
       </div>
       <div class="msg" id="m-register"></div>
@@ -118,5 +120,5 @@
 <script>document.getElementById("ag-lang").onchange=function(){var l=this.value;try{localStorage.setItem("mn_ag_lang",l)}catch(e){}location.href=(l==="en"?"index.html":l+".html")+location.search+location.hash;};</script>
 <script src="../assets/vendor/supabase.js?v=1e521513"></script><script src="../assets/js/sb-config.js?v=770b2c91"></script><script src="../assets/js/portal-core.js?v=a9d59169"></script>
 <script src="../assets/data/catalog.js?v=7b955866"></script><script src="../assets/data/places.js?v=b7d83857"></script><script src="../assets/data/geo.js?v=66ac0701"></script><script src="../assets/data/tours.js?v=8d03c65b"></script>
-<script src="../assets/data/l10n/en.js?v=7b7470fc"></script><script src="../assets/js/engine.js?v=391daa03"></script><script src="../assets/js/builder.js?v=00048f71"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/agent.js?v=5ceeeb70"></script>
+<script src="../assets/data/l10n/en.js?v=7b7470fc"></script><script src="../assets/js/engine.js?v=391daa03"></script><script src="../assets/js/builder.js?v=00048f71"></script><script src="../assets/js/gd-schedule.js?v=604bd9c0"></script><script src="../assets/js/agent.js?v=dd672012"></script>
 </body></html>

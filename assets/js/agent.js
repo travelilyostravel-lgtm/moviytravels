@@ -154,14 +154,30 @@
     P.msg("#m-login", r.error ? r.error.message : "We sent you a link to set a new password.", r.error ? "err" : "ok");
   };
   $("#f-register").onsubmit = async function (e) {
-    e.preventDefault(); var f = e.target, data = {};
+    e.preventDefault(); var f = e.target, data = {}, btn = f.querySelector("[type=submit]");
     ["agency_name", "country", "city", "address", "website", "license_no", "tax_id", "contact_name", "phone", "whatsapp"].forEach(function (k) { data[k] = f[k].value.trim(); });
-    P.msg("#m-register", "Sending…");
-    var r = await sb.auth.signUp({ email: f.email.value.trim(), password: f.password.value, options: { data: data, emailRedirectTo: location.href.split("#")[0] } });
-    if (r.error) return P.msg("#m-register", r.error.message, "err");
-    if (r.data.session) { boot(); return; }
-    P.msg("#m-register", "Thank you! Please confirm your e-mail with the link we just sent, then log in and upload your documents.", "ok");
-    f.reset();
+    // No password from the agent: a long random one is set and never shown. Moviy Nomad gives the real password after checking the documents.
+    var rnd = new Uint8Array(24); crypto.getRandomValues(rnd);
+    var pw = Array.prototype.map.call(rnd, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("") + "Aa1!";
+    var files = [["registration", f.doc_registration.files[0]], ["license", f.doc_license.files[0]]].filter(function (x) { return x[1]; });
+    for (var i = 0; i < files.length; i++) if (files[i][1].size > 10 * 1024 * 1024) return P.msg("#m-register", AGT("Each file must be under 10 MB."), "err");
+    P.msg("#m-register", AGT("Sending…")); btn.disabled = true;
+    try {
+      var r = await sb.auth.signUp({ email: f.email.value.trim(), password: pw, options: { data: data, emailRedirectTo: location.href.split("#")[0] } });
+      if (r.error) throw r.error;
+      if (r.data.session && files.length) {
+        var pr = await sb.from("profiles").select("agency_id").eq("id", r.data.user.id).single();
+        var ag = pr.data && pr.data.agency_id;
+        if (ag) for (var j = 0; j < files.length; j++) {
+          var path = await P.upload("agency-docs", ag, files[j][1]);
+          await sb.from("agency_documents").insert({ agency_id: ag, kind: files[j][0], file_path: path, file_name: files[j][1].name });
+        }
+      }
+      if (r.data.session) await sb.auth.signOut();
+      f.reset();
+      P.msg("#m-register", AGT("Thank you! Your application has been sent. We will check it within 1–2 working days and send your password to your e-mail or WhatsApp. Your login is your e-mail."), "ok");
+    } catch (er) { P.msg("#m-register", P.err ? P.err(er) : (er.message || String(er)), "err"); }
+    btn.disabled = false;
   };
   $("#logout").onclick = async function () { await sb.auth.signOut(); location.reload(); };
   sb.auth.onAuthStateChange(function (ev) {

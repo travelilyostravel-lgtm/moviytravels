@@ -353,11 +353,28 @@
     box.innerHTML = '<div class="p-card"><div style="display:flex;justify-content:space-between;gap:12px"><button class="btn btn--outline btn--sm" id="back">← Agentliklar</button>' + P.badge(a.status, L) + '</div>' +
       '<h2 style="margin-top:14px">' + esc(a.name) + '</h2><table class="tbl" style="margin:10px 0 20px">' + info.map(function (i) { return '<tr><td style="width:200px;color:var(--muted)">' + i[0] + '</td><td><b>' + esc(i[1] == null || i[1] === "" ? "—" : i[1]) + '</b></td></tr>'; }).join("") + '</table>' +
       '<h3>Hujjatlar</h3><div class="files">' + (docs.length ? docs.map(function (d) { return '<div class="file"><b>' + esc(d.kind) + ' — ' + esc(d.file_name || "") + '</b><button data-d="' + esc(d.file_path) + '">Ochish</button></div>'; }).join("") : '<div class="empty">Hujjat yuklanmagan.</div>') + '</div>' +
+      '<h3 style="margin-top:20px">🔑 Kirish paroli</h3><p class="p-sub">Agent ro\'yxatdan o\'tishda parol yozmaydi. Hujjatlarni tekshirib tasdiqlagach, shu yerda parol bering. Login — agentning e-maili: <b>' + esc(a.email || "—") + '</b>' + (a.password_set_at ? ' · oxirgi parol berilgan: ' + P.date(a.password_set_at) : ' · parol hali berilmagan') + '</p>' +
+      '<div class="p-grid"><div class="fld"><label>Yangi parol (kamida 8 belgi)</label><input id="ag-pw" autocomplete="off" spellcheck="false"></div><div class="fld" style="align-self:end"><div class="p-actions" style="margin:0"><button class="btn btn--outline btn--sm" id="ag-pw-gen" type="button">Parol yaratish</button><button class="btn btn--gold btn--sm" id="ag-pw-set" type="button">Parolni o\'rnatish</button></div></div></div><div class="msg" id="m-pw"></div>' +
       '<div class="p-grid" style="margin-top:20px"><div class="fld"><label>Komissiya, %</label><input type="number" step="0.5" min="0" max="50" id="ag-comm" value="' + a.commission_pct + '"></div>' +
       '<div class="fld"><label>Izoh (rad etilsa agent ko\'radi)</label><input id="ag-note" value="' + esc(a.admin_note || "") + '"></div>' +
       '<div class="fld"><label>Menejer (shu agentlik bronlari kimda)</label>' + (await window.MNA.mgrSelect(a.manager_id, "ag-mgr")) + '</div></div>' +
       '<div class="msg" id="m-ag"></div><div class="p-actions"><button class="btn btn--green" data-st="approved">Tasdiqlash</button><button class="btn btn--navy" data-st="">Faqat saqlash</button><button class="btn btn--outline" data-st="rejected">Rad etish</button><button class="btn btn--red" data-st="blocked">Bloklash</button></div></div>';
     $("#back").onclick = loadAgencies;
+    $("#ag-pw-gen").onclick = function () {
+      var ch = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789", r = new Uint32Array(10), out = "";
+      crypto.getRandomValues(r); for (var i = 0; i < 10; i++) out += ch[r[i] % ch.length];
+      $("#ag-pw").value = out;
+    };
+    $("#ag-pw-set").onclick = async function () {
+      var pw = $("#ag-pw").value.trim();
+      if (pw.length < 8) return P.msg("#m-pw", "Parol kamida 8 belgi bo'lsin (\"Parol yaratish\"ni bosing).", "err");
+      if (a.status !== "approved") return P.msg("#m-pw", "Avval agentlikni tasdiqlang (pastdagi \"Tasdiqlash\"), keyin parol bering.", "err");
+      var r = await sb.rpc("admin_agent_password", { p_agency: id, p_password: pw });
+      if (r.error) return P.msg("#m-pw", r.error.message, "err");
+      var txt = "Moviy Nomad agent portal: https://moviy-travel.uz/agent/\nLogin: " + r.data + "\nPassword: " + pw;
+      try { await navigator.clipboard.writeText(txt); } catch (e) {}
+      P.msg("#m-pw", "✓ Parol o'rnatildi va nusxalandi. Agentga WhatsApp yoki e-mail orqali yuboring: Login " + r.data + " · Parol " + pw, "ok");
+    };
     $$("[data-d]", box).forEach(function (x) { x.onclick = function () { P.openFile("agency-docs", x.dataset.d); }; });
     $$("[data-st]", box).forEach(function (x) {
       x.onclick = async function () {
