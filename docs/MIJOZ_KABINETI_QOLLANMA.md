@@ -71,7 +71,9 @@ Hozir xatlar **ketmayapti**, chunki pochta xizmati (Resend) moviy-travel.uz dome
 1. Eskiz.uz → domen sozlamalari (DNS) → 3 ta yozuv qo'shish: 1 ta TXT va 2 ta CNAME. Aniq qiymatlar asoschi jadvalida.
 2. Resend.com → Domains → "Verify".
 
-Shundan keyin navbatdagi xatlar o'zi ketadi. Bu ishni o'zingiz qilasiz yoki menga aniq ruxsat berasiz.
+Shundan keyin navbatdagi xatlar o'zi ketadi.
+
+**Holat (25.11.2026):** domen Eskiz'da asoschi nomida, lekin DNS yozuvlari hali dasturchining Eskiz akkauntida. Shuning uchun 3 ta yozuvni dasturchi qo'shadi — unga tayyor xabar yuborilgan. U qo'shgach, Claude Resend'da "Verify" qiladi. Keyinroq DNS'ni Eskiz tiketi orqali asoschi akkauntiga o'tkazish kerak.
 
 Xat ketmasa ham, saytdagi kabinet va 🔴 belgilar to'liq ishlaydi.
 
