@@ -354,6 +354,8 @@ def render_partners(lang, icon, logo, font, names, kind=""):
     <div class="mf-grid">
       <label class="mf-f"><span>{e(x["f_date"])} *</span><input type="date" name="start_date" required></label>
       <label class="mf-f"><span>{e(x["f_pax"])} *</span><input type="number" name="pax" min="1" max="500" value="2" required></label>
+      <label class="mf-f"><span>{e(PT["rq_units"])} *</span><input type="number" name="units" min="1" max="60" value="1" required></label>
+      <p class="mf-f mf-f--full pt-est" id="pt-est" hidden>{e(PT["rq_est"])}: <b></b></p>
       <label class="mf-f"><span>{e(x["f_name"])} *</span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
       <label class="mf-f"><span id="rq-em-l" data-req="{e(x["f_email"])} *" data-opt="{e(PT["rq_email_opt"])}">{e(x["f_email"])} *</span><input type="email" name="email" required maxlength="160" autocomplete="email"></label>
       <label class="mf-f"><span>{e(PT["rq_country"])} *</span><input name="country" maxlength="80" placeholder="{e(PT["rq_country_ph"])}" required></label>

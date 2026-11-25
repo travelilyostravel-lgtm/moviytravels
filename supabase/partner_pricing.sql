@@ -33,6 +33,15 @@ create trigger partner_pricing_stamp before update on public.partner_pricing for
 -- a separate fee for one partner (empty = the standard fee of his kind)
 alter table public.partners add column if not exists fee_pct numeric(5,2) check (fee_pct is null or fee_pct between 0 and 300);
 
+-- only the founder sets the fee of a partner (managers can edit partners, but not this)
+create or replace function public.partners_fee_guard() returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if new.fee_pct is distinct from old.fee_pct and not public.is_admin() then raise exception 'Only the founder can change the service fee'; end if;
+  return new;
+end $$;
+drop trigger if exists partners_fee_guard on public.partners;
+create trigger partners_fee_guard before update of fee_pct on public.partners for each row execute function public.partners_fee_guard();
+
 -- internal helpers (not callable from the browser)
 create or replace function public.partner_fee_pct(p_kind text, p_fee numeric) returns numeric
 language sql stable security definer set search_path = public as $$

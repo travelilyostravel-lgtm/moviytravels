@@ -93,6 +93,7 @@
   };
 
   A.partner = async function (id) {
+    if (A.partnerPricing) { try { await A.partnerPricing(); } catch (e) {} }
     A.show("partners");
     var box = $("#v-partners"); box.innerHTML = '<div class="p-card">Yuklanmoqda…</div>';
     var p = (await sb.from("partners").select("*").eq("id", id).single()).data; if (!p) return A.partners();
@@ -100,7 +101,7 @@
     var rv = (await sb.from("partner_reviews").select("*").eq("partner_id", id).order("created_at", { ascending: false })).data || [];
     var reg = p.kind === "guide" ? "https://gov.uz/oz/uzbektourism/pages/gidlar-reestri" : p.kind === "hotel" ? "https://gov.uz/oz/uzbektourism/pages/joylashtirish-vositalarining-reyestri" : "";
     var info = [["Turi", KIND[p.kind]], ["E-mail", p.email], ["Telefon", p.phone], ["Telegram", p.telegram], ["WhatsApp", p.whatsapp], ["Shahar", [p.city].concat(p.cities || []).filter(Boolean).join(", ")], ["Tillar", (p.languages || []).join(", ")],
-      ["Narx", p.price_day ? "$" + p.price_day + (p.kind === "hotel" ? " / kecha" : " / kun") + (p.price_note ? " — " + p.price_note : "") : "—"], p.kind === "hotel" || p.kind === "other" ? ["Firma", p.company] : null, p.kind === "hotel" || p.kind === "other" ? ["INN", p.inn] : null, ["Litsenziya / guvohnoma", p.license_no],
+      ["Hamkor narxi (netto)", p.price_day ? "$" + p.price_day + (p.kind === "hotel" ? " / kecha" : " / kun") + (p.price_note ? " — " + p.price_note : "") : "—"], p.kind === "hotel" || p.kind === "other" ? ["Firma", p.company] : null, p.kind === "hotel" || p.kind === "other" ? ["INN", p.inn] : null, ["Litsenziya / guvohnoma", p.license_no],
       p.kind === "driver" ? ["Mashina", [p.vehicle_type, p.vehicle_seats ? p.vehicle_seats + " o'rin" : "", p.vehicle_year].filter(Boolean).join(", ")] : null,
       p.kind === "hotel" ? ["Mehmonxona", [p.hotel_stars ? p.hotel_stars + " yulduz" : "", p.hotel_rooms ? p.hotel_rooms + " xona" : ""].filter(Boolean).join(", ")] : null,
       p.kind === "guide" ? ["Tajriba", p.experience_years ? p.experience_years + " yil" : "—"] : null,
@@ -148,6 +149,7 @@
     h += '<div class="p-card"><h3>Qaror</h3><div class="p-grid">' +
       '<label class="chk"><input type="checkbox" id="pp-lic"' + (p.license_ok ? " checked" : "") + '> Litsenziya/guvohnoma tekshirildi (saytda "✓" belgisi)</label>' +
       '<label class="chk"><input type="checkbox" id="pp-feat"' + (p.featured ? " checked" : "") + '> Tavsiya etilgan (ro\'yxatda birinchi)</label>' +
+      (A.partnerFeeBox ? A.partnerFeeBox(p) : '') +
       '<div class="fld"><label>Moviy Nomad bilan safarlar soni</label><input type="number" id="pp-trips" min="0" value="' + (p.trips_count || 0) + '"></div>' +
       '<div class="fld full"><label>Hamkorga izoh — rad etsangiz, SABABINI yozing: hamkor ko\'radi, tuzatib qayta yuboradi</label><textarea id="pp-note" rows="2">' + esc(p.admin_note || "") + '</textarea></div></div>' +
       '<div class="msg" id="m-pp"></div><div class="p-actions">' +
@@ -174,7 +176,8 @@
     $$("[data-doc]", box).forEach(function (a) { a.onclick = function (e) { e.preventDefault(); P.openFile("partner-docs", p.docs[+a.dataset.doc].path); }; });
     $$("[data-rq]", box).forEach(function (tr) { tr.onclick = function () { A.openRequest ? A.openRequest(tr.dataset.rq) : A.requests(); }; });
     async function save(extra) {
-      var d = Object.assign({ license_ok: $("#pp-lic").checked, featured: $("#pp-feat").checked, trips_count: +$("#pp-trips").value || 0, admin_note: $("#pp-note").value.trim() || null, updated_at: new Date().toISOString() }, extra || {});
+      var fee = A.partnerFeeRead ? A.partnerFeeRead() : undefined;
+      var d = Object.assign(fee === undefined ? {} : { fee_pct: fee }, { license_ok: $("#pp-lic").checked, featured: $("#pp-feat").checked, trips_count: +$("#pp-trips").value || 0, admin_note: $("#pp-note").value.trim() || null, updated_at: new Date().toISOString() }, extra || {});
       var r = await sb.from("partners").update(d).eq("id", id);
       if (r.error) return P.msg("#m-pp", r.error.message, "err");
       P.msg("#m-pp", "Saqlandi", "ok"); A.partnersBadge(); setTimeout(function () { A.partner(id); }, 600);

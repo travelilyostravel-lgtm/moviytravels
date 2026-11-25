@@ -328,3 +328,16 @@ _S_old8 = S
 
 def S(lang):
     d = _S_old8(lang); q = LQ.get(lang, LQ["en"]); d.update(lang_q_guide=q[0], lang_q=q[1], all_langs=q[2]); return d
+
+
+# ---- request form: number of days / nights and the estimated price (brutto)
+UN = {"en": ("Days (hotel: nights)", "Estimated price"), "ru": ("Дней (отель: ночей)", "Ориентировочная цена"),
+      "uz": ("Kunlar soni (mehmonxona: kechalar)", "Taxminiy narx"), "tr": ("Gün (otel: gece)", "Tahmini fiyat"),
+      "ar": ("عدد الأيام (الفندق: الليالي)", "السعر التقديري"), "de": ("Tage (Hotel: Nächte)", "Voraussichtlicher Preis"),
+      "sv": ("Dagar (hotell: nätter)", "Uppskattat pris"), "zh": ("天数（酒店：晚数）", "预估价格"),
+      "hi": ("दिन (होटल: रातें)", "अनुमानित कीमत"), "ko": ("일수 (호텔: 박)", "예상 가격")}
+_S_old_un = S
+
+
+def S(lang):
+    d = _S_old_un(lang); a, b = UN.get(lang, UN["en"]); d["rq_units"] = a; d["rq_est"] = b; return d

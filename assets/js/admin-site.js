@@ -62,6 +62,7 @@
       '<div class="fld" id="r-cr-w" style="margin-top:12px' + (x.status === "cancelled" ? "" : ";display:none") + '"><label>Bekor qilish sababi (mijoz kabinetida ko\'rinadi)</label><input id="r-cr" maxlength="300" value="' + esc(x.cancel_reason || "") + '" placeholder="Masalan: sanada joy qolmadi — boshqa sana tanlang"></div>' +
       '<div class="fld" style="margin-top:12px"><label>🔒 Ichki izoh (mijoz KO\'RMAYDI)</label><textarea id="r-note">' + esc(x.admin_note || "") + '</textarea></div><div class="msg" id="m-r"></div>' +
       '<div class="p-actions"><button class="btn btn--gold btn--sm" id="r-save">Saqlash</button></div></div>';
+    if (x.details && x.details.partner_id && A.partnerCostCard) h += await A.partnerCostCard({ request_id: id });
     h += '<div class="p-card" id="r-chat"><h3>💬 Mijozga izoh (saytda, mijoz kabinetida ko\'rinadi)</h3><div id="r-thread"><p class="p-sub">…</p></div>' +
       '<div class="fld" style="margin-top:8px"><textarea id="r-cm" rows="3" maxlength="3000" placeholder="Mijozga yozing — u kabinetida ko\'radi va e-mail xabarnoma oladi"></textarea></div>' +
       '<div class="p-actions"><button class="btn btn--gold btn--sm" id="r-cm-send"' + (x.customer_id ? '' : ' disabled') + '>Mijozga yuborish</button><span id="r-acct"></span></div><div class="msg" id="m-cm"></div></div>';

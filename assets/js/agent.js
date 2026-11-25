@@ -5,7 +5,7 @@
 
   // ---------------------------------------------------------------- views
   function show(v) {
-    ["auth", "pending", "quote", "list", "booking", "agency", "groups"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
+    ["auth", "pending", "quote", "list", "booking", "agency", "groups", "services"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
     $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || (v === "booking" && b.dataset.view === "list")); });
     window.scrollTo(0, 0);
   }
@@ -59,10 +59,73 @@
     window.MN_GDS.render(box, rows, { lang: "en", title: function (id) { return ((L.tours || {})[id] || [id])[0]; }, onPick: pick,
       range: function (x) { var d = new Date(x.start_date + "T12:00:00"), n = (T[x.tour_id] ? T[x.tour_id].days.length : 8) - 1, e = new Date(d); e.setDate(e.getDate() + n); var f = function (z) { return z.toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }; return f(d) + " – " + f(e) + " " + e.getFullYear(); } });
   }
+  // ---------------------------------------------------------------- partner services (guides, drivers, hotels)
+  // Brutto comes from the public view (= our website price). The server sets the booking price again from the partner's
+  // price + our fee, and the commission from the partner settings — nothing the browser sends can change it.
+  var SV = { rows: [], kind: "guide", comm: null };
+  var SVK = { guide: "Guides", driver: "Cars with driver", hotel: "Hotels", other: "Other services" };
+  async function loadServices() {
+    var list = $("#sv-list"); list.innerHTML = '<p class="p-sub">' + AGT("Loading…") + '</p>';
+    var r = await sb.from("partners_public").select("id,kind,name,city,cities,languages,photo,price_brutto,price_note,vehicle_type,vehicle_seats,hotel_stars,experience_years,rating,reviews_count,license_ok");
+    var t = await sb.rpc("partner_terms");
+    SV.rows = r.data || []; SV.comm = t.data && t.data.agent_comm != null ? +t.data.agent_comm : 10;
+    var kinds = ["guide", "driver", "hotel", "other"].filter(function (k) { return SV.rows.some(function (x) { return x.kind === k; }); });
+    if (kinds.indexOf(SV.kind) < 0) SV.kind = kinds[0] || "guide";
+    $("#sv-kinds").innerHTML = kinds.map(function (k) { return '<button data-svk="' + k + '" class="' + (k === SV.kind ? "is-on" : "") + '">' + AGT(SVK[k]) + ' (' + SV.rows.filter(function (x) { return x.kind === k; }).length + ')</button>'; }).join("");
+    $$("[data-svk]").forEach(function (b) { b.onclick = function () { SV.kind = b.dataset.svk; loadServices(); }; });
+    var pub = function (x) { return x ? (window.MN_SB || {}).url + "/storage/v1/object/public/partner-photos/" + x.split("/").map(encodeURIComponent).join("/") : ""; };
+    var rows = SV.rows.filter(function (x) { return x.kind === SV.kind; }).sort(function (a, b) { return (b.rating || 0) - (a.rating || 0); });
+    list.innerHTML = rows.length ? '<table class="tbl"><thead><tr><th></th><th>' + AGT("Name") + '</th><th>' + AGT("City") + '</th><th>' + AGT("Details") + '</th><th>' + AGT("Client price (brutto)") + '</th><th></th></tr></thead><tbody>' + rows.map(function (x) {
+      var det = x.kind === "guide" ? (x.languages || []).join(", ") + (x.experience_years ? " · " + x.experience_years + " y." : "") : x.kind === "driver" ? [x.vehicle_type, x.vehicle_seats ? x.vehicle_seats + " seats" : ""].filter(Boolean).join(", ") : x.kind === "hotel" ? (x.hotel_stars ? x.hotel_stars + "★" : "") : "";
+      return '<tr><td>' + (x.photo ? '<img src="' + esc(pub(x.photo)) + '" alt="" style="width:44px;height:44px;border-radius:10px;object-fit:cover">' : '') + '</td><td><b>' + esc(x.name) + '</b>' + (x.license_ok ? ' <small>✓</small>' : '') + (x.reviews_count ? '<br><small>★ ' + Number(x.rating).toFixed(1) + ' (' + x.reviews_count + ')</small>' : '') + '</td><td>' + esc([x.city].concat(x.cities || []).filter(function (c, i, a) { return c && a.indexOf(c) === i; }).slice(0, 4).join(", ")) + '</td><td><small>' + esc(det) + '</small></td><td>' +
+        (x.price_brutto ? '<b>$' + Math.round(x.price_brutto) + '</b> <small>' + AGT(x.kind === "hotel" ? "per night" : "per day") + '</small>' : '<small>' + AGT("on request") + '</small>') + '</td><td>' + (x.price_brutto ? '<button class="btn btn--gold btn--sm" data-svb="' + x.id + '">' + AGT("Book") + '</button>' : '') + '</td></tr>';
+    }).join("") + '</tbody></table>' : '<p class="p-sub">' + AGT("No partners in this section yet.") + '</p>';
+    $$("[data-svb]").forEach(function (b) { b.onclick = function () { svBook(b.dataset.svb); }; });
+  }
+  function svBook(id) {
+    var x = SV.rows.filter(function (r) { return r.id === id; })[0]; if (!x) return;
+    var box = $("#sv-book"), hotel = x.kind === "hotel", open = false;
+    box.classList.remove("hidden");
+    box.innerHTML = '<h3>' + esc(x.name) + '</h3><div class="p-grid">' +
+      '<div class="fld"><label>' + AGT("Start date *") + '</label><input type="date" id="sv-date" min="' + new Date().toISOString().slice(0, 10) + '"></div>' +
+      '<div class="fld"><label>' + AGT(hotel ? "Nights *" : "Days *") + '</label><input type="number" id="sv-units" min="1" max="60" value="1"></div>' +
+      '<div class="fld"><label>' + AGT(hotel ? "Rooms" : x.kind === "driver" ? "Cars" : "Quantity") + '</label><input type="number" id="sv-qty" min="1" max="20" value="1"></div>' +
+      '<div class="fld"><label>' + AGT("Travellers *") + '</label><input type="number" id="sv-pax" min="1" max="60" value="2"></div>' +
+      '<div class="fld full"><label>' + AGT("Note for Moviy Nomad") + '</label><input id="sv-note" placeholder="' + esc(AGT("Arrival flight, special wishes…")) + '"></div></div>' +
+      '<div class="agp"><div class="agp__br"><small>' + AGT("Client price (brutto)") + '</small><b id="sv-br"></b><span id="sv-pp"></span></div>' +
+      '<div class="agp__btns"><button type="button" class="btn agp__comm" id="sv-commbtn">% Commission</button></div>' +
+      '<div class="agp__panel hidden" id="sv-cpanel"><div><small>' + AGT("Your commission") + '</small><b id="sv-cpct"></b></div><div><small>' + AGT("You earn") + '</small><b id="sv-camt"></b></div><div><small>' + AGT("You pay Moviy Nomad (netto)") + '</small><b id="sv-net"></b></div></div></div>' +
+      '<div class="msg" id="m-sv"></div><div class="p-actions"><button class="btn btn--gold" id="sv-go">' + AGT("Send booking →") + '</button><button class="btn btn--outline" id="sv-x">' + AGT("Close") + '</button></div>';
+    function calc() {
+      var u = Math.min(60, Math.max(1, parseInt($("#sv-units").value, 10) || 1)), q = Math.min(20, Math.max(1, parseInt($("#sv-qty").value, 10) || 1));
+      var br = Math.round(x.price_brutto * u * q * 100) / 100, cm = Math.round(br * SV.comm) / 100;
+      $("#sv-br").textContent = P.money(br); $("#sv-pp").textContent = u + " × $" + Math.round(x.price_brutto) + (q > 1 ? " × " + q : "");
+      $("#sv-cpct").textContent = SV.comm + "%"; $("#sv-camt").textContent = P.money(cm); $("#sv-net").textContent = P.money(br - cm);
+      return { u: u, q: q, br: br };
+    }
+    box.oninput = calc; calc();
+    $("#sv-commbtn").onclick = function () { open = !open; $("#sv-cpanel").classList.toggle("hidden", !open); };
+    $("#sv-x").onclick = function () { box.classList.add("hidden"); };
+    $("#sv-go").onclick = async function () {
+      var c = calc(), d = $("#sv-date").value;
+      if (!d) return P.msg("#m-sv", AGT("Choose the start date."), "err");
+      this.disabled = true; P.msg("#m-sv", AGT("Creating the booking…"));
+      var row = { lang: window.AG_LANG || "en", agency_id: me.agency.id, tour_id: "partner:" + x.kind, tour_title: x.name, start_date: d,
+        pax: Math.min(60, Math.max(1, parseInt($("#sv-pax").value, 10) || 1)), brutto: c.br, agent_note: $("#sv-note").value.trim() || null,
+        config: { partner_id: x.id, units: c.u, qty: c.q } };
+      var r = await sb.from("bookings").insert(row).select().single();
+      this.disabled = false;
+      if (r.error) return P.msg("#m-sv", r.error.message, "err");
+      box.classList.add("hidden"); openBooking(r.data.id);
+    };
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function go(v) {
     if (v === "list") loadList();
     if (v === "agency") renderAgency();
     if (v === "groups") loadGroups();
+    if (v === "services") loadServices();
     show(v);
   }
 
