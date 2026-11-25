@@ -68,6 +68,10 @@
     uAddRoom: "+ Добавить тип номера", uAddCar: "+ Добавить машину", uSave: "Сохранить", uDel: "Удалить", uHide: "Временно закрыть", uShow: "Открыть снова", uPhotos: "Фото (до 15)", uNone: "Пока не добавлено.",
     uSt: { pending: "⏳ На проверке", approved: "✅ На сайте", rejected: "❌ Отклонено", hidden: "⏸ Закрыто" }, uDelQ: "Точно удалить? Нажмите ещё раз.",
     exT: "🏨 Данные отеля", exSave: "Сохранить" });
+  Object.assign(D.uz, { grpT: "✈️ «Moviy Nomad» Telegram guruhi", grpTxt: "Hamkorlarimiz va turizm sohasidagi odamlar uchun yopiq guruh: yangiliklar, buyurtmalar, tanishuvlar. Hali qo'shilmagan bo'lsangiz — qo'shiling, so'rovingizni admin tasdiqlaydi.", grpBtn: "Telegram guruhga qo'shilish" });
+  Object.assign(D.ru, { grpT: "✈️ Telegram-группа «Moviy Nomad»", grpTxt: "Закрытая группа для наших партнёров и людей из туризма: новости, заказы, знакомства. Если ещё не вступили — вступите, заявку подтверждает администратор.", grpBtn: "Вступить в Telegram-группу" });
+  var GRP = (window.MN_CFG || {}).partner_group || "";
+  function grpBlock() { return GRP ? '<div class="p-card" style="border:2px solid #2aabee;background:#f2faff"><h3>' + t("grpT") + '</h3><p class="p-sub">' + t("grpTxt") + '</p><a class="btn" style="background:#2aabee;color:#fff" target="_blank" rel="noopener" href="' + esc(GRP) + '">' + t("grpBtn") + '</a></div>' : ""; }
   var UJ = (window.MNJ_UNITS || {});
   var t = function (k) { return D[L][k]; };
   var me = { user: null, partner: null };
@@ -423,7 +427,7 @@
       else h += '<div class="p-card"><h2>' + t("approved") + '</h2><p class="p-sub">' + t("approvedTxt") + '</p><div class="kv"><div><small>' + t("rating") + '</small><b>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " · " + p.reviews_count + " " + t("reviews") : "—") + '</b></div><div><small>' + t("trips") + '</small><b>' + (p.trips_count || 0) + '</b></div><div><small>' + t("stats") + '</small><b>' + (p.views_count || 0) + ' · ' + (p.likes_count || 0) + ' · ' + (p.shares_count || 0) + '</b></div></div></div>';
       h += await payBlock() + inv + calCard() + profileForm() + await histBlock() + await docsBlock() + pwBlock();
     }
-    box.innerHTML = h + '<div class="p-card">' + help() + '</div>';
+    box.innerHTML = h + grpBlock() + '<div class="p-card">' + help() + '</div>';
     if ($("#f-prof")) bindProfile();
     if ($("#p-cal")) bindCal();
     if ($("#d-up")) bindDocs();

@@ -237,6 +237,8 @@
       var base = document.documentElement.getAttribute("data-base") || "";
       body.innerHTML = '<div class="jf-done"><b>✓</b><h3>' + esc(J.done_t) + '</h3><p class="jf-note">' + esc(J.done) + '</p>' +
         (failed ? '<p class="jf-note" style="color:#b4541b;font-weight:600">⚠ ' + esc(J.part.replace("{n}", failed)) + '</p>' : '') +
+        (D.group ? '<div class="jf-grp" style="margin:16px 0;padding:16px;border:2px solid #2aabee;border-radius:16px;background:#f2faff;text-align:left"><b style="font-size:16px">✈️ ' + esc(J.grp_t) + '</b><p class="jf-note" style="margin:6px 0 12px">' + esc(J.grp) + '</p>' +
+          '<a class="btn" style="background:#2aabee;color:#fff" href="' + esc(D.group) + '" target="_blank" rel="noopener" data-free>' + esc(J.grp_btn) + '</a></div>' : '') +
         '<a class="btn btn--gold" href="' + base + 'partner/">' + esc(J.cab) + '</a></div>';
     } catch (err) {
       window.removeEventListener("beforeunload", warnLeave);

@@ -189,3 +189,8 @@ REQ["en"]["hotel"].insert(1, "Each room type: name, guests, number of rooms and 
 REQ["uz"]["driver"].insert(1, "Har bir mashina: klassi, modeli, yili, o'rinlari, texpasporti va netto narxi (kunlik va aeroport transferi).")
 REQ["ru"]["driver"].insert(1, "Каждая машина: класс, модель, год, места, техпаспорт и нетто-цена (за день и трансфер из аэропорта).")
 REQ["en"]["driver"].insert(1, "Each vehicle: class, model, year, seats, registration papers and net price (per day and airport transfer).")
+
+# 25.11.2026: last step — join the closed Moviy Nomad Telegram group (partners and tourism people networking)
+J["uz"].update(grp_t="Oxirgi qadam: «Moviy Nomad» Telegram guruhiga qo'shiling", grp="Bu hamkorlarimiz va turizm sohasidagi odamlar uchun yopiq guruh: yangiliklar, buyurtmalar, tanishuvlar. Qo'shilish so'rovingizni admin tasdiqlaydi.", grp_btn="Telegram guruhga qo'shilish")
+J["ru"].update(grp_t="Последний шаг: вступите в Telegram-группу «Moviy Nomad»", grp="Закрытая группа для наших партнёров и людей из туризма: новости, заказы, знакомства. Заявку на вступление подтверждает администратор.", grp_btn="Вступить в Telegram-группу")
+J["en"].update(grp_t="Last step: join the «Moviy Nomad» Telegram group", grp="A closed group for our partners and people in tourism: news, orders, networking. An admin approves your join request.", grp_btn="Join the Telegram group")

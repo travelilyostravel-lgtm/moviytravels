@@ -12,6 +12,7 @@ CONFIG = {
     "manager": "Safina Qozoqboyeva",
     # Telegram: shaxsiy akkaunt yoki bot username (@ belgisisiz)
     "telegram": "moviy_safina",
+    "partner_group": "",          # Moviy Nomad partners Telegram group invite link (https://t.me/+...)
     # Instagram username (@ belgisisiz)
     "instagram": "moviy_nomad",
     "email": "moviynomad4214@gmail.com",

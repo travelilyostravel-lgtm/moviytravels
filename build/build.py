@@ -580,7 +580,7 @@ def render_partner():
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Partner</span><span class="p-top__sp"></span>
   <div class="p-top__who" id="pwho"></div><button class="btn btn--ghost btn--sm" id="plang">Русский</button><button class="btn btn--ghost btn--sm hidden" id="plogout">Chiqish</button></div></header>
 <main class="container p-main"><div id="pv"><div class="p-card">…</div></div></main>
-<script>window.MN_CFG={json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"]})};window.MNJ_UNITS={json.dumps(_units_i18n(), ensure_ascii=False)};</script>
+<script>window.MN_CFG={json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"], "partner_group": CONFIG.get("partner_group", "")})};window.MNJ_UNITS={json.dumps(_units_i18n(), ensure_ascii=False)};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/mn-cities.js"></script><script src="../assets/js/partner.js"></script>
 </body></html>
 """
