@@ -1044,3 +1044,4 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
   .nav a.nav__join{margin-top:14px;text-align:center;border:0;border-radius:999px;background:var(--gold,#e9b949);color:var(--navy,#0b2545)!important;font-weight:700;padding:13px 16px}
 }
 body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-toast{display:none!important}
+#join{scroll-margin-top:80px}
