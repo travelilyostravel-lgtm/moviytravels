@@ -128,7 +128,7 @@ begin
   new.brutto := round(ub * u * q, 2);
   new.tour_id := 'partner:' || p.kind;
   new.tour_title := (case p.kind when 'guide' then 'Guide' when 'driver' then 'Car with driver' when 'hotel' then 'Hotel' else 'Service' end)
-                    || ': ' || p.name || ' — ' || trim(to_char(u, 'FM999.0')) || case p.kind when 'hotel' then ' night(s)' else ' day(s)' end
+                    || ': ' || p.name || ' — ' || trim_scale(u)::text || case p.kind when 'hotel' then ' night(s)' else ' day(s)' end
                     || case when q > 1 then ' × ' || q else '' end;
   new.currency := 'USD';
   new.config := new.config || jsonb_build_object('units', u, 'qty', q, 'partner_kind', p.kind, 'partner_name', p.name, 'unit_brutto', ub);
