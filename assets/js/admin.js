@@ -372,8 +372,10 @@
       var r = await sb.rpc("admin_agent_password", { p_agency: id, p_password: pw });
       if (r.error) return P.msg("#m-pw", r.error.message, "err");
       var txt = "Moviy Nomad agent portal: https://moviy-travel.uz/agent/\nLogin: " + r.data + "\nPassword: " + pw;
-      try { await navigator.clipboard.writeText(txt); } catch (e) {}
-      P.msg("#m-pw", "✓ Parol o'rnatildi va nusxalandi. Agentga WhatsApp yoki e-mail orqali yuboring: Login " + r.data + " · Parol " + pw, "ok");
+      P.msg("#m-pw", "✓ Parol o'rnatildi. Agentga WhatsApp yoki e-mail orqali yuboring: Login " + r.data + " · Parol " + pw, "ok");
+      var cp = document.createElement("button"); cp.type = "button"; cp.className = "btn btn--outline btn--sm"; cp.style.marginLeft = "10px"; cp.textContent = "📋 Nusxalash";
+      cp.onclick = function () { var done = function () { cp.textContent = "✓ Nusxalandi"; }; try { navigator.clipboard.writeText(txt).then(done, function () { window.prompt("Nusxalang:", txt); }); } catch (e) { window.prompt("Nusxalang:", txt); } };
+      $("#m-pw").appendChild(cp);
     };
     $$("[data-d]", box).forEach(function (x) { x.onclick = function () { P.openFile("agency-docs", x.dataset.d); }; });
     $$("[data-st]", box).forEach(function (x) {
