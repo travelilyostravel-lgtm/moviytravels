@@ -150,7 +150,7 @@ def T(cid, country, cover, hotel, days, extra_inc=(), extra_exc=(), bring=None, 
 
 TOURS = [
  # ---------------- UZBEKISTAN
- T("classic", "UZ", "registan", "superior", [   # 8 days / 7 nights, Saturday start in Khiva (owner, 2026-11-23)
+ T("classic", "UZ", "cover-classic", "superior", [   # 8 days / 7 nights, Saturday start in Khiva (owner, 2026-11-23)
    ("khiva", [], ["khi_walls"], "D"),
    ("khiva", [], ["khi_ichan", "khi_islamkhoja", "khi_tashhauli"], "B"),
    ("bukhara", [["khiva", "bukhara"]], ["buk_lyabi", "buk_domes"], "B"),
@@ -159,13 +159,13 @@ TOURS = [
    ("samarkand", [], ["sam_shahizinda", "sam_bibi", "sam_ulugbek", "sam_siyob"], "B"),
    ("tashkent", [["samarkand", "tashkent"]], ["tash_timur", "tash_metro"], "B"),
    (None, [], ["tash_imam", "tash_chorsu"], "B")], ["train", "dinner"], ["own_flight_khiva"]),
- T("express", "UZ", "shahizinda", "superior", [
+ T("express", "UZ", "cover-express", "superior", [
    ("tashkent", [], ["tash_imam", "tash_metro"], "D"),
    ("samarkand", [["tashkent", "samarkand"]], ["sam_registan", "sam_gurmir"], "B"),
    ("samarkand", [], ["sam_shahizinda", "sam_bibi", "sam_siyob"], "B"),
    ("bukhara", [["samarkand", "bukhara"]], ["buk_ark", "buk_poikalon", "buk_lyabi"], "B"),
    (None, [["bukhara", "tashkent"]], ["buk_domes"], "B")], ["train", "dinner"]),
- T("silkroad", "UZ", "khiva", "superior", [
+ T("silkroad", "UZ", "cover-silkroad", "superior", [
    ("tashkent", [], ["tash_imam", "tash_chorsu"], "D"),
    ("khiva", [["tashkent", "urgench"], ["urgench", "khiva"]], ["khi_walls"], "B"),
    ("khiva", [], ["khi_ichan", "khi_islamkhoja", "khi_tashhauli"], "B"),
@@ -176,7 +176,7 @@ TOURS = [
    ("samarkand", [["aydarkul", "samarkand"]], ["ayd_lake", "sam_registan"], "B"),
    ("samarkand", [["samarkand", "shahrisabz"], ["shahrisabz", "samarkand"]], ["shah_aksaray", "sam_shahizinda"], "B"),
    (None, [["samarkand", "tashkent"]], ["sam_bibi"], "B")], ["train", "flight", "yurt", "dinner"]),
- T("spiritual", "UZ", "maturidi", "superior", [
+ T("spiritual", "UZ", "cover-spiritual", "superior", [
    ("tashkent", [], ["tash_imam", "tash_timur"], "D"),
    ("samarkand", [["tashkent", "samarkand"]], ["sam_gurmir", "sam_maturidi", "sam_registan"], "B"),
    ("samarkand", [], ["sam_imambukhari", "sam_shahizinda"], "B"),
@@ -191,13 +191,13 @@ TOURS = [
    ("fergana", [], ["fer_rishtan", "fer_valley"], "B"),
    ("tashkent", [["fergana", "tashkent"]], ["tash_metro"], "B"),
    (None, [], ["tash_timur"], "B")], ["dinner"]),
- T("aral", "UZ", "uz-aral", "comfort", [
+ T("aral", "UZ", "cover-aral", "comfort", [
    ("nukus", [["tashkent", "nukus"]], ["nuk_savitsky"], "D"),
    ("moynaq", [["nukus", "moynaq"]], ["moy_ships", "moy_aral"], "B,L,D"),
    ("ayazkala", [["moynaq", "ayazkala"]], ["khi_fortresses"], "B,L,D"),
    ("khiva", [["ayazkala", "khiva"]], ["khi_ichan", "khi_walls"], "B"),
    (None, [["khiva", "urgench"], ["urgench", "tashkent"]], ["khi_islamkhoja"], "B")], ["flight", "yurt", "jeep", "dinner"], bring=BRING_MOUNT),
- T("nature", "UZ", "chimgan", "comfort", [
+ T("nature", "UZ", "cover-nature", "comfort", [
    ("tashkent", [], ["tash_imam", "tash_chorsu"], "D"),
    ("tashkent", [["tashkent", "chimgan"], ["chimgan", "tashkent"]], ["chim_mount", "chim_amirsoy", "chim_charvak"], "B"),  # day trip, night in Tashkent
    ("samarkand", [["tashkent", "samarkand"]], ["sam_registan"], "B"),

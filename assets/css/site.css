@@ -1045,3 +1045,11 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 }
 body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-toast{display:none!important}
 #join{scroll-margin-top:80px}
+/* 25.11.2026: premium tour covers — wider frame, soft dark fade at the bottom, slow zoom */
+.tour{border:1px solid rgba(11,37,69,.06)}
+.tour__img{aspect-ratio:16/10;background:#0b2545}
+.tour__img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,37,69,.18) 0%,rgba(11,37,69,0) 28%,rgba(11,37,69,0) 58%,rgba(11,37,69,.55) 100%);pointer-events:none;z-index:1}
+.tour__img img{transition:transform 1.2s cubic-bezier(.2,.7,.2,1),filter .6s;filter:saturate(1.04) contrast(1.02)}
+.tour:hover .tour__img img{transform:scale(1.05);filter:saturate(1.1) contrast(1.04)}
+.tour:hover{box-shadow:0 22px 48px rgba(12,36,65,.18)}
+.tour__days,.tour__lock,.tour__flags{z-index:2}
