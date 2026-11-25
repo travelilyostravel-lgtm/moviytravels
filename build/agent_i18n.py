@@ -197,6 +197,31 @@ P = [
 ("Rejected", ["Отклонено","Rad etilgan","Reddedildi","مرفوض","Abgelehnt","Avslagen","已拒绝","अस्वीकृत","거절됨"]),
 ("Blocked", ["Заблокировано","Bloklangan","Engellendi","محظور","Gesperrt","Spärrad","已封禁","ब्लॉक","차단됨"]),
 ]
+# ---- Services / Guides tab (25.11.2026)
+P += [
+("Services / Guides", ["Услуги / Гиды","Xizmatlar / Gidlar","Hizmetler / Rehberler","الخدمات / المرشدون","Leistungen / Guides","Tjänster / Guider","服务 / 导游","सेवाएँ / गाइड","서비스 / 가이드"]),
+("Guides", ["Гиды","Gidlar","Rehberler","المرشدون","Guides","Guider","导游","गाइड","가이드"]),
+("Cars with driver", ["Авто с водителем","Haydovchili mashinalar","Şoförlü araçlar","سيارات مع سائق","Autos mit Fahrer","Bilar med förare","带司机用车","ड्राइवर सहित कारें","기사 포함 차량"]),
+("Hotels", ["Отели","Mehmonxonalar","Oteller","الفنادق","Hotels","Hotell","酒店","होटल","호텔"]),
+("Other services", ["Другие услуги","Boshqa xizmatlar","Diğer hizmetler","خدمات أخرى","Weitere Leistungen","Övriga tjänster","其他服务","अन्य सेवाएँ","기타 서비스"]),
+("Details", ["Детали","Tafsilotlar","Ayrıntılar","التفاصيل","Details","Detaljer","详情","विवरण","세부 정보"]),
+("per day", ["в день","kuniga","günlük","في اليوم","pro Tag","per dag","每天","प्रति दिन","1일당"]),
+("per night", ["за ночь","bir kechaga","gecelik","لليلة","pro Nacht","per natt","每晚","प्रति रात","1박당"]),
+("on request", ["по запросу","so'rov bo'yicha","talep üzerine","عند الطلب","auf Anfrage","på förfrågan","按需报价","अनुरोध पर","문의"]),
+("Book", ["Забронировать","Bron qilish","Rezervasyon","احجز","Buchen","Boka","预订","बुक करें","예약"]),
+("No partners in this section yet.", ["В этом разделе пока нет партнёров.","Bu bo'limda hozircha hamkor yo'q.","Bu bölümde henüz iş ortağı yok.","لا يوجد شركاء في هذا القسم بعد.","In diesem Bereich gibt es noch keine Partner.","Inga partner i denna kategori ännu.","此类别暂无合作伙伴。","इस श्रेणी में अभी कोई साझेदार नहीं है।","이 분류에는 아직 파트너가 없습니다."]),
+("Nights *", ["Ночей *","Kechalar *","Gece *","الليالي *","Nächte *","Nätter *","晚数 *","रातें *","박 *"]),
+("Days *", ["Дней *","Kunlar *","Gün *","الأيام *","Tage *","Dagar *","天数 *","दिन *","일수 *"]),
+("Rooms", ["Номера","Xonalar","Oda","الغرف","Zimmer","Rum","房间数","कमरे","객실 수"]),
+("Cars", ["Машины","Mashinalar","Araç","السيارات","Autos","Bilar","车辆数","कारें","차량 수"]),
+("Quantity", ["Количество","Soni","Adet","الكمية","Anzahl","Antal","数量","संख्या","수량"]),
+("Travellers *", ["Путешественники *","Sayohatchilar *","Yolcular *","المسافرون *","Reisende *","Resenärer *","旅客 *","यात्री *","여행자 *"]),
+("Send booking →", ["Отправить бронь →","Bronni yuborish →","Rezervasyonu gönder →","إرسال الحجز ←","Buchung senden →","Skicka bokning →","提交预订 →","बुकिंग भेजें →","예약 보내기 →"]),
+("Close", ["Закрыть","Yopish","Kapat","إغلاق","Schließen","Stäng","关闭","बंद करें","닫기"]),
+("Licensed guides, cars with drivers and hotels checked by Moviy Nomad. Prices are client prices (brutto) per day or night — the same as on our website. Your commission applies: press", ["Лицензированные гиды, авто с водителем и отели, проверенные Moviy Nomad. Цены — для клиента (брутто) за день или ночь, как на нашем сайте. Ваша комиссия действует: нажмите","Moviy Nomad tekshirgan litsenziyali gidlar, haydovchili mashinalar va mehmonxonalar. Narxlar — mijoz narxi (brutto) kuniga yoki kechasiga, saytimizdagi bilan bir xil. Komissiyangiz amal qiladi: bosing","Moviy Nomad tarafından kontrol edilen lisanslı rehberler, şoförlü araçlar ve oteller. Fiyatlar müşteri fiyatıdır (brüt), günlük veya gecelik — sitemizdekiyle aynı. Komisyonunuz geçerlidir:","مرشدون مرخصون وسيارات مع سائق وفنادق تحققت منها Moviy Nomad. الأسعار للعميل (إجمالي) لليوم أو الليلة — كما في موقعنا. عمولتك سارية: اضغط","Von Moviy Nomad geprüfte lizenzierte Guides, Autos mit Fahrer und Hotels. Preise sind Kundenpreise (brutto) pro Tag oder Nacht — wie auf unserer Website. Ihre Provision gilt: drücken Sie","Licensierade guider, bilar med förare och hotell kontrollerade av Moviy Nomad. Priserna är kundpriser (brutto) per dag eller natt — samma som på vår webbplats. Din provision gäller: tryck","经 Moviy Nomad 审核的持证导游、带司机用车和酒店。价格为客户价（含佣），按天或按晚，与官网一致。您的佣金适用：点击","Moviy Nomad द्वारा जाँचे गए लाइसेंसधारी गाइड, ड्राइवर सहित कारें और होटल। कीमतें ग्राहक कीमत (ब्रुटो) प्रति दिन या रात — हमारी वेबसाइट जैसी। आपका कमीशन लागू: दबाएँ","Moviy Nomad가 검증한 공인 가이드, 기사 포함 차량, 호텔. 가격은 고객가(총액) 1일/1박 기준이며 웹사이트와 동일합니다. 수수료 적용: 누르세요"]),
+("Choose a partner, the dates and send the booking — we confirm availability.", ["Выберите партнёра, даты и отправьте бронь — мы подтвердим наличие.","Hamkorni, sanani tanlang va bronni yuboring — bo'shligini biz tasdiqlaymiz.","İş ortağını ve tarihleri seçip rezervasyonu gönderin — müsaitliği biz onaylarız.","اختر الشريك والتواريخ وأرسل الحجز — نؤكد التوفر.","Partner und Daten wählen, Buchung senden — wir bestätigen die Verfügbarkeit.","Välj partner och datum och skicka bokningen — vi bekräftar tillgängligheten.","选择合作伙伴和日期并提交预订——我们确认是否可用。","साझेदार और तिथियाँ चुनें और बुकिंग भेजें — उपलब्धता हम पुष्टि करेंगे।","파트너와 날짜를 선택해 예약을 보내 주세요. 가능 여부는 저희가 확인합니다."]),
+]
+
 def table():
     out = {}
     for en, tr in P:

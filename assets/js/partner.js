@@ -23,6 +23,8 @@
       save: "Saqlash", saved: "Saqlandi ✅", view: "Saytda ko'rish", rating: "Reyting", reviews: "sharh", trips: "Moviy Nomad bilan safarlar",
       bad: "Xatolik: ",
       rejHow: "Kamchiliklarni tuzating: ma'lumotlarni to'g'rilang, kerakli rasm va hujjatlarni yuklang, so'ng «Tuzatib qayta yuborish»ni bosing. Arizangiz qayta ko'rib chiqiladi — buni necha marta bo'lsa ham qilishingiz mumkin.",
+      payT: "Sizga to'lanadigan summalar", payNote: "Bu yerda faqat sizning narxingiz va sizga to'lanadigan summa ko'rsatiladi. Sizga aynan o'zingiz yozgan narx to'lanadi; mijozlar bilan hisob-kitobni Moviy Nomad yuritadi.", payNone: "Hozircha bron yo'q.", payCols: ["Bron", "Sana", "Kun / kecha", "Narxingiz", "Sizga to'lanadi", "Holat"], priceHint: "Bu — SIZNING narxingiz (sizga to'lanadi). Narx o'zgarsa, Moviy Nomad tasdiqlaydi.",
+      payStatus: { request: "So'rov", new: "So'rov", in_progress: "Kelishilmoqda", awaiting_payment: "To'lov kutilmoqda", deposit_paid: "Tasdiqlanmoqda", payment_reported: "To'lov tekshirilmoqda", paid: "To'landi", confirmed: "Tasdiqlandi", closed: "Yakunlandi" },
       rejWhy: "Rad etish sababi", rejCom: "Nimani tuzatdingiz? (adminga qisqacha)", rejSend: "Tuzatib qayta yuborish", rejSent: "Arizangiz qayta yuborildi ✅ Tez orada ko'rib chiqamiz.", rejNeed: "Nimani tuzatganingizni qisqacha yozing.", rejN: "Qayta yuborilgan"
     },
     ru: {
@@ -44,6 +46,8 @@
       save: "Сохранить", saved: "Сохранено ✅", view: "Посмотреть на сайте", rating: "Рейтинг", reviews: "отзывов", trips: "Поездок с Moviy Nomad",
       bad: "Ошибка: ",
       rejHow: "Исправьте недочёты: поправьте данные, загрузите нужные фото и документы и нажмите «Исправить и отправить снова». Заявку рассмотрят заново — отправлять можно сколько угодно раз.",
+      payT: "Суммы к выплате вам", payNote: "Здесь показаны только ваша цена и сумма к выплате. Вам платится ровно указанная вами цена; расчёты с клиентами ведёт Moviy Nomad.", payNone: "Пока нет бронирований.", payCols: ["Бронь", "Дата", "Дней / ночей", "Ваша цена", "К выплате", "Статус"], priceHint: "Это ВАША цена (выплачивается вам). Изменение цены подтверждает Moviy Nomad.",
+      payStatus: { request: "Запрос", new: "Запрос", in_progress: "Согласуется", awaiting_payment: "Ожидает оплаты", deposit_paid: "Подтверждается", payment_reported: "Оплата проверяется", paid: "Оплачено", confirmed: "Подтверждено", closed: "Завершено" },
       rejWhy: "Причина отказа", rejCom: "Что вы исправили? (кратко для администратора)", rejSend: "Исправить и отправить снова", rejSent: "Заявка отправлена повторно ✅ Скоро рассмотрим.", rejNeed: "Кратко напишите, что исправили.", rejN: "Отправлено повторно"
     }
   };
@@ -187,7 +191,7 @@
       (k !== "hotel" ? '<div class="fld"><label>' + t("birth") + '</label><input name="birth_year" type="number" min="1940" max="2010" value="' + (p.birth_year || "") + '"></div>' : '') +
       '<div class="fld"><label>' + t("area") + '</label><input name="home_area" maxlength="120" value="' + esc(p.home_area || "") + '"></div>' +
       '<div class="fld full"><label>' + t("addr") + '</label><input name="home_address" maxlength="250" value="' + esc(p.home_address || "") + '"></div>' +
-      '<div class="fld"><label>' + t("price") + ' (' + (k === "hotel" ? t("perNight") : t("perDay")) + ')</label><input name="price_day" type="number" min="0" step="1" value="' + (p.price_day == null ? "" : p.price_day) + '"></div>' +
+      '<div class="fld"><label>' + t("price") + ' (' + (k === "hotel" ? t("perNight") : t("perDay")) + ')</label><input name="price_day" type="number" min="0" step="1" value="' + (p.price_day == null ? "" : p.price_day) + '"><small class="p-sub">' + t("priceHint") + '</small></div>' +
       '<div class="fld"><label>' + t("priceNote") + '</label><input name="price_note" value="' + esc(p.price_note || "") + '" maxlength="200"></div>' +
       (k === "guide" ? '<div class="fld"><label>' + t("exp") + '</label><input name="experience_years" type="number" min="0" max="60" value="' + (p.experience_years == null ? "" : p.experience_years) + '"></div>' : '') +
       (k === "driver" ? '<div class="fld"><label>' + t("vType") + '</label><input name="vehicle_type" value="' + esc(p.vehicle_type || "") + '" placeholder="Chevrolet Cobalt / Hyundai Starex"></div><div class="fld"><label>' + t("seats") + '</label><input name="vehicle_seats" type="number" min="1" max="60" value="' + (p.vehicle_seats || "") + '"></div><div class="fld"><label>' + t("year") + '</label><input name="vehicle_year" type="number" min="1990" max="2030" value="' + (p.vehicle_year || "") + '"></div>' : '') +
@@ -250,6 +254,16 @@
     };
   }
 
+  async function payBlock() {
+    var r = await sb.rpc("my_partner_payouts"), L2 = r.data || [], c = t("payCols"), ST2 = t("payStatus");
+    var unit = me.partner.kind === "hotel" ? t("perNight") : t("perDay");
+    return '<div class="p-card"><h3>💵 ' + t("payT") + '</h3><p class="p-sub">' + t("payNote") + '</p>' +
+      '<p><b>' + t("price") + ':</b> ' + (me.partner.price_day ? '$' + Math.round(me.partner.price_day) + ' ' + unit : '—') + '</p>' +
+      (L2.length ? '<div style="overflow:auto"><table class="tbl"><thead><tr>' + c.map(function (x) { return '<th>' + x + '</th>'; }).join("") + '</tr></thead><tbody>' +
+        L2.map(function (x) { return '<tr><td>' + esc(x.ref || "") + '</td><td>' + (x.start_date ? new Date(x.start_date).toLocaleDateString() : "—") + '</td><td>' + (+x.units) + (x.qty > 1 ? ' × ' + x.qty : '') + '</td><td>$' + Math.round(x.unit_price) + '</td><td><b>$' + Math.round(x.amount) + '</b></td><td>' + esc(ST2[x.status] || x.status || "") + '</td></tr>'; }).join("") +
+        '</tbody></table></div>' : '<p class="p-sub">' + t("payNone") + '</p>') + '</div>';
+  }
+
   async function boot() {
     langBtn();
     var s = await sb.auth.getSession(); me.user = s.data.session && s.data.session.user;
@@ -274,7 +288,7 @@
     else {
       if (p.status === "paused") h += '<div class="p-card"><h2>' + t("paused") + '</h2>' + (p.admin_note ? '<p>' + esc(p.admin_note) + '</p>' : '') + '</div>';
       else h += '<div class="p-card"><h2>' + t("approved") + '</h2><p class="p-sub">' + t("approvedTxt") + '</p><div class="kv"><div><small>' + t("rating") + '</small><b>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " · " + p.reviews_count + " " + t("reviews") : "—") + '</b></div><div><small>' + t("trips") + '</small><b>' + (p.trips_count || 0) + '</b></div><div><small>' + t("stats") + '</small><b>' + (p.views_count || 0) + ' · ' + (p.likes_count || 0) + ' · ' + (p.shares_count || 0) + '</b></div></div></div>';
-      h += calCard() + profileForm() + await docsBlock();
+      h += await payBlock() + calCard() + profileForm() + await docsBlock();
     }
     box.innerHTML = h + '<div class="p-card">' + help() + '</div>';
     if ($("#f-prof")) bindProfile();

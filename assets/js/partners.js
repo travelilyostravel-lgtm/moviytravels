@@ -70,7 +70,7 @@
       '</div>' + stats(p) +
       (facts.length ? '<p class="pt-facts">' + facts.join(" · ") + '</p>' : '') +
       (lkeys(p).length ? '<p class="pt-langs">' + lkeys(p).slice(0, 4).map(function (k) { return '<span class="pt-lg' + (k === lng ? ' is-on' : '') + '">' + lflag(k) + ' ' + esc(lname(k)) + '</span>'; }).join("") + (lkeys(p).length > 4 ? ' <span class="pt-lg">+' + (lkeys(p).length - 4) + '</span>' : '') + '</p>' : '') +
-      (p.price_day ? '<p class="pt-price">' + esc(PT.from) + ' <b>$' + Math.round(p.price_day) + '</b> ' + esc(unit) + '</p>' : '') +
+      (p.price_brutto ? '<p class="pt-price">' + esc(PT.from) + ' <b>$' + Math.round(p.price_brutto) + '</b> ' + esc(unit) + '</p>' : '') +
       '<div class="pt-card__btns"><button class="btn btn--gold btn--sm" data-ask="' + p.id + '">' + esc(PT.ask) + '</button><button class="btn btn--outline btn--sm" data-prof="' + p.id + '">' + esc(PT.profile) + '</button></div></div></article>';
   }
   function draw() {
@@ -201,7 +201,7 @@
   async function open(id, mode) {
     cur = ALL.filter(function (p) { return p.id === id; })[0]; if (!cur) return;
     if (window.MN_TRACK) window.MN_TRACK("partner", (mode === "ask" ? "request: " : "profile: ") + cur.name);
-    $("#pt-fname").textContent = cur.name;
+    $("#pt-fname").textContent = cur.name; if (window.MN_PT_EST) window.MN_PT_EST();
     var box = $("#pt-prof");
     var mbox = $(".modal__box", modal); if (mbox) mbox.classList.toggle("modal__box--wide", mode === "prof");
     if (mode === "prof") {
@@ -220,7 +220,7 @@
       box.innerHTML = '<div class="pp"><div class="pp__hero">' + (cur.photo ? '<span class="pp__mainw" style="--ph:url(\'' + img(cur.photo) + '\')"><img class="pp__main" src="' + img(cur.photo) + '" alt=""></span>' : '') +
         '<div class="pp__id"><span class="pp__kind">' + esc(PT["k_" + cur.kind] || "") + (rank ? ' · 🏆 #' + rank + (rank <= 4 ? ' · ' + esc(PT.top_t) : '') : '') + '</span>' +
         '<h3>' + esc(cur.name) + '</h3><p>' + (cur.reviews_count ? stars(cur.rating) + ' <b>' + Number(cur.rating).toFixed(1) + '</b> (' + cur.reviews_count + ')' : '<span class="pt-new">' + esc(PT.new) + '</span>') + (cur.license_ok ? ' · <span class="pp__ok">✓ ' + esc(PT.verified) + '</span>' : '') + '</p>' +
-        (cur.price_day ? '<p class="pp__price">' + esc(PT.from) + ' <b>$' + Math.round(cur.price_day) + '</b> ' + esc(unit) + (cur.price_note ? ' — ' + esc(cur.price_note) : '') + '</p>' : '') +
+        (cur.price_brutto ? '<p class="pp__price">' + esc(PT.from) + ' <b>$' + Math.round(cur.price_brutto) + '</b> ' + esc(unit) + (cur.price_note ? ' — ' + esc(cur.price_note) : '') + '</p>' : '') +
         '<div class="pp__acts"><button type="button" class="pp__btn pt-like' + (liked(id) ? ' is-on' : '') + '" data-like="' + id + '" data-free>❤ ' + esc(PT.like) + '</button><button type="button" class="pp__btn" id="pp-share" data-free>↗ ' + esc(PT.share) + '</button>' +
         '<small id="pt-share-ok" hidden>✓ ' + esc(PT.copied) + '</small></div></div></div>' +
         '<div class="pp__nums">' + nums + '</div>' + (info ? '<dl class="pp__info">' + info + '</dl>' : '') +
@@ -264,6 +264,14 @@
   }
   if (window.MNCountries) window.MNCountries.attach(form.elements.country, LANG);
   ["change", "input"].forEach(function (ev) { form.addEventListener(ev, function (e) { if (e.target.name === "country") rqRules(); }); });
+  // estimated price = brutto per day / night × days (the server keeps the real calculation)
+  function est() {
+    var box = $("#pt-est"); if (!box) return;
+    var n = Math.max(1, parseInt(v(form, "units"), 10) || 1), pb = cur && +cur.price_brutto;
+    box.hidden = !pb; if (pb) $("b", box).textContent = "$" + Math.round(pb * n).toLocaleString("en-US") + " (" + n + " × $" + Math.round(pb) + ")";
+  }
+  form.addEventListener("input", function (e) { if (e.target.name === "units") est(); });
+  window.MN_PT_EST = est;
   form.onsubmit = async function (e) {
     e.preventDefault();
     var cc = rqRules();
@@ -278,7 +286,7 @@
         start_date: v(form, "start_date"), pax: v(form, "pax"), contact_name: v(form, "contact_name"), email: v(form, "email"), phone: wa,
         messenger: cc === "UZ" ? "telegram " + tg : "whatsapp",
         citizenship: window.MNCountries.name(cc, "en"), message: v(form, "message"),
-        details: { partner_id: cur.id, partner_kind: cur.kind, partner_name: cur.name, country_code: cc, telegram: tg, whatsapp: wa },
+        details: { partner_id: cur.id, partner_kind: cur.kind, partner_name: cur.name, country_code: cc, telegram: tg, whatsapp: wa, units: Math.max(1, parseInt(v(form, "units"), 10) || 1) },
         consent: form.elements.consent ? form.elements.consent.checked : true, lang: LANG });
       if (window.MN_TRACK) window.MN_TRACK("request", "partner " + cur.name + " " + ref);
       msg(form, (X.f_ok_title || "OK") + " — " + String(X.f_ok_text || "{ref}").replace("{ref}", ref), "ok"); form.reset(); rqRules();

@@ -203,11 +203,12 @@
     var h = '<div class="p-card"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><button class="btn btn--outline btn--sm" id="back">← Bronlar</button>' + P.badge(b.status, L) + '</div>' +
       '<h2 style="margin-top:14px"><span class="pill" style="background:#e8eefb;color:#1f3f7a">🏢 B2B</span> ' + esc(b.ref) + ' · ' + esc(b.tour_title) + '</h2>' + P.flowLine(b.status, L) +
       '<div class="kv" style="margin-top:14px"><div><small>Agentlik</small><b>' + esc(a.name) + '</b></div><div><small>Boshlanish</small><b>' + P.date(b.start_date) + '</b></div><div><small>Brutto</small><b>' + P.money(b.brutto) + '</b></div><div class="hl"><small>Netto (' + b.commission_pct + '%)</small><b>' + P.money(b.netto) + '</b></div></div>' +
-      '<p class="p-sub" style="margin-top:12px">' + route + '<br>' + esc(c.hotel || "") + ' · ' + esc(c.transport || "") + ' · Gid: ' + esc(c.guide || "") + (c.single ? " · 1 kishilik xonalar" : "") + ' · ' + (c.days || "?") + ' kun</p>' +
+      (c.partner_id ? '' : '<p class="p-sub" style="margin-top:12px">' + route + '<br>' + esc(c.hotel || "") + ' · ' + esc(c.transport || "") + ' · Gid: ' + esc(c.guide || "") + (c.single ? " · 1 kishilik xonalar" : "") + ' · ' + (c.days || "?") + ' kun</p>') +
       (c.departure_id ? '<div class="msg ' + (b.seats_held ? 'msg--ok' : 'msg--info') + '">👥 Guruh reysi (' + esc({ small: "kichik 12–17", medium: "o'rta 30–35", large: "katta 45–50" }[c.group_kind] || "") + (c.room === "single" ? ", bir kishilik xona" : "") + '). ' + (b.seats_held ? '✅ Jadvalda <b>' + b.seats_held + ' ta joy</b> band qilindi.' : '30% tasdiqlanganda jadvaldan joy o\'zi band qilinadi.') + '</div>' : '') +
       (b.agent_note ? '<div class="msg msg--info"><b>Agent izohi:</b> ' + esc(b.agent_note) + '</div>' : '') +
       '<p>Kontakt: <b>' + esc(a.contact_name) + '</b> · ' + esc(a.email) + (wa ? ' · <a class="link" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp ' + esc(a.whatsapp || a.phone) + '</a>' : '') + '</p></div>';
 
+    if (c.partner_id && window.MNA && window.MNA.partnerCostCard) h += await window.MNA.partnerCostCard({ booking_id: id });
     // Step actions
     h += '<div class="p-card"><h3>Keyingi qadam</h3>';
     if (b.status === "request") {

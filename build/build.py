@@ -471,7 +471,7 @@ def render_agent(lang="en"):
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Agent portal</span><span class="p-top__sp"></span>
   {lang_sel}<div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Log out</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="quote" class="is-on">New quote</button><button data-view="list">My bookings</button><button data-view="groups">Group departures</button><button data-view="agency">Agency</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="quote" class="is-on">New quote</button><button data-view="list">My bookings</button><button data-view="groups">Group departures</button><button data-view="services">Services / Guides</button><button data-view="agency">Agency</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>The portal is not connected to the database yet.</div>
@@ -547,6 +547,9 @@ def render_agent(lang="en"):
   <section id="v-booking" class="hidden"></section>
 
   <section id="v-groups" class="hidden"><div class="p-card"><h2>Guaranteed group departures — free seats</h2><p class="p-sub">Classic Uzbekistan, 8 days / 7 nights, every Saturday from Khiva. Your clients can join any group, even 1 person. Prices are public (per person, twin share); your commission applies. <b>Click a green or yellow cell to book seats</b> — the price is calculated automatically; seats are held when we confirm your 30% deposit.</p><div id="ag-sched"></div></div></section>
+  <section id="v-services" class="hidden"><div class="p-card"><h2>Services / Guides</h2><p class="p-sub">Licensed guides, cars with drivers and hotels checked by Moviy Nomad. Prices are client prices (brutto) per day or night — the same as on our website. Your commission applies: press <b>% Commission</b>. <span>Choose a partner, the dates and send the booking — we confirm availability.</span></p>
+    <div class="filters" id="sv-kinds"></div><div id="sv-list"></div></div>
+    <div class="p-card hidden" id="sv-book"></div></section>
   <section id="v-agency" class="hidden"><div class="p-card" id="agency-box"></div></section>
 </main>
 <script>window.MN={page_cfg(lang)};window.AG_LANG="{lang}";window.AG_DICT={dict_js};</script>
@@ -616,7 +619,7 @@ def render_admin():
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
 <script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-autolog.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script><script src="../assets/js/admin-customers.js"></script><script src="../assets/js/admin-stats.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/admin-partners.js"></script>
-<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/vendor/xlsx.mini.min.js"></script><script src="../assets/vendor/jspdf.plugin.autotable.min.js"></script><script src="../assets/js/admin-groups.js"></script><script src="../assets/js/admin-roster.js"></script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/admin-partner-pricing.js?v=1"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/vendor/xlsx.mini.min.js"></script><script src="../assets/vendor/jspdf.plugin.autotable.min.js"></script><script src="../assets/js/admin-groups.js"></script><script src="../assets/js/admin-roster.js"></script>
 </body></html>
 """
 
