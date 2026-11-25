@@ -1053,3 +1053,17 @@ body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-t
 .tour:hover .tour__img img{transform:scale(1.05);filter:saturate(1.1) contrast(1.04)}
 .tour:hover{box-shadow:0 22px 48px rgba(12,36,65,.18)}
 .tour__days,.tour__lock,.tour__flags{z-index:2}
+/* 25.11.2026: header — nothing cut off on the right, clearer menu text */
+.header .header__bar{width:min(1440px,100% - 40px);gap:20px}
+.header .logo{flex-shrink:0}
+.header .nav{flex:1 1 auto;min-width:0;justify-content:center}
+.header .header__right{flex-shrink:0;display:flex;align-items:center;gap:10px}
+.header__cta{white-space:nowrap}
+.nav a{opacity:1;color:#fff;font-weight:600;letter-spacing:.01em;text-shadow:0 1px 3px rgba(0,0,0,.45)}
+.header.is-solid .nav a{text-shadow:none}
+.nav a:hover{color:var(--gold)}
+@media (min-width:1025px) and (max-width:1680px){
+  .header .header__cta{font-size:0;gap:0;padding:0;width:42px;height:42px;border-radius:50%;justify-content:center;display:inline-flex;align-items:center}
+  .header .header__cta svg{width:21px;height:21px;margin:0}
+}
+@media (min-width:1025px) and (max-width:1240px){.header .nav{gap:14px;font-size:13.5px}.header .hshare{display:none}}
