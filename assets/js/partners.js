@@ -209,7 +209,7 @@
     }
     if (rows.length) {
       h += '<h4>' + (room ? "🛏 " + esc(U.rooms_t) : "🚐 " + esc(U.cars_t)) + '</h4><div class="pp-units" style="display:grid;gap:10px;margin:0 0 16px">' + rows.map(function (u) {
-        var spec = room ? [U[u.class] || "", (u.capacity || "") + " " + esc(U.guests), u.beds || "", u.breakfast ? U.bf_yes : U.bf_no]
+        var spec = room ? [U[u.class] || "", (u.capacity || "") + " " + esc(U.guests), u.breakfast ? U.bf_yes : U.bf_no]
                         : [U[u.class] || "", (u.capacity || "") + " " + esc(U.seats), u.luggage != null ? u.luggage + " " + U.bags : "", u.year || "", u.ac ? U.ac : ""];
         return '<div style="display:flex;gap:12px;align-items:center;border:1px solid #e5e0d5;border-radius:14px;padding:10px">' +
           (u.photos && u.photos[0] ? '<img src="' + img(u.photos[0]) + '" alt="" loading="lazy" style="width:96px;height:72px;object-fit:cover;border-radius:10px;flex-shrink:0">' : '') +
