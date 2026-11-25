@@ -67,6 +67,40 @@ Brutto, xizmat haqi va agent komissiyasi unga ko'rinmaydi.
 
 Hamkor narxini o'zgartirsa, bu "kartochka o'zgarishi" bo'lib keladi va admin tasdiqlamaguncha saytda eski narx turadi.
 
+## Hamkor kartochkasi qoidalari (har yangi hamkorga avtomatik)
+
+**Hamkorda (moviy-travel.uz/partner/)**
+- Har hamkorning o'z shaxsiy kartochkasi bor. Uni faqat o'zi ko'radi va o'zgartiradi, boshqa hamkorlarga ko'rinmaydi.
+- Kartochka tasdiqlangach o'zi **o'zgartira oladi** (izoh bilan so'rov yuboradi → admin tasdiqlaydi):
+  - rasmlar va bio;
+  - tillar va shaharlar;
+  - narx va narx izohi;
+  - tajriba, mashina va mehmonxona ma'lumotlari;
+  - telefon, WhatsApp, Telegram, yashash joyi.
+- **O'zgartira olmaydi** — buni faqat Moviy Nomad qiladi:
+  - turi, ismi, tug'ilgan yili;
+  - guvohnoma yoki diplom raqami;
+  - firma va INN;
+  - holati, reytingi, xizmat haqi.
+
+  Brauzer orqali yuborib ko'rsa ham, server bularni o'zgartirmaydi (sinovdan o'tdi).
+- Kabinetda **"📜 O'zgarishlar tarixim"** — har bir so'rovi va uning holati.
+
+**Saytda va agent portalida**
+- Saytda (B2C) kartochka brutto narx bilan ko'rinadi.
+- Agent portalida (B2B, "Services / Guides" bo'limi) xuddi shu kartochka ko'rinadi. Agent uni o'zgartira olmaydi, faqat bron qiladi.
+
+**Admin panelda (Hamkorlar → hamkor kartasi → "📒 Tarix va moliya")**
+- bronlar va so'rovlar soni (B2B, B2C, to'langan);
+- hamkorga to'lanadigan summa, brutto, agentlar komissiyasi va bizning foyda — jami va har bir bron bo'yicha (bron qatorini bossangiz, o'sha bron ochiladi);
+- sharhlar va kelgusi band kunlar;
+- sanalar: ro'yxatdan o'tgan, tasdiqlangan, qayta yuborilgan, oxirgi o'zgarish;
+- kartochka o'zgarishlari tarixi.
+
+**Yangi xizmat turi** (masalan, fotograf) hozircha **"Boshqa xizmat"** turi bilan qo'shiladi va unga ham shu qoidalar avtomatik qo'llanadi. Alohida tur kerak bo'lsa, menga ayting.
+
+Baza fayli: `supabase/partner_card_rules.sql`.
+
 ## Sinov natijasi (25.11.2026, test yozuvlari o'chirilgan)
 
 - Hamkor narxi 100 → saytda **120** → agent portalida **120**, komissiya **12**, agent to'laydi **108** → admin hisobida foyda **8** ✅
