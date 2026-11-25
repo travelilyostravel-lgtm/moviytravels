@@ -55,6 +55,20 @@
   };
   var LANGS = ["English", "Русский", "O'zbek", "Türkçe", "Deutsch", "Français", "Español", "Italiano", "العربية", "中文", "한국어", "日本語", "हिन्दी", "Svenska"];
   var SPEC = ["History", "Culture", "Architecture", "Food", "Nature", "Photography", "Shopping", "Religion", "Adventure", "Family"];
+  // 25.11.2026: e-mail code login, optional password, rooms / vehicles
+  Object.assign(D.uz, { codeTab: "E-mail kodi", passTab: "Parol", codeSend: "Kod yuborish", codeSent: "E-mailingizga kirish kodi va havola yuborildi. Kodni yozing yoki xatdagi havolani bosing.", code: "Koddagi raqamlar", codeOk: "Kirish",
+    codeHint: "Parolsiz kirish: e-mailingizni yozing — kod keladi.", pwT: "🔒 Kabinet paroli (ixtiyoriy)", pwHint: "Xohlasangiz parol qo'ying: keyin e-mail kodisiz ham, parol bilan ham kira olasiz. Boshqa odam kabinetingizni ochmasligi uchun foydali.", pwSave: "Parolni saqlash", pwOk: "Parol saqlandi ✅",
+    unitsRoom: "🛏 Xona turlari va narxlar", unitsCar: "🚐 Mashinalar va narxlar", unitsHint: "Netto — sizga to'lanadigan narx. Yangi yoki o'zgartirilgan xona/mashina Moviy Nomad tasdig'idan keyin saytda chiqadi. Vaqtincha yopish (masalan, ta'mirda) — tasdiqsiz.",
+    uAddRoom: "+ Xona turi qo'shish", uAddCar: "+ Mashina qo'shish", uSave: "Saqlash", uDel: "O'chirish", uHide: "Vaqtincha yopish", uShow: "Qayta ochish", uPhotos: "Rasmlar (15 tagacha)", uNone: "Hali qo'shilmagan.",
+    uSt: { pending: "⏳ Tekshirilmoqda", approved: "✅ Saytda", rejected: "❌ Rad etildi", hidden: "⏸ Yopiq" }, uDelQ: "Rostdan o'chirilsinmi? Qayta bosing.",
+    exT: "🏨 Mehmonxona ma'lumotlari", exSave: "Saqlash" });
+  Object.assign(D.ru, { codeTab: "Код на e-mail", passTab: "Пароль", codeSend: "Отправить код", codeSent: "На e-mail отправлены код и ссылка для входа. Введите код или нажмите ссылку в письме.", code: "Цифры из письма", codeOk: "Войти",
+    codeHint: "Вход без пароля: укажите e-mail — придёт код.", pwT: "🔒 Пароль кабинета (необязательно)", pwHint: "При желании задайте пароль: тогда сможете входить и по паролю, и по коду. Полезно, чтобы никто другой не открыл ваш кабинет.", pwSave: "Сохранить пароль", pwOk: "Пароль сохранён ✅",
+    unitsRoom: "🛏 Типы номеров и цены", unitsCar: "🚐 Машины и цены", unitsHint: "Нетто — цена, которую получаете вы. Новый или изменённый номер/машина появится на сайте после проверки Moviy Nomad. Временно закрыть (например, в ремонте) — без проверки.",
+    uAddRoom: "+ Добавить тип номера", uAddCar: "+ Добавить машину", uSave: "Сохранить", uDel: "Удалить", uHide: "Временно закрыть", uShow: "Открыть снова", uPhotos: "Фото (до 15)", uNone: "Пока не добавлено.",
+    uSt: { pending: "⏳ На проверке", approved: "✅ На сайте", rejected: "❌ Отклонено", hidden: "⏸ Закрыто" }, uDelQ: "Точно удалить? Нажмите ещё раз.",
+    exT: "🏨 Данные отеля", exSave: "Сохранить" });
+  var UJ = (window.MNJ_UNITS || {});
   var t = function (k) { return D[L][k]; };
   var me = { user: null, partner: null };
   var WA = (window.MN_CFG || {}).whatsapp || "998999804214", TG = (window.MN_CFG || {}).telegram || "moviy_safina";
@@ -75,11 +89,32 @@
         '<p class="p-sub">' + t("regGo") + '</p><div class="pkinds" style="grid-template-columns:repeat(2,1fr)">' + [["guide", "guides.html"], ["driver", "transport.html"], ["hotel", "hotels.html"], ["other", "partners.html"]].map(function (x) { return '<a class="pk" style="text-align:center;padding:16px" href="../' + L + '/' + x[1] + '#join"><span>' + esc(t("kinds")[x[0]]) + ' →</span></a>'; }).join("") + '</div>' +
         '<div class="pwhy"><h3>' + t("why") + '</h3><ul>' + t("whys").map(function (s) { return '<li>' + esc(s) + '</li>'; }).join("") + '</ul></div>'
       :
-        '<h2>' + t("title") + '</h2><p class="p-sub">' + t("sub") + '</p><form id="f-log"><div class="fld"><label>' + t("email") + '</label><input name="email" type="email" required autocomplete="email"></div>' +
-        '<div class="fld" style="margin-top:12px"><label>' + t("pass") + '</label><input name="password" type="password" required autocomplete="current-password"></div><div class="msg" id="m-log"></div>' +
-        '<div class="p-actions"><button class="btn btn--gold" type="submit">' + t("login") + '</button><button class="btn btn--outline" type="button" id="p-forgot">' + t("forgot") + '</button></div></form>') +
+        '<h2>' + t("title") + '</h2><p class="p-sub">' + t("sub") + '</p>' +
+        '<div class="seg" style="margin:6px 0 12px"><button type="button" data-lm="code" class="' + (tab !== "pass" ? "is-on" : "") + '">✉️ ' + t("codeTab") + '</button><button type="button" data-lm="pass" class="' + (tab === "pass" ? "is-on" : "") + '">🔒 ' + t("passTab") + '</button></div>' +
+        (tab === "pass"
+          ? '<form id="f-log"><div class="fld"><label>' + t("email") + '</label><input name="email" type="email" required autocomplete="email"></div>' +
+            '<div class="fld" style="margin-top:12px"><label>' + t("pass") + '</label><input name="password" type="password" required autocomplete="current-password"></div><div class="msg" id="m-log"></div>' +
+            '<div class="p-actions"><button class="btn btn--gold" type="submit">' + t("login") + '</button><button class="btn btn--outline" type="button" id="p-forgot">' + t("forgot") + '</button></div></form>'
+          : '<form id="f-code"><p class="p-sub">' + t("codeHint") + '</p><div class="fld"><label>' + t("email") + '</label><input name="email" type="email" required autocomplete="email"></div>' +
+            '<div class="fld hidden" id="c-wrap" style="margin-top:12px"><label>' + t("code") + '</label><input name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" style="font-size:22px;letter-spacing:5px"></div><div class="msg" id="m-log"></div>' +
+            '<div class="p-actions"><button class="btn btn--gold" type="submit" id="c-btn">' + t("codeSend") + '</button></div></form>')) +
       help() + '</div>';
     $$("[data-t]", box).forEach(function (b) { b.onclick = function () { authView(b.dataset.t); }; });
+    $$("[data-lm]", box).forEach(function (b) { b.onclick = function () { authView(b.dataset.lm); }; });
+    var fc = $("#f-code"); if (fc) fc.onsubmit = async function (e) {
+      e.preventDefault(); var em = fc.email.value.replace(/\s+/g, "").toLowerCase(), btn = $("#c-btn"); btn.disabled = true;
+      if (!fc.dataset.sent) {
+        P.msg("#m-log", "…");
+        var o = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname } });
+        btn.disabled = false;
+        if (o.error) return P.msg("#m-log", t("bad") + o.error.message, "err");
+        fc.dataset.sent = em; $("#c-wrap").classList.remove("hidden"); btn.textContent = t("codeOk"); fc.code.focus(); return P.msg("#m-log", t("codeSent"), "ok");
+      }
+      var r = await sb.auth.verifyOtp({ email: fc.dataset.sent, token: fc.code.value.replace(/\D/g, ""), type: "email" });
+      btn.disabled = false;
+      if (r.error) return P.msg("#m-log", t("bad") + r.error.message, "err");
+      boot();
+    };
     var fl = $("#f-log"); if (fl) {
       fl.onsubmit = async function (e) {
         e.preventDefault(); P.msg("#m-log", "…");
@@ -274,6 +309,93 @@
         '</tbody></table></div>' : '<p class="p-sub">' + t("payNone") + '</p>') + '</div>';
   }
 
+  // ---------------------------------------------------------------- rooms / vehicles
+  function uopt(o, sel) { return Object.keys(o || {}).map(function (k) { return '<option value="' + esc(k) + '"' + (k === sel ? " selected" : "") + '>' + esc(o[k]) + '</option>'; }).join(""); }
+  function uForm(u, room) {
+    var J2 = UJ[L] || UJ.uz || {}, f = function (n, lab, type, val, ex) { return '<div class="fld"><label>' + esc(lab) + '</label><input data-u="' + n + '" type="' + (type || "text") + '" value="' + esc(val == null ? "" : val) + '"' + (ex || "") + '></div>'; };
+    return '<div class="p-grid">' + (room
+      ? '<div class="fld"><label>' + esc(J2.r_class) + '</label><select data-u="class">' + uopt(J2.rc, u.class || "standard") + '</select></div>' + f("name", J2.r_name, "text", u.name, ' maxlength="120"') +
+        f("capacity", J2.r_cap, "number", u.capacity || 2, ' min="1" max="20"') + '<div class="fld"><label>' + esc(J2.r_beds) + '</label><select data-u="beds">' + uopt(J2.beds, u.beds || "1 double") + '</select></div>' +
+        f("qty", J2.r_qty, "number", u.qty || 1, ' min="1" max="999"') + f("price_netto", J2.r_price, "number", u.price_netto, ' min="1" max="20000"') +
+        '<div class="fld"><label><input type="checkbox" data-u="breakfast"' + (u.breakfast !== false ? " checked" : "") + '> ' + esc(J2.r_bf) + '</label></div>'
+      : '<div class="fld"><label>' + esc(J2.v_class) + '</label><select data-u="class">' + uopt(J2.vc, u.class || "comfort") + '</select></div>' + f("name", J2.v_model, "text", u.name, ' maxlength="120"') +
+        f("capacity", J2.v_seats, "number", u.capacity || 4, ' min="1" max="60"') + f("luggage", J2.v_lug, "number", u.luggage == null ? 3 : u.luggage, ' min="0" max="60"') + f("year", J2.v_year, "number", u.year, ' min="1990" max="2030"') +
+        f("plate", J2.v_plate, "text", u.plate, ' maxlength="20"') + f("price_netto", J2.v_day, "number", u.price_netto, ' min="1" max="20000"') + f("price_transfer", J2.v_tr, "number", u.price_transfer, ' min="1" max="5000"') +
+        '<div class="fld"><label><input type="checkbox" data-u="ac"' + (u.ac !== false ? " checked" : "") + '> ' + esc(J2.v_ac) + '</label></div>') +
+      '<div class="fld full"><label>' + t("uPhotos") + '</label><div class="pgal">' + (u.photos || []).map(function (x, i) { return '<span><img src="' + esc(pub(x)) + '" alt=""><button type="button" data-urm="' + i + '">×</button></span>'; }).join("") + '</div><input type="file" data-uph accept="image/*" multiple></div></div>';
+  }
+  async function unitsBlock() {
+    var room = me.partner.kind === "hotel", r = await sb.from("partner_units").select("*").eq("partner_id", me.partner.id).order("sort").order("created_at");
+    me.units = r.data || [];
+    return '<div class="p-card" id="p-units"><h3>' + t(room ? "unitsRoom" : "unitsCar") + '</h3><p class="p-sub">' + t("unitsHint") + '</p><div id="u-list">' +
+      (me.units.length ? me.units.map(function (u) { return unitCard(u, room); }).join("") : '<p class="p-sub">' + t("uNone") + '</p>') + '</div>' +
+      '<button class="btn btn--outline btn--sm" type="button" id="u-add">' + t(room ? "uAddRoom" : "uAddCar") + '</button><div class="msg" id="m-units"></div></div>';
+  }
+  function unitCard(u, room) {
+    var st = t("uSt")[u.status] || u.status;
+    return '<details class="p-unit" data-uid="' + esc(u.id || "") + '" style="border:1px solid #e5e0d5;border-radius:14px;padding:10px 12px;margin:0 0 10px"' + (u.id ? "" : " open") + '><summary style="cursor:pointer"><b>' + esc(u.name || "…") + '</b> · ' + (u.price_netto ? "$" + Math.round(u.price_netto) : "—") + (u.qty > 1 ? ' · ×' + u.qty : '') + ' · <small>' + st + '</small>' +
+      (u.admin_note && u.status === "rejected" ? '<br><small style="color:#b4541b">Moviy Nomad: ' + esc(u.admin_note) + '</small>' : '') + '</summary>' + uForm(u, room) +
+      '<div class="p-actions"><button class="btn btn--gold btn--sm" type="button" data-usave>' + t("uSave") + '</button>' +
+      (u.status === "approved" ? '<button class="btn btn--outline btn--sm" type="button" data-uhide>' + t("uHide") + '</button>' : '') +
+      (u.status === "hidden" ? '<button class="btn btn--outline btn--sm" type="button" data-ushow>' + t("uShow") + '</button>' : '') +
+      (u.id ? '<button class="btn btn--outline btn--sm" type="button" data-udel>' + t("uDel") + '</button>' : '') + '</div></details>';
+  }
+  function bindUnits() {
+    var room = me.partner.kind === "hotel", wrap = $("#p-units");
+    $("#u-add").onclick = function () { var l = $("#u-list"); if (!me.units.length) l.innerHTML = ""; l.insertAdjacentHTML("beforeend", unitCard({ status: "pending", photos: [] }, room)); };
+    wrap.addEventListener("click", async function (e) {
+      var card = e.target.closest(".p-unit"); if (!card) return;
+      var id = card.dataset.uid, u = me.units.filter(function (x) { return x.id === id; })[0] || { photos: [] };
+      var rm = e.target.closest("[data-urm]"); if (rm) { card.dataset.rm = (card.dataset.rm || "") + "|" + (u.photos || [])[+rm.dataset.urm]; rm.parentNode.remove(); return; }
+      if (e.target.closest("[data-udel]")) {
+        if (!e.target.dataset.sure) { e.target.dataset.sure = 1; e.target.textContent = t("uDelQ"); return; }
+        var d = await sb.from("partner_units").delete().eq("id", id); if (d.error) return P.msg("#m-units", t("bad") + d.error.message, "err"); return boot();
+      }
+      if (e.target.closest("[data-uhide]") || e.target.closest("[data-ushow]")) {
+        var h = await sb.from("partner_units").update({ status: e.target.closest("[data-uhide]") ? "hidden" : "approved" }).eq("id", id);
+        if (h.error) return P.msg("#m-units", t("bad") + h.error.message, "err"); return boot();
+      }
+      if (!e.target.closest("[data-usave]")) return;
+      var g = function (n) { var el = card.querySelector('[data-u="' + n + '"]'); return el ? (el.type === "checkbox" ? el.checked : String(el.value).trim()) : null; };
+      var num = function (n) { var x = parseFloat(g(n)); return isNaN(x) ? null : x; };
+      var J2 = UJ[L] || UJ.uz || {}, row = { unit_kind: room ? "room" : "vehicle", class: g("class"), name: g("name") || (room ? (J2.rc || {})[g("class")] : ""), capacity: num("capacity"), qty: num("qty") || 1, price_netto: num("price_netto") };
+      if (room) { row.beds = g("beds"); row.breakfast = g("breakfast"); } else { row.luggage = num("luggage"); row.year = num("year"); row.plate = g("plate"); row.price_transfer = num("price_transfer"); row.ac = g("ac"); }
+      if (!row.name || !(row.price_netto > 0)) return P.msg("#m-units", J2.need_unit || "?", "err");
+      var keep = (u.photos || []).filter(function (x) { return (card.dataset.rm || "").split("|").indexOf(x) < 0; });
+      var fin = card.querySelector("[data-uph]"), files = fin ? [].slice.call(fin.files, 0, Math.max(0, 15 - keep.length)) : [];
+      P.msg("#m-units", "…");
+      try {
+        for (var i = 0; i < files.length; i++) { var fl = await resize(files[i], 1400); keep.push(await P.upload("partner-photos", me.partner.id, fl)); }
+        row.photos = keep;
+        var q = id ? await sb.from("partner_units").update(row).eq("id", id) : await sb.from("partner_units").insert(Object.assign({ partner_id: me.partner.id }, row));
+        if (q.error) throw q.error;
+        P.msg("#m-units", t("saved"), "ok"); boot();
+      } catch (er) { P.msg("#m-units", t("bad") + P.err(er), "err"); }
+    });
+  }
+  function exBlock() {
+    var x = me.partner.extra || {}, J2 = UJ[L] || UJ.uz || {}, am = x.amenities || [];
+    return '<div class="p-card"><h3>' + t("exT") + '</h3><form id="f-ex"><div class="pchips">' + Object.keys(J2.amen || {}).map(function (k) { return '<label><input type="checkbox" name="am" value="' + k + '"' + (am.indexOf(k) > -1 ? " checked" : "") + '> ' + esc(J2.amen[k]) + '</label>'; }).join("") + '</div>' +
+      '<div class="p-grid" style="margin-top:10px"><div class="fld"><label>' + esc(J2.check_in) + '</label><input type="time" name="check_in" value="' + esc(x.check_in || "14:00") + '"></div><div class="fld"><label>' + esc(J2.check_out) + '</label><input type="time" name="check_out" value="' + esc(x.check_out || "12:00") + '"></div>' +
+      '<div class="fld full"><label>' + esc(J2.map_url) + '</label><input name="map_url" type="url" value="' + esc(x.map_url || "") + '"></div><div class="fld full"><label>' + esc(J2.policies) + '</label><textarea name="policies" rows="3" maxlength="800">' + esc(x.policies || "") + '</textarea></div></div>' +
+      '<div class="msg" id="m-ex"></div><div class="p-actions"><button class="btn btn--gold btn--sm">' + t("exSave") + '</button></div></form></div>';
+  }
+  function bindEx() {
+    var f = $("#f-ex"); if (!f) return;
+    f.onsubmit = async function (e) {
+      e.preventDefault(); var x = me.partner.extra || {};
+      var r = await sb.rpc("partner_save_extra", { p: { amenities: $$("[name=am]:checked", f).map(function (i) { return i.value; }), check_in: f.check_in.value, check_out: f.check_out.value, map_url: f.map_url.value.trim(), policies: f.policies.value.trim(), company_type: x.company_type || "", registry_no: x.registry_no || "" } });
+      P.msg("#m-ex", r.error ? t("bad") + r.error.message : t("saved"), r.error ? "err" : "ok");
+    };
+  }
+  function pwBlock() {
+    return '<div class="p-card"><h3>' + t("pwT") + '</h3><p class="p-sub">' + t("pwHint") + '</p><form id="f-pw"><div class="fld"><input type="password" name="pw" minlength="8" maxlength="72" autocomplete="new-password" placeholder="••••••••"></div><div class="msg" id="m-pw"></div><div class="p-actions"><button class="btn btn--outline btn--sm">' + t("pwSave") + '</button></div></form></div>';
+  }
+  function bindPw() {
+    var f = $("#f-pw"); if (!f) return;
+    f.onsubmit = async function (e) { e.preventDefault(); if (f.pw.value.length < 8) return P.msg("#m-pw", t("pass8"), "err"); var r = await sb.auth.updateUser({ password: f.pw.value }); P.msg("#m-pw", r.error ? t("bad") + r.error.message : t("pwOk"), r.error ? "err" : "ok"); if (!r.error) f.reset(); };
+  }
+
   async function boot() {
     langBtn();
     var s = await sb.auth.getSession(); me.user = s.data.session && s.data.session.user;
@@ -293,17 +415,20 @@
       else if (Date.now() - new Date(lc[0].decided_at).getTime() < 7 * 864e5) h += '<div class="p-card" style="border:2px solid #9fd4b4"><h3>✅ ' + t("chOk") + ' <small>(' + dt + ')</small></h3>' + (lc[0].admin_note ? '<p>' + esc(lc[0].admin_note) + '</p>' : '') + '</div>';
     }
     $("#pwho").textContent = p.name + " · " + t("kinds")[p.kind];
-    if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2>' + (p.resubmit_count ? '<p class="p-sub">↻ ' + t("rejN") + ': ' + p.resubmit_count + '</p>' : '') + '<p class="p-sub">' + t("pendingTxt") + '</p></div>' + await docsBlock() + profileForm();
-    else if (p.status === "rejected") h += '<div class="p-card" style="border:2px solid #efa5a5"><h2>❌ ' + t("rejected") + '</h2>' + (p.admin_note ? '<p><b>' + t("rejWhy") + ':</b> ' + esc(p.admin_note) + '</p>' : '') + '<p class="p-sub">' + t("rejHow") + '</p></div>' + await docsBlock() + profileForm();
+    var inv = p.kind === "hotel" || p.kind === "driver" ? await unitsBlock() + (p.kind === "hotel" ? exBlock() : "") : "";
+    if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2>' + (p.resubmit_count ? '<p class="p-sub">↻ ' + t("rejN") + ': ' + p.resubmit_count + '</p>' : '') + '<p class="p-sub">' + t("pendingTxt") + '</p></div>' + inv + await docsBlock() + profileForm() + pwBlock();
+    else if (p.status === "rejected") h += '<div class="p-card" style="border:2px solid #efa5a5"><h2>❌ ' + t("rejected") + '</h2>' + (p.admin_note ? '<p><b>' + t("rejWhy") + ':</b> ' + esc(p.admin_note) + '</p>' : '') + '<p class="p-sub">' + t("rejHow") + '</p></div>' + inv + await docsBlock() + profileForm() + pwBlock();
     else {
       if (p.status === "paused") h += '<div class="p-card"><h2>' + t("paused") + '</h2>' + (p.admin_note ? '<p>' + esc(p.admin_note) + '</p>' : '') + '</div>';
       else h += '<div class="p-card"><h2>' + t("approved") + '</h2><p class="p-sub">' + t("approvedTxt") + '</p><div class="kv"><div><small>' + t("rating") + '</small><b>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " · " + p.reviews_count + " " + t("reviews") : "—") + '</b></div><div><small>' + t("trips") + '</small><b>' + (p.trips_count || 0) + '</b></div><div><small>' + t("stats") + '</small><b>' + (p.views_count || 0) + ' · ' + (p.likes_count || 0) + ' · ' + (p.shares_count || 0) + '</b></div></div></div>';
-      h += await payBlock() + calCard() + profileForm() + await histBlock() + await docsBlock();
+      h += await payBlock() + inv + calCard() + profileForm() + await histBlock() + await docsBlock() + pwBlock();
     }
     box.innerHTML = h + '<div class="p-card">' + help() + '</div>';
     if ($("#f-prof")) bindProfile();
     if ($("#p-cal")) bindCal();
     if ($("#d-up")) bindDocs();
+    if ($("#p-units")) bindUnits();
+    bindEx(); bindPw();
   }
   function render() { boot(); }
   $("#plogout").onclick = async function () { await sb.auth.signOut(); location.reload(); };

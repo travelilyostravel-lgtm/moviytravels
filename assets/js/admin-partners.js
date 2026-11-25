@@ -4,7 +4,7 @@
   if (!sb) return;
   var KIND = { guide: "Gid", driver: "Haydovchi / transport", hotel: "Mehmonxona", other: "Boshqa xizmat" };
   var ST = { pending: "⏳ Tekshiruvda", approved: "✅ Saytda", rejected: "❌ Rad etilgan", paused: "⏸ Vaqtincha yopiq" };
-  var DK = { license: "Litsenziya / guvohnoma", id: "Pasport / ID", car: "Texpasport", cert: "Sertifikat", other: "Boshqa", trip: "Sayyohlar bilan rasm", extra: "Qo'shimcha rasm" };
+  var DK = { license: "Litsenziya / guvohnoma", id: "Pasport / ID", car: "Texpasport", vehicle: "Texpasport (arizadan)", cert: "Sertifikat", other: "Boshqa", trip: "Sayyohlar bilan rasm", extra: "Qo'shimcha rasm" };
   var NEED = { guide: { main: 1, pub: 3, trip: 10 }, driver: { main: 1, pub: 6, trip: 10 }, hotel: { main: 1, pub: 8, trip: 0 }, other: { main: 1, pub: 3, trip: 10 } };
   var flt = "pending";
   function tgBtn(v) {

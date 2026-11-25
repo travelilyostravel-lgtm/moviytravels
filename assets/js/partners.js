@@ -195,6 +195,32 @@
     }; });
   }
 
+  // ---------------------------------------------------------------- hotel room types / transport vehicles (brutto prices only)
+  async function units(p) {
+    var U = window.MNPT_U || {}, el = $("#pp-units"); if (!el) return;
+    var rows = await get("partner_units_public?select=*&partner_id=eq." + p.id + "&order=sort,price_brutto");
+    var ex = ((await get("partner_extra_public?select=extra&partner_id=eq." + p.id))[0] || {}).extra || {};
+    var room = p.kind === "hotel", AMK = { ac: "ac_a", transfer: "transfer_a", family: "family_a" };
+    var h = "";
+    if (room && ((ex.amenities || []).length || ex.check_in || ex.map_url)) {
+      h += '<div class="pp-amen"><h4>✨ ' + esc(U.amen_t) + '</h4><p>' + (ex.amenities || []).map(function (k) { return '<span class="pt-lg">' + esc(U[AMK[k] || k] || k) + '</span>'; }).join(" ") + '</p>' +
+        '<p class="pt-note">' + [ex.check_in ? esc(U.check_in) + " " + esc(ex.check_in) : "", ex.check_out ? esc(U.check_out) + " " + esc(ex.check_out) : ""].filter(Boolean).join(" · ") +
+        (ex.map_url ? ' · <a href="' + esc(ex.map_url) + '" target="_blank" rel="noopener">📍 ' + esc(U.map) + '</a>' : '') + '</p>' + (ex.policies ? '<p class="pt-note">' + esc(U.policies) + ': ' + esc(ex.policies) + '</p>' : '') + '</div>';
+    }
+    if (rows.length) {
+      h += '<h4>' + (room ? "🛏 " + esc(U.rooms_t) : "🚐 " + esc(U.cars_t)) + '</h4><div class="pp-units" style="display:grid;gap:10px;margin:0 0 16px">' + rows.map(function (u) {
+        var spec = room ? [U[u.class] || "", (u.capacity || "") + " " + esc(U.guests), u.beds || "", u.breakfast ? U.bf_yes : U.bf_no]
+                        : [U[u.class] || "", (u.capacity || "") + " " + esc(U.seats), u.luggage != null ? u.luggage + " " + U.bags : "", u.year || "", u.ac ? U.ac : ""];
+        return '<div style="display:flex;gap:12px;align-items:center;border:1px solid #e5e0d5;border-radius:14px;padding:10px">' +
+          (u.photos && u.photos[0] ? '<img src="' + img(u.photos[0]) + '" alt="" loading="lazy" style="width:96px;height:72px;object-fit:cover;border-radius:10px;flex-shrink:0">' : '') +
+          '<div style="flex:1;min-width:0"><b>' + esc(u.name) + '</b><br><small>' + esc(spec.filter(Boolean).join(" · ")) + '</small></div>' +
+          '<div style="text-align:right;white-space:nowrap">' + (u.price_brutto ? '<b>$' + Math.round(u.price_brutto) + '</b><br><small>' + esc(room ? U.per_night : U.per_day) + '</small>' : '') +
+          (u.transfer_brutto ? '<br><small>' + esc(U.transfer) + ' $' + Math.round(u.transfer_brutto) + '</small>' : '') + '</div></div>';
+      }).join("") + '</div>';
+    }
+    el.innerHTML = h;
+  }
+
   // ---------------------------------------------------------------- profile / request / review modal
   var modal = $("#pt-modal"), form = $("#pt-form"), rform = $("#pt-rform"), cur = null;
   function show(m) { modal.classList.add("is-open"); }
@@ -224,6 +250,7 @@
         '<div class="pp__acts"><button type="button" class="pp__btn pt-like' + (liked(id) ? ' is-on' : '') + '" data-like="' + id + '" data-free>❤ ' + esc(PT.like) + '</button><button type="button" class="pp__btn" id="pp-share" data-free>↗ ' + esc(PT.share) + '</button>' +
         '<small id="pt-share-ok" hidden>✓ ' + esc(PT.copied) + '</small></div></div></div>' +
         '<div class="pp__nums">' + nums + '</div>' + (info ? '<dl class="pp__info">' + info + '</dl>' : '') +
+        '<div id="pp-units"></div>' +
         '<div class="pp__cal"><h4>📅 ' + esc(PT.cal_t) + '</h4><p>' + esc(PT.cal_hint) + '</p><div id="pp-cal"></div><div class="pp__calmsg" id="pp-calmsg"></div></div>' +
         (cur.bio ? '<p class="pt-bio">' + esc(cur.bio) + '</p>' : '') +
         ((cur.photos || []).length ? '<div class="pp__galw"><h4>📸 ' + esc(PT.gal_t) + ' <small>(' + cur.photos.length + ')</small></h4><div class="gmos" id="pp-gal"></div>' +
@@ -235,6 +262,7 @@
       $("#pt-go-rv").onclick = function () { box.innerHTML = ""; form.hidden = true; rform.hidden = false; msg(rform, ""); };
       $("#pp-share").onclick = function () { share(id); };
       if ((cur.photos || []).length) gallery(cur);
+      if (cur.kind === "hotel" || cur.kind === "driver") units(cur);
       get("partner_busy_public?select=day&partner_id=eq." + id).then(function (rows) {
         var busy = {}; (rows || []).forEach(function (r) { busy[r.day] = true; });
         var el = $("#pp-cal"); if (!el || !window.MNCal) return;

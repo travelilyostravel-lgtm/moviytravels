@@ -567,13 +567,20 @@ def render_agent(lang="en"):
 
 
 
+def _units_i18n():
+    import join_i18n
+    keys = ["r_class", "r_name", "r_cap", "r_beds", "r_qty", "r_bf", "r_price", "rc", "beds", "amen", "check_in", "check_out", "map_url", "policies",
+            "v_class", "vc", "v_model", "v_seats", "v_lug", "v_year", "v_plate", "v_ac", "v_day", "v_tr", "need_unit"]
+    return {l: {k: join_i18n.J[l][k] for k in keys} for l in ("uz", "ru")}
+
+
 def render_partner():
     return PORTAL_HEAD.format(lang="uz", title="Hamkorlar portali — Moviy Nomad", CSSV=CSSV) + f"""
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Partner</span><span class="p-top__sp"></span>
   <div class="p-top__who" id="pwho"></div><button class="btn btn--ghost btn--sm" id="plang">Русский</button><button class="btn btn--ghost btn--sm hidden" id="plogout">Chiqish</button></div></header>
 <main class="container p-main"><div id="pv"><div class="p-card">…</div></div></main>
-<script>window.MN_CFG={json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"]})};</script>
+<script>window.MN_CFG={json.dumps({"whatsapp": CONFIG["whatsapp"], "telegram": CONFIG["telegram"]})};window.MNJ_UNITS={json.dumps(_units_i18n(), ensure_ascii=False)};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/mn-cities.js"></script><script src="../assets/js/partner.js"></script>
 </body></html>
 """
@@ -622,7 +629,7 @@ def render_admin():
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
-<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-autolog.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script><script src="../assets/js/admin-customers.js"></script><script src="../assets/js/admin-stats.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/admin-partners.js"></script>
+<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-autolog.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script><script src="../assets/js/admin-customers.js"></script><script src="../assets/js/admin-stats.js"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/admin-partners.js"></script><script src="../assets/js/admin-partner-units.js"></script>
 <script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/admin-partner-pricing.js?v=1"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/vendor/xlsx.mini.min.js"></script><script src="../assets/vendor/jspdf.plugin.autotable.min.js"></script><script src="../assets/js/admin-groups.js"></script><script src="../assets/js/admin-roster.js"></script>
 </body></html>
 """

@@ -37,6 +37,31 @@
     return '<div class="mf-f mf-f--full"><span>' + esc(label) + (req ? " *" : "") + '</span><div class="pchips jf-cities"' + (req ? ' data-req="1"' : '') + '>' +
       CITIES.map(function (c) { return '<label><input type="checkbox" name="cities_x" value="' + esc(c[1]) + '"> ' + esc(window.MNCities.label(c[0], CL)) + '</label>'; }).join("") + '</div></div>';
   }
+  function opts(o, sel) { return Object.keys(o).map(function (k) { return '<option value="' + esc(k) + '"' + (k === sel ? " selected" : "") + '>' + esc(o[k]) + '</option>'; }).join(""); }
+  function uf(n, label, type, extra, full) { return '<label class="mf-f"' + (full ? ' style="grid-column:1/-1"' : '') + '><span>' + esc(label) + '</span><input data-u="' + n + '" type="' + (type || "text") + '"' + (extra || "") + '></label>'; }
+  function unitRow(room) {
+    return '<div class="jf-unit" style="border:1px solid var(--line,#e5e0d5);border-radius:14px;padding:12px;margin:0 0 10px"><div class="mf-grid">' +
+      (room
+        ? '<label class="mf-f"><span>' + esc(J.r_class) + '</span><select data-u="class">' + opts(J.rc, "standard") + '</select></label>' + uf("name", J.r_name, "text", ' maxlength="120"') +
+          uf("capacity", J.r_cap, "number", ' min="1" max="20" value="2"') + '<label class="mf-f"><span>' + esc(J.r_beds) + '</span><select data-u="beds">' + opts(J.beds, "1 double") + '</select></label>' +
+          uf("qty", J.r_qty, "number", ' min="1" max="999" value="1"') + uf("price_netto", J.r_price + " *", "number", ' min="1" max="20000"') +
+          '<label class="mf-f"><span>&nbsp;</span><span style="font-weight:500"><input type="checkbox" data-u="breakfast" checked> ' + esc(J.r_bf) + '</span></label>'
+        : '<label class="mf-f"><span>' + esc(J.v_class) + '</span><select data-u="class">' + opts(J.vc, "comfort") + '</select></label>' + uf("name", J.v_model + " *", "text", ' maxlength="120" placeholder="Chevrolet Malibu"') +
+          uf("capacity", J.v_seats, "number", ' min="1" max="60" value="4"') + uf("luggage", J.v_lug, "number", ' min="0" max="60" value="3"') + uf("year", J.v_year, "number", ' min="1990" max="2030"') +
+          uf("plate", J.v_plate, "text", ' maxlength="20" placeholder="01 A 123 BC"') + uf("price_netto", J.v_day + " *", "number", ' min="1" max="20000"') + uf("price_transfer", J.v_tr, "number", ' min="1" max="5000"') +
+          '<label class="mf-f"><span>&nbsp;</span><span style="font-weight:500"><input type="checkbox" data-u="ac" checked> ' + esc(J.v_ac) + '</span></label>') +
+      '</div><button type="button" class="btn btn--outline btn--sm" data-udel style="margin-top:6px">✕ ' + esc(J.unit_del) + '</button></div>';
+  }
+  function readUnits(fm, room) {
+    return $$(".jf-unit", fm).map(function (u, i) {
+      var g = function (n) { var el = u.querySelector('[data-u="' + n + '"]'); return el ? (el.type === "checkbox" ? el.checked : String(el.value).trim()) : ""; };
+      var num = function (n) { var x = parseFloat(g(n)); return isNaN(x) ? null : x; };
+      var name = g("name") || (room ? J.rc[g("class")] : "");
+      return { unit_kind: room ? "room" : "vehicle", class: g("class"), name: name, capacity: num("capacity"), beds: room ? g("beds") : null, qty: num("qty") || 1,
+        luggage: room ? null : num("luggage"), year: room ? null : num("year"), plate: room ? null : g("plate"), ac: room ? true : !!g("ac"), breakfast: room ? !!g("breakfast") : false,
+        price_netto: num("price_netto"), price_transfer: room ? null : num("price_transfer"), sort: i };
+    }).filter(function (x) { return x.name && x.price_netto > 0; });
+  }
   function fld(name, label, req, type, extra) {
     return '<label class="mf-f' + (type === "textarea" ? " mf-f--full" : "") + '"><span>' + esc(label) + (req ? " *" : "") + '</span>' +
       (type === "textarea" ? '<textarea name="' + name + '" rows="4" maxlength="1500"' + (req ? " required" : "") + '></textarea>'
@@ -52,22 +77,29 @@
       (ho ? "" : cityChips(g ? J.works : J.cities, g)) +
       (ho ? "" : fld("birth_year", J.birth, 1, "number", ' min="1940" max="' + (new Date().getFullYear() - 18) + '"')) +
       fld("home_area", ho ? J.area_h : J.area, 1, "text", ' maxlength="120"') + fld("home_address", J.addr, 1, "text", ' maxlength="250"') + langPick(J.languages, g || ot) +
-      (ho ? fld("inn", J.inn, 1, "text", ' maxlength="30"') + fld("license_no", J.license.hotel, 0, "text", ' maxlength="80"') + fld("hotel_stars", J.stars, 0, "number", ' min="0" max="5"') + fld("hotel_rooms", J.rooms, 1, "number", ' min="1" max="999"')
+      (ho ? fld("inn", J.inn, 1, "text", ' maxlength="30"') + fld("license_no", J.registry || J.license.hotel, 0, "text", ' maxlength="80"') + fld("hotel_stars", J.stars, 0, "number", ' min="0" max="5"') +
+            fld("check_in", J.check_in, 0, "time", ' value="14:00"') + fld("check_out", J.check_out, 0, "time", ' value="12:00"') + fld("map_url", J.map_url, 0, "url", ' maxlength="400" placeholder="https://maps.google.com/…"')
           : fld("license_no", J.license[kind], g || dr, "text", ' maxlength="80"') + fld("experience_years", J.exp, g || dr, "number", ' min="0" max="60"')) +
-      (dr ? fld("vehicle_type", J.vtype, 1, "text", ' maxlength="60"') + fld("vehicle_seats", J.vseats, 1, "number", ' min="1" max="60"') + fld("vehicle_year", J.vyear, 1, "number", ' min="1990" max="2030"') : "") +
+      (dr ? '<label class="mf-f"><span>' + esc(J.ctype) + ' *</span><select name="company_type" required><option value="person">' + esc(J.ct.person) + '</option><option value="company">' + esc(J.ct.company) + '</option></select></label>' + fld("inn", J.inn, 0, "text", ' maxlength="30"') : "") +
       (ot ? fld("spec", J.spec, 1, "text", ' maxlength="60"') + fld("inn", J.inn, 0, "text", ' maxlength="30"') : "") +
-      fld("price_day", J.price[kind], 1, "number", ' min="1" max="5000"') + fld("bio", J.bio[kind], 1, "textarea") + '</div></fieldset>' +
+      (ho || dr ? "" : fld("price_day", J.price[kind], 1, "number", ' min="1" max="5000"')) + fld("bio", J.bio[kind], 1, "textarea") +
+      (ho ? fld("policies", J.policies, 0, "textarea") : "") + '</div></fieldset>' +
+      (ho ? '<fieldset><legend>' + esc(J.sec_amen) + '</legend><div class="pchips jf-cities">' + Object.keys(J.amen).map(function (k) { return '<label><input type="checkbox" name="amen_x" value="' + k + '"> ' + esc(J.amen[k]) + '</label>'; }).join("") + '</div></fieldset>' : "") +
+      (ho || dr ? '<fieldset><legend>' + esc(ho ? J.sec_rooms : J.sec_cars) + '</legend><p class="jf-note">' + esc(J.netto_note) + '</p><div class="jf-units" id="jf-units"></div>' +
+        '<button type="button" class="btn btn--outline btn--sm" id="jf-add">' + esc(ho ? J.room_add : J.car_add) + '</button></fieldset>' : "") +
       '<fieldset><legend>' + esc(J.sec_photo) + '</legend>' + slots.map(function (s) {
         var t = J.ph[s[0]], hint = typeof t[1] === "string" ? t[1] : t[1][kind];
         return '<label class="jf-ph"><b>' + esc(t[0]) + ' *</b><small>' + esc(hint) + (s[1] > 1 ? ' — ' + esc(J.min) + ' ' + s[1] : '') + '</small>' +
           '<input type="file" accept="image/*" data-slot="' + s[0] + '" data-min="' + s[1] + '"' + (s[1] > 1 ? " multiple" : "") + '><span class="jf-cnt" data-cnt="' + s[0] + '">0 / ' + s[1] + '</span><span class="jf-thumbs" data-th="' + s[0] + '"></span></label>';
       }).join("") + '</fieldset>' +
       '<fieldset><legend>' + esc(J.sec_login) + '</legend><div class="mf-grid">' + fld("email", J.email, 1, "email", ' maxlength="160" autocomplete="email"') +
-      fld("password", J.password, 1, "password", ' minlength="8" maxlength="72" autocomplete="new-password"') + '</div><p class="jf-note" style="margin:6px 0 0">' + esc(J.login_note) + '</p></fieldset>' +
+      fld("password", J.pw_opt || J.password, 0, "password", ' minlength="8" maxlength="72" autocomplete="new-password"') + '</div><p class="jf-note" style="margin:6px 0 0">' + esc(J.login_note2 || J.login_note) + '</p></fieldset>' +
       '<label class="jf-agree"><input type="checkbox" name="a1" required> ' + esc(J.agree1) + '</label><label class="jf-agree"><input type="checkbox" name="a2" required> ' + esc(J.agree2) + '</label>' +
       '<div class="mf-msg" role="status"></div><div class="jf-prog"><i></i></div><button class="btn btn--gold" type="submit">' + esc(J.send) + '</button></form>';
     body.innerHTML = f; open();
     var fm = $("#jn-form");
+    if (ho || dr) { var add = function () { $("#jf-units", fm).insertAdjacentHTML("beforeend", unitRow(ho)); }; add(); $("#jf-add", fm).onclick = add;
+      $("#jf-units", fm).addEventListener("click", function (e) { var d = e.target.closest("[data-udel]"); if (d && $$(".jf-unit", fm).length > 1) d.closest(".jf-unit").remove(); }); }
     $$("input[type=file]", fm).forEach(function (inp) {
       inp.onchange = function () {
         var s = inp.getAttribute("data-slot"), n = inp.files.length, m = +inp.getAttribute("data-min"), c = $('[data-cnt="' + s + '"]', fm);
@@ -119,12 +151,16 @@
     var ph = $$("input[type=file]", fm).filter(function (i) { return i.files.length < +i.getAttribute("data-min"); })
       .map(function (i) { return J.ph[i.getAttribute("data-slot")][0] + " (" + i.files.length + "/" + i.getAttribute("data-min") + ")"; });
     if (ph.length) { msg(fm, J.need_ph + " " + ph.join(", "), "err"); return; }
+    var units = (kind === "hotel" || kind === "driver") ? readUnits(fm, kind === "hotel") : [];
+    if ((kind === "hotel" || kind === "driver") && !units.length) { msg(fm, J.need_unit, "err"); return; }
+    var pwIn = fm.elements.password.value; if (pwIn && pwIn.length < 8) { msg(fm, J.pw_opt, "err"); fm.elements.password.focus(); return; }
     var btn = $("button[type=submit]", fm), bar = $(".jf-prog", fm); btn.disabled = true; bar.style.display = "block"; msg(fm, J.sending);
     var v = function (n) { var el = fm.elements[n]; return el ? String(el.value).trim() : ""; };
     var warnLeave = function (e) { e.preventDefault(); e.returnValue = ""; };
     window.addEventListener("beforeunload", warnLeave);
     try {
-      var email = v("email").replace(/\s+/g, "").toLowerCase(), pw = fm.elements.password.value;
+      var email = v("email").replace(/\s+/g, "").toLowerCase(), pw = fm.elements.password.value, ownPw = !!pw;
+      if (!ownPw) { var rb = new Uint8Array(24); crypto.getRandomValues(rb); pw = Array.prototype.map.call(rb, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("") + "Aa1!"; }
       var meta = { partner_kind: kind, partner_name: v("name"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"), license_no: v("license_no"), company: kind === "hotel" ? v("name") : "", inn: v("inn") };
       // 1) account: new sign-up, or — if this e-mail was already used (e.g. a first try broke half way) — sign in with the same password and continue
       var r = await fetch(SB.url + "/auth/v1/signup", { method: "POST", headers: H(null, { "Content-Type": "application/json" }), body: JSON.stringify({ email: email, password: pw, data: meta }) });
@@ -132,6 +168,7 @@
       if (!r.ok) {
         var em = (a.msg || a.message || a.error_description || "") + "";
         if (!/already|registered|exists/i.test(em + (a.error_code || ""))) throw new Error(em || r.status);
+        if (!ownPw) throw new Error(J.exists2 || J.exists);
         var li = await fetch(SB.url + "/auth/v1/token?grant_type=password", { method: "POST", headers: H(null, { "Content-Type": "application/json" }), body: JSON.stringify({ email: email, password: pw }) });
         a = await li.json().catch(function () { return {}; });
         if (!li.ok) throw new Error(J.exists);
@@ -147,8 +184,9 @@
       var p = { telegram: normTg(v("telegram")), name: v("name"), company: meta.company, inn: v("inn"), license_no: v("license_no"), phone: v("phone"), whatsapp: v("whatsapp"), city: v("city"),
         cities: $$("[name=cities_x]:checked", fm).map(function (x) { return x.value; }), languages: $$("[name=lang_x]:checked", fm).map(function (x) { return x.value; }).concat(list(v("languages"))).slice(0, 12), specialties: v("spec") ? [v("spec")] : [], bio: v("bio"),
         photo: old.photo || null, photos: old.photos || [], docs: old.docs || [],
-        price_day: v("price_day"), price_note: "", vehicle_type: v("vehicle_type"), vehicle_seats: v("vehicle_seats"), vehicle_year: v("vehicle_year"),
-        hotel_stars: v("hotel_stars"), hotel_rooms: v("hotel_rooms"), experience_years: v("experience_years"),
+        price_day: units.length ? String(Math.min.apply(null, units.map(function (u) { return u.price_netto; }))) : v("price_day"), price_note: "",
+        vehicle_type: kind === "driver" ? units[0].name : v("vehicle_type"), vehicle_seats: kind === "driver" ? String(units[0].capacity || "") : v("vehicle_seats"), vehicle_year: kind === "driver" ? String(units[0].year || "") : v("vehicle_year"),
+        hotel_stars: v("hotel_stars"), hotel_rooms: kind === "hotel" ? String(units.reduce(function (s, u) { return s + (u.qty || 1); }, 0)) : v("hotel_rooms"), experience_years: v("experience_years"),
         birth_year: v("birth_year"), home_area: v("home_area"), home_address: v("home_address"),
         resubmit: true };   // a rejected partner who fills the form again sends the application back for review
       var save = async function () {
@@ -157,17 +195,27 @@
       };
       // 2) save the text first — nothing typed is lost even if the photos fail later
       await save();
+      if (kind === "hotel" || kind === "driver") {
+        var ex = { amenities: $$("[name=amen_x]:checked", fm).map(function (x) { return x.value; }), check_in: v("check_in"), check_out: v("check_out"), map_url: v("map_url"), policies: v("policies"),
+                   company_type: v("company_type"), registry_no: kind === "hotel" ? v("license_no") : "" };
+        await fetch(SB.url + "/rest/v1/rpc/partner_save_extra", { method: "POST", headers: H(tok, { "Content-Type": "application/json" }), body: JSON.stringify({ p: ex }) });
+        // rooms / vehicles: replace what an earlier half-finished try left (only pending ones)
+        await fetch(SB.url + "/rest/v1/partner_units?partner_id=eq." + pid + "&status=eq.pending", { method: "DELETE", headers: H(tok) });
+        var ur = await fetch(SB.url + "/rest/v1/partner_units", { method: "POST", headers: H(tok, { "Content-Type": "application/json", Prefer: "return=minimal" }),
+          body: JSON.stringify(units.map(function (u) { u.partner_id = pid; return u; })) });
+        if (!ur.ok) throw new Error("units " + ur.status + " " + (await ur.text()).slice(0, 160));
+      }
       // 3) photos: 3 at a time, each tried up to 3 times; the profile is saved again after each finished photo
       var files = []; $$("input[type=file]", fm).forEach(function (inp) { [].slice.call(inp.files).forEach(function (f) { files.push([inp.getAttribute("data-slot"), f]); }); });
       var done = 0, failed = 0, next = 0, pubCount = p.photos.length, dirty = false;
       var one = async function (slot, file) {
-        var fl = await resize(file, slot === "main" ? 1280 : 1400), isPub = slot === "main" || (slot !== "lic" && pubCount < 30);
+        var fl = await resize(file, slot === "main" ? 1280 : 1400), isPub = slot === "main" || (slot !== "lic" && slot !== "tech" && pubCount < 30);
         if (isPub && slot !== "main") pubCount++;
         for (var t = 0; t < 3; t++) {
           try {
             var path = await up(tok, isPub ? "partner-photos" : "partner-docs", pid, fl, slot);
             if (slot === "main") p.photo = path; else if (isPub) p.photos.push(path);
-            else p.docs.push({ kind: slot === "trip" ? "trip" : slot === "lic" ? "license" : "extra", path: path, name: file.name || slot, at: new Date().toISOString() });
+            else p.docs.push({ kind: slot === "trip" ? "trip" : slot === "lic" ? "license" : slot === "tech" ? "vehicle" : "extra", path: path, name: file.name || slot, at: new Date().toISOString() });
             dirty = true; return true;
           } catch (e) { await new Promise(function (ok) { setTimeout(ok, 1500 * (t + 1)); }); }
         }
