@@ -23,6 +23,7 @@
       save: "Saqlash", saved: "Saqlandi ✅", view: "Saytda ko'rish", rating: "Reyting", reviews: "sharh", trips: "Moviy Nomad bilan safarlar",
       bad: "Xatolik: ",
       rejHow: "Kamchiliklarni tuzating: ma'lumotlarni to'g'rilang, kerakli rasm va hujjatlarni yuklang, so'ng «Tuzatib qayta yuborish»ni bosing. Arizangiz qayta ko'rib chiqiladi — buni necha marta bo'lsa ham qilishingiz mumkin.",
+      lockNote: "🔒 Bu ma'lumotni faqat Moviy Nomad o'zgartiradi (ism, tug'ilgan yil, guvohnoma raqami, firma). O'zgartirish kerak bo'lsa — menejerga yozing.", histT: "O'zgarishlar tarixim", histNone: "Hali o'zgartirish so'rovi yo'q.", histSt: { pending: "⏳ Tekshirilmoqda", approved: "✅ Tasdiqlandi", rejected: "❌ Rad etildi" },
       payT: "Sizga to'lanadigan summalar", payNote: "Bu yerda faqat sizning narxingiz va sizga to'lanadigan summa ko'rsatiladi. Sizga aynan o'zingiz yozgan narx to'lanadi; mijozlar bilan hisob-kitobni Moviy Nomad yuritadi.", payNone: "Hozircha bron yo'q.", payCols: ["Bron", "Sana", "Kun / kecha", "Narxingiz", "Sizga to'lanadi", "Holat"], priceHint: "Bu — SIZNING narxingiz (sizga to'lanadi). Narx o'zgarsa, Moviy Nomad tasdiqlaydi.",
       payStatus: { request: "So'rov", new: "So'rov", in_progress: "Kelishilmoqda", awaiting_payment: "To'lov kutilmoqda", deposit_paid: "Tasdiqlanmoqda", payment_reported: "To'lov tekshirilmoqda", paid: "To'landi", confirmed: "Tasdiqlandi", closed: "Yakunlandi" },
       rejWhy: "Rad etish sababi", rejCom: "Nimani tuzatdingiz? (adminga qisqacha)", rejSend: "Tuzatib qayta yuborish", rejSent: "Arizangiz qayta yuborildi ✅ Tez orada ko'rib chiqamiz.", rejNeed: "Nimani tuzatganingizni qisqacha yozing.", rejN: "Qayta yuborilgan"
@@ -46,6 +47,7 @@
       save: "Сохранить", saved: "Сохранено ✅", view: "Посмотреть на сайте", rating: "Рейтинг", reviews: "отзывов", trips: "Поездок с Moviy Nomad",
       bad: "Ошибка: ",
       rejHow: "Исправьте недочёты: поправьте данные, загрузите нужные фото и документы и нажмите «Исправить и отправить снова». Заявку рассмотрят заново — отправлять можно сколько угодно раз.",
+      lockNote: "🔒 Эти данные меняет только Moviy Nomad (имя, год рождения, номер удостоверения, компания). Если нужно изменить — напишите менеджеру.", histT: "История моих изменений", histNone: "Запросов на изменение пока нет.", histSt: { pending: "⏳ Проверяется", approved: "✅ Одобрено", rejected: "❌ Отклонено" },
       payT: "Суммы к выплате вам", payNote: "Здесь показаны только ваша цена и сумма к выплате. Вам платится ровно указанная вами цена; расчёты с клиентами ведёт Moviy Nomad.", payNone: "Пока нет бронирований.", payCols: ["Бронь", "Дата", "Дней / ночей", "Ваша цена", "К выплате", "Статус"], priceHint: "Это ВАША цена (выплачивается вам). Изменение цены подтверждает Moviy Nomad.",
       payStatus: { request: "Запрос", new: "Запрос", in_progress: "Согласуется", awaiting_payment: "Ожидает оплаты", deposit_paid: "Подтверждается", payment_reported: "Оплата проверяется", paid: "Оплачено", confirmed: "Подтверждено", closed: "Завершено" },
       rejWhy: "Причина отказа", rejCom: "Что вы исправили? (кратко для администратора)", rejSend: "Исправить и отправить снова", rejSent: "Заявка отправлена повторно ✅ Скоро рассмотрим.", rejNeed: "Кратко напишите, что исправили.", rejN: "Отправлено повторно"
@@ -184,11 +186,11 @@
     var haveK = (p.cities || []).map(function (x) { return window.MNCities ? window.MNCities.key(x) : x; });
     var cityChips = C.length ? '<div class="pchips">' + C.map(function (c) { return '<label><input type="checkbox" name="cities_x" value="' + esc(c[1]) + '"' + (haveK.indexOf(c[0]) > -1 ? " checked" : "") + '> ' + esc(window.MNCities.label(c[0], CL)) + '</label>'; }).join("") + '</div>' : '<input name="cities" value="' + esc((p.cities || []).join(", ")) + '">';
     var h = '<div class="p-card"><h3>' + (live ? t("chT") : t("profile")) + '</h3>' + (live ? '<p class="p-sub">' + t("chHint") + '</p>' + (me.pending ? '<p class="p-sub" style="color:#b4541b">' + t("chPendNote") + '</p>' : '') : '') + '<form id="f-prof"><div class="p-grid">' +
-      '<div class="fld full"><label>' + t("name") + '</label><input name="name" value="' + esc(p.name) + '" maxlength="120"></div>' +
+      '<div class="fld full"><label>' + t("name") + '</label><input name="name" value="' + esc(p.name) + '" maxlength="120"' + (live ? ' disabled' : '') + '></div>' + (live ? '<div class="fld full"><small class="p-sub">' + t("lockNote") + '</small></div>' : '') +
       '<div class="fld full"><label>' + t("photo") + '</label>' + (p.photo ? '<img class="pphoto" src="' + esc(pub(p.photo)) + '" alt="">' : '') + '<input type="file" id="ph-main" accept="image/*"></div>' +
       '<div class="fld"><label>' + t("city") + '</label>' + citySel + '</div>' +
       '<div class="fld full"><label>' + t("cities") + '</label>' + cityChips + '</div>' +
-      (k !== "hotel" ? '<div class="fld"><label>' + t("birth") + '</label><input name="birth_year" type="number" min="1940" max="2010" value="' + (p.birth_year || "") + '"></div>' : '') +
+      (k !== "hotel" ? '<div class="fld"><label>' + t("birth") + '</label><input name="birth_year" type="number" min="1940" max="2010" value="' + (p.birth_year || "") + '"' + (live ? ' disabled' : '') + '></div>' : '') +
       '<div class="fld"><label>' + t("area") + '</label><input name="home_area" maxlength="120" value="' + esc(p.home_area || "") + '"></div>' +
       '<div class="fld full"><label>' + t("addr") + '</label><input name="home_address" maxlength="250" value="' + esc(p.home_address || "") + '"></div>' +
       '<div class="fld"><label>' + t("price") + ' (' + (k === "hotel" ? t("perNight") : t("perDay")) + ')</label><input name="price_day" type="number" min="0" step="1" value="' + (p.price_day == null ? "" : p.price_day) + '"><small class="p-sub">' + t("priceHint") + '</small></div>' +
@@ -201,7 +203,7 @@
       '<div class="fld full"><label>' + t("bio") + '</label><textarea name="bio" rows="5" maxlength="1500">' + esc(p.bio || "") + '</textarea></div>' +
       '<div class="fld full"><label>' + t("gallery") + '</label><div class="pgal">' + (p.photos || []).map(function (x, i) { return '<span><img src="' + esc(pub(x)) + '" alt=""><button type="button" data-rm="' + i + '">×</button></span>'; }).join("") + '</div><input type="file" id="ph-more" accept="image/*" multiple></div>' +
       '<div class="fld"><label>' + t("phone") + '</label><input name="phone" value="' + esc(p.phone || "") + '"></div><div class="fld"><label>' + t("tg") + ' *</label><input name="telegram" required maxlength="64" placeholder="@username" value="' + esc(p.telegram || "") + '"></div><div class="fld"><label>' + t("wa") + '</label><input name="whatsapp" value="' + esc(p.whatsapp || "") + '"></div>' +
-      '<div class="fld"><label>' + t("lic") + '</label><input name="license_no" value="' + esc(p.license_no || "") + '"></div>' + (k === "hotel" || k === "other" ? '<div class="fld"><label>' + t("inn") + '</label><input name="inn" value="' + esc(p.inn || "") + '"></div>' : '') +
+      '<div class="fld"><label>' + t("lic") + '</label><input name="license_no" value="' + esc(p.license_no || "") + '"' + (live ? ' disabled' : '') + '></div>' + (k === "hotel" || k === "other" ? '<div class="fld"><label>' + t("inn") + '</label><input name="inn" value="' + esc(p.inn || "") + '"' + (live ? ' disabled' : '') + '></div>' : '') +
       (live ? '<div class="fld full"><label>' + t("chCom") + '</label><textarea name="ch_comment" rows="2" maxlength="1000" required></textarea></div>' : '') +
       (p.status === "rejected" ? '<div class="fld full"><label>' + t("rejCom") + '</label><textarea name="rs_comment" rows="2" maxlength="500" required></textarea></div>' : '') +
       '</div><div class="msg" id="m-prof"></div><div class="p-actions"><button class="btn btn--gold" type="submit">' + (live ? t("chSend") : p.status === "rejected" ? "↻ " + t("rejSend") : t("save")) + '</button>' +
@@ -254,6 +256,14 @@
     };
   }
 
+  async function histBlock() {
+    var r = await sb.from("partner_changes").select("created_at,comment,status,admin_note,decided_at").eq("partner_id", me.partner.id).order("created_at", { ascending: false }).limit(20);
+    var L2 = r.data || [], ST2 = t("histSt");
+    return '<div class="p-card"><h3>📜 ' + t("histT") + '</h3>' + (L2.length ? '<table class="tbl"><tbody>' + L2.map(function (x) {
+      return '<tr><td><small>' + new Date(x.created_at).toLocaleDateString() + '</small></td><td>' + esc(x.comment) + (x.admin_note ? '<br><small class="p-sub">Moviy Nomad: ' + esc(x.admin_note) + '</small>' : '') + '</td><td style="white-space:nowrap">' + (ST2[x.status] || x.status) + '</td></tr>';
+    }).join("") + '</tbody></table>' : '<p class="p-sub">' + t("histNone") + '</p>') + '</div>';
+  }
+
   async function payBlock() {
     var r = await sb.rpc("my_partner_payouts"), L2 = r.data || [], c = t("payCols"), ST2 = t("payStatus");
     var unit = me.partner.kind === "hotel" ? t("perNight") : t("perDay");
@@ -288,7 +298,7 @@
     else {
       if (p.status === "paused") h += '<div class="p-card"><h2>' + t("paused") + '</h2>' + (p.admin_note ? '<p>' + esc(p.admin_note) + '</p>' : '') + '</div>';
       else h += '<div class="p-card"><h2>' + t("approved") + '</h2><p class="p-sub">' + t("approvedTxt") + '</p><div class="kv"><div><small>' + t("rating") + '</small><b>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " · " + p.reviews_count + " " + t("reviews") : "—") + '</b></div><div><small>' + t("trips") + '</small><b>' + (p.trips_count || 0) + '</b></div><div><small>' + t("stats") + '</small><b>' + (p.views_count || 0) + ' · ' + (p.likes_count || 0) + ' · ' + (p.shares_count || 0) + '</b></div></div></div>';
-      h += await payBlock() + calCard() + profileForm() + await docsBlock();
+      h += await payBlock() + calCard() + profileForm() + await histBlock() + await docsBlock();
     }
     box.innerHTML = h + '<div class="p-card">' + help() + '</div>';
     if ($("#f-prof")) bindProfile();

@@ -116,6 +116,25 @@
       (p.bio ? '<p style="white-space:pre-line;margin-top:12px">' + esc(p.bio) + '</p>' : '') +
       ((p.photos || []).length ? '<div class="pgal">' + p.photos.map(function (x) { return '<img src="' + pub(x) + '" alt="">'; }).join("") + '</div>' : '') +
       '<div class="p-actions">' + tgBtn(p.telegram) + (wa ? '<a class="btn btn--outline btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + (p.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(p.email) + '">E-mail</a>' : '') + '</div></div>';
+    // ---- history and money of this partner (bookings, payouts, our profit, changes, dates)
+    var HS = { request: "So'rov", new: "Yangi", in_progress: "Ishlanmoqda", awaiting_payment: "To'lov kutilmoqda", payment_reported: "To'lov tekshirilmoqda", deposit_paid: "30% to'landi", paid: "To'landi", confirmed: "Tasdiqlandi", closed: "Yopildi", cancelled: "Bekor" };
+    var hr = await sb.rpc("partner_history", { p_partner: id }), H = hr.data;
+    if (H) {
+      var tt = H.totals || {}, dd = H.dates || {}, m = function (n) { return "$" + Math.round(+n || 0).toLocaleString("en-US"); };
+      h += '<div class="p-card"><h3>📒 Tarix va moliya</h3><div class="kv">' +
+        '<div><small>Bronlar / so\'rovlar</small><b>' + (tt.count || 0) + '</b><small>B2B ' + (tt.b2b || 0) + ' · B2C ' + (tt.b2c || 0) + ' · to\'langan ' + (tt.done || 0) + '</small></div>' +
+        '<div><small>Hamkorga to\'lanadi (jami)</small><b>' + m(tt.cost) + '</b></div><div><small>Mijoz narxi (brutto, jami)</small><b>' + m(tt.brutto) + '</b></div>' +
+        '<div><small>Agentlar komissiyasi</small><b>' + m(tt.agent) + '</b></div><div class="hl"><small>Bizning foyda (jami)</small><b>' + m(tt.profit) + '</b></div>' +
+        '<div><small>Sharhlar</small><b>' + ((H.reviews || {}).approved || 0) + '</b><small>tasdiq kutmoqda: ' + ((H.reviews || {}).pending || 0) + '</small></div>' +
+        '<div><small>Kelgusi band kunlar</small><b>' + (H.busy_days || 0) + '</b></div></div>' +
+        '<p class="p-sub" style="margin-top:10px">Ro\'yxatdan o\'tgan: ' + P.date(dd.created) + (dd.approved ? ' · Tasdiqlangan: ' + P.date(dd.approved) : '') + (H.resubmits ? ' · Qayta yuborilgan: ' + H.resubmits + ' marta (oxirgisi ' + P.date(dd.resubmitted) + ')' : '') + ' · Oxirgi o\'zgarish: ' + P.date(dd.updated) + '</p>' +
+        ((H.items || []).length ? '<div style="overflow:auto;max-height:340px"><table class="tbl"><thead><tr><th>Bron</th><th>Turi</th><th>Sana</th><th>Kun</th><th>Hamkorga</th><th>Brutto</th><th>Agent</th><th>Foyda</th><th>Holat</th></tr></thead><tbody>' +
+          H.items.map(function (x) { return '<tr class="click" ' + (x.booking_id ? 'data-hb="' + x.booking_id + '"' : 'data-hr="' + x.request_id + '"') + '><td><b>' + esc(x.ref || "") + '</b></td><td>' + (x.source === "b2b" ? "🏢 B2B" : "🧳 B2C") + '</td><td>' + P.date(x.start_date) + '</td><td>' + (+x.units) + (x.qty > 1 ? ' × ' + x.qty : '') + '</td><td>' + m(x.cost) + '</td><td>' + m(x.brutto) + '</td><td>' + m(x.agent) + '</td><td><b>' + m(x.profit) + '</b></td><td>' + esc(HS[x.status] || x.status || "") + '</td></tr>'; }).join("") +
+          '</tbody></table></div>' : '<p class="p-sub">Hali bron yo\'q.</p>') +
+        ((H.changes || []).length ? '<details style="margin-top:10px"><summary><b>Kartochka o\'zgarishlari tarixi (' + H.changes.length + ')</b></summary><table class="tbl"><tbody>' +
+          H.changes.map(function (c) { return '<tr' + (c.status === "pending" ? ' class="click" data-chg="' + c.id + '"' : '') + '><td><small>' + P.date(c.created) + '</small></td><td>' + esc(c.comment) + (c.note ? '<br><small class="p-sub">Izohimiz: ' + esc(c.note) + '</small>' : '') + '</td><td>' + ({ pending: "⏳ kutmoqda", approved: "✅ tasdiqlangan", rejected: "❌ rad etilgan" }[c.status] || c.status) + '</td></tr>'; }).join("") + '</tbody></table></details>' : '') +
+        '</div>';
+    }
     var hist = p.reject_history || [];
     if (hist.length) h += '<div class="p-card" style="border:2px solid #e9b949"><h3>↻ Qayta yuborilgan ariza (' + hist.length + '-marta)</h3><p class="p-sub">Oldin rad etilgan edi; hamkor tuzatib qayta yubordi. Oxirgi yuborilgan: ' + P.date(p.resubmitted_at) + '. Talablarni qayta tekshirib, qaror qiling.</p><table class="tbl"><thead><tr><th>Qayta yuborilgan</th><th>Bizning rad etish sababimiz</th><th>Hamkor: nimani tuzatdi</th></tr></thead><tbody>' +
       hist.slice().reverse().map(function (x) { return '<tr><td><small>' + P.date(x.resent_at) + '</small></td><td>' + esc(x.rejected_note || "—") + '</td><td>' + esc(x.comment || "—") + '</td></tr>'; }).join("") + '</tbody></table></div>';
@@ -175,6 +194,9 @@
     if (trips.length) { var g = $("#pp-trips"); trips.forEach(async function (d) { try { var u = await P.signed("partner-docs", d.path, 30); var im = document.createElement("img"); im.src = u; im.alt = ""; im.style.cursor = "zoom-in"; im.onclick = function () { window.open(u, "_blank"); }; g.appendChild(im); } catch (e) {} }); }
     $$("[data-doc]", box).forEach(function (a) { a.onclick = function (e) { e.preventDefault(); P.openFile("partner-docs", p.docs[+a.dataset.doc].path); }; });
     $$("[data-rq]", box).forEach(function (tr) { tr.onclick = function () { A.openRequest ? A.openRequest(tr.dataset.rq) : A.requests(); }; });
+    $$("[data-hr]", box).forEach(function (tr) { tr.onclick = function () { if (A.openRequest) A.openRequest(tr.dataset.hr); }; });
+    $$("[data-hb]", box).forEach(function (tr) { tr.onclick = function () { if (A.openBooking) A.openBooking(tr.dataset.hb); }; });
+    $$("[data-chg]", box).forEach(function (tr) { tr.onclick = function () { if (A.partnerChange) A.partnerChange(+tr.dataset.chg); }; });
     async function save(extra) {
       var fee = A.partnerFeeRead ? A.partnerFeeRead() : undefined;
       var d = Object.assign(fee === undefined ? {} : { fee_pct: fee }, { license_ok: $("#pp-lic").checked, featured: $("#pp-feat").checked, trips_count: +$("#pp-trips").value || 0, admin_note: $("#pp-note").value.trim() || null, updated_at: new Date().toISOString() }, extra || {});

@@ -188,6 +188,7 @@
 
   // ---------------------------------------------------------------- booking detail
   var SVC = [["hotel", "Mehmonxona"], ["transport", "Transport"], ["guide", "Gid"], ["insurance", "Sug'urta"], ["train", "Poyezd"], ["flight", "Aviareys"], ["other", "Boshqa"]];
+  window.MNA.openBooking = function (id) { return openBooking(id); };
   async function openBooking(id) {
     show("booking");
     var box = $("#v-booking"); box.innerHTML = '<div class="p-card empty">Yuklanmoqda…</div>';
