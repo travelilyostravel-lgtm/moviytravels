@@ -1,4 +1,6 @@
 import json
+import hashlib as _hl, pathlib as _pl
+CSSV = _hl.md5((_pl.Path(__file__).resolve().parent.parent / "assets/css/site.css").read_bytes()).hexdigest()[:8]
 import os
 # -*- coding: utf-8 -*-
 """Moviy Nomad saytini yig'ish: python3 build/build.py
@@ -179,7 +181,7 @@ def render(lang):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{EXTRA_FONT.get(lang, "")}&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="{A}img/hero.webp">
-<link rel="stylesheet" href="{A}css/site.css">
+<link rel="stylesheet" href="{A}css/site.css?v={CSSV}">
 <script type="application/ld+json">{ld}</script>
 </head>
 <body>
@@ -363,7 +365,7 @@ HEAD = """<!DOCTYPE html>
 <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{font}&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{base}assets/css/site.css"><link rel="stylesheet" href="{base}assets/css/deck.css">
+<link rel="stylesheet" href="{base}assets/css/site.css?v={CSSV}"><link rel="stylesheet" href="{base}assets/css/deck.css">
 </head>"""
 
 SCRIPTS = """<script>window.MN={cfg};</script>
@@ -378,7 +380,7 @@ def page_cfg(lang="en"):
 
 
 def head(lang, base, title, desc):
-    return HEAD.format(base=base, title=e(title), desc=e(desc), lang=lang, dir=T[lang]["dir"], font=EXTRA_FONT.get(lang, ""))
+    return HEAD.format(base=base, title=e(title), desc=e(desc), lang=lang, dir=T[lang]["dir"], font=EXTRA_FONT.get(lang, ""), CSSV=CSSV)
 
 
 def lang_menu(lang, base, page):
@@ -451,7 +453,7 @@ PORTAL_HEAD = """<!DOCTYPE html>
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/site.css"><link rel="stylesheet" href="../assets/css/deck.css"><link rel="stylesheet" href="../assets/css/portal.css">
+<link rel="stylesheet" href="../assets/css/site.css?v={CSSV}"><link rel="stylesheet" href="../assets/css/deck.css"><link rel="stylesheet" href="../assets/css/portal.css">
 </head>"""
 
 
@@ -462,7 +464,7 @@ def render_agent(lang="en"):
     names = {l: T[l]["name"] for l in LANGS}
     lang_sel = '<select class="ag-lang" id="ag-lang" aria-label="Language" data-notr>' + "".join(f'<option value="{l}"{" selected" if l == lang else ""}>{names[l]}</option>' for l in LANGS) + '</select>'
     dict_js = json.dumps(agent_i18n.table().get(lang, {}), ensure_ascii=False) if lang != "en" else "{}"
-    head = PORTAL_HEAD.format(lang=lang, title="Agent portal — Moviy Nomad").replace('dir="ltr"', f'dir="{T[lang]["dir"]}"', 1)
+    head = PORTAL_HEAD.format(lang=lang, title="Agent portal — Moviy Nomad", CSSV=CSSV).replace('dir="ltr"', f'dir="{T[lang]["dir"]}"', 1)
     if lang in EXTRA_FONT: head = head.replace("&display=swap", EXTRA_FONT[lang] + "&display=swap", 1)
     redirect = """<script>(function(){try{var l=localStorage.getItem("mn_ag_lang");if(!l){var n=(navigator.language||"en").slice(0,2).toLowerCase();if(["ru","uz","tr","ar","de","sv","zh","hi","ko"].indexOf(n)>-1)l=n;}if(l&&l!=="en"&&/^[a-z]{2}$/.test(l))location.replace(l+".html"+location.search+location.hash);}catch(e){}})();</script>""" if lang == "en" else ""
     head = head.replace("</head>", redirect + "</head>", 1)
@@ -564,7 +566,7 @@ def render_agent(lang="en"):
 
 
 def render_partner():
-    return PORTAL_HEAD.format(lang="uz", title="Hamkorlar portali — Moviy Nomad") + f"""
+    return PORTAL_HEAD.format(lang="uz", title="Hamkorlar portali — Moviy Nomad", CSSV=CSSV) + f"""
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Partner</span><span class="p-top__sp"></span>
   <div class="p-top__who" id="pwho"></div><button class="btn btn--ghost btn--sm" id="plang">Русский</button><button class="btn btn--ghost btn--sm hidden" id="plogout">Chiqish</button></div></header>
@@ -575,7 +577,7 @@ def render_partner():
 """
 
 def render_admin():
-    return PORTAL_HEAD.format(lang="uz", title="Admin panel — Moviy Nomad") + f"""
+    return PORTAL_HEAD.format(lang="uz", title="Admin panel — Moviy Nomad", CSSV=CSSV) + f"""
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>

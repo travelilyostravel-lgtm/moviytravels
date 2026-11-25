@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """Extra public pages: services, booking, travellers' stories, privacy, terms + homepage trust blocks."""
+import hashlib as _hl, pathlib as _pl
+CSSV = _hl.md5((_pl.Path(__file__).resolve().parent.parent / "assets/css/site.css").read_bytes()).hexdigest()[:8]
 import html, importlib.util, json, os
 from content import CONFIG, LANGS, T
 
@@ -234,7 +236,7 @@ def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, bod
 <meta name="theme-color" content="#12355b"><link rel="icon" href="{A}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{extra_font}&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{A}css/site.css">
+<link rel="stylesheet" href="{A}css/site.css?v={CSSV}">
 </head>
 <body class="subpage {body_cls}">
 <header class="header is-solid">
