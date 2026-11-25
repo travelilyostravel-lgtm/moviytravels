@@ -405,7 +405,7 @@ TOURS = [
 
 # ---------------- CENTRAL ASIA: one big 4-country programme (modelled on Advantour's 15-day "Central Asia Destinations")
 GRAND = [
- T("ca_grand", "CA", "tj-sevenlakes", "superior", [
+ T("ca_grand", "CA", "cover-grand", "superior", [
    ("tashkent", [], ["tash_imam", "tash_chorsu", "tash_metro"], "D"),
    ("khiva", [["tashkent", "urgench"], ["urgench", "khiva"]], ["khi_ichan", "khi_islamkhoja", "khi_tashhauli"], "B"),
    ("bukhara", [["khiva", "bukhara"]], ["khi_walls"], "B"),
