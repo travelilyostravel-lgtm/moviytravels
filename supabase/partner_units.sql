@@ -83,20 +83,18 @@ create trigger partner_units_guard before insert or update on public.partner_uni
 -- Hotel / transport extras on the partner card (amenities, check-in, map, policies).
 alter table public.partners add column if not exists extra jsonb not null default '{}'::jsonb;
 create or replace function public.partner_save_extra(p jsonb) returns void
-language plpgsql security definer set search_path = public as $$
-declare me uuid := public.my_partner();
-begin
-  if me is null then raise exception 'not a partner'; end if;
+language sql security definer set search_path = public as $fn$
   update public.partners set extra = jsonb_strip_nulls(jsonb_build_object(
-      'amenities', (select coalesce(jsonb_agg(left(x, 40)), '[]'::jsonb) from (select x from jsonb_array_elements_text(coalesce(p->'amenities', '[]')) x limit 30) s),
-      'check_in', left(p->>'check_in', 10), 'check_out', left(p->>'check_out', 10),
-      'map_url', case when p->>'map_url' ~* '^https://' then left(p->>'map_url', 400) end,
+      'amenities', (select coalesce(jsonb_agg(left(x, 40)), '[]'::jsonb) from (select x from jsonb_array_elements_text(coalesce(p->'amenities', '[]'::jsonb)) x limit 30) s),
+      'check_in', left(p->>'check_in', 10),
+      'check_out', left(p->>'check_out', 10),
+      'map_url', (case when left(p->>'map_url', 8) = 'https://' then left(p->>'map_url', 400) end),
       'policies', left(p->>'policies', 800),
-      'company_type', left(p->>'company_type', 20),            -- transport: person / company
-      'registry_no', left(p->>'registry_no', 80)),            -- hotel: state registry (Turizm qo'mitasi)
+      'company_type', left(p->>'company_type', 20),
+      'registry_no', left(p->>'registry_no', 80))),
     updated_at = now()
-   where id = me;
-end $$;
+   where id = public.my_partner() and public.my_partner() is not null;
+$fn$;
 grant execute on function public.partner_save_extra(jsonb) to authenticated;
 
 -- Public views: approved partners and approved units only, brutto price only (no plate, papers, netto).
