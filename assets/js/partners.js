@@ -315,3 +315,15 @@
     var h = location.hash.match(/^#p-(.+)$/); if (h) { var el = document.getElementById("p-" + h[1]); if (el) el.scrollIntoView({ block: "center" }); if (ALL.some(function (p) { return p.id === h[1]; })) open(h[1], "prof"); }
   });
 })();
+/* Links like partners.html#join / guides.html#join: the cards load later and push the section down — keep the section in view
+   for the first seconds unless the visitor scrolls himself. */
+(function () {
+  var id = (location.hash || "").slice(1); if (!/^[a-z][\w-]*$/i.test(id)) return;
+  var moved = false, n = 0;
+  ["wheel", "touchmove", "keydown"].forEach(function (ev) { window.addEventListener(ev, function () { moved = true; }, { passive: true, once: true }); });
+  var t = setInterval(function () {
+    var el = document.getElementById(id); n++;
+    if (moved || n > 12) { clearInterval(t); return; }
+    if (el && Math.abs(el.getBoundingClientRect().top - 80) > 40) el.scrollIntoView({ block: "start" });
+  }, 400);
+})();
