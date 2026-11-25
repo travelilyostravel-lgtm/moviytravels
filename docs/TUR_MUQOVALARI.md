@@ -15,4 +15,4 @@
 - Muqovani almashtirish: yangi rasmni 16:9 qilib `assets/img/p/` ga qo'ying va `tours_data.py` da `cover` nomini o'zgartiring.
 
 ## Markaziy Osiyo bo'ylab katta sayohat (25.11.2026)
-4 davlat — 4 manzara, oltin chiziqlar bilan ajratilgan: Shohi Zinda gumbazi (O'zbekiston) · Katta Olmaota ko'li (Qozog'iston) · Ala-Ko'l quyosh botishi (Qirg'iziston) · Kulikalon cho'qqilari (Tojikiston). Fayl: `assets/img/p/cover-grand.webp`.
+4 davlat — 4 manzara, oltin chiziqlar bilan ajratilgan: Shohi Zinda gumbazi (O'zbekiston) · Katta Olmaota ko'li (Qozog'iston) · Ala-Ko'l quyosh botishi (Qirg'iziston) · Kulikalon cho'qqilari (Tojikiston). Fayl: `assets/img/p/cover-grand.webp` (16:10, kartochka ramkasiga aniq mos).
