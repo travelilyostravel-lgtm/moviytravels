@@ -6,7 +6,14 @@
 
   // Mobile menu
   var nav = document.querySelector('.nav');
-  document.querySelector('.burger').addEventListener('click', function () { nav.classList.toggle('is-open'); });
+  // phones: the menu opens right under the header (whatever is above it) and scrolls if it is long
+  document.querySelector('.burger').addEventListener('click', function () {
+    var hd = document.querySelector('.header'), b = hd ? hd.getBoundingClientRect().bottom : 78;
+    document.documentElement.style.setProperty('--nav-top', Math.max(0, Math.round(b)) + 'px');
+    nav.classList.toggle('is-open');
+    document.body.classList.toggle('nav-open', nav.classList.contains('is-open'));
+  });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a[href]') && !e.target.closest('.dd > a, [data-dd]')) document.body.classList.remove('nav-open'); });
   nav.addEventListener('click', function (e) { if (e.target.tagName === 'A') nav.classList.remove('is-open'); });
   [].forEach.call(nav.querySelectorAll('.nav__ddb'), function (b) { b.addEventListener('click', function () { if (window.innerWidth <= 860) b.parentNode.classList.toggle('is-open'); }); });
 

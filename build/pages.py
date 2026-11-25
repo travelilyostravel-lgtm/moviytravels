@@ -205,7 +205,10 @@ def nav_html(lang, base, on_home=False):
     home_href = "#top" if on_home else (base or "./")
     return (f'<a href="{home_href}" class="nav__home"><i aria-hidden="true">⌂</i> {e(HOME.get(lang, "Home"))}</a><a href="{tours}">{e(t["nav"]["tours"])}</a><a href="{base}guides.html">{e(N["nav_guides"])}</a>'
             f'<a href="{base}transport.html">{e(N["nav_transport"])}</a><a href="{base}hotels.html">{e(N["nav_hotels"])}</a>'
-            + dd(x["nav_services"], svc) + f'<a href="{base}builder.html" class="nav__build">{e(t["build_nav"])}</a>' + dd(N["nav_more"], more))
+            + dd(x["nav_services"], svc) + f'<a href="{base}builder.html" class="nav__build">{e(t["build_nav"])}</a>' + dd(N["nav_more"], more)
+            # phones only (in the burger menu): my cabinet + become a partner
+            + f'<a href="{base}account.html" class="nav__m nav__acct" data-free>👤 {e(CAB_LINK.get(lang, CAB_LINK["en"]))}</a>'
+            + f'<a href="{base}partners.html#join" class="nav__m nav__join" data-free>🤝 {e(partners_i18n.S(lang)["become"])}</a>')
 
 CAB_LINK = {"en": "My cabinet", "ru": "Мой кабинет", "uz": "Kabinetim", "tr": "Kabinim", "ar": "حسابي", "de": "Mein Bereich", "sv": "Mitt konto", "zh": "个人中心", "hi": "मेरा कैबिनेट", "ko": "마이페이지"}
 CAB_TITLE = {"en": ("My cabinet", "Your requests, bookings, payments, documents and messages — in one place."), "ru": ("Мой кабинет", "Ваши заявки, бронирования, оплаты, документы и сообщения — в одном месте."),

@@ -1036,3 +1036,11 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
   .header__right .hshare{display:none}
   .logo__text{font-size:12.5px}
 }
+/* burger menu on phones: starts right under the header, scrolls, extra items */
+.nav__m{display:none}
+@media (max-width:860px){
+  .nav{top:var(--nav-top,78px)!important;bottom:auto;max-height:calc(100vh - var(--nav-top,78px));max-height:calc(100dvh - var(--nav-top,78px));overflow-y:auto;overscroll-behavior:contain;z-index:60}
+  .nav a.nav__m{display:block}
+  .nav a.nav__join{margin-top:14px;text-align:center;border:0;border-radius:999px;background:var(--gold,#e9b949);color:var(--navy,#0b2545)!important;font-weight:700;padding:13px 16px}
+}
+body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-toast{display:none!important}
