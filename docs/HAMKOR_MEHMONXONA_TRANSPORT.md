@@ -35,6 +35,6 @@ E-mail kodi hamkorlarga **Resend SMTP** ulangandan keyin yetib boradi (Supabase 
 Har qanday hamkor (gid, transport, mehmonxona, boshqa) arizani yuborgach oxirgi ekranda ko'k blok chiqadi:
 "Oxirgi qadam: «Moviy Nomad» Telegram guruhiga qo'shiling" va "Telegram guruhga qo'shilish" tugmasi (uz/ru/en).
 Hamkor kabinetida ham shu blok doim turadi. Guruh yopiq — hamkorlar va turizm sohasidagi odamlar uchun networking.
-- Havola: https://t.me/+AlLNuuGUP4I1NDZi
+- Havola: https://t.me/moviy_nomad_uz
 - Almashtirish: `build/content.py` → `partner_group`, keyin saytni qayta qurish.
 - Guruh sozlamasida "qo'shilish so'rovi bilan" yoqilgan bo'lsin — har kirganni admin tasdiqlaydi.
