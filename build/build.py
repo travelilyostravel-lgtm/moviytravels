@@ -195,7 +195,7 @@ def render(lang):
       <a class="agent-link" href="{pre}agent/">{e(t["agent_login"])}</a>
       <button class="hshare" data-share="site" aria-label="{e(U["share"])}" title="{e(U["share"])}">{ICON["share"]}</button>
       <div class="lang"><button class="lang__btn" aria-label="Language">{ICON["globe"]}{lang.upper()}</button><div class="lang__menu">{langs_menu}</div></div>
-      <button class="btn btn--gold btn--sm header__cta" data-contact>{e(t["plan"])}</button>
+      <button class="btn btn--gold btn--sm header__cta" data-contact aria-label="{e(t["plan"])}" title="{e(t["plan"])}">{ICON["chat"]}{e(t["plan"])}</button>
       <button class="burger" aria-label="Menu">{ICON["menu"]}</button>
     </div>
   </div>

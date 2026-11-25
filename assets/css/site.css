@@ -1067,3 +1067,7 @@ body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-t
   .header .header__cta svg{width:21px;height:21px;margin:0}
 }
 @media (min-width:1025px) and (max-width:1240px){.header .nav{gap:14px;font-size:13.5px}.header .hshare{display:none}}
+.nav__ddb{opacity:1;color:#fff;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.45)}
+.header.is-solid .nav__ddb{text-shadow:none}
+.nav__dd:hover .nav__ddb{color:var(--gold)}
+.header__cta{display:inline-flex;align-items:center;gap:8px}
