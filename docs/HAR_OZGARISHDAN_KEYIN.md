@@ -20,3 +20,4 @@
 - Maxfiy narsalar (parol, kalit, service_role, DB parol) faqat asoschi jadvaliga — qo'llanmaga, GitHub'ga, saytga hech qachon.
 - Sinov ma'lumotlari ishlatilgach o'chiriladi.
 - Google jadvalga yozganda: `append_values` oxiriga emas, jadval tepasiga qo'shib yuborishi mumkin — aniq qator manzili bilan (`update_values`) yozing va keyin tekshiring. Birlashtirilgan (merge) kataklarga yozilgan matn ko'rinmaydi — avval ajrating.
+- Bazaga SQL ishga tushirilganda: fayldagi HAR BIR qator bajarilganini tekshiring (25.11 da agency_tax.sql ning birinchi qatori bajarilmagani sababli agentlar 2 kun ro'yxatdan o'ta olmadi).
