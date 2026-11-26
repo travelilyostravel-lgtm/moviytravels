@@ -29,7 +29,7 @@
     '<div class="s-inner cover">' +
       '<div class="cover__flags">' + T.flags.map(function (f) { return "<span>" + f + "</span>"; }).join("") + '</div>' +
       '<h1>' + esc(T.title) + '</h1><p class="cover__sub">' + esc(T.subtitle) + '</p>' +
-      '<div class="cover__facts"><div><b>' + T.days.length + '</b><span>' + t("days") + '</span></div><div><b>' + T.days.filter(function (d) { return d.sleep; }).length + '</b><span>' + t("nights") + '</span></div><div><b>' + route.filter(function (c, i) { return !C.cities[c].hidden && route.indexOf(c) === i; }).length + '</b><span>' + t("destinations") + '</span></div><div><b>' + totalKm.toLocaleString("en") + '</b><span>' + t("km") + '</span></div></div>' +
+      '<div class="cover__facts">' + [[T.days.length, t("days")], [T.days.filter(function (d) { return d.sleep; }).length, t("nights")], [route.filter(function (c, i) { return !C.cities[c].hidden && route.indexOf(c) === i; }).length, t("destinations")], [totalKm, t("km")]].filter(function (f, i) { return i === 0 || f[0] > 0; }).map(function (f) { return '<div><b>' + f[0].toLocaleString("en") + '</b><span>' + f[1] + '</span></div>'; }).join("") + '</div>' +
       '<ul class="cover__hl">' + T.highlights.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("") + '</ul>' +
       '<div class="cover__price calc-only"><small>' + t("from") + '</small><strong data-price>$' + E.fromPrice(T) + '</strong><small>' + t("pp_2") + '</small></div>' +
       '<div class="cover__lock lock-only"><span class="lock-badge">🔒 ' + t("lock_badge") + '</span><b>' + t("lock_price") + '</b></div>' +
