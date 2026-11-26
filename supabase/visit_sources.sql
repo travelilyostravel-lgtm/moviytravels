@@ -41,6 +41,22 @@ begin
   if ua ~* '(VKClient|vkontakte|com\.vk)' then return 'vk'; end if;
   if ua ~* '(musical_ly|BytedanceWebview|TikTok)' then return 'tiktok'; end if;
   if c = 'fbclid' then return 'facebook'; end if;
+  -- Android apps send android-app://<package>/ as the referrer
+  if coalesce(p_ref, '') ~* '^android-app://' then
+    h := lower(regexp_replace(p_ref, '^android-app://([^/]+).*$', '\1', 'i'));
+    if h ~ '(telegram|telegraph|challegram|nekogram|aka\.messenger|nicegram)' then return 'telegram'; end if;
+    if h ~ 'instagram' then return 'instagram'; end if;
+    if h ~ '(com\.facebook|lite\.facebook)' then return 'facebook'; end if;
+    if h ~ 'vkontakte|com\.vk' then return 'vk'; end if;
+    if h ~ '(oneme|ru\.max)' then return 'max'; end if;
+    if h ~ 'whatsapp' then return 'whatsapp'; end if;
+    if h ~ 'com\.google\.android\.gm' then return 'email'; end if;
+    if h ~ 'googlequicksearchbox|com\.android\.chrome' then return 'google'; end if;
+    if h ~ 'yandex' then return 'yandex'; end if;
+    if h ~ 'youtube' then return 'youtube'; end if;
+    if h ~ '(tiktok|musically)' then return 'tiktok'; end if;
+    return 'site:' || left(h, 60);
+  end if;
   h := lower(regexp_replace(coalesce(p_ref, ''), '^[a-z]+://(www\.|m\.|l\.|lm\.)?([^/:?#]+).*$', '\2', 'i'));
   if h = '' then return 'direct'; end if;
   if h ~ '(^|\.)moviy-travel\.uz$' or h ~ '(^|\.)vercel\.app$' then return 'direct'; end if;
