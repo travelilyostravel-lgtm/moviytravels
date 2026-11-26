@@ -10,6 +10,13 @@
 
   var COUNTRY = { UZ: "O'zbekiston", KZ: "Qozog'iston", KG: "Qirg'iziston", TJ: "Tojikiston", CA: "Markaziy Osiyo katta turi (4 davlat)" };
   var ORDER = ["UZ", "CA", "KZ", "KG", "TJ"];
+  // Entry fees catalogue (25.11.2026): paid sights that are not (yet) in tour programs — the founder fills the prices
+  var ENTRY_SEED = [
+    { r: "tashkent", n: "Temuriylar tarixi davlat muzeyi" }, { r: "tashkent", n: "O\'zbekiston tarixi davlat muzeyi" }, { r: "tashkent", n: "Amaliy san\'at muzeyi" }, { r: "tashkent", n: "Toshkent teleminorasi" },
+    { r: "samarkand", n: "Abadiy shahar (Eternal City)" }, { r: "samarkand", n: "Konigil qog\'oz fabrikasi" },
+    { r: "bukhara", n: "Chor Minor" }, { r: "bukhara", n: "Bolo Hovuz masjidi" }, { r: "bukhara", n: "Ulug\'bek va Abdulazizxon madrasalari" },
+    { r: "khiva", n: "Ichan Qal\'a yagona chiptasi" }, { r: "khiva", n: "Kuhna Ark (minoraga chiqish bilan)" }, { r: "khiva", n: "Juma masjidi" }, { r: "khiva", n: "Pahlavon Mahmud maqbarasi" }, { r: "khiva", n: "Islom Xo\'ja minorasiga chiqish" },
+    { r: "nukus", n: "Mizdahkan majmuasi" }, { r: "nukus", n: "Chilpiq qal\'asi" }, { r: "nukus", n: "Qoraqalpog\'iston tarixi muzeyi" }, { r: "nukus", n: "Tuproqqal\'a" }, { r: "nukus", n: "Mo\'ynoq: Orol dengizi muzeyi" }];
   // Separate services (services.html) — price per unit
   var SVC = [["guide", "Gid (alohida)", "1 kun"], ["car", "Haydovchili transport (transfer, shahar, safar)", "1 kun / 1 yo'nalish"], ["hotel", "Mehmonxona (bron)", "1 kecha"],
     ["airport", "Aeroportda haydovchi kutib oladi (transport bilan)", "mashina, 1 tomon"], ["airport_guide", "Aeroportda gid kutib oladi", "1 marta"],
@@ -136,11 +143,28 @@
       '<label>Obida chiptasi (standart)' + inp("fixed.entryDefault", v("fixed.entryDefault", DEF.fixed.entryDefault)) + '<small>Ro\'yxatda narx yozilmagan obidalar uchun.</small></label>' +
       '<label>Kechki ovqat (birinchi kun)' + inp("fixed.welcomeDinner", v("fixed.welcomeDinner", DEF.fixed.welcomeDinner)) + '</label>' +
       '<label>Tur yig\'ish: kunlik kirish chiptalari' + inp("fixed.entryPerDay", v("fixed.entryPerDay", DEF.fixed.entryPerDay)) + '<small>Mijoz o\'zi yig\'gan turlar uchun (obidalar ro\'yxati yo\'q).</small></label></div>' +
-      '<table class="tbl np-tbl"><thead><tr><th>Obida</th><th>Shahar</th><th>1 kishi, $</th></tr></thead><tbody>';
+      '<p class="np-note">Narxlar <b>chet ellik 1 kishi uchun, $</b>. Har shahar bo\'yicha: dasturdagi obidalar (tur narxiga avtomatik qo\'shiladi) va o\'zingiz qo\'shgan obidalar (ma\'lumot uchun; keyin turlarga qo\'shamiz). Bepul joylar uchun 0 yozing.</p>';
+    var REG = [["tashkent", "Toshkent", ["tashkent"]], ["samarkand", "Samarqand", ["samarkand"]], ["bukhara", "Buxoro", ["bukhara", "gijduvan"]], ["khiva", "Xiva", ["khiva"]], ["nukus", "Nukus va Qoraqalpog\'iston", ["nukus", "moynaq", "ayazkala"]]];
+    var inReg = {}; REG.forEach(function (r) { r[2].forEach(function (c) { inReg[c] = r[0]; }); });
+    var EC = (cfg && cfg.entryCustom) || ENTRY_SEED;
+    var ecRow = function (x) { return '<tr class="np-ec"><td><input class="np-in np-ecn" type="text" maxlength="80" value="' + esc(x.n || "") + '" placeholder="Obida nomi"></td><td><input class="np-in np-eca" type="number" min="0" step="any" value="' + (x.a === undefined || x.a === null ? "" : esc(x.a)) + '"></td><td><input class="np-in np-ecc" type="number" min="0" step="any" value="' + (x.c === undefined || x.c === null ? "" : esc(x.c)) + '"></td><td><input class="np-in np-ecp" type="number" min="0" step="any" value="' + (x.p === undefined || x.p === null ? "" : esc(x.p)) + '"></td><td><button type="button" class="btn btn--outline btn--sm np-ecdel" title="O\'chirish">✕</button></td></tr>'; };
+    var head = '<table class="tbl np-tbl"><thead><tr><th>Obida</th><th>Kattalar, $</th><th>Bola, $</th><th>Foto/video, $</th><th></th></tr></thead><tbody>';
+    REG.forEach(function (r) {
+      h += '<h4 style="margin:14px 0 6px">📍 ' + r[1] + '</h4>' + head;
+      Object.keys((used.UZ || {}).sights || {}).forEach(function (sid) {
+        if (inReg[used.UZ.sights[sid]] !== r[0]) return;
+        h += '<tr><td>' + esc(sname(sid)) + ' <small class="np-note">· dasturda</small></td><td>' + inp("sightPrice." + sid, v("sightPrice." + sid, ""), "standart") + '</td><td>' + inp("sightChild." + sid, v("sightChild." + sid, "")) + '</td><td>' + inp("sightPhoto." + sid, v("sightPhoto." + sid, "")) + '</td><td></td></tr>';
+      });
+      h += '<tbody class="np-ecb" data-reg="' + r[0] + '">' + EC.filter(function (x) { return x.r === r[0]; }).map(ecRow).join("") + '</tbody></table>' +
+        '<button type="button" class="btn btn--outline btn--sm np-ecadd" data-reg="' + r[0] + '">+ Obida qo\'shish (' + r[1] + ')</button>';
+    });
+    h += '<h4 style="margin:18px 0 6px">Boshqa shahar va davlatlar (dasturdagi obidalar)</h4><table class="tbl np-tbl"><thead><tr><th>Obida</th><th>Shahar</th><th>1 kishi, $</th></tr></thead><tbody>';
     ORDER.forEach(function (cc) {
       if (!used[cc] || !Object.keys(used[cc].sights).length) return;
+      var rows = Object.keys(used[cc].sights).filter(function (sid) { return !(cc === "UZ" && inReg[used[cc].sights[sid]]); });
+      if (!rows.length) return;
       h += '<tr class="np-grp"><td colspan="3">' + COUNTRY[cc] + '</td></tr>';
-      Object.keys(used[cc].sights).forEach(function (sid) {
+      rows.forEach(function (sid) {
         h += '<tr><td>' + esc(sname(sid)) + '</td><td>' + esc(cname(used[cc].sights[sid])) + '</td><td>' + inp("sightPrice." + sid, v("sightPrice." + sid, ""), "standart") + '</td></tr>';
       });
     });
@@ -199,6 +223,13 @@
       for (var i = 0; i < parts.length - 1; i++) { cur[parts[i]] = cur[parts[i]] || {}; cur = cur[parts[i]]; }
       cur[parts[parts.length - 1]] = n;
     });
+    o.entryCustom = $$("#np-body .np-ecb").reduce(function (acc, tb) {
+      $$(".np-ec", tb).forEach(function (tr) {
+        var n = tr.querySelector(".np-ecn").value.trim(), f = function (c) { var x = parseFloat(tr.querySelector(c).value); return isFinite(x) && x >= 0 ? x : null; };
+        if (n) acc.push({ r: tb.dataset.reg, n: n.slice(0, 80), a: f(".np-eca"), c: f(".np-ecc"), p: f(".np-ecp") });
+      });
+      return acc;
+    }, []);
     if (o.markup === undefined) o.markup = DEF.markup;
     if (o.guide.rate) {   // per-language day prices → base (English) + difference, which the price engine uses
       var base = o.guide.rate.en !== undefined ? o.guide.rate.en : (o.guide.rate.ru !== undefined ? o.guide.rate.ru : DEF.guide.day);
@@ -292,6 +323,12 @@
     $("#np-state").className = "np-state";
   };
 
+  document.addEventListener("click", function (e) {
+    var add = e.target.closest && e.target.closest(".np-ecadd");
+    if (add) { var tb = document.querySelector('.np-ecb[data-reg="' + add.dataset.reg + '"]'); tb.insertAdjacentHTML("beforeend", '<tr class="np-ec"><td><input class="np-in np-ecn" type="text" maxlength="80" placeholder="Obida nomi"></td><td><input class="np-in np-eca" type="number" min="0" step="any"></td><td><input class="np-in np-ecc" type="number" min="0" step="any"></td><td><input class="np-in np-ecp" type="number" min="0" step="any"></td><td><button type="button" class="btn btn--outline btn--sm np-ecdel">✕</button></td></tr>'); tb.lastElementChild.querySelector("input").focus(); return; }
+    var del = e.target.closest && e.target.closest(".np-ecdel");
+    if (del) del.closest("tr").remove();
+  });
   document.addEventListener("click", async function (e) {
     if (e.target.id === "np-reset") { e.preventDefault(); render(saved); $("#np-state").textContent = "Saqlangan holatga qaytarildi"; return; }
     if (e.target.id !== "np-save") return;
