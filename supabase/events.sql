@@ -165,3 +165,19 @@ on conflict (source, ext_id) where ext_id is not null do nothing;
 
 -- first run right away
 select public.events_fetch_start()::text as result;
+
+-- ---------------------------------------------------------------- admin: "update now" button (founder / managers)
+create or replace function public.admin_events_refresh() returns int
+language plpgsql security definer set search_path = public as $$
+begin
+  if not (public.is_admin() or public.is_manager()) then raise exception 'not_allowed'; end if;
+  return public.events_fetch_start();
+end $$;
+create or replace function public.admin_events_process() returns int
+language plpgsql security definer set search_path = public as $$
+begin
+  if not (public.is_admin() or public.is_manager()) then raise exception 'not_allowed'; end if;
+  return public.events_fetch_process();
+end $$;
+revoke all on function public.admin_events_refresh(), public.admin_events_process(), public.events_fetch_start(), public.events_fetch_process() from public, anon;
+grant execute on function public.admin_events_refresh(), public.admin_events_process() to authenticated;
