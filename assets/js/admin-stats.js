@@ -29,9 +29,15 @@
     direct: ["⌨️", "To'g'ridan-to'g'ri (manzilni yozgan, saqlangan havola, ilova ichidan)"], old: ["🕓", "Aniqlanmagan (27.11 gacha)"]
   };
   function srcName(k) { if (/^utm:/.test(k)) return "🏷 Belgili havola: " + k.slice(4); var x = SRC[k]; return x ? x[0] + " " + x[1] : k; }
-  var DN = null; try { DN = new Intl.DisplayNames(["uz", "ru", "en"], { type: "region" }); } catch (e) {}
   function flag(cc) { return /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint.apply(null, cc.split("").map(function (ch) { return 127397 + ch.charCodeAt(0); })) : "🏳"; }
-  function cName(cc) { if (!/^[A-Z]{2}$/.test(cc)) return "Aniqlanmagan"; try { return DN ? DN.of(cc) : cc; } catch (e) { return cc; } }
+  var UZC = { UZ: "O'zbekiston", RU: "Rossiya", KZ: "Qozog'iston", KG: "Qirg'iziston", TJ: "Tojikiston", TM: "Turkmaniston", AZ: "Ozarbayjon", AM: "Armaniston", GE: "Gruziya",
+    BY: "Belarus", UA: "Ukraina", MD: "Moldova", TR: "Turkiya", AE: "BAA", SA: "Saudiya Arabistoni", QA: "Qatar", KW: "Quvayt", OM: "Ummon", BH: "Bahrayn", IR: "Eron", AF: "Afg'oniston",
+    PK: "Pokiston", IN: "Hindiston", CN: "Xitoy", KR: "Janubiy Koreya", JP: "Yaponiya", MY: "Malayziya", ID: "Indoneziya", SG: "Singapur", TH: "Tailand", VN: "Vyetnam",
+    DE: "Germaniya", FR: "Fransiya", IT: "Italiya", ES: "Ispaniya", GB: "Buyuk Britaniya", NL: "Niderlandiya", PL: "Polsha", CZ: "Chexiya", SE: "Shvetsiya", NO: "Norvegiya",
+    FI: "Finlandiya", DK: "Daniya", CH: "Shveytsariya", AT: "Avstriya", BE: "Belgiya", PT: "Portugaliya", GR: "Gretsiya", HU: "Vengriya", IL: "Isroil", EG: "Misr",
+    US: "AQSh", CA: "Kanada", AU: "Avstraliya", NZ: "Yangi Zelandiya", BR: "Braziliya", LV: "Latviya", LT: "Litva", EE: "Estoniya" };
+  var DNE = null; try { DNE = new Intl.DisplayNames(["en"], { type: "region" }); } catch (e) {}
+  function cName(cc) { if (!/^[A-Z]{2}$/.test(cc)) return "Aniqlanmagan"; if (UZC[cc]) return UZC[cc]; try { return DNE ? DNE.of(cc) : cc; } catch (e) { return cc; } }
   function list2(title, sub, rows, f) {
     var tot = (rows || []).reduce(function (a, r) { return a + (+r.c || 0); }, 0) || 1, max = Math.max.apply(null, (rows || []).map(function (r) { return r.c; }).concat([1]));
     return '<div class="p-card st-list"><h3>' + title + '</h3>' + (sub ? '<p class="p-sub" style="margin:-4px 0 8px">' + sub + '</p>' : '') + ((rows || []).length ? rows.map(function (r) {
