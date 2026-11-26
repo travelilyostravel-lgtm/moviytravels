@@ -47,7 +47,7 @@
       ["Turi", x.kind === "tour" ? "Tur bron so'rovi" : x.kind === "group" ? (d.notify ? "Guruh turi: yangi sana chiqsa xabar berish" : "Guruh turiga joy so'rovi") : "Xizmat: " + (SV[x.service] || x.service)], ["Xona", {twin_share: "Ikki kishilik (sherik bilan)", twin: "Ikki kishilik (o'zlari)", single: "Bir kishilik"}[d.room]], ["Guruh", {small: "Kichik (12–17)", medium: "O'rta (30–35)", large: "Katta (45–50)"}[d.group_kind]],
       ["Qo'shimchalar", [d.extra_night ? "Toshkentda +1 kecha" : "", d.arrival_transfer ? "Individual kutib olish" : "", d.departure_transfer ? "Individual kuzatish" : ""].filter(Boolean).join(", ")],
       ["Saytdagi taxminiy jami", d.est_total ? "$" + d.est_total : ""], ["Tur", x.tour_title], ["Shahar / yo'nalish", d.city],
-      ["Boshlanish", P.date(x.start_date)], ["Kishi soni", x.pax + (d.adults != null ? " (kattalar " + d.adults + ", bolalar " + (d.children || 0) + ")" : "")],
+      ["Boshlanish", P.date(x.start_date) + (x.start_date && !/^20[2-3]\d-/.test(x.start_date) ? "  ⚠ SANA NOTO'G'RI YOZILGAN — mijozdan aniq sanani so'rang" : "")], ["Kishi soni", x.pax + (d.adults != null ? " (kattalar " + d.adults + ", bolalar " + (d.children || 0) + ")" : "")],
       ["Mehmonxona", HC[d.hotel] || d.hotel], ["Gid tili", d.guide_lang], ["To'lov usuli", PM[x.pay_method]],
       ["Hamkor (gid)", d.partner_name],
       ["Mijoz", x.contact_name], ["Telefon / WhatsApp", x.phone], ["Telegram", d.telegram], ["E-mail", x.email], ["Bog'lanish", x.messenger], ["Fuqarolik", x.citizenship], ["Izoh", x.message]];
@@ -117,8 +117,8 @@
   A.bubbles = bubbles;
 
   // ---------------------------------------------------------------- payments (30% / 70%) and voucher
-  function addDays(d, n) { var t = new Date(d + "T12:00:00"); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); }
-  function workDays(from, n) { var t = new Date(from); while (n > 0) { t.setDate(t.getDate() + 1); var w = t.getDay(); if (w !== 0 && w !== 6) n--; } return t.toISOString().slice(0, 10); }
+  function addDays(d, n) { var t = new Date(d + "T12:00:00"); if (isNaN(t)) return ""; t.setDate(t.getDate() + n); return isNaN(t) ? "" : t.toISOString().slice(0, 10); }
+  function workDays(from, n) { var t = new Date(from); if (isNaN(t)) return ""; while (n > 0) { t.setDate(t.getDate() + 1); var w = t.getDay(); if (w !== 0 && w !== 6) n--; } return t.toISOString().slice(0, 10); }
   function vurl(x) { return location.origin + location.pathname.replace(/admin\/.*$/, "") + "voucher.html?ref=" + encodeURIComponent(x.ref) + "&k=" + encodeURIComponent(x.voucher_key); }
   // ---- messages (templates in assets/js/msg-templates.js, 10 languages)
   var MTN = { confirm: "Bron tasdiqlandi — 30% to'lang", received: "To'lov qabul qilindi (+ hujjat)", reminder: "Eslatma: qolgan to'lov muddati yaqin", final: "Oxirgi eslatma (48 soat)", voucher: "Vaucherlar tayyor (to'liq to'langan)", cancel: "Bron bekor qilindi" };

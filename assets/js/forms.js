@@ -9,6 +9,11 @@
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function hdr(extra) { var h = { apikey: SB.anonKey, Authorization: "Bearer " + SB.anonKey }; for (var k in extra || {}) h[k] = extra[k]; return h; }
 
+  // trip start dates: from today up to 3 years ahead
+  (function () {
+    var t = new Date(), mx = new Date(); mx.setFullYear(mx.getFullYear() + 3);
+    $$('input[name=start_date], input[name=end_date]').forEach(function (el) { if (!el.min) el.min = t.toISOString().slice(0, 10); el.max = mx.toISOString().slice(0, 10); });
+  })();
   async function rpc(name, payload) {
     var r = await fetch(SB.url + "/rest/v1/rpc/" + name, { method: "POST", headers: hdr({ "Content-Type": "application/json" }), body: JSON.stringify({ p: payload }) });
     var body = await r.json().catch(function () { return null; });
@@ -20,6 +25,8 @@
   function msg(form, text, kind) { var m = $(".mf-msg", form); if (m) { m.className = "mf-msg" + (kind ? " mf-msg--" + kind : ""); m.textContent = text || ""; } }
   function check(form) {
     var bad = $$("[required]", form).filter(function (el) { return el.type === "checkbox" ? !el.checked : !String(el.value || "").trim(); });
+    // dates must be real: a year like 275760 (typo in the date box) is refused
+    $$('input[type=date]', form).forEach(function (el) { var v = el.value; if (v && (!/^\d{4}-\d{2}-\d{2}$/.test(v) || (el.min && v < el.min) || (el.max && v > el.max))) bad.push(el); });
     $$(".is-bad", form).forEach(function (el) { el.classList.remove("is-bad"); });
     bad.forEach(function (el) { (el.closest(".mf-f") || el.closest(".mf-check") || el).classList.add("is-bad"); });
     if (bad.length) { msg(form, X.f_required, "err"); bad[0].focus(); return false; }

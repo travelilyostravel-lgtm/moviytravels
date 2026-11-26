@@ -10,7 +10,7 @@
   var COLS = ["№", "Ism familiya", "Fuqarolik", "Tug'ilgan sana", "Pasport", "Xona", "Manba / raqam", "Aloqa", "To'langan / jami (USD)", "Holat"];
 
   function tourName(id) { var L = window.MN_L || {}; return ((L.tours || {})[id] || [id])[0]; }
-  function endDate(x) { var T = (window.MN_TOURS || {})[x.tour_id], d = new Date(x.start_date + "T12:00:00"); d.setDate(d.getDate() + ((T ? T.days.length : 8) - 1)); return d.toISOString().slice(0, 10); }
+  function endDate(x) { var T = (window.MN_TOURS || {})[x.tour_id], d = new Date(x.start_date + "T12:00:00"); d.setDate(d.getDate() + ((T ? T.days.length : 8) - 1)); return isNaN(d) ? "" : d.toISOString().slice(0, 10); }
   function title(x) { return tourName(x.tour_id) + " · " + P.date(x.start_date) + " — " + P.date(endDate(x)) + " · " + (KN[x.group_kind] || ""); }
   function money(n) { return n == null ? "" : "$" + Math.round(n).toLocaleString("en"); }
 
