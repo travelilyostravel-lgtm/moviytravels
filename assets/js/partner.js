@@ -75,7 +75,7 @@
   var UJ = (window.MNJ_UNITS || {});
   var t = function (k) { return D[L][k]; };
   var me = { user: null, partner: null };
-  var WA = (window.MN_CFG || {}).whatsapp || "998999804214", TG = (window.MN_CFG || {}).telegram || "moviy_safina";
+  var WA = (window.MN_CFG || {}).whatsapp || "998975427799", TG = (window.MN_CFG || {}).telegram || "moviy_safina";
   var box = $("#pv");
 
   function langBtn() {

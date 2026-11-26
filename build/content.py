@@ -6,10 +6,10 @@ Matnni o'zgartirish uchun shu faylni tahrirlang, keyin:  python3 build/build.py
 # ---------------------------------------------------------------- SOZLAMALAR
 CONFIG = {
     # !!! WhatsApp raqamini xalqaro formatda, faqat raqamlar bilan yozing (masalan 998901234567)
-    "whatsapp": "998999804214",
+    "whatsapp": "998975427799",   # Maftuna Artikova (26.11.2026; avval 998999804214 — Safina)
     # Telefon (ko'rinadigan ko'rinishda) va menejer ismi
-    "phone": "+998 99 980 42 14",
-    "manager": "Safina Qozoqboyeva",
+    "phone": "+998 97 542 77 99",
+    "manager": "Maftuna Artikova",
     # Telegram: shaxsiy akkaunt yoki bot username (@ belgisisiz)
     "telegram": "moviy_safina",
     "partner_group": "https://t.me/moviy_nomad_uz",          # Moviy Nomad partners Telegram group invite link (https://t.me/+...)

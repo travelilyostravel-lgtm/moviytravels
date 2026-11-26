@@ -57,14 +57,14 @@
     doc.setFontSize(10); doc.text(title(dep), 12, 17); doc.setTextColor(30);
     doc.text("Capacity " + dep.capacity + " · booked " + dep.booked + " · free " + Math.max(0, dep.capacity - dep.booked) + " · listed " + rows.length + " · guide: " + (dep.guide_lang || "English") + " · " + new Date().toLocaleString("ru-RU"), 12, 29);
     doc.autoTable({ startY: 33, head: [["#"].concat(COLS.slice(1))], body: rows, styles: { fontSize: 8, cellPadding: 1.6 }, headStyles: { fillColor: [18, 53, 91] }, alternateRowStyles: { fillColor: [250, 246, 236] }, margin: { left: 8, right: 8 } });
-    doc.setFontSize(8); doc.text("MOVIY TRAVEL XK · Licence No. 887333 · +998 99 980 42 14", 12, 205);
+    doc.setFontSize(8); doc.text("MOVIY TRAVEL XK · Licence No. 887333 · +998 97 542 77 99", 12, 205);
     doc.save(fname(dep, "pdf"));
   };
   A.rosterDoc = function (dep, rows) {
     var h = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><style>@page{size:29.7cm 21cm;mso-page-orientation:landscape;margin:1.5cm}body{font-family:Calibri,Arial;font-size:10pt}table{border-collapse:collapse;width:100%}th{background:#12355b;color:#fff}th,td{border:1px solid #999;padding:3px 5px}</style></head><body>' +
       head(dep, rows).filter(function (r) { return r.length; }).map(function (r, i) { return i === 0 ? '<h2 style="color:#12355b">' + esc(r[0]) + '</h2>' : '<p>' + esc(r[0]) + '</p>'; }).join("") +
       '<table><tr>' + COLS.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join("") + '</tr>' + rows.map(function (r) { return '<tr>' + r.map(function (c) { return '<td>' + esc(c) + '</td>'; }).join("") + '</tr>'; }).join("") + '</table>' +
-      '<p style="margin-top:12pt;font-size:8pt">MOVIY TRAVEL XK · Licence № 887333 · +998 99 980 42 14</p></body></html>';
+      '<p style="margin-top:12pt;font-size:8pt">MOVIY TRAVEL XK · Licence № 887333 · +998 97 542 77 99</p></body></html>';
     var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿", h], { type: "application/msword" })); a.download = fname(dep, "doc"); document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
   };
 
