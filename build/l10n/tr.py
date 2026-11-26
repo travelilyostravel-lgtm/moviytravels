@@ -266,3 +266,6 @@ TOURS = {
   "tj_alaudin": ["Fan Yürüyüşü: Alaaddin ve Kulikalon", "Zümrüt göller arasında çadırlı yürüyüş"],
   "ca_grand": ['Büyük Orta Asya Turu', '15 günde Özbekistan, Tacikistan, Kazakistan ve Kırgızistan'],
 }
+
+# budget starter tours (2026-11-27)
+TOURS.update({'tashkent_city': ['Taşkent Şehir Turu', 'Başkentte bir gün: Hazreti İmam, Çarşı pazarı, metro ve Emir Timur meydanı'], 'tash_sam': ['Taşkent ve Semerkant', 'Başkent ve Registan üç günde, Afrasiyab hızlı treniyle'], 'tash_sam_buk': ['Taşkent, Semerkant ve Buhara', "İpek Yolu'nun üç büyük şehri dört günde, hızlı trenle"], 'tash_sam_mount': ['Taşkent, Semerkant ve Dağlar', 'Çimgan, Amirsoy ve Çarvak gölü artı Registan — dört gün']})

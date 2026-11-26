@@ -11,9 +11,9 @@
 <meta name="theme-color" content="#12355b"><script>(function(){try{var t=localStorage.getItem("mn_theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}})()</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero.webp">
-<link rel="stylesheet" href="assets/css/site.css?v=d315730d">
+<link rel="stylesheet" href="assets/css/site.css?v=aed2b4d4">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad", "description": "Uzbekistan tours and tour packages from a licensed local operator: Samarkand, Bukhara and Khiva tours, 7-day itineraries, visa info and the best time to visit. Book on WhatsApp.", "url": "https://moviy-travel.uz/", "image": "https://moviy-travel.uz/assets/img/hero.webp", "areaServed": ["Uzbekistan"], "sameAs": ["https://instagram.com/moviy_nomad", "https://t.me/moviy_safina"], "parentOrganization": {"@type": "Organization", "name": "Moviy Travel"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Moviy Nomad","alternateName":["Moviy Nomad — Uzbekistan Tours","moviy-travel.uz"],"url":"https://moviy-travel.uz/"}</script>
 </head>
@@ -56,58 +56,128 @@
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
 
-  <section class="section" id="destinations">
+  <section class="section mtours" id="tours">
     <div class="container">
-      <div class="section-head reveal"><span class="eyebrow">Destinations</span><h2>Uzbekistan — the heart of the Silk Road</h2><p>From Khiva to Samarkand and the Fergana Valley in one trip — we take care of transport, guides and hotels.</p></div>
-      
-      
-      <div class="country is-active" id="c-uz" role="tabpanel">
-        <div class="country__text"><h3>Uzbekistan</h3><p>Samarkand, Bukhara and Khiva — the blue-domed jewels of the Silk Road, connected by high-speed trains.</p>
-          <button class="btn btn--outline" data-contact data-tour="Uzbekistan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>Ask about this country</button></div>
-        <div class="badges"><div class="badge"><img src="assets/icons/samarkand.webp" alt="Samarkand" loading="lazy" width="300" height="300"></div><div class="badge"><img src="assets/icons/bukhara.webp" alt="Bukhara" loading="lazy" width="300" height="300"></div><div class="badge"><img src="assets/icons/khiva.webp" alt="Khiva" loading="lazy" width="300" height="300"></div><div class="badge"><img src="assets/icons/tashkent.webp" alt="Tashkent" loading="lazy" width="300" height="300"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--sand" id="tours">
-    <div class="container">
-      <div class="section-head reveal"><span class="eyebrow">Ready tours</span><h2>Ready-made journeys across Uzbekistan</h2><p>Six proven routes in each country — open any tour to see the map, the day-by-day program and the price.</p></div>
-      
-      <div class="tours tgrid is-active" data-tc-panel="UZ">
-      <article class="tour reveal">
-        <a class="tour__img" href="tours/classic.html"><img src="assets/img/p/cover-classic.webp" alt="Classic Uzbekistan" loading="lazy" width="1100" height="760"><span class="tour__days">8 days</span><span class="tour__lock">🔒 Coming soon</span><div class="tour__flags"><span>UZ</span></div></a>
-        <div class="tour__body">
-          <h3>Classic Uzbekistan</h3>
-          <div class="tour__route">Khiva · Bukhara · Samarkand · Tashkent</div>
+      <div class="section-head reveal"><span class="eyebrow">Tours of Uzbekistan</span><h2>Pick your journey</h2><p>Start small or go all the way — every tour includes a licensed guide, transport and our 24/7 support.</p></div>
+      <div class="mt-head mt-head--b reveal"><span class="mt-head__k">01</span><div><h3>Short &amp; affordable</h3><p>Perfect for a first taste of Uzbekistan — from one day in Tashkent to four days with Samarkand, Bukhara or the mountains.</p></div></div><div class="mt-grid">
+      <article class="mt mt--b reveal" style="--i:1">
+        <a class="mt__media" href="tours/tashkent_city.html" aria-label="Tashkent City Tour">
+          <img src="assets/img/p/tashkent-sky.webp" alt="Tashkent City Tour" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">Best price</span><span class="mt__dur">1 day</span>
+          <span class="mt__over"><span class="mt__no">01</span><h3>Tashkent City Tour</h3><span class="mt__route">Tashkent</span></span>
+        </a>
+        <div class="mt__body">
+          <p>One day in the capital: Hazrati Imam, Chorsu bazaar, the metro and Amir Timur square</p>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>from</small><strong data-from="tashkent_city">…</strong><small>per person</small></div>
+            <a class="mt__go" href="tours/tashkent_city.html" aria-label="View the tour"><span>View the tour</span><i aria-hidden="true">→</i></a>
+          </div>
+        </div>
+      </article>
+      <article class="mt mt--b reveal" style="--i:2">
+        <a class="mt__media" href="tours/tash_sam.html" aria-label="Tashkent &amp; Samarkand">
+          <img src="assets/img/p/registan.webp" alt="Tashkent &amp; Samarkand" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">Best price</span><span class="mt__dur">3 days</span>
+          <span class="mt__over"><span class="mt__no">02</span><h3>Tashkent &amp; Samarkand</h3><span class="mt__route">Tashkent · Samarkand</span></span>
+        </a>
+        <div class="mt__body">
+          <p>The capital and the Registan in three days, by the Afrosiyob fast train</p>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>from</small><strong data-from="tash_sam">…</strong><small>per person</small></div>
+            <a class="mt__go" href="tours/tash_sam.html" aria-label="View the tour"><span>View the tour</span><i aria-hidden="true">→</i></a>
+          </div>
+        </div>
+      </article>
+      <article class="mt mt--b reveal" style="--i:3">
+        <a class="mt__media" href="tours/tash_sam_buk.html" aria-label="Tashkent, Samarkand &amp; Bukhara">
+          <img src="assets/img/p/samanid.webp" alt="Tashkent, Samarkand &amp; Bukhara" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">Best price</span><span class="mt__dur">4 days</span>
+          <span class="mt__over"><span class="mt__no">03</span><h3>Tashkent, Samarkand &amp; Bukhara</h3><span class="mt__route">Tashkent · Samarkand · Bukhara</span></span>
+        </a>
+        <div class="mt__body">
+          <p>Three great Silk Road cities in four days by fast train</p>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>from</small><strong data-from="tash_sam_buk">…</strong><small>per person</small></div>
+            <a class="mt__go" href="tours/tash_sam_buk.html" aria-label="View the tour"><span>View the tour</span><i aria-hidden="true">→</i></a>
+          </div>
+        </div>
+      </article>
+      <article class="mt mt--b reveal" style="--i:4">
+        <a class="mt__media" href="tours/tash_sam_mount.html" aria-label="Tashkent, Samarkand &amp; the Mountains">
+          <img src="assets/img/p/uz-charvak.webp" alt="Tashkent, Samarkand &amp; the Mountains" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">Best price</span><span class="mt__dur">4 days</span>
+          <span class="mt__over"><span class="mt__no">04</span><h3>Tashkent, Samarkand &amp; the Mountains</h3><span class="mt__route">Tashkent · Chimgan &amp; Charvak · Samarkand</span></span>
+        </a>
+        <div class="mt__body">
+          <p>Chimgan, Amirsoy and Charvak lake plus the Registan — four days</p>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>from</small><strong data-from="tash_sam_mount">…</strong><small>per person</small></div>
+            <a class="mt__go" href="tours/tash_sam_mount.html" aria-label="View the tour"><span>View the tour</span><i aria-hidden="true">→</i></a>
+          </div>
+        </div>
+      </article></div><div class="mt-head mt-head--s reveal"><span class="mt-head__k">02</span><div><h3>Signature journeys</h3><p>Our most-loved programs: the full Silk Road story, superior hotels and every detail arranged.</p></div></div><div class="mt-grid mt-grid--s">
+      <article class="mt mt--s reveal" style="--i:1">
+        <a class="mt__media" href="tours/classic.html" aria-label="Classic Uzbekistan">
+          <img src="assets/img/p/cover-classic.webp" alt="Classic Uzbekistan" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">Signature</span><span class="mt__dur">8 days</span>
+          <span class="mt__over"><span class="mt__no">01</span><h3>Classic Uzbekistan</h3><span class="mt__route">Khiva · Bukhara · Samarkand · Tashkent</span></span>
+        </a>
+        <div class="mt__body">
           <p>Khiva, Bukhara, Samarkand and Tashkent — starts in Khiva every Saturday</p>
-          <div class="tour__foot"><div class="price"><small>from</small><strong data-from="classic">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="tours/classic.html">View the tour →</a></div>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>from</small><strong data-from="classic">…</strong><small>per person</small></div>
+            <a class="mt__go" href="tours/classic.html" aria-label="View the tour"><span>View the tour</span><i aria-hidden="true">→</i></a>
+          </div>
         </div>
       </article>
-      <article class="tour reveal">
-        <a class="tour__img" href="tours/express.html"><img src="assets/img/p/cover-express.webp" alt="Samarkand &amp; Bukhara Express" loading="lazy" width="1100" height="760"><span class="tour__days">5 days</span><span class="tour__lock">🔒 Coming soon</span><div class="tour__flags"><span>UZ</span></div></a>
-        <div class="tour__body">
-          <h3>Samarkand &amp; Bukhara Express</h3>
-          <div class="tour__route">Tashkent · Samarkand · Bukhara</div>
+      <article class="mt mt--s reveal" style="--i:2">
+        <a class="mt__media" href="tours/express.html" aria-label="Samarkand &amp; Bukhara Express">
+          <img src="assets/img/p/cover-express.webp" alt="Samarkand &amp; Bukhara Express" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">Signature</span><span class="mt__dur">5 days</span>
+          <span class="mt__over"><span class="mt__no">02</span><h3>Samarkand &amp; Bukhara Express</h3><span class="mt__route">Tashkent · Samarkand · Bukhara</span></span>
+        </a>
+        <div class="mt__body">
           <p>The two jewels of the Silk Road in five days</p>
-          <div class="tour__foot"><div class="price"><small>from</small><strong data-from="express">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="tours/express.html">View the tour →</a></div>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>from</small><strong data-from="express">…</strong><small>per person</small></div>
+            <a class="mt__go" href="tours/express.html" aria-label="View the tour"><span>View the tour</span><i aria-hidden="true">→</i></a>
+          </div>
         </div>
       </article>
-      <article class="tour reveal">
-        <a class="tour__img" href="tours/silkroad.html"><img src="assets/img/p/cover-silkroad.webp" alt="The Great Silk Road" loading="lazy" width="1100" height="760"><span class="tour__days">10 days</span><span class="tour__lock">🔒 Coming soon</span><div class="tour__flags"><span>UZ</span></div></a>
-        <div class="tour__body">
-          <h3>The Great Silk Road</h3>
-          <div class="tour__route">Tashkent · Khiva · Bukhara · Aydarkul yurt camp · Samarkand</div>
+      <article class="mt mt--s reveal" style="--i:3">
+        <a class="mt__media" href="tours/silkroad.html" aria-label="The Great Silk Road">
+          <img src="assets/img/p/cover-silkroad.webp" alt="The Great Silk Road" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">Signature</span><span class="mt__dur">10 days</span>
+          <span class="mt__over"><span class="mt__no">03</span><h3>The Great Silk Road</h3><span class="mt__route">Tashkent · Khiva · Bukhara · Aydarkul yurt camp · Samarkand · Shahrisabz</span></span>
+        </a>
+        <div class="mt__body">
           <p>From Khiva to Samarkand with a night in a desert yurt</p>
-          <div class="tour__foot"><div class="price"><small>from</small><strong data-from="silkroad">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="tours/silkroad.html">View the tour →</a></div>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>from</small><strong data-from="silkroad">…</strong><small>per person</small></div>
+            <a class="mt__go" href="tours/silkroad.html" aria-label="View the tour"><span>View the tour</span><i aria-hidden="true">→</i></a>
+          </div>
         </div>
       </article>
-      <article class="tour reveal">
-        <a class="tour__img" href="tours/spiritual.html"><img src="assets/img/p/cover-spiritual.webp" alt="Spiritual Heritage of Uzbekistan" loading="lazy" width="1100" height="760"><span class="tour__days">7 days</span><span class="tour__lock">🔒 Coming soon</span><div class="tour__flags"><span>UZ</span></div></a>
-        <div class="tour__body">
-          <h3>Spiritual Heritage of Uzbekistan</h3>
-          <div class="tour__route">Tashkent · Samarkand · Bukhara</div>
+      <article class="mt mt--s reveal" style="--i:4">
+        <a class="mt__media" href="tours/spiritual.html" aria-label="Spiritual Heritage of Uzbekistan">
+          <img src="assets/img/p/cover-spiritual.webp" alt="Spiritual Heritage of Uzbekistan" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">Signature</span><span class="mt__dur">7 days</span>
+          <span class="mt__over"><span class="mt__no">04</span><h3>Spiritual Heritage of Uzbekistan</h3><span class="mt__route">Tashkent · Samarkand · Bukhara</span></span>
+        </a>
+        <div class="mt__body">
           <p>Ziyarat to the great imams and Sufi masters</p>
-          <div class="tour__foot"><div class="price"><small>from</small><strong data-from="spiritual">…</strong> <small>per person</small></div><a class="btn btn--gold btn--sm" href="tours/spiritual.html">View the tour →</a></div>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>from</small><strong data-from="spiritual">…</strong><small>per person</small></div>
+            <a class="mt__go" href="tours/spiritual.html" aria-label="View the tour"><span>View the tour</span><i aria-hidden="true">→</i></a>
+          </div>
         </div>
       </article></div>
       <p class="tours-note">Don&#x27;t see your perfect trip? We build custom itineraries for couples, families and groups.</p>

@@ -55,6 +55,50 @@ def l10n_lang(lang):
 
 EXTRA_FONT = {"ar": "&family=Tajawal:wght@400;500;700", "zh": "&family=Noto+Sans+SC:wght@400;600;700", "hi": "&family=Noto+Sans+Devanagari:wght@400;600;700", "ko": "&family=Noto+Sans+KR:wght@400;600;700"}
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MT_TXT = {
+ "en": dict(eyebrow="Tours of Uzbekistan", title="Pick your journey", sub="Start small or go all the way — every tour includes a licensed guide, transport and our 24/7 support.",
+            b_t="Short & affordable", b_s="Perfect for a first taste of Uzbekistan — from one day in Tashkent to four days with Samarkand, Bukhara or the mountains.",
+            s_t="Signature journeys", s_s="Our most-loved programs: the full Silk Road story, superior hotels and every detail arranged.",
+            rib_b="Best price", rib_s="Signature", d1="1 day", dn="{n} days", all="All tours"),
+ "ru": dict(eyebrow="Туры по Узбекистану", title="Выберите своё путешествие", sub="Начните с короткого тура или отправьтесь в большое путешествие — в каждом туре лицензированный гид, транспорт и наша поддержка 24/7.",
+            b_t="Коротко и доступно", b_s="Идеально для первого знакомства с Узбекистаном — от одного дня в Ташкенте до четырёх дней с Самаркандом, Бухарой или горами.",
+            s_t="Фирменные туры", s_s="Наши самые любимые программы: вся история Шёлкового пути, отели уровня superior и продуманные детали.",
+            rib_b="Лучшая цена", rib_s="Фирменный", d1="1 день", dn="{n} дня", all="Все туры"),
+ "uz": dict(eyebrow="O'zbekiston bo'ylab turlar", title="Sayohatingizni tanlang", sub="Qisqa turdan boshlang yoki katta sayohatga chiqing — har bir turda litsenziyali gid, transport va 24/7 yordamimiz bor.",
+            b_t="Qisqa va hamyonbop", b_s="O'zbekiston bilan birinchi tanishuv uchun — Toshkentda bir kundan Samarqand, Buxoro yoki tog'lar bilan to'rt kungacha.",
+            s_t="Asosiy turlarimiz", s_s="Eng sevimli dasturlarimiz: Ipak yo'lining to'liq tarixi, yuqori toifali mehmonxonalar va har bir mayda-chuyda o'ylangan.",
+            rib_b="Eng arzon", rib_s="Premium", d1="1 kun", dn="{n} kun", all="Barcha turlar"),
+ "tr": dict(eyebrow="Özbekistan turları", title="Yolculuğunuzu seçin", sub="Kısa bir turla başlayın ya da büyük bir yolculuğa çıkın — her turda lisanslı rehber, ulaşım ve 7/24 desteğimiz var.",
+            b_t="Kısa ve uygun fiyatlı", b_s="Özbekistan'la ilk tanışma için ideal — Taşkent'te bir günden Semerkant, Buhara veya dağlarla dört güne.",
+            s_t="İmza turlarımız", s_s="En sevilen programlarımız: İpek Yolu'nun tüm hikâyesi, üst sınıf oteller ve her ayrıntı düşünülmüş.",
+            rib_b="En iyi fiyat", rib_s="Premium", d1="1 gün", dn="{n} gün", all="Tüm turlar"),
+ "ar": dict(eyebrow="رحلات أوزبكستان", title="اختر رحلتك", sub="ابدأ برحلة قصيرة أو انطلق في رحلة كاملة — كل رحلة تشمل مرشدًا مرخّصًا ومواصلات ودعمنا على مدار الساعة.",
+            b_t="قصيرة وبسعر مناسب", b_s="مثالية للتعرّف الأول على أوزبكستان — من يوم في طشقند إلى أربعة أيام مع سمرقند أو بخارى أو الجبال.",
+            s_t="رحلاتنا المميزة", s_s="برامجنا الأكثر طلبًا: قصة طريق الحرير كاملة، فنادق راقية وكل التفاصيل مرتّبة.",
+            rib_b="أفضل سعر", rib_s="مميّزة", d1="يوم واحد", dn="{n} أيام", all="كل الرحلات"),
+ "de": dict(eyebrow="Usbekistan-Reisen", title="Wählen Sie Ihre Reise", sub="Klein anfangen oder die große Rundreise — jede Tour mit lizenziertem Guide, Transport und unserem 24/7-Support.",
+            b_t="Kurz & günstig", b_s="Ideal zum ersten Kennenlernen — von einem Tag in Taschkent bis zu vier Tagen mit Samarkand, Buchara oder den Bergen.",
+            s_t="Unsere Signature-Reisen", s_s="Unsere beliebtesten Programme: die ganze Seidenstraße, gehobene Hotels und jedes Detail organisiert.",
+            rib_b="Bester Preis", rib_s="Signature", d1="1 Tag", dn="{n} Tage", all="Alle Reisen"),
+ "sv": dict(eyebrow="Resor i Uzbekistan", title="Välj din resa", sub="Börja kort eller res hela vägen — varje resa har licensierad guide, transport och vår support dygnet runt.",
+            b_t="Kort & prisvärt", b_s="Perfekt för ett första möte med Uzbekistan — från en dag i Tasjkent till fyra dagar med Samarkand, Buchara eller bergen.",
+            s_t="Våra signaturresor", s_s="Våra mest älskade program: hela Sidenvägen, hotell av hög klass och varje detalj ordnad.",
+            rib_b="Bästa pris", rib_s="Signatur", d1="1 dag", dn="{n} dagar", all="Alla resor"),
+ "zh": dict(eyebrow="乌兹别克斯坦旅游", title="选择您的旅程", sub="从短途开始，或来一场完整旅程——每条线路都含持证导游、交通和 24/7 支持。",
+            b_t="短途 · 实惠", b_s="初次了解乌兹别克斯坦的理想之选——从塔什干一日游到撒马尔罕、布哈拉或山区四日游。",
+            s_t="招牌线路", s_s="最受欢迎的行程：完整的丝绸之路故事、高品质酒店，每个细节都已安排妥当。",
+            rib_b="超值价", rib_s="招牌", d1="1天", dn="{n}天", all="全部线路"),
+ "hi": dict(eyebrow="उज़्बेकिस्तान टूर", title="अपनी यात्रा चुनें", sub="छोटे टूर से शुरू करें या पूरी यात्रा पर निकलें — हर टूर में लाइसेंसधारी गाइड, परिवहन और 24/7 सहायता।",
+            b_t="छोटे और किफ़ायती", b_s="उज़्बेकिस्तान से पहली मुलाक़ात के लिए — ताशकंद में एक दिन से लेकर समरकंद, बुख़ारा या पहाड़ों के साथ चार दिन तक।",
+            s_t="हमारे सिग्नेचर टूर", s_s="हमारे सबसे पसंदीदा कार्यक्रम: पूरी सिल्क रोड कहानी, बेहतरीन होटल और हर बारीकी का ध्यान।",
+            rib_b="सबसे कम कीमत", rib_s="सिग्नेचर", d1="1 दिन", dn="{n} दिन", all="सभी टूर"),
+ "ko": dict(eyebrow="우즈베키스탄 투어", title="여행을 선택하세요", sub="짧게 시작하거나 제대로 떠나 보세요 — 모든 투어에 공인 가이드, 교통, 24시간 지원이 포함됩니다.",
+            b_t="짧고 합리적인 여행", b_s="우즈베키스탄 첫 여행에 딱 — 타슈켄트 하루부터 사마르칸트·부하라·산을 포함한 4일까지.",
+            s_t="시그니처 여행", s_s="가장 사랑받는 프로그램: 실크로드의 모든 이야기, 고급 호텔, 세심하게 준비된 일정.",
+            rib_b="최저가", rib_s="시그니처", d1="1일", dn="{n}일", all="전체 투어"),
+}
+
 MAIN_IMG = ["hero", "bukhara", "camels", "ceramics", "charvak", "chorsu", "khiva", "mountains", "plov", "shahizinda", "tashkent", "tea", "train"]
 e = html.escape
 
@@ -120,6 +164,46 @@ def render(lang):
           <div class="tour__foot">{price}<a class="btn btn--gold btn--sm" href="tours/{tid}.html">{e(U["view_tour"])} →</a></div>
         </div>
       </article>'''
+    # ---- 2026-11-27 home tours: row 1 = budget starters, row 2 = signature tours (premium cards)
+    MT = MT_TXT.get(lang, MT_TXT["en"])
+    def mt_card(tr, kind, n):
+        tid = tr["id"]; name, sub = L["tours"][tid]
+        seen = []
+        for d in tr["days"]:
+            for c in ([d[0]] if d[0] else []) + [x for m in d[1] for x in m]:
+                if c in TD.CITIES and not TD.CITIES[c][4] and c not in seen: seen.append(c)
+        for d in tr["days"]:
+            for sid in d[2]:
+                c = TD.SIGHTS[sid][0]
+                if c in TD.CITIES and not TD.CITIES[c][4] and c not in seen: seen.append(c)
+        route = " · ".join(L["cities"][c][0] for c in seen)
+        nd = len(tr["days"]); dur = MT["d1"] if nd == 1 else MT["dn"].format(n=nd)
+        if lang == "ru" and nd > 4: dur = f"{nd} дней"
+        img = tr["cover"]; folder = "" if img in MAIN_IMG else "p/"
+        rib = MT["rib_b"] if kind == "b" else MT["rib_s"]
+        return f"""
+      <article class="mt mt--{kind} reveal" style="--i:{n}">
+        <a class="mt__media" href="tours/{tid}.html" aria-label="{e(name)}">
+          <img src="{A}img/{folder}{img}.webp" alt="{e(name)}" loading="lazy" width="1100" height="760">
+          <span class="mt__shade"></span>
+          <span class="mt__rib">{e(rib)}</span><span class="mt__dur">{e(dur)}</span>
+          <span class="mt__over"><span class="mt__no">{n:02d}</span><h3>{e(name)}</h3><span class="mt__route">{e(route)}</span></span>
+        </a>
+        <div class="mt__body">
+          <p>{e(sub)}</p>
+          <div class="mt__foot">
+            <div class="mt__price price"><small>{e(U["from"])}</small><strong data-from="{tid}">…</strong><small>{e(t["pp"])}</small></div>
+            <a class="mt__go" href="tours/{tid}.html" aria-label="{e(U["view_tour"])}"><span>{e(U["view_tour"])}</span><i aria-hidden="true">→</i></a>
+          </div>
+        </div>
+      </article>"""
+    _home = [x for x in TD.TOURS if x["id"] not in TD.HOME_HIDE]
+    _b = [x for x in _home if x["id"] in TD.START_IDS]
+    _s = [x for x in _home if x["id"] not in TD.START_IDS][:4]
+    mt_rows = (f'<div class="mt-head mt-head--b reveal"><span class="mt-head__k">01</span><div><h3>{e(MT["b_t"])}</h3><p>{e(MT["b_s"])}</p></div></div>'
+               f'<div class="mt-grid">' + "".join(mt_card(x, "b", i + 1) for i, x in enumerate(_b)) + '</div>'
+               f'<div class="mt-head mt-head--s reveal"><span class="mt-head__k">02</span><div><h3>{e(MT["s_t"])}</h3><p>{e(MT["s_s"])}</p></div></div>'
+               f'<div class="mt-grid mt-grid--s">' + "".join(mt_card(x, "s", i + 1) for i, x in enumerate(_s)) + '</div>')
     OPEN = ["UZ"]  # default; admin can open more (Narxlar → "Narxi ochiq davlatlar"), applied in the browser
     def lk(c): return c.upper() not in OPEN
     soon = f'<span class="lock-tag">🔒 {e(U["lock_badge"])}</span>'
@@ -179,7 +263,7 @@ def render(lang):
 <meta name="theme-color" content="#12355b"><script>(function(){{try{{var t=localStorage.getItem("mn_theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}}})()</script>
 <link rel="icon" href="{A}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{EXTRA_FONT.get(lang, "")}&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700{EXTRA_FONT.get(lang, "")}&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="{A}img/hero.webp">
 <link rel="stylesheet" href="{A}css/site.css?v={CSSV}">
 <script type="application/ld+json">{ld}</script>
@@ -224,19 +308,10 @@ def render(lang):
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
 
-  <section class="section" id="destinations">
+  <section class="section mtours" id="tours">
     <div class="container">
-      <div class="section-head reveal"><span class="eyebrow">{e(t["dest_eyebrow"])}</span><h2>{e(t["dest_title"])}</h2><p>{e(t["dest_sub"])}</p></div>
-      {f'<div class="tabs" role="tablist">{tabs}</div>' if len(COUNTRIES) > 1 else ""}
-      {panels}
-    </div>
-  </section>
-
-  <section class="section section--sand" id="tours">
-    <div class="container">
-      <div class="section-head reveal"><span class="eyebrow">{e(U["h_eyebrow"])}</span><h2>{e(U["h_title"])}</h2><p>{e(U["h_sub"])}</p></div>
-      {f'<div class="ttabs" role="tablist">{ttabs}</div>' if len(TD.COUNTRIES) > 1 else ""}
-      {tgrids}
+      <div class="section-head reveal"><span class="eyebrow">{e(MT["eyebrow"])}</span><h2>{e(MT["title"])}</h2><p>{e(MT["sub"])}</p></div>
+      {mt_rows}
       <p class="tours-note">{e(t["tours_note"])}</p>
     </div>
   </section>

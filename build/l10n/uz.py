@@ -267,3 +267,6 @@ TOURS = {
   "tj_alaudin": ["Fan trekingi: Alovuddin va Kulikalon", "Zumrad ko'llar orasida chodirli treking"],
   "ca_grand": ["Markaziy Osiyo bo'ylab katta sayohat", "O'zbekiston, Tojikiston, Qozog'iston va Qirg'iziston — 15 kunda"],
 }
+
+# budget starter tours (2026-11-27)
+TOURS.update({'tashkent_city': ["Toshkent bo'ylab sayohat", 'Poytaxtda bir kun: Hazrati Imom, Chorsu bozori, metro va Amir Temur xiyoboni'], 'tash_sam': ['Toshkent va Samarqand', 'Poytaxt va Registon uch kunda, «Afrosiyob» tezyurar poyezdida'], 'tash_sam_buk': ['Toshkent, Samarqand va Buxoro', "Ipak yo'lining uch buyuk shahri to'rt kunda, tezyurar poyezdda"], 'tash_sam_mount': ["Toshkent, Samarqand va tog'lar", "Chimyon, Amirsoy va Chorvoq ko'li hamda Registon — to'rt kun"]})

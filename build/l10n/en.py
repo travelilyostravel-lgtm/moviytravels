@@ -299,3 +299,6 @@ TOURS = {
   "tj_alaudin": ["Fann Trek: Alaudin & Kulikalon", "A camping trek between emerald lakes"],
   "ca_grand": ['Grand Tour of Central Asia', 'Uzbekistan, Tajikistan, Kazakhstan and Kyrgyzstan in 15 days'],
 }
+
+# budget starter tours (2026-11-27)
+TOURS.update({'tashkent_city': ['Tashkent City Tour', 'One day in the capital: Hazrati Imam, Chorsu bazaar, the metro and Amir Timur square'], 'tash_sam': ['Tashkent & Samarkand', 'The capital and the Registan in three days, by the Afrosiyob fast train'], 'tash_sam_buk': ['Tashkent, Samarkand & Bukhara', 'Three great Silk Road cities in four days by fast train'], 'tash_sam_mount': ['Tashkent, Samarkand & the Mountains', 'Chimgan, Amirsoy and Charvak lake plus the Registan — four days']})

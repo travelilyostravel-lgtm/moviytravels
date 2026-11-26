@@ -266,3 +266,6 @@ TOURS = {
   "tj_alaudin": ["Fan-Trek: Alaudin & Kulikalon", "Zelt-Trekking zwischen smaragdgrünen Seen"],
   "ca_grand": ['Große Zentralasien-Rundreise', 'Usbekistan, Tadschikistan, Kasachstan und Kirgisistan in 15 Tagen'],
 }
+
+# budget starter tours (2026-11-27)
+TOURS.update({'tashkent_city': ['Taschkent Stadtrundfahrt', 'Ein Tag in der Hauptstadt: Hazrati Imam, Chorsu-Basar, Metro und Amir-Timur-Platz'], 'tash_sam': ['Taschkent & Samarkand', 'Hauptstadt und Registan in drei Tagen, mit dem Schnellzug Afrosiyob'], 'tash_sam_buk': ['Taschkent, Samarkand & Buchara', 'Drei große Städte der Seidenstraße in vier Tagen mit dem Schnellzug'], 'tash_sam_mount': ['Taschkent, Samarkand & die Berge', 'Tschimgan, Amirsoy und Tscharwak-See plus Registan — vier Tage']})

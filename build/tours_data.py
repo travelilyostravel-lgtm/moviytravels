@@ -442,8 +442,31 @@ FEATURED = [
 for _t in FEATURED: _t["open"] = True
 TOURS += FEATURED
 
+# ---------------- BUDGET STARTERS (owner 2026-11-27): 4 short, inexpensive programs shown first on the home page
+_START = [
+ T("tashkent_city", "UZ", "tashkent-sky", "comfort", [   # one day, no hotel
+   (None, [], ["tash_imam", "tash_chorsu", "tash_metro", "tash_timur"], "")]),
+ T("tash_sam", "UZ", "registan", "comfort", [            # 3 days / 2 nights
+   ("tashkent", [], ["tash_imam", "tash_chorsu", "tash_metro"], ""),
+   ("samarkand", [["tashkent", "samarkand"]], ["sam_registan", "sam_gurmir"], "B"),
+   (None, [["samarkand", "tashkent"]], ["sam_shahizinda", "sam_bibi", "sam_siyob"], "B")], ["train"]),
+ T("tash_sam_buk", "UZ", "samanid", "comfort", [         # 4 days / 3 nights
+   ("tashkent", [], ["tash_imam", "tash_chorsu", "tash_metro"], ""),
+   ("samarkand", [["tashkent", "samarkand"]], ["sam_registan", "sam_gurmir", "sam_shahizinda"], "B"),
+   ("bukhara", [["samarkand", "bukhara"]], ["buk_ark", "buk_poikalon", "buk_lyabi"], "B"),
+   (None, [["bukhara", "tashkent"]], ["buk_samanid", "buk_domes"], "B")], ["train"]),
+ T("tash_sam_mount", "UZ", "uz-charvak", "comfort", [     # 4 days / 3 nights: mountains as a day trip from Tashkent
+   ("tashkent", [], ["tash_imam", "tash_chorsu", "tash_metro"], ""),
+   ("tashkent", [["tashkent", "chimgan"], ["chimgan", "tashkent"]], ["chim_mount", "chim_amirsoy", "chim_charvak"], "B"),
+   ("samarkand", [["tashkent", "samarkand"]], ["sam_registan", "sam_gurmir"], "B"),
+   (None, [["samarkand", "tashkent"]], ["sam_shahizinda", "sam_bibi", "sam_siyob"], "B")], ["train"], bring=BRING_MOUNT),
+]
+_START[0]["inc"] = ["transport", "guide", "tickets", "water", "support"]   # day tour: no hotel, no airport transfer
+TOURS += _START
+START_IDS = [t["id"] for t in _START]
+
 # User decision 2026-11-20: 6 tours per country (24 total), the best-selling formats.
-KEEP = ["classic", "express", "silkroad", "spiritual", "nature", "fergana",
+KEEP = START_IDS + ["classic", "express", "silkroad", "spiritual", "nature", "fergana",
         "kz_almaty", "kz_lakes", "kz_classic", "kz_turkistan", "kz_altynemel", "kz_astana",
         "kg_issykkul", "kg_songkul", "kg_lakes", "kg_alakul", "kg_tashrabat", "kg_south",
         "tj_fann", "tj_pamir", "tj_sevenlakes", "tj_uztj", "tj_ancient", "tj_alaudin", "ca_grand", "kg_classic"]

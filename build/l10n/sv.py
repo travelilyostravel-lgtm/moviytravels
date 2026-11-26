@@ -266,3 +266,6 @@ TOURS = {
   "tj_alaudin": ["Fanvandring: Alaudin & Kulikalon", "Tältvandring mellan smaragdgröna sjöar"],
   "ca_grand": ['Stora Centralasienresan', 'Uzbekistan, Tadzjikistan, Kazakstan och Kirgizistan på 15 dagar'],
 }
+
+# budget starter tours (2026-11-27)
+TOURS.update({'tashkent_city': ['Stadstur i Tasjkent', 'En dag i huvudstaden: Hazrati Imam, Chorsu-basaren, tunnelbanan och Amir Timur-torget'], 'tash_sam': ['Tasjkent & Samarkand', 'Huvudstaden och Registan på tre dagar med snabbtåget Afrosiyob'], 'tash_sam_buk': ['Tasjkent, Samarkand & Buchara', 'Sidenvägens tre stora städer på fyra dagar med snabbtåg'], 'tash_sam_mount': ['Tasjkent, Samarkand & bergen', 'Tjimgan, Amirsoy och Tjarvaksjön plus Registan — fyra dagar']})
