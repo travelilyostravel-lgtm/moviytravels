@@ -1075,3 +1075,16 @@ body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-t
 /* cabinet: Google one-click first, e-mail + password behind a small link (26.11.2026) */
 .cab-gsi{display:flex;justify-content:center;min-height:44px;margin:4px 0 6px}.cab-more{display:block;margin:10px auto 0;background:none;border:0;color:#7a8796;font-size:13px;text-decoration:underline;cursor:pointer}.cab-auth [hidden]{display:none!important}#cab-pw{margin-top:14px}
 .cab-pwwrap{position:relative;display:block}.cab-pwwrap input{padding-right:46px!important}.cab-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;font-size:18px;cursor:pointer;padding:6px;line-height:1}
+
+/* ---------- 26.11.2026: phones — nothing cut off (fix for the 25.11 desktop header rules) ---------- */
+@media (max-width:860px){
+  .header .header__cta{display:none!important}
+  .header .header__bar{width:calc(100% - 24px);gap:10px}
+  .header .header__right{flex-shrink:1;min-width:0;gap:6px}
+}
+@media (max-width:640px){
+  .sbar{display:none}                       /* round WhatsApp/Telegram/Instagram stack covered buttons; "Bog'lanish" stays */
+  .btn{white-space:normal;text-align:center;max-width:100%}
+  img,video,iframe,table{max-width:100%}
+  .container{width:calc(100% - 32px)}
+}

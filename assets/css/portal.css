@@ -202,3 +202,16 @@ body.portal{background:var(--sand);min-height:100vh}
 .st-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .st-row i{display:block;height:8px;border-radius:9px;background:var(--gold);min-width:3px}
 .st-row b{text-align:right;color:var(--navy)}
+
+/* 26.11.2026: phones — header with name + logout fits */
+@media (max-width:640px){
+  .p-top__bar{height:auto;min-height:58px;gap:8px;padding:8px 0;flex-wrap:nowrap}
+  .p-top__tag{display:none}
+  .p-top .logo__text{font-size:13px}.p-top .logo svg{width:36px;height:26px}
+  .p-top__who{font-size:11.5px;min-width:0;max-width:42vw;overflow:hidden}
+  .p-top__who,.p-top__who b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .p-top .btn--sm{padding:8px 12px;font-size:13px;flex-shrink:0}
+  .p-tabs .container{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .p-tabs button{white-space:nowrap;flex-shrink:0}
+  .tbl{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
