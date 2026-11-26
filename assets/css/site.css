@@ -1088,3 +1088,4 @@ body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-t
   img,video,iframe,table{max-width:100%}
   .container{width:calc(100% - 32px)}
 }
+@media (max-width:640px){.pt-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.pt-tile{min-width:0;aspect-ratio:auto;min-height:150px;padding:12px}.pt-tile b,.pt-tile small{overflow-wrap:anywhere}}
