@@ -736,7 +736,35 @@ def bust_cache():
             if new != html: open(fp, "w", encoding="utf-8").write(new)
 
 
+    bust_cache()
+
+
+def write_sitemap():
+    """sitemap.xml + robots.txt for Google (2026-11-26). Every public page except noindex ones."""
+    import glob, datetime
+    base = "https://moviy-travel.uz/"
+    skip_dirs = ("admin/", "partner/", "agent/", "build/", "docs/", "assets/", "supabase/")
+    urls = []
+    for f in sorted(glob.glob(os.path.join(ROOT, "**", "*.html"), recursive=True)):
+        rel = os.path.relpath(f, ROOT).replace(os.sep, "/")
+        if rel.startswith(skip_dirs) or rel in ("indexen.html", "indexru.html", "voucher.html"):
+            continue
+        with open(f, encoding="utf-8") as fh:
+            head = fh.read(4000)
+        if "noindex" in head:
+            continue
+        loc = base + (rel[:-10] if rel.endswith("index.html") else rel)
+        urls.append(loc)
+    day = datetime.date.today().isoformat()
+    body = "".join(f"<url><loc>{u}</loc><lastmod>{day}</lastmod></url>\n" for u in urls)
+    with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as fh:
+        fh.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + "</urlset>\n")
+    with open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8") as fh:
+        fh.write("User-agent: *\nDisallow: /admin/\nDisallow: /partner/\nDisallow: /agent/\nDisallow: /voucher.html\nAllow: /\n\nSitemap: " + base + "sitemap.xml\n")
+    print(f"ok sitemap.xml ({len(urls)} urls) + robots.txt")
+
+
 if __name__ == "__main__":
     main()
+    write_sitemap()
     write_notify_json()
-    bust_cache()
