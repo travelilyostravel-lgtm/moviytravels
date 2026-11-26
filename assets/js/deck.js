@@ -29,7 +29,7 @@
     '<div class="s-inner cover">' +
       '<div class="cover__flags">' + T.flags.map(function (f) { return "<span>" + f + "</span>"; }).join("") + '</div>' +
       '<h1>' + esc(T.title) + '</h1><p class="cover__sub">' + esc(T.subtitle) + '</p>' +
-      '<div class="cover__facts"><div><b>' + T.days.length + '</b><span>' + t("days") + '</span></div><div><b>' + (T.days.length - 1) + '</b><span>' + t("nights") + '</span></div><div><b>' + route.filter(function (c, i) { return !C.cities[c].hidden && route.indexOf(c) === i; }).length + '</b><span>' + t("destinations") + '</span></div><div><b>' + totalKm.toLocaleString("en") + '</b><span>' + t("km") + '</span></div></div>' +
+      '<div class="cover__facts"><div><b>' + T.days.length + '</b><span>' + t("days") + '</span></div><div><b>' + T.days.filter(function (d) { return d.sleep; }).length + '</b><span>' + t("nights") + '</span></div><div><b>' + route.filter(function (c, i) { return !C.cities[c].hidden && route.indexOf(c) === i; }).length + '</b><span>' + t("destinations") + '</span></div><div><b>' + totalKm.toLocaleString("en") + '</b><span>' + t("km") + '</span></div></div>' +
       '<ul class="cover__hl">' + T.highlights.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("") + '</ul>' +
       '<div class="cover__price calc-only"><small>' + t("from") + '</small><strong data-price>$' + E.fromPrice(T) + '</strong><small>' + t("pp_2") + '</small></div>' +
       '<div class="cover__lock lock-only"><span class="lock-badge">🔒 ' + t("lock_badge") + '</span><b>' + t("lock_price") + '</b></div>' +
@@ -98,7 +98,7 @@
 
   // 7. Contact
   slides.push({ label: t("lbl_book"), cls: "s-book", html:
-    '<div class="s-bg" style="background-image:url(' + E.img(T.days[T.days.length - 2].stops[0].img) + ')"></div>' +
+    '<div class="s-bg" style="background-image:url(' + E.img((T.days[Math.max(0, T.days.length - 2)].stops[0] || T.days[0].stops[0]).img) + ')"></div>' +
     '<div class="s-inner book"><h2>' + t("book_title") + '</h2><p>' + t("book_text") + '</p>' +
       '<div class="book__sum" id="summary"></div>' +
       '<div class="book__btns"><a class="btn btn--gold calc-only" id="bookbtn" href="../booking.html?tour=' + encodeURIComponent(document.body.getAttribute("data-tour") || "") + '">' + esc(CFG.bookReqLabel || CFG.bookLabel || "Send a request") + ' →</a><a class="btn btn--wa" id="wa" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--tg" href="https://t.me/' + esc(CFG.telegram || "") + '" target="_blank" rel="noopener">Telegram</a><a class="btn btn--ghost" href="https://instagram.com/' + esc(CFG.instagram || "") + '" target="_blank" rel="noopener">Instagram</a></div>' +
