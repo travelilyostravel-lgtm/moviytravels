@@ -285,7 +285,7 @@
     } else { box.innerHTML = ""; form.hidden = false; rform.hidden = true; msg(form, ""); }
     show();
   }
-  function msg(f, t, k) { var m = $(".mf-msg", f); if (m) { m.className = "mf-msg" + (k ? " mf-msg--" + k : ""); m.textContent = t || ""; } }
+  function msg(f, t, k) { var m = $(".mf-msg", f); if (m) { m.className = "mf-msg" + (k ? " mf-msg--" + k : ""); m.textContent = t || ""; if (t) try { m.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {} } }
   function v(f, n) { var el = f.elements[n]; return el ? String(el.value || "").trim() : ""; }
   function req(f) { var bad = $$("[required]", f).filter(function (el) { return el.type === "checkbox" ? !el.checked : !String(el.value || "").trim(); }); if (bad.length) { msg(f, X.f_required || "*", "err"); bad[0].focus(); return false; } return true; }
   // B2C portal: everyone fills the same form. Country from the list:
@@ -324,7 +324,14 @@
         details: { partner_id: cur.id, partner_kind: cur.kind, partner_name: cur.name, country_code: cc, telegram: tg, whatsapp: wa, units: Math.max(1, parseInt(v(form, "units"), 10) || 1) },
         consent: form.elements.consent ? form.elements.consent.checked : true, lang: LANG });
       if (window.MN_TRACK) window.MN_TRACK("request", "partner " + cur.name + " " + ref);
-      msg(form, (X.f_ok_title || "OK") + " — " + String(X.f_ok_text || "{ref}").replace("{ref}", ref), "ok"); form.reset(); rqRules();
+      // big, clear confirmation in place of the form (a small line at the bottom was not seen on phones)
+      msg(form, ""); form.reset(); rqRules(); form.hidden = true;
+      var okb = form.parentNode.querySelector(".rq-ok"); if (!okb) { okb = document.createElement("div"); okb.className = "rq-ok"; form.parentNode.insertBefore(okb, form.nextSibling); }
+      okb.hidden = false;
+      okb.innerHTML = '<div class="okbox"><div class="okbox__ic">✓</div><h3>' + esc(X.f_ok_title || "OK") + '</h3><p>' + esc(X.f_ok_text || "{ref}").replace("{ref}", "<b>" + esc(ref) + "</b>") + '</p>' +
+        '<button type="button" class="btn btn--outline btn--sm rq-again">↻ ' + esc(({uz:"Yana so'rov yuborish",ru:"Отправить ещё запрос",en:"Send another request",tr:"Yeni talep gönder",ar:"إرسال طلب آخر",de:"Weitere Anfrage senden",sv:"Skicka en ny förfrågan",zh:"再发送一个请求",hi:"एक और अनुरोध भेजें",ko:"다른 요청 보내기"})[LANG] || "Send another request") + '</button></div>';
+      okb.querySelector(".rq-again").onclick = function () { okb.hidden = true; form.hidden = false; };
+      try { okb.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
     } catch (er) {
       var m = String(er && er.message || er);
       msg(form, /whatsapp_required/.test(m) ? PT.rq_e_wa : /telegram_required/.test(m) ? PT.rq_e_tg : /phone_required/.test(m) ? PT.rq_e_phone : /country_required/.test(m) ? PT.rq_e_country : /email_required|contact_required/.test(m) ? (X.f_err || m) : (X.f_err || m), "err");

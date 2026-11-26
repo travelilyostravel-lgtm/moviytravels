@@ -1089,3 +1089,4 @@ body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-t
   .container{width:calc(100% - 32px)}
 }
 @media (max-width:640px){.pt-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.pt-tile{min-width:0;aspect-ratio:auto;min-height:150px;padding:12px}.pt-tile b,.pt-tile small{overflow-wrap:anywhere}}
+.rq-ok{margin:14px 0;padding:22px 16px;border-radius:16px;background:#f2fbf5;border:1px solid #cdebd8}.rq-ok[hidden]{display:none}
