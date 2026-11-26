@@ -11,7 +11,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from content import CONFIG, COUNTRIES, EXPERIENCES, LANGS, T
 import tours_data as TD
 import build_tours
-import pages, videos
+import pages
+import events_page, videos
 
 _LD = {}
 
@@ -746,6 +747,7 @@ def main():
                "transport.html": pages.render_partners(lang, ICON, LOGO, font, names, "driver"),
                "hotels.html": pages.render_partners(lang, ICON, LOGO, font, names, "hotel"),
                "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
+               "events.html": events_page.render(lang, pages, pages.X(lang), ICON, LOGO, font, names),
                "account.html": pages.shell(lang, "account.html", pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])[0], pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])[1],
                    pages.page_head("👤", *pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])) + '<section class="section section--tight"><div class="container"><div class="cab" id="cab" data-free data-noreg><div class="cab-loading">…</div></div></div></section>',
                    ICON, LOGO, font, names, "is-account",
