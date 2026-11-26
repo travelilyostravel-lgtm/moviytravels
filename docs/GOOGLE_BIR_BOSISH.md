@@ -23,3 +23,9 @@ Google'ning o'z kirish oynasi (Google Identity Services) ishlatiladi:
 - SQL: `supabase/customer_google_open.sql` — `cabinet_register`: Google bilan kirgan mijoz `approved` holatiga o'tadi.
 - Google Cloud (loyiha «Moviy Nomad Sayt»): JavaScript origin `https://moviy-travel.uz` bor, holati «In production» (hamma kira oladi). Client secret kerak emas.
 - Eski yo'naltirish usuli (Client Secret bilan) ishlatilmaydi. Uni tiklash kerak bo'lsa, Supabase → Authentication → Providers → Google ga to'g'ri secret yozilishi kerak (asoschi o'zi yozadi).
+
+## Qo'shimcha (26.11.2026, kechki)
+- Abdullox Imomberdiyev bilan tekshirildi: Google orqali kirdi, kabinet darhol ochildi.
+- Xavfsizlik: Google kirishda parolni Google o'zi so'raydi (Gmail paroli yoki Face ID). Faqat Gmail manzilini bilgan odam boshqa mijozning kabinetiga kira olmaydi. Gmail parolini saytga yozdirib bo'lmaydi va yozdirish ham kerak emas: uni faqat Google ko'radi.
+- Kabinetdagi e-mail va parol formasida 👁 tugmasi bor: parolni ko'rsatish yoki yashirish.
+- «Obuna bo'ling» kartasi olib tashlandi. Birinchi kirishdagi Gmail o'zi Mijozlar bazasiga tushadi, rassilka shu bazadan.
