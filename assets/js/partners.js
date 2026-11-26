@@ -343,7 +343,8 @@
 
   // ---------------------------------------------------------------- load
   get("partners_public?select=*").then(function (rows) {
-    ALL = rows || [];
+    // guide prices are private: the manager quotes them inside the tour price
+    ALL = (rows || []).map(function (r) { if (r.kind === "guide") { r.price_brutto = null; r.price_note = null; } return r; });
     var cities = {}, langs = {};
     ALL.forEach(function (p) { [p.city].concat(p.cities || []).filter(Boolean).forEach(function (c) { cities[c] = 1; }); (p.languages || []).forEach(function (l) { langs[l] = 1; }); });
     draw();
