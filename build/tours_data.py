@@ -448,8 +448,18 @@ KEEP = ["classic", "express", "silkroad", "spiritual", "nature", "fergana",
         "kg_issykkul", "kg_songkul", "kg_lakes", "kg_alakul", "kg_tashrabat", "kg_south",
         "tj_fann", "tj_pamir", "tj_sevenlakes", "tj_uztj", "tj_ancient", "tj_alaudin", "ca_grand", "kg_classic"]
 TOURS = [t for k in KEEP for t in TOURS if t["id"] == k]
+
+# Owner decision 2026-11-26: the site shows ONLY Uzbekistan for now. Kazakhstan, Kyrgyzstan, Tajikistan and the
+# 4-country grand tour stay here (ALL_TOURS) and come back by adding the country to SITE_COUNTRIES.
+SITE_COUNTRIES = ["UZ"]
+ALL_TOURS = TOURS
+TOURS = [t for t in ALL_TOURS if t["country"] in SITE_COUNTRIES]
 USED_SIGHTS = sorted({s for t in TOURS for d in t["days"] for s in d[2]})
 USED_CITIES = sorted({c for t in TOURS for d in t["days"] for c in ([d[0]] if d[0] else []) + [x for m in d[1] for x in m]} | {SIGHTS[s][0] for s in USED_SIGHTS})
 
 # Home page "popular" list (owner 2026-11-23): Fergana and Mountains & desert are not shown on the home page
 HOME_HIDE = ["fergana", "nature"]
+
+# 2026-11-26: only the countries shown on the site (see SITE_COUNTRIES above)
+COUNTRIES_ALL = COUNTRIES
+COUNTRIES = [c for c in COUNTRIES_ALL if c in SITE_COUNTRIES]

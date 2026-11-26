@@ -129,7 +129,7 @@ def home_blocks(lang, pre, A, icon):
   </section>'''
     revs = "".join(
         f'<figure class="rev reveal"><div class="rev__stars">★★★★★</div><blockquote>“{e(txt)}”</blockquote><figcaption><b>{e(name)}</b><span>{e(trip)}</span></figcaption></figure>'
-        for name, trip, txt in x["reviews"])
+        for name, trip, txt in x["reviews"] if not NON_UZ_RE.search(trip))  # 2026-11-26: Uzbekistan only
     reviews = f'''
   <section class="section" id="reviews">
     <div class="container">
@@ -209,6 +209,9 @@ def nav_html(lang, base, on_home=False):
             # phones only (in the burger menu): my cabinet + become a partner
             + f'<a href="{base}account.html" class="nav__m nav__acct" data-free>👤 {e(CAB_LINK.get(lang, CAB_LINK["en"]))}</a>'
             + f'<a href="{base}partners.html#join" class="nav__m nav__join" data-free>🤝 {e(partners_i18n.S(lang)["become"])}</a>')
+
+import re as _re
+NON_UZ_RE = _re.compile("Kyrg|Kirg|Qirg|Кырг|Kırg|吉尔吉斯|किर्ग|키르기스|قيرغيز|Kazak|Qozog|Kasach|Tajik|Tojik|Tadsch|Таджик|Казах")
 
 CAB_LINK = {"en": "My cabinet", "ru": "Мой кабинет", "uz": "Kabinetim", "tr": "Kabinim", "ar": "حسابي", "de": "Mein Bereich", "sv": "Mitt konto", "zh": "个人中心", "hi": "मेरा कैबिनेट", "ko": "마이페이지"}
 CAB_TITLE = {"en": ("My cabinet", "Your requests, bookings, payments, documents and messages — in one place."), "ru": ("Мой кабинет", "Ваши заявки, бронирования, оплаты, документы и сообщения — в одном месте."),

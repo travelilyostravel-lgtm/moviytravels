@@ -43,12 +43,15 @@ TOURS = [
     {"id": "uztj",      "days": 9,  "price": None, "img": "shahizinda", "flags": ["UZ", "TJ"]},
 ]
 
-COUNTRIES = [
+COUNTRIES_ALL = [
     {"id": "uz", "badges": ["samarkand", "bukhara", "khiva", "tashkent"]},
     {"id": "kz", "badges": ["almaty", "astana", "turkistan", "charyn"]},
     {"id": "kg", "badges": ["bishkek", "karakol", "issyk-kul", "osh"]},
     {"id": "tj", "badges": ["dushanbe", "khujand", "panjakent", "pamir"]},
 ]
+
+# 2026-11-26: the site shows only Uzbekistan for now (owner decision); the others come back from COUNTRIES_ALL
+COUNTRIES = [c for c in COUNTRIES_ALL if c["id"] == "uz"]
 
 EXPERIENCES = ["plov", "chorsu", "ceramics", "train", "tea", "camels"]
 
@@ -843,3 +846,31 @@ _SEO = {
 for _l, (_t, _d) in _SEO.items():
     T[_l]['meta_title'] = _t
     T[_l]['meta_desc'] = _d
+
+# ---- 2026-11-26: Uzbekistan only — FAQ answers without Kazakhstan / Kyrgyzstan / Tajikistan
+_FAQ_UZ = {
+ 'en': ("Citizens of many countries can visit Uzbekistan visa-free or with a simple e-visa. Tell us your passport country and we will check the current rules for you.",
+        "Spring (April–June) and autumn (September–October) are ideal for Samarkand, Bukhara and Khiva. Summer is good for the mountains, Charvak lake and the Fergana Valley; winter is quiet and inexpensive."),
+ 'ru': ("Граждане многих стран могут посетить Узбекистан без визы или по простой электронной визе. Напишите страну паспорта — мы проверим актуальные правила.",
+        "Весна (апрель–июнь) и осень (сентябрь–октябрь) — лучшее время для Самарканда, Бухары и Хивы. Летом хороши горы, Чарвак и Ферганская долина; зимой спокойно и недорого."),
+ 'uz': ("Ko'plab davlatlar fuqarolari O'zbekistonga vizasiz yoki oddiy elektron viza bilan kirishi mumkin. Pasportingiz qaysi davlatniki ekanini yozing — amaldagi qoidalarni tekshirib beramiz.",
+        "Samarqand, Buxoro va Xiva uchun bahor (aprel–iyun) va kuz (sentabr–oktabr) eng qulay vaqt. Yozda tog'lar, Chorvoq va Farg'ona vodiysi yaxshi; qishda tinch va arzon."),
+ 'tr': ("Birçok ülkenin vatandaşları Özbekistan'a vizesiz veya basit bir e-vize ile girebilir. Pasaport ülkenizi yazın, güncel kuralları kontrol edelim.",
+        "Semerkant, Buhara ve Hive için ilkbahar (Nisan–Haziran) ve sonbahar (Eylül–Ekim) idealdir. Yazın dağlar, Çarvak gölü ve Fergana Vadisi güzeldir; kışın sakin ve uygun fiyatlıdır."),
+ 'ar': ("يمكن لمواطني كثير من الدول زيارة أوزبكستان دون تأشيرة أو بتأشيرة إلكترونية بسيطة. أخبرنا بجنسية جوازك وسنتحقق من القواعد الحالية.",
+        "الربيع (أبريل–يونيو) والخريف (سبتمبر–أكتوبر) هما الأفضل لسمرقند وبخارى وخيوة. الصيف مناسب للجبال وبحيرة تشارفاك ووادي فرغانة، والشتاء هادئ وأقل تكلفة."),
+ 'de': ("Bürger vieler Länder können Usbekistan visumfrei oder mit einem einfachen E-Visum besuchen. Nennen Sie uns Ihr Passland – wir prüfen die aktuellen Regeln.",
+        "Frühling (April–Juni) und Herbst (September–Oktober) sind ideal für Samarkand, Buchara und Chiwa. Im Sommer locken Berge, der Tscharwak-See und das Ferganatal; der Winter ist ruhig und günstig."),
+ 'sv': ("Medborgare i många länder kan besöka Uzbekistan utan visum eller med ett enkelt e-visum. Berätta vilket land ditt pass är från så kontrollerar vi gällande regler.",
+        "Vår (april–juni) och höst (september–oktober) är bäst för Samarkand, Buchara och Chiva. Sommaren passar bergen, Tjarvaksjön och Ferganadalen; vintern är lugn och billig."),
+ 'zh': ("许多国家的公民可免签或通过简便的电子签证前往乌兹别克斯坦。告诉我们您的护照国籍，我们为您核实最新规定。",
+        "春季（4–6月）和秋季（9–10月）最适合游览撒马尔罕、布哈拉和希瓦。夏季适合山区、恰尔瓦克湖和费尔干纳盆地；冬季安静且实惠。"),
+ 'hi': ("कई देशों के नागरिक बिना वीज़ा या आसान ई-वीज़ा से उज़्बेकिस्तान आ सकते हैं। अपने पासपोर्ट का देश बताइए — हम मौजूदा नियम जाँच देंगे।",
+        "समरकंद, बुख़ारा और ख़ीवा के लिए वसंत (अप्रैल–जून) और शरद (सितंबर–अक्टूबर) सबसे अच्छा समय है। गर्मियों में पहाड़, चारवाक झील और फ़रग़ाना घाटी; सर्दियों में शांति और कम ख़र्च।"),
+ 'ko': ("많은 국가의 국민은 무비자 또는 간단한 전자비자로 우즈베키스탄을 방문할 수 있습니다. 여권 국가를 알려 주시면 최신 규정을 확인해 드립니다.",
+        "사마르칸트·부하라·히바는 봄(4–6월)과 가을(9–10월)이 가장 좋습니다. 여름에는 산, 차르바크 호수, 페르가나 계곡이 좋고, 겨울은 한적하고 저렴합니다."),
+}
+for _l, (_v, _b) in _FAQ_UZ.items():
+    _f = list(T[_l]['faq'])
+    _f[0] = (_f[0][0], _v); _f[1] = (_f[1][0], _b)
+    T[_l]['faq'] = _f

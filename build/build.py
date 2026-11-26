@@ -157,7 +157,7 @@ def render(lang):
     ld = json.dumps({
         "@context": "https://schema.org", "@type": "TravelAgency", "name": "Moviy Nomad",
         "description": t["meta_desc"], "url": url, "image": cfg["site_url"] + "/assets/img/hero.webp",
-        "areaServed": ["Uzbekistan", "Kazakhstan", "Kyrgyzstan", "Tajikistan"],
+        "areaServed": ["Uzbekistan"],
         "sameAs": [ig, tg], "parentOrganization": {"@type": "Organization", "name": "Moviy Travel"},
     }, ensure_ascii=False)
 
