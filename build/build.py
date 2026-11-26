@@ -227,7 +227,7 @@ def render(lang):
   <section class="section" id="destinations">
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(t["dest_eyebrow"])}</span><h2>{e(t["dest_title"])}</h2><p>{e(t["dest_sub"])}</p></div>
-      <div class="tabs" role="tablist">{tabs}</div>
+      {f'<div class="tabs" role="tablist">{tabs}</div>' if len(COUNTRIES) > 1 else ""}
       {panels}
     </div>
   </section>
@@ -235,7 +235,7 @@ def render(lang):
   <section class="section section--sand" id="tours">
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(U["h_eyebrow"])}</span><h2>{e(U["h_title"])}</h2><p>{e(U["h_sub"])}</p></div>
-      <div class="ttabs" role="tablist">{ttabs}</div>
+      {f'<div class="ttabs" role="tablist">{ttabs}</div>' if len(TD.COUNTRIES) > 1 else ""}
       {tgrids}
       <p class="tours-note">{e(t["tours_note"])}</p>
     </div>
