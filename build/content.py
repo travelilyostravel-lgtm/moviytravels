@@ -816,3 +816,30 @@ for _l, _v in _UZONLY.items():
 # ---- contact by e-mail (2026-11-23)
 for _l, _v in {'en': ('E-mail', 'Write to us any time'), 'ru': ('E-mail', 'Напишите нам на почту'), 'uz': ('E-mail', 'Pochta orqali yozing'), 'tr': ('E-posta', 'Bize e-posta ile yazın'), 'ar': ('البريد الإلكتروني', 'راسلنا عبر البريد'), 'de': ('E-Mail', 'Schreiben Sie uns per E-Mail'), 'sv': ('E-post', 'Skriv till oss via e-post'), 'zh': ('电子邮件', '通过邮件联系我们'), 'hi': ('ई-मेल', 'हमें ई-मेल करें'), 'ko': ('이메일', '이메일로 문의하세요')}.items():
     T[_l]['opt_mail'] = _v
+
+# ---- SEO: top-10 search phrases in homepage title/description (2026-11-26)
+_SEO = {
+ 'en': ("Uzbekistan Tours & Tour Packages — Samarkand, Bukhara, Khiva | Moviy Nomad",
+        "Uzbekistan tours and tour packages from a licensed local operator: Samarkand, Bukhara and Khiva tours, 7-day itineraries, visa info and the best time to visit. Book on WhatsApp."),
+ 'ru': ("Туры в Узбекистан — Самарканд, Бухара, Хива | Moviy Nomad",
+        "Туры в Узбекистан от лицензированного местного туроператора: экскурсионные туры Ташкент — Самарканд — Бухара — Хива, индивидуальные и групповые. Бронирование в WhatsApp."),
+ 'uz': ("O'zbekistonga turlar — Samarqand, Buxoro, Xiva | Moviy Nomad",
+        "Chet ellik sayyohlar uchun O'zbekiston turlari: Samarqand, Buxoro va Xiva bo'ylab shaxsiy va guruh turlari, 7 kunlik marshrut, viza va eng yaxshi mavsum. WhatsApp orqali bron."),
+ 'tr': ("Özbekistan Turu — Semerkant, Buhara, Hive Turları | Moviy Nomad",
+        "Lisanslı yerel operatörden Özbekistan turları: Semerkant, Buhara ve Hive turu, özel ve grup turları, vize bilgisi ve en iyi seyahat zamanı. WhatsApp'tan rezervasyon."),
+ 'de': ("Usbekistan Rundreise — Samarkand, Buchara, Chiwa | Moviy Nomad",
+        "Usbekistan Rundreisen vom lizenzierten lokalen Veranstalter: Samarkand, Buchara und Chiwa, private Reisen und Kleingruppen, Visum-Infos und beste Reisezeit. Buchung per WhatsApp."),
+ 'sv': ("Resor till Uzbekistan — Samarkand, Buchara, Chiva | Moviy Nomad",
+        "Rundresor i Uzbekistan från en licensierad lokal researrangör: Samarkand, Buchara och Chiva, privata resor och små grupper, visum och bästa restid. Boka via WhatsApp."),
+ 'ar': ("رحلات وباقات سياحية إلى أوزبكستان — سمرقند وبخارى وخيوة | Moviy Nomad",
+        "باقات سياحية إلى أوزبكستان من منظم رحلات محلي مرخّص: سمرقند وبخارى وخيوة، رحلات خاصة وجماعية، معلومات التأشيرة وأفضل وقت للزيارة. احجز عبر واتساب."),
+ 'zh': ("乌兹别克斯坦旅游 · 撒马尔罕、布哈拉、希瓦 | Moviy Nomad",
+        "持牌本地地接社的乌兹别克斯坦旅游线路：撒马尔罕、布哈拉、希瓦私人团与小团，7天行程、签证信息与最佳旅行时间。通过 WhatsApp 或 Telegram 预订。"),
+ 'hi': ("उज़्बेकिस्तान टूर पैकेज — समरकंद, बुख़ारा, ख़ीवा | Moviy Nomad",
+        "भारत से उज़्बेकिस्तान टूर पैकेज, लाइसेंस प्राप्त स्थानीय ऑपरेटर से: समरकंद, बुख़ारा, ख़ीवा, 7 दिन का कार्यक्रम, वीज़ा जानकारी और घूमने का सबसे अच्छा समय। WhatsApp पर बुक करें।"),
+ 'ko': ("우즈베키스탄 여행·투어 — 사마르칸트, 부하라, 히바 | Moviy Nomad",
+        "공인 현지 여행사의 우즈베키스탄 투어: 사마르칸트·부하라·히바 프라이빗 및 소규모 그룹 여행, 7일 일정, 비자 정보와 여행 최적기. WhatsApp으로 예약하세요."),
+}
+for _l, (_t, _d) in _SEO.items():
+    T[_l]['meta_title'] = _t
+    T[_l]['meta_desc'] = _d

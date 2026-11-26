@@ -183,6 +183,7 @@ def render(lang):
 <link rel="preload" as="image" href="{A}img/hero.webp">
 <link rel="stylesheet" href="{A}css/site.css?v={CSSV}">
 <script type="application/ld+json">{ld}</script>
+<script type="application/ld+json">{{"@context":"https://schema.org","@type":"WebSite","name":"Moviy Nomad","alternateName":["Moviy Nomad — Uzbekistan Tours","moviy-travel.uz"],"url":"{cfg["site_url"]}/"}}</script>
 </head>
 <body>
 <header class="header">
