@@ -195,6 +195,12 @@
     }; });
   }
 
+  // guide qualification category (public) — prices stay private
+  async function guideCat(p) {
+    var U = window.MNPT_U || {}, el = $("#pp-units"); if (!el) return;
+    var ex = ((await get("partner_extra_public?select=extra&partner_id=eq." + p.id))[0] || {}).extra || {};
+    if (ex.guide_cat && U["gc_" + ex.guide_cat]) el.innerHTML = '<p class="pt-note">🎖 ' + esc(U.gc_t) + ': <b>' + esc(U["gc_" + ex.guide_cat]) + '</b></p>';
+  }
   // ---------------------------------------------------------------- hotel room types / transport vehicles (brutto prices only)
   async function units(p) {
     var U = window.MNPT_U || {}, el = $("#pp-units"); if (!el) return;
@@ -263,6 +269,7 @@
       $("#pp-share").onclick = function () { share(id); };
       if ((cur.photos || []).length) gallery(cur);
       if (cur.kind === "hotel" || cur.kind === "driver") units(cur);
+      if (cur.kind === "guide") guideCat(cur);
       get("partner_busy_public?select=day&partner_id=eq." + id).then(function (rows) {
         var busy = {}; (rows || []).forEach(function (r) { busy[r.day] = true; });
         var el = $("#pp-cal"); if (!el || !window.MNCal) return;

@@ -392,6 +392,28 @@
       P.msg("#m-ex", r.error ? t("bad") + r.error.message : t("saved"), r.error ? "err" : "ok");
     };
   }
+  // ---------------------------------------------------------------- guide price list (private, NETTO)
+  var RK = [["full_day", "r_full"], ["half_day", "r_half"], ["extra_hour", "r_hour"], ["meet", "r_meet"], ["out_of_town", "r_out"], ["tour_day", "r_tour"], ["big_group", "r_big"]];
+  function ratesBlock() {
+    var p = me.partner, J2 = UJ[L] || UJ.uz || {}, r = Object.assign({}, p.rates || {}, p.rates_new || {}), cat = (p.extra || {}).guide_cat || "";
+    if (r.full_day == null && p.price_day != null) r.full_day = p.price_day;
+    return '<div class="p-card" id="p-rates"><h3>' + esc(J2.sec_rates || "") + '</h3><p class="p-sub">' + esc(J2.rates_note || "") + '</p>' +
+      (p.rates_new ? '<p class="p-sub" style="color:#b4541b">⏳ ' + (L === "ru" ? "Новые цены на проверке у Moviy Nomad" : "Yangi narxlaringiz Moviy Nomad tekshiruvida") + '</p>' : '') +
+      '<form id="f-rates"><div class="p-grid"><div class="fld"><label>' + esc(J2.gcat || "") + '</label><select name="guide_cat">' + Object.keys(J2.gcats || {}).map(function (k) { return '<option value="' + k + '"' + (k === cat ? " selected" : "") + '>' + esc(J2.gcats[k]) + '</option>'; }).join("") + '</select></div>' +
+      RK.map(function (x) { return '<div class="fld"><label>' + esc(J2[x[1]] || x[0]) + '</label><input name="' + x[0] + '" type="number" min="0" max="5000" step="1" value="' + (r[x[0]] == null ? "" : esc(r[x[0]])) + '"></div>'; }).join("") +
+      '</div><div class="msg" id="m-rates"></div><div class="p-actions"><button class="btn btn--gold btn--sm">' + t("uSave") + '</button></div></form></div>';
+  }
+  function bindRates() {
+    var f = $("#f-rates"); if (!f) return;
+    f.onsubmit = async function (e) {
+      e.preventDefault(); var o = {};
+      RK.forEach(function (x) { var v = f[x[0]].value.trim(); if (v !== "") o[x[0]] = v; });
+      var r = await sb.rpc("partner_save_rates", { p: o });
+      if (r.error) return P.msg("#m-rates", t("bad") + r.error.message, "err");
+      var c = f.guide_cat.value; if (c !== ((me.partner.extra || {}).guide_cat || "")) await sb.rpc("partner_save_extra", { p: { guide_cat: c } });
+      P.msg("#m-rates", t("saved"), "ok"); setTimeout(boot, 900);
+    };
+  }
   function pwBlock() {
     return '<div class="p-card"><h3>' + t("pwT") + '</h3><p class="p-sub">' + t("pwHint") + '</p><form id="f-pw"><div class="fld"><input type="password" name="pw" minlength="8" maxlength="72" autocomplete="new-password" placeholder="••••••••"></div><div class="msg" id="m-pw"></div><div class="p-actions"><button class="btn btn--outline btn--sm">' + t("pwSave") + '</button></div></form></div>';
   }
@@ -419,7 +441,7 @@
       else if (Date.now() - new Date(lc[0].decided_at).getTime() < 7 * 864e5) h += '<div class="p-card" style="border:2px solid #9fd4b4"><h3>✅ ' + t("chOk") + ' <small>(' + dt + ')</small></h3>' + (lc[0].admin_note ? '<p>' + esc(lc[0].admin_note) + '</p>' : '') + '</div>';
     }
     $("#pwho").textContent = p.name + " · " + t("kinds")[p.kind];
-    var inv = p.kind === "hotel" || p.kind === "driver" ? await unitsBlock() + (p.kind === "hotel" ? exBlock() : "") : "";
+    var inv = p.kind === "hotel" || p.kind === "driver" ? await unitsBlock() + (p.kind === "hotel" ? exBlock() : "") : p.kind === "guide" ? ratesBlock() : "";
     if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2>' + (p.resubmit_count ? '<p class="p-sub">↻ ' + t("rejN") + ': ' + p.resubmit_count + '</p>' : '') + '<p class="p-sub">' + t("pendingTxt") + '</p></div>' + inv + await docsBlock() + profileForm() + pwBlock();
     else if (p.status === "rejected") h += '<div class="p-card" style="border:2px solid #efa5a5"><h2>❌ ' + t("rejected") + '</h2>' + (p.admin_note ? '<p><b>' + t("rejWhy") + ':</b> ' + esc(p.admin_note) + '</p>' : '') + '<p class="p-sub">' + t("rejHow") + '</p></div>' + inv + await docsBlock() + profileForm() + pwBlock();
     else {
@@ -432,7 +454,7 @@
     if ($("#p-cal")) bindCal();
     if ($("#d-up")) bindDocs();
     if ($("#p-units")) bindUnits();
-    bindEx(); bindPw();
+    bindEx(); bindPw(); bindRates();
   }
   function render() { boot(); }
   $("#plogout").onclick = async function () { await sb.auth.signOut(); location.reload(); };

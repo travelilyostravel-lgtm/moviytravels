@@ -194,3 +194,18 @@ REQ["en"]["driver"].insert(1, "Each vehicle: class, model, year, seats, registra
 J["uz"].update(grp_t="Oxirgi qadam: «Moviy Nomad» Telegram guruhiga qo'shiling", grp="Bu hamkorlarimiz va turizm sohasidagi odamlar uchun yopiq guruh: yangiliklar, buyurtmalar, tanishuvlar. Qo'shilish so'rovingizni admin tasdiqlaydi.", grp_btn="Telegram guruhga qo'shilish")
 J["ru"].update(grp_t="Последний шаг: вступите в Telegram-группу «Moviy Nomad»", grp="Закрытая группа для наших партнёров и людей из туризма: новости, заказы, знакомства. Заявку на вступление подтверждает администратор.", grp_btn="Вступить в Telegram-группу")
 J["en"].update(grp_t="Last step: join the «Moviy Nomad» Telegram group", grp="A closed group for our partners and people in tourism: news, orders, networking. An admin approves your join request.", grp_btn="Join the Telegram group")
+
+# 26.11.2026: guide price list (same as the Google Sheet) — private, NETTO
+GR = {
+ "uz": dict(sec_rates="💵 Narxlaringiz (NETTO, $) — saytda ko'rinmaydi", rates_note="Bu narxlar faqat Moviy Nomad uchun: sizga aynan shu summa to'lanadi. Saytda mijozlar narxni emas, tajribangiz, tillaringiz va malakangizni ko'radi. Bilmagan katagingizni bo'sh qoldiring.",
+   r_full="To'liq kun (8 soat), $", r_half="Yarim kun (4 soat), $", r_hour="Qo'shimcha soat, $", r_meet="Aeroport/vokzalda kutib olish, $", r_out="Shahar tashqarisiga safar kuni, $", r_tour="Butun tur bilan yurish (kunlik), $", r_big="Katta guruh (16+ kishi) qo'shimchasi, $",
+   gcat="Malaka toifasi", gcats={"": "— tanlang —", "havaskor": "Havaskor gid", "ixtisoslashgan": "Ixtisoslashgan gid", "professional": "Professional gid", "oltin_fond": "«Oltin fond» gidi"}),
+ "ru": dict(sec_rates="💵 Ваши цены (НЕТТО, $) — на сайте не видны", rates_note="Эти цены только для Moviy Nomad: вам платится именно эта сумма. На сайте клиенты видят не цену, а ваш опыт, языки и квалификацию. Если не знаете — оставьте пустым.",
+   r_full="Полный день (8 часов), $", r_half="Полдня (4 часа), $", r_hour="Доп. час, $", r_meet="Встреча в аэропорту/на вокзале, $", r_out="Выезд за город (день), $", r_tour="Сопровождение всего тура (в день), $", r_big="Надбавка за большую группу (16+), $",
+   gcat="Квалификационная категория", gcats={"": "— выберите —", "havaskor": "Гид-любитель", "ixtisoslashgan": "Специализированный гид", "professional": "Профессиональный гид", "oltin_fond": "Гид «Золотого фонда»"}),
+ "en": dict(sec_rates="💵 Your prices (NET, $) — not shown on the site", rates_note="These prices are only for Moviy Nomad: this is exactly what you are paid. On the site travellers see your experience, languages and qualification, not prices. Leave empty if unsure.",
+   r_full="Full day (8 hours), $", r_half="Half day (4 hours), $", r_hour="Extra hour, $", r_meet="Airport/station meeting, $", r_out="Out-of-town day trip, $", r_tour="Accompanying the whole tour (per day), $", r_big="Large group (16+) surcharge, $",
+   gcat="Qualification category", gcats={"": "— choose —", "havaskor": "Amateur guide", "ixtisoslashgan": "Specialised guide", "professional": "Professional guide", "oltin_fond": "«Golden Fund» guide"}),
+}
+for _l, _x in GR.items():
+    J[_l].update(_x)

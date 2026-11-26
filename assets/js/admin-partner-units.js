@@ -24,7 +24,8 @@
   var orig = A.partner;
   A.partner = async function (id) {
     await orig(id);
-    var p = (await sb.from("partners").select("kind,extra").eq("id", id).single()).data || {};
+    var p = (await sb.from("partners").select("kind,extra,rates,rates_new,rates_at,rates_ok_at,price_day").eq("id", id).single()).data || {};
+    if (p.kind === "guide") return guideRates(id, p);
     if (p.kind !== "hotel" && p.kind !== "driver") return;
     var us = (await sb.from("partner_units").select("*").eq("partner_id", id).order("sort").order("created_at")).data || [];
     var x = p.extra || {}, pend = us.filter(function (u) { return u.status === "pending"; }).length;
@@ -50,18 +51,45 @@
     if ($("#uok-all")) $("#uok-all").onclick = function () { setSt(us.filter(function (u) { return u.status === "pending"; }).map(function (u) { return u.id; }), "approved"); };
   };
 
+  // Guide price list (NETTO, private) — what we pay the guide when we order
+  var RL = [["full_day", "To'liq kun (8 soat)"], ["half_day", "Yarim kun (4 soat)"], ["extra_hour", "Qo'shimcha soat"], ["meet", "Aeroport/vokzalda kutib olish"], ["out_of_town", "Shahar tashqarisiga safar kuni"], ["tour_day", "Butun tur bilan (kunlik)"], ["big_group", "Katta guruh (16+) qo'shimchasi"]];
+  var GC = { havaskor: "Havaskor gid", ixtisoslashgan: "Ixtisoslashgan gid", professional: "Professional gid", oltin_fond: "«Oltin fond» gidi" };
+  function guideRates(id, p) {
+    var r = p.rates || {}, n = p.rates_new;
+    if (r.full_day == null && p.price_day != null) r = Object.assign({ full_day: p.price_day }, r);
+    var cell = function (o, k) { return o && o[k] != null ? "$" + o[k] : "—"; };
+    var h = '<div class="p-card" id="pp-rates" style="' + (n ? "border:2px solid #e9b949" : "") + '"><h3>💵 Gid narxlari (NETTO — gidga to\'lanadi, saytda ko\'rinmaydi)</h3>' +
+      '<p class="p-sub">Malaka toifasi: <b>' + esc(GC[(p.extra || {}).guide_cat] || "ko\'rsatilmagan") + '</b>' + (p.rates_ok_at ? ' · oxirgi tasdiq: ' + P.date(p.rates_ok_at) : '') + '</p>' +
+      '<table class="tbl"><thead><tr><th>Xizmat</th><th>Amaldagi narx</th>' + (n ? '<th>Yangi (tekshiruvda)</th>' : '') + '</tr></thead><tbody>' +
+      RL.map(function (x) { var ch = n && String((n || {})[x[0]]) !== String(r[x[0]]); return '<tr><td>' + x[1] + '</td><td>' + cell(r, x[0]) + '</td>' + (n ? '<td' + (ch ? ' style="font-weight:700;color:#b4541b"' : '') + '>' + cell(n, x[0]) + '</td>' : '') + '</tr>'; }).join("") +
+      '</tbody></table>' + (n ? '<div class="p-actions"><button class="btn btn--green btn--sm" id="rt-ok">✅ Yangi narxlarni tasdiqlash</button><button class="btn btn--outline btn--sm" id="rt-no">❌ Rad etish</button></div>' : '') + '<div class="msg" id="m-rates"></div></div>';
+    var cards = $$(".p-card"), qa = cards.filter(function (c) { return /Talablar tekshiruvi/.test(c.textContent); })[0];
+    if (qa) qa.insertAdjacentHTML("beforebegin", h); else document.querySelector("#v-partners").insertAdjacentHTML("beforeend", h);
+    var go = async function (ok) { var x = await sb.rpc("admin_rates_decide", { p_partner: id, p_ok: ok }); if (x.error) return P.msg("#m-rates", x.error.message, "err"); if (A.partnersBadge) A.partnersBadge(); A.partner(id); };
+    if ($("#rt-ok")) { $("#rt-ok").onclick = function () { go(true); }; $("#rt-no").onclick = function () { go(false); }; }
+  }
+
   var origBadge = A.partnersBadge;
   A.partnersBadge = async function () {
     await origBadge();
     var u = await sb.from("partner_units").select("id", { count: "exact", head: true }).eq("status", "pending");
-    var b = $('#tabs button[data-view="partners"]'); if (!b || !u.count) return;
-    var n = parseInt((b.textContent.match(/🔴 (\d+)/) || [0, 0])[1], 10) + u.count;
+    var g = await sb.from("partners").select("id", { count: "exact", head: true }).not("rates_new", "is", null);
+    var add = (u.count || 0) + (g.count || 0);
+    var b = $('#tabs button[data-view="partners"]'); if (!b || !add) return;
+    var n = parseInt((b.textContent.match(/🔴 (\d+)/) || [0, 0])[1], 10) + add;
     b.textContent = "Hamkorlar 🔴 " + n;
   };
 
   var origList = A.partners;
   A.partners = async function () {
     await origList();
+    var gr = (await sb.from("partners").select("id,name").not("rates_new", "is", null).limit(50)).data || [];
+    if (gr.length) {
+      var gh = '<div class="p-card" style="border:2px solid #e9b949;margin:12px 0"><h3 style="margin-top:0">💵 Gid narxlari — tasdiq kutyapti (' + gr.length + ')</h3><table class="tbl"><tbody>' +
+        gr.map(function (x) { return '<tr class="click" data-grid="' + x.id + '"><td><b>' + esc(x.name) + '</b></td><td>yangi narxlar</td></tr>'; }).join("") + '</tbody></table></div>';
+      var f0 = document.querySelector("#v-partners .filters"); if (f0) f0.insertAdjacentHTML("beforebegin", gh);
+      $$("[data-grid]").forEach(function (tr) { tr.onclick = function () { A.partner(tr.dataset.grid); }; });
+    }
     var r = await sb.from("partner_units").select("partner_id,name,unit_kind,partners(name)").eq("status", "pending").limit(50);
     var L = r.data || []; if (!L.length) return;
     var by = {}; L.forEach(function (u) { (by[u.partner_id] = by[u.partner_id] || { name: u.partners && u.partners.name, items: [] }).items.push(u.name); });

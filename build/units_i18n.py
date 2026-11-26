@@ -38,5 +38,22 @@ for _l, _v in _T.items():
     assert len(_v) == len(_K), (_l, len(_v), len(_K))
 
 
+_G = {  # guide qualification category (Tourism Committee, from 1.12.2026)
+ "en": ["Amateur guide", "Specialised guide", "Professional guide", "«Golden Fund» guide", "Qualification"],
+ "ru": ["Гид-любитель", "Специализированный гид", "Профессиональный гид", "Гид «Золотого фонда»", "Квалификация"],
+ "uz": ["Havaskor gid", "Ixtisoslashgan gid", "Professional gid", "«Oltin fond» gidi", "Malaka toifasi"],
+ "tr": ["Amatör rehber", "Uzman rehber", "Profesyonel rehber", "«Altın Fon» rehberi", "Yeterlilik"],
+ "ar": ["مرشد هاوٍ", "مرشد متخصص", "مرشد محترف", "مرشد «الصندوق الذهبي»", "التأهيل"],
+ "de": ["Amateur-Guide", "Fachguide", "Professioneller Guide", "Guide des «Goldenen Fonds»", "Qualifikation"],
+ "sv": ["Amatörguide", "Specialiserad guide", "Professionell guide", "«Guldfonden»-guide", "Kvalifikation"],
+ "zh": ["业余导游", "专业方向导游", "职业导游", "“金牌”导游", "资质"],
+ "hi": ["शौकिया गाइड", "विशेषज्ञ गाइड", "पेशेवर गाइड", "«गोल्डन फंड» गाइड", "योग्यता"],
+ "ko": ["아마추어 가이드", "전문 분야 가이드", "프로 가이드", "«골든 펀드» 가이드", "자격 등급"],
+}
+
+
 def U(lang):
-    return dict(zip(_K, _T.get(lang, _T["en"])))
+    d = dict(zip(_K, _T.get(lang, _T["en"])))
+    g = _G.get(lang, _G["en"])
+    d.update(gc_havaskor=g[0], gc_ixtisoslashgan=g[1], gc_professional=g[2], gc_oltin_fond=g[3], gc_t=g[4])
+    return d

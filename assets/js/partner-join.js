@@ -82,8 +82,13 @@
           : fld("license_no", J.license[kind], g || dr, "text", ' maxlength="80"') + fld("experience_years", J.exp, g || dr, "number", ' min="0" max="60"')) +
       (dr ? '<label class="mf-f"><span>' + esc(J.ctype) + ' *</span><select name="company_type" required><option value="person">' + esc(J.ct.person) + '</option><option value="company">' + esc(J.ct.company) + '</option></select></label>' + fld("inn", J.inn, 0, "text", ' maxlength="30"') : "") +
       (ot ? fld("spec", J.spec, 1, "text", ' maxlength="60"') + fld("inn", J.inn, 0, "text", ' maxlength="30"') : "") +
-      (ho || dr ? "" : fld("price_day", J.price[kind], 1, "number", ' min="1" max="5000"')) + fld("bio", J.bio[kind], 1, "textarea") +
+      (ho || dr || g ? "" : fld("price_day", J.price[kind], 1, "number", ' min="1" max="5000"')) + fld("bio", J.bio[kind], 1, "textarea") +
       (ho ? fld("policies", J.policies, 0, "textarea") : "") + '</div></fieldset>' +
+      (g ? '<fieldset><legend>' + esc(J.sec_rates) + '</legend><p class="jf-note">' + esc(J.rates_note) + '</p><div class="mf-grid">' +
+        '<label class="mf-f"><span>' + esc(J.gcat) + '</span><select name="guide_cat">' + Object.keys(J.gcats).map(function (k) { return '<option value="' + k + '">' + esc(J.gcats[k]) + '</option>'; }).join("") + '</select></label>' +
+        fld("price_day", J.r_full, 1, "number", ' min="1" max="5000"') + fld("r_half_day", J.r_half, 0, "number", ' min="0" max="5000"') + fld("r_extra_hour", J.r_hour, 0, "number", ' min="0" max="1000"') +
+        fld("r_meet", J.r_meet, 0, "number", ' min="0" max="1000"') + fld("r_out_of_town", J.r_out, 0, "number", ' min="0" max="5000"') + fld("r_tour_day", J.r_tour, 0, "number", ' min="0" max="5000"') + fld("r_big_group", J.r_big, 0, "number", ' min="0" max="1000"') +
+        '</div></fieldset>' : "") +
       (ho ? '<fieldset><legend>' + esc(J.sec_amen) + '</legend><div class="pchips jf-cities">' + Object.keys(J.amen).map(function (k) { return '<label><input type="checkbox" name="amen_x" value="' + k + '"> ' + esc(J.amen[k]) + '</label>'; }).join("") + '</div></fieldset>' : "") +
       (ho || dr ? '<fieldset><legend>' + esc(ho ? J.sec_rooms : J.sec_cars) + '</legend><p class="jf-note">' + esc(J.netto_note) + '</p><div class="jf-units" id="jf-units"></div>' +
         '<button type="button" class="btn btn--outline btn--sm" id="jf-add">' + esc(ho ? J.room_add : J.car_add) + '</button></fieldset>' : "") +
@@ -195,6 +200,11 @@
       };
       // 2) save the text first — nothing typed is lost even if the photos fail later
       await save();
+      if (kind === "guide") {
+        var rt = { full_day: v("price_day") }; ["half_day", "extra_hour", "meet", "out_of_town", "tour_day", "big_group"].forEach(function (k) { var x = v("r_" + k); if (x !== "") rt[k] = x; });
+        await fetch(SB.url + "/rest/v1/rpc/partner_save_rates", { method: "POST", headers: H(tok, { "Content-Type": "application/json" }), body: JSON.stringify({ p: rt }) });
+        await fetch(SB.url + "/rest/v1/rpc/partner_save_extra", { method: "POST", headers: H(tok, { "Content-Type": "application/json" }), body: JSON.stringify({ p: { guide_cat: v("guide_cat") } }) });
+      }
       if (kind === "hotel" || kind === "driver") {
         var ex = { amenities: $$("[name=amen_x]:checked", fm).map(function (x) { return x.value; }), check_in: v("check_in"), check_out: v("check_out"), map_url: v("map_url"), policies: v("policies"),
                    company_type: v("company_type"), registry_no: kind === "hotel" ? v("license_no") : "" };

@@ -570,7 +570,8 @@ def render_agent(lang="en"):
 def _units_i18n():
     import join_i18n
     keys = ["r_class", "r_name", "r_cap", "r_beds", "r_qty", "r_bf", "r_price", "rc", "beds", "amen", "check_in", "check_out", "map_url", "policies",
-            "v_class", "vc", "v_model", "v_seats", "v_lug", "v_year", "v_plate", "v_ac", "v_day", "v_tr", "need_unit"]
+            "v_class", "vc", "v_model", "v_seats", "v_lug", "v_year", "v_plate", "v_ac", "v_day", "v_tr", "need_unit",
+            "sec_rates", "rates_note", "r_full", "r_half", "r_hour", "r_meet", "r_out", "r_tour", "r_big", "gcat", "gcats"]
     return {l: {k: join_i18n.J[l][k] for k in keys} for l in ("uz", "ru")}
 
 
