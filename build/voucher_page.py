@@ -26,8 +26,8 @@ CSS = r"""
 .bar button.ghost{background:transparent;color:#fff;border:1px solid #ffffff55}
 .state{max-width:640px;margin:60px auto;text-align:center;color:var(--muted);font-size:17px}
 .v{width:210mm;min-height:297mm;margin:20px auto;background:var(--paper);position:relative;padding:15mm 14mm 16mm;box-shadow:0 10px 40px #0002;overflow:hidden}
-.v:before{content:"";position:absolute;inset:6mm;border:2.2mm solid transparent;border-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%2312355b'/%3E%3Cpath d='M12 2l2.6 4.4L19 4l-1.4 5 4.4 3-4.4 3L19 20l-4.4-2.4L12 22l-2.6-4.4L5 20l1.4-5L2 12l4.4-3L5 4l4.4 2.4z' fill='%23f3b443'/%3E%3Ccircle cx='12' cy='12' r='2.6' fill='%232fa4c7'/%3E%3C/svg%3E") 8 round;pointer-events:none}
-.v:after{content:"";position:absolute;inset:9.2mm;border:.4mm solid var(--gold);pointer-events:none}
+.v:before,.vp:before{content:"";position:absolute;inset:6mm;border:2.2mm solid transparent;border-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%2312355b'/%3E%3Cpath d='M12 2l2.6 4.4L19 4l-1.4 5 4.4 3-4.4 3L19 20l-4.4-2.4L12 22l-2.6-4.4L5 20l1.4-5L2 12l4.4-3L5 4l4.4 2.4z' fill='%23f3b443'/%3E%3Ccircle cx='12' cy='12' r='2.6' fill='%232fa4c7'/%3E%3C/svg%3E") 8 round;pointer-events:none}
+.v:after,.vp:after{content:"";position:absolute;inset:9.2mm;border:.4mm solid var(--gold);pointer-events:none}
 .rose{position:absolute;width:62mm;height:62mm;right:-14mm;bottom:-14mm;opacity:.10}
 .hd{display:flex;align-items:center;gap:14px;background:var(--navy);color:#fff;border-radius:4mm;padding:6mm 7mm;position:relative}
 .hd svg.logo{width:22mm;height:15mm}.brand b{display:block;font-size:22px;letter-spacing:.12em}.brand small{color:#cfdcec;font-size:11.5px}
@@ -51,8 +51,13 @@ table{width:100%;border-collapse:collapse;font-size:12.5px}td,th{padding:1.7mm 2
 .sv-page{width:210mm;height:148mm;margin:0 auto 20px;background:var(--paper);position:relative;padding:12mm 14mm;box-shadow:0 10px 40px #0002;overflow:hidden;border:2.2mm solid var(--navy);outline:.4mm solid var(--gold);outline-offset:-4mm}
 .sv-page h1{margin:6mm 0 0}.svt th{width:38%;color:var(--muted);font-weight:600}.svt td{font-weight:600;font-size:14px}.sv-page .ft{margin-top:4mm}
 @media print{.sv-page{margin:0;box-shadow:none;page-break-after:always;break-after:page}}
-@media (max-width:820px){.v{width:auto;min-height:0;margin:10px;padding:12mm 9mm}.grid{grid-template-columns:repeat(2,1fr)}.inc{columns:1}.stamp{top:38mm}}
 @media print{@page{size:A4;margin:0}body{background:#fff}.bar{display:none}.v{margin:0;box-shadow:none;width:210mm}}
+.v.v--pages{background:transparent;box-shadow:none;padding:0;min-height:0;width:210mm;overflow:visible}.v.v--pages:before,.v.v--pages:after{display:none}
+.vp{width:210mm;height:297mm;margin:0 auto 20px;background:var(--paper);position:relative;padding:15mm 14mm 0;box-shadow:0 10px 40px #0002;overflow:hidden}
+.vpi{height:262mm;overflow:hidden}.vpi>:first-child{margin-top:0}
+.vph{display:flex;justify-content:space-between;align-items:center;background:var(--navy);color:#fff;border-radius:3mm;padding:3mm 5mm;font-size:12px;margin-bottom:4mm}.vph b{color:var(--gold);letter-spacing:.1em}
+.vpn{position:absolute;left:0;right:0;bottom:11mm;text-align:center;font-size:10px;color:var(--muted)}
+@media print{.vp{margin:0;box-shadow:none;break-after:page;page-break-after:always}.vp:last-child{break-after:auto;page-break-after:auto}#v{zoom:1!important}}
 """
 
 ROSE = ('<svg class="rose" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#12355b" stroke-width="1.6">'
@@ -122,7 +127,7 @@ JS = r"""
           '<h1>'+esc(kl)+'</h1><p class="sub">'+esc(title)+'</p><table class="svt"><tbody>'+rows.map(function(r){return'<tr><th>'+esc(r[0])+'</th><td>'+esc(r[1])+'</td></tr>';}).join("")+'</tbody></table>'+
           '<div class="ft"><div><p><b>'+esc(L.contacts)+':</b> WhatsApp '+esc(C.phone)+' · Telegram @'+esc(C.telegram)+(C.email?' · E-mail '+esc(C.email):'')+'</p><p>'+esc(L.sv_note)+'</p></div></div><p class="legal">'+esc(C.company)+'</p></div>';
       }).join("");
-      box.classList.add("v--svc"); st.hidden=true; box.hidden=false; document.getElementById("bar").hidden=false;
+      box.classList.add("v--svc"); st.hidden=true; box.hidden=false; document.getElementById("bar").hidden=false; fit(); window.addEventListener("resize",fit);
       document.getElementById("b-dl").textContent=L.dl; document.getElementById("b-pr").textContent=L.print; document.title=L.sv_title+" "+v.ref+" — Moviy Nomad";
       return;
     }
@@ -135,21 +140,59 @@ JS = r"""
       '<div class="ft"><div class="qr" title="'+esc(L.verify)+'">'+qr+'</div><div><p><b>'+esc(L.contacts)+':</b> WhatsApp '+esc(C.phone)+' · Telegram @'+esc(C.telegram)+(C.email?' · E-mail '+esc(C.email):'')+'</p><p>'+esc(L.note)+'</p><p><small>'+esc(L.verify)+'</small></p></div></div>'+
       '<p class="legal">'+esc(C.company)+'</p>';
     st.hidden=true; box.hidden=false; document.getElementById("bar").hidden=false;
+    paginate(v.ref, title);
     document.getElementById("b-dl").textContent=L.dl; document.getElementById("b-pr").textContent=L.print; document.title=DT+" "+v.ref+" — Moviy Nomad";
   });
+  // ---- split the voucher into real A4 pages: own border + page number on each, blocks never cut, long tables continue
+  function paginate(ref, title){
+    var tmp=document.createElement("div"); tmp.innerHTML=box.innerHTML;
+    var items=[].slice.call(tmp.children).filter(function(e){return !e.classList.contains("rose");});
+    box.innerHTML=""; box.classList.add("v--pages"); box.style.zoom="";
+    var pages=[], cur;
+    function newPage(){
+      var pg=document.createElement("section"); pg.className="vp"; pg.innerHTML=C.rose+'<div class="vpi"></div><div class="vpn"></div>';
+      box.appendChild(pg); pages.push(pg); cur=pg.querySelector(".vpi");
+      if(pages.length>1) cur.insertAdjacentHTML("beforeend",'<div class="vph"><b>MOVIY NOMAD</b><span>'+esc(ref)+' · '+esc(title)+'</span></div>');
+    }
+    function over(){return cur.scrollHeight>cur.clientHeight+1;}
+    function blocks(){return [].slice.call(cur.children).filter(function(e){return !e.classList.contains("vph")&&!e.classList.contains("stamp");});}
+    newPage();
+    items.forEach(function(it){
+      cur.appendChild(it); if(!over()) return;
+      var rows=it.tagName==="TABLE"&&it.tBodies[0]?[].slice.call(it.tBodies[0].rows):[];
+      if(rows.length>1){                       // table: move rows that don't fit to the next page (header repeated)
+        var tb=it.tBodies[0], rest=[];
+        while(over()&&tb.rows.length>1) rest.unshift(tb.removeChild(tb.rows[tb.rows.length-1]));
+        if(over()){ cur.removeChild(it); var hd=blocks().pop(); newPage(); if(hd&&hd.tagName==="H2") cur.appendChild(hd); cur.appendChild(it); }
+        while(rest.length){
+          var t2=it.cloneNode(false); if(it.tHead) t2.appendChild(it.tHead.cloneNode(true)); var b2=document.createElement("tbody"); t2.appendChild(b2);
+          newPage(); cur.appendChild(t2);
+          while(rest.length){ b2.appendChild(rest[0]); if(over()&&b2.rows.length>1){ b2.removeChild(b2.rows[b2.rows.length-1]); break; } rest.shift(); }
+          it=t2;
+        }
+        return;
+      }
+      if(blocks().length<=1) return;           // a single block taller than a page: keep it
+      cur.removeChild(it); var prev=blocks().pop();
+      newPage(); if(prev&&prev.tagName==="H2") cur.appendChild(prev); cur.appendChild(it);
+    });
+    pages.forEach(function(pg,i){pg.querySelector(".vpn").textContent=ref+" · "+(i+1)+" / "+pages.length;});
+    fit(); window.addEventListener("resize",fit);
+  }
+  function fit(){ var w=box.querySelector(".vp,.sv-page"); if(!w) return; var k=Math.min(1,(window.innerWidth-16)/w.offsetWidth); box.style.zoom=k<1?k:""; }
   document.getElementById("b-pr").onclick=function(){window.print();};
   document.getElementById("b-dl").onclick=async function(){
     var b=this; b.disabled=true;
     try{
       if(box.classList.contains("v--svc")){
-        var pdf2=new window.jspdf.jsPDF({unit:"mm",format:"a4"}), pages=box.querySelectorAll(".sv-page");
+        box.style.zoom=""; var pdf2=new window.jspdf.jsPDF({unit:"mm",format:"a4"}), pages=box.querySelectorAll(".sv-page");
         for(var i=0;i<pages.length;i++){var c2=await html2canvas(pages[i],{scale:2,backgroundColor:"#fffaf0"}); if(i&&i%2===0)pdf2.addPage(); pdf2.addImage(c2.toDataURL("image/jpeg",0.92),"JPEG",0,(i%2)*148.5,210,148.5);}
-        pdf2.save("Moviy-Nomad-service-vouchers-"+ref+".pdf"); b.disabled=false; return;
+        pdf2.save("Moviy-Nomad-service-vouchers-"+ref+".pdf"); fit(); b.disabled=false; return;
       }
-      var cv=await html2canvas(box,{scale:2,backgroundColor:"#fffaf0",useCORS:true});
-      var pdf=new window.jspdf.jsPDF({unit:"mm",format:"a4"}), W=210, H=cv.height*W/cv.width, img=cv.toDataURL("image/jpeg",0.92), y=0;
-      while(y<H-0.5){if(y>0)pdf.addPage();pdf.addImage(img,"JPEG",0,-y,W,H);y+=297;}
-      pdf.save("Moviy-Nomad-voucher-"+ref+".pdf");}catch(e){window.print();}
+      var z=box.style.zoom; box.style.zoom="";
+      var pdf=new window.jspdf.jsPDF({unit:"mm",format:"a4"}), vps=box.querySelectorAll(".vp");
+      for(var j=0;j<vps.length;j++){var cv=await html2canvas(vps[j],{scale:2,backgroundColor:"#fffaf0",useCORS:true}); if(j)pdf.addPage(); pdf.addImage(cv.toDataURL("image/jpeg",0.9),"JPEG",0,0,210,297);}
+      box.style.zoom=z; pdf.save("Moviy-Nomad-voucher-"+ref+".pdf");}catch(e){window.print();}
     b.disabled=false;};
 })();
 """
