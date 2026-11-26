@@ -954,7 +954,7 @@ html[dir="rtl"] .nav__ddm{left:auto;right:-16px}
 .acct-link{position:relative;display:inline-flex;align-items:center;gap:6px;color:#fff;font-family:var(--font-head);font-weight:600;font-size:13.5px;white-space:nowrap;padding:7px 12px;border:1.5px solid rgba(255,255,255,.35);border-radius:999px;margin-inline-end:8px}
 .acct-link:hover{color:var(--gold);border-color:var(--gold)}
 .acct-ico{font-style:normal;font-size:15px;line-height:1}
-.header.is-solid .acct-link,.header.is-scrolled .acct-link{color:inherit;border-color:var(--line,#e2dccf)}
+.header.is-solid .acct-link,.header.is-scrolled .acct-link{color:#fff;border-color:rgba(255,255,255,.35)}
 .subpage .acct-link{color:#fff}
 .acct-dot{position:absolute;top:-5px;inset-inline-end:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#e53935;color:#fff;font:700 11px/18px var(--font-head);text-align:center;font-style:normal;box-shadow:0 0 0 2px #fff;animation:acctPulse 1.6s infinite}
 .acct-dot[hidden]{display:none}
