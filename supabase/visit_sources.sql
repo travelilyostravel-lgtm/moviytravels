@@ -185,3 +185,7 @@ update public.site_events e set src = v.source
    and e.id = (select min(e2.id) from public.site_events e2 where e2.visitor_id = v.id and e2.event = 'visit');
 
 select public.site_counter()::text as result;
+
+-- re-classify Android-app referrers saved before the rule above existed
+update public.site_visitors set source = public.classify_src(referrer, null, null, null, device) where source like 'site:android-app%';
+update public.site_events e set src = v.source from public.site_visitors v where e.visitor_id = v.id and e.event = 'visit' and e.src like 'site:android-app%';

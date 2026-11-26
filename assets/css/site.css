@@ -1384,3 +1384,14 @@ html[data-theme="dark"] .mt--b{background:#162332}
 html[data-theme="dark"] .mt--b .mt__price strong{color:#5fd4a0}
 html[data-theme="dark"] .mt__foot{border-top-color:#2a3a4e}
 html[data-theme="dark"] .mt--b .mt__go{background:#2a4a70}
+
+/* home counter: visits · unique visitors · online now (2026-11-27) */
+.hcount{gap:0;padding:6px;flex-wrap:wrap}
+.hcount__i{display:inline-flex;align-items:baseline;gap:6px;padding:6px 14px;white-space:nowrap}
+.hcount__i + .hcount__i{border-inline-start:1px solid rgba(243,180,67,.35)}
+.hcount__i small{font-size:13px;color:#c9d6e6}
+.hcount__i b{font-size:18px}
+.hcount__i--o{align-items:center}
+.hcount__i--o b{color:#3ddc84}
+.hcount__i--o .hcount__dot{margin-inline-end:2px}
+@media (max-width:640px){.hcount{padding:4px}.hcount__i{padding:5px 9px;gap:4px}.hcount__i b{font-size:15px}.hcount__i small{font-size:11.5px}}

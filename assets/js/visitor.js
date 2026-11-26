@@ -40,22 +40,47 @@
   // ---------------------------------------------------------------- page view
   // our own staff (founder, managers) are not counted as visitors
   var STAFF = get("mn_staff") === "1";
-  // home page: live counter of visitors
+  // home page: live counter (2026-11-27) — all visits · unique visitors · online now (online refreshes every minute)
   (function () {
     var box = document.getElementById("hcount"); if (!box) return;
-    fetch(SB.url + "/rest/v1/rpc/site_counter", { method: "POST", headers: hdr(), body: "{}" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (c) {
-      if (!c || !c.total) return;
-      var span = box.querySelector(".hcount__t"), tpl = box.getAttribute("data-t"), dtp = box.getAttribute("data-d"), fmt = function (n) { try { return n.toLocaleString(LANG === "uz" ? "ru" : LANG); } catch (e) { return String(n); } };
-      box.hidden = false; var t0 = performance.now(), dur = 1400;
+    var fmt = function (n) { try { return Math.round(n).toLocaleString(LANG === "uz" ? "ru" : LANG); } catch (e) { return String(Math.round(n)); } };
+    var shown = { v: 0, u: 0, o: 0 };
+    function paint(c, anim) {
+      var tgt = { v: +c.visits || 0, u: +c.unique || +c.total || 0, o: +c.online || 0 };
+      if (!tgt.v && !tgt.u) return;
+      box.hidden = false;
+      var from = { v: shown.v, u: shown.u, o: shown.o }, t0 = performance.now(), dur = anim ? 1400 : 500;
       (function step(now) {
         var k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
-        span.innerHTML = tpl.replace("{n}", "<b>" + fmt(Math.round(c.total * e)) + "</b>") + (c.today ? ' <span class="hcount__d">· ' + dtp.replace("{t}", "<b>" + fmt(Math.round(c.today * e)) + "</b>") + '</span>' : "");
-        if (k < 1) requestAnimationFrame(step);
+        ["v", "u", "o"].forEach(function (x) { var el = box.querySelector('[data-hc="' + x + '"]'); if (el) el.textContent = fmt(from[x] + (tgt[x] - from[x]) * e); });
+        if (k < 1) requestAnimationFrame(step); else shown = tgt;
       })(t0);
-    }).catch(function () {});
+    }
+    function load(anim) {
+      fetch(SB.url + "/rest/v1/rpc/site_counter", { method: "POST", headers: hdr(), body: "{}" }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (c) { if (c) paint(c, anim); }).catch(function () {});
+    }
+    setTimeout(function () { load(true); }, 900);   // after our own visit is saved
+    setInterval(function () { if (document.visibilityState === "visible") load(false); }, 60000);
   })();
-  if (!STAFF) rpc("track_visit", { vid: vid, lang: LANG, page: page, title: document.title, ref: document.referrer ? document.referrer.slice(0, 300) : "", dev: navigator.userAgent.slice(0, 200) })
-    .then(function (r) { if (r === "known") put("mn_cust", "1"); }).catch(function () {});
+
+  // where the visitor came from: campaign tags (?utm_source=…), ad click ids, country (Vercel, cached 7 days)
+  var QS = (function () { var o = {}; try { new URLSearchParams(location.search).forEach(function (v, k) { o[k.toLowerCase()] = v; }); } catch (e) {} return o; })();
+  var CLID = QS.gclid ? "gclid" : QS.yclid ? "yclid" : QS.fbclid ? "fbclid" : "";
+  function country() {
+    var c = null; try { c = JSON.parse(get("mn_cc") || "null"); } catch (e) {}
+    if (c && c.t > Date.now() - 7 * 864e5) return Promise.resolve(c.c || "");
+    return Promise.race([
+      fetch("/api/geo", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) { var cc = (j && j.c) || ""; put("mn_cc", JSON.stringify({ c: cc, t: Date.now() })); return cc; }),
+      new Promise(function (res) { setTimeout(function () { res(""); }, 1500); })
+    ]).catch(function () { return ""; });
+  }
+  if (!STAFF) country().then(function (cc) {
+    return rpc("track_visit", { vid: vid, lang: LANG, page: page, title: document.title, ref: document.referrer ? document.referrer.slice(0, 300) : "", dev: navigator.userAgent.slice(0, 200),
+      country: cc, utm: (QS.utm_source || "").slice(0, 60), umed: (QS.utm_medium || "").slice(0, 40), camp: (QS.utm_campaign || "").slice(0, 80), clid: CLID });
+  }).then(function (r) { if (r === "known") put("mn_cust", "1"); }).catch(function () {});
+  // "still here" every minute while the page is open and visible — for "online now"
+  if (!STAFF) setInterval(function () { if (document.visibilityState === "visible") rpc("visitor_ping", { vid: vid }).catch(function () {}); }, 60000);
 
   // ---------------------------------------------------------------- back from Google
   var hp = new URLSearchParams(location.hash.slice(1));

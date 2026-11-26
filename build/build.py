@@ -30,18 +30,18 @@ AGS = {
 }
 
 
-# Home page: live visitor counter ({n} = all visitors, {t} = today)
+# Home page: live visitor counter (2026-11-27): all visits · unique visitors · online now
 HC = {
-    "en": ("{n} travellers have used Moviy Nomad", "{t} today"),
-    "ru": ("{n} путешественников уже пользуются Moviy Nomad", "сегодня {t}"),
-    "uz": ("{n} sayohatchi Moviy Nomad'dan foydalangan", "bugun {t}"),
-    "tr": ("{n} gezgin Moviy Nomad'ı kullandı", "bugün {t}"),
-    "ar": ("{n} مسافرًا استخدموا Moviy Nomad", "اليوم {t}"),
-    "de": ("{n} Reisende nutzen Moviy Nomad", "heute {t}"),
-    "sv": ("{n} resenärer har använt Moviy Nomad", "i dag {t}"),
-    "zh": ("已有 {n} 位旅行者使用 Moviy Nomad", "今天 {t}"),
-    "hi": ("{n} यात्रियों ने Moviy Nomad का उपयोग किया", "आज {t}"),
-    "ko": ("{n}명의 여행자가 Moviy Nomad를 이용했습니다", "오늘 {t}명"),
+    "en": ("visits", "unique visitors", "online now"),
+    "ru": ("посещений", "уникальных посетителей", "сейчас на сайте"),
+    "uz": ("tashrif", "noyob tashrifchi", "hozir saytda"),
+    "tr": ("ziyaret", "tekil ziyaretçi", "şu an sitede"),
+    "ar": ("زيارة", "زائر فريد", "على الموقع الآن"),
+    "de": ("Besuche", "eindeutige Besucher", "jetzt online"),
+    "sv": ("besök", "unika besökare", "online nu"),
+    "zh": ("次访问", "位独立访客", "人在线"),
+    "hi": ("विज़िट", "यूनिक विज़िटर", "अभी साइट पर"),
+    "ko": ("방문", "순 방문자", "현재 접속"),
 }
 
 def LD(lang):
@@ -301,7 +301,7 @@ def render(lang):
           <a class="btn btn--ig" href="{ig}" target="_blank" rel="noopener">{ICON["ig"]}Instagram</a>
         </div>
         <div class="chips">{chips}</div>
-        <div class="hcount" id="hcount" hidden data-t="{e(HC.get(lang, HC["en"])[0])}" data-d="{e(HC.get(lang, HC["en"])[1])}"><i class="hcount__dot" aria-hidden="true"></i><span class="hcount__t"></span></div>
+        <div class="hcount" id="hcount" hidden>{"".join(f'<span class="hcount__i hcount__i--{k}"{(" ") }>{"<i class=\"hcount__dot\" aria-hidden=\"true\"></i>" if k == "o" else ""}<b data-hc="{k}">0</b> <small>{e(lbl)}</small></span>' for k, lbl in zip("vuo", HC.get(lang, HC["en"])))}</div>
       </div>
       <aside class="wx" id="wx" hidden aria-live="polite"></aside>
     </div>
