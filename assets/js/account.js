@@ -42,20 +42,26 @@
   // ------------------------------------------------------------------ sign in / sign up
   function authView(mode, err) {
     mode = mode || "login";
-    root.innerHTML = '<div class="cab-auth"><div class="cab-tabs"><button data-m="login" class="' + (mode === "login" ? "is-on" : "") + '">' + esc(T.login) + '</button><button data-m="register" class="' + (mode === "register" ? "is-on" : "") + '">' + esc(T.register) + '</button></div>' +
-      '<button type="button" class="cab-google" id="cab-g"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>' + esc(T.google) + '</button>' +
-      '<div class="cab-or">— ' + esc(T.or) + ' —</div>' +
+    var more = !!err || authView.more;
+    root.innerHTML = '<div class="cab-auth"><div class="cab-gsi" id="cab-gsi"></div><button type="button" class="cab-more" id="cab-more"' + (more ? ' hidden' : '') + '>' + esc(T.or) + '</button><div id="cab-pw"' + (more ? '' : ' hidden') + '><div class="cab-tabs"><button data-m="login" class="' + (mode === "login" ? "is-on" : "") + '">' + esc(T.login) + '</button><button data-m="register" class="' + (mode === "register" ? "is-on" : "") + '">' + esc(T.register) + '</button></div>' +
+      
       '<form id="cab-f" novalidate>' + (mode === "register" ? '<input name="name" autocomplete="name" placeholder="' + esc(T.name) + '" required minlength="2" maxlength="120">' : '') +
       '<input name="email" type="email" autocomplete="email" placeholder="' + esc(T.email) + '" required>' +
       '<input name="password" type="password" autocomplete="' + (mode === "register" ? "new-password" : "current-password") + '" placeholder="' + esc(T.password) + '" required minlength="8">' +
       (mode === "register" ? '<input name="phone" type="tel" autocomplete="tel" placeholder="' + esc(T.phone) + '" maxlength="40">' : '') +
       '<div class="cab-err" role="alert">' + esc(err || "") + '</div><button class="btn btn--gold" type="submit">' + esc(mode === "register" ? T.signup_btn : T.signin_btn) + '</button></form>' +
-      '<p class="cab-note">' + esc(mode === "register" ? T.reg_note : T.forgot) + '</p></div>';
+      '<p class="cab-note">' + esc(mode === "register" ? T.reg_note : T.forgot) + '</p></div></div>';
     root.querySelectorAll("[data-m]").forEach(function (b) { b.onclick = function () { authView(b.getAttribute("data-m")); }; });
-    root.querySelector("#cab-g").onclick = function () {
-      track("signin_start", "google (cabinet)");
-      location.href = SB.url + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(location.href.split("#")[0]);
-    };
+    root.querySelectorAll("[data-m]").forEach(function (b) { b.addEventListener("click", function () { authView.more = true; }); });
+    root.querySelector("#cab-more").onclick = function () { authView.more = true; root.querySelector("#cab-pw").hidden = false; this.hidden = true; };
+    // Google's own button: the visitor's Gmail account(s), confirm with one tap / Face ID — no password
+    (function gsi(n) {
+      var box = root.querySelector("#cab-gsi"); if (!box) return;
+      if (!window.MN_GSI) { if ((n || 0) < 40) setTimeout(function () { gsi((n || 0) + 1); }, 250); return; }
+      var done = function (e2) { if (e2) { var er0 = root.querySelector(".cab-err"); root.querySelector("#cab-pw").hidden = false; if (er0) er0.textContent = T.err; return; } track("signin", "cabinet: google"); load(); };
+      window.MN_GSI.button(box, done).catch(function () {});
+      window.MN_GSI.prompt(done).catch(function () {});
+    })();
     root.querySelector("#cab-f").onsubmit = async function (e) {
       e.preventDefault(); var f = e.target, em = f.email.value.trim().toLowerCase(), pw = f.password.value, er = f.querySelector(".cab-err"), btn = f.querySelector("button");
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { er.textContent = T.email + "?"; return; }

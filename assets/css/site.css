@@ -1071,3 +1071,6 @@ body.nav-open .sbar,body.nav-open .fab,body.nav-open .msub,body.nav-open .acct-t
 .header.is-solid .nav__ddb{text-shadow:none}
 .nav__dd:hover .nav__ddb{color:var(--gold)}
 .header__cta{display:inline-flex;align-items:center;gap:8px}
+
+/* cabinet: Google one-click first, e-mail + password behind a small link (26.11.2026) */
+.cab-gsi{display:flex;justify-content:center;min-height:44px;margin:4px 0 6px}.cab-more{display:block;margin:10px auto 0;background:none;border:0;color:#7a8796;font-size:13px;text-decoration:underline;cursor:pointer}.cab-auth [hidden]{display:none!important}#cab-pw{margin-top:14px}

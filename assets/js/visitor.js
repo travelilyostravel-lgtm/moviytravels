@@ -8,6 +8,11 @@
   var GOOGLE_ON = true;                        // switched on once Google sign-in is configured in Supabase
   var LANG = (window.MN_LANG || document.documentElement.lang || "en").slice(0, 2);
   var LS = window.localStorage, SS = window.sessionStorage;
+  (function () {   // Google one-click sign-in module
+    if (/\/(admin|agent|partner)\//.test(location.pathname) || window.MN_GSI) return;
+    var me = document.querySelector('script[src*="visitor.js"]'); if (!me) return;
+    var sc = document.createElement("script"); sc.src = me.src.replace(/visitor\.js.*$/, "gsi.js?v=1"); document.head.appendChild(sc);
+  })();
   function get(k, s) { try { return (s || LS).getItem(k); } catch (e) { return null; } }
   function put(k, v, s) { try { (s || LS).setItem(k, v); } catch (e) {} }
   var vid = get("mn_vid"); if (!vid) { vid = "v" + Date.now().toString(36) + Math.random().toString(36).slice(2, 12); put("mn_vid", vid); }
@@ -19,16 +24,16 @@
 
   // ---------------------------------------------------------------- texts (10 languages)
   var TX = {
-    en: ["How would you like to continue?", "Sign in once — your quotes, requests and bookings stay with you, and we can send you updates.", "Continue with Google", "or with e-mail", "Your name", "E-mail", "Phone / WhatsApp (optional)", "Continue", "Later", "We use your details only to arrange your trip and send Moviy Nomad news. No spam.", "Please enter a valid e-mail.", "Thank you!"],
-    ru: ["Как вы хотите продолжить?", "Войдите один раз — ваши расчёты, заявки и бронирования сохранятся, и мы сможем присылать новости.", "Продолжить с Google", "или по e-mail", "Ваше имя", "E-mail", "Телефон / WhatsApp (необязательно)", "Продолжить", "Позже", "Мы используем ваши данные только для организации поездки и новостей Moviy Nomad. Без спама.", "Введите правильный e-mail.", "Спасибо!"],
-    uz: ["Saytga qanday kirasiz?", "Bir marta kiring — hisob-kitoblaringiz, so'rov va bronlaringiz saqlanadi, sizga yangiliklar yuborib turamiz.", "Google orqali davom etish", "yoki e-mail orqali", "Ismingiz", "E-mail", "Telefon / WhatsApp (ixtiyoriy)", "Davom etish", "Keyinroq", "Ma'lumotlaringiz faqat sayohatingizni tashkil qilish va Moviy Nomad yangiliklari uchun ishlatiladi. Spam yo'q.", "E-mailni to'g'ri yozing.", "Rahmat!"],
-    tr: ["Nasıl devam etmek istersiniz?", "Bir kez giriş yapın — teklifleriniz, talepleriniz ve rezervasyonlarınız saklanır, size haber gönderebiliriz.", "Google ile devam et", "veya e-posta ile", "Adınız", "E-posta", "Telefon / WhatsApp (isteğe bağlı)", "Devam", "Sonra", "Bilgilerinizi yalnızca seyahatinizi düzenlemek ve Moviy Nomad haberleri için kullanırız. Spam yok.", "Geçerli bir e-posta girin.", "Teşekkürler!"],
-    ar: ["كيف تريد المتابعة؟", "سجّل مرة واحدة — تبقى عروضك وطلباتك وحجوزاتك محفوظة، ونرسل لك الأخبار.", "المتابعة عبر Google", "أو عبر البريد الإلكتروني", "اسمك", "البريد الإلكتروني", "الهاتف / واتساب (اختياري)", "متابعة", "لاحقًا", "نستخدم بياناتك فقط لتنظيم رحلتك وإرسال أخبار Moviy Nomad. بدون رسائل مزعجة.", "أدخل بريدًا إلكترونيًا صحيحًا.", "شكرًا!"],
-    de: ["Wie möchten Sie fortfahren?", "Einmal anmelden — Ihre Angebote, Anfragen und Buchungen bleiben gespeichert, und wir können Ihnen Neuigkeiten senden.", "Weiter mit Google", "oder per E-Mail", "Ihr Name", "E-Mail", "Telefon / WhatsApp (optional)", "Weiter", "Später", "Wir nutzen Ihre Daten nur für Ihre Reise und Moviy-Nomad-Neuigkeiten. Kein Spam.", "Bitte gültige E-Mail eingeben.", "Danke!"],
-    sv: ["Hur vill du fortsätta?", "Logga in en gång — dina offerter, förfrågningar och bokningar sparas och vi kan skicka nyheter.", "Fortsätt med Google", "eller med e-post", "Ditt namn", "E-post", "Telefon / WhatsApp (valfritt)", "Fortsätt", "Senare", "Vi använder dina uppgifter bara för din resa och Moviy Nomad-nyheter. Ingen spam.", "Ange en giltig e-postadress.", "Tack!"],
-    zh: ["您想如何继续？", "登录一次——您的报价、咨询和预订都会保存，我们也会给您发送最新消息。", "使用 Google 继续", "或使用邮箱", "您的姓名", "邮箱", "电话 / WhatsApp（可选）", "继续", "稍后", "您的信息仅用于安排行程和发送 Moviy Nomad 消息，不会发送垃圾邮件。", "请输入有效的邮箱。", "谢谢！"],
-    hi: ["आप कैसे आगे बढ़ना चाहेंगे?", "एक बार साइन इन करें — आपके कोटेशन, अनुरोध और बुकिंग सुरक्षित रहेंगे, और हम आपको अपडेट भेज सकेंगे।", "Google से जारी रखें", "या ई-मेल से", "आपका नाम", "ई-मेल", "फ़ोन / WhatsApp (वैकल्पिक)", "जारी रखें", "बाद में", "हम आपकी जानकारी केवल यात्रा की व्यवस्था और Moviy Nomad समाचार के लिए उपयोग करते हैं। कोई स्पैम नहीं।", "कृपया सही ई-मेल लिखें।", "धन्यवाद!"],
-    ko: ["어떻게 계속하시겠어요?", "한 번만 로그인하면 견적, 문의, 예약이 저장되고 소식을 보내 드릴 수 있어요.", "Google로 계속하기", "또는 이메일로", "이름", "이메일", "전화 / WhatsApp (선택)", "계속", "나중에", "정보는 여행 준비와 Moviy Nomad 소식 전달에만 사용합니다. 스팸 없음.", "올바른 이메일을 입력하세요.", "감사합니다!"]
+    en: ["How would you like to continue?", "Sign in once — your quotes, requests and bookings stay with you, and we can send you updates.", "Continue with Google", "or with e-mail", "Your name", "E-mail", "Phone / WhatsApp (optional)", "Continue", "Later", "We use your details only to arrange your trip and send Moviy Nomad news. No spam.", "Please enter a valid e-mail.", "Thank you!", "Google sign-in did not work. Please try again or use e-mail."],
+    ru: ["Как вы хотите продолжить?", "Войдите один раз — ваши расчёты, заявки и бронирования сохранятся, и мы сможем присылать новости.", "Продолжить с Google", "или по e-mail", "Ваше имя", "E-mail", "Телефон / WhatsApp (необязательно)", "Продолжить", "Позже", "Мы используем ваши данные только для организации поездки и новостей Moviy Nomad. Без спама.", "Введите правильный e-mail.", "Спасибо!", "Вход через Google не удался. Попробуйте ещё раз или укажите e-mail."],
+    uz: ["Saytga qanday kirasiz?", "Bir marta kiring — hisob-kitoblaringiz, so'rov va bronlaringiz saqlanadi, sizga yangiliklar yuborib turamiz.", "Google orqali davom etish", "yoki e-mail orqali", "Ismingiz", "E-mail", "Telefon / WhatsApp (ixtiyoriy)", "Davom etish", "Keyinroq", "Ma'lumotlaringiz faqat sayohatingizni tashkil qilish va Moviy Nomad yangiliklari uchun ishlatiladi. Spam yo'q.", "E-mailni to'g'ri yozing.", "Rahmat!", "Google orqali kirib bo'lmadi. Qayta urinib ko'ring yoki e-mail yozing."],
+    tr: ["Nasıl devam etmek istersiniz?", "Bir kez giriş yapın — teklifleriniz, talepleriniz ve rezervasyonlarınız saklanır, size haber gönderebiliriz.", "Google ile devam et", "veya e-posta ile", "Adınız", "E-posta", "Telefon / WhatsApp (isteğe bağlı)", "Devam", "Sonra", "Bilgilerinizi yalnızca seyahatinizi düzenlemek ve Moviy Nomad haberleri için kullanırız. Spam yok.", "Geçerli bir e-posta girin.", "Teşekkürler!", "Google ile giriş olmadı. Tekrar deneyin veya e-posta girin."],
+    ar: ["كيف تريد المتابعة؟", "سجّل مرة واحدة — تبقى عروضك وطلباتك وحجوزاتك محفوظة، ونرسل لك الأخبار.", "المتابعة عبر Google", "أو عبر البريد الإلكتروني", "اسمك", "البريد الإلكتروني", "الهاتف / واتساب (اختياري)", "متابعة", "لاحقًا", "نستخدم بياناتك فقط لتنظيم رحلتك وإرسال أخبار Moviy Nomad. بدون رسائل مزعجة.", "أدخل بريدًا إلكترونيًا صحيحًا.", "شكرًا!", "تعذّر تسجيل الدخول عبر Google. حاول مرة أخرى أو استخدم البريد الإلكتروني."],
+    de: ["Wie möchten Sie fortfahren?", "Einmal anmelden — Ihre Angebote, Anfragen und Buchungen bleiben gespeichert, und wir können Ihnen Neuigkeiten senden.", "Weiter mit Google", "oder per E-Mail", "Ihr Name", "E-Mail", "Telefon / WhatsApp (optional)", "Weiter", "Später", "Wir nutzen Ihre Daten nur für Ihre Reise und Moviy-Nomad-Neuigkeiten. Kein Spam.", "Bitte gültige E-Mail eingeben.", "Danke!", "Anmeldung mit Google fehlgeschlagen. Bitte erneut versuchen oder E-Mail nutzen."],
+    sv: ["Hur vill du fortsätta?", "Logga in en gång — dina offerter, förfrågningar och bokningar sparas och vi kan skicka nyheter.", "Fortsätt med Google", "eller med e-post", "Ditt namn", "E-post", "Telefon / WhatsApp (valfritt)", "Fortsätt", "Senare", "Vi använder dina uppgifter bara för din resa och Moviy Nomad-nyheter. Ingen spam.", "Ange en giltig e-postadress.", "Tack!", "Inloggning med Google misslyckades. Försök igen eller använd e-post."],
+    zh: ["您想如何继续？", "登录一次——您的报价、咨询和预订都会保存，我们也会给您发送最新消息。", "使用 Google 继续", "或使用邮箱", "您的姓名", "邮箱", "电话 / WhatsApp（可选）", "继续", "稍后", "您的信息仅用于安排行程和发送 Moviy Nomad 消息，不会发送垃圾邮件。", "请输入有效的邮箱。", "谢谢！", "Google 登录未成功，请重试或使用邮箱。"],
+    hi: ["आप कैसे आगे बढ़ना चाहेंगे?", "एक बार साइन इन करें — आपके कोटेशन, अनुरोध और बुकिंग सुरक्षित रहेंगे, और हम आपको अपडेट भेज सकेंगे।", "Google से जारी रखें", "या ई-मेल से", "आपका नाम", "ई-मेल", "फ़ोन / WhatsApp (वैकल्पिक)", "जारी रखें", "बाद में", "हम आपकी जानकारी केवल यात्रा की व्यवस्था और Moviy Nomad समाचार के लिए उपयोग करते हैं। कोई स्पैम नहीं।", "कृपया सही ई-मेल लिखें।", "धन्यवाद!", "Google से साइन इन नहीं हो सका। फिर से कोशिश करें या ई-मेल दें।"],
+    ko: ["어떻게 계속하시겠어요?", "한 번만 로그인하면 견적, 문의, 예약이 저장되고 소식을 보내 드릴 수 있어요.", "Google로 계속하기", "또는 이메일로", "이름", "이메일", "전화 / WhatsApp (선택)", "계속", "나중에", "정보는 여행 준비와 Moviy Nomad 소식 전달에만 사용합니다. 스팸 없음.", "올바른 이메일을 입력하세요.", "감사합니다!", "Google 로그인에 실패했어요. 다시 시도하거나 이메일을 입력하세요."]
   };
   var T = TX[LANG] || TX.en;
 
@@ -71,6 +76,7 @@
     ".mng h3{margin:0 0 6px;font-size:21px;color:#12355b}.mng p{margin:0 0 16px;font-size:14px;color:#5b6b7c;line-height:1.5}" +
     ".mng__g{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border:1px solid #d6dde6;border-radius:12px;background:#fff;font-weight:700;font-size:15px;cursor:pointer;color:#1b2a3a}" +
     ".mng__g:hover{background:#f5f8fb}.mng__or{text-align:center;font-size:12.5px;color:#8a97a5;margin:14px 0 10px}" +
+    ".mng__gsi{display:flex;justify-content:center;min-height:44px}.mng__orb{display:block;width:100%;background:none;border:0;cursor:pointer;text-decoration:underline}.mng form[hidden]{display:none}" +
     ".mng input{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #d6dde6;border-radius:10px;margin-bottom:8px;font-size:15px}" +
     ".mng__go{width:100%;padding:13px;border:0;border-radius:12px;background:#e9b949;color:#12355b;font-weight:800;font-size:15px;cursor:pointer}" +
     ".mng__later{display:block;margin:12px auto 0;background:none;border:0;color:#7a8796;font-size:13px;text-decoration:underline;cursor:pointer}" +
@@ -83,21 +89,28 @@
     if (document.querySelector(".mng")) return;
     var w = document.createElement("div"); w.className = "mng"; w.setAttribute("data-mng", "1"); w.dir = LANG === "ar" ? "rtl" : "ltr";
     w.innerHTML = '<div class="mng__box" role="dialog" aria-modal="true"><h3>' + T[0] + '</h3><p>' + T[1] + '</p>' +
-      (GOOGLE_ON ? '<button type="button" class="mng__g" id="mng-g">' + G + T[2] + '</button><div class="mng__or">— ' + T[3] + ' —</div>' : '') +
-      '<form id="mng-f"><input name="name" autocomplete="name" placeholder="' + T[4] + '"><input name="email" type="email" required autocomplete="email" placeholder="' + T[5] + ' *"><input name="phone" type="tel" autocomplete="tel" placeholder="' + T[6] + '"><div class="mng__err" id="mng-e"></div><button class="mng__go" type="submit">' + T[7] + '</button></form>' +
+      (GOOGLE_ON ? '<div class="mng__gsi" id="mng-gsi"><button type="button" class="mng__g" id="mng-g">' + G + T[2] + '</button></div><button type="button" class="mng__or mng__orb" id="mng-or">' + T[3] + '</button>' : '') +
+      '<form id="mng-f"' + (GOOGLE_ON ? ' hidden' : '') + '><input name="email" type="email" required autocomplete="email" placeholder="' + T[5] + '"><div class="mng__err" id="mng-e"></div><button class="mng__go" type="submit">' + T[7] + '</button></form>' +
       '<button type="button" class="mng__later" id="mng-l">' + T[8] + '</button><p class="mng__note">' + T[9] + '</p></div>';
     document.body.appendChild(w);
     function close(ok) { w.remove(); if (ok) toast(T[11]); if (after) setTimeout(after, 30); }
-    var gb = w.querySelector("#mng-g");
-    if (gb) gb.onclick = function () {
-      put("mn_gate_google", "1", SS); track("signin_start", "google");
-      location.href = SB.url + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(location.href.split("#")[0]);
+    var gb = w.querySelector("#mng-g"), box = w.querySelector("#mng-gsi");
+    var gdone = function (err) { if (err) { w.querySelector("#mng-e").textContent = T[12]; w.querySelector("#mng-f").hidden = false; return; } put("mn_cust", "1"); if (window.MN_GSI) window.MN_GSI.cancel(); close(true); };
+    var useGsi = function () {   // Google's own button ("Continue as …" with the visitor's Gmail) + the account list (One Tap)
+      if (!window.MN_GSI || !box) return false;
+      window.MN_GSI.button(box, gdone).catch(function () {}); window.MN_GSI.prompt(gdone).catch(function () {});
+      return true;
     };
+    if (gb) {
+      gb.onclick = function () { track("signin_start", "google"); if (!useGsi()) { put("mn_gate_google", "1", SS); location.href = SB.url + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(location.href.split("#")[0]); } };
+      if (!useGsi()) { var tries = 0, iv = setInterval(function () { if (useGsi() || ++tries > 20) clearInterval(iv); }, 250); }
+    }
+    var orb = w.querySelector("#mng-or"); if (orb) orb.onclick = function () { w.querySelector("#mng-f").hidden = false; orb.hidden = true; w.querySelector("#mng-f input").focus(); };
     w.querySelector("#mng-l").onclick = function () { put("mn_gate_skip", "1", SS); track("signin_later", ""); close(false); };
     w.querySelector("#mng-f").onsubmit = function (e) {
       e.preventDefault(); var f = e.target, em = f.email.value.replace(/\s+/g, "").toLowerCase();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { w.querySelector("#mng-e").textContent = T[10]; return; }
-      rpc("register_customer", { vid: vid, provider: "email", email: em, name: f.name.value.trim(), phone: f.phone.value.trim(), lang: LANG, page: page })
+      rpc("register_customer", { vid: vid, provider: "email", email: em, lang: LANG, page: page })
         .then(function () { put("mn_cust", "1"); close(true); })
         .catch(function () { w.querySelector("#mng-e").textContent = T[10]; });
     };
