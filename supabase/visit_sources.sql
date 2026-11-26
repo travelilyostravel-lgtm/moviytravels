@@ -7,6 +7,9 @@ alter table public.site_visitors add column if not exists source  text;
 alter table public.site_events   add column if not exists src      text;
 alter table public.site_events   add column if not exists country  text;
 alter table public.site_events   add column if not exists campaign text;
+-- the view was created with select * before these columns existed — refresh it so it has them
+create or replace view public.site_real_visitors as
+  select * from public.site_visitors where not staff and not public.is_bot_ua(device);
 create index if not exists site_events_visit_time on public.site_events (created_at) where event = 'visit';
 
 -- one short key per source: google, yandex, bing, search, google_ads, yandex_ads, instagram, facebook, telegram, vk, max, ok,
