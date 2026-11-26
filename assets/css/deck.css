@@ -207,3 +207,38 @@ body.is-locked .calc-only{display:none!important}
 .cchip:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(1)}
 .tb-home span:first-child{font-size:16px}@media(max-width:560px){.tb-home span:last-child{display:none}}
 @media (max-width:720px){.tb-home span:first-child{display:inline!important;font-size:18px}}
+
+/* Dark mode for tour decks (generated, 26.11.2026) */
+html[data-theme="dark"] .sample{background:#162332;color:#dbe4ee;border:1px solid #2a3a4e}
+html[data-theme="dark"] .slide{background:#162332}
+html[data-theme="dark"] .s-inner h2{color:#e8eef5}
+html[data-theme="dark"] .legs b{color:#e8eef5}
+html[data-theme="dark"] .map{background:#162332}
+html[data-theme="dark"] .inc__col--yes{background:#162332}
+html[data-theme="dark"] .inc__col--no{background:#162332}
+html[data-theme="dark"] .inc__col--no h3{color:#dbe4ee}
+html[data-theme="dark"] .chip-mv{color:#e8eef5}
+html[data-theme="dark"] .stop b{color:#e8eef5}
+html[data-theme="dark"] .day__meta b{color:#e8eef5}
+html[data-theme="dark"] .opt-block h3{color:#e8eef5}
+html[data-theme="dark"] .opt-block select{background:#162332}
+html[data-theme="dark"] .stepper button{color:#e8eef5}
+html[data-theme="dark"] .stepper b{color:#e8eef5}
+html[data-theme="dark"] .card{background:#162332}
+html[data-theme="dark"] .card b{color:#e8eef5}
+html[data-theme="dark"] .bring__item p{color:#e8eef5}
+html[data-theme="dark"] .dock{background:#162332}
+html[data-theme="dark"] .bhead h1{color:#e8eef5}
+html[data-theme="dark"] .bstep{background:#162332}
+html[data-theme="dark"] .bstep>h3{color:#e8eef5}
+html[data-theme="dark"] .preset{color:#e8eef5}
+html[data-theme="dark"] .cchip{color:#e8eef5;background:#162332}
+html[data-theme="dark"] .ritem b{color:#e8eef5}
+html[data-theme="dark"] .stepper--sm span{color:#e8eef5}
+html[data-theme="dark"] .ritem__act button{color:#e8eef5}
+html[data-theme="dark"] .bstep select{background:#162332}
+html[data-theme="dark"] .bstep label.lbl{color:#e8eef5}
+html[data-theme="dark"] .result{background:#162332}
+html[data-theme="dark"] .bstats b{color:#e8eef5}
+html[data-theme="dark"] .bprice strong{color:#e8eef5}
+html[data-theme="dark"] .lock-box h3{color:#e8eef5}

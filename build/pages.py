@@ -236,7 +236,7 @@ def shell(lang, slug, title, desc, body, icon, logo, extra_font, lang_names, bod
 <title>{e(title)} — Moviy Nomad</title><meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{c["site_url"]}/{path(lang)}{slug}">{alts}
 <meta property="og:title" content="{e(title)} — Moviy Nomad"><meta property="og:description" content="{e(desc)}"><meta property="og:image" content="{c["site_url"]}/assets/img/hero.webp">
-<meta name="theme-color" content="#12355b"><link rel="icon" href="{A}favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#12355b"><script>(function(){{try{{var t=localStorage.getItem("mn_theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}}})()</script><link rel="icon" href="{A}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{extra_font}&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{A}css/site.css?v={CSSV}">

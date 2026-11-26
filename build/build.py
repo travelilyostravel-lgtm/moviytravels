@@ -176,7 +176,7 @@ def render(lang):
 <link rel="canonical" href="{url}">{alternates}
 <meta property="og:type" content="website"><meta property="og:title" content="{e(t["meta_title"])}"><meta property="og:description" content="{e(t["meta_desc"])}">
 <meta property="og:image" content="{cfg["site_url"]}/assets/img/hero.webp"><meta property="og:url" content="{url}">
-<meta name="theme-color" content="#12355b">
+<meta name="theme-color" content="#12355b"><script>(function(){{try{{var t=localStorage.getItem("mn_theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}}})()</script>
 <link rel="icon" href="{A}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{EXTRA_FONT.get(lang, "")}&display=swap" rel="stylesheet">
@@ -362,7 +362,7 @@ def render(lang):
 HEAD = """<!DOCTYPE html>
 <html lang="{lang}" dir="{dir}" data-base="{base}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title><meta name="description" content="{desc}"><meta name="theme-color" content="#12355b">
+<title>{title}</title><meta name="description" content="{desc}"><meta name="theme-color" content="#12355b"><script>(function(){{try{{var t=localStorage.getItem("mn_theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}}})()</script>
 <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700{font}&display=swap" rel="stylesheet">
