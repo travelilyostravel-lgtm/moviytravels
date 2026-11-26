@@ -53,6 +53,13 @@
       '<p class="cab-note">' + esc(mode === "register" ? T.reg_note : T.forgot) + '</p></div></div>';
     root.querySelectorAll("[data-m]").forEach(function (b) { b.onclick = function () { authView(b.getAttribute("data-m")); }; });
     root.querySelectorAll("[data-m]").forEach(function (b) { b.addEventListener("click", function () { authView.more = true; }); });
+    // 👁 show / hide the password
+    root.querySelectorAll('input[type=password]').forEach(function (inp) {
+      var w = document.createElement("span"); w.className = "cab-pwwrap"; inp.parentNode.insertBefore(w, inp); w.appendChild(inp);
+      var e = document.createElement("button"); e.type = "button"; e.className = "cab-eye"; e.setAttribute("aria-label", "👁"); e.textContent = "👁";
+      e.onclick = function () { var sh = inp.type === "password"; inp.type = sh ? "text" : "password"; e.textContent = sh ? "🙈" : "👁"; inp.focus(); };
+      w.appendChild(e);
+    });
     root.querySelector("#cab-more").onclick = function () { authView.more = true; root.querySelector("#cab-pw").hidden = false; this.hidden = true; };
     // Google's own button: the visitor's Gmail account(s), confirm with one tap / Face ID — no password
     (function gsi(n) {
