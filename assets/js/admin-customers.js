@@ -15,7 +15,34 @@
     put('[data-view="requests"]', r.data.unread || 0, "Mijozlardan o'qilmagan xabarlar");
     put('[data-view="customers"]', (r.data.pending || 0) + (r.data.unread || 0), "Kabinet so'rovlari va o'qilmagan xabarlar");
   };
-  setTimeout(A.inbox, 2500); setInterval(A.inbox, 60000);
+  // red banner at the top: new messages from B2C clients and new B2C requests (checked every 15 s)
+  var T0 = document.title, lastN = -1;
+  A.alertBar = async function () {
+    var m = await sb.from("request_messages").select("request_id,customer_id,body,created_at,site_customers(name,email)").eq("author", "client").is("read_at", null).order("created_at", { ascending: false }).limit(20);
+    var q = await sb.from("site_requests").select("id,ref,contact_name,created_at").eq("status", "new").order("created_at", { ascending: false }).limit(20);
+    var M = (m.data || []), Q = (q.data || []), n = M.length + Q.length;
+    var bar = document.getElementById("mn-alert");
+    if (!bar) {
+      bar = document.createElement("div"); bar.id = "mn-alert";
+      bar.style.cssText = "position:sticky;top:0;z-index:50;background:#e53935;color:#fff;font-weight:700;padding:10px 16px;display:none;box-shadow:0 4px 14px rgba(229,57,53,.35)";
+      var tabs = document.getElementById("tabs"); (tabs && tabs.parentNode ? tabs.parentNode : document.body).insertAdjacentElement("afterend", bar);
+      var st = document.createElement("style"); st.textContent = "@keyframes mnPulse{0%,100%{opacity:1}50%{opacity:.75}}#mn-alert{animation:mnPulse 1.6s ease-in-out infinite}#mn-alert a{color:#fff;text-decoration:underline;cursor:pointer;margin-inline-start:12px;font-weight:600}#mn-alert .x{float:right;background:none;border:0;color:#fff;font-size:18px;cursor:pointer;line-height:1}";
+      document.head.appendChild(st);
+    }
+    if (!n) { bar.style.display = "none"; document.title = T0; lastN = 0; return; }
+    var who = function (x) { var c = x.site_customers || {}; return c.name || c.email || "mijoz"; };
+    var h = '<div class="container">';
+    if (M.length) h += '🔴 Mijozdan ' + M.length + ' ta yangi xabar: ' + M.slice(0, 3).map(function (x, i) { return '<a data-am="' + i + '">' + esc(who(x)) + ' — «' + esc(String(x.body || "").slice(0, 40)) + '»</a>'; }).join("");
+    if (Q.length) h += (M.length ? '<br>' : '') + '🆕 Yangi B2C so\'rov: ' + Q.length + ' ta ' + Q.slice(0, 3).map(function (x) { return '<a data-aq="' + x.id + '">' + esc(x.ref) + (x.contact_name ? ' · ' + esc(x.contact_name) : '') + '</a>'; }).join("");
+    bar.innerHTML = h + '</div>'; bar.style.display = "block";
+    bar.querySelectorAll("[data-am]").forEach(function (a) { a.onclick = function () { var x = M[+a.dataset.am]; if (x.request_id && A.openRequest) A.openRequest(x.request_id); else if (x.customer_id && A.customer) A.customer(x.customer_id); setTimeout(function () { A.alertBar(); A.inbox(); }, 2500); }; });
+    bar.querySelectorAll("[data-aq]").forEach(function (a) { a.onclick = function () { A.openRequest && A.openRequest(a.dataset.aq); }; });
+    document.title = "(" + n + ") 🔴 " + T0;
+    if (lastN >= 0 && n > lastN) { try { var ac = new (window.AudioContext || window.webkitAudioContext)(), o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = 880; g.gain.value = .08; o.connect(g); g.connect(ac.destination); o.start(); setTimeout(function () { o.stop(); ac.close(); }, 250); } catch (e) {} }
+    lastN = n;
+  };
+  setTimeout(A.inbox, 2500); setInterval(A.inbox, 15000);
+  setTimeout(function () { A.alertBar().catch(function () {}); }, 3000); setInterval(function () { A.alertBar().catch(function () {}); }, 15000);
   function dt(s) { return s ? new Date(s).toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—"; }
   var q = "", prov = "";
 
