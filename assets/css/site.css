@@ -1651,3 +1651,10 @@ details.gd__note{font-size:13px;color:var(--muted);margin:4px 0}details.gd__note
 .gd--hl{outline:3px solid #e9b949;outline-offset:3px}
 @media (max-width:900px){.gdh{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.gdh{grid-template-columns:1fr}.gl__opts{grid-template-columns:1fr 1fr}.gl__b{padding:10px 12px}.gl__f{font-size:22px}.gl__b small{display:none}}
+
+#groups{padding-top:56px;padding-bottom:56px}
+.gdh-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:end;margin-bottom:22px}
+.gdh-head .section-head{margin:0}.gdh-head .section-head h2{font-size:clamp(26px,2.6vw,36px)}
+.gdh-head .gl{margin:0}.gdh-head .gl__opts{grid-template-columns:1fr 1fr}
+.gdh__img{height:150px}
+@media (max-width:900px){.gdh-head{grid-template-columns:1fr;gap:14px}}

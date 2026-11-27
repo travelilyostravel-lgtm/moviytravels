@@ -173,16 +173,16 @@ def js_strings(lang):
 
 # 27.11: two group streams — English-speaking and Russian-speaking guide
 GL_TXT = {
- "en": dict(gl_q="Which guide language suits you?", gl_en="English-speaking guide", gl_ru="Russian-speaking guide", gl_en_s="International groups", gl_ru_s="Groups from Russia & CIS", gl_from="from", gl_more="Dates & booking", gl_left="{n} seats left", gl_pp="per person"),
- "ru": dict(gl_q="Какой язык гида вам подходит?", gl_en="Гид на английском", gl_ru="Гид на русском", gl_en_s="Международные группы", gl_ru_s="Группы из России и СНГ", gl_from="от", gl_more="Даты и бронирование", gl_left="Осталось мест: {n}", gl_pp="за человека"),
- "uz": dict(gl_q="Qaysi tildagi gid sizga mos?", gl_en="Ingliz tilida gid", gl_ru="Rus tilida gid", gl_en_s="Xalqaro guruhlar", gl_ru_s="Rossiya va MDH guruhlari", gl_from="", gl_more="Sanalar va bron", gl_left="{n} ta joy qoldi", gl_pp="1 kishi uchun"),
- "tr": dict(gl_q="Hangi rehber dili size uygun?", gl_en="İngilizce rehber", gl_ru="Rusça rehber", gl_en_s="Uluslararası gruplar", gl_ru_s="Rusya ve BDT grupları", gl_from="", gl_more="Tarihler ve rezervasyon", gl_left="{n} yer kaldı", gl_pp="kişi başı"),
- "ar": dict(gl_q="ما لغة المرشد المناسبة لك؟", gl_en="مرشد بالإنجليزية", gl_ru="مرشد بالروسية", gl_en_s="مجموعات دولية", gl_ru_s="مجموعات من روسيا ورابطة الدول المستقلة", gl_from="من", gl_more="المواعيد والحجز", gl_left="تبقى {n} مقعداً", gl_pp="للشخص"),
- "de": dict(gl_q="Welche Reiseleiter-Sprache passt zu Ihnen?", gl_en="Englischsprachiger Guide", gl_ru="Russischsprachiger Guide", gl_en_s="Internationale Gruppen", gl_ru_s="Gruppen aus Russland & GUS", gl_from="ab", gl_more="Termine & Buchung", gl_left="Noch {n} Plätze", gl_pp="pro Person"),
- "sv": dict(gl_q="Vilket guidespråk passar dig?", gl_en="Engelsktalande guide", gl_ru="Rysktalande guide", gl_en_s="Internationella grupper", gl_ru_s="Grupper från Ryssland & OSS", gl_from="från", gl_more="Datum & bokning", gl_left="{n} platser kvar", gl_pp="per person"),
- "zh": dict(gl_q="您需要哪种语言的导游？", gl_en="英语导游", gl_ru="俄语导游", gl_en_s="国际团", gl_ru_s="俄罗斯及独联体团", gl_from="起", gl_more="日期与预订", gl_left="剩余 {n} 个名额", gl_pp="每人"),
- "hi": dict(gl_q="आपको किस भाषा का गाइड चाहिए?", gl_en="अंग्रेज़ी बोलने वाला गाइड", gl_ru="रूसी बोलने वाला गाइड", gl_en_s="अंतरराष्ट्रीय समूह", gl_ru_s="रूस और CIS के समूह", gl_from="से", gl_more="तारीखें और बुकिंग", gl_left="{n} सीटें बाकी", gl_pp="प्रति व्यक्ति"),
- "ko": dict(gl_q="원하시는 가이드 언어는?", gl_en="영어 가이드", gl_ru="러시아어 가이드", gl_en_s="국제 그룹", gl_ru_s="러시아·CIS 그룹", gl_from="", gl_more="일정 및 예약", gl_left="잔여 {n}석", gl_pp="1인"),
+ "en": dict(gl_sub="Fixed departure dates for solo travellers and couples — choose an English- or Russian-speaking group, everything is arranged.", gl_q="Which guide language suits you?", gl_en="English-speaking guide", gl_ru="Russian-speaking guide", gl_en_s="International groups", gl_ru_s="Groups from Russia & CIS", gl_from="from", gl_more="Dates & booking", gl_left="{n} seats left", gl_pp="per person"),
+ "ru": dict(gl_sub="Фиксированные даты для путешественников-одиночек и пар — выберите группу с гидом на английском или русском, всё организовано.", gl_q="Какой язык гида вам подходит?", gl_en="Гид на английском", gl_ru="Гид на русском", gl_en_s="Международные группы", gl_ru_s="Группы из России и СНГ", gl_from="от", gl_more="Даты и бронирование", gl_left="Осталось мест: {n}", gl_pp="за человека"),
+ "uz": dict(gl_sub="Yakka sayohatchilar va juftliklar uchun aniq sanalar — ingliz yoki rus tilidagi guruhni tanlang, hammasi tashkil qilingan.", gl_q="Qaysi tildagi gid sizga mos?", gl_en="Ingliz tilida gid", gl_ru="Rus tilida gid", gl_en_s="Xalqaro guruhlar", gl_ru_s="Rossiya va MDH guruhlari", gl_from="", gl_more="Sanalar va bron", gl_left="{n} ta joy qoldi", gl_pp="1 kishi uchun"),
+ "tr": dict(gl_sub="Tek başına seyahat edenler ve çiftler için sabit tarihler — İngilizce ya da Rusça rehberli grubu seçin, her şey hazır.", gl_q="Hangi rehber dili size uygun?", gl_en="İngilizce rehber", gl_ru="Rusça rehber", gl_en_s="Uluslararası gruplar", gl_ru_s="Rusya ve BDT grupları", gl_from="", gl_more="Tarihler ve rezervasyon", gl_left="{n} yer kaldı", gl_pp="kişi başı"),
+ "ar": dict(gl_sub="مواعيد ثابتة للمسافرين المنفردين والأزواج — اختر مجموعة بمرشد يتحدث الإنجليزية أو الروسية، وكل شيء منظم.", gl_q="ما لغة المرشد المناسبة لك؟", gl_en="مرشد بالإنجليزية", gl_ru="مرشد بالروسية", gl_en_s="مجموعات دولية", gl_ru_s="مجموعات من روسيا ورابطة الدول المستقلة", gl_from="من", gl_more="المواعيد والحجز", gl_left="تبقى {n} مقعداً", gl_pp="للشخص"),
+ "de": dict(gl_sub="Feste Termine für Alleinreisende und Paare — wählen Sie eine Gruppe mit englisch- oder russischsprachigem Guide, alles ist organisiert.", gl_q="Welche Reiseleiter-Sprache passt zu Ihnen?", gl_en="Englischsprachiger Guide", gl_ru="Russischsprachiger Guide", gl_en_s="Internationale Gruppen", gl_ru_s="Gruppen aus Russland & GUS", gl_from="ab", gl_more="Termine & Buchung", gl_left="Noch {n} Plätze", gl_pp="pro Person"),
+ "sv": dict(gl_sub="Fasta datum för ensamresenärer och par — välj grupp med engelsk- eller rysktalande guide, allt är ordnat.", gl_q="Vilket guidespråk passar dig?", gl_en="Engelsktalande guide", gl_ru="Rysktalande guide", gl_en_s="Internationella grupper", gl_ru_s="Grupper från Ryssland & OSS", gl_from="från", gl_more="Datum & bokning", gl_left="{n} platser kvar", gl_pp="per person"),
+ "zh": dict(gl_sub="为独行旅客和情侣提供固定出发日期——可选英语或俄语导游团，一切都已安排妥当。", gl_q="您需要哪种语言的导游？", gl_en="英语导游", gl_ru="俄语导游", gl_en_s="国际团", gl_ru_s="俄罗斯及独联体团", gl_from="起", gl_more="日期与预订", gl_left="剩余 {n} 个名额", gl_pp="每人"),
+ "hi": dict(gl_sub="अकेले यात्रियों और जोड़ों के लिए तय तारीखें — अंग्रेज़ी या रूसी गाइड वाला समूह चुनें, सब कुछ व्यवस्थित है।", gl_q="आपको किस भाषा का गाइड चाहिए?", gl_en="अंग्रेज़ी बोलने वाला गाइड", gl_ru="रूसी बोलने वाला गाइड", gl_en_s="अंतरराष्ट्रीय समूह", gl_ru_s="रूस और CIS के समूह", gl_from="से", gl_more="तारीखें और बुकिंग", gl_left="{n} सीटें बाकी", gl_pp="प्रति व्यक्ति"),
+ "ko": dict(gl_sub="혼자 여행하는 분과 커플을 위한 확정 출발일 — 영어 또는 러시아어 가이드 그룹을 선택하세요. 모든 준비가 완료되어 있습니다.", gl_q="원하시는 가이드 언어는?", gl_en="영어 가이드", gl_ru="러시아어 가이드", gl_en_s="국제 그룹", gl_ru_s="러시아·CIS 그룹", gl_from="", gl_more="일정 및 예약", gl_left="잔여 {n}석", gl_pp="1인"),
 }
 
 def gl_toggle(lang):
@@ -203,8 +203,8 @@ def groups_home(lang):
     return f'''
   <section class="section" id="groups">
     <div class="container">
-      <div class="section-head reveal"><span class="eyebrow">{e(x["gr_eyebrow"])}</span><h2>{e(x["gr_home_title"])}</h2><p>{e(x["gr_home_sub"])}</p></div>
-      {gl_toggle(lang)}
+      <div class="gdh-head"><div class="section-head reveal"><span class="eyebrow">{e(x["gr_eyebrow"])}</span><h2>{e(x["gr_home_title"])}</h2><p>{e(GL_TXT.get(lang, GL_TXT["en"])["gl_sub"])}</p></div>
+      {gl_toggle(lang)}</div>
       <div class="gdh" id="gd-home"></div>
       <p style="margin-top:22px"><a class="btn btn--outline" href="group-tours.html" id="gd-home-all">{e(x["gr_home_all"])} →</a></p>
     </div>
