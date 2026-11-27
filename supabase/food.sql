@@ -59,6 +59,9 @@ create table if not exists public.food_regions (
 );
 alter table public.food_regions add column if not exists tries int not null default 0;
 alter table public.food_regions enable row level security;
+drop policy if exists food_regions_staff on public.food_regions;
+create policy food_regions_staff on public.food_regions for select to authenticated using (public.is_admin() or public.is_manager());
+grant select on public.food_regions to authenticated;
 insert into public.food_regions (region, iso) values
  ('tashkent_city','UZ-TK'),('tashkent','UZ-TO'),('samarkand','UZ-SA'),('bukhara','UZ-BU'),('khorezm','UZ-XO'),('karakalpakstan','UZ-QR'),
  ('andijan','UZ-AN'),('fergana','UZ-FA'),('namangan','UZ-NG'),('kashkadarya','UZ-QA'),('surkhandarya','UZ-SU'),('jizzakh','UZ-JI'),
