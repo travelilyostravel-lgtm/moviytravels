@@ -17,3 +17,10 @@
 **Admin → 🍽 Restoranlar:** viloyat tanlash, qidiruv, filtrlar (rasmi bor, halol, tepadagilar, yashirin, qo'lda); tahrirlash: oshxona turi (yangilanishda saqlanadi), narx darajasi, ☪ halol tasdiq, 📌 tepada, ko'rinish, tavsif (3 tilda), rasmlar yuklash, menyu (taom, narx, rasm); yangi restoranni qo'lda qo'shish (Google Maps havolasi yoki koordinata).
 
 **Fayllar:** `supabase/food.sql`, `build/food_page.py`, `assets/js/food.js`, `assets/js/admin-food.js`, `assets/css/site.css` (Food). Rasm ombori: `food-photos`.
+
+## 27.11.2026 — tuzatish
+- 6 ta viloyat bo'sh edi (xarita serveri band, bo'sh javob 0 deb saqlanib qolgan) → endi bo'sh javob saqlanmaydi, qayta so'raladi.
+- Buxoro 278, Xorazm 532, Jizzax 327, Namangan 187, Sirdaryo 85 yuklandi; Qashqadaryo soatlik navbatda.
+- Tur tugmasi yuklanish paytida bosilsa e'tiborsiz qolardi → tuzatildi (food.js v=2).
+- `food_cat` endi joy nomidan ham tur aniqlaydi; admin tanlagan tur (`cat_fixed`) o'zgarmaydi.
+- `admin_food_ingest(region, json)` — admin viloyatni qo'lda yuklashi uchun.
