@@ -441,6 +441,7 @@
       else if (Date.now() - new Date(lc[0].decided_at).getTime() < 7 * 864e5) h += '<div class="p-card" style="border:2px solid #9fd4b4"><h3>✅ ' + t("chOk") + ' <small>(' + dt + ')</small></h3>' + (lc[0].admin_note ? '<p>' + esc(lc[0].admin_note) + '</p>' : '') + '</div>';
     }
     $("#pwho").textContent = p.name + " · " + t("kinds")[p.kind];
+    h += await tgBlock();
     h += await fixBlock();
     var inv = p.kind === "hotel" || p.kind === "driver" ? await unitsBlock() + (p.kind === "hotel" ? exBlock() : "") : p.kind === "guide" ? ratesBlock() : "";
     if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2>' + (p.resubmit_count ? '<p class="p-sub">↻ ' + t("rejN") + ': ' + p.resubmit_count + '</p>' : '') + '<p class="p-sub">' + t("pendingTxt") + '</p></div>' + inv + await docsBlock() + profileForm() + pwBlock();
@@ -488,5 +489,17 @@
     var title = days <= 0 || dl.toDateString() === new Date().toDateString() ? X.t0 : X.t.replace("{n}", days);
     return '<div class="p-card" style="border:2px solid #e9b949;background:#fffaf0"><h2>' + (miss.length ? title : X.ok) + '</h2>' +
       (miss.length ? '<p><b>' + X.until + ':</b> ' + ("0" + dl.getDate()).slice(-2) + "." + ("0" + (dl.getMonth() + 1)).slice(-2) + "." + dl.getFullYear() + ' 23:59</p><p class="p-sub">' + X.sub + '</p>' : '') + (miss.length ? list : '') + '</div>';
+  }
+
+  // Telegram: one tap after registration links our bot, then warnings and orders reach the phone even without opening the site
+  async function tgBlock() {
+    var r = await sb.rpc("partner_tg_info"), x = r.data; if (!x || !x.bot) return "";
+    var ru = L === "ru";
+    if (x.linked) return '<div class="p-card" style="padding:12px 16px"><b style="color:#23794a">📲 ' + (ru ? "Telegram-уведомления подключены" : "Telegram xabarnomalar ulangan") + '</b> <small class="p-sub">@' + esc(x.bot) + '</small></div>';
+    var url = "https://t.me/" + encodeURIComponent(x.bot) + "?start=" + encodeURIComponent(x.code);
+    return '<div class="p-card" style="border:2px solid #2aabee;background:#f2faff"><h2 style="margin-top:0">📲 ' + (ru ? "Подключите Telegram — 1 нажатие" : "Telegram'ni ulang — 1 bosish") + '</h2>' +
+      '<p>' + (ru ? "Сюда будут приходить заказы, важные предупреждения о вашей карточке и сроках — даже если вы не заходите на сайт." : "Buyurtmalar, kartochkangiz va muddatlar haqidagi muhim ogohlantirishlar telefoningizga keladi — saytga kirmasangiz ham.") + '</p>' +
+      '<a class="btn" style="background:#2aabee;color:#fff" href="' + esc(url) + '" target="_blank" rel="noopener">✈ ' + (ru ? "Подключить Telegram" : "Telegram'ga ulanish") + '</a>' +
+      '<p class="p-sub" style="margin-top:8px">' + (ru ? "Откроется бот @" + esc(x.bot) + " — нажмите «Start»." : "@" + esc(x.bot) + " boti ochiladi — «Start» ni bosing.") + '</p></div>';
   }
 })();

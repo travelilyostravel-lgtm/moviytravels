@@ -40,7 +40,7 @@
       '<p class="p-sub">Gid, haydovchi va mehmonxonalar o\'zlari ro\'yxatdan o\'tadi. Asoschi yoki menejer hujjat va rasmlarni tekshirib <b>Tasdiqlash</b>ni bosadi — shundan keyin kartochka saytda (bosh sahifada ham) chiqadi. Aloqa raqamlari saytda ko\'rinmaydi: mijoz so\'rovi bizga keladi.</p>' +
       '<div class="filters">' + [["pending", "Tekshiruvda"], ["approved", "Saytda"], ["paused", "Yopiq"], ["rejected", "Rad etilgan"], ["all", "Hammasi"]].map(function (f) { return '<button data-pf="' + f[0] + '" class="' + (flt === f[0] ? "is-on" : "") + '">' + f[1] + (f[0] !== "all" && cnt[f[0]] ? " (" + cnt[f[0]] + ")" : "") + '</button>'; }).join("") + '</div>' +
       (list.length ? '<table class="tbl" style="margin-top:10px"><thead><tr><th>Hamkor</th><th>Turi</th><th>Shahar</th><th>Reyting</th><th>Holat</th><th>Ro\'yxatdan</th></tr></thead><tbody>' + list.map(function (p) {
-        return '<tr class="click" data-pid="' + p.id + '"><td><b>' + esc(p.name) + '</b><br><small>' + esc(p.email || "") + ' · ' + esc(p.phone || "") + '</small></td><td>' + esc(KIND[p.kind]) + '</td><td>' + esc(p.city || "") + '</td><td>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " (" + p.reviews_count + ")" : "—") + '</td><td>' + esc(ST[p.status]) + (p.resubmit_count ? '<br><small style="color:#b4541b">↻ qayta yuborilgan: ' + p.resubmit_count + '-marta</small>' : '') + (p.license_ok ? '<br><small>✓ litsenziya</small>' : '') + '</td><td><small>' + P.date(p.created_at) + '</small></td></tr>';
+        return '<tr class="click" data-pid="' + p.id + '"><td><b>' + esc(p.name) + '</b>' + (p.tg_chat_id ? ' <span title="Telegram ulangan">📲</span>' : '') + (p.fix_deadline ? ' <span title="Tuzatish muddati">⏳</span>' : '') + (p.auto_paused ? ' <span title="Avtomatik olib tashlangan">🚫</span>' : '') + '<br><small>' + esc(p.email || "") + ' · ' + esc(p.phone || "") + '</small></td><td>' + esc(KIND[p.kind]) + '</td><td>' + esc(p.city || "") + '</td><td>' + (p.reviews_count ? "★ " + Number(p.rating).toFixed(1) + " (" + p.reviews_count + ")" : "—") + '</td><td>' + esc(ST[p.status]) + (p.resubmit_count ? '<br><small style="color:#b4541b">↻ qayta yuborilgan: ' + p.resubmit_count + '-marta</small>' : '') + (p.license_ok ? '<br><small>✓ litsenziya</small>' : '') + '</td><td><small>' + P.date(p.created_at) + '</small></td></tr>';
       }).join("") + '</tbody></table>' : '<p class="p-sub" style="margin-top:10px">Bu ro\'yxatda hech kim yo\'q.</p>') + '</div>';
     var chg = (await sb.from("partner_changes").select("id,partner_id,comment,created_at").eq("status", "pending").order("created_at")).data || [];
     if (chg.length) {
@@ -52,7 +52,9 @@
     if (rv.length) h += '<div class="p-card" style="border:2px solid #e9b949"><h3>Tasdiq kutayotgan sharhlar (' + rv.length + ')</h3><table class="tbl"><tbody>' + rv.map(function (r) {
       return '<tr><td><b>' + esc(r.partners && r.partners.name) + '</b><br><small>' + "★".repeat(r.rating) + ' · ' + esc(r.name) + ' (' + esc(r.country || "") + ') · bron ' + esc(r.trip_ref) + '</small><p style="margin:4px 0 0">' + esc(r.body || "") + '</p></td><td style="white-space:nowrap"><button class="btn btn--green btn--sm" data-rok="' + r.id + '">Chiqarish</button> <button class="btn btn--outline btn--sm" data-rno="' + r.id + '">Rad etish</button></td></tr>';
     }).join("") + '</tbody></table><p class="p-sub">Sharhni faqat to\'langan safari bor sayyoh yoza oladi (bron raqami + e-mail tekshiriladi).</p></div>';
+    h += await tgCard();
     box.innerHTML = h;
+    bindTg();
     $$("[data-pf]", box).forEach(function (b) { b.onclick = function () { flt = b.dataset.pf; A.partners(); }; });
     $$("[data-pid]", box).forEach(function (tr) { tr.onclick = function () { A.partner(tr.dataset.pid); }; });
     $$("[data-chg]", box).forEach(function (tr) { tr.onclick = function () { A.partnerChange(+tr.dataset.chg); }; });
@@ -176,6 +178,7 @@
     if (p.fix_deadline || p.auto_paused) {
       var left = p.fix_deadline ? Math.ceil((new Date(p.fix_deadline) - new Date()) / 864e5) : 0;
       h += '<div class="p-card" style="border:2px solid ' + (p.auto_paused ? "#efa5a5" : "#e9b949") + '"><h3>' + (p.auto_paused ? "🚫 Saytdan avtomatik olib tashlangan — kamchiliklar tuzatilmadi" : "⏳ Tuzatish muddati: " + P.date(p.fix_deadline) + " 23:59 (" + Math.max(left, 0)+ " kalendar kun qoldi)") + '</h3>' +
+        '<p>' + (p.tg_chat_id ? '📲 <b style="color:#23794a">Telegram ulangan</b> — ogohlantirishlar telefoniga boradi' : '📵 <b style="color:#b4541b">Telegram ulanmagan</b> — ogohlantirish faqat kabinetida; unga «Kabinetingizda Telegram\'ga ulanish tugmasini bosing» deb ayting') + '</p>' +
         '<p class="p-sub">' + (p.auto_paused ? "Hamkor kartochkani 100% to'ldirsa, sayt uni o'zi qaytaradi." : "Sayt har soatda tekshiradi: 100% to'ldirilsa — saytda qoladi; muddat o'tib kamchilik qolsa — avtomatik olib tashlanadi. Hamkor kabinetida har kuni ogohlantirish ko'radi.") + '</p>' +
         (FX.length ? '<ul class="pdocs">' + FX.map(function (c) { return '<li style="color:#b4541b">❌ ' + esc(A.fixLabel(c)) + '</li>'; }).join("") + '</ul>' : '<p style="color:#23794a"><b>✅ Hozir hammasi to\'ldirilgan — keyingi tekshiruvda muddat olib tashlanadi.</b></p>') + '</div>';
     }
@@ -231,4 +234,31 @@
     };
     $$("[data-st]", box).forEach(function (b) { b.onclick = function () { var s = b.dataset.st; if (s === "rejected" && !$("#pp-note").value.trim()) { $("#pp-note").focus(); return P.msg("#m-pp", "Rad etish sababini yozing — hamkor uni ko'radi va tuzatib qayta yuboradi", "err"); } save({ status: s, approved_at: s === "approved" ? new Date().toISOString() : p.approved_at }); }; });
   };
+
+  // ---- Telegram bot settings (founder only)
+  async function tgCard() {
+    if (A.role !== "admin") return "";
+    var S = (await sb.rpc("admin_tg_stats")).data || {};
+    return '<div class="p-card" id="tg-card"><h3>📲 Telegram bot — hamkorlarga xabarnomalar</h3>' +
+      '<p class="p-sub">Hamkor ro\'yxatdan o\'tgach kabinetida «Telegram\'ga ulanish» tugmasini bosadi va bot orqali ogohlantirishlar oladi: muddat berildi, «2 kun qoldi», «BUGUN o\'chadi», o\'chirildi, qaytarildi. Har kuni soat 10:00 da eslatma.</p>' +
+      '<div class="kv"><div><small>Ulangan hamkorlar</small><b>' + (S.linked || 0) + ' / ' + (S.partners || 0) + '</b></div><div><small>Yuborilgan xabarlar</small><b>' + (S.sent || 0) + '</b></div><div><small>Navbatda</small><b>' + (S.waiting || 0) + '</b></div><div><small>Xato</small><b>' + (S.errors || 0) + '</b></div></div>' +
+      '<div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px;align-items:end"><div class="fld"><label>Bot manzili (@ siz)</label><input id="tg-bot" value="' + esc(S.bot || "") + '" placeholder="MoviyNomadBot"></div><button class="btn btn--gold btn--sm" id="tg-save">Saqlash</button></div>' +
+      '<p style="margin:12px 0 4px"><b>Sozlash (bir marta):</b></p><ol class="p-sub" style="margin:0 0 8px;padding-left:18px"><li>@BotFather → /newbot → bot yarating, tokenni Vercel → Settings → Environment Variables ga <code>TELEGRAM_BOT_TOKEN</code> nomi bilan qo\'ying.</li>' +
+      '<li>Pastda «Kalit yaratish» → nusxa oling → Vercel\'ga <code>TG_DB_KEY</code> nomi bilan qo\'ying → «Kalitni saqlash».</li><li>Vercel\'da «Redeploy» qiling, keyin «Botni saytga ulash» ni bosing.</li></ol>' +
+      '<p>' + (S.key ? '✅ Kalit o\'rnatilgan' : '⚠ Kalit hali o\'rnatilmagan') + '</p>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap"><input id="tg-key" type="password" autocomplete="new-password" placeholder="Maxfiy kalit (24+ belgi)" style="flex:1;min-width:240px;padding:8px 10px;border-radius:10px;border:1px solid #e5e0d5">' +
+      '<button class="btn btn--outline btn--sm" id="tg-gen">Kalit yaratish</button><button class="btn btn--outline btn--sm" id="tg-setkey">Kalitni saqlash</button><button class="btn btn--outline btn--sm" id="tg-hook">🔗 Botni saytga ulash</button></div><div class="msg" id="m-tg"></div></div>';
+  }
+  function bindTg() {
+    if (!$("#tg-card")) return;
+    $("#tg-save").onclick = async function () { var b = $("#tg-bot").value.trim().replace(/^@/, "").replace(/^https?:\/\/t\.me\//, "");
+      if (b && !/^[A-Za-z][A-Za-z0-9_]{3,31}bot$/i.test(b)) return P.msg("#m-tg", "Bot manzili «...bot» bilan tugashi kerak, masalan MoviyNomadBot", "err");
+      var u = await sb.from("tg_settings").update({ bot_username: b || null, updated_at: new Date().toISOString() }).eq("id", 1); P.msg("#m-tg", u.error ? u.error.message : "Saqlandi", u.error ? "err" : "ok"); };
+    $("#tg-gen").onclick = function () { var a = new Uint8Array(24); crypto.getRandomValues(a); $("#tg-key").type = "text"; $("#tg-key").value = Array.from(a, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+      P.msg("#m-tg", "Kalit yaratildi — nusxalab Vercel'ga TG_DB_KEY nomi bilan qo'ying, keyin «Kalitni saqlash»", "ok"); };
+    $("#tg-setkey").onclick = async function () { var u = await sb.rpc("admin_tg_set_key", { p_key: $("#tg-key").value.trim() }); if (u.error) return P.msg("#m-tg", u.error.message, "err"); $("#tg-key").value = ""; P.msg("#m-tg", "Kalit saqlandi (bazada faqat izi qoldi)", "ok"); };
+    $("#tg-hook").onclick = async function () { this.disabled = true; try { var r = await (await fetch("/api/tg-bot?setup=1", { cache: "no-store" })).json();
+      P.msg("#m-tg", r.ok ? "✅ Bot ulandi: @" + r.bot : "❌ " + (r.error === "not configured" ? "Vercel'da TELEGRAM_BOT_TOKEN va TG_DB_KEY hali qo'yilmagan (yoki Redeploy qilinmagan)" : (r.webhook || r.error)), r.ok ? "ok" : "err");
+      if (r.ok && r.bot && !$("#tg-bot").value) { $("#tg-bot").value = r.bot; $("#tg-save").click(); } } catch (e) { P.msg("#m-tg", String(e), "err"); } this.disabled = false; };
+  }
 })();

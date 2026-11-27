@@ -70,6 +70,7 @@ begin
          fix_deadline = dl, fix_items = m, auto_paused = false, updated_at = now(),
          fix_log = fix_log || jsonb_build_array(jsonb_build_object('t', now(), 'e', case when dl is null then 'approved_complete' else 'approved_with_fixes' end, 'missing', m, 'deadline', dl))
    where id = pid;
+  if dl is not null then perform public.partner_tg_notify(pid, 'given'); end if;
   return jsonb_build_object('deadline', dl, 'missing', m);
 end $$;
 revoke all on function public.admin_partner_approve_fix(uuid, text, int) from public, anon;
@@ -100,12 +101,12 @@ begin
              status = case when r.auto_paused and status = 'paused' then 'approved' else status end, updated_at = now(),
              fix_log = fix_log || jsonb_build_array(jsonb_build_object('t', now(), 'e', case when r.auto_paused then 'restored_complete' else 'fixed_in_time' end))
        where id = r.id;
-      if r.auto_paused then back := back + 1; else kept := kept + 1; end if;
+      if r.auto_paused then back := back + 1; perform public.partner_tg_notify(r.id, 'back'); else kept := kept + 1; perform public.partner_tg_notify(r.id, 'ok'); end if;
     elsif r.fix_deadline is not null and now() > r.fix_deadline and r.status = 'approved' then
       update public.partners set status = 'paused', auto_paused = true, fix_deadline = null, fix_items = m, updated_at = now(),
              fix_log = fix_log || jsonb_build_array(jsonb_build_object('t', now(), 'e', 'auto_hidden', 'missing', m))
        where id = r.id;
-      hidden := hidden + 1;
+      hidden := hidden + 1; perform public.partner_tg_notify(r.id, 'hidden');
     else
       update public.partners set fix_items = m where id = r.id and fix_items is distinct from m;
     end if;
