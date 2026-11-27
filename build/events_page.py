@@ -116,5 +116,5 @@ def render(lang, pages, x, icon, logo, font, names):
     js_txt = dict(T, f_required=x["f_required"], f_sending=x["f_sending"], f_err=x["f_err"], f_ok_title=x["f_ok_title"], f_ok_text=x["f_ok_text"], f_close=x["f_close"], f_send=x["f_send"],
                   cities={k: (v[1] if lang == "ru" else v[2] if lang == "uz" else v[0]) for k, v in CITIES.items()})
     A = "" if lang == "en" else "../"
-    js = f'<script>window.MNEV={json.dumps(js_txt, ensure_ascii=False)};</script><script src="{A}assets/js/events.js?v=1" defer></script>'
+    js = f'<script>window.MNEV={json.dumps(js_txt, ensure_ascii=False)};</script><script src="{A}assets/js/events.js?v=2" defer></script>'
     return pages.shell(lang, "events.html", T["title"], T["sub"], body, icon, logo, font, names, "is-events", js)

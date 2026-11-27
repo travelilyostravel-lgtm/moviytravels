@@ -10,7 +10,18 @@
   function hdr() { return { apikey: SB.anonKey, Authorization: "Bearer " + SB.anonKey, "Content-Type": "application/json" }; }
   function nm(o) { o = o || {}; return o[LANG] || (LANG === "uz" ? o.ru : null) || o.en || o.ru || o.uz || Object.values(o)[0] || ""; }
   var LOC = LANG === "uz" ? "uz-Latn" : LANG;
-  function fmt(d, opt) { try { return new Intl.DateTimeFormat(LOC, opt).format(d); } catch (e) { return new Intl.DateTimeFormat("en", opt).format(d); } }
+  // browsers have no Uzbek month names — write them ourselves
+  var UZM = ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"], UZW = ["yakshanba", "dushanba", "seshanba", "chorshanba", "payshanba", "juma", "shanba"];
+  function fmtUz(d, o) {
+    var p = [];
+    if (o.weekday) p.push(UZW[d.getDay()].slice(0, o.weekday === "short" ? 3 : 20) + ",");
+    if (o.day) p.push(d.getDate());
+    if (o.month) p.push(o.month === "short" ? UZM[d.getMonth()].slice(0, 3) : UZM[d.getMonth()]);
+    if (o.year) p.push(d.getFullYear());
+    if (o.hour) p.push(String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"));
+    return p.join(" ");
+  }
+  function fmt(d, opt) { if (LANG === "uz") return fmtUz(d, opt); try { return new Intl.DateTimeFormat(LOC, opt).format(d); } catch (e) { return new Intl.DateTimeFormat("en", opt).format(d); } }
   function sum(n) { return Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ") + " " + (LANG === "ru" ? "сум" : LANG === "uz" ? "so'm" : "UZS"); }
 
   // today's USD rate (same cache the currency button uses), so prices can be shown in $ and converted by it
