@@ -441,6 +441,7 @@
       else if (Date.now() - new Date(lc[0].decided_at).getTime() < 7 * 864e5) h += '<div class="p-card" style="border:2px solid #9fd4b4"><h3>✅ ' + t("chOk") + ' <small>(' + dt + ')</small></h3>' + (lc[0].admin_note ? '<p>' + esc(lc[0].admin_note) + '</p>' : '') + '</div>';
     }
     $("#pwho").textContent = p.name + " · " + t("kinds")[p.kind];
+    h += await fixBlock();
     var inv = p.kind === "hotel" || p.kind === "driver" ? await unitsBlock() + (p.kind === "hotel" ? exBlock() : "") : p.kind === "guide" ? ratesBlock() : "";
     if (p.status === "pending") h += '<div class="p-card"><h2>⏳ ' + t("pending") + '</h2>' + (p.resubmit_count ? '<p class="p-sub">↻ ' + t("rejN") + ': ' + p.resubmit_count + '</p>' : '') + '<p class="p-sub">' + t("pendingTxt") + '</p></div>' + inv + await docsBlock() + profileForm() + pwBlock();
     else if (p.status === "rejected") h += '<div class="p-card" style="border:2px solid #efa5a5"><h2>❌ ' + t("rejected") + '</h2>' + (p.admin_note ? '<p><b>' + t("rejWhy") + ':</b> ' + esc(p.admin_note) + '</p>' : '') + '<p class="p-sub">' + t("rejHow") + '</p></div>' + inv + await docsBlock() + profileForm() + pwBlock();
@@ -465,4 +466,27 @@
     }
   });
   if (!/type=recovery/.test(location.hash)) boot();
+
+  // «3 working days to fix»: countdown and the list of what is still missing (checked by the site every hour)
+  var FIXL = {
+    uz: { photo: "Asosiy rasm (klassik yoki milliy kiyimda)", license_no: "Guvohnoma / diplom raqami (to'g'ri raqam)", license_doc: "Guvohnoma / diplom rasmi", languages: "Tillar", cities: "Gidlik qiladigan shaharlar",
+          birth_year: "Tug'ilgan yil", telegram: "Telegram", home: "Yashash joyi va to'liq manzil", pub: "Kartochka rasmlari", trip: "Sayyohlar bilan rasmlar", atleast: "kamida",
+          t: "⚠ Kartochkangiz {n} kundan keyin saytdan o'chadi", t0: "⚠ Kartochkangiz BUGUN 23:59 da saytdan o'chadi", until: "Muddat", sub: "Iltimos, quyidagilarni to'ldiring. Sayt har soatda tekshiradi: 100% to'ldirilsa, kartochkangiz saytda qoladi.",
+          off: "🚫 Kartochkangiz saytdan olib tashlandi — kamchiliklar o'z vaqtida tuzatilmadi", offSub: "Quyidagilarni to'ldiring — kartochka 100% bo'lishi bilan sayt uni o'zi qaytaradi (1 soat ichida).", ok: "✅ Hammasi to'ldirildi — kartochkangiz saytda qoladi. Rahmat!" },
+    ru: { photo: "Главное фото (в классической или национальной одежде)", license_no: "Номер удостоверения / диплома (правильный номер)", license_doc: "Фото удостоверения / диплома", languages: "Языки", cities: "Города работы",
+          birth_year: "Год рождения", telegram: "Telegram", home: "Место проживания и полный адрес", pub: "Фото для карточки", trip: "Фото с туристами", atleast: "минимум",
+          t: "⚠ Ваша карточка будет удалена с сайта через {n} дн.", t0: "⚠ Ваша карточка будет удалена с сайта СЕГОДНЯ в 23:59", until: "Срок", sub: "Пожалуйста, заполните следующее. Сайт проверяет каждый час: при 100% заполнении карточка остаётся на сайте.",
+          off: "🚫 Ваша карточка снята с сайта — недочёты не исправлены вовремя", offSub: "Заполните следующее — как только карточка будет на 100%, сайт вернёт её сам (в течение часа).", ok: "✅ Всё заполнено — карточка остаётся на сайте. Спасибо!" }
+  };
+  async function fixBlock() {
+    var r = await sb.rpc("partner_my_fix"); var f = r.data; if (!f) return "";
+    var X = FIXL[L] || FIXL.uz, miss = f.missing || [];
+    var lab = function (c) { var m = /^(pub|trip):(\d+)\/(\d+)$/.exec(c); return m ? X[m[1]] + ": " + m[2] + " / " + X.atleast + " " + m[3] : (X[c] || c); };
+    var list = miss.length ? '<ul class="pdocs">' + miss.map(function (c) { return '<li style="color:#b4541b">❌ ' + esc(lab(c)) + '</li>'; }).join("") + '</ul>' : '<p style="color:#23794a"><b>' + X.ok + '</b></p>';
+    if (f.auto_paused) return '<div class="p-card" style="border:2px solid #efa5a5;background:#fff6f6"><h2>' + X.off + '</h2><p>' + X.offSub + '</p>' + list + '</div>';
+    var dl = new Date(f.deadline), days = Math.ceil((dl - new Date()) / 864e5);
+    var title = days <= 0 || dl.toDateString() === new Date().toDateString() ? X.t0 : X.t.replace("{n}", days);
+    return '<div class="p-card" style="border:2px solid #e9b949;background:#fffaf0"><h2>' + (miss.length ? title : X.ok) + '</h2>' +
+      (miss.length ? '<p><b>' + X.until + ':</b> ' + ("0" + dl.getDate()).slice(-2) + "." + ("0" + (dl.getMonth() + 1)).slice(-2) + "." + dl.getFullYear() + ' 23:59</p><p class="p-sub">' + X.sub + '</p>' : '') + (miss.length ? list : '') + '</div>';
+  }
 })();

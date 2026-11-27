@@ -5,6 +5,12 @@
   var KIND = { guide: "Gid", driver: "Haydovchi / transport", hotel: "Mehmonxona", other: "Boshqa xizmat" };
   var ST = { pending: "⏳ Tekshiruvda", approved: "✅ Saytda", rejected: "❌ Rad etilgan", paused: "⏸ Vaqtincha yopiq" };
   var DK = { license: "Litsenziya / guvohnoma", id: "Pasport / ID", car: "Texpasport", vehicle: "Texpasport (arizadan)", cert: "Sertifikat", other: "Boshqa", trip: "Sayyohlar bilan rasm", extra: "Qo'shimcha rasm" };
+  A.fixLabel = function (c) {
+    var m = /^(pub|trip):(\d+)\/(\d+)$/.exec(c);
+    if (m) return (m[1] === "pub" ? "Kartochka rasmlari" : "Sayyohlar bilan rasmlar") + ": " + m[2] + " / kamida " + m[3];
+    return { photo: "Asosiy rasm (klassik yoki milliy kiyimda)", license_no: "Guvohnoma / diplom raqami (to'g'ri raqam)", license_doc: "Guvohnoma / diplom rasmi",
+      languages: "Tillar", cities: "Gidlik qiladigan shaharlar", birth_year: "Tug'ilgan yil", telegram: "Telegram", home: "Yashash joyi va to'liq manzil" }[c] || c;
+  };
   var NEED = { guide: { main: 1, pub: 3, trip: 10 }, driver: { main: 1, pub: 6, trip: 10 }, hotel: { main: 1, pub: 8, trip: 0 }, other: { main: 1, pub: 3, trip: 10 } };
   var flt = "pending";
   function tgBtn(v) {
@@ -165,6 +171,14 @@
       (trips.length ? '<p class="p-sub" style="margin-top:10px">Sayyohlar bilan rasmlar (faqat sizga ko\'rinadi):</p><div class="pgal" id="pp-trips"></div>' : '') + '</div>';
     h += '<div class="p-card"><h3>Hujjatlar</h3>' + ((p.docs || []).length ? '<ul class="pdocs">' + p.docs.map(function (d, i) { return '<li>📄 <a href="#" data-doc="' + i + '">' + esc(DK[d.kind] || d.kind) + ' — ' + esc(d.name || "") + '</a></li>'; }).join("") + '</ul>' : '<p class="p-sub">Hali hujjat yuklamagan.</p>') +
       (reg ? '<p class="p-sub">Davlat reyestri sahifasi (gov.uz) hozir ochilmayapti. Shubha bo\'lsa, Turizm qo\'mitasi ishonch telefoni: +99871 200-00-88 yoki 1163.</p>' : '') + '</div>';
+    // «3 working days to fix»: the database checks the card every hour and hides it after the deadline
+    var FX = (await sb.rpc("partner_missing", { pid: p.id })).data || [];
+    if (p.fix_deadline || p.auto_paused) {
+      var left = p.fix_deadline ? Math.ceil((new Date(p.fix_deadline) - new Date()) / 864e5) : 0;
+      h += '<div class="p-card" style="border:2px solid ' + (p.auto_paused ? "#efa5a5" : "#e9b949") + '"><h3>' + (p.auto_paused ? "🚫 Saytdan avtomatik olib tashlangan — kamchiliklar tuzatilmadi" : "⏳ Tuzatish muddati: " + P.date(p.fix_deadline) + " 23:59 (" + Math.max(left, 0) + " kun qoldi)") + '</h3>' +
+        '<p class="p-sub">' + (p.auto_paused ? "Hamkor kartochkani 100% to'ldirsa, sayt uni o'zi qaytaradi." : "Sayt har soatda tekshiradi: 100% to'ldirilsa — saytda qoladi; muddat o'tib kamchilik qolsa — avtomatik olib tashlanadi. Hamkor kabinetida har kuni ogohlantirish ko'radi.") + '</p>' +
+        (FX.length ? '<ul class="pdocs">' + FX.map(function (c) { return '<li style="color:#b4541b">❌ ' + esc(A.fixLabel(c)) + '</li>'; }).join("") + '</ul>' : '<p style="color:#23794a"><b>✅ Hozir hammasi to\'ldirilgan — keyingi tekshiruvda muddat olib tashlanadi.</b></p>') + '</div>';
+    }
     h += '<div class="p-card"><h3>Qaror</h3><div class="p-grid">' +
       '<label class="chk"><input type="checkbox" id="pp-lic"' + (p.license_ok ? " checked" : "") + '> Litsenziya/guvohnoma tekshirildi (saytda "✓" belgisi)</label>' +
       '<label class="chk"><input type="checkbox" id="pp-feat"' + (p.featured ? " checked" : "") + '> Tavsiya etilgan (ro\'yxatda birinchi)</label>' +
@@ -173,6 +187,7 @@
       '<div class="fld full"><label>Hamkorga izoh — rad etsangiz, SABABINI yozing: hamkor ko\'radi, tuzatib qayta yuboradi</label><textarea id="pp-note" rows="2">' + esc(p.admin_note || "") + '</textarea></div></div>' +
       '<div class="msg" id="m-pp"></div><div class="p-actions">' +
       (p.status !== "approved" ? '<button class="btn btn--green" data-st="approved">✅ Tasdiqlash — saytga chiqarish</button>' : '<button class="btn btn--outline" data-st="paused">⏸ Vaqtincha yopish</button>') +
+      '<button class="btn btn--outline" id="pp-fix" style="border-color:#e9b949;color:#8a5a00">⚠ ' + (p.status === "approved" ? "Kamchiliklar uchun 3 ish kuni muhlat berish" : "Tasdiqlash + 3 ish kuni ichida tuzatish") + '</button>' +
       (p.status !== "rejected" ? '<button class="btn btn--outline" data-st="rejected">❌ Rad etish</button>' : '') +
       '<button class="btn btn--gold" id="pp-save">Saqlash</button></div></div>';
     h += '<div class="p-card"><h3>📅 Bandlik kalendari</h3><p class="p-sub">Qizil — band, yashil — bo\'sh. Bron tasdiqlansa, kunni shu yerda bosib band qiling (hamkor ham o\'z kabinetida belgilaydi). Nuqtali kunda izoh bor — ustiga sichqonchani olib boring.</p><div id="pp-cal"></div><div class="msg" id="m-ppcal"></div></div>';
@@ -205,6 +220,15 @@
       P.msg("#m-pp", "Saqlandi", "ok"); A.partnersBadge(); setTimeout(function () { A.partner(id); }, 600);
     }
     $("#pp-save").onclick = function () { save(); };
+    $("#pp-fix").onclick = async function () {
+      if (!FX.length) return P.msg("#m-pp", "Kartochkada kamchilik yo'q — oddiy «Tasdiqlash» ni bosing", "ok");
+      var note = $("#pp-note").value.trim();
+      if (!note) { $("#pp-note").value = "Kartochkangiz saytga chiqarildi. Iltimos, 3 ish kuni ichida quyidagilarni to'ldiring, aks holda kartochka saytdan avtomatik olib tashlanadi: " + FX.map(A.fixLabel).join("; ") + "."; return P.msg("#m-pp", "Hamkorga izoh tayyorlandi — tekshirib, yana bir marta bosing", "ok"); }
+      this.disabled = true;
+      var r = await sb.rpc("admin_partner_approve_fix", { pid: p.id, note: note, days: 3 });
+      if (r.error) { this.disabled = false; return P.msg("#m-pp", r.error.message, "err"); }
+      P.msg("#m-pp", "Tasdiqlandi. Muddat: " + P.date(r.data.deadline) + " 23:59", "ok"); setTimeout(function () { A.partner ? A.partner(p.id) : A.partners(); }, 900);
+    };
     $$("[data-st]", box).forEach(function (b) { b.onclick = function () { var s = b.dataset.st; if (s === "rejected" && !$("#pp-note").value.trim()) { $("#pp-note").focus(); return P.msg("#m-pp", "Rad etish sababini yozing — hamkor uni ko'radi va tuzatib qayta yuboradi", "err"); } save({ status: s, approved_at: s === "approved" ? new Date().toISOString() : p.approved_at }); }; });
   };
 })();
