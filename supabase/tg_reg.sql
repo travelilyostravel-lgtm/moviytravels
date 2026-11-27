@@ -89,3 +89,11 @@ $$;
 revoke all on function public.tg_reg_cleanup() from public, anon, authenticated;
 select cron.unschedule(jobid) from cron.job where jobname = 'tg_reg_cleanup';
 select cron.schedule('tg_reg_cleanup', '23 3 * * *', 'select public.tg_reg_cleanup()');
+
+-- this project gives no table rights by default: the bot's server key needs them explicitly
+grant select, insert, update, delete on public.tg_reg, public.tg_reg_files to service_role;
+grant usage, select on sequence public.tg_reg_files_id_seq to service_role;
+grant select, update on public.partners to service_role;
+grant select, insert, update, delete on public.partner_units to service_role;
+grant usage, select on all sequences in schema public to service_role;
+notify pgrst, 'reload schema';
