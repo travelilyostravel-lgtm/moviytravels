@@ -10,7 +10,7 @@
   if (!P.configured) { $("#notcfg").hidden = false; show("login"); return; }
 
   function show(v) {
-    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts", "prices", "groups", "group", "team", "customers", "partners", "stats", "events", "food"].forEach(function (x) { var el = $("#v-" + x); if (el) el.classList.toggle("hidden", x !== v); });
+    ["login", "bookings", "booking", "agencies", "agency", "requests", "request", "posts", "prices", "groups", "group", "team", "customers", "partners", "stats", "events", "food", "esim"].forEach(function (x) { var el = $("#v-" + x); if (el) el.classList.toggle("hidden", x !== v); });
     $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || b.dataset.view + "s" === v || (v === "booking" && b.dataset.view === "bookings") || (v === "agency" && b.dataset.view === "agencies") || (v === "request" && b.dataset.view === "requests") || (v === "group" && b.dataset.view === "groups")); });
     window.scrollTo(0, 0);
   }
@@ -148,7 +148,7 @@
     // this browser belongs to staff: it is not counted as a site visitor any more
     try { localStorage.setItem("mn_staff", "1"); var vv = localStorage.getItem("mn_vid"); if (vv) sb.rpc("mark_staff_visitor", { p_vid: vv }); } catch (e) {}
     if (p.role === "manager") {
-      $$("#tabs button").forEach(function (b) { if (["agencies", "posts", "team", "customers"].indexOf(b.dataset.view) > -1) b.remove(); });
+      $$("#tabs button").forEach(function (b) { if (["agencies", "posts", "team", "customers", "esim"].indexOf(b.dataset.view) > -1) b.remove(); });
       // prices and group dates: view only for managers (the database refuses changes anyway)
       ["#v-prices", "#v-groups", "#v-group"].forEach(function (q) {
         var el = $(q); if (!el) return;

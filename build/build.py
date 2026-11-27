@@ -12,7 +12,7 @@ from content import CONFIG, COUNTRIES, EXPERIENCES, LANGS, T
 import tours_data as TD
 import build_tours
 import pages
-import events_page, food_page, videos
+import events_page, food_page, videos, esim_page
 
 _LD = {}
 
@@ -668,7 +668,7 @@ def render_admin():
 <body class="portal">
 <header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html">{LOGO}<span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Admin</span><span class="p-top__sp"></span>
   <div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Chiqish</button></div>
-  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">🏢 B2B — agent bronlari</button><button data-view="agencies">Agentliklar</button><button data-view="requests">🧳 B2C — mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button><button data-view="partners">Hamkorlar</button><button data-view="stats">📈 Statistika</button><button data-view="events">🎟 Tadbirlar</button><button data-view="food">🍽 Restoranlar</button><button data-view="customers" data-owner="1">Mijozlar bazasi</button><button data-view="team" data-owner="1">Jamoa</button></div></nav>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="bookings" class="is-on">🏢 B2B — agent bronlari</button><button data-view="agencies">Agentliklar</button><button data-view="requests">🧳 B2C — mijoz so'rovlari</button><button data-view="groups">Guruh sanalari</button><button data-view="posts">Hikoyalar</button><button data-view="prices">Narxlar</button><button data-view="partners">Hamkorlar</button><button data-view="stats">📈 Statistika</button><button data-view="events">🎟 Tadbirlar</button><button data-view="food">🍽 Restoranlar</button><button data-view="esim" data-owner="1">📶 eSIM</button><button data-view="customers" data-owner="1">Mijozlar bazasi</button><button data-view="team" data-owner="1">Jamoa</button></div></nav>
 </header>
 <main class="container p-main">
   <div class="msg msg--err" id="notcfg" hidden>Panel hali bazaga ulanmagan (assets/js/sb-config.js).</div>
@@ -695,6 +695,7 @@ def render_admin():
   <section id="v-stats" class="hidden"></section>
   <section id="v-events" class="hidden"></section>
   <section id="v-food" class="hidden"></section>
+  <section id="v-esim" class="hidden"></section>
   <section id="v-partners" class="hidden"></section>
   <section id="v-bookings" class="hidden"><div class="p-card"><h2>🏢 B2B — agent bronlari</h2><p class="p-sub">Turagent va turoperatorlar agent portali orqali yuborgan bronlar (B2B narxlar).</p><div class="filters" id="bf"></div><div id="blist"></div></div></section>
   <section id="v-booking" class="hidden"></section>
@@ -709,7 +710,7 @@ def render_admin():
 </main>
 <script>window.MN={page_cfg()};</script>
 <script src="../assets/vendor/supabase.js"></script><script src="../assets/vendor/jspdf.umd.min.js"></script>
-<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-autolog.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script><script src="../assets/js/admin-customers.js"></script><script src="../assets/js/admin-stats.js"></script><script src="../assets/js/admin-events.js?v=1"></script><script src="../assets/js/admin-food.js?v=1"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/admin-partners.js"></script><script src="../assets/js/admin-partner-units.js"></script>
+<script>window.MN_CO={json.dumps({k: CONFIG[k] for k in ("company","address","inn","bank","mfo","account","license","phone","telegram","office_phone")}, ensure_ascii=False)};</script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script><script src="../assets/js/voucher.js"></script><script src="../assets/js/admin.js"></script><script src="../assets/js/msg-templates.js"></script><script src="../assets/js/admin-autolog.js"></script><script src="../assets/js/admin-site.js"></script><script src="../assets/js/admin-team.js"></script><script src="../assets/js/admin-customers.js"></script><script src="../assets/js/admin-stats.js"></script><script src="../assets/js/admin-events.js?v=1"></script><script src="../assets/js/admin-food.js?v=1"></script><script src="../assets/js/admin-esim.js?v=1"></script><script src="../assets/js/mn-cal.js"></script><script src="../assets/js/admin-partners.js"></script><script src="../assets/js/admin-partner-units.js"></script>
 <script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script><script src="../assets/data/l10n/uz.js"></script><script>window.MN_NO_PRICE_FETCH=true;</script><script src="../assets/js/engine.js"></script><script src="../assets/js/admin-prices.js"></script><script src="../assets/js/admin-partner-pricing.js?v=1"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/vendor/xlsx.mini.min.js"></script><script src="../assets/vendor/jspdf.plugin.autotable.min.js"></script><script src="../assets/js/admin-groups.js"></script><script src="../assets/js/admin-roster.js"></script>
 </body></html>
 """
@@ -751,6 +752,7 @@ def main():
                "group-tours.html": pages.render_groups(lang, ICON, LOGO, font, names),
                "events.html": events_page.render(lang, pages, pages.X(lang), ICON, LOGO, font, names),
                **food_page.render_all(lang, pages, ICON, LOGO, font, names),
+               "esim.html": esim_page.render(lang, pages, pages.X(lang), ICON, LOGO, font, names),
                "account.html": pages.shell(lang, "account.html", pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])[0], pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])[1],
                    pages.page_head("👤", *pages.CAB_TITLE.get(lang, pages.CAB_TITLE["en"])) + '<section class="section section--tight"><div class="container"><div class="cab" id="cab" data-free data-noreg><div class="cab-loading">…</div></div></div></section>',
                    ICON, LOGO, font, names, "is-account",

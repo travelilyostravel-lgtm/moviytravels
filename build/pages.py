@@ -194,6 +194,8 @@ def nav_html(lang, base, on_home=False):
     t = T[lang]; x = X(lang); N = partners_i18n.NS(lang)
     tours = "#tours" if on_home else f"{base}index.html#tours"
     svc = "".join(f'<a href="{base}services.html#{sid}">{e(x["services"][sid][0])}</a>' for sid in SVC_IDS)
+    import esim_page
+    if esim_page.LIVE: svc += f'<a href="{base}esim.html">📶 {e(esim_page.NAV.get(lang, esim_page.NAV["en"]))}</a>'
     svc += f'<a href="{base}partners.html?k=other">{e(partners_i18n.S(lang)["k_other"])}</a><a class="nav__all" href="{base}services.html">{e(x["svc_more"])} →</a>'
     VID = {"en":"Videos about Uzbekistan","ru":"Видео об Узбекистане","uz":"O'zbekiston haqida videolar","tr":"Özbekistan videoları","ar":"فيديوهات عن أوزبكستان","de":"Videos über Usbekistan","sv":"Videor om Uzbekistan","zh":"乌兹别克斯坦视频","hi":"उज़्बेकिस्तान के वीडियो","ko":"우즈베키스탄 영상"}
     more = (f'<a href="{base}videos.html">▶ {e(VID.get(lang, VID["en"]))}</a>'
