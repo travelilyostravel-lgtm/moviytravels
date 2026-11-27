@@ -68,17 +68,51 @@
       '<div class="gk__price"><b class="gd-price">' + esc(priceTxt(x)) + '</b><small>' + esc(G.gr_pp) + '</small></div>' +
       '<button class="btn btn--gold btn--sm" data-gd="' + x.id + '"' + (full ? " disabled" : "") + '>' + esc(G.gr_request) + '</button></div>';
   }
+  function kparts(k) { var t = String(G["gr_k_" + (k || "large")] || ""), p = t.split("·"); return [p[0].trim(), (p[1] || "").trim()]; }
+  // compact tariff line on the card: name + size | seats | price  (whole card opens the detail sheet)
+  function tierRow(x) {
+    var kp = kparts(x.group_kind), full = isFull(x), left = seatsLeft(x);
+    return '<li class="gt gt--' + (x.group_kind || "large") + (full ? ' is-full' : '') + '"><span class="gt__n">' + esc(kp[0]) + (kp[1] ? ' <em>' + esc(kp[1]) + '</em>' : '') + '</span>' +
+      '<span class="gt__s">' + esc(full ? G.gr_full : tf(G.gl_left || G.gr_seats_left, { n: left })) + '</span>' +
+      '<b class="gt__p">' + esc(priceTxt(x)) + '</b></li>';
+  }
+  function cov(x, i) { return typeof i === "number" && HCOV ? (LANG === "en" ? "" : "../") + HCOV[i % HCOV.length] : cover(x.tour_id); }
   function card(grp, i) {
     var x = grp[0], any = grp.filter(function (g) { return !isFull(g); })[0] || x;
-    return '<article class="gd" data-id="' + x.id + '" id="d-' + x.start_date + '">' +
-      '<div class="gd__img" style="background-image:url(' + (typeof i === "number" && HCOV ? (LANG === "en" ? "" : "../") + HCOV[i % HCOV.length] : cover(x.tour_id)) + ')"><span class="gd__date">' + esc(range(x)) + '</span></div>' +
-      '<div class="gd__body"><div class="gd__top">' + badge(any) + '<span class="gd__days">' + esc(tf(G.gr_days, { n: days(x.tour_id) })) + '</span></div>' +
+    return '<article class="gd gd--c" data-id="' + x.id + '" data-key="' + x.tour_id + '|' + x.start_date + '" data-i="' + i + '" id="d-' + x.start_date + '" tabindex="0" role="button" aria-label="' + esc(range(x) + ' — ' + (G.gl_det || "")) + '">' +
+      '<div class="gd__img" style="background-image:url(' + cov(x, i) + ')"><span class="gd__date">' + esc(range(x)) + '</span><span class="gd__days2">' + esc(tf(G.gr_days, { n: days(x.tour_id) })) + '</span></div>' +
+      '<div class="gd__body"><div class="gd__top">' + badge(any) + '<span class="gd__lang">🗣 ' + esc(glName(glOf(x))) + '</span></div>' +
       '<h3>' + esc(title(x.tour_id)) + '</h3><p class="gd__route">' + esc(cities(x.tour_id)) + '</p>' +
-      (x.tour_id === "classic" && G.gr_start_khiva ? '<p class="gd__meta">📍 ' + esc(G.gr_start_khiva) + ' · 🗣 ' + esc(glName(glOf(x))) + '</p>' : '<p class="gd__meta">🗣 ' + esc(glName(glOf(x))) + '</p>') +
-      (x.note ? '<details class="gd__note"><summary>ℹ</summary>' + esc(x.note) + '</details>' : '') +
-      '<div class="gk-list">' + grp.map(kindRow).join("") + '</div>' +
-      '<div class="gd__foot"><small class="gd__solo">' + esc(G.gr_join_note || "") + (x.single_supp ? ' · ' + esc(tf(G.gr_single, { n: money(x.single_supp) })) : '') + '</small><a class="btn btn--outline btn--sm" href="tours/' + x.tour_id + '.html">' + esc(G.gr_program) + '</a></div></div></article>';
+      '<ul class="gt-list">' + grp.map(tierRow).join("") + '</ul>' +
+      '<span class="gd__go">' + esc(G.gl_det || G.gr_request) + ' →</span></div></article>';
   }
+  // detail sheet: everything about one date + the 3 tariffs with request buttons
+  var det = null;
+  function openDet(key, i) {
+    var grp = groups(rowsL()).filter(function (g) { return g[0].tour_id + "|" + g[0].start_date === key; })[0]; if (!grp) return;
+    var x = grp[0], any = grp.filter(function (g) { return !isFull(g); })[0] || x;
+    if (!det) { det = document.createElement("div"); det.className = "modal gdd-modal"; det.id = "gd-det"; det.setAttribute("role", "dialog"); det.setAttribute("aria-modal", "true");
+      document.body.appendChild(det);
+      det.addEventListener("click", function (e) { if (e.target === det || e.target.closest(".modal__close")) det.classList.remove("is-open"); }); }
+    det.innerHTML = '<div class="modal__box gdd"><button class="modal__close" aria-label="×">×</button>' +
+      '<div class="gdd__hero" style="background-image:url(' + cov(x, +i) + ')"><span class="gd__date">' + esc(range(x)) + '</span></div>' +
+      '<div class="gdd__body"><div class="gd__top">' + badge(any) + '<span class="gd__days">' + esc(tf(G.gr_days, { n: days(x.tour_id) })) + '</span></div>' +
+      '<h3>' + esc(title(x.tour_id)) + '</h3><p class="gd__route">' + esc(cities(x.tour_id)) + '</p>' +
+      '<p class="gd__meta">' + (x.tour_id === "classic" && G.gr_start_khiva ? '📍 ' + esc(G.gr_start_khiva) + ' · ' : '') + '🗣 ' + esc(glName(glOf(x))) + '</p>' +
+      (x.note ? '<p class="gdd__note">ℹ️ ' + esc(x.note) + '</p>' : '') +
+      '<p class="gdd__h">' + esc(G.gl_tar || G.gr_size || "") + '</p>' +
+      '<div class="gk-list">' + grp.map(kindRow).join("") + '</div>' +
+      '<div class="gd__foot"><small class="gd__solo">' + esc(G.gr_join_note || "") + (x.single_supp ? ' · ' + esc(tf(G.gr_single, { n: money(x.single_supp) })) : '') + '</small><a class="btn btn--outline btn--sm" href="tours/' + x.tour_id + '.html">' + esc(G.gr_program) + '</a></div></div></div>';
+    det.classList.add("is-open");
+  }
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("[data-gd]")) { if (det) det.classList.remove("is-open"); return; }
+    var c = e.target.closest(".gd--c"); if (c) openDet(c.getAttribute("data-key"), c.getAttribute("data-i"));
+  });
+  document.addEventListener("keydown", function (e) {
+    var c = e.target.closest && e.target.closest(".gd--c"); if (c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openDet(c.getAttribute("data-key"), c.getAttribute("data-i")); }
+    if (e.key === "Escape" && det) det.classList.remove("is-open");
+  });
   function groups(list) {
     var map = {}, out = [];
     list.forEach(function (x) { var k = x.tour_id + "|" + x.start_date; if (!map[k]) { map[k] = []; out.push(map[k]); } map[k].push(x); });
@@ -222,7 +256,7 @@
   load().then(function (r) { rows = r; }).catch(function () { rows = []; }).then(function () {
     if (list) { glPaint(); drawSched(); fillMonths(); drawList();
       if (location.hash.length > 1) { var id = location.hash.slice(1), el = document.getElementById(id);
-        if (el) { setTimeout(function () { el.scrollIntoView({ behavior: "smooth", block: "start" }); el.classList.add("gd--hl"); }, 300); }
+        if (el) { setTimeout(function () { el.scrollIntoView({ behavior: "smooth", block: "start" }); el.classList.add("gd--hl"); openDet(el.getAttribute("data-key"), el.getAttribute("data-i")); }, 350); }
         else if (modal && rows.some(function (x) { return x.id === id; })) openReq(id); } }
     if (home) drawHome();
   });
