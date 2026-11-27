@@ -101,6 +101,7 @@
   function moreLabel() {
     var mb = document.getElementById("fd-more"), on = document.querySelector(".fdc.is-on [data-cc]"), cn = on ? on.textContent.replace(/\D/g, "") : "";
     mb.textContent = (T.more_all || T.more) + (cn && !all && !halal && !q ? " (" + cn + ")" : "") + " ↓";
+    if (cn && !all && !halal && !q && rows.length >= +cn) mb.hidden = true;
   }
   function load(reset) {
     // a new filter always wins; only "show more" waits for the running request
