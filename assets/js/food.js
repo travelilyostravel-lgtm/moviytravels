@@ -48,12 +48,35 @@
     return [lbl].concat(parts.slice(0, 2)).filter(Boolean).join(" · ");
   }
   function isHalal(r) { return r.halal_ok ? "ok" : r.halal === "yes" ? "osm" : r.cat === "national" ? "nat" : ""; }
+  // cover photo: the place's own photo if the admin added one, otherwise a sample dish photo that matches the name / cuisine
+  var CV = { plov: 3, shashlik: 3, lagman: 3, samsa: 3, manti: 3, nonchoy: 3, dastarxon: 2, pizza: 3, pasta: 3, steak: 3, salad: 3, sushi: 3, noodles: 3, doner: 2, meze: 3, burger: 3, coffee: 4, cake: 3, interior: 4 };
+  var CV_RULES = [
+    [/plov|palov|\bosh\b|osh markaz|плов|палов|pilaf/i, ["plov"]], [/shashl|kabob|kabab|шашл|кабоб|mangal|мангал|grill|гриль/i, ["shashlik"]],
+    [/lag.?mon|lagman|лагман/i, ["lagman"]], [/somsa|samsa|самса|сомса|tandir|тандыр/i, ["samsa"]], [/manti|манты|chuchvara|чучвара|dumpling|pelmen|пельмен/i, ["manti"]],
+    [/choyxon|чайхан|choyhon|tea ?house|tea/i, ["nonchoy", "dastarxon"]], [/pizz|пицц/i, ["pizza"]], [/pasta|паста|italia|итали|trattoria/i, ["pasta", "pizza"]],
+    [/steak|стейк|beef ?house/i, ["steak"]], [/sushi|суши|japan|япон|ramen|рамен/i, ["sushi"]], [/korea|корей|china|китай|chinese|wok|вок|asia|ази|thai|noodle|лапш/i, ["noodles"]],
+    [/doner|донер|kebab|кебаб|kebap/i, ["doner"]], [/turk|тур[еє]ц|istanbul|стамбул|georgia|грузи|khachap|хачап|хинкал|xinkal|arab|араб|lebanon|ливан/i, ["meze", "doner"]],
+    [/burger|бургер|lavash|лаваш|shawarma|шаурм|hot.?dog|kfc|evos|chicken|чикен|fast/i, ["burger"]], [/coffee|кофе|kofe|espresso|latte|barista/i, ["coffee"]],
+    [/cake|торт|tort|desert|десерт|bakery|пекарн|konditer|кондитер|cheesecake|croissant|круассан|waffle|вафл/i, ["cake", "coffee"]]
+  ];
+  var CV_CAT = { national: ["plov", "shashlik", "lagman", "samsa", "manti", "dastarxon"], european: ["pizza", "pasta", "steak", "salad"], asian: ["sushi", "noodles"],
+    middle: ["doner", "meze", "shashlik"], fastfood: ["burger", "doner"], cafe: ["coffee", "cake"], other: ["interior", "dastarxon", "salad"] };
+  function hash(n) { n = +n || 0; return Math.abs((n * 2654435761) | 0); }
+  function coverUrl(r) {
+    var t = (nm(r.name) + " " + (r.cuisine || "")), set = null;
+    for (var i = 0; i < CV_RULES.length && !set; i++) if (CV_RULES[i][0].test(t)) set = CV_RULES[i][1];
+    set = set || CV_CAT[r.cat] || CV_CAT.other;
+    var h = hash(r.id), k = set[h % set.length];
+    return SB.url + "/storage/v1/object/public/food-photos/covers/" + k + "-" + (Math.floor(h / 7) % CV[k]) + ".webp";
+  }
   function cover(r, big) {
     if (r.photos && r.photos.length) return '<img src="' + esc(r.photos[0]) + '" alt="' + esc(nm(r.name)) + '" loading="lazy">';
-    return '<span class="fdx fdx--' + esc(r.cat) + '"><i>' + ((T.icons || {})[r.cat] || "🍽") + '</i>' + (big ? '' : '<b>' + esc(nm(r.name)).slice(0, 2) + '</b>') + '</span>';
+    return '<span class="fdx fdx--' + esc(r.cat) + '"><i>' + ((T.icons || {})[r.cat] || "🍽") + '</i></span>' +
+      '<img class="fd-stock" src="' + esc(coverUrl(r)) + '" alt="' + esc(nm(r.name)) + '" loading="lazy" onerror="this.remove()">';
   }
   function taxi(r) { return "https://3.redirect.appmetrica.yandex.com/route?end-lat=" + r.lat + "&end-lon=" + r.lon + "&ref=moviy-travel.uz&appmetrica_tracking_id=1178268795219780156"; }
   // the place's own card on Yandex Maps (photos, menu, prices, reviews kept up to date by Yandex)
+  function ymPt(r) { return "https://yandex.uz/maps/?pt=" + r.lon + "," + r.lat + "&z=17&l=map"; }
   function yorg(r) { return "https://yandex.uz/maps/?ll=" + r.lon + "," + r.lat + "&z=18&text=" + encodeURIComponent(nm(r.name)); }
   function card(r, i) {
     var h = isHalal(r);
@@ -113,11 +136,16 @@
     var ig = r.instagram ? (/^https?:/.test(r.instagram) ? r.instagram : "https://instagram.com/" + r.instagram.replace(/^@/, "")) : "";
     var bb = r.lat ? (r.lon - 0.004) + "," + (r.lat - 0.0025) + "," + (r.lon + 0.004) + "," + (r.lat + 0.0025) : "";
     inner.innerHTML =
-      '<div class="fds__hero">' + (photos.length ? '<div class="fds__gal">' + photos.map(function (p) { return '<img src="' + esc(p) + '" alt="' + esc(n) + '" loading="lazy">'; }).join("") + '</div>' : cover(r, true)) + '</div>' +
+      '<div class="fds__hero">' + (photos.length ? '<div class="fds__gal">' + photos.map(function (p) { return '<img src="' + esc(p) + '" alt="' + esc(n) + '" loading="lazy">'; }).join("") + '</div>' :
+          (r.lat ? '<a class="fds__heroimg" href="' + esc(yorg(r)) + '" target="_blank" rel="noopener" data-ypm="' + r.id + '">' : '<span class="fds__heroimg">') + cover(r, true) + (r.lat ? '</a>' : '</span>') +
+          '<span class="fds__note">' + esc(T.photo_note || "") + '</span>') +
+        (r.lat ? '<div class="fds__cta">' +
+          '<a class="fds__cta-main" href="' + esc(yorg(r)) + '" target="_blank" rel="noopener" data-ypm="' + r.id + '">📷 ' + esc(T.ypm) + '</a>' +
+          '<a class="fds__cta-map" href="' + esc(ymPt(r)) + '" target="_blank" rel="noopener">📍 ' + esc(T.mapaddr || T.addr) + '</a>' +
+          '<a class="fds__cta-taxi" href="' + esc(taxi(r)) + '" target="_blank" rel="noopener" data-taxi="' + r.id + '">🚕 Yandex Go</a>' +
+        '</div>' : '') + '</div>' +
       '<div class="fds__body"><div class="fds__cui">' + esc(cuiTxt(r)) + '</div><h2>' + esc(n) + '</h2>' +
         (h ? '<p class="fds__halal fds__halal--' + h + '">☪ ' + esc(h === "ok" ? T.halal_ok : h === "osm" ? T.halal_osm : T.halal_nat) + '</p>' : '') +
-        (r.lat ? '<a class="fds__taxi" href="' + esc(taxi(r)) + '" target="_blank" rel="noopener" data-taxi="' + r.id + '"><span class="fds__taxi-ic">🚕</span><span><b>' + esc(T.taxi) + '</b><small>' + esc(T.taxi_s) + '</small></span><i>→</i></a>' : '') +
-        (r.lat ? '<a class="fds__ypm" href="' + esc(yorg(r)) + '" target="_blank" rel="noopener" data-ypm="' + r.id + '"><span class="fds__taxi-ic">📷</span><span><b>' + esc(T.ypm) + '</b><small>' + esc(T.ypm_s) + '</small></span><i>→</i></a>' : '') +
         '<div class="fds__nav">' + (ym ? '<a href="' + esc(ym) + '" target="_blank" rel="noopener">🗺 ' + esc(T.ymap) + '</a>' : '') + (gl ? '<a href="' + esc(gl) + '" target="_blank" rel="noopener">📍 ' + esc(T.gmap) + '</a>' : '') +
           (gis ? '<a href="' + esc(gis) + '" target="_blank" rel="noopener">🧭 ' + esc(T.gis) + '</a>' : '') + (r.phone ? '<a href="tel:' + esc(r.phone.split(/[;,]/)[0].replace(/[^\d+]/g, "")) + '">📞 ' + esc(T.call) + '</a>' : '') + '</div>' +
         (about ? '<p class="fds__about">' + esc(about) + '</p>' : '') +

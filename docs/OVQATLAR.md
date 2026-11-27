@@ -30,3 +30,9 @@
 - Ball: mashhur joy nomi (+30), diqqatga sazovor joyga yaqinlik (`food_sights`), restoran turi, milliy/Yevropa oshxona, inglizcha/ruscha nomi, ma'lumot to'liqligi; umumiy nomlar ("Kafe", "Oshxona") pastga tushadi. 📌 admin belgilaganlar doim ro'yxatda.
 - «Barcha joylarni ko'rsatish (N)» — hammasini ko'rish.
 - «📷 Rasmlar, menyu va narxlar» — Yandex Xaritadagi joyning o'z kartochkasi (rasm, menyu, narx, reyting, sharhlar Yandexda yangilanadi). Rasm/menyu bizga ko'chirilmaydi — mualliflik huquqi.
+
+## 27.11.2026 — Muqova rasmlari va kartochka tepasidagi asosiy tugmalar
+- Har restoranga chiroyli muqova: 54 ta taom surati (Pexels — tijorat uchun bepul, muallif ko'rsatish shart emas), Supabase `food-photos/covers/<tur>-<n>.webp`.
+- Rasm joy nomiga qarab tanlanadi: plov/osh → palov, shashlik/kabob → shashlik, lag'mon, somsa, manti, choyxona → non-choy, pizza, pasta, steak, sushi, koreys/xitoy → lag'mon-noodles, doner/kebab, turk/gruzin → meze, burger/lavash, kofe, tort/desert; nomdan topilmasa oshxona turi bo'yicha. Har joy o'z id raqami bo'yicha bitta rasmni doimiy oladi.
+- Admin o'z rasmini yuklasa — o'sha birinchi chiqadi.
+- Restoran oynasining tepasida katta rasm; rasm ustida: «📷 Rasmlar, menyu va narxlar» (Yandex kartochkasi), «📍 Manzil va xarita», «🚕 Yandex Go». Rasmni bosish ham Yandex kartochkasini ochadi. Burchakda kichik yozuv: «Taom surati namuna — haqiqiy rasmlar tugmada».
