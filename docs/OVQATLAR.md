@@ -24,3 +24,9 @@
 - Tur tugmasi yuklanish paytida bosilsa e'tiborsiz qolardi → tuzatildi (food.js v=2).
 - `food_cat` endi joy nomidan ham tur aniqlaydi; admin tanlagan tur (`cat_fixed`) o'zgarmaydi.
 - `admin_food_ingest(region, json)` — admin viloyatni qo'lda yuklashi uchun.
+
+## 27.11.2026 — «Turistbop» ro'yxat va Yandex orqali rasm/menyu
+- Har viloyatda faqat eng yaxshi joylar: Toshkent shahri 100, Samarqand 80, Buxoro 80, Xorazm 70, Toshkent vil. 50, qolganlari 40 (`tourist_rank`, `food_rank()`).
+- Ball: mashhur joy nomi (+30), diqqatga sazovor joyga yaqinlik (`food_sights`), restoran turi, milliy/Yevropa oshxona, inglizcha/ruscha nomi, ma'lumot to'liqligi; umumiy nomlar ("Kafe", "Oshxona") pastga tushadi. 📌 admin belgilaganlar doim ro'yxatda.
+- «Barcha joylarni ko'rsatish (N)» — hammasini ko'rish.
+- «📷 Rasmlar, menyu va narxlar» — Yandex Xaritadagi joyning o'z kartochkasi (rasm, menyu, narx, reyting, sharhlar Yandexda yangilanadi). Rasm/menyu bizga ko'chirilmaydi — mualliflik huquqi.
