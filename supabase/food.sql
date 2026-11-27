@@ -53,8 +53,10 @@ create table if not exists public.food_regions (
   iso         text not null,
   fetched_at  timestamptz,
   request_id  bigint,
-  last_count  int
+  last_count  int,
+  tries       int not null default 0
 );
+alter table public.food_regions add column if not exists tries int not null default 0;
 alter table public.food_regions enable row level security;
 insert into public.food_regions (region, iso) values
  ('tashkent_city','UZ-TK'),('tashkent','UZ-TO'),('samarkand','UZ-SA'),('bukhara','UZ-BU'),('khorezm','UZ-XO'),('karakalpakstan','UZ-QR'),
@@ -80,8 +82,8 @@ declare r record; j jsonb; e jsonb; t jsonb; n int; nxt record; v_name jsonb; v_
 begin
   for r in select fr.*, hr.status_code, hr.content from public.food_regions fr join net._http_response hr on hr.id = fr.request_id loop
     update public.food_regions set request_id = null where region = r.region;
-    if r.status_code <> 200 or r.content is null then continue; end if;
-    begin j := r.content::jsonb; exception when others then continue; end;
+    if r.status_code <> 200 or r.content is null then update public.food_regions set tries = tries + 1 where region = r.region; continue; end if;
+    begin j := r.content::jsonb; exception when others then update public.food_regions set tries = tries + 1 where region = r.region; continue; end;
     n := 0;
     for e in select * from jsonb_array_elements(coalesce(j->'elements', '[]'::jsonb)) loop
       t := coalesce(e->'tags', '{}'::jsonb);
@@ -106,15 +108,15 @@ begin
         hours = coalesce(excluded.hours, x.hours), score = excluded.score, seen_at = now();
       n := n + 1;
     end loop;
-    update public.food_regions set fetched_at = now(), last_count = n where region = r.region;
+    update public.food_regions set fetched_at = now(), last_count = n, tries = 0 where region = r.region;
     -- places that OSM no longer lists for this region (closed) disappear after the next refresh
     update public.restaurants set hidden = true where source = 'osm' and region = r.region and seen_at < now() - interval '20 days' and not hidden;
   end loop;
   if exists (select 1 from public.food_regions where request_id is not null) then return 'waiting'; end if;
-  select * into nxt from public.food_regions where fetched_at is null or fetched_at < now() - interval '7 days' order by fetched_at nulls first limit 1;
+  select * into nxt from public.food_regions where fetched_at is null or fetched_at < now() - interval '7 days' order by fetched_at nulls first, tries, region limit 1;
   if not found then return 'all fresh'; end if;
   update public.food_regions set request_id = net.http_get(
-      url := 'https://overpass-api.de/api/interpreter?data=' || replace('%5Bout%3Ajson%5D%5Btimeout%3A170%5D%3Barea%5B%22ISO3166-2%22%3D%22{R}%22%5D-%3E.a%3B%28node%5B%22amenity%22~%22%5E%28restaurant%7Ccafe%7Cfast_food%7Cfood_court%29%24%22%5D%5B%22name%22%5D%28area.a%29%3Bway%5B%22amenity%22~%22%5E%28restaurant%7Ccafe%7Cfast_food%7Cfood_court%29%24%22%5D%5B%22name%22%5D%28area.a%29%3B%29%3Bout%20center%20tags%3B', '{R}', nxt.iso),
+      url := (array['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter', 'https://overpass.private.coffee/api/interpreter'])[1 + nxt.tries % 3] || '?data=' || replace('%5Bout%3Ajson%5D%5Btimeout%3A170%5D%3Barea%5B%22ISO3166-2%22%3D%22{R}%22%5D-%3E.a%3B%28node%5B%22amenity%22~%22%5E%28restaurant%7Ccafe%7Cfast_food%7Cfood_court%29%24%22%5D%5B%22name%22%5D%28area.a%29%3Bway%5B%22amenity%22~%22%5E%28restaurant%7Ccafe%7Cfast_food%7Cfood_court%29%24%22%5D%5B%22name%22%5D%28area.a%29%3B%29%3Bout%20center%20tags%3B', '{R}', nxt.iso),
       headers := '{"User-Agent":"MoviyNomad/1.0 (moviy-travel.uz)"}'::jsonb, timeout_milliseconds := 180000)
    where region = nxt.region;
   return 'asked ' || nxt.region;
