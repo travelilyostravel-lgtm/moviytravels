@@ -1,6 +1,8 @@
 // Moviy Nomad — sends the letters waiting in public.notify_outbox by e-mail (Resend).
 // Called every minute by pg_cron (see supabase/notify_auto.sql). Texts: <site>/assets/data/notify.json
 // Secrets (Supabase → Edge Functions → Secrets): RESEND_API_KEY, MAIL_FROM (e.g. "Moviy Nomad <info@moviy-travel.uz>")
+// Fallback until the domain is verified in Resend: GMAIL_USER + GMAIL_APP_PASSWORD (Google app password) — sent via smtp.gmail.com:465
+// (Supabase Edge Functions block outbound ports 25 and 587; 465 with implicit TLS is allowed.)
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 // New projects: SUPABASE_SECRET_KEYS = {"default":"sb_secret_..."}; old projects: SUPABASE_SERVICE_ROLE_KEY
@@ -8,6 +10,8 @@ const SK = (() => { try { const j = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEY
 const sb = createClient(Deno.env.get("SUPABASE_URL")!, SK as string, { auth: { persistSession: false } });
 const KEY = Deno.env.get("RESEND_API_KEY") || "";
 const FROM = Deno.env.get("MAIL_FROM") || "Moviy Nomad <info@moviy-travel.uz>";
+const GUSER = Deno.env.get("GMAIL_USER") || "";
+const GPASS = (Deno.env.get("GMAIL_APP_PASSWORD") || "").replace(/\s+/g, "");
 const SITE = (Deno.env.get("SITE_URL") || "https://moviy-travel.uz").replace(/\/$/, "");
 let CFG: any = null, cfgAt = 0;
 async function conf() {
@@ -45,6 +49,53 @@ function render(c: any, ev: string, lang: string, x: any) {
   return { subject, text, html };
 }
 
+// ---- minimal SMTP client (implicit TLS, AUTH LOGIN) for the Gmail fallback
+const te = new TextEncoder(), td = new TextDecoder();
+function b64(s: string | Uint8Array) {
+  const u = typeof s === "string" ? te.encode(s) : s; let bin = "";
+  for (let i = 0; i < u.length; i += 0x8000) bin += String.fromCharCode(...u.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+const wrap = (s: string) => s.replace(/.{1,76}/g, "$&\r\n");
+async function gmailSend(to: string, subject: string, html: string, text: string, replyTo?: string) {
+  const conn = await Deno.connectTls({ hostname: "smtp.gmail.com", port: 465 });
+  let acc = "";
+  const buf = new Uint8Array(8192);
+  const reply = async (want: number) => {
+    const t0 = Date.now();
+    while (true) {
+      const m = acc.match(/(^|\r\n)(\d{3}) [^\r\n]*\r\n$/);
+      if (m) { const code = +m[2], all = acc; acc = ""; if (code !== want) throw new Error("Gmail SMTP " + code + ": " + all.trim().slice(0, 200)); return; }
+      if (Date.now() - t0 > 20000) throw new Error("Gmail SMTP timeout");
+      const n = await conn.read(buf); if (n === null) throw new Error("Gmail SMTP closed: " + acc.slice(0, 200));
+      acc += td.decode(buf.subarray(0, n));
+    }
+  };
+  const cmd = async (line: string, want: number) => { await conn.write(te.encode(line + "\r\n")); await reply(want); };
+  try {
+    await reply(220);
+    await cmd("EHLO moviy-travel.uz", 250);
+    await cmd("AUTH LOGIN", 334);
+    await cmd(b64(GUSER), 334);
+    await cmd(b64(GPASS), 235);
+    await cmd(`MAIL FROM:<${GUSER}>`, 250);
+    await cmd(`RCPT TO:<${to}>`, 250);
+    await cmd("DATA", 354);
+    const bd = "mn" + crypto.randomUUID().replace(/-/g, "");
+    const msg = [
+      `From: =?UTF-8?B?${b64("Moviy Nomad")}?= <${GUSER}>`, `To: <${to}>`, replyTo ? `Reply-To: <${replyTo}>` : "",
+      `Subject: =?UTF-8?B?${b64(subject)}?=`, `Date: ${new Date().toUTCString().replace("GMT", "+0000")}`,
+      `Message-ID: <${crypto.randomUUID()}@moviy-travel.uz>`, "MIME-Version: 1.0",
+      `Content-Type: multipart/alternative; boundary="${bd}"`, "",
+      `--${bd}`, "Content-Type: text/plain; charset=UTF-8", "Content-Transfer-Encoding: base64", "", wrap(b64(text)),
+      `--${bd}`, "Content-Type: text/html; charset=UTF-8", "Content-Transfer-Encoding: base64", "", wrap(b64(html)),
+      `--${bd}--`, "",
+    ].filter((l, i) => l !== "" || i > 3).join("\r\n");
+    await conn.write(te.encode(msg + "\r\n.\r\n")); await reply(250);
+    await conn.write(te.encode("QUIT\r\n"));
+  } finally { try { conn.close(); } catch { /* closed */ } }
+}
+
 async function record(row: any) {
   if (row.ref_table === "site_customers") {
     // client cabinet letters: new message / cabinet approved / office alerts
@@ -71,25 +122,34 @@ async function record(row: any) {
 }
 
 Deno.serve(async () => {
-  if (!KEY) return Response.json({ ok: false, reason: "RESEND_API_KEY is not set" });
+  const GM = !!(GUSER && GPASS);
+  if (!KEY && !GM) return Response.json({ ok: false, reason: "RESEND_API_KEY is not set" });
+  let useGmail = !KEY;
   const c = await conf();
   const { data: rows, error: qerr } = await sb.from("notify_outbox").select("*").eq("status", "pending").order("id").limit(20);
   if (qerr) return Response.json({ ok: false, reason: "db: " + qerr.message });
   let sent = 0;
   for (const row of rows || []) {
     try {
-      if (Date.now() - new Date(row.created_at).getTime() > 3 * 864e5) { await sb.from("notify_outbox").update({ status: "expired" }).eq("id", row.id); continue; }
+      if (Date.now() - new Date(row.created_at).getTime() > 7 * 864e5) { await sb.from("notify_outbox").update({ status: "expired" }).eq("id", row.id); continue; }
       const x = await record(row);
       if (!x) { await sb.from("notify_outbox").update({ status: "error", error: "record not found" }).eq("id", row.id); continue; }
       const m = render(c, row.event, row.lang in c.msg ? row.lang : "en", x);
-      const res = await fetch("https://api.resend.com/emails", { method: "POST",
-        headers: { Authorization: "Bearer " + KEY, "Content-Type": "application/json" },
-        body: JSON.stringify({ from: FROM, to: [row.to_email], reply_to: c.co.email || undefined, subject: m.subject, html: m.html, text: m.text }) });
-      if (!res.ok) throw new Error("Resend " + res.status + ": " + (await res.text()).slice(0, 300));
-      await sb.from("notify_outbox").update({ status: "sent", sent_at: new Date().toISOString(), subject: m.subject, error: null }).eq("id", row.id);
+      let via = "resend";
+      if (!useGmail) {
+        const res = await fetch("https://api.resend.com/emails", { method: "POST",
+          headers: { Authorization: "Bearer " + KEY, "Content-Type": "application/json" },
+          body: JSON.stringify({ from: FROM, to: [row.to_email], reply_to: c.co.email || undefined, subject: m.subject, html: m.html, text: m.text }) });
+        if (!res.ok) {
+          const t = (await res.text()).slice(0, 300);
+          if (GM && /domain is not verified/i.test(t)) useGmail = true; else throw new Error("Resend " + res.status + ": " + t);
+        }
+      }
+      if (useGmail) { await gmailSend(row.to_email, m.subject, m.html, m.text, c.co.email || undefined); via = "gmail"; }
+      await sb.from("notify_outbox").update({ status: "sent", sent_at: new Date().toISOString(), subject: m.subject, error: via === "gmail" ? "Gmail orqali yuborildi (Resend domeni tasdiqlanguncha)" : null }).eq("id", row.id);
       sent++;
     } catch (e) {
-      // Domain not verified yet in Resend: keep the letter waiting (no attempt counted; still expires after 3 days) until it is.
+      // Domain not verified yet in Resend and no Gmail fallback: keep the letter waiting (no attempt counted; expires after 7 days).
       if (/domain is not verified/i.test(String(e))) { await sb.from("notify_outbox").update({ error: "Resend: domen hali tasdiqlanmagan — kutmoqda" }).eq("id", row.id); continue; }
       const a = (row.attempts || 0) + 1;
       await sb.from("notify_outbox").update({ attempts: a, status: a >= 5 ? "error" : "pending", error: String(e).slice(0, 500) }).eq("id", row.id);
