@@ -32,6 +32,8 @@ def missing_keys(lang):
 
 SVC_IDS = ["guide", "car", "hotel", "airport", "airport_guide", "mice", "esim"]
 SVC_IMG = {"airport_guide": "p/kukeldash", "esim": "p/tashkent-sky", "airport": "tashkent", "transfer": "p/kyzylkum", "car": "charvak", "hotel": "p/ichan-kala", "train": "train", "guide": "p/registan", "mice": "p/yurt"}
+# premium cover photos (Pexels — free for commercial use), stored in Supabase storage
+SVC_COVER = {k: f"https://qlytfxwxauvlrbfnwzod.supabase.co/storage/v1/object/public/food-photos/svc/{k}.webp" for k in ["guide", "car", "hotel", "airport", "airport_guide", "mice", "esim"]}
 SVC_ICON = {
  "airport": '<path d="M2 16l20-6-2-3-7 2-5-6H6l3 7-5 2-2-2H1l1 6z"/><path d="M3 21h18"/>',
  "transfer": '<path d="M3 13l2-6h14l2 6v5h-2.5M5.5 18H3v-5h18"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
@@ -103,7 +105,8 @@ def home_blocks(lang, pre, A, icon):
     </div>
   </section>'''
     cards = "".join(
-        f'<a class="svc-mini" href="services.html#{sid}"><span class="svc-mini__ic">{svc_icon(sid)}</span><b>{e(x["services"][sid][0])}</b><small>{e(x["services"][sid][1])}</small></a>'
+        f'<a class="svc-mini svc-mini--{sid}" href="services.html#{sid}"><span class="svc-mini__img"><img src="{SVC_COVER[sid]}" alt="{e(x["services"][sid][0])}" loading="lazy" decoding="async"></span>'
+        f'<span class="svc-mini__in"><span class="svc-mini__ic">{svc_icon(sid)}</span><b>{e(x["services"][sid][0])}</b><small>{e(x["services"][sid][1])}</small><i class="svc-mini__go" aria-hidden="true">→</i></span></a>'
         for sid in SVC_IDS)
     services = f'''
   <section class="section section--sand" id="services">
@@ -291,7 +294,7 @@ def render_services(lang, icon, logo, font, names):
     cards = ""
     for sid in SVC_IDS:
         ttl, short, pts = x["services"][sid]
-        cards += (f'<article class="svc" id="{sid}"><div class="svc__img" style="background-image:url({pre}assets/img/{SVC_IMG[sid]}.webp)"><span class="svc__ic">{svc_icon(sid)}</span></div>'
+        cards += (f'<article class="svc" id="{sid}"><div class="svc__img" style="background-image:url({SVC_COVER[sid] if sid in SVC_COVER else pre + "assets/img/" + SVC_IMG[sid] + ".webp"})"><span class="svc__ic">{svc_icon(sid)}</span></div>'
                   f'<div class="svc__body"><h2>{e(ttl)}</h2><p>{e(short)}</p><ul>' + "".join(f'<li>{e(p)}</li>' for p in pts) +
                   f'</ul><div class="svc__price" data-svcp="{sid}" data-tpl="{e(x["svc_from"])}" hidden></div><button class="btn btn--gold btn--sm" data-svc="{sid}">{e(x["svc_request"])} →</button>'
                   + (f' <a class="btn btn--outline btn--sm" href="{SVC_PAGE[sid][1]}">{e(PT["k_" + SVC_PAGE[sid][0]])} →</a>' if sid in SVC_PAGE else '') + '</div></article>')
