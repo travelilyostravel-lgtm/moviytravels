@@ -226,7 +226,7 @@
       }
       // 3) photos: 3 at a time, each tried up to 3 times; the profile is saved again after each finished photo
       var files = []; $$("input[type=file]", fm).forEach(function (inp) { [].slice.call(inp.files).forEach(function (f) { files.push([inp.getAttribute("data-slot"), f]); }); });
-      var done = 0, failed = 0, next = 0, pubCount = p.photos.length, dirty = false;
+      var lastErr = "", done = 0, failed = 0, next = 0, pubCount = p.photos.length, dirty = false;
       var one = async function (slot, file) {
         var fl = await resize(file, slot === "main" ? 1280 : 1400), isPub = slot === "main" || (slot !== "lic" && slot !== "tech" && pubCount < 30);
         if (isPub && slot !== "main") pubCount++;
@@ -236,7 +236,7 @@
             if (slot === "main") p.photo = path; else if (isPub) p.photos.push(path);
             else p.docs.push({ kind: slot === "trip" ? "trip" : slot === "lic" ? "license" : slot === "tech" ? "vehicle" : "extra", path: path, name: file.name || slot, at: new Date().toISOString() });
             dirty = true; return true;
-          } catch (e) { await new Promise(function (ok) { setTimeout(ok, 1500 * (t + 1)); }); }
+          } catch (e) { lastErr = slot + " " + Math.round((fl.size || 0) / 1024) + "KB " + (fl.type || "?") + ": " + String(e && e.message || e).slice(0, 160); await new Promise(function (ok) { setTimeout(ok, 1500 * (t + 1)); }); }
         }
         if (isPub && slot !== "main") pubCount--;
         return false;
@@ -251,6 +251,7 @@
       };
       await Promise.all([worker(), worker(), worker()]);
       await save();
+      if (failed) try { await fetch(SB.url + "/rest/v1/rpc/partner_upload_error", { method: "POST", headers: H(tok, { "Content-Type": "application/json" }), body: JSON.stringify({ msg: failed + "/" + files.length + " · " + lastErr + " · " + navigator.userAgent.slice(0, 200) }) }); } catch (x) {}
       window.removeEventListener("beforeunload", warnLeave);
       if (window.MN_TRACK) try { window.MN_TRACK("partner_apply", kind); } catch (x) {}
       var base = document.documentElement.getAttribute("data-base") || "";
