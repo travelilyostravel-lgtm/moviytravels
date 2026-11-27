@@ -58,16 +58,17 @@
         (h === "ok" || h === "osm" ? '<span class="fdk__halal">☪ ' + esc(T.halal) + '</span>' : '') + (r.pinned ? '<span class="fdk__pin">★</span>' : '') + '</button>' +
       '<div class="fdk__b"><h3><button type="button" data-open="' + r.id + '">' + esc(nm(r.name)) + '</button></h3>' +
         '<div class="fdk__cui">' + esc(cuiTxt(r)) + '</div>' +
-        (r.address ? '<div class="fdk__addr">📍 ' + esc(r.address) + '</div>' : '') +
+        ((r.address || r.city) ? '<div class="fdk__addr">📍 ' + esc(r.address || r.city) + '</div>' : '') +
         (r.hours ? '<div class="fdk__hrs">🕒 ' + esc(r.hours.length > 40 ? r.hours.slice(0, 40) + "…" : r.hours) + '</div>' : '') +
         '<div class="fdk__act">' + (r.lat ? '<a class="fdk__taxi" href="' + esc(taxi(r)) + '" target="_blank" rel="noopener" data-taxi="' + r.id + '">🚕 Yandex Go</a>' : '') +
         '<button type="button" class="fdk__more" data-open="' + r.id + '">' + esc(T.menu) + ' · ' + esc(T.addr) + ' →</button></div></div></article>';
   }
   function load(reset) {
-    if (busy) return; busy = true; var my = ++last;
+    // a new filter always wins; only "show more" waits for the running request
+    if (busy && !reset) return; busy = true; var my = ++last;
     if (reset) { off = 0; rows = []; grid.innerHTML = '<p class="ev-load">' + esc(T.loading) + '</p>'; }
     fetch(url(), { headers: hdr() }).then(function (r) { return r.ok ? r.json() : []; }).then(function (d) {
-      busy = false; if (my !== last) return;
+      if (my !== last) return; busy = false;
       if (reset) grid.innerHTML = "";
       var start = rows.length; rows = rows.concat(d || []); off += (d || []).length;
       grid.insertAdjacentHTML("beforeend", (d || []).map(function (r, k) { return card(r, start + k); }).join(""));
@@ -75,7 +76,7 @@
       document.getElementById("fd-empty").hidden = rows.length > 0;
       document.getElementById("fd-more").hidden = (d || []).length < PAGE;
       if (reset) ld();
-    }).catch(function () { busy = false; });
+    }).catch(function () { if (my !== last) return; busy = false; grid.innerHTML = ""; document.getElementById("fd-empty").hidden = false; });
   }
   // Google: list of the first places as structured data
   function ld() {

@@ -169,7 +169,7 @@ def render_index(lang, pages, x, icon, logo, font, names):
     <p class="fd-src">{e(T["src"])}</p>
   </div>
 </section>'''
-    js = _page_js(lang, "", T) + f'<script src="{A}assets/js/food.js?v=1" defer></script>'
+    js = _page_js(lang, "", T) + f'<script src="{A}assets/js/food.js?v=2" defer></script>'
     return pages.shell(lang, "food.html", T["title"], T["sub"], body, icon, logo, font, names, "is-food", js)
 
 def render_region(lang, r, pages, x, icon, logo, font, names):
@@ -195,7 +195,7 @@ def render_region(lang, r, pages, x, icon, logo, font, names):
   </div>
 </section>
 <div class="fds" id="fd-sheet" aria-hidden="true"><div class="fds__bg" data-close></div><div class="fds__box" role="dialog" aria-modal="true"><button class="fds__x" data-close aria-label="×">×</button><div id="fd-sheet-in"></div></div></div>'''
-    js = _page_js(lang, r[0], T) + f'<script src="{A}assets/js/food.js?v=1" defer></script>'
+    js = _page_js(lang, r[0], T) + f'<script src="{A}assets/js/food.js?v=2" defer></script>'
     return pages.shell(lang, f"food-{r[0]}.html", title, sub, body, icon, logo, font, names, "is-food", js)
 
 def render_all(lang, pages, icon, logo, font, names):
