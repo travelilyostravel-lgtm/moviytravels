@@ -42,6 +42,17 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: !!r.ok, webhook: r.description || "", bot: me.result ? me.result.username : "" });
   }
 
+  if (req.method === "GET" && q.check) {              // health check for the founder / Claude: no secrets in the answer
+    var out = { sk: !!process.env.SUPABASE_SERVICE_KEY, db: false, auth: false, storage: false };
+    try {
+      var h = { apikey: process.env.SUPABASE_SERVICE_KEY || "" }; if (!/^sb_/.test(h.apikey)) h.Authorization = "Bearer " + h.apikey;
+      out.db = (await fetch(SB_URL + "/rest/v1/tg_reg?select=chat&limit=1", { headers: h })).ok;
+      out.auth = (await fetch(SB_URL + "/auth/v1/admin/users?per_page=1", { headers: h })).ok;
+      out.storage = (await fetch(SB_URL + "/storage/v1/bucket/partner-photos", { headers: h })).ok;
+    } catch (e) {}
+    return res.status(200).json(out);
+  }
+
   if (req.method === "GET" && q.send) {
     var sent = 0, failed = 0, list = [];
     try { list = await rpc("tg_outbox_take", { p_key: key }); } catch (e) { return res.status(500).json({ ok: false, error: String(e.message || e) }); }
