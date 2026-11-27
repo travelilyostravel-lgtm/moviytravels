@@ -175,7 +175,7 @@
     var FX = (await sb.rpc("partner_missing", { pid: p.id })).data || [];
     if (p.fix_deadline || p.auto_paused) {
       var left = p.fix_deadline ? Math.ceil((new Date(p.fix_deadline) - new Date()) / 864e5) : 0;
-      h += '<div class="p-card" style="border:2px solid ' + (p.auto_paused ? "#efa5a5" : "#e9b949") + '"><h3>' + (p.auto_paused ? "🚫 Saytdan avtomatik olib tashlangan — kamchiliklar tuzatilmadi" : "⏳ Tuzatish muddati: " + P.date(p.fix_deadline) + " 23:59 (" + Math.max(left, 0) + " kun qoldi)") + '</h3>' +
+      h += '<div class="p-card" style="border:2px solid ' + (p.auto_paused ? "#efa5a5" : "#e9b949") + '"><h3>' + (p.auto_paused ? "🚫 Saytdan avtomatik olib tashlangan — kamchiliklar tuzatilmadi" : "⏳ Tuzatish muddati: " + P.date(p.fix_deadline) + " 23:59 (" + Math.max(left, 0)+ " kalendar kun qoldi)") + '</h3>' +
         '<p class="p-sub">' + (p.auto_paused ? "Hamkor kartochkani 100% to'ldirsa, sayt uni o'zi qaytaradi." : "Sayt har soatda tekshiradi: 100% to'ldirilsa — saytda qoladi; muddat o'tib kamchilik qolsa — avtomatik olib tashlanadi. Hamkor kabinetida har kuni ogohlantirish ko'radi.") + '</p>' +
         (FX.length ? '<ul class="pdocs">' + FX.map(function (c) { return '<li style="color:#b4541b">❌ ' + esc(A.fixLabel(c)) + '</li>'; }).join("") + '</ul>' : '<p style="color:#23794a"><b>✅ Hozir hammasi to\'ldirilgan — keyingi tekshiruvda muddat olib tashlanadi.</b></p>') + '</div>';
     }
