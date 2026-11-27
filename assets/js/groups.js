@@ -68,10 +68,10 @@
       '<div class="gk__price"><b class="gd-price">' + esc(priceTxt(x)) + '</b><small>' + esc(G.gr_pp) + '</small></div>' +
       '<button class="btn btn--gold btn--sm" data-gd="' + x.id + '"' + (full ? " disabled" : "") + '>' + esc(G.gr_request) + '</button></div>';
   }
-  function card(grp) {
+  function card(grp, i) {
     var x = grp[0], any = grp.filter(function (g) { return !isFull(g); })[0] || x;
     return '<article class="gd" data-id="' + x.id + '" id="d-' + x.start_date + '">' +
-      '<div class="gd__img" style="background-image:url(' + cover(x.tour_id) + ')"><span class="gd__date">' + esc(range(x)) + '</span></div>' +
+      '<div class="gd__img" style="background-image:url(' + (typeof i === "number" && HCOV ? (LANG === "en" ? "" : "../") + HCOV[i % HCOV.length] : cover(x.tour_id)) + ')"><span class="gd__date">' + esc(range(x)) + '</span></div>' +
       '<div class="gd__body"><div class="gd__top">' + badge(any) + '<span class="gd__days">' + esc(tf(G.gr_days, { n: days(x.tour_id) })) + '</span></div>' +
       '<h3>' + esc(title(x.tour_id)) + '</h3><p class="gd__route">' + esc(cities(x.tour_id)) + '</p>' +
       (x.tour_id === "classic" && G.gr_start_khiva ? '<p class="gd__meta">📍 ' + esc(G.gr_start_khiva) + ' · 🗣 ' + esc(glName(glOf(x))) + '</p>' : '<p class="gd__meta">🗣 ' + esc(glName(glOf(x))) + '</p>') +

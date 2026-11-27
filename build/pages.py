@@ -563,5 +563,5 @@ def render_groups(lang, icon, logo, font, names):
   <div id="gd-ok" hidden></div>
 </div></div>'''
     js = (f'<script>window.MNG={gr_strings(lang)};</script><script src="{A}data/catalog.js"></script><script src="{A}data/places.js"></script>'
-          f'<script src="{A}data/tours.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/gd-schedule.js"></script><script src="{A}js/groups.js?v=2"></script>')
+          f'<script src="{A}data/tours.js"></script><script src="{A}js/engine.js"></script><script src="{A}js/gd-schedule.js"></script><script src="{A}js/groups.js?v=3"></script>')
     return shell(lang, "group-tours.html", x["gr_title"], x["gr_sub"], body, icon, logo, font, names, "is-groups", js)
