@@ -113,7 +113,7 @@
   function bindOut() { var b = root.querySelector("#cab-out"); if (b) b.onclick = function () { put(null); authView("login"); }; }
 
   function statusText(r) {
-    var s = (T.status[r.status] || r.status).replace("{date}", dmy(r.balance_due));
+    var s = (T.status[r.status === "other" || r.status === "spam" ? "new" : r.status] || r.status).replace("{date}", dmy(r.balance_due));
     if (r.status === "awaiting_payment" && r.full_now) s += " (100%)"; else if (r.status === "awaiting_payment") s += " (30%)";
     return s;
   }

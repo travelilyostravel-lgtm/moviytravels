@@ -66,7 +66,7 @@
     var agM = {}; ag.forEach(function (a) { agM[a.id] = a.manager_id || "none"; });
     function stats(id) {
       var R = rq.filter(function (x) { return (x.assigned_to || "none") === id; });
-      var open = R.filter(function (x) { return ["closed", "cancelled", "confirmed"].indexOf(x.status) < 0; }).length;
+      var open = R.filter(function (x) { return ["closed", "cancelled", "confirmed", "other", "spam"].indexOf(x.status) < 0; }).length;
       var sum = R.reduce(function (s, x) { return s + (+x.price_total || 0); }, 0), paid = R.reduce(function (s, x) { return s + (+x.paid_total || 0); }, 0);
       var B = bk.filter(function (b) { return agM[b.agency_id] === id; });
       var by = {}; R.forEach(function (x) { by[x.status] = (by[x.status] || 0) + 1; });

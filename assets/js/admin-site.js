@@ -2,22 +2,22 @@
 (function () {
   var P = window.MNP, sb = P.sb, $ = P.$, $$ = P.$$, esc = P.esc, A = window.MNA = window.MNA || {};
   if (!sb) return;
-  var RS = { new: "Yangi", in_progress: "Ishlanmoqda", awaiting_payment: "30% kutilmoqda", deposit_paid: "30% to'landi, 70% kutilmoqda", paid: "100% to'landi", confirmed: "Tasdiqlandi", closed: "Yopildi", cancelled: "Bekor" };
+  var RS = { new: "Yangi", in_progress: "Ishlanmoqda", awaiting_payment: "30% kutilmoqda", deposit_paid: "30% to'landi, 70% kutilmoqda", paid: "100% to'landi", confirmed: "Tasdiqlandi", closed: "Yopildi", cancelled: "Bekor", other: "↪ Boshqa masala", spam: "🗑 Soxta / spam" };
   var SV = { airport: "Aeroportda haydovchi kutib oladi", airport_guide: "Aeroportda gid kutib oladi", transfer: "Transfer", car: "Haydovchili transport", hotel: "Mehmonxona", train: "Poyezd chiptasi", guide: "Gid", mice: "Guruh / MICE", esim: "eSIM", partner: "Gid / hamkorga so'rov", event: "Tadbir chiptasi" };
   var HC = { comfort: "Komfort 3★", superior: "Superior 4★", boutique: "Butik va tarixiy" };
   var PM = { bank: "Bank o'tkazmasi", card: "Karta havolasi", contact: "Avval bog'lanish" };
   var rFilter = "open", pFilter = "pending";
-  function badge(s) { return '<span class="badge-s st-' + (s === "new" ? "request" : s === "closed" ? "cancelled" : s) + '">' + esc(RS[s] || s) + '</span>'; }
+  function badge(s) { return '<span class="badge-s st-' + (s === "new" ? "request" : s === "closed" || s === "other" || s === "spam" ? "cancelled" : s) + '">' + esc(RS[s] || s) + '</span>'; }
   function wa(phone) { var d = String(phone || "").replace(/\D/g, ""); return d ? "https://wa.me/" + d : "#"; }
 
   // ---------------------------------------------------------------- requests
   A.requests = async function () {
     A.show("requests");
-    var F = [["open", "Ochiq"], ["new", "Yangi"], ["in_progress", "Ishlanmoqda"], ["awaiting_payment", "30% kutilmoqda"], ["deposit_paid", "70% kutilmoqda"], ["paid", "To'landi"], ["confirmed", "Tasdiqlandi"], ["all", "Hammasi"]];
+    var F = [["open", "Ochiq"], ["new", "Yangi"], ["in_progress", "Ishlanmoqda"], ["awaiting_payment", "30% kutilmoqda"], ["deposit_paid", "70% kutilmoqda"], ["paid", "To'landi"], ["confirmed", "Tasdiqlandi"], ["closed", "Yopilgan"], ["other", "↪ Boshqa masala"], ["spam", "🗑 Soxta (spam)"], ["all", "Hammasi"]];
     $("#rf").innerHTML = F.map(function (f) { return '<button data-f="' + f[0] + '" class="' + (f[0] === rFilter ? "is-on" : "") + '">' + f[1] + '</button>'; }).join("");
     $$("#rf button").forEach(function (b) { b.onclick = function () { rFilter = b.dataset.f; A.requests(); }; });
     var q = sb.from("site_requests").select("*").order("created_at", { ascending: false }).limit(300);
-    if (rFilter === "open") q = q.not("status", "in", "(closed,cancelled,confirmed)"); else if (rFilter !== "all") q = q.eq("status", rFilter);
+    if (rFilter === "open") q = q.not("status", "in", "(closed,cancelled,confirmed,other,spam)"); else if (rFilter === "all") q = q.neq("status", "spam"); else q = q.eq("status", rFilter);
     var mh = $("#rm"); if (!mh) { mh = document.createElement("div"); mh.id = "rm"; mh.className = "filters"; $("#rf").after(mh); }
     if (A.mgrChips) await A.mgrChips(mh, A.requests);
     var isOwner = A.role === "admin";
@@ -63,7 +63,15 @@
     h += '<div class="p-card"><h3>Holat va izoh</h3>' + (mgSel ? '<div class="fld" style="margin-bottom:12px"><label>Menejer (kimning mijozi)</label>' + mgSel + '</div>' : (A.role === "manager" ? '' : '')) + '<div class="fld"><label>Holat</label><select id="r-st">' + Object.keys(RS).map(function (k) { return '<option value="' + k + '"' + (k === x.status ? " selected" : "") + '>' + RS[k] + '</option>'; }).join("") + '</select></div>' +
       '<div class="fld" id="r-cr-w" style="margin-top:12px' + (x.status === "cancelled" ? "" : ";display:none") + '"><label>Bekor qilish sababi (mijoz kabinetida ko\'rinadi)</label><input id="r-cr" maxlength="300" value="' + esc(x.cancel_reason || "") + '" placeholder="Masalan: sanada joy qolmadi — boshqa sana tanlang"></div>' +
       '<div class="fld" style="margin-top:12px"><label>🔒 Ichki izoh (mijoz KO\'RMAYDI)</label><textarea id="r-note">' + esc(x.admin_note || "") + '</textarea></div><div class="msg" id="m-r"></div>' +
-      '<div class="p-actions"><button class="btn btn--gold btn--sm" id="r-save">Saqlash</button></div></div>';
+      '<div class="p-actions"><button class="btn btn--gold btn--sm" id="r-save">Saqlash</button></div>' +
+      // one-click moves: the lead leaves the active list and goes to its own tab (nothing is lost; can be moved back)
+      '<div class="p-actions" style="margin-top:10px;border-top:1px dashed #ddd;padding-top:10px"><span class="p-sub" style="margin-right:6px">Tez:</span>' +
+        (x.status !== "closed" ? '<button class="btn btn--outline btn--sm" data-qs="closed">✅ Yopildi</button>' : '') +
+        (x.status !== "other" ? '<button class="btn btn--outline btn--sm" data-qs="other">↪ Boshqa masala</button>' : '') +
+        (x.status !== "spam" ? '<button class="btn btn--outline btn--sm" data-qs="spam" style="color:#a12f2f;border-color:#a12f2f">🗑 Soxta / spam</button>' : '') +
+        (["closed", "other", "spam"].indexOf(x.status) > -1 ? '<button class="btn btn--outline btn--sm" data-qs="in_progress">↩ Faol ro\'yxatga qaytarish</button>' : '') +
+        (x.status === "spam" && A.role === "admin" ? '<button class="btn btn--outline btn--sm" id="r-purge" style="color:#fff;background:#a12f2f;border-color:#a12f2f">Butunlay o\'chirish</button>' : '') +
+      '</div></div>';
     if (x.details && x.details.partner_id && A.partnerCostCard) h += await A.partnerCostCard({ request_id: id });
     h += '<div class="p-card" id="r-chat"><h3>💬 Mijozga izoh (saytda, mijoz kabinetida ko\'rinadi)</h3><div id="r-thread"><p class="p-sub">…</p></div>' +
       '<div class="fld" style="margin-top:8px"><textarea id="r-cm" rows="3" maxlength="3000" placeholder="Mijozga yozing — u kabinetida ko\'radi va e-mail xabarnoma oladi"></textarea></div>' +
@@ -75,6 +83,18 @@
     if ($("#r-mgr")) $("#r-mgr").onchange = async function () { var u = await sb.from("site_requests").update({ assigned_to: this.value || null }).eq("id", id); P.msg("#m-r", u.error ? u.error.message : "Menejer o'zgartirildi", u.error ? "err" : "ok"); };
     $("#r-st").onchange = function () { $("#r-cr-w").style.display = this.value === "cancelled" ? "" : "none"; };
     chat(x, id);
+    $$("[data-qs]", box).forEach(function (b) { b.onclick = async function () {
+      var st = b.getAttribute("data-qs"); b.disabled = true;
+      var u = await sb.from("site_requests").update({ status: st, admin_note: $("#r-note").value.trim() || null, updated_at: new Date().toISOString() }).eq("id", id);
+      if (u.error) { b.disabled = false; return P.msg("#m-r", u.error.message, "err"); }
+      P.msg("#m-r", st === "in_progress" ? "Faol ro'yxatga qaytarildi" : "Ko'chirildi: " + RS[st] + " — faol ro'yxatdan olindi", "ok"); setTimeout(function () { A.requests(); }, 700);
+    }; });
+    if ($("#r-purge")) $("#r-purge").onclick = async function () {
+      if (this.dataset.sure !== "1") { this.dataset.sure = "1"; this.textContent = "Ha, butunlay o'chirilsin (qaytarib bo'lmaydi)"; return; }
+      this.disabled = true; var d = await sb.rpc("admin_request_purge", { p_id: id });
+      if (d.error) { this.disabled = false; return P.msg("#m-r", d.error.message, "err"); }
+      P.msg("#m-r", "O'chirildi", "ok"); setTimeout(function () { A.requests(); }, 600);
+    };
     $("#r-save").onclick = async function () {
       var st = $("#r-st").value, cr = $("#r-cr").value.trim();
       if (st === "cancelled" && !cr) return P.msg("#m-r", "Bekor qilish sababini yozing — mijoz kabinetida ko'radi va tuzatib qayta yubora oladi", "err");
