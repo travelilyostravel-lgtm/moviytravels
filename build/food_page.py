@@ -4,6 +4,7 @@
 import json
 from html import escape as _esc
 
+
 def e(s): return _esc(str(s), quote=True)
 
 NAV = {"en": "Food", "ru": "Где поесть", "uz": "Ovqatlar", "tr": "Yemek", "ar": "المطاعم", "de": "Essen", "sv": "Mat", "zh": "美食", "hi": "भोजन", "ko": "맛집"}
@@ -143,6 +144,22 @@ DISH = {
  "andijan": "Andijan plov · lagman · kebab", "namangan": "Namangan kebab · plov · somsa", "tashkent": "Plov · shashlik · fresh fish by Charvak",
 }
 
+# 27.11: tourist top list + photos/menu through the place's own Yandex Maps card
+_EXTRA = {
+    "en": dict(ypm="Photos, menu & prices", ypm_s="Opens this place on Yandex Maps: real photos, menu, prices and reviews", top_note="Top places for travellers", all_on="Show all places", all_off="Show only top places"),
+    "ru": dict(ypm="Фото, меню и цены", ypm_s="Откроется карточка заведения в Яндекс Картах: фото, меню, цены и отзывы", top_note="Лучшие места для туристов", all_on="Показать все заведения", all_off="Только лучшие места"),
+    "uz": dict(ypm="Rasmlar, menyu va narxlar", ypm_s="Yandex Xaritada shu joyning kartochkasi ochiladi: rasmlar, menyu, narxlar va sharhlar", top_note="Turistlar uchun eng yaxshi joylar", all_on="Barcha joylarni ko'rsatish", all_off="Faqat eng yaxshi joylar"),
+    "tr": dict(ypm="Fotoğraflar, menü ve fiyatlar", ypm_s="Mekân Yandex Haritalar'da açılır: fotoğraflar, menü, fiyatlar ve yorumlar", top_note="Gezginler için en iyi yerler", all_on="Tüm mekânları göster", all_off="Sadece en iyi yerler"),
+    "ar": dict(ypm="الصور والقائمة والأسعار", ypm_s="تُفتح صفحة المكان على خرائط ياندكس: صور وقائمة وأسعار وتقييمات", top_note="أفضل الأماكن للسياح", all_on="عرض كل الأماكن", all_off="أفضل الأماكن فقط"),
+    "de": dict(ypm="Fotos, Speisekarte & Preise", ypm_s="Öffnet das Lokal in Yandex Karten: Fotos, Speisekarte, Preise und Bewertungen", top_note="Top-Adressen für Reisende", all_on="Alle Lokale zeigen", all_off="Nur Top-Adressen"),
+    "sv": dict(ypm="Bilder, meny och priser", ypm_s="Öppnar stället i Yandex Kartor: bilder, meny, priser och omdömen", top_note="Bästa ställena för resenärer", all_on="Visa alla ställen", all_off="Bara de bästa ställena"),
+    "zh": dict(ypm="照片、菜单和价格", ypm_s="在 Yandex 地图中打开该餐厅：照片、菜单、价格和评价", top_note="游客精选餐厅", all_on="显示全部餐厅", all_off="只看精选"),
+    "hi": dict(ypm="फ़ोटो, मेन्यू और दाम", ypm_s="Yandex मैप्स पर यह जगह खुलेगी: फ़ोटो, मेन्यू, दाम और रिव्यू", top_note="पर्यटकों के लिए बेहतरीन जगहें", all_on="सभी जगहें दिखाएँ", all_off="सिर्फ़ बेहतरीन जगहें"),
+    "ko": dict(ypm="사진, 메뉴, 가격", ypm_s="Yandex 지도에서 이 식당이 열립니다: 사진, 메뉴, 가격, 리뷰", top_note="여행자를 위한 추천 식당", all_on="모든 식당 보기", all_off="추천 식당만"),
+}
+for _l, _d in _EXTRA.items():
+    if _l in TXT: TXT[_l].update(_d)
+
 def _rn(r, lang): return r[1][LI.get(lang, 0)]
 
 def _page_js(lang, region, T):
@@ -169,7 +186,7 @@ def render_index(lang, pages, x, icon, logo, font, names):
     <p class="fd-src">{e(T["src"])}</p>
   </div>
 </section>'''
-    js = _page_js(lang, "", T) + f'<script src="{A}assets/js/food.js?v=2" defer></script>'
+    js = _page_js(lang, "", T) + f'<script src="{A}assets/js/food.js?v=3" defer></script>'
     return pages.shell(lang, "food.html", T["title"], T["sub"], body, icon, logo, font, names, "is-food", js)
 
 def render_region(lang, r, pages, x, icon, logo, font, names):
@@ -189,13 +206,14 @@ def render_region(lang, r, pages, x, icon, logo, font, names):
     <div class="fd-grid" id="fd-grid" aria-live="polite"><p class="ev-load">{e(T["loading"])}</p></div>
     <p class="ev-empty" id="fd-empty" hidden>{e(T["none"])}</p>
     <div class="ev-more"><button type="button" class="btn btn--outline" id="fd-more" hidden>{e(T["more"])} ↓</button></div>
+    <p class="fd-allsw"><button type="button" id="fd-all">{e(T["all_on"])}</button></p>
     {_faq(T)}
     <div class="fd-others"><h3>{e(T["other_reg"])}</h3><div>{others}</div></div>
     <p class="fd-src">{e(T["src"])}</p>
   </div>
 </section>
 <div class="fds" id="fd-sheet" aria-hidden="true"><div class="fds__bg" data-close></div><div class="fds__box" role="dialog" aria-modal="true"><button class="fds__x" data-close aria-label="×">×</button><div id="fd-sheet-in"></div></div></div>'''
-    js = _page_js(lang, r[0], T) + f'<script src="{A}assets/js/food.js?v=2" defer></script>'
+    js = _page_js(lang, r[0], T) + f'<script src="{A}assets/js/food.js?v=3" defer></script>'
     return pages.shell(lang, f"food-{r[0]}.html", title, sub, body, icon, logo, font, names, "is-food", js)
 
 def render_all(lang, pages, icon, logo, font, names):

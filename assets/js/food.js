@@ -22,20 +22,22 @@
   }
 
   // ---------------------------------------------------------------- region page
-  var grid = document.getElementById("fd-grid"), PAGE = 24, off = 0, cat = "", halal = false, q = "", rows = [], busy = false, last = 0;
+  var grid = document.getElementById("fd-grid"), PAGE = 24, off = 0, cat = "", halal = false, q = "", rows = [], busy = false, last = 0, all = false, total = 0;
   counts().then(function (c) {
     var rc = c[T.region] || {};
     document.querySelectorAll("[data-cc]").forEach(function (el) {
       var k = el.getAttribute("data-cc"), n = rc[k] || 0; el.textContent = n ? num(n) : "";
+      total = rc._total || 0;
       if (!n && k !== "_all") el.closest(".fdc").hidden = true;
     });
+    var ab = document.getElementById("fd-all"); if (ab && total && !all) ab.textContent = T.all_on + " (" + num(total) + ")";
   });
   function url() {
     var u = SB.url + "/rest/v1/restaurants?select=id,name,kind,cuisine,cat,halal,halal_ok,lat,lon,address,city,phone,website,instagram,hours,photos,menu,about,price_level,pinned" +
-      "&region=eq." + encodeURIComponent(T.region) + (cat ? "&cat=eq." + cat : "") +
-      (halal ? "&or=(halal_ok.is.true,halal.eq.yes,cat.eq.national)" : "") +
+      "&region=eq." + encodeURIComponent(T.region) + (cat ? "&cat=eq." + cat : "") + (all ? "" : "&or=(tourist_rank.not.is.null,pinned.is.true)") +
+      (halal ? "&and=(or(halal_ok.is.true,halal.eq.yes,cat.eq.national))" : "") +
       (q ? "&name->>default=ilike." + encodeURIComponent("*" + q.replace(/[*,()]/g, " ") + "*") : "") +
-      "&order=pinned.desc,score.desc,id.asc&limit=" + PAGE + "&offset=" + off;
+      (all ? "&order=pinned.desc,score.desc,id.asc" : "&order=pinned.desc,tourist_rank.asc.nullslast,id.asc") + "&limit=" + PAGE + "&offset=" + off;
     return u;
   }
   var CUI = { uzbek: "O'zbek", regional: "", local: "", plov: "plov", kebab: "kebab", shashlik: "shashlik", pizza: "pizza", burger: "burger", coffee_shop: "coffee",
@@ -51,6 +53,8 @@
     return '<span class="fdx fdx--' + esc(r.cat) + '"><i>' + ((T.icons || {})[r.cat] || "🍽") + '</i>' + (big ? '' : '<b>' + esc(nm(r.name)).slice(0, 2) + '</b>') + '</span>';
   }
   function taxi(r) { return "https://3.redirect.appmetrica.yandex.com/route?end-lat=" + r.lat + "&end-lon=" + r.lon + "&ref=moviy-travel.uz&appmetrica_tracking_id=1178268795219780156"; }
+  // the place's own card on Yandex Maps (photos, menu, prices, reviews kept up to date by Yandex)
+  function yorg(r) { return "https://yandex.uz/maps/?ll=" + r.lon + "," + r.lat + "&z=18&text=" + encodeURIComponent(nm(r.name)); }
   function card(r, i) {
     var h = isHalal(r);
     return '<article class="fdk" style="--i:' + (i % PAGE) + '" data-id="' + r.id + '">' +
@@ -61,7 +65,8 @@
         ((r.address || r.city) ? '<div class="fdk__addr">📍 ' + esc(r.address || r.city) + '</div>' : '') +
         (r.hours ? '<div class="fdk__hrs">🕒 ' + esc(r.hours.length > 40 ? r.hours.slice(0, 40) + "…" : r.hours) + '</div>' : '') +
         '<div class="fdk__act">' + (r.lat ? '<a class="fdk__taxi" href="' + esc(taxi(r)) + '" target="_blank" rel="noopener" data-taxi="' + r.id + '">🚕 Yandex Go</a>' : '') +
-        '<button type="button" class="fdk__more" data-open="' + r.id + '">' + esc(T.menu) + ' · ' + esc(T.addr) + ' →</button></div></div></article>';
+        (r.lat ? '<a class="fdk__ypm" href="' + esc(yorg(r)) + '" target="_blank" rel="noopener" data-ypm="' + r.id + '">📷 ' + esc(T.ypm) + '</a>' : '') +
+        '<button type="button" class="fdk__more" data-open="' + r.id + '">' + esc(T.addr) + ' →</button></div></div></article>';
   }
   function load(reset) {
     // a new filter always wins; only "show more" waits for the running request
@@ -94,6 +99,8 @@
   document.getElementById("fd-halal").onchange = function () { halal = this.checked; load(true); };
   var qt; document.getElementById("fd-q").oninput = function () { var v = this.value.trim(); clearTimeout(qt); qt = setTimeout(function () { q = v; load(true); }, 350); };
   document.getElementById("fd-more").onclick = function () { load(false); };
+  var allBtn = document.getElementById("fd-all");
+  if (allBtn) allBtn.onclick = function () { all = !all; allBtn.textContent = all ? T.all_off : T.all_on + (total ? " (" + num(total) + ")" : ""); load(true); grid.scrollIntoView({ behavior: "smooth", block: "start" }); };
   load(true);
 
   // ---------------------------------------------------------------- place sheet
@@ -110,6 +117,7 @@
       '<div class="fds__body"><div class="fds__cui">' + esc(cuiTxt(r)) + '</div><h2>' + esc(n) + '</h2>' +
         (h ? '<p class="fds__halal fds__halal--' + h + '">☪ ' + esc(h === "ok" ? T.halal_ok : h === "osm" ? T.halal_osm : T.halal_nat) + '</p>' : '') +
         (r.lat ? '<a class="fds__taxi" href="' + esc(taxi(r)) + '" target="_blank" rel="noopener" data-taxi="' + r.id + '"><span class="fds__taxi-ic">🚕</span><span><b>' + esc(T.taxi) + '</b><small>' + esc(T.taxi_s) + '</small></span><i>→</i></a>' : '') +
+        (r.lat ? '<a class="fds__ypm" href="' + esc(yorg(r)) + '" target="_blank" rel="noopener" data-ypm="' + r.id + '"><span class="fds__taxi-ic">📷</span><span><b>' + esc(T.ypm) + '</b><small>' + esc(T.ypm_s) + '</small></span><i>→</i></a>' : '') +
         '<div class="fds__nav">' + (ym ? '<a href="' + esc(ym) + '" target="_blank" rel="noopener">🗺 ' + esc(T.ymap) + '</a>' : '') + (gl ? '<a href="' + esc(gl) + '" target="_blank" rel="noopener">📍 ' + esc(T.gmap) + '</a>' : '') +
           (gis ? '<a href="' + esc(gis) + '" target="_blank" rel="noopener">🧭 ' + esc(T.gis) + '</a>' : '') + (r.phone ? '<a href="tel:' + esc(r.phone.split(/[;,]/)[0].replace(/[^\d+]/g, "")) + '">📞 ' + esc(T.call) + '</a>' : '') + '</div>' +
         (about ? '<p class="fds__about">' + esc(about) + '</p>' : '') +
@@ -128,6 +136,7 @@
   }
   function close() { sheet.classList.remove("is-open"); sheet.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} }
   document.addEventListener("click", function (e) {
+    var y = e.target.closest("[data-ypm]"); if (y) { var r1 = rows.filter(function (x) { return String(x.id) === y.getAttribute("data-ypm"); })[0]; track("yandex_menu", r1 ? nm(r1.name) : ""); return; }
     var t = e.target.closest("[data-taxi]"); if (t) { var r0 = rows.filter(function (x) { return String(x.id) === t.getAttribute("data-taxi"); })[0]; track("taxi", r0 ? nm(r0.name) : ""); return; }
     var o = e.target.closest("[data-open]"); if (o) { var r = rows.filter(function (x) { return String(x.id) === o.getAttribute("data-open"); })[0]; if (r) open(r); return; }
     if (e.target.closest("[data-close]")) close();

@@ -118,6 +118,7 @@ begin
   end loop;
   update public.food_regions set fetched_at = now(), last_count = n, tries = 0, request_id = null where region = p_region;
   update public.restaurants set hidden = true where source = 'osm' and region = p_region and seen_at < now() - interval '20 days' and not hidden;
+  perform public.food_rank(p_region);
   return n;
 end $$;
 revoke all on function public.food_ingest(text, jsonb) from public, anon, authenticated;
@@ -192,3 +193,72 @@ begin
 end $$;
 revoke all on function public.admin_food_ingest(text, jsonb) from public, anon;
 grant execute on function public.admin_food_ingest(text, jsonb) to authenticated;
+
+-- 27.11: «Turistbop» — the best 40–100 places per region for travellers (the rest stay behind «Show all places»)
+alter table public.restaurants add column if not exists tourist_rank int;
+create index if not exists restaurants_tourist_idx on public.restaurants (region, tourist_rank);
+
+create table if not exists public.food_sights (region text not null, name text not null, lat float8 not null, lon float8 not null, primary key (region, name));
+alter table public.food_sights enable row level security;
+insert into public.food_sights values
+ ('tashkent_city','Amir Temur square',41.3111,69.2797),('tashkent_city','Chorsu',41.3262,69.2370),('tashkent_city','Hazrati Imam',41.3385,69.2398),('tashkent_city','Independence square',41.3040,69.2710),('tashkent_city','Tashkent City',41.3160,69.2480),
+ ('tashkent','Chimgan',41.5530,70.0120),('tashkent','Charvak',41.6219,69.9637),('tashkent','Amirsoy',41.4917,69.9958),
+ ('samarkand','Registan',39.6547,66.9758),('samarkand','Gur-e Amir',39.6485,66.9690),('samarkand','Shah-i-Zinda',39.6630,66.9880),('samarkand','Siab bazaar',39.6610,66.9800),
+ ('bukhara','Lyabi-Hauz',39.7747,64.4229),('bukhara','Ark',39.7775,64.4106),('bukhara','Poi-Kalon',39.7759,64.4150),
+ ('khorezm','Ichan-Kala',41.3783,60.3639),('khorezm','Urgench centre',41.5500,60.6310),
+ ('karakalpakstan','Savitsky museum, Nukus',42.4619,59.6100),
+ ('kashkadarya','Ak-Saray, Shahrisabz',39.0577,66.8302),('kashkadarya','Karshi centre',38.8600,65.7900),
+ ('surkhandarya','Termez centre',37.2242,67.2783),
+ ('fergana','Fergana centre',40.3864,71.7864),('fergana','Khudayar Khan palace, Kokand',40.5286,70.9425),('fergana','Yodgorlik, Margilan',40.4718,71.7247),('fergana','Rishtan',40.3570,71.2840),
+ ('andijan','Andijan centre',40.7821,72.3442),('namangan','Namangan centre',40.9983,71.6726),
+ ('navoi','Navoi centre',40.0844,65.3792),('navoi','Nurata',40.5600,65.6880),
+ ('jizzakh','Jizzakh centre',40.1158,67.8422),('syrdarya','Gulistan centre',40.4897,68.7842)
+on conflict do nothing;
+
+create or replace function public.food_rank(p_region text default null) returns int
+language plpgsql security definer set search_path = public as $$
+declare n int := 0;
+begin
+  update public.restaurants set tourist_rank = null where (p_region is null or region = p_region) and tourist_rank is not null;
+  with s as (
+    select r.id, r.region,
+      coalesce(r.score,0)
+      + case r.kind when 'restaurant' then 4 when 'cafe' then 1 when 'fast_food' then -6 else -2 end
+      + case when r.name ? 'en' or r.name ? 'ru' then 2 else 0 end
+      + case r.cat when 'national' then 3 when 'european' then 2 when 'middle' then 2 when 'asian' then 1 when 'fastfood' then -5 else 0 end
+      + case when d.km < 1 then 9 when d.km < 2.5 then 6 when d.km < 6 then 3 when d.km < 15 then 1 else -3 end
+      + case when (r.name->>'default') ~* (case r.region
+          when 'tashkent_city' then '(besh ?qozon|бешкозон|plov cent|плов центр|central asian plov|caravan|караван|afsona|афсона|national food|milliy taom|navvat|наввот|tandiriy|city grill|khan ?chapan|хан чапан|gruzin|грузинск|raj kapoor|chigatoy|чигатой|bukhara cafe|tarnovboshi|april verdant|tanovar|karimbek|каримбек|affresco|uzbegim|o.zbegim|ўзбегим|zafarobod|rayhon|райхон|kamolon|камолон|labi ?g.or|sim ?sim|choyxona|чайхана)'
+          when 'samarkand' then '(platan|платан|karimbek|каримбек|samarkand restaurant|ресторан самарканд|old city|bibi.?khan|бибиханум|registan|регистан|magistr|магистр|merosi|мероси|zargaron|заргарон|siyob|siab|сиаб|emirxan|emirkhan|эмирхан|labsar|1001|samarqand osh|osh markaz)'
+          when 'bukhara' then '(old bukhara|старая бухара|minzifa|минзифа|ayvan|айван|\mjoy\M|lyabi|labi|ляби|лаби|dolon|долон|doston|достон|caravan|караван|the plov|zolotaya|золотая|chinor|чинор|wishbone|silk road|bella italia|nodir|нодир)'
+          when 'khorezm' then '(terras|террас|khiva moon|хива мун|sofra|bir gumbaz|бир гумбаз|zarafsh|зарафш|allakul|zaynab|sultan|султан|tokhir|toxir|тохир|art restaurant|mirza|khorezm art|хорезм)'
+          else '(osh markaz|plov|плов|milliy taom|национальн)' end) then 30 else 0 end
+      + case when length(coalesce(r.name->>'default','')) < 4 or (r.name->>'default') ~* '^(kafe|cafe|кафе|oshxona|ошхона|choyxona|чайхана|restoran|ресторан|restaurant|fast ?food)$' then -12 else 0 end
+      as ts
+    from public.restaurants r
+    cross join lateral (select min(sqrt(power((r.lat - f.lat) * 111, 2) + power((r.lon - f.lon) * 111 * cos(radians(r.lat)), 2))) km
+                          from public.food_sights f where f.region = r.region) d
+    where not r.hidden and r.lat is not null and (p_region is null or r.region = p_region)
+  ), ranked as (
+    select id, region, row_number() over (partition by region order by ts desc, id) rn from s
+  )
+  update public.restaurants x set tourist_rank = ranked.rn
+    from ranked
+   where x.id = ranked.id
+     and ranked.rn <= case ranked.region when 'tashkent_city' then 100 when 'samarkand' then 80 when 'bukhara' then 80 when 'khorezm' then 70 when 'tashkent' then 50 else 40 end;
+  get diagnostics n = row_count;
+  return n;
+end $$;
+revoke all on function public.food_rank(text) from public, anon, authenticated;
+
+-- counts: top places per category, plus _total = every place in the region (for «Show all places»)
+create or replace function public.food_counts() returns jsonb
+language sql stable security definer set search_path = public as $$
+  select coalesce(jsonb_object_agg(region, cats), '{}'::jsonb) from (
+    select region, jsonb_object_agg(cat, c) || jsonb_build_object('_all', sum(c), '_total', max(tot)) as cats
+      from (select region, cat, count(*) filter (where tourist_rank is not null or pinned) c, sum(count(*)) over (partition by region) tot
+              from public.restaurants where not hidden group by 1, 2) z group by region) y;
+$$;
+grant execute on function public.food_counts() to anon, authenticated;
+
+select public.food_rank(null);

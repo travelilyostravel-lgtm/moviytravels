@@ -1556,3 +1556,12 @@ html[data-theme="dark"] .fdc.is-on{background:#f3b443;color:#12355b}
 html[data-theme="dark"] .fds__box{background:#0e1824}
 html[data-theme="dark"] .fd-step,html[data-theme="dark"] .fdk__b h3 button,html[data-theme="dark"] .fds__body h2,html[data-theme="dark"] .fd-faq summary,html[data-theme="dark"] .fd-others h3,html[data-theme="dark"] .fds__h,html[data-theme="dark"] .fds__mi b{color:#e8eef5}
 html[data-theme="dark"] .fd-dish{background:#1c2b3d}
+
+/* 27.11 food: Yandex card (photos, menu, prices) + top/all switch */
+.fds__ypm{display:flex;align-items:center;gap:14px;padding:14px 18px;margin-top:10px;border-radius:18px;background:var(--sky,#1f6feb);color:#fff;box-shadow:0 14px 30px -16px rgba(31,111,235,.9);transition:transform .2s}
+.fds__ypm:hover{transform:translateY(-2px)}
+.fds__ypm span{display:flex;flex-direction:column;gap:2px;flex:1}.fds__ypm b{font:700 16px/1.2 var(--font-head)}.fds__ypm small{font-size:12.5px;opacity:.85}.fds__ypm i{font-style:normal;font-size:22px}
+.fdk__ypm{display:inline-flex;align-items:center;gap:5px;padding:9px 12px;border-radius:999px;background:rgba(31,111,235,.1);color:var(--sky,#1f6feb);font:700 12.5px/1 var(--font-head);white-space:nowrap}
+.fdk__act{flex-wrap:wrap}
+.fd-allsw{text-align:center;margin:6px 0 30px}
+.fd-allsw button{all:unset;cursor:pointer;font:700 14px/1.2 var(--font-head);color:var(--sky,#1f6feb);border-bottom:1px dashed currentColor;padding-bottom:2px}
