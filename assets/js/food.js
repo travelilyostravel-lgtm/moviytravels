@@ -37,7 +37,7 @@
       "&region=eq." + encodeURIComponent(T.region) + (cat ? "&cat=eq." + cat : "") + (all ? "" : "&or=(tourist_rank.not.is.null,pinned.is.true)") +
       (halal ? "&and=(or(halal_ok.is.true,halal.eq.yes,cat.eq.national))" : "") +
       (q ? "&name->>default=ilike." + encodeURIComponent("*" + q.replace(/[*,()]/g, " ") + "*") : "") +
-      (all ? "&order=pinned.desc,score.desc,id.asc" : "&order=pinned.desc,tourist_rank.asc.nullslast,id.asc") + "&limit=" + (off ? PAGE : FIRST) + "&offset=" + off;
+      (all ? "&order=pinned.desc,score.desc,id.asc" : "&order=pinned.desc,tourist_rank.asc.nullslast,id.asc") + "&limit=" + (off ? (all ? PAGE : 200) : FIRST) + "&offset=" + off;
     return u;
   }
   var CUI = { uzbek: "O'zbek", regional: "", local: "", plov: "plov", kebab: "kebab", shashlik: "shashlik", pizza: "pizza", burger: "burger", coffee_shop: "coffee",
@@ -108,7 +108,7 @@
       grid.insertAdjacentHTML("beforeend", (d || []).map(function (r, k) { return card(r, start + k); }).join(""));
       requestAnimationFrame(function () { grid.querySelectorAll(".fdk:not(.is-in)").forEach(function (c) { c.classList.add("is-in"); }); });
       document.getElementById("fd-empty").hidden = rows.length > 0;
-      var mb = document.getElementById("fd-more"); mb.hidden = (d || []).length < (start ? PAGE : FIRST);
+      var mb = document.getElementById("fd-more"); mb.hidden = (d || []).length < (start ? (all ? PAGE : 200) : FIRST);
       var on = document.querySelector(".fdc.is-on [data-cc]"), cn = on ? on.textContent.replace(/\D/g, "") : "";
       mb.textContent = (T.more_all || T.more) + (cn && !all && !halal && !q ? " (" + cn + ")" : "") + " ↓";
       if (reset) ld();
