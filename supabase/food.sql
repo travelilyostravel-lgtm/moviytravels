@@ -34,6 +34,7 @@ create table if not exists public.restaurants (
   updated_at  timestamptz not null default now(),
   seen_at     timestamptz
 );
+alter table public.restaurants add column if not exists cat_fixed boolean not null default false;
 create unique index if not exists restaurants_src_ext on public.restaurants (source, ext_id) where ext_id is not null;
 create index if not exists restaurants_region on public.restaurants (region, cat);
 
@@ -102,7 +103,7 @@ begin
               + (case when coalesce(t->>'website', t->>'contact:website', t->>'contact:instagram') is not null then 1 else 0 end) + (case when v_kind = 'restaurant' then 1 else 0 end),
               now(), now())
       on conflict (source, ext_id) where ext_id is not null do update set
-        region = excluded.region, city = coalesce(excluded.city, x.city), name = excluded.name, kind = excluded.kind, cuisine = excluded.cuisine, cat = excluded.cat,
+        region = excluded.region, city = coalesce(excluded.city, x.city), name = excluded.name, kind = excluded.kind, cuisine = excluded.cuisine, cat = case when x.cat_fixed then x.cat else excluded.cat end,
         halal = coalesce(excluded.halal, x.halal), lat = excluded.lat, lon = excluded.lon, address = coalesce(excluded.address, x.address),
         phone = coalesce(excluded.phone, x.phone), website = coalesce(excluded.website, x.website), instagram = coalesce(excluded.instagram, x.instagram),
         hours = coalesce(excluded.hours, x.hours), score = excluded.score, seen_at = now();
@@ -143,5 +144,14 @@ begin
   return public.food_fetch_tick();
 end $$;
 grant execute on function public.admin_food_tick() to authenticated;
+
+-- photos and menu pictures uploaded by staff
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('food-photos', 'food-photos', true, 5242880, array['image/jpeg','image/png','image/webp'])
+on conflict (id) do update set public = true;
+drop policy if exists food_photos_staff_ins on storage.objects;
+create policy food_photos_staff_ins on storage.objects for insert to authenticated with check (bucket_id = 'food-photos' and (public.is_admin() or public.is_manager()));
+drop policy if exists food_photos_staff_del on storage.objects;
+create policy food_photos_staff_del on storage.objects for delete to authenticated using (bucket_id = 'food-photos' and (public.is_admin() or public.is_manager()));
 
 select public.food_fetch_tick() as result;
