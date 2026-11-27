@@ -66,9 +66,15 @@
     var t = (nm(r.name) + " " + (r.cuisine || "")), set = null;
     for (var i = 0; i < CV_RULES.length && !set; i++) if (CV_RULES[i][0].test(t)) set = CV_RULES[i][1];
     set = set || CV_CAT[r.cat] || CV_CAT.other;
-    var h = hash(r.id), k = set[h % set.length];
-    return SB.url + "/storage/v1/object/public/food-photos/covers/" + k + "-" + (Math.floor(h / 7) % CV[k]) + ".webp";
+    if (r._cv) return r._cv;
+    // every photo of the matching kinds, starting from this place's own number; skip ones shown on the last few cards
+    var all = []; set.forEach(function (k) { for (var j = 0; j < CV[k]; j++) all.push(k + "-" + j); });
+    var h = hash(r.id), pick = all[h % all.length];
+    for (var n = 0; n < all.length; n++) { var c = all[(h + n) % all.length]; if (RECENT.indexOf(c) < 0) { pick = c; break; } }
+    RECENT.push(pick); if (RECENT.length > 6) RECENT.shift();
+    return (r._cv = SB.url + "/storage/v1/object/public/food-photos/covers/" + pick + ".webp");
   }
+  var RECENT = [];
   function cover(r, big) {
     if (r.photos && r.photos.length) return '<img src="' + esc(r.photos[0]) + '" alt="' + esc(nm(r.name)) + '" loading="lazy">';
     return '<span class="fdx fdx--' + esc(r.cat) + '"><i>' + ((T.icons || {})[r.cat] || "🍽") + '</i></span>' +
