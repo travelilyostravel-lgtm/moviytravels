@@ -179,3 +179,9 @@ begin
 end $$;
 revoke all on function public.admin_esim_stats(date, date) from public, anon;
 grant execute on function public.admin_esim_stats(date, date) to authenticated;
+
+-- table rights for the admin page (row rules above still decide who sees what)
+grant select, update on public.esim_settings to authenticated;
+grant insert, update, delete on public.esim_plans to authenticated;
+grant usage, select on sequence public.esim_plans_id_seq to authenticated;
+grant select on public.esim_clicks, public.esim_events to authenticated;
