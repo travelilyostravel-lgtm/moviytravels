@@ -9,6 +9,7 @@ const crypto = require("crypto");
 const SB_URL = "https://qlytfxwxauvlrbfnwzod.supabase.co";
 const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFseXRmeHd4YXV2bHJiZm53em9kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxMTU2NDMsImV4cCI6MjExMDY5MTY0M30.BYSd6Fal0Rf7fX5BqrITBYkI8NrCMcY74FsbqsJnI0o";
 const SITE = "https://moviy-travel.uz";
+const reg = require("./_reg.js");
 
 function rpc(name, body) {
   return fetch(SB_URL + "/rest/v1/rpc/" + name, { method: "POST", headers: { apikey: SB_ANON, Authorization: "Bearer " + SB_ANON, "Content-Type": "application/json" }, body: JSON.stringify(body) })
@@ -26,7 +27,7 @@ function readBody(req) {
   });
 }
 const BTN = { inline_keyboard: [[{ text: "🔑 Kabinet / Кабинет", url: SITE + "/partner/" }]] };
-const HELLO = "👋 Assalomu alaykum! Bu — Moviy Nomad hamkorlar boti.\nBu yerga kartochkangiz, buyurtmalar va muhim ogohlantirishlar haqida xabar keladi.\n\nUlash uchun saytdagi kabinetingizda «📲 Telegram» tugmasini bosing.\n\n— — —\n\nЗдравствуйте! Это бот партнёров Moviy Nomad. Чтобы подключить уведомления, нажмите «📲 Telegram» в своём кабинете на сайте.";
+const HELLO = "👋 Assalomu alaykum! Bu — Moviy Nomad hamkorlar boti.\n\n• Hamkor bo'lish (ro'yxatdan o'tish): /start\n• Kabinetga kirish: /kabinet\n• Saytda allaqachon ro'yxatdan o'tgan bo'lsangiz — kabinetingizda «📲 Telegram» tugmasini bosing, xabarnomalar shu yerga keladi.\n\n— — —\n\nЗдравствуйте! Это бот партнёров Moviy Nomad.\n• Стать партнёром: /start\n• Войти в кабинет: /kabinet\n• Уже зарегистрированы на сайте — нажмите «📲 Telegram» в кабинете.";
 
 module.exports = async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
@@ -36,7 +37,7 @@ module.exports = async function handler(req, res) {
   var q = req.query || {};
 
   if (req.method === "GET" && q.setup) {
-    var r = await tg(token, "setWebhook", { url: SITE + "/api/tg-bot", secret_token: hookSecret(token), allowed_updates: ["message"], drop_pending_updates: true });
+    var r = await tg(token, "setWebhook", { url: SITE + "/api/tg-bot", secret_token: hookSecret(token), allowed_updates: ["message", "callback_query"], drop_pending_updates: true });
     var me = await tg(token, "getMe", {});
     return res.status(200).json({ ok: !!r.ok, webhook: r.description || "", bot: me.result ? me.result.username : "" });
   }
@@ -56,8 +57,13 @@ module.exports = async function handler(req, res) {
   if (req.method === "POST") {
     if (req.headers["x-telegram-bot-api-secret-token"] !== hookSecret(token)) return res.status(401).end();
     var u = await readBody(req), msg = u.message || {}, chat = msg.chat && msg.chat.id, text = String(msg.text || "").trim();
-    if (!chat || (msg.chat.type && msg.chat.type !== "private")) return res.status(200).end();
+    var api = function (m, b) { return tg(token, m, b); };
     var mm = /^\/start(?:\s+(p[0-9a-f]{18}))?$/.exec(text);
+    if (u.callback_query || !(mm && mm[1])) {                       // registration questions, buttons, /kabinet
+      var done = false; try { done = await reg(api, u); } catch (e) { console.error("tg reg", e); }
+      if (done || u.callback_query) return res.status(200).end();
+    }
+    if (!chat || (msg.chat.type && msg.chat.type !== "private")) return res.status(200).end();
     if (mm && mm[1]) {
       var lk = null; try { lk = await rpc("tg_link", { p_key: key, p_code: mm[1], p_chat: chat }); } catch (e) {}
       if (lk && lk.ok) await tg(token, "sendMessage", { chat_id: chat, reply_markup: BTN,

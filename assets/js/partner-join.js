@@ -72,7 +72,12 @@
   }
   function form(kind) {
     var slots = D.SLOTS[kind], g = kind === "guide", dr = kind === "driver", ho = kind === "hotel", ot = kind === "other";
-    var f = '<form class="jf mf" id="jn-form" novalidate data-noreg><h3>' + esc(J.title[kind]) + '</h3><p class="jf-note">' + esc(J.note) + '</p>' +
+    var TGB = { uz: ["📲 Telegram orqali ro'yxatdan o'tish — osonroq", "Bot savollarni bittalab beradi: javob yozasiz, rasm tashlaysiz — kartochka o'zi to'ladi."],
+      ru: ["📲 Регистрация через Telegram — проще", "Бот задаёт вопросы по одному: отвечаете, отправляете фото — карточка заполнится сама."],
+      en: ["📲 Register via Telegram — easier", "The bot asks one question at a time: you reply and send photos — the card fills itself."] }[D.lang === "ru" ? "ru" : D.lang === "uz" ? "uz" : "en"];
+    var f = '<form class="jf mf" id="jn-form" novalidate data-noreg><h3>' + esc(J.title[kind]) + '</h3>' +
+      '<a class="jf-tg" href="https://t.me/moviynomad_partners_bot?start=join" target="_blank" rel="noopener"><b>' + esc(TGB[0]) + '</b><small>' + esc(TGB[1]) + '</small></a>' +
+      '<p class="jf-note">' + esc(J.note) + '</p>' +
       '<details style="margin:0 0 14px"><summary style="cursor:pointer;font-weight:700;color:var(--navy)">' + esc(J.req_t) + ' (' + D.REQ[kind].length + ')' + '</summary><ol style="font-size:13.5px;line-height:1.5;margin:8px 0 0">' + D.REQ[kind].map(function (r) { return '<li>' + esc(r) + '</li>'; }).join("") + '</ol></details>' +
       '<fieldset><legend>' + esc(J.sec_about) + '</legend><div class="mf-grid">' +
       fld("name", J.name[kind], 1, "text", ' maxlength="120"') + fld("phone", J.phone, 1, "tel", ' maxlength="40" placeholder="+998"') + fld("telegram", J.tg, 1, "text", ' maxlength="64" placeholder="@username"') +
