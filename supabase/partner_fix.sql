@@ -50,7 +50,7 @@ begin
   if k = 'guide' and jsonb_array_length(coalesce(p->'languages', '[]'::jsonb)) = 0 then m := array_append(m, 'languages'); end if;
   if k = 'guide' and jsonb_array_length(coalesce(p->'cities', '[]'::jsonb)) = 0 and coalesce(p->>'city', '') = '' then m := array_append(m, 'cities'); end if;
   if k <> 'hotel' and coalesce(p->>'birth_year', '') = '' then m := array_append(m, 'birth_year'); end if;
-  if coalesce(p->>'telegram', '') = '' then m := array_append(m, 'telegram'); end if;
+  if coalesce(p->>'telegram', '') = '' and coalesce(p->>'tg_chat_id', '') = '' then m := array_append(m, 'telegram'); end if;
   if coalesce(p->>'home_area', '') = '' or coalesce(p->>'home_address', '') = '' then m := array_append(m, 'home'); end if;
   return m;
 end $$;

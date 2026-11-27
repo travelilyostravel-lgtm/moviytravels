@@ -15,3 +15,10 @@
 **Tekshiriladigan talablar** (admin «Talablar tekshiruvi» bilan bir xil): asosiy rasm; kartochka rasmlari (gid 3, haydovchi 6, mehmonxona 8); sayyohlar bilan rasmlar (mehmonxonadan tashqari 10); guvohnoma raqami va rasmi (gid, haydovchi); tillar va shaharlar (gid); tug'ilgan yil (mehmonxonadan tashqari); Telegram; yashash joyi va manzil.
 
 **Fayllar:** `supabase/partner_fix.sql`, `assets/js/admin-partners.js`, `assets/js/partner.js`.
+
+## 📲 Telegram bot xabarnomalari (27.11.2026)
+- Hamkor ro'yxatdan o'tgach kabinetida birinchi bo'lib ko'k blok: **«Telegram'ga ulanish — 1 bosish»** → bot ochiladi (shaxsiy kod bilan) → «Start» → ulandi.
+- Bot xabarlari (o'zbek + rus): muddat berildi (ro'yxat bilan) · har kuni 10:00 «N kundan keyin o'chadi» · oxirgi kuni «BUGUN 23:59 da o'chadi» · olib tashlandi · 100% to'ldirildi / qaytarildi. Har xabarda «Kabinet» tugmasi.
+- Telegram ulangan bo'lsa, «Telegram» talabi bajarilgan hisoblanadi.
+- Admin → Hamkorlar ro'yxati: 📲 (ulangan), ⏳ (muddat), 🚫 (avtomatik olib tashlangan); pastda «📲 Telegram bot» sozlamalari: bot manzili, kalit, «Botni saytga ulash», statistika.
+- Texnik: `supabase/partner_tg.sql` (navbat `partner_tg_outbox`, `partner_fix_daily` cron 05:00 UTC, `partner_tg_send` har 2 daqiqada navbat bo'lsa), `api/tg-bot.js` (Telegram webhook + yuboruvchi). Vercel maxfiylari: `TELEGRAM_BOT_TOKEN`, `TG_DB_KEY` (asoschi qo'yadi).
