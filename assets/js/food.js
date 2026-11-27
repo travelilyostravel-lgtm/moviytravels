@@ -30,6 +30,7 @@
       total = rc._total || 0;
       if (!n && k !== "_all") el.closest(".fdc").hidden = true;
     });
+    moreLabel();
     var ab = document.getElementById("fd-all"); if (ab && total && !all) ab.textContent = T.all_on + " (" + num(total) + ")";
   });
   function url() {
@@ -97,6 +98,10 @@
         (r.lat ? '<a class="fdk__ypm" href="' + esc(yorg(r)) + '" target="_blank" rel="noopener" data-ypm="' + r.id + '">📷 ' + esc(T.ypm) + '</a>' : '') +
         '<button type="button" class="fdk__more" data-open="' + r.id + '">' + esc(T.addr) + ' →</button></div></div></article>';
   }
+  function moreLabel() {
+    var mb = document.getElementById("fd-more"), on = document.querySelector(".fdc.is-on [data-cc]"), cn = on ? on.textContent.replace(/\D/g, "") : "";
+    mb.textContent = (T.more_all || T.more) + (cn && !all && !halal && !q ? " (" + cn + ")" : "") + " ↓";
+  }
   function load(reset) {
     // a new filter always wins; only "show more" waits for the running request
     if (busy && !reset) return; busy = true; var my = ++last;
@@ -110,7 +115,7 @@
       document.getElementById("fd-empty").hidden = rows.length > 0;
       var mb = document.getElementById("fd-more"); mb.hidden = (d || []).length < (start ? (all ? PAGE : 200) : FIRST);
       var on = document.querySelector(".fdc.is-on [data-cc]"), cn = on ? on.textContent.replace(/\D/g, "") : "";
-      mb.textContent = (T.more_all || T.more) + (cn && !all && !halal && !q ? " (" + cn + ")" : "") + " ↓";
+      moreLabel();
       if (reset) ld();
     }).catch(function () { if (my !== last) return; busy = false; grid.innerHTML = ""; document.getElementById("fd-empty").hidden = false; });
   }
