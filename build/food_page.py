@@ -158,7 +158,7 @@ def _faq(T):
 
 def render_index(lang, pages, x, icon, logo, font, names):
     T = TXT.get(lang, TXT["en"]); A = "" if lang == "en" else "../"
-    tiles = "".join(f'''<a class="fdr" href="food-{r[0]}.html" data-r="{r[0]}" style="--img:url('{A}assets/img/{"" if r[2] in MAIN else "p/"}{r[2]}.webp')">
+    tiles = "".join(f'''<a class="fdr" href="food-{r[0]}.html" data-r="{r[0]}" style="--img:url('/assets/img/{"" if r[2] in MAIN else "p/"}{r[2]}.webp')">
       <span class="fdr__shade"></span><span class="fdr__t"><b>{e(_rn(r, lang))}</b><small data-cnt="{r[0]}">&nbsp;</small></span></a>''' for r in REG)
     body = pages.page_head("🍽", T["title"], T["sub"]) + f'''
 <section class="section section--tight fd">
