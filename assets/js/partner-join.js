@@ -52,6 +52,9 @@
           '<label class="mf-f"><span>&nbsp;</span><span style="font-weight:500"><input type="checkbox" data-u="ac" checked> ' + esc(J.v_ac) + '</span></label>') +
       '</div><button type="button" class="btn btn--outline btn--sm" data-udel style="margin-top:6px">✕ ' + esc(J.unit_del) + '</button></div>';
   }
+  var USD_BAD = { uz: "Narxni AQSH dollarida yozing (masalan: 45). So'mdagi narx qabul qilinmaydi — uni dollarga aylantirib yozing.", ru: "Укажите цену в долларах США (например: 45). Цена в сумах не принимается — переведите её в доллары.", en: "Enter the price in US dollars (e.g. 45), not in local currency." };
+  function usdBad(units) { return units.some(function (u) { return u.price_netto > (u.unit_kind === "room" ? 1500 : 3000) || (u.price_transfer || 0) > 1000; }); }
+  function usdMsg() { var l = (document.documentElement.lang || "en").slice(0, 2); return USD_BAD[l] || USD_BAD.en; }
   function readUnits(fm, room) {
     return $$(".jf-unit", fm).map(function (u, i) {
       var g = function (n) { var el = u.querySelector('[data-u="' + n + '"]'); return el ? (el.type === "checkbox" ? el.checked : String(el.value).trim()) : ""; };
@@ -158,6 +161,7 @@
     if (ph.length) { msg(fm, J.need_ph + " " + ph.join(", "), "err"); return; }
     var units = (kind === "hotel" || kind === "driver") ? readUnits(fm, kind === "hotel") : [];
     if ((kind === "hotel" || kind === "driver") && !units.length) { msg(fm, J.need_unit, "err"); return; }
+    if (usdBad(units)) { msg(fm, usdMsg(), "err"); var pi = $(".jf-unit [data-u=price_netto]", fm); if (pi) pi.focus(); return; }
     var pwIn = fm.elements.password.value; if (pwIn && pwIn.length < 8) { msg(fm, J.pw_opt, "err"); fm.elements.password.focus(); return; }
     var btn = $("button[type=submit]", fm), bar = $(".jf-prog", fm); btn.disabled = true; bar.style.display = "block"; msg(fm, J.sending);
     var v = function (n) { var el = fm.elements[n]; return el ? String(el.value).trim() : ""; };

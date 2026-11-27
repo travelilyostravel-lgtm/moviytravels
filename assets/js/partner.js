@@ -365,6 +365,7 @@
       var J2 = UJ[L] || UJ.uz || {}, row = { unit_kind: room ? "room" : "vehicle", class: g("class"), name: g("name") || (room ? (J2.rc || {})[g("class")] : ""), capacity: num("capacity"), qty: num("qty") || 1, price_netto: num("price_netto") };
       if (room) { row.beds = g("beds"); row.breakfast = g("breakfast"); } else { row.luggage = num("luggage"); row.year = num("year"); row.plate = g("plate"); row.price_transfer = num("price_transfer"); row.ac = g("ac"); }
       if (!row.name || !(row.price_netto > 0)) return P.msg("#m-units", J2.need_unit || "?", "err");
+      if (row.price_netto > (room ? 1500 : 3000)) return P.msg("#m-units", ({ uz: "Narxni AQSH dollarida yozing (masalan: 45). So'mdagi narx qabul qilinmaydi — uni dollarga aylantirib yozing.", ru: "Укажите цену в долларах США (например: 45). Цена в сумах не принимается — переведите её в доллары." })[L] || "Enter the price in US dollars (e.g. 45).", "err");
       var keep = (u.photos || []).filter(function (x) { return (card.dataset.rm || "").split("|").indexOf(x) < 0; });
       var fin = card.querySelector("[data-uph]"), files = fin ? [].slice.call(fin.files, 0, Math.max(0, 15 - keep.length)) : [];
       P.msg("#m-units", "…");
