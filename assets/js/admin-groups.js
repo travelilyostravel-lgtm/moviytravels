@@ -103,7 +103,7 @@
       fld("Guruh sig'imi (kishi)", '<input type="number" id="g-cap" min="1" max="200" value="' + x.capacity + '">') +
       fld("Band qilingan joylar", '<input type="number" id="g-booked" min="0" value="' + x.booked + '">', "To'lov qilganlar sonini o'zingiz yozasiz") +
       fld("Gidlar soni", '<input type="number" id="g-guides" min="1" max="10" value="' + x.guides + '">') +
-      fld("Gid tili", '<input id="g-lang" value="' + esc(x.guide_lang) + '">') +
+      fld("Gid tili (oqim)", '<select id="g-lang"><option value="English"' + (/rus|рус/i.test(x.guide_lang) ? '' : ' selected') + '>🇬🇧 Ingliz tilida</option><option value="Russian"' + (/rus|рус/i.test(x.guide_lang) ? ' selected' : '') + '>🇷🇺 Rus tilida</option></select>') +
       fld("Narx, 1 kishi ($, ikki kishilik xonada)", '<input type="number" id="g-price" min="0" step="5" value="' + (x.price_pp == null ? "" : x.price_pp) + '">', "Bo'sh bo'lsa saytda «Narx so'rov bo'yicha»") +
       fld("Bir kishilik xona qo'shimchasi ($)", '<input type="number" id="g-single" min="0" step="5" value="' + (x.single_supp == null ? "" : x.single_supp) + '">') +
       fld("Holat", '<select id="g-status">' + Object.keys(ST).map(function (k) { return '<option value="' + k + '"' + (k === x.status ? " selected" : "") + '>' + ST[k] + '</option>'; }).join("") + '</select>', "«Kafolatlangan» — guruh yig'ilgan, tur albatta bo'ladi") +
@@ -134,7 +134,7 @@
     upd();
     $("#g-save").onclick = async function () {
       var row = { tour_id: $("#g-tour").value, start_date: $("#g-date").value, capacity: parseInt($("#g-cap").value, 10) || 50, booked: parseInt($("#g-booked").value, 10) || 0,
-        guides: parseInt($("#g-guides").value, 10) || 2, guide_lang: $("#g-lang").value.trim() || "English", price_pp: n($("#g-price").value), single_supp: n($("#g-single").value),
+        guides: parseInt($("#g-guides").value, 10) || 2, guide_lang: $("#g-lang").value || "English", price_pp: n($("#g-price").value), single_supp: n($("#g-single").value),
         group_kind: $("#g-kind").value, vehicle: $("#g-veh").value, extra_night: n($("#g-xn").value), transfer_pp: n($("#g-xt").value),
         status: $("#g-status").value, published: $("#g-pub1").checked, note: $("#g-note").value.trim() || null, admin_note: $("#g-anote").value.trim() || null, updated_at: new Date().toISOString() };
       if (!row.start_date) return P.msg("#g-m", "Sanani kiriting", "err");
@@ -168,6 +168,7 @@
       fld("Oyiga nechta reys", '<select id="q-per"><option value="1">1 ta (oyning 1-haftasi)</option><option value="2" selected>2 ta (1- va 3-hafta)</option><option value="4">Har hafta</option></select>') +
       fld("Guruh sig'imi", '<input type="number" id="q-cap" value="50" min="1" max="200">') +
       fld("Gidlar soni", '<input type="number" id="q-guides" value="2" min="1" max="10">') +
+      fld("Gid tili (oqim)", '<select id="q-lang"><option value="English">🇬🇧 Ingliz tilida</option><option value="Russian">🇷🇺 Rus tilida</option></select>') +
       fld("Narx, 1 kishi ($)", '<input type="number" id="q-price" step="5" min="0">', "Keyin har bir sanada alohida o'zgartirish mumkin") +
       fld("Single qo'shimcha ($)", '<input type="number" id="q-single" step="5" min="0">') +
       '</div><div class="fld"><label>Oylar</label><div class="g-months">' + MONTHS.map(function (m, i) { return '<label><input type="checkbox" value="' + i + '"' + (i >= 2 && i <= 10 ? " checked" : "") + '> ' + m + '</label>'; }).join("") + '</div><small>Odatiy mavsum: mart – noyabr</small></div>' +
@@ -182,7 +183,8 @@
       });
       var today = iso(new Date()), tid = $("#q-tour").value;
       var cap = parseInt($("#q-cap").value, 10) || 50, kd = cap <= 17 ? "small" : cap <= 35 ? "medium" : "large";
-      var taken = all.filter(function (x) { return x.tour_id === tid && (x.group_kind || "large") === kd; }).map(function (x) { return x.start_date; });
+      var gl = ($("#q-lang") || {}).value || "English", isRu = function (v) { return /rus|рус/i.test(v || ""); };
+      var taken = all.filter(function (x) { return x.tour_id === tid && (x.group_kind || "large") === kd && isRu(x.guide_lang) === isRu(gl); }).map(function (x) { return x.start_date; });
       return out.filter(function (s) { return s > today && taken.indexOf(s) < 0; });
     }
     function prev() { var ds = dates(); $("#q-prev").innerHTML = '<p class="p-sub"><b>' + ds.length + ' ta sana</b>: ' + ds.map(function (s) { return P.date(s); }).join(", ") + '</p>'; }
@@ -190,7 +192,7 @@
     prev();
     $("#q-go").onclick = async function () {
       var ds = dates(); if (!ds.length) return P.msg("#q-m", "Sana yo'q — oylarni tanlang", "err");
-      var base = { tour_id: $("#q-tour").value, capacity: parseInt($("#q-cap").value, 10) || 50, guides: parseInt($("#q-guides").value, 10) || 2, guide_lang: "English",
+      var base = { tour_id: $("#q-tour").value, capacity: parseInt($("#q-cap").value, 10) || 50, guides: parseInt($("#q-guides").value, 10) || 2, guide_lang: $("#q-lang").value || "English",
         price_pp: n($("#q-price").value), single_supp: n($("#q-single").value), status: "open", published: false, extra_night: 65, transfer_pp: 25 };
       base.group_kind = base.capacity <= 17 ? "small" : base.capacity <= 35 ? "medium" : "large"; base.vehicle = base.group_kind === "small" ? "minibus" : base.group_kind === "medium" ? "bus" : "bus50";
       var r = await sb.from("group_departures").insert(ds.map(function (s) { return Object.assign({ start_date: s }, base); }));

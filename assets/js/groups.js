@@ -43,6 +43,14 @@
   }
 
   var rows = [];
+  // two streams: English-speaking and Russian-speaking guide
+  function glOf(x) { return /rus|рус/i.test(x.guide_lang || "") ? "Russian" : "English"; }
+  function glName(v) { return v === "Russian" ? (G.gl_ru || "Russian") : (G.gl_en || "English"); }
+  var GL = (function () { var m = /[?&]gl=(English|Russian)/i.exec(location.search); if (m) return m[1][0].toUpperCase() + m[1].slice(1).toLowerCase();
+    try { var v = localStorage.getItem("mn_gl"); if (v === "English" || v === "Russian") return v; } catch (e) {} return LANG === "ru" ? "Russian" : "English"; })();
+  function rowsL() { return rows.filter(function (x) { return glOf(x) === GL; }); }
+  function glPaint() { $$(".gl__b").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-gl") === GL); b.setAttribute("aria-selected", b.getAttribute("data-gl") === GL ? "true" : "false"); });
+    var a = $("#gd-home-all"); if (a) a.href = "group-tours.html?gl=" + GL; }
   async function load() {
     if (!SB.url) return [];
     var today = new Date(); var iso = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
@@ -62,12 +70,12 @@
   }
   function card(grp) {
     var x = grp[0], any = grp.filter(function (g) { return !isFull(g); })[0] || x;
-    return '<article class="gd" data-id="' + x.id + '">' +
+    return '<article class="gd" data-id="' + x.id + '" id="d-' + x.start_date + '">' +
       '<div class="gd__img" style="background-image:url(' + cover(x.tour_id) + ')"><span class="gd__date">' + esc(range(x)) + '</span></div>' +
       '<div class="gd__body"><div class="gd__top">' + badge(any) + '<span class="gd__days">' + esc(tf(G.gr_days, { n: days(x.tour_id) })) + '</span></div>' +
       '<h3>' + esc(title(x.tour_id)) + '</h3><p class="gd__route">' + esc(cities(x.tour_id)) + '</p>' +
-      (x.tour_id === "classic" && G.gr_start_khiva ? '<p class="gd__meta">📍 ' + esc(G.gr_start_khiva) + ' · 🗣 ' + esc(x.guide_lang || "English") + '</p>' : '<p class="gd__meta">🗣 ' + esc(x.guide_lang || "English") + '</p>') +
-      (x.note ? '<p class="gd__note">' + esc(x.note) + '</p>' : '') +
+      (x.tour_id === "classic" && G.gr_start_khiva ? '<p class="gd__meta">📍 ' + esc(G.gr_start_khiva) + ' · 🗣 ' + esc(glName(glOf(x))) + '</p>' : '<p class="gd__meta">🗣 ' + esc(glName(glOf(x))) + '</p>') +
+      (x.note ? '<details class="gd__note"><summary>ℹ</summary>' + esc(x.note) + '</details>' : '') +
       '<div class="gk-list">' + grp.map(kindRow).join("") + '</div>' +
       '<div class="gd__foot"><small class="gd__solo">' + esc(G.gr_join_note || "") + (x.single_supp ? ' · ' + esc(tf(G.gr_single, { n: money(x.single_supp) })) : '') + '</small><a class="btn btn--outline btn--sm" href="tours/' + x.tour_id + '.html">' + esc(G.gr_program) + '</a></div></div></article>';
   }
@@ -87,26 +95,26 @@
   }
   function drawSched() {
     var h = $("#gd-sched"); if (!h || !window.MN_GDS) return;
-    window.MN_GDS.render(h, rows, { lang: LANG, title: title, range: range, onPick: function (x) { openReq(x.id); },
+    window.MN_GDS.render(h, rowsL(), { lang: LANG, title: title, range: range, onPick: function (x) { openReq(x.id); },
       labels: { date: G.gr_sched_date, small: G.gr_k_small, medium: G.gr_k_medium, large: G.gr_k_large, left: G.gr_seats_left, full: G.gr_full, green: G.gr_c_green, yellow: G.gr_c_yellow, red: G.gr_c_red, none: G.gr_empty } });
   }
   function drawList() {
     var m = monthSel ? monthSel.value : "";
     var kf = kindSel ? kindSel.value : "";
-    var show = rows.filter(function (x) { return (!m || x.start_date.slice(0, 7) === m) && (!kf || x.group_kind === kf); });
+    var show = rowsL().filter(function (x) { return (!m || x.start_date.slice(0, 7) === m) && (!kf || x.group_kind === kf); });
     list.innerHTML = show.length ? groups(show).map(card).join("") : '<div class="gd-empty"><p>' + esc(G.gr_empty) + '</p><button class="btn btn--gold" data-gd="">' + esc(G.gr_empty_btn) + '</button></div>';
   }
   function fillMonths() {
     if (!monthSel) return;
     var ms = [];
-    rows.forEach(function (x) { var k = x.start_date.slice(0, 7); if (ms.indexOf(k) < 0) ms.push(k); });
+    rowsL().forEach(function (x) { var k = x.start_date.slice(0, 7); if (ms.indexOf(k) < 0) ms.push(k); });
     monthSel.innerHTML = '<option value="">' + esc(G.gr_all_months) + '</option>' + ms.map(function (k) {
       return '<option value="' + k + '">' + esc(fmt(d0(k + "-01"), { month: "long", year: "numeric" })) + '</option>'; }).join("");
     monthSel.hidden = ms.length < 2;
   }
   function fillDepSelect() {
     var s = $("#gd-form select[name=dep]"); if (!s) return;
-    s.innerHTML = rows.filter(function (x) { return !isFull(x); }).map(function (x) {
+    s.innerHTML = rowsL().filter(function (x) { return !isFull(x); }).map(function (x) {
       return '<option value="' + x.id + '">' + esc(range(x) + " · " + (G["gr_k_" + x.group_kind] || title(x.tour_id)) + " · " + priceTxt(x)) + '</option>'; }).join("") + '<option value="">' + esc(G.gr_empty_btn) + '</option>';
   }
 
@@ -168,7 +176,7 @@
         kind: "group", tour_id: dep ? dep.tour_id : "", tour_title: dep ? title(dep.tour_id) + " — " + range(dep) + " — " + (G["gr_k_" + dep.group_kind] || "") : "Group tours: notify me",
         start_date: dep ? dep.start_date : "", pax: v("pax"), contact_name: v("contact_name"), phone: v("phone"), email: v("email"),
         citizenship: v("citizenship"), messenger: v("messenger"), message: v("message"),
-        details: { departure_id: dep ? dep.id : null, group_kind: dep ? dep.group_kind : null, room: v("room"), guide_lang: dep ? dep.guide_lang : "English", notify: !dep,
+        details: { departure_id: dep ? dep.id : null, group_kind: dep ? dep.group_kind : null, room: v("room"), guide_lang: dep ? dep.guide_lang : GL, notify: !dep,
           extra_night: !!(form.elements.x_night && form.elements.x_night.checked), arrival_transfer: !!(form.elements.x_arr && form.elements.x_arr.checked),
           departure_transfer: !!(form.elements.x_dep && form.elements.x_dep.checked), est_total: total() || null },
         pay_method: "contact", consent: form.elements.consent.checked, lang: LANG } }) });
@@ -181,18 +189,41 @@
     btn.disabled = false; if (m.textContent === G.f_sending) m.textContent = "";
   };
 
-  // ---------------------------------------------------------------- home teaser
+  // ---------------------------------------------------------------- home teaser (compact: we interest here, we sell on the group page)
   var home = $("#gd-home");
-  function drawHome() {
-    var next = groups(rows.filter(function (x) { return !isFull(x); })).slice(0, 3);
-    if (!next.length) { home.innerHTML = '<div class="gd-empty"><p>' + esc(G.gr_empty) + '</p><a class="btn btn--gold" href="group-tours.html">' + esc(G.gr_empty_btn) + '</a></div>'; return; }
-    home.innerHTML = next.map(card).join("");
+  var HCOV = ["assets/img/p/ichan-kala.webp", "assets/img/p/lyabi-hauz.webp", "assets/img/p/registan.webp"];
+  function homeCard(grp, i) {
+    var x = grp[0], open = grp.filter(function (g) { return !isFull(g); });
+    var min = open.reduce(function (m, g) { return g.price_pp && (!m || g.price_pp < m) ? g.price_pp : m; }, 0);
+    var left = open.reduce(function (n, g) { return n + seatsLeft(g); }, 0);
+    var pre = document.documentElement.getAttribute("data-pre") || (LANG === "en" ? "" : "../");
+    var href = "group-tours.html?gl=" + GL + "#d-" + x.start_date;
+    return '<a class="gdh__c" href="' + href + '"><span class="gdh__img" style="background-image:url(' + pre + HCOV[i % HCOV.length] + ')"><span class="gdh__date">' + esc(range(x)) + '</span>' + badge(open[0] || x) + '</span>' +
+      '<span class="gdh__b"><b class="gdh__t">' + esc(title(x.tour_id)) + '</b><span class="gdh__r">' + esc(cities(x.tour_id)) + '</span>' +
+      '<span class="gdh__meta">🗣 ' + esc(glName(GL)) + ' · ' + esc(tf(G.gr_days, { n: days(x.tour_id) })) + ' · ' + esc(tf(G.gl_left || "{n}", { n: left })) + '</span>' +
+      '<span class="gdh__f"><span class="gdh__p">' + (min ? '<small>' + esc(G.gl_from || "") + '</small> $' + money(min) + ' <small>' + esc(G.gl_pp || "") + '</small>' : esc(G.gr_on_request || "")) + '</span><span class="gdh__go">' + esc(G.gl_more || "") + ' →</span></span></span></a>';
   }
+  function drawHome() {
+    glPaint();
+    var next = groups(rowsL().filter(function (x) { return !isFull(x); })).slice(0, 3);
+    if (!next.length) { home.innerHTML = '<div class="gd-empty"><p>' + esc(G.gr_empty) + '</p><a class="btn btn--gold" href="group-tours.html?gl=' + GL + '">' + esc(G.gr_empty_btn) + '</a></div>'; return; }
+    home.innerHTML = next.map(homeCard).join("");
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest(".gl__b"); if (!b) return;
+    GL = b.getAttribute("data-gl"); try { localStorage.setItem("mn_gl", GL); } catch (er) {}
+    glPaint();
+    if (home) drawHome();
+    if (list) { drawSched(); fillMonths(); drawList(); try { history.replaceState(null, "", "?gl=" + GL); } catch (er) {} }
+  });
 
   if (!list && !home) return;
   if (list) list.innerHTML = '<p class="gd-loading">' + esc(G.gr_loading) + '</p>';
   load().then(function (r) { rows = r; }).catch(function () { rows = []; }).then(function () {
-    if (list) { drawSched(); fillMonths(); drawList(); if (location.hash.length > 1 && modal) { var id = location.hash.slice(1); if (rows.some(function (x) { return x.id === id; })) openReq(id); } }
+    if (list) { glPaint(); drawSched(); fillMonths(); drawList();
+      if (location.hash.length > 1) { var id = location.hash.slice(1), el = document.getElementById(id);
+        if (el) { setTimeout(function () { el.scrollIntoView({ behavior: "smooth", block: "start" }); el.classList.add("gd--hl"); }, 300); }
+        else if (modal && rows.some(function (x) { return x.id === id; })) openReq(id); } }
     if (home) drawHome();
   });
   if (monthSel) monthSel.onchange = drawList;
