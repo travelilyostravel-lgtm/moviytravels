@@ -27,3 +27,6 @@ Asoschi topshirig'i (28.11): sayt 30 tilda; saytning HAMMA bo'limlari 30 tilda i
 | Til | Statik sahifalar | JS / portallar | Saytda |
 |---|---|---|---|
 | kk | 1202/1460 (qolgani video nomlari, kodlar) | ✓ turlar, kabinet, formalar | ✅ 28.11 |
+| ky | 1201/1460 | ✓ | ✅ 28.11 |
+| tg | 1200/1460 | ✓ | ✅ 28.11 |
+| tk | 1200/1460 | ✓ | ✅ 28.11 |
