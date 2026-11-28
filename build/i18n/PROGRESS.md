@@ -30,3 +30,4 @@ Asoschi topshirig'i (28.11): sayt 30 tilda; saytning HAMMA bo'limlari 30 tilda i
 | ky | 1201/1460 | ✓ | ✅ 28.11 |
 | tg | 1200/1460 | ✓ | ✅ 28.11 |
 | tk | 1200/1460 | ✓ | ✅ 28.11 |
+| az | 1200/1460 | ✓ | ✅ 28.11 |
