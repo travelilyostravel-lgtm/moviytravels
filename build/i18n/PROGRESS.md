@@ -12,6 +12,11 @@ Asoschi topshirig'i (28.11): sayt 30 tilda; saytning HAMMA bo'limlari 30 tilda i
   `cp -r . /tmp/mtest && cd /tmp/mtest && MN_ALL_LANGS=1 python3 build/build.py && python3 <repo>/build/i18n_tool.py extract /tmp/mtest fr`
 - Tarjima bo'laklari: `build/i18n/tsv/<til>_NN.tsv` (qator: `raqam<TAB>tarjima`) → `python3 build/i18n/merge_tsv.py <til> build/i18n/tsv/<til>_*.tsv`
 - Qolganini ko'rish: `python3 build/i18n_tool.py missing <til>`
+- Manba endi 1460 qator: 0–957 statik sahifalar, 958–1215 va 1440–1459 turlar dasturi (`assets/data/l10n/en.js`, `extract_js`),
+  1216–1439 sahifa skriptlari va kabinet (`extract_js2`). Tarjima qilinmaydiganlar: `build/i18n/NO_TRANSLATE.md`.
+- Yig'ishda har yangi til uchun `assets/data/l10n/<til>.js` avtomatik yaratiladi: turlar matni + kabinet (`MN_CAB_X`)
+  + `MN_RT` jadvali va `build/i18n/runtime.js` — skriptlar keyin chizgan inglizcha matnlarni ham tarjima qiladi.
+- Menyu uzun tillarda o'zi kichrayadi va sig'maganini «Yana» ichiga oladi (`assets/js/site.js`, fitNav).
 
 ## Keyingi qadamlar
 1. Statik sahifalar (958 matn) — har bir til.
@@ -21,4 +26,4 @@ Asoschi topshirig'i (28.11): sayt 30 tilda; saytning HAMMA bo'limlari 30 tilda i
 ## Holat
 | Til | Statik sahifalar | JS / portallar | Saytda |
 |---|---|---|---|
-| kk | 150/958 | — | yo'q |
+| kk | 1202/1460 (qolgani video nomlari, kodlar) | ✓ turlar, kabinet, formalar | ✅ 28.11 |
