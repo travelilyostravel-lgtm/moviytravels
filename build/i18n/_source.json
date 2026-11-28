@@ -3830,5 +3830,2013 @@
 {
 "en": "Liked a place? Ask us about a tour",
 "page": "fr/videos.html"
+},
+{
+"en": "Download as PDF",
+"page": "l10n"
+},
+{
+"en": "This tour",
+"page": "l10n"
+},
+{
+"en": "Whole website",
+"page": "l10n"
+},
+{
+"en": "Copy link",
+"page": "l10n"
+},
+{
+"en": "Link copied!",
+"page": "l10n"
+},
+{
+"en": "Have a look at this tour from Moviy Nomad:",
+"page": "l10n"
+},
+{
+"en": "Moviy Nomad — ready tours across Uzbekistan:",
+"page": "l10n"
+},
+{
+"en": "In the print window choose “Save as PDF”.",
+"page": "l10n"
+},
+{
+"en": "Day {n}",
+"page": "l10n"
+},
+{
+"en": "per person · 2 travellers",
+"page": "l10n"
+},
+{
+"en": "See the program →",
+"page": "l10n"
+},
+{
+"en": "Sample prices",
+"page": "l10n"
+},
+{
+"en": "country_UZ",
+"page": "l10n"
+},
+{
+"en": "Uzbekistan",
+"page": "l10n"
+},
+{
+"en": "country_KZ",
+"page": "l10n"
+},
+{
+"en": "Kazakhstan",
+"page": "l10n"
+},
+{
+"en": "country_KG",
+"page": "l10n"
+},
+{
+"en": "Kyrgyzstan",
+"page": "l10n"
+},
+{
+"en": "country_TJ",
+"page": "l10n"
+},
+{
+"en": "Tajikistan",
+"page": "l10n"
+},
+{
+"en": "country_CA",
+"page": "l10n"
+},
+{
+"en": "Central Asia (4 countries)",
+"page": "l10n"
+},
+{
+"en": "country_TM",
+"page": "l10n"
+},
+{
+"en": "Turkmenistan",
+"page": "l10n"
+},
+{
+"en": "country_AF",
+"page": "l10n"
+},
+{
+"en": "Afghanistan",
+"page": "l10n"
+},
+{
+"en": "All year",
+"page": "l10n"
+},
+{
+"en": "June – September",
+"page": "l10n"
+},
+{
+"en": "April – October",
+"page": "l10n"
+},
+{
+"en": "Cover",
+"page": "l10n"
+},
+{
+"en": "Route",
+"page": "l10n"
+},
+{
+"en": "Options",
+"page": "l10n"
+},
+{
+"en": "Packing",
+"page": "l10n"
+},
+{
+"en": "Book",
+"page": "l10n"
+},
+{
+"en": "Your journey on the map",
+"page": "l10n"
+},
+{
+"en": "By car",
+"page": "l10n"
+},
+{
+"en": "Train",
+"page": "l10n"
+},
+{
+"en": "Flight",
+"page": "l10n"
+},
+{
+"en": "By car + border",
+"page": "l10n"
+},
+{
+"en": "Price details",
+"page": "l10n"
+},
+{
+"en": "What your price includes",
+"page": "l10n"
+},
+{
+"en": "Day {n} of {total}",
+"page": "l10n"
+},
+{
+"en": "Overnight:",
+"page": "l10n"
+},
+{
+"en": "End of the tour",
+"page": "l10n"
+},
+{
+"en": "Departure day",
+"page": "l10n"
+},
+{
+"en": "meal_B",
+"page": "l10n"
+},
+{
+"en": "Breakfast",
+"page": "l10n"
+},
+{
+"en": "meal_L",
+"page": "l10n"
+},
+{
+"en": "Lunch",
+"page": "l10n"
+},
+{
+"en": "meal_D",
+"page": "l10n"
+},
+{
+"en": "Dinner",
+"page": "l10n"
+},
+{
+"en": "Make it yours",
+"page": "l10n"
+},
+{
+"en": "Choose hotels, transport and guide",
+"page": "l10n"
+},
+{
+"en": "Guide profiles with tourist reviews will appear here.",
+"page": "l10n"
+},
+{
+"en": "up to {n} seats",
+"page": "l10n"
+},
+{
+"en": "Price per person",
+"page": "l10n"
+},
+{
+"en": "Total for {n} travellers: {sum}",
+"page": "l10n"
+},
+{
+"en": "Get this offer →",
+"page": "l10n"
+},
+{
+"en": "Before you go",
+"page": "l10n"
+},
+{
+"en": "What to bring",
+"page": "l10n"
+},
+{
+"en": "Like this journey?",
+"page": "l10n"
+},
+{
+"en": "Send us your choice — we confirm availability and the final price, usually the same day.",
+"page": "l10n"
+},
+{
+"en": "Tour",
+"page": "l10n"
+},
+{
+"en": "single rooms",
+"page": "l10n"
+},
+{
+"en": "Price",
+"page": "l10n"
+},
+{
+"en": "Hello Moviy Nomad! I'd like this tour:",
+"page": "l10n"
+},
+{
+"en": "Preferred dates:",
+"page": "l10n"
+},
+{
+"en": "Estimate",
+"page": "l10n"
+},
+{
+"en": "Incl. border crossing (estimate)",
+"page": "l10n"
+},
+{
+"en": "Flight (estimate)",
+"page": "l10n"
+},
+{
+"en": "b_step1",
+"page": "l10n"
+},
+{
+"en": "b_step2",
+"page": "l10n"
+},
+{
+"en": "b_step3",
+"page": "l10n"
+},
+{
+"en": "b_step4",
+"page": "l10n"
+},
+{
+"en": "b_step5",
+"page": "l10n"
+},
+{
+"en": "Tap the places you want to visit — or start from a ready tour above.",
+"page": "l10n"
+},
+{
+"en": "Add at least one place",
+"page": "l10n"
+},
+{
+"en": "approx.",
+"page": "l10n"
+},
+{
+"en": "Best for my group",
+"page": "l10n"
+},
+{
+"en": "We choose the right vehicle",
+"page": "l10n"
+},
+{
+"en": "Custom tour",
+"page": "l10n"
+},
+{
+"en": "Hello Moviy Nomad! I built my own tour:",
+"page": "l10n"
+},
+{
+"en": "Please send me the full program.",
+"page": "l10n"
+},
+{
+"en": "Move up",
+"page": "l10n"
+},
+{
+"en": "Ready-made journeys across Uzbekistan",
+"page": "l10n"
+},
+{
+"en": "Six proven routes in each country — open any tour to see the map, the day-by-day program and the price.",
+"page": "l10n"
+},
+{
+"en": "Follow us",
+"page": "l10n"
+},
+{
+"en": "This destination is being prepared",
+"page": "l10n"
+},
+{
+"en": "Online price calculation for this country is coming soon. You can already view the programme — for prices, dates and a personal offer, write to our manager.",
+"page": "l10n"
+},
+{
+"en": "Accommodation in your chosen hotel category, breakfast included",
+"page": "l10n"
+},
+{
+"en": "Meet & greet at the airport or border, all transfers",
+"page": "l10n"
+},
+{
+"en": "Private air-conditioned transport for the whole program",
+"page": "l10n"
+},
+{
+"en": "Licensed guide in your language on sightseeing days",
+"page": "l10n"
+},
+{
+"en": "Entrance tickets to all sites in the program",
+"page": "l10n"
+},
+{
+"en": "Bottled water in the vehicle every day",
+"page": "l10n"
+},
+{
+"en": "24/7 support from our team on WhatsApp / Telegram",
+"page": "l10n"
+},
+{
+"en": "High-speed train tickets as in the program",
+"page": "l10n"
+},
+{
+"en": "Domestic flights as in the program",
+"page": "l10n"
+},
+{
+"en": "Welcome dinner with national dishes",
+"page": "l10n"
+},
+{
+"en": "Nights in a yurt camp with dinner and breakfast",
+"page": "l10n"
+},
+{
+"en": "Guesthouse or homestay nights with home-cooked meals",
+"page": "l10n"
+},
+{
+"en": "4×4 vehicle with an experienced mountain driver",
+"page": "l10n"
+},
+{
+"en": "GBAO permit for the Pamir region",
+"page": "l10n"
+},
+{
+"en": "Full board on the road (breakfast, lunch, dinner)",
+"page": "l10n"
+},
+{
+"en": "Trekking crew: guide, cook, tents and pack animals",
+"page": "l10n"
+},
+{
+"en": "Horses and a local horseman",
+"page": "l10n"
+},
+{
+"en": "Visa fees (if required for your passport)",
+"page": "l10n"
+},
+{
+"en": "visa_4",
+"page": "l10n"
+},
+{
+"en": "Visa fees and visa support for Tajikistan, Kazakhstan and Kyrgyzstan (if required for your passport)",
+"page": "l10n"
+},
+{
+"en": "Lunches and dinners unless stated in the program",
+"page": "l10n"
+},
+{
+"en": "Photo and video fees at some sites",
+"page": "l10n"
+},
+{
+"en": "Tips for guides and drivers, personal expenses",
+"page": "l10n"
+},
+{
+"en": "Eco-fees for national parks may change",
+"page": "l10n"
+},
+{
+"en": "Passport valid for 6+ months after your trip",
+"page": "l10n"
+},
+{
+"en": "Comfortable walking shoes — old towns have stone streets",
+"page": "l10n"
+},
+{
+"en": "Modest clothes for mosques: shoulders and knees covered, a scarf for women",
+"page": "l10n"
+},
+{
+"en": "Sunglasses, hat and sunscreen — the sun is strong",
+"page": "l10n"
+},
+{
+"en": "A light jacket for cool evenings",
+"page": "l10n"
+},
+{
+"en": "Some cash in USD or EUR (clean, new notes) for bazaars and villages",
+"page": "l10n"
+},
+{
+"en": "Power adapter: type C/F sockets, 220 V",
+"page": "l10n"
+},
+{
+"en": "Personal medicine and a small first-aid kit",
+"page": "l10n"
+},
+{
+"en": "Hiking boots and a rain jacket",
+"page": "l10n"
+},
+{
+"en": "Warm layers — nights in the mountains are cold even in summer",
+"page": "l10n"
+},
+{
+"en": "A day pack, headlamp and a power bank",
+"page": "l10n"
+},
+{
+"en": "Afrosiyob high-speed train",
+"page": "l10n"
+},
+{
+"en": "Through the Kyzylkum desert",
+"page": "l10n"
+},
+{
+"en": "Domestic flight",
+"page": "l10n"
+},
+{
+"en": "Via Nurata",
+"page": "l10n"
+},
+{
+"en": "Over the Takhtakaracha pass",
+"page": "l10n"
+},
+{
+"en": "Incl. border crossing",
+"page": "l10n"
+},
+{
+"en": "Through the Anzob tunnel",
+"page": "l10n"
+},
+{
+"en": "Over the Kamchik pass",
+"page": "l10n"
+},
+{
+"en": "Through the Baysun mountains",
+"page": "l10n"
+},
+{
+"en": "Off-road",
+"page": "l10n"
+},
+{
+"en": "On horseback",
+"page": "l10n"
+},
+{
+"en": "On foot (trek)",
+"page": "l10n"
+},
+{
+"en": "Along the Panj river and the Afghan border",
+"page": "l10n"
+},
+{
+"en": "Clean, central, family-run hotels with breakfast.",
+"page": "l10n"
+},
+{
+"en": "Modern 4-star hotels with restaurant and service.",
+"page": "l10n"
+},
+{
+"en": "Boutique & heritage",
+"page": "l10n"
+},
+{
+"en": "Historic houses and boutique hotels in the old towns.",
+"page": "l10n"
+},
+{
+"en": "Sedan",
+"page": "l10n"
+},
+{
+"en": "Chevrolet or similar, A/C",
+"page": "l10n"
+},
+{
+"en": "Minivan",
+"page": "l10n"
+},
+{
+"en": "Hyundai Staria or similar, A/C",
+"page": "l10n"
+},
+{
+"en": "Premium van",
+"page": "l10n"
+},
+{
+"en": "Mercedes V-Class, leather seats, Wi-Fi",
+"page": "l10n"
+},
+{
+"en": "Minibus",
+"page": "l10n"
+},
+{
+"en": "Mercedes Sprinter or similar",
+"page": "l10n"
+},
+{
+"en": "Coach",
+"page": "l10n"
+},
+{
+"en": "Comfortable tourist coach",
+"page": "l10n"
+},
+{
+"en": "Russian",
+"page": "l10n"
+},
+{
+"en": "Turkish",
+"page": "l10n"
+},
+{
+"en": "Arabic",
+"page": "l10n"
+},
+{
+"en": "German",
+"page": "l10n"
+},
+{
+"en": "Chinese",
+"page": "l10n"
+},
+{
+"en": "Korean",
+"page": "l10n"
+},
+{
+"en": "Hindi",
+"page": "l10n"
+},
+{
+"en": "Swedish",
+"page": "l10n"
+},
+{
+"en": "Aydarkul yurt camp",
+"page": "l10n"
+},
+{
+"en": "Yurt camp in the Kyzylkum desert near Lake Aydarkul.",
+"page": "l10n"
+},
+{
+"en": "A living medieval city of trading domes, madrasas and the Ark fortress.",
+"page": "l10n"
+},
+{
+"en": "Chimgan & Charvak",
+"page": "l10n"
+},
+{
+"en": "Mountains and a turquoise lake 1.5 hours from Tashkent.",
+"page": "l10n"
+},
+{
+"en": "Fergana Valley",
+"page": "l10n"
+},
+{
+"en": "Silk of Margilan, ceramics of Rishtan and fruit orchards.",
+"page": "l10n"
+},
+{
+"en": "Gijduvan",
+"page": "l10n"
+},
+{
+"en": "A town of famous master potters near Bukhara.",
+"page": "l10n"
+},
+{
+"en": "Ichan-Kala — a complete walled city of minarets and palaces.",
+"page": "l10n"
+},
+{
+"en": "Kokand",
+"page": "l10n"
+},
+{
+"en": "The old khanate capital with the Khudayar Khan palace.",
+"page": "l10n"
+},
+{
+"en": "Nurata",
+"page": "l10n"
+},
+{
+"en": "Alexander the Great's fortress and a holy spring.",
+"page": "l10n"
+},
+{
+"en": "Timur's capital and the heart of the Silk Road.",
+"page": "l10n"
+},
+{
+"en": "Sentyab village",
+"page": "l10n"
+},
+{
+"en": "A mountain village of the Nuratau range with homestays.",
+"page": "l10n"
+},
+{
+"en": "Shahrisabz",
+"page": "l10n"
+},
+{
+"en": "Amir Timur's birthplace with the ruins of the Ak-Saray palace.",
+"page": "l10n"
+},
+{
+"en": "The modern capital: metro palaces, the Hazrati Imam complex and the Chorsu bazaar.",
+"page": "l10n"
+},
+{
+"en": "Urgench",
+"page": "l10n"
+},
+{
+"en": "Airport city 35 km from Khiva.",
+"page": "l10n"
+},
+{
+"en": "Camel ride",
+"page": "l10n"
+},
+{
+"en": "A short ride across the Kyzylkum sand dunes.",
+"page": "l10n"
+},
+{
+"en": "Lake Aydarkul",
+"page": "l10n"
+},
+{
+"en": "Swim in a large lake in the middle of the desert.",
+"page": "l10n"
+},
+{
+"en": "Night in a yurt camp",
+"page": "l10n"
+},
+{
+"en": "Campfire, folk songs and a sky full of stars.",
+"page": "l10n"
+},
+{
+"en": "Ark fortress",
+"page": "l10n"
+},
+{
+"en": "The 1,000-year-old citadel of the emirs of Bukhara.",
+"page": "l10n"
+},
+{
+"en": "Trading domes",
+"page": "l10n"
+},
+{
+"en": "Medieval covered bazaars of jewellers, hat sellers and money changers.",
+"page": "l10n"
+},
+{
+"en": "Lyabi-Hauz",
+"page": "l10n"
+},
+{
+"en": "A shady pool square with tea houses and old madrasas.",
+"page": "l10n"
+},
+{
+"en": "Mir-i-Arab madrasa",
+"page": "l10n"
+},
+{
+"en": "A working madrasa with twin blue domes.",
+"page": "l10n"
+},
+{
+"en": "Bahauddin Naqshband complex",
+"page": "l10n"
+},
+{
+"en": "Shrine of the founder of the Naqshbandi Sufi order.",
+"page": "l10n"
+},
+{
+"en": "Poi-Kalon ensemble",
+"page": "l10n"
+},
+{
+"en": "The Kalon minaret, mosque and Mir-i-Arab madrasa.",
+"page": "l10n"
+},
+{
+"en": "Samanid mausoleum",
+"page": "l10n"
+},
+{
+"en": "A 10th-century masterpiece of patterned brick.",
+"page": "l10n"
+},
+{
+"en": "Sitorai Mohi-Hosa palace",
+"page": "l10n"
+},
+{
+"en": "Summer palace of the last emir, mixing East and West.",
+"page": "l10n"
+},
+{
+"en": "Amirsoy mountain resort",
+"page": "l10n"
+},
+{
+"en": "Modern mountain resort with a gondola and panoramic views of the Western Tian Shan.",
+"page": "l10n"
+},
+{
+"en": "Charvak lake",
+"page": "l10n"
+},
+{
+"en": "A turquoise reservoir between the mountains.",
+"page": "l10n"
+},
+{
+"en": "Chimgan mountains",
+"page": "l10n"
+},
+{
+"en": "Cable car and walks in the Western Tian Shan.",
+"page": "l10n"
+},
+{
+"en": "Kumtepa bazaar",
+"page": "l10n"
+},
+{
+"en": "A traditional market of silk, cotton and atlas fabrics.",
+"page": "l10n"
+},
+{
+"en": "Juma mosque of Kokand",
+"page": "l10n"
+},
+{
+"en": "A mosque with 98 carved wooden columns.",
+"page": "l10n"
+},
+{
+"en": "Khudayar Khan palace",
+"page": "l10n"
+},
+{
+"en": "The colourful palace of the last khans of Kokand.",
+"page": "l10n"
+},
+{
+"en": "Yodgorlik silk factory",
+"page": "l10n"
+},
+{
+"en": "See how ikat silk is made by hand, from cocoon to cloth.",
+"page": "l10n"
+},
+{
+"en": "Blue-glazed pottery from master workshops.",
+"page": "l10n"
+},
+{
+"en": "Fergana countryside",
+"page": "l10n"
+},
+{
+"en": "Orchards, villages and a family lunch.",
+"page": "l10n"
+},
+{
+"en": "Gijduvan ceramics workshop",
+"page": "l10n"
+},
+{
+"en": "A family of master potters and a homemade lunch.",
+"page": "l10n"
+},
+{
+"en": "Ichan-Kala",
+"page": "l10n"
+},
+{
+"en": "The walled inner town: minarets, palaces and madrasas.",
+"page": "l10n"
+},
+{
+"en": "Islam-Khoja minaret",
+"page": "l10n"
+},
+{
+"en": "The tallest minaret of Khiva with a view over the town.",
+"page": "l10n"
+},
+{
+"en": "Tash-Hauli palace",
+"page": "l10n"
+},
+{
+"en": "Harem courtyards covered in blue tiles and carved wood.",
+"page": "l10n"
+},
+{
+"en": "Sunset on the city walls",
+"page": "l10n"
+},
+{
+"en": "Golden light over the clay walls and the Kalta-Minor.",
+"page": "l10n"
+},
+{
+"en": "Nurata fortress & holy spring",
+"page": "l10n"
+},
+{
+"en": "Alexander's fortress ruins and a spring full of sacred fish.",
+"page": "l10n"
+},
+{
+"en": "Bibi-Khanym mosque",
+"page": "l10n"
+},
+{
+"en": "Timur's grand mosque, once among the largest in the world.",
+"page": "l10n"
+},
+{
+"en": "Gur-e-Amir",
+"page": "l10n"
+},
+{
+"en": "The ribbed blue dome over the tomb of Amir Timur.",
+"page": "l10n"
+},
+{
+"en": "Imam al-Bukhari complex",
+"page": "l10n"
+},
+{
+"en": "Memorial of the great hadith scholar, a major pilgrimage site.",
+"page": "l10n"
+},
+{
+"en": "Imam Maturidi mausoleum",
+"page": "l10n"
+},
+{
+"en": "Resting place of the founder of the Maturidi school of theology.",
+"page": "l10n"
+},
+{
+"en": "Registan square",
+"page": "l10n"
+},
+{
+"en": "Three majestic madrasas — most beautiful in the evening light.",
+"page": "l10n"
+},
+{
+"en": "Shah-i-Zinda",
+"page": "l10n"
+},
+{
+"en": "An avenue of turquoise mausoleums climbing a hill.",
+"page": "l10n"
+},
+{
+"en": "Siyob bazaar",
+"page": "l10n"
+},
+{
+"en": "Samarkand bread, nuts, halva and dried fruit.",
+"page": "l10n"
+},
+{
+"en": "Ulugbek observatory",
+"page": "l10n"
+},
+{
+"en": "The 15th-century observatory of the astronomer-king.",
+"page": "l10n"
+},
+{
+"en": "Walk in the Nuratau mountains and stay with a local family.",
+"page": "l10n"
+},
+{
+"en": "Ak-Saray palace",
+"page": "l10n"
+},
+{
+"en": "The giant portal of Amir Timur's 'White Palace'.",
+"page": "l10n"
+},
+{
+"en": "Chorsu bazaar",
+"page": "l10n"
+},
+{
+"en": "Spices, dried fruit and fresh bread under a giant blue dome.",
+"page": "l10n"
+},
+{
+"en": "Hazrati Imam complex",
+"page": "l10n"
+},
+{
+"en": "Tashkent metro",
+"page": "l10n"
+},
+{
+"en": "Ride the most beautiful metro in Central Asia — every station is a palace.",
+"page": "l10n"
+},
+{
+"en": "Amir Timur square & museum",
+"page": "l10n"
+},
+{
+"en": "The story of the great conqueror and his dynasty.",
+"page": "l10n"
+},
+{
+"en": "Your requests, bookings, payments, documents and messages with Moviy Nomad — in one place.",
+"page": "js"
+},
+{
+"en": "Sign in",
+"page": "js"
+},
+{
+"en": "Create a cabinet",
+"page": "js"
+},
+{
+"en": "E-mail",
+"page": "js"
+},
+{
+"en": "Password (min. 8 characters)",
+"page": "js"
+},
+{
+"en": "Phone / WhatsApp (optional)",
+"page": "js"
+},
+{
+"en": "Send registration",
+"page": "js"
+},
+{
+"en": "Continue with Google",
+"page": "js"
+},
+{
+"en": "or with e-mail",
+"page": "js"
+},
+{
+"en": "After registration our team confirms your cabinet — usually within a few hours. You will get an e-mail.",
+"page": "js"
+},
+{
+"en": "Forgot your password? Write to us on WhatsApp or Telegram and we will help.",
+"page": "js"
+},
+{
+"en": "Sign out",
+"page": "js"
+},
+{
+"en": "Your registration is being checked",
+"page": "js"
+},
+{
+"en": "Thank you! Our team will confirm your cabinet soon (usually within a few hours). You will get an e-mail, and this page will open your cabinet.",
+"page": "js"
+},
+{
+"en": "Cabinet not available",
+"page": "js"
+},
+{
+"en": "Please contact us on WhatsApp or Telegram.",
+"page": "js"
+},
+{
+"en": "Hello",
+"page": "js"
+},
+{
+"en": "Client since",
+"page": "js"
+},
+{
+"en": "Requests",
+"page": "js"
+},
+{
+"en": "Paid",
+"page": "js"
+},
+{
+"en": "New messages",
+"page": "js"
+},
+{
+"en": "Messages",
+"page": "js"
+},
+{
+"en": "My requests and bookings",
+"page": "js"
+},
+{
+"en": "My history",
+"page": "js"
+},
+{
+"en": "My details",
+"page": "js"
+},
+{
+"en": "Write to us…",
+"page": "js"
+},
+{
+"en": "Send",
+"page": "js"
+},
+{
+"en": "Sent ✓",
+"page": "js"
+},
+{
+"en": "No messages yet. Write to us — we answer quickly.",
+"page": "js"
+},
+{
+"en": "You have no requests yet.",
+"page": "js"
+},
+{
+"en": "Send a new request",
+"page": "js"
+},
+{
+"en": "Number",
+"page": "js"
+},
+{
+"en": "Left to pay",
+"page": "js"
+},
+{
+"en": "Pay by",
+"page": "js"
+},
+{
+"en": "To confirm: pay the 30% deposit ({amt}) within 3 working days.",
+"page": "js"
+},
+{
+"en": "Less than 14 days before the trip: the full amount ({amt}) is paid at once.",
+"page": "js"
+},
+{
+"en": "Documents",
+"page": "js"
+},
+{
+"en": "Booking confirmation / voucher (PDF)",
+"page": "js"
+},
+{
+"en": "Service vouchers (PDF)",
+"page": "js"
+},
+{
+"en": "Reason",
+"page": "js"
+},
+{
+"en": "Correct and send again",
+"page": "js"
+},
+{
+"en": "Messages about this request",
+"page": "js"
+},
+{
+"en": "Write about this request…",
+"page": "js"
+},
+{
+"en": "You",
+"page": "js"
+},
+{
+"en": "Moviy Nomad",
+"page": "js"
+},
+{
+"en": "Save",
+"page": "js"
+},
+{
+"en": "Saved ✓",
+"page": "js"
+},
+{
+"en": "new",
+"page": "js"
+},
+{
+"en": "Wrong e-mail or password.",
+"page": "js"
+},
+{
+"en": "This e-mail is already registered — please sign in.",
+"page": "js"
+},
+{
+"en": "The password must be at least 8 characters.",
+"page": "js"
+},
+{
+"en": "Something went wrong. Please try again or write to us.",
+"page": "js"
+},
+{
+"en": "General",
+"page": "js"
+},
+{
+"en": "Received",
+"page": "js"
+},
+{
+"en": "Being reviewed by our manager",
+"page": "js"
+},
+{
+"en": "Waiting for payment",
+"page": "js"
+},
+{
+"en": "30% paid — balance due by {date}",
+"page": "js"
+},
+{
+"en": "Fully paid",
+"page": "js"
+},
+{
+"en": "Confirmed — have a great trip!",
+"page": "js"
+},
+{
+"en": "Trip completed",
+"page": "js"
+},
+{
+"en": "Cancelled",
+"page": "js"
+},
+{
+"en": "Opened",
+"page": "js"
+},
+{
+"en": "Contacted us",
+"page": "js"
+},
+{
+"en": "Signed in",
+"page": "js"
+},
+{
+"en": "Sent a request",
+"page": "js"
+},
+{
+"en": "Subscribed",
+"page": "js"
+},
+{
+"en": "Watched a video",
+"page": "js"
+},
+{
+"en": "Started sign-in",
+"page": "js"
+},
+{
+"en": "Postponed sign-in",
+"page": "js"
+},
+{
+"en": "Mening kabinetim",
+"page": "js"
+},
+{
+"en": "Bearer ",
+"page": "js"
+},
+{
+"en": " hidden",
+"page": "js"
+},
+{
+"en": "s own button: the visitor",
+"page": "js"
+},
+{
+"en": "cabinet: google",
+"page": "js"
+},
+{
+"en": "cabinet: registration",
+"page": "js"
+},
+{
+"en": " open",
+"page": "js"
+},
+{
+"en": "cabinet message",
+"page": "js"
+},
+{
+"en": "Save as PDF",
+"page": "js"
+},
+{
+"en": "coming soon",
+"page": "js"
+},
+{
+"en": "use strict",
+"page": "js"
+},
+{
+"en": " is-pop",
+"page": "js"
+},
+{
+"en": "show more",
+"page": "js"
+},
+{
+"en": " evc--off",
+"page": "js"
+},
+{
+"en": " mf-msg--",
+"page": "js"
+},
+{
+"en": "event ",
+"page": "js"
+},
+{
+"en": "Yandex Go",
+"page": "js"
+},
+{
+"en": "Choose the citizenship from the list.",
+"page": "js"
+},
+{
+"en": "Enter first name, last name and date of birth for every traveller.",
+"page": "js"
+},
+{
+"en": "Check the date of birth.",
+"page": "js"
+},
+{
+"en": "This traveller is listed twice.",
+"page": "js"
+},
+{
+"en": "Less than 14 days before the trip: the full price is paid at once after confirmation.",
+"page": "js"
+},
+{
+"en": "Fuqarolikni ro'yxatdan tanlang.",
+"page": "js"
+},
+{
+"en": "Har bir sayohatchining ismi, familiyasi va tug'ilgan sanasini kiriting.",
+"page": "js"
+},
+{
+"en": "Tug'ilgan sanani tekshiring.",
+"page": "js"
+},
+{
+"en": "Bu sayohatchi ikki marta yozilgan.",
+"page": "js"
+},
+{
+"en": "Sayohatgacha 14 kundan kam: tasdiqlangandan keyin butun summa birdaniga to'lanadi.",
+"page": "js"
+},
+{
+"en": "Dieser Reisende steht doppelt in der Liste.",
+"page": "js"
+},
+{
+"en": "Onlayn bron va to'lov yoqilgan",
+"page": "js"
+},
+{
+"en": "upload ",
+"page": "js"
+},
+{
+"en": "from $X",
+"page": "js"
+},
+{
+"en": "Para birimi",
+"page": "js"
+},
+{
+"en": "Departure schedule",
+"page": "js"
+},
+{
+"en": "Small group 12–17",
+"page": "js"
+},
+{
+"en": "Medium group 30–35",
+"page": "js"
+},
+{
+"en": "Large group 45–50",
+"page": "js"
+},
+{
+"en": "{n} left",
+"page": "js"
+},
+{
+"en": "No departures yet.",
+"page": "js"
+},
+{
+"en": "Reyslar jadvali",
+"page": "js"
+},
+{
+"en": "Kichik guruh 12–17",
+"page": "js"
+},
+{
+"en": "O'rta guruh 30–35",
+"page": "js"
+},
+{
+"en": "Katta guruh 45–50",
+"page": "js"
+},
+{
+"en": "Joy bor",
+"page": "js"
+},
+{
+"en": "Joy kam qoldi",
+"page": "js"
+},
+{
+"en": "Joy qolmadi",
+"page": "js"
+},
+{
+"en": "1 kishi",
+"page": "js"
+},
+{
+"en": "Hali reys yo'q.",
+"page": "js"
+},
+{
+"en": " disabled",
+"page": "js"
+},
+{
+"en": " is-full",
+"page": "js"
+},
+{
+"en": "modal gdd-modal",
+"page": "js"
+},
+{
+"en": "mf-f full gd-x",
+"page": "js"
+},
+{
+"en": "mf-msg mf-msg--err",
+"page": "js"
+},
+{
+"en": "Group tours: notify me",
+"page": "js"
+},
+{
+"en": "Sign in with Google",
+"page": "js"
+},
+{
+"en": "google (one tap)",
+"page": "js"
+},
+{
+"en": "(prefers-reduced-motion: reduce)",
+"page": "js"
+},
+{
+"en": " selected",
+"page": "js"
+},
+{
+"en": " is-today",
+"page": "js"
+},
+{
+"en": " has-note",
+"page": "js"
+},
+{
+"en": "Chimyon / Chorvoq",
+"page": "js"
+},
+{
+"en": "Chimgan / Charvak",
+"page": "js"
+},
+{
+"en": "Janubiy Koreya",
+"page": "js"
+},
+{
+"en": "Buyuk Britaniya",
+"page": "js"
+},
+{
+"en": "Saudiya Arabistoni",
+"page": "js"
+},
+{
+"en": "Ingliz tili",
+"page": "js"
+},
+{
+"en": " tili",
+"page": "js"
+},
+{
+"en": "Gid bo'lish",
+"page": "js"
+},
+{
+"en": "all partners",
+"page": "js"
+},
+{
+"en": "boshqa tillar",
+"page": "js"
+},
+{
+"en": "other languages",
+"page": "js"
+},
+{
+"en": "1 double",
+"page": "js"
+},
+{
+"en": "Narxni AQSH dollarida yozing (masalan: 45). So'mdagi narx qabul qilinmaydi — uni dollarga aylantirib yozing.",
+"page": "js"
+},
+{
+"en": "Enter the price in US dollars (e.g. 45), not in local currency.",
+"page": "js"
+},
+{
+"en": " mf-f--full",
+"page": "js"
+},
+{
+"en": " required",
+"page": "js"
+},
+{
+"en": "Bot savollarni bittalab beradi: javob yozasiz, rasm tashlaysiz — kartochka o'zi to'ladi.",
+"page": "js"
+},
+{
+"en": "The bot asks one question at a time: you reply and send photos — the card fills itself.",
+"page": "js"
+},
+{
+"en": " multiple",
+"page": "js"
+},
+{
+"en": "save ",
+"page": "js"
+},
+{
+"en": "units ",
+"page": "js"
+},
+{
+"en": " pt-rank--",
+"page": "js"
+},
+{
+"en": ".ksub a",
+"page": "js"
+},
+{
+"en": "see all",
+"page": "js"
+},
+{
+"en": " gph--big",
+"page": "js"
+},
+{
+"en": " — Moviy Nomad",
+"page": "js"
+},
+{
+"en": "Which language do you need?",
+"page": "js"
+},
+{
+"en": "request: ",
+"page": "js"
+},
+{
+"en": "profile: ",
+"page": "js"
+},
+{
+"en": "telegram ",
+"page": "js"
+},
+{
+"en": "partner ",
+"page": "js"
+},
+{
+"en": "Yana so'rov yuborish",
+"page": "js"
+},
+{
+"en": "Send another request",
+"page": "js"
+},
+{
+"en": "Weitere Anfrage senden",
+"page": "js"
+},
+{
+"en": "Subscribe to Moviy Nomad",
+"page": "js"
+},
+{
+"en": "New tours, group dates and special offers — straight to your inbox, about once a month.",
+"page": "js"
+},
+{
+"en": "Your e-mail",
+"page": "js"
+},
+{
+"en": "Thank you! You're subscribed.",
+"page": "js"
+},
+{
+"en": "Please enter a valid e-mail.",
+"page": "js"
+},
+{
+"en": "No spam. Unsubscribe any time.",
+"page": "js"
+},
+{
+"en": "Moviy Nomad'ga obuna bo'ling",
+"page": "js"
+},
+{
+"en": "Yangi turlar, guruh sanalari va maxsus takliflar — oyiga taxminan bir marta pochtangizga.",
+"page": "js"
+},
+{
+"en": "E-mail manzilingiz",
+"page": "js"
+},
+{
+"en": "WhatsApp (ixtiyoriy)",
+"page": "js"
+},
+{
+"en": "Obuna bo'lish",
+"page": "js"
+},
+{
+"en": "Rahmat! Siz obuna bo'ldingiz.",
+"page": "js"
+},
+{
+"en": "To'g'ri e-mail kiriting.",
+"page": "js"
+},
+{
+"en": "Spam yo'q. Istalgan vaqtda obunani bekor qilish mumkin.",
+"page": "js"
+},
+{
+"en": "Moviy Nomad'a abone olun",
+"page": "js"
+},
+{
+"en": "E-posta adresiniz",
+"page": "js"
+},
+{
+"en": "Abone ol",
+"page": "js"
+},
+{
+"en": "Moviy Nomad abonnieren",
+"page": "js"
+},
+{
+"en": "Neue Touren, Gruppentermine und Angebote — etwa einmal im Monat in Ihr Postfach.",
+"page": "js"
+},
+{
+"en": "Ihre E-Mail",
+"page": "js"
+},
+{
+"en": "Danke! Sie haben abonniert.",
+"page": "js"
+},
+{
+"en": "Kein Spam. Jederzeit abbestellbar.",
+"page": "js"
+},
+{
+"en": "Din e-post",
+"page": "js"
+},
+{
+"en": "WhatsApp (valfritt)",
+"page": "js"
+},
+{
+"en": "Tack! Du prenumererar nu.",
+"page": "js"
+},
+{
+"en": "Ange en giltig e-post.",
+"page": "js"
+},
+{
+"en": "no config",
+"page": "js"
+},
+{
+"en": "newsletter · ",
+"page": "js"
+},
+{
+"en": ".vgrid .vcard:last-child",
+"page": "js"
+},
+{
+"en": "Night mode",
+"page": "js"
+},
+{
+"en": "Day mode",
+"page": "js"
+},
+{
+"en": "Tungi rejim",
+"page": "js"
+},
+{
+"en": "Kunduzgi rejim",
+"page": "js"
+},
+{
+"en": "Gece modu",
+"page": "js"
+},
+{
+"en": "(prefers-color-scheme: dark)",
+"page": "js"
+},
+{
+"en": "Discover Uzbekistan",
+"page": "js"
+},
+{
+"en": "How would you like to continue?",
+"page": "js"
+},
+{
+"en": "Sign in once — your quotes, requests and bookings stay with you, and we can send you updates.",
+"page": "js"
+},
+{
+"en": "We use your details only to arrange your trip and send Moviy Nomad news. No spam.",
+"page": "js"
+},
+{
+"en": "Thank you!",
+"page": "js"
+},
+{
+"en": "Google sign-in did not work. Please try again or use e-mail.",
+"page": "js"
+},
+{
+"en": "Saytga qanday kirasiz?",
+"page": "js"
+},
+{
+"en": "Bir marta kiring — hisob-kitoblaringiz, so'rov va bronlaringiz saqlanadi, sizga yangiliklar yuborib turamiz.",
+"page": "js"
+},
+{
+"en": "Google orqali davom etish",
+"page": "js"
+},
+{
+"en": "yoki e-mail orqali",
+"page": "js"
+},
+{
+"en": "Telefon / WhatsApp (ixtiyoriy)",
+"page": "js"
+},
+{
+"en": "Davom etish",
+"page": "js"
+},
+{
+"en": "Ma'lumotlaringiz faqat sayohatingizni tashkil qilish va Moviy Nomad yangiliklari uchun ishlatiladi. Spam yo'q.",
+"page": "js"
+},
+{
+"en": "E-mailni to'g'ri yozing.",
+"page": "js"
+},
+{
+"en": "Google orqali kirib bo'lmadi. Qayta urinib ko'ring yoki e-mail yozing.",
+"page": "js"
+},
+{
+"en": "Google ile devam et",
+"page": "js"
+},
+{
+"en": "veya e-posta ile",
+"page": "js"
+},
+{
+"en": "Weiter mit Google",
+"page": "js"
+},
+{
+"en": "oder per E-Mail",
+"page": "js"
+},
+{
+"en": "Ihr Name",
+"page": "js"
+},
+{
+"en": "Telefon / WhatsApp (optional)",
+"page": "js"
+},
+{
+"en": "Anmeldung mit Google fehlgeschlagen. Bitte erneut versuchen oder E-Mail nutzen.",
+"page": "js"
+},
+{
+"en": "eller med e-post",
+"page": "js"
+},
+{
+"en": "Ditt namn",
+"page": "js"
+},
+{
+"en": "Telefon / WhatsApp (valfritt)",
+"page": "js"
+},
+{
+"en": "Ange en giltig e-postadress.",
+"page": "js"
+},
+{
+"en": "still here",
+"page": "js"
+},
+{
+"en": "en",
+"page": "l10n"
+},
+{
+"en": "days",
+"page": "l10n"
+},
+{
+"en": "nights",
+"page": "l10n"
+},
+{
+"en": "destinations",
+"page": "l10n"
+},
+{
+"en": "km",
+"page": "l10n"
+},
+{
+"en": "min",
+"page": "l10n"
+},
+{
+"en": "Day",
+"page": "l10n"
+},
+{
+"en": "Car",
+"page": "l10n"
+},
+{
+"en": "total",
+"page": "l10n"
+},
+{
+"en": "night",
+"page": "l10n"
+},
+{
+"en": "places",
+"page": "l10n"
+},
+{
+"en": "for",
+"page": "l10n"
+},
+{
+"en": "passport",
+"page": "l10n"
+},
+{
+"en": "shoes",
+"page": "l10n"
+},
+{
+"en": "scarf",
+"page": "l10n"
+},
+{
+"en": "sun",
+"page": "l10n"
+},
+{
+"en": "jacket",
+"page": "l10n"
+},
+{
+"en": "cash",
+"page": "l10n"
+},
+{
+"en": "plug",
+"page": "l10n"
+},
+{
+"en": "meds",
+"page": "l10n"
 }
 ]

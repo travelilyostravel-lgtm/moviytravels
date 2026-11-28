@@ -4,7 +4,7 @@
    messages — never internal notes, netto prices or other clients. */
 (function () {
   var SB = window.MN_SB || {}, root = document.getElementById("cab"); if (!root || !SB.url) return;
-  var LANG = (document.documentElement.lang || "en").slice(0, 2), T = (window.MN_CAB_TX || {})[LANG] || window.MN_CAB_TX.en;
+  var LANG = (document.documentElement.lang || "en").slice(0, 2), T = (window.MN_CAB_TX || {})[LANG] || window.MN_CAB_X || window.MN_CAB_TX.en;
   var BASE = document.documentElement.getAttribute("data-base") || "";
   var KEY = "mn_cab";
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }

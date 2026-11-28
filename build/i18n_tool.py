@@ -67,6 +67,53 @@ def extract(root, lang):
     print(len(out), "strings,", sum(len(x["en"]) for x in out), "chars")
 
 
+def extract_js(root):
+    """Append the UI/tour strings of assets/data/l10n/en.js to _source.json (existing ids stay the same)."""
+    sp = os.path.join(HERE, "i18n", "_source.json"); src = json.load(open(sp, encoding="utf-8")); have = {x["en"] for x in src}
+    js = open(os.path.join(root, "assets", "data", "l10n", "en.js"), encoding="utf-8").read(); add = 0
+    for q in LSTR.finditer(js):
+        if js[q.end():q.end() + 3].lstrip().startswith(":"): continue      # object key
+        try: t = json.loads('"' + q.group(1) + '"')
+        except Exception: continue
+        tt = re.sub(r"\{\w+\}", "", t)
+        if t in have or not _ok(tt) or not re.search(r"[A-Za-z]{2}", tt) or re.search(r"[;=<>]|^\.|/\w+\.\w+|^\w+\.\w+$|^[a-z]+_[A-Za-z0-9_]+$", tt) or t.startswith(("http", "#", "@", "+")): continue
+        src.append({"en": t, "page": "l10n"}); have.add(t); add += 1
+    json.dump(src, open(sp, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+    print("added", add, "→", len(src))
+
+
+JS_FRONT_SKIP = ("admin", "portal", "partner.js", "agent", "msg-", "voucher", "account-i18n")
+JS_LIT = re.compile(r'"((?:[^"\\\n]|\\.)*)"|\'((?:[^\'\\\n]|\\.)*)\'')
+
+
+def js_front_strings(root):
+    """English UI strings rendered by the visitor-facing scripts (forms, cabinet, subscribe, schedule…)."""
+    import subprocess
+    out = json.loads(subprocess.check_output(["node", os.path.join(HERE, "i18n", "js_strings.js"), os.path.join(root, "assets", "js", "account-i18n.js")]))
+    for f in sorted(glob.glob(os.path.join(root, "assets", "js", "*.js"))):
+        if os.path.basename(f).startswith(JS_FRONT_SKIP): continue
+        for m in JS_LIT.finditer(open(f, encoding="utf-8").read()):
+            t = m.group(1) if m.group(1) is not None else m.group(2)
+            try: t = json.loads('"' + t.replace("\\'", "'") + '"')
+            except Exception: continue
+            if not re.fullmatch(r"[A-Za-z0-9 ,.!?'’:;()\-–—+/%&{}…→←·“”$€ⓘ✓✔×\n]+", t): continue
+            if " " not in t or not re.search("[a-z]{3}", t) or re.search(r"[<>=;]|\.\w+\(|^\w+\.\w+|\b(var|function|return)\b", t): continue
+            out.append(t)
+    seen = []; [seen.append(x) for x in out if x not in seen and x.strip()]
+    return seen
+
+
+def extract_js2(root):
+    sp = os.path.join(HERE, "i18n", "_source.json"); src = json.load(open(sp, encoding="utf-8")); have = {x["en"] for x in src}; add = 0
+    for t in js_front_strings(root):
+        if t not in have: src.append({"en": t, "page": "js"}); have.add(t); add += 1
+    json.dump(src, open(sp, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+    print("added", add, "→", len(src))
+
+
+RT_JS = open(os.path.join(HERE, "i18n", "runtime.js"), encoding="utf-8").read() if os.path.exists(os.path.join(HERE, "i18n", "runtime.js")) else ""
+
+
 def table(lang):
     p = os.path.join(HERE, "i18n", lang + ".json")
     return json.load(open(p, encoding="utf-8")).get("S", {}) if os.path.exists(p) else {}
@@ -110,11 +157,22 @@ def apply_l10n(root, lang):
     n = 0
     def rep(q):
         nonlocal n
+        if js[q.end():q.end() + 3].lstrip().startswith(":"): return q.group(0)   # an object key, not a text
         try: t = json.loads('"' + q.group(1) + '"')
         except Exception: return q.group(0)
         if t in S and S[t]: n += 1; return json.dumps(S[t], ensure_ascii=False)
         return q.group(0)
     js = LSTR.sub(rep, js)
+    # strings drawn by the page scripts: runtime table + cabinet texts (account.js reads window.MN_CAB_X)
+    rt = {x: S[x] for x in js_front_strings(root) if S.get(x) and S[x] != x}
+    cab = json.loads(__import__("subprocess").check_output(["node", "-e", "const fs=require('fs'),vm=require('vm');const c={window:{}};vm.createContext(c);vm.runInContext(fs.readFileSync(process.argv[1],'utf8'),c);console.log(JSON.stringify(c.window.MN_CAB_TX.en))", os.path.join(root, "assets", "js", "account-i18n.js")]))
+    def tr(o):
+        if isinstance(o, str): return S.get(o) or o
+        if isinstance(o, dict): return {k: tr(v) for k, v in o.items()}
+        if isinstance(o, list): return [tr(v) for v in o]
+        return o
+    js += "\nwindow.MN_CAB_X=" + json.dumps(tr(cab), ensure_ascii=False) + ";\nwindow.MN_RT=" + json.dumps(rt, ensure_ascii=False) + ";\n" + RT_JS
+    n += len(rt)
     open(os.path.join(root, "assets", "data", "l10n", lang + ".js"), "w", encoding="utf-8").write(js)
     return n
 
@@ -131,3 +189,5 @@ if __name__ == "__main__":
     if cmd == "extract": extract(sys.argv[2], sys.argv[3])
     elif cmd == "apply": print(apply(sys.argv[2], sys.argv[3]), "replacements")
     elif cmd == "missing": missing(sys.argv[2])
+    elif cmd == "extract_js": extract_js(sys.argv[2])
+    elif cmd == "extract_js2": extract_js2(sys.argv[2])
