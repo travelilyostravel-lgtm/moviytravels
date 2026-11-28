@@ -1,0 +1,186 @@
+0	Partnerportal
+1	Det här kontot är inte registrerat som partner. Tryck på «Logga ut» och registrera dig med en annan e-post.
+2	För guider, förare, hotell och andra tjänsteleverantörer.
+3	Logga in
+4	Bli partner
+5	Ändra mitt kort
+6	Du är på webbplatsen: ändringar (språk, städer, foton, pris, bio m.m.) går först till Moviy Nomad. Ditt kort uppdateras när admin har godkänt dem.
+7	Kommentar till admin: vad ändrade du och varför? *
+8	Skicka för granskning
+9	Skickat ✅ Ditt kort uppdateras när admin har godkänt.
+10	Dina ändringar granskas
+11	Din kommentar
+12	Din senaste ändring avvisades
+13	Din senaste ändring godkändes och publicerades
+14	Skriv en kommentar: vad ändrade du?
+15	I formuläret nedan finns de skickade (ännu inte godkända) uppgifterna. Om du ändrar och skickar igen ersätts den gamla begäran.
+16	Min kalender (bokade dagar)
+17	Tryck på en bokad dag — den blir röd. Tryck igen för att skriva en anteckning eller frigöra dagen. Resenärer ser de gröna (lediga) dagarna och lämnar en förfrågan; en handläggare kontaktar dig. Bara du och Moviy Nomad ser anteckningarna.
+18	Ledig
+19	Bokad
+20	Anteckning (t.ex. grupp från Tyskland, 8 personer)
+21	Spara
+22	Frigör
+23	Närmaste bokade dagar
+24	Visningar · Gillningar · Delningar
+25	Födelseår
+26	Var du bor (stad, stadsdel) — visas på webbplatsen
+27	Fullständig adress — bara Moviy Nomad ser den
+28	Ansökan görs i rätt avsnitt på webbplatsen: du läser kraven, laddar upp foton — och här öppnas din sida. Vad ansöker du som?
+29	E-post
+30	Lösenord
+31	Lösenord (minst 8 tecken)
+32	Glömt lösenord
+33	Logga ut
+34	Registrera dig — 2 minuter
+35	Ladda upp dina dokument — vi granskar på 1–2 dagar
+36	Fyll i din profil — du syns på webbplatsen, vi tar med kunderna
+37	Varför Moviy Nomad?
+38	Utländska resenärer och byråer — på 30 språk
+39	Vi hittar kunden och tar emot betalningen
+40	Bra omdömen sätter dig först i listan
+41	Registreringen är gratis
+42	Du är
+43	Guide
+44	Förare / transport
+45	Hotell / pensionat
+46	Annan tjänst
+47	För- och efternamn eller hotellets namn
+48	Telefon
+49	WhatsApp (valfritt)
+50	Telegram (@användarnamn eller nummer)
+51	Huvudort
+52	Nummer på licens / guidekort / certifikat
+53	Skattenummer (om det finns)
+54	Företagsnamn (om det finns)
+55	Jag godkänner att Moviy Nomad kontrollerar mina uppgifter och visar min profil på webbplatsen (utan mina kontaktuppgifter).
+56	Registrera
+57	Klart! Logga nu in och ladda upp dina dokument.
+58	Din ansökan granskas
+59	Ladda upp dina dokument (licens/kort, pass eller ID, registreringsbevis för transport, certifikat för hotell). Vi granskar vanligtvis inom 1–2 arbetsdagar.
+60	Ansökan avvisad
+61	Din profil är tillfälligt dold
+62	Frågor? Skriv till handläggaren:
+63	Dokument
+64	Dokumenttyp
+65	Licens / kort
+66	Pass / ID
+67	Registreringsbevis
+68	Certifikat
+69	Annat
+70	Fil (PDF eller foto)
+71	Ladda upp
+72	Din profil är godkänd ✅
+73	Fyll i dina uppgifter och spara — så syns du på webbplatsen.
+74	Profil
+75	Huvudfoto
+76	Fler foton (upp till 8)
+77	Om dig (gärna på engelska — kunderna är utlänningar)
+78	Städer där du arbetar (kommaseparerade)
+79	Språk
+80	Inriktningar
+81	Pris, USD
+82	per dag
+83	per natt
+84	Kommentar till priset (t.ex. 8 timmar, bränsle ingår)
+85	Erfarenhet (år)
+86	Bilmärke
+87	Platser
+88	Årsmodell
+89	Stjärnor
+90	Rum
+91	Spara
+92	Sparat ✅
+93	Visa på webbplatsen
+94	Betyg
+95	omdömen
+96	Resor med Moviy Nomad
+97	Fel: 
+98	Åtgärda bristerna: rätta uppgifterna, ladda upp de foton och dokument som behövs och tryck på «Rätta och skicka igen». Ansökan granskas på nytt — så många gånger som behövs.
+99	🔒 Bara Moviy Nomad ändrar de här uppgifterna (namn, födelseår, kortnummer, företag). Om något behöver ändras, skriv till handläggaren.
+100	Historik över mina ändringar
+101	Inga ändringsbegäranden ännu.
+102	⏳ Granskas
+103	✅ Godkänd
+104	❌ Avvisad
+105	Belopp som betalas till dig
+106	Här visas bara ditt pris och beloppet som betalas till dig. Du får exakt det pris du angav; Moviy Nomad sköter betalningarna med kunderna.
+107	Inga bokningar ännu.
+108	Bokning
+109	Datum
+110	Dagar / nätter
+111	Ditt pris
+112	Att betala ut
+113	Status
+114	Det här är DITT pris (betalas till dig). Moviy Nomad bekräftar alla prisändringar.
+115	Förfrågan
+116	Förfrågan
+117	Stäms av
+118	Väntar på betalning
+119	Bekräftas
+120	Betalningen kontrolleras
+121	Betald
+122	Bekräftad
+123	Avslutad
+124	Orsak till avslag
+125	Vad har du rättat? (kort, till admin)
+126	Rätta och skicka igen
+127	Ansökan skickad igen ✅ Vi granskar den snart.
+128	Skriv kort vad du har rättat.
+129	Skickad igen
+130	Kod via e-post
+131	Lösenord
+132	Skicka kod
+133	En inloggningskod och länk har skickats till din e-post. Ange koden eller klicka på länken.
+134	Siffror från e-posten
+135	Logga in
+136	Inloggning utan lösenord: ange din e-post så kommer en kod.
+137	🔒 Lösenord till din sida (valfritt)
+138	Om du vill kan du välja ett lösenord: då kan du logga in med lösenord eller kod. Bra så att ingen annan öppnar din sida.
+139	Spara lösenord
+140	Lösenord sparat ✅
+141	🛏 Rumstyper och priser
+142	🚐 Fordon och priser
+143	Netto = priset du får. Ett nytt eller ändrat rum/fordon visas på webbplatsen efter Moviy Nomads kontroll. Att stänga tillfälligt (t.ex. under reparation) kräver ingen kontroll.
+144	+ Lägg till rumstyp
+145	+ Lägg till fordon
+146	Spara
+147	Ta bort
+148	Stäng tillfälligt
+149	Öppna igen
+150	Foton (upp till 15)
+151	Inget tillagt ännu.
+152	⏳ Kontrolleras
+153	✅ På webbplatsen
+154	❌ Avvisad
+155	⏸ Stängd
+156	Ta bort på riktigt? Tryck igen.
+157	🏨 Hotelluppgifter
+158	Spara
+159	✈️ Telegram-gruppen «Moviy Nomad»
+160	En sluten grupp för våra partner och personer inom turism: nyheter, uppdrag, nätverk. Har du inte gått med ännu, gör det — en admin godkänner förfrågan.
+161	Gå med i Telegram-gruppen
+162	Dina nya priser kontrolleras av Moviy Nomad
+163	Telegram-aviseringar är på
+164	Koppla Telegram — 1 tryck
+165	Hit kommer uppdrag och viktiga varningar om ditt kort och tidsfrister — även om du inte öppnar webbplatsen.
+166	Koppla Telegram
+167	Boten @{bot} öppnas — tryck på «Start».
+168	Huvudfoto (i klassisk eller traditionell klädsel)
+169	Kort-/diplomnummer (rätt nummer)
+170	Foto av kortet / diplomet
+171	Språk
+172	Städer där du guidar
+173	Födelseår
+174	Telegram
+175	Bostadsort och fullständig adress
+176	Foton till kortet
+177	Foton med resenärer
+178	minst
+179	⚠ Ditt kort tas bort från webbplatsen om {n} dagar
+180	⚠ Ditt kort tas bort från webbplatsen IDAG kl. 23:59
+181	Tidsfrist
+182	Fyll i följande. Webbplatsen kontrollerar varje timme: när det är 100 % stannar ditt kort kvar.
+183	🚫 Ditt kort har tagits bort från webbplatsen — bristerna åtgärdades inte i tid
+184	Fyll i följande — så snart kortet är 100 % lägger webbplatsen tillbaka det av sig själv (inom en timme).
+185	✅ Allt är ifyllt — ditt kort stannar på webbplatsen. Tack!
