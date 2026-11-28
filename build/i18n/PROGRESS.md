@@ -38,3 +38,4 @@ Asoschi topshirig'i (28.11): sayt 30 tilda; saytning HAMMA bo'limlari 30 tilda i
 | pt | 1200/1460 | ✓ | ✅ 28.11 |
 | pl | 1200/1460 | ✓ | ✅ 28.11 |
 | nl | 1200/1460 | ✓ | ✅ 28.11 |
+| be | 1200/1460 | ✓ | ✅ 28.11 |
