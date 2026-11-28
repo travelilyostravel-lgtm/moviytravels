@@ -18,9 +18,27 @@ ATTR_RE = re.compile(r'(\s(?:%s)=")([^"]*)(")' % "|".join(ATTRS))
 WORDS = re.compile(r"[A-Za-z]{2}")
 
 
+SKIP = {"FAQPage", "Question", "Answer", "TravelAgency", "Organization", "WebSite", "Place", "Offer", "Event", "Restaurant", "PostalAddress", "noindex, nofollow", "index, follow", "data-theme", "width=device-width, initial-scale=1", "Moviy Nomad", "MOVIY", "NOMAD", "WhatsApp", "Telegram", "Instagram", "E-mail"}
+LSTR = re.compile(r'"((?:[^"\\]|\\.){2,600})"')
+
+
+def _names():
+    try:
+        sys.path.insert(0, HERE); import content
+        return {content.T[l]["name"] for l in content.T}
+    except Exception: return set()
+NAMES = _names()
+
+
 def _ok(s):
     s = s.strip()
-    return len(s) > 1 and WORDS.search(s) and not s.startswith(("http", "{", "#", "@", "+998")) and "moviy-travel.uz/" not in s[:30]
+    return (len(s) > 1 and WORDS.search(s) and s not in SKIP and s not in NAMES and not re.fullmatch(r"[A-Z]{2}", s)
+            and not s.startswith(("http", "{", "#", "@", "+998", "window.", "mailto:", "(prefers", "application/", "image/", "text/"))
+            and not re.fullmatch(r"[a-z]+[A-Z]\w*|[A-Z][a-z]+[A-Z]\w*", s) and "@gmail.com" not in s and "moviy-travel.uz/" not in s[:30])
+
+
+def _human(s):  # a JSON string inside an inline script that is real UI text (not a key, class, url or code)
+    return (" " in s or len(s) > 3) and re.search(r"[A-Za-z]{3}", s) and not re.search(r"[{};=<>]|^[a-z_]+$|^\.|/\w+\.\w+|^\w+\.\w+", s) and not s.startswith(("http", "#", "@", "+"))
 
 
 def pages(root, lang):
@@ -32,7 +50,13 @@ def extract(root, lang):
     for f in pages(root, lang):
         h = open(f, encoding="utf-8").read()
         for m in TEXT_RE.finditer(h):
-            if m.group(1): continue
+            if m.group(1):
+                if "src=" not in m.group(1)[:80] and m.group(2).lower() == "script":
+                    for q in LSTR.finditer(m.group(1)):
+                        try: t = json.loads('"' + q.group(1) + '"')
+                        except Exception: continue
+                        if _ok(t) and _human(t): seen.setdefault(t, os.path.relpath(f, root))
+                continue
             t = html.unescape(m.group(4)).strip()
             if _ok(t): seen.setdefault(t, os.path.relpath(f, root))
         for m in ATTR_RE.finditer(h):
@@ -52,9 +76,16 @@ def apply(root, lang):
     S = table(lang)
     if not S: return 0
     n = 0
+    def js(q):
+        nonlocal n
+        try: t = json.loads('"' + q.group(1) + '"')
+        except Exception: return q.group(0)
+        if t in S and S[t]: n += 1; return json.dumps(S[t], ensure_ascii=False)
+        return q.group(0)
     def tx(m):
         nonlocal n
-        if m.group(1): return m.group(1)
+        if m.group(1):
+            return LSTR.sub(js, m.group(1)) if m.group(2).lower() == "script" and "src=" not in m.group(1)[:80] else m.group(1)
         raw = m.group(4); t = html.unescape(raw).strip()
         if t in S and S[t]:
             n += 1; lead = raw[:len(raw) - len(raw.lstrip())]; tail = raw[len(raw.rstrip()):]
@@ -69,6 +100,22 @@ def apply(root, lang):
         h = open(f, encoding="utf-8").read()
         h2 = ATTR_RE.sub(ta, TEXT_RE.sub(tx, h))
         if h2 != h: open(f, "w", encoding="utf-8").write(h2)
+    return n
+
+
+def apply_l10n(root, lang):
+    """assets/data/l10n/<lang>.js for a new language = the English file with translated strings (tour texts, UI)."""
+    S = table(lang); src = os.path.join(root, "assets", "data", "l10n", "en.js")
+    js = open(src, encoding="utf-8").read().replace('"lang":"en"', '"lang":"%s"' % lang, 1)
+    n = 0
+    def rep(q):
+        nonlocal n
+        try: t = json.loads('"' + q.group(1) + '"')
+        except Exception: return q.group(0)
+        if t in S and S[t]: n += 1; return json.dumps(S[t], ensure_ascii=False)
+        return q.group(0)
+    js = LSTR.sub(rep, js)
+    open(os.path.join(root, "assets", "data", "l10n", lang + ".js"), "w", encoding="utf-8").write(js)
     return n
 
 

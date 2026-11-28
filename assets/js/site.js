@@ -17,6 +17,33 @@
   nav.addEventListener('click', function (e) { if (e.target.tagName === 'A') nav.classList.remove('is-open'); });
   [].forEach.call(nav.querySelectorAll('.nav__ddb'), function (b) { b.addEventListener('click', function () { if (window.innerWidth <= 860) b.parentNode.classList.toggle('is-open'); }); });
 
+  // Desktop: if the menu does not fit next to the logo (long words in some languages), shrink it, then move
+  // the last plain links into the "More" dropdown — never let it overlap the logo or the buttons (2026-11-28)
+  (function fitNav() {
+    var logo = document.querySelector('.logo'), right = document.querySelector('.header__right');
+    if (!logo || !right || !nav) return;
+    var moreDd = nav.querySelectorAll('.nav__dd'), more = moreDd.length ? moreDd[moreDd.length - 1].querySelector('.nav__ddm') : null, moved = [];
+    function over() {
+      var a = logo.getBoundingClientRect(), r = right.getBoundingClientRect(), L = 1e9, R = -1e9;
+      [].forEach.call(nav.children, function (c) { if (c.offsetParent === null) return; var b = c.getBoundingClientRect(); if (b.width) { L = Math.min(L, b.left); R = Math.max(R, b.right); } });
+      return L < a.right + 8 || R > r.left - 8 || nav.scrollWidth > nav.clientWidth + 2;
+    }
+    function run() {
+      nav.classList.remove('nav--s1', 'nav--s2');
+      moved.forEach(function (m) { m.a.classList.remove('nav__moved'); m.p.insertBefore(m.a, m.n); }); moved = [];
+      if (window.innerWidth <= 1024) return;
+      if (over()) nav.classList.add('nav--s1');
+      if (over()) nav.classList.add('nav--s2');
+      var plain = [].filter.call(nav.children, function (el) { return el.tagName === 'A' && !el.classList.contains('nav__m') && !el.classList.contains('nav__home'); });
+      while (more && over() && plain.length > 2) { var a = plain.pop(); moved.push({ a: a, p: a.parentNode, n: a.nextSibling }); a.classList.add('nav__moved'); more.insertBefore(a, more.firstChild); }
+    }
+    var t; run(); window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(run, 150); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+    window.addEventListener('load', run);
+    // the right-hand buttons (cabinet, currency) are added by other scripts after this runs — re-fit when they change size
+    if (window.ResizeObserver) { var lw = 0; new ResizeObserver(function () { var w = Math.round(right.getBoundingClientRect().width); if (w !== lw) { lw = w; clearTimeout(t); t = setTimeout(run, 60); } }).observe(right); }
+  })();
+
   // Language menu
   var lang = document.querySelector('.lang');
   lang.querySelector('.lang__btn').addEventListener('click', function (e) { e.stopPropagation(); lang.classList.toggle('is-open'); });
