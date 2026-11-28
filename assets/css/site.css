@@ -1733,3 +1733,5 @@ html[lang="ja"]{--font-head:"Montserrat","Noto Sans JP",sans-serif;--font-body:"
 html[lang="fa"] .eyebrow,html[lang="ur"] .eyebrow,html[lang="ja"] .eyebrow,html[lang="hy"] .eyebrow,html[lang="ka"] .eyebrow{letter-spacing:.04em}
 .nav.nav--s1{gap:14px;font-size:13.5px}.nav.nav--s2{gap:10px;font-size:12.5px}.nav.nav--s2 .nav__home i{display:none}
 .nav .nav__ddm a.nav__moved{opacity:1}
+
+html[lang="ja"] h1,html[lang="ja"] h2{word-break:keep-all;overflow-wrap:anywhere}
