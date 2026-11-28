@@ -4,14 +4,6 @@
 "page": "fr/account.html"
 },
 {
-"en": "MOVIY",
-"page": "fr/account.html"
-},
-{
-"en": "NOMAD",
-"page": "fr/account.html"
-},
-{
 "en": "Home",
 "page": "fr/account.html"
 },
@@ -124,190 +116,6 @@
 "page": "fr/account.html"
 },
 {
-"en": "FR",
-"page": "fr/account.html"
-},
-{
-"en": "English",
-"page": "fr/account.html"
-},
-{
-"en": "EN",
-"page": "fr/account.html"
-},
-{
-"en": "RU",
-"page": "fr/account.html"
-},
-{
-"en": "O'zbekcha",
-"page": "fr/account.html"
-},
-{
-"en": "UZ",
-"page": "fr/account.html"
-},
-{
-"en": "Türkçe",
-"page": "fr/account.html"
-},
-{
-"en": "TR",
-"page": "fr/account.html"
-},
-{
-"en": "AR",
-"page": "fr/account.html"
-},
-{
-"en": "Deutsch",
-"page": "fr/account.html"
-},
-{
-"en": "DE",
-"page": "fr/account.html"
-},
-{
-"en": "Svenska",
-"page": "fr/account.html"
-},
-{
-"en": "SV",
-"page": "fr/account.html"
-},
-{
-"en": "ZH",
-"page": "fr/account.html"
-},
-{
-"en": "HI",
-"page": "fr/account.html"
-},
-{
-"en": "KO",
-"page": "fr/account.html"
-},
-{
-"en": "KK",
-"page": "fr/account.html"
-},
-{
-"en": "KY",
-"page": "fr/account.html"
-},
-{
-"en": "TG",
-"page": "fr/account.html"
-},
-{
-"en": "Türkmençe",
-"page": "fr/account.html"
-},
-{
-"en": "TK",
-"page": "fr/account.html"
-},
-{
-"en": "Azərbaycanca",
-"page": "fr/account.html"
-},
-{
-"en": "AZ",
-"page": "fr/account.html"
-},
-{
-"en": "HY",
-"page": "fr/account.html"
-},
-{
-"en": "KA",
-"page": "fr/account.html"
-},
-{
-"en": "BE",
-"page": "fr/account.html"
-},
-{
-"en": "UK",
-"page": "fr/account.html"
-},
-{
-"en": "Français",
-"page": "fr/account.html"
-},
-{
-"en": "Español",
-"page": "fr/account.html"
-},
-{
-"en": "ES",
-"page": "fr/account.html"
-},
-{
-"en": "Italiano",
-"page": "fr/account.html"
-},
-{
-"en": "IT",
-"page": "fr/account.html"
-},
-{
-"en": "Português",
-"page": "fr/account.html"
-},
-{
-"en": "PT",
-"page": "fr/account.html"
-},
-{
-"en": "Polski",
-"page": "fr/account.html"
-},
-{
-"en": "PL",
-"page": "fr/account.html"
-},
-{
-"en": "Nederlands",
-"page": "fr/account.html"
-},
-{
-"en": "NL",
-"page": "fr/account.html"
-},
-{
-"en": "FA",
-"page": "fr/account.html"
-},
-{
-"en": "UR",
-"page": "fr/account.html"
-},
-{
-"en": "JA",
-"page": "fr/account.html"
-},
-{
-"en": "Bahasa Indonesia",
-"page": "fr/account.html"
-},
-{
-"en": "ID",
-"page": "fr/account.html"
-},
-{
-"en": "Bahasa Melayu",
-"page": "fr/account.html"
-},
-{
-"en": "MS",
-"page": "fr/account.html"
-},
-{
-"en": "WhatsApp",
-"page": "fr/account.html"
-},
-{
 "en": "Your requests, bookings, payments, documents and messages — in one place.",
 "page": "fr/account.html"
 },
@@ -329,22 +137,6 @@
 },
 {
 "en": "© 2026 Moviy Nomad · Moviy Travel",
-"page": "fr/account.html"
-},
-{
-"en": "moviynomad4214@gmail.com",
-"page": "fr/account.html"
-},
-{
-"en": "window.MN={\"whatsapp\": \"998975427799\", \"telegram\": \"moviy_safina\", \"instagram\": \"moviy_nomad\", \"msgGeneral\": \"Hello Moviy Nomad! I'd like to plan a trip to Uzbekistan.\", \"msgTour\": \"Hello Moviy Nomad! I'm interested in the \\\"{tour}\\\" tour. Please send me the program and price.\"};window.MNX={\"f_sending\": \"Sending…\", \"f_send\": \"Send request\", \"f_required\": \"Please fill in the required fields.\", \"f_ok_title\": \"Thank you! Your request is received\", \"f_ok_text\": \"Your request number: {ref}. A manager will contact you soon — usually within a few hours.\", \"f_err\": \"Something went wrong. Please try again or write to us on WhatsApp.\", \"f_close\": \"Close\", \"bk_first\": \"First name\", \"bk_last\": \"Last name\", \"bk_gender\": \"Gender\", \"bk_m\": \"Male\", \"bk_f\": \"Female\", \"bk_dob\": \"Date of birth\", \"bk_remove\": \"Remove\", \"bk_ok\": {\"bank\": \"We will send the invoice with payment details shortly. Please do not pay before the manager confirms the price and dates.\", \"card\": \"The manager will send you a secure card payment link after confirming the price and dates.\", \"contact\": \"A manager will contact you soon to discuss the trip. No payment is needed now.\"}, \"bk_ok_req\": \"A manager will contact you soon to confirm the details and payment.\", \"bk_submit_req\": \"Send request\", \"ts_send\": \"Publish my story\", \"ts_uploading\": \"Uploading photos… {n}/{t}\", \"ts_ok\": \"Thank you! Your story will appear on the website after moderation (usually within 24 hours).\", \"ts_too_many\": \"Maximum 6 photos.\", \"gal_empty\": \"No stories yet — be the first to share yours.\", \"bk_submit\": \"Send booking request\", \"rev_traveller\": \"Traveller\", \"services\": {\"airport\": \"Airport pickup by driver\", \"car\": \"Transport with driver\", \"hotel\": \"Hotel booking\", \"guide\": \"Licensed guides\", \"mice\": \"Groups, events & MICE\", \"airport_guide\": \"Airport welcome by a guide\", \"esim\": \"eSIM for Uzbekistan\"}, \"wx\": {\"title\": \"Weather in Uzbekistan\", \"feels\": \"Feels like\", \"max\": \"Max\", \"min\": \"Min\", \"hum\": \"Humidity\", \"wind\": \"Wind\", \"kmh\": \"km/h\", \"more\": \"Weather by month →\", \"f7\": \"Next 7 days\", \"monthly\": \"Average by month\", \"pick\": \"When are you coming?\", \"avg_note\": \"Long-term averages (approx.) — real weather can differ.\", \"rain_days\": \"rainy days\", \"great\": \"Great for travel\", \"hot\": \"Very hot — plan mornings & evenings\", \"cold\": \"Cold — warm clothes needed\", \"ok\": \"Good for travel\", \"close\": \"Close\", \"cities\": [\"Tashkent\", \"Samarkand\", \"Bukhara\", \"Khiva\", \"Fergana\", \"Nukus\"], \"codes\": [\"Clear\", \"Partly cloudy\", \"Cloudy\", \"Fog\", \"Drizzle\", \"Rain\", \"Snow\", \"Thunderstorm\"], \"fab_hint\": \"Ask Madina\"}};window.MN_LANG=\"fr\";",
-"page": "fr/account.html"
-},
-{
-"en": "width=device-width, initial-scale=1",
-"page": "fr/account.html"
-},
-{
-"en": "Moviy Nomad",
 "page": "fr/account.html"
 },
 {
@@ -501,14 +293,6 @@
 },
 {
 "en": "Preferred contact",
-"page": "fr/booking.html"
-},
-{
-"en": "Telegram",
-"page": "fr/booking.html"
-},
-{
-"en": "E-mail",
 "page": "fr/booking.html"
 },
 {
@@ -824,10 +608,6 @@
 "page": "fr/builder.html"
 },
 {
-"en": "window.MN={\"whatsapp\": \"998975427799\", \"telegram\": \"moviy_safina\", \"instagram\": \"moviy_nomad\", \"msgGeneral\": \"Hello Moviy Nomad! I'd like to plan a trip to Uzbekistan.\", \"msgTour\": \"Hello Moviy Nomad! I'm interested in the \\\"{tour}\\\" tour. Please send me the program and price.\", \"bookLabel\": \"Book online\", \"bookReqLabel\": \"Send a request\"};",
-"page": "fr/builder.html"
-},
-{
 "en": "eSIM for Uzbekistan — internet from the moment you land — Moviy Nomad",
 "page": "fr/esim.html"
 },
@@ -904,7 +684,27 @@
 "page": "fr/esim.html"
 },
 {
-"en": "noindex, nofollow",
+"en": "Unlimited",
+"page": "fr/esim.html"
+},
+{
+"en": "Buy eSIM",
+"page": "fr/esim.html"
+},
+{
+"en": "Popular",
+"page": "fr/esim.html"
+},
+{
+"en": "Promo code",
+"page": "fr/esim.html"
+},
+{
+"en": "Sold and supported by our official partner Qulay SIM: payment, QR code, help and refunds are handled by Qulay SIM.",
+"page": "fr/esim.html"
+},
+{
+"en": "Opening Qulay SIM…",
 "page": "fr/esim.html"
 },
 {
@@ -1052,6 +852,58 @@
 "page": "fr/events.html"
 },
 {
+"en": "Events in Uzbekistan",
+"page": "fr/events.html"
+},
+{
+"en": "Show more events",
+"page": "fr/events.html"
+},
+{
+"en": "Free / price on request",
+"page": "fr/events.html"
+},
+{
+"en": "Book with us",
+"page": "fr/events.html"
+},
+{
+"en": "Tickets on iTicket",
+"page": "fr/events.html"
+},
+{
+"en": "date to be announced",
+"page": "fr/events.html"
+},
+{
+"en": "Official",
+"page": "fr/events.html"
+},
+{
+"en": "Source: iTicket.uz and official calendars",
+"page": "fr/events.html"
+},
+{
+"en": "Number of tickets",
+"page": "fr/events.html"
+},
+{
+"en": "Please fill in the required fields.",
+"page": "fr/events.html"
+},
+{
+"en": "Sending…",
+"page": "fr/events.html"
+},
+{
+"en": "Something went wrong. Please try again or write to us on WhatsApp.",
+"page": "fr/events.html"
+},
+{
+"en": "Thank you! Your request is received",
+"page": "fr/events.html"
+},
+{
 "en": "Restaurants in Andijan: halal, Uzbek & European food — Moviy Nomad",
 "page": "fr/food-andijan.html"
 },
@@ -1192,7 +1044,131 @@
 "page": "fr/food-andijan.html"
 },
 {
+"en": "Where to eat in Uzbekistan",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Restaurants, cafés and tea-houses in every region — Uzbek, European, Asian, halal. Pick a place and call a Yandex Go taxi straight to the door.",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "step1",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "1. Choose a region",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "step2",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Halal",
+"page": "fr/food-andijan.html"
+},
+{
 "en": "Search by name…",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Show more places",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Call Yandex Go taxi",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Opens the Yandex Go app with this place as the destination",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Yandex Maps",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Google Maps",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "2GIS",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Call",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Website",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Opening hours",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Halal — confirmed by Moviy Nomad",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Halal (marked by the place)",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Uzbek national cuisine is usually halal — ask the staff to be sure",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "faq_q1",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "faq_a1",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "faq_q2",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "faq_a2",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "faq_q3",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "faq_a3",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "See all",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Sample dish photo — tap for the real photos",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Address & map",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Photos, menu & prices",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Opens this place on Yandex Maps: real photos, menu, prices and reviews",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Top places for travellers",
+"page": "fr/food-andijan.html"
+},
+{
+"en": "Show only top places",
 "page": "fr/food-andijan.html"
 },
 {
@@ -1388,18 +1364,6 @@
 "page": "fr/food.html"
 },
 {
-"en": "Where to eat in Uzbekistan",
-"page": "fr/food.html"
-},
-{
-"en": "Restaurants, cafés and tea-houses in every region — Uzbek, European, Asian, halal. Pick a place and call a Yandex Go taxi straight to the door.",
-"page": "fr/food.html"
-},
-{
-"en": "1. Choose a region",
-"page": "fr/food.html"
-},
-{
 "en": "Join a group tour of Uzbekistan — Moviy Nomad",
 "page": "fr/group-tours.html"
 },
@@ -1585,6 +1549,150 @@
 },
 {
 "en": "Twin / double room for us",
+"page": "fr/group-tours.html"
+},
+{
+"en": "All months",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Loading departures…",
+"page": "fr/group-tours.html"
+},
+{
+"en": "New departure dates are being scheduled. Leave a request and we will let you know first.",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Notify me",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Fully booked",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Guaranteed",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Open for booking",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Last seats",
+"page": "fr/group-tours.html"
+},
+{
+"en": "per person, twin share",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Price on request",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Programme",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Number of travellers",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Group tours with guaranteed dates",
+"page": "fr/group-tours.html"
+},
+{
+"en": "For solo travellers and couples from any country: fixed departure dates, English-speaking guides, everything arranged.",
+"page": "fr/group-tours.html"
+},
+{
+"en": "All departures",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Small group · 12–17",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Medium group · 30–35",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Large group · 45–50",
+"page": "fr/group-tours.html"
+},
+{
+"en": "minibus, 1 guide",
+"page": "fr/group-tours.html"
+},
+{
+"en": "bus, 2 guides",
+"page": "fr/group-tours.html"
+},
+{
+"en": "gr_veh_bus50",
+"page": "fr/group-tours.html"
+},
+{
+"en": "50-seat bus, 2 guides",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Group size",
+"page": "fr/group-tours.html"
+},
+{
+"en": "All group sizes",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Travelling alone? Join any group — even 1 person is welcome.",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Extras (optional)",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Starts every Saturday in Khiva",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Dates",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Seats available",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Few seats left",
+"page": "fr/group-tours.html"
+},
+{
+"en": "No seats left",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Fixed departure dates for solo travellers and couples — choose an English- or Russian-speaking group, everything is arranged.",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Dates & booking",
+"page": "fr/group-tours.html"
+},
+{
+"en": "per person",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Details & booking",
+"page": "fr/group-tours.html"
+},
+{
+"en": "Choose group size",
 "page": "fr/group-tours.html"
 },
 {
@@ -1776,11 +1884,303 @@
 "page": "fr/guides.html"
 },
 {
-"en": "Which language should your guide speak?",
+"en": "Guides, drivers and hotels — checked by us",
+"page": "fr/guides.html"
+},
+{
+"en": "Licensed guides in your language",
+"page": "fr/guides.html"
+},
+{
+"en": "Comfortable cars with experienced drivers",
+"page": "fr/guides.html"
+},
+{
+"en": "Hotels and family guesthouses",
+"page": "fr/guides.html"
+},
+{
+"en": "Photographers, masterclasses and more",
+"page": "fr/guides.html"
+},
+{
+"en": "Become a partner",
+"page": "fr/guides.html"
+},
+{
+"en": "Local partners in Uzbekistan",
+"page": "fr/guides.html"
+},
+{
+"en": "Every partner is checked by Moviy Nomad: documents, licence and real traveller reviews. Contacts stay private — you book through us, with our support and guarantee.",
+"page": "fr/guides.html"
+},
+{
+"en": "Licence checked",
+"page": "fr/guides.html"
+},
+{
+"en": "trips with Moviy Nomad",
+"page": "fr/guides.html"
+},
+{
+"en": "New partner",
+"page": "fr/guides.html"
+},
+{
+"en": "/ day",
+"page": "fr/guides.html"
+},
+{
+"en": "/ night",
+"page": "fr/guides.html"
+},
+{
+"en": "Ask availability",
+"page": "fr/guides.html"
+},
+{
+"en": "Profile",
+"page": "fr/guides.html"
+},
+{
+"en": "Booking number (e.g. MN-1234)",
+"page": "fr/guides.html"
+},
+{
+"en": "E-mail of the booking",
+"page": "fr/guides.html"
+},
+{
+"en": "Your name",
+"page": "fr/guides.html"
+},
+{
+"en": "Rating",
+"page": "fr/guides.html"
+},
+{
+"en": "Thank you! Your review will appear after a quick check.",
+"page": "fr/guides.html"
+},
+{
+"en": "We could not find a paid trip with this booking number and e-mail.",
+"page": "fr/guides.html"
+},
+{
+"en": "how1",
+"page": "fr/guides.html"
+},
+{
+"en": "how2",
+"page": "fr/guides.html"
+},
+{
+"en": "how3",
+"page": "fr/guides.html"
+},
+{
+"en": "why1",
+"page": "fr/guides.html"
+},
+{
+"en": "Every partner is checked by hand",
+"page": "fr/guides.html"
+},
+{
+"en": "why2",
+"page": "fr/guides.html"
+},
+{
+"en": "Only real traveller reviews",
+"page": "fr/guides.html"
+},
+{
+"en": "why3",
+"page": "fr/guides.html"
+},
+{
+"en": "Safe payment to our company account",
+"page": "fr/guides.html"
+},
+{
+"en": "why4",
+"page": "fr/guides.html"
+},
+{
+"en": "If something goes wrong, we replace the partner",
+"page": "fr/guides.html"
+},
+{
+"en": "New partners are being checked — they will appear here soon. Send us a request and we will pick the right one for you.",
+"page": "fr/guides.html"
+},
+{
+"en": "years of experience",
+"page": "fr/guides.html"
+},
+{
+"en": "Languages",
+"page": "fr/guides.html"
+},
+{
+"en": "Request",
+"page": "fr/guides.html"
+},
+{
+"en": "TOP-4 of the month",
+"page": "fr/guides.html"
+},
+{
+"en": "The highest-rated on Moviy Nomad: real reviews from travellers, trips, likes and views.",
+"page": "fr/guides.html"
+},
+{
+"en": "All in the ranking",
+"page": "fr/guides.html"
+},
+{
+"en": "Lives in",
+"page": "fr/guides.html"
+},
+{
+"en": "Works in",
+"page": "fr/guides.html"
+},
+{
+"en": "Specialises in",
+"page": "fr/guides.html"
+},
+{
+"en": "Trips",
+"page": "fr/guides.html"
+},
+{
+"en": "Experience",
+"page": "fr/guides.html"
+},
+{
+"en": "Like",
+"page": "fr/guides.html"
+},
+{
+"en": "Link copied",
+"page": "fr/guides.html"
+},
+{
+"en": "Availability calendar",
+"page": "fr/guides.html"
+},
+{
+"en": "Free",
+"page": "fr/guides.html"
+},
+{
+"en": "Busy",
+"page": "fr/guides.html"
+},
+{
+"en": "Pick a green (free) day — leave a request and our manager will contact you.",
+"page": "fr/guides.html"
+},
+{
+"en": "This day is busy — please pick a green day.",
+"page": "fr/guides.html"
+},
+{
+"en": "all of Uzbekistan",
+"page": "fr/guides.html"
+},
+{
+"en": "No partners in this city yet — send a request and we will find one for you.",
+"page": "fr/guides.html"
+},
+{
+"en": "You are",
+"page": "fr/guides.html"
+},
+{
+"en": "Tourist (personal trip)",
+"page": "fr/guides.html"
+},
+{
+"en": "Travel agent / company",
+"page": "fr/guides.html"
+},
+{
+"en": "Company name",
 "page": "fr/guides.html"
 },
 {
 "en": "Start typing: Germany, India…",
+"page": "fr/guides.html"
+},
+{
+"en": "WhatsApp number",
+"page": "fr/guides.html"
+},
+{
+"en": "WhatsApp (optional)",
+"page": "fr/guides.html"
+},
+{
+"en": "Telegram (@username or number)",
+"page": "fr/guides.html"
+},
+{
+"en": "Please choose your country from the list.",
+"page": "fr/guides.html"
+},
+{
+"en": "Please leave your WhatsApp number — our manager will write to you there.",
+"page": "fr/guides.html"
+},
+{
+"en": "Please leave your Telegram (@username or number).",
+"page": "fr/guides.html"
+},
+{
+"en": "Please enter your company name.",
+"page": "fr/guides.html"
+},
+{
+"en": "Phone number",
+"page": "fr/guides.html"
+},
+{
+"en": "E-mail (optional)",
+"page": "fr/guides.html"
+},
+{
+"en": "Please leave your phone number.",
+"page": "fr/guides.html"
+},
+{
+"en": "Portfolio — photos from trips",
+"page": "fr/guides.html"
+},
+{
+"en": "Show fewer",
+"page": "fr/guides.html"
+},
+{
+"en": "Which language should your guide speak?",
+"page": "fr/guides.html"
+},
+{
+"en": "Which language should they speak?",
+"page": "fr/guides.html"
+},
+{
+"en": "All languages",
+"page": "fr/guides.html"
+},
+{
+"en": "Days (hotel: nights)",
+"page": "fr/guides.html"
+},
+{
+"en": "Estimated price",
 "page": "fr/guides.html"
 },
 {
@@ -1836,10 +2236,6 @@
 "page": "fr/hotels.html"
 },
 {
-"en": "Which language should they speak?",
-"page": "fr/hotels.html"
-},
-{
 "en": "Uzbekistan Tours & Tour Packages — Samarkand, Bukhara, Khiva | Moviy Nomad",
 "page": "fr/index.html"
 },
@@ -1881,10 +2277,6 @@
 },
 {
 "en": "Message on WhatsApp",
-"page": "fr/index.html"
-},
-{
-"en": "Instagram",
 "page": "fr/index.html"
 },
 {
@@ -1949,10 +2341,6 @@
 },
 {
 "en": "from",
-"page": "fr/index.html"
-},
-{
-"en": "per person",
 "page": "fr/index.html"
 },
 {
@@ -2272,19 +2660,7 @@
 "page": "fr/index.html"
 },
 {
-"en": "Group tours with guaranteed dates",
-"page": "fr/index.html"
-},
-{
-"en": "Fixed departure dates for solo travellers and couples — choose an English- or Russian-speaking group, everything is arranged.",
-"page": "fr/index.html"
-},
-{
 "en": "All departures →",
-"page": "fr/index.html"
-},
-{
-"en": "window.MNG={\"gr_eyebrow\": \"Guaranteed departures\", \"gr_title\": \"Join a group tour of Uzbekistan\", \"gr_sub\": \"Travelling alone or as a couple? Join a group with fixed dates: the tour runs on the announced date, guides speak English and everything is arranged for you.\", \"gr_list_title\": \"Upcoming departures\", \"gr_all_months\": \"All months\", \"gr_loading\": \"Loading departures…\", \"gr_empty\": \"New departure dates are being scheduled. Leave a request and we will let you know first.\", \"gr_empty_btn\": \"Notify me\", \"gr_seats_left\": \"{n} seats left\", \"gr_full\": \"Fully booked\", \"gr_st_guaranteed\": \"Guaranteed\", \"gr_st_open\": \"Open for booking\", \"gr_st_few\": \"Last seats\", \"gr_pp\": \"per person, twin share\", \"gr_single\": \"single room +${n}\", \"gr_on_request\": \"Price on request\", \"gr_days\": \"{n} days\", \"gr_guides\": \"{n} guides · {lang}\", \"gr_request\": \"Request a seat\", \"gr_program\": \"Programme\", \"gr_incl_title\": \"Included\", \"gr_excl_title\": \"Not included\", \"gr_how_title\": \"How to book\", \"gr_form_title\": \"Request a seat\", \"gr_f_dep\": \"Departure\", \"gr_f_seats\": \"Number of travellers\", \"gr_f_room\": \"Room\", \"gr_ok\": \"Your seat request {ref} has been received. A manager will contact you within 24 hours.\", \"gr_home_title\": \"Group tours with guaranteed dates\", \"gr_home_sub\": \"For solo travellers and couples from any country: fixed departure dates, English-speaking guides, everything arranged.\", \"gr_home_all\": \"All departures\", \"gr_k_small\": \"Small group · 12–17\", \"gr_k_medium\": \"Medium group · 30–35\", \"gr_k_large\": \"Large group · 45–50\", \"gr_veh_minibus\": \"minibus, 1 guide\", \"gr_veh_bus\": \"bus, 2 guides\", \"gr_veh_bus50\": \"50-seat bus, 2 guides\", \"gr_size\": \"Group size\", \"gr_all_sizes\": \"All group sizes\", \"gr_join_note\": \"Travelling alone? Join any group — even 1 person is welcome.\", \"gr_extras\": \"Extras (optional)\", \"gr_x_night\": \"Extra night in Tashkent (fly home on Sunday) +${n} per person\", \"gr_x_arr\": \"Individual arrival transfer (Urgench airport → Khiva hotel) +${n}\", \"gr_x_dep\": \"Individual departure transfer (Tashkent hotel → airport) +${n}\", \"gr_total\": \"Estimated total: ${n}\", \"gr_start_khiva\": \"Starts every Saturday in Khiva\", \"gr_sched_title\": \"Departure schedule — free seats\", \"gr_sched_date\": \"Dates\", \"gr_c_green\": \"Seats available\", \"gr_c_yellow\": \"Few seats left\", \"gr_c_red\": \"No seats left\", \"f_required\": \"Please fill in the required fields.\", \"f_sending\": \"Sending…\", \"f_err\": \"Something went wrong. Please try again or write to us on WhatsApp.\", \"f_ok_title\": \"Thank you! Your request is received\", \"gl_sub\": \"Fixed departure dates for solo travellers and couples — choose an English- or Russian-speaking group, everything is arranged.\", \"gl_q\": \"Which guide language suits you?\", \"gl_en\": \"English-speaking guide\", \"gl_ru\": \"Russian-speaking guide\", \"gl_en_s\": \"International groups\", \"gl_ru_s\": \"Groups from Russia & CIS\", \"gl_from\": \"from\", \"gl_more\": \"Dates & booking\", \"gl_left\": \"{n} seats left\", \"gl_pp\": \"per person\", \"gl_det\": \"Details & booking\", \"gl_tar\": \"Choose group size\"};",
 "page": "fr/index.html"
 },
 {
@@ -2324,35 +2700,11 @@
 "page": "fr/index.html"
 },
 {
-"en": "Guides, drivers and hotels — checked by us",
-"page": "fr/index.html"
-},
-{
 "en": "Hand-picked local people. You see real reviews; you book and pay safely through Moviy Nomad.",
 "page": "fr/index.html"
 },
 {
-"en": "Licensed guides in your language",
-"page": "fr/index.html"
-},
-{
-"en": "Comfortable cars with experienced drivers",
-"page": "fr/index.html"
-},
-{
-"en": "Hotels and family guesthouses",
-"page": "fr/index.html"
-},
-{
-"en": "Photographers, masterclasses and more",
-"page": "fr/index.html"
-},
-{
 "en": "See all in the ranking →",
-"page": "fr/index.html"
-},
-{
-"en": "Become a partner",
 "page": "fr/index.html"
 },
 {
@@ -2448,10 +2800,6 @@
 "page": "fr/index.html"
 },
 {
-"en": "years of experience",
-"page": "fr/index.html"
-},
-{
 "en": "countries",
 "page": "fr/index.html"
 },
@@ -2469,10 +2817,6 @@
 },
 {
 "en": "Thank you for all your hard work and care. I have made a promise to travel once a year — with you, together with my friends and family.",
-"page": "fr/index.html"
-},
-{
-"en": "GT",
 "page": "fr/index.html"
 },
 {
@@ -2672,6 +3016,174 @@
 "page": "fr/index.html"
 },
 {
+"en": "[data-from]",
+"page": "fr/index.html"
+},
+{
+"en": "data-from",
+"page": "fr/index.html"
+},
+{
+"en": "is-locked",
+"page": "fr/index.html"
+},
+{
+"en": "price--lock",
+"page": "fr/index.html"
+},
+{
+"en": "aria-disabled",
+"page": "fr/index.html"
+},
+{
+"en": "First name",
+"page": "fr/index.html"
+},
+{
+"en": "Last name",
+"page": "fr/index.html"
+},
+{
+"en": "Gender",
+"page": "fr/index.html"
+},
+{
+"en": "Male",
+"page": "fr/index.html"
+},
+{
+"en": "Female",
+"page": "fr/index.html"
+},
+{
+"en": "Date of birth",
+"page": "fr/index.html"
+},
+{
+"en": "Remove",
+"page": "fr/index.html"
+},
+{
+"en": "We will send the invoice with payment details shortly. Please do not pay before the manager confirms the price and dates.",
+"page": "fr/index.html"
+},
+{
+"en": "The manager will send you a secure card payment link after confirming the price and dates.",
+"page": "fr/index.html"
+},
+{
+"en": "A manager will contact you soon to discuss the trip. No payment is needed now.",
+"page": "fr/index.html"
+},
+{
+"en": "A manager will contact you soon to confirm the details and payment.",
+"page": "fr/index.html"
+},
+{
+"en": "Publish my story",
+"page": "fr/index.html"
+},
+{
+"en": "Thank you! Your story will appear on the website after moderation (usually within 24 hours).",
+"page": "fr/index.html"
+},
+{
+"en": "Maximum 6 photos.",
+"page": "fr/index.html"
+},
+{
+"en": "Send booking request",
+"page": "fr/index.html"
+},
+{
+"en": "Weather in Uzbekistan",
+"page": "fr/index.html"
+},
+{
+"en": "Feels like",
+"page": "fr/index.html"
+},
+{
+"en": "Humidity",
+"page": "fr/index.html"
+},
+{
+"en": "Wind",
+"page": "fr/index.html"
+},
+{
+"en": "Weather by month →",
+"page": "fr/index.html"
+},
+{
+"en": "Next 7 days",
+"page": "fr/index.html"
+},
+{
+"en": "Average by month",
+"page": "fr/index.html"
+},
+{
+"en": "When are you coming?",
+"page": "fr/index.html"
+},
+{
+"en": "Long-term averages (approx.) — real weather can differ.",
+"page": "fr/index.html"
+},
+{
+"en": "rainy days",
+"page": "fr/index.html"
+},
+{
+"en": "Great for travel",
+"page": "fr/index.html"
+},
+{
+"en": "Very hot — plan mornings & evenings",
+"page": "fr/index.html"
+},
+{
+"en": "Cold — warm clothes needed",
+"page": "fr/index.html"
+},
+{
+"en": "Good for travel",
+"page": "fr/index.html"
+},
+{
+"en": "Clear",
+"page": "fr/index.html"
+},
+{
+"en": "Partly cloudy",
+"page": "fr/index.html"
+},
+{
+"en": "Cloudy",
+"page": "fr/index.html"
+},
+{
+"en": "Drizzle",
+"page": "fr/index.html"
+},
+{
+"en": "Rain",
+"page": "fr/index.html"
+},
+{
+"en": "Snow",
+"page": "fr/index.html"
+},
+{
+"en": "Thunderstorm",
+"page": "fr/index.html"
+},
+{
+"en": "Ask Madina",
+"page": "fr/index.html"
+},
+{
 "en": "Uzbekistan tours and tour packages from a licensed local operator: Samarkand, Bukhara and Khiva tours, 7-day itineraries, visa info and the best time to visit. Book on WhatsApp.",
 "page": "fr/index.html"
 },
@@ -2833,14 +3345,6 @@
 },
 {
 "en": "Local partners in Uzbekistan — Moviy Nomad",
-"page": "fr/partners.html"
-},
-{
-"en": "Local partners in Uzbekistan",
-"page": "fr/partners.html"
-},
-{
-"en": "Every partner is checked by Moviy Nomad: documents, licence and real traveller reviews. Contacts stay private — you book through us, with our support and guarantee.",
 "page": "fr/partners.html"
 },
 {
@@ -3056,10 +3560,6 @@
 "page": "fr/services.html"
 },
 {
-"en": "Request",
-"page": "fr/services.html"
-},
-{
 "en": "Service *",
 "page": "fr/services.html"
 },
@@ -3104,10 +3604,6 @@
 "page": "fr/stories.html"
 },
 {
-"en": "Rating",
-"page": "fr/stories.html"
-},
-{
 "en": "Photos (up to 6, JPG/PNG)",
 "page": "fr/stories.html"
 },
@@ -3117,10 +3613,6 @@
 },
 {
 "en": "I confirm the photos are mine and I agree that Moviy Nomad may publish them with my name on the website and social media.",
-"page": "fr/stories.html"
-},
-{
-"en": "Publish my story",
 "page": "fr/stories.html"
 },
 {
