@@ -304,7 +304,7 @@ def render(lang):
         <div class="chips">{chips}</div>
         <div class="hcount" id="hcount" hidden>{"".join(f'<span class="hcount__i hcount__i--{k}"{(" ") }>{"<i class=\"hcount__dot\" aria-hidden=\"true\"></i>" if k == "o" else ""}<b data-hc="{k}">0</b> <small>{e(lbl)}</small></span>' for k, lbl in zip("vuo", HC.get(lang, HC["en"])))}</div>
       </div>
-      <aside class="wx" id="wx" hidden aria-live="polite"></aside>
+      <aside class="hero__slot" id="hero-slot" aria-hidden="true"></aside>  <!-- 2026-11-28: weather removed; place kept for a future block -->
     </div>
     <span class="hero__scroll" aria-hidden="true"></span>
   </section>
