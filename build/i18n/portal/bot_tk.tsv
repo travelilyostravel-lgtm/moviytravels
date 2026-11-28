@@ -1,0 +1,213 @@
+1	👋 Moviy Nomad hyzmatdaşlar botuna hoş geldiňiz!\n\nNähili hyzmatdaş bolmak isleýärsiňiz?
+2	⬅️ Yza
+3	➡️ Geçmek
+4	✅ Taýýar
+5	✖️ Ýatyrmak
+6	📱 Belgimi ugrat
+7	📍 Ýerleşişi ugrat
+8	Tekst ýazyň ({min}–{max} nyşan).
+9	Gaty gysga. Azyndan {min} nyşan ýazyň.
+10	Diňe san ({min}–{max}).
+11	❗ Bahany ABŞ DOLLARYNDA, diňe san bilen ýazyň ({min}–{max}). Somdaky baha kabul edilmeýär — dollara öwrüp ýazyň. Mysal: 45
+12	Belgini +998 90 123 45 67 görnüşinde ýazyň ýa-da «📱 Belgimi ugrat» düwmesine basyň.
+13	E-mail nädogry. Mysal: name@gmail.com
+14	📍 Ýerleşişi ýa-da karta salgysyny ugradyň.
+15	Aşakdaky düwmeleriň birine basyň.
+16	Azyndan {min} saýlaň, soňra «✅ Taýýar».
+17	📷 Surat ugradyň (faýl däl, surat hökmünde). Häzir: {n} / {min}.
+18	✅ Kabul edildi: {n}. 
+19	Ýene {k} sany gerek.
+20	Ýeterlik. Ýene ugradyp ýa-da «✅ Taýýar» basyp bilersiňiz.
+21	Iň köp — {max}. Indiki sorag:
+22	Ýene otag görnüşini goşarsyňyzmy?
+23	Ýene ulag goşarsyňyzmy?
+24	➕ Hawa, goşaýyn
+25	✅ Ýok, dowam edeliň
+26	✅ Goşuldy: {name} — ${price}
+27	🛏 {n}-nji otag görnüşi
+28	🚗 {n}-nji ulag
+29	📋 Arzaňyz taýýar. Barlap çykyň:
+30	✅ Ugrat
+31	🔄 Täzeden doldur
+32	⏳ Ugradylýar… Suratlar ýüklenýär, 1 minuda çenli garaşyň.
+33	🎉 Arzaňyz kabul edildi!\n\nMoviy Nomad topary ony 1–3 iş gününde barlar. Netije şu bota geler. Tassyklanandan soň kartaňyz saýtda peýda bolar.\n\nKabinete islän wagtyňyz şu ýerden girip bilersiňiz: /kabinet
+34	⚠ Ugratmakda ýalňyşlyk boldy. Bir minutdan soň «✅ Ugrat» düwmesine täzeden basyň. Gaýtalansa, bize ýazyň: @moviy_safina
+35	Siz hasaba alnyşy başlapdyňyz. Dowam edelimi?
+36	▶️ Dowam et
+37	Siz eýýäm Moviy Nomad hyzmatdaşy: {name}.\n\nKabinete girmek üçin düwmä basyň:
+38	🔑 Kabinete gir
+39	🔑 Kabinete giriş salgysy (1 sagat güýçli, diňe siziň üçin — hiç kime bermäň):
+40	Salgy döredip bolmady. Soňrak synanyşyň.
+41	Ýatyryldy. Täzeden başlamak üçin /start basyň.
+42	Sorag {i} / {n}
+43	Hawa
+44	Ýok
+45	Adyňyzy we familiýaňyzy ýazyň (pasportdaky ýaly).
+46	Myhmanhananyň adyny ýazyň.
+47	Adyňyz familiýaňyz ýa-da kompaniýanyň ady.
+48	Nähili hyzmat edýärsiňiz? (mysal: fotograf, aşpez, ussatlyk sapagy)
+49	Kim hökmünde hasaba alynýarsyňyz?
+50	Telefon belgiňizi ugradyň: aşakdaky «📱 Belgimi ugrat» düwmesine basyň ýa-da +998… görnüşinde ýazyň.
+51	WhatsApp belgiňiz (başga bolsa). Şol bir bolsa, «➡️ Geçmek» basyň.
+52	Haýsy şäherde?
+53	Myhmanhana haýsy şäherde?
+54	Haýsy şäherlerde işleýärsiňiz? Hemmesini belläň, soňra «✅ Taýýar» basyň.
+55	Doglan ýylyňyz (mysal: 1990).
+56	Haýsy etrapda ýa-da mähellede ýaşaýarsyňyz?
+57	Myhmanhana haýsy etrapda / mähellede?
+58	Doly salgy (köçe, jaý).
+59	📍 Myhmanhananyň ýerleşişini ugradyň: 📎 → «Ýerleşiş» ýa-da Google / Ýandeks karta salgysyny goýuň.
+60	Haýsy dillerde gürleýärsiňiz? Belläň, soňra «✅ Taýýar».
+61	Işgärleriňiz haýsy dillerde gürleýär?
+62	Gid şahadatnamasynyň ýa-da gid diplomynyň belgisi.
+63	Sürüjilik şahadatnamasynyň belgisi.
+64	Syýahatçylar bilen näçe ýyl işleýärsiňiz? (san)
+65	Sürüjilik tejribäňiz näçe ýyl?
+66	INN (salgyt) belgisi.
+67	INN ýa-da öz-özüňi meşgullandyran şahsyň şahadatnamasynyň belgisi. Ýok bolsa — «➡️ Geçmek».
+68	Syýahatçylyk komitetiniň sanawyndaky belgi (ýerleşdiriş desgasy). Ýok bolsa — «➡️ Geçmek».
+69	Ýyldyz sany:
+70	Giriş wagty (check-in):
+71	Çykyş wagty (check-out):
+72	Haýsy amatlyklar bar? Belläň, soňra «✅ Taýýar».
+73	Bronu ýatyrmagyň düzgüni nähili?
+74	Gid kategoriýaňyz:
+75	Doly günlük (8 sagat) netto bahaňyz — ABŞ DOLLARYNDA. Diňe san, mysal: 60
+76	Ýarym gün (4 sagat) bahasy, $ (hökmany däl).
+77	Hyzmatyňyzyň netto bahasy — ABŞ DOLLARYNDA (1 adam ýa-da 1 gezek üçin). Mysal: 30
+78	Özüňiz barada ýazyň (azyndan 2–3 sözlem): tejribe, haýsy syýahatlary geçirýärsiňiz, näme bilen tapawutlanýarsyňyz.
+79	Özüňiz we hyzmatyňyz barada gysgaça (azyndan 1–2 sözlem).
+80	Myhmanhana barada ýazyň: ýerleşişi, otaglardaky amatlyklar, ertirlik, näme bilen gowy.
+81	E-mail salgyňyz (hökmany däl). Ýok bolsa — «➡️ Geçmek».
+82	📷 Esasy surat: klassyky ýa-da milli egin-eşikde, ýüzi aýdyň görünýän portret. 1 surat ugradyň.
+83	📷 Esasy surat: binanyň öňi ýa-da howly / kabulhana. 1 surat.
+84	🪪 Gid şahadatnamasynyň ýa-da diplomyň aýdyň suraty (belgisi okalsyn). Muny diňe biz görýäris.
+85	🪪 Sürüjilik şahadatnamasynyň aýdyň suraty. Muny diňe biz görýäris.
+86	📷 Ýeke özüňiziň suratlaryňyz — azyndan 3. Hemmesini birden ugradyp bilersiňiz.
+87	📷 Syýahatçylar bilen suratlar — azyndan 10 (diňe olaryň razylygy bilen). Albom edip ugradyp bilersiňiz.
+88	📷 Ulagyň suratlary — azyndan 6: daşy, salony, ýük ýeri.
+89	📄 Tehpasportyň suraty (belgisi okalsyn). Muny diňe biz görýäris.
+90	📷 Umumy suratlar — azyndan 5: kabulhana, howly, ertirlik zaly, hammam, köçe.
+91	🛏 Otag görnüşi:
+92	Otagyň ady (mysal: Deluxe iki adamlyk, howla seredýän). Geçseňiz, otag görnüşi ýazylar.
+93	Näçe adamlyk?
+94	Düşekler:
+95	Myhmanhanada şeýle otagdan näçe bar? (san)
+96	Baha ertirlik girýärmi?
+97	💵 1 gijelik NETTO baha — ABŞ DOLLARYNDA. Diňe san, mysal: 45\n(Size tölenýän baha. Saýtda müşderi ony hyzmat tölegi bilen görýär.)
+98	📷 Şu otagyň suratlary — azyndan 2 (düşek, hammam).
+99	🚗 Ulag synpy:
+100	Markasy we modeli (mysal: Chevrolet Malibu 2).
+101	Öndürilen ýyly:
+102	Näçe ýolagçy orny bar? (sürüjisiz)
+103	Näçe çemodan sygýar?
+104	Döwlet belgisi (diňe biz görýäris):
+105	Kondisioner barmy?
+106	💵 1 günlük kärende NETTO bahasy (sürüji bilen) — ABŞ DOLLARYNDA. Mysal: 70
+107	💵 Howa menzili transferiniň bahasy, $ (hökmany däl).
+108	📷 Şu ulagyň suratlary — azyndan 2 (daşy, salony).
+109	Daşkent
+110	Samarkant
+111	Buhara
+112	Hywa
+113	Şähri-Sebz
+114	Namangan
+115	Andijan
+116	Fergana
+117	Kokand
+118	Margilan
+119	Urgenç
+120	Nukus
+121	Termez
+122	Karşy
+123	Nawaýy
+124	Jizzak
+125	Gülistan
+126	Muýnak
+127	Çimgan / Çarwak
+128	🇬🇧 Iňlis
+129	🇷🇺 Rus
+130	🇺🇿 Özbek
+131	🇩🇪 Nemes
+132	🇫🇷 Fransuz
+133	🇮🇹 Italýan
+134	🇪🇸 Ispan
+135	🇹🇷 Türk
+136	🇸🇦 Arap
+137	🇨🇳 Hytaý
+138	🇯🇵 Ýapon
+139	🇰🇷 Koreý
+140	✅ Hawa
+141	❌ Ýok
+142	Höwesjeň gid
+143	Ýöriteleşdirilen gid
+144	Hünärmen gid
+145	«Altyn gor» gidi
+146	Wi-Fi
+147	Ertirlik
+148	Awtoduralga
+149	Kondisioner
+150	Transfer
+151	Restoran
+152	Basseýn
+153	Kir ýuwmak
+154	24 sagat kabulhana
+155	Maşgala otaglary
+156	Milli howly
+157	Lift
+158	Terrasa
+159	Çilim çekilmeýär
+160	Ýyldyzsyz / myhman öýi
+161	Mugt ýatyrmak — 1 gün öň
+162	Mugt ýatyrmak — 3 gün öň
+163	Mugt ýatyrmak — 7 gün öň
+164	Yzyna gaýtarylmaýar
+165	Standart
+166	Deluxe
+167	Lýuks (suite)
+168	Maşgala
+169	Bir adamlyk
+170	Hostel (orun)
+171	1 iki adamlyk
+172	2 bir adamlyk
+173	1 bir adamlyk
+174	3 bir adamlyk
+175	Iki adamlyk + bir adamlyk
+176	Iki gatly
+177	Ekonom (Cobalt, Nexia)
+178	Komfort (Malibu, Camry)
+179	Biznes (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Miniwen (4–7 adam)
+182	Mikroawtobus (8–19 adam)
+183	Awtobus (20+ adam)
+184	🙋 Hususy sürüji
+185	🏢 Ulag kompaniýasy
+186	🧑‍🏫 Gid
+187	🚐 Ulag / sürüji
+188	🏨 Myhmanhana / myhman öýi
+189	✨ Başga hyzmat
+190	 adam
+191	san
+192	Häzir surat gerek däl — ýokardaky soraga jogap beriň.
+193	Görnüşi
+194	Ady
+195	Hyzmat
+196	Telefon
+197	Şäher
+198	Işleýän şäherleri
+199	Salgy
+200	Karta
+201	Doglan ýyly
+202	Diller
+203	Resminama / sanaw belgisi
+204	Tejribe
+205	 ýyl
+206	INN
+207	Kategoriýa
+208	Ýyldyz
+209	Amatlyklar
+210	Ýatyrmak
+211	Baha
+212	 orun
+213	Suratlar

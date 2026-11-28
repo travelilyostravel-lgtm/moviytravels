@@ -168,8 +168,15 @@ const T = {
   },
 };
 function tf(s, o) { return String(s).replace(/\{(\w+)\}/g, function (_, k) { return o[k] != null ? o[k] : ""; }); }
-function L(st) { return st && st.lang === "ru" ? "ru" : "uz"; }
-function lab(opt, l) { return l === "ru" ? opt[2] : opt[1]; }
+// other languages: api/_reg_i18n.js (generated from build/i18n/portal/bot_<lang>.tsv), keyed by the Uzbek text
+var I18N = {}; try { I18N = require("./_reg_i18n.js"); } catch (e) { I18N = {}; }
+(function () { var src = I18N._src || []; Object.keys(I18N).forEach(function (l) { if (l[0] === "_" || !Array.isArray(I18N[l])) return; var m = {}; I18N[l].forEach(function (t, i) { if (t && src[i]) m[src[i]] = t; }); I18N[l] = m; }); delete I18N._src; })();
+var BOT_LANGS = (I18N._names || [["uz", "🇺🇿 O'zbekcha"], ["ru", "🇷🇺 Русский"]]);
+function okLang(x) { x = String(x || "").toLowerCase().slice(0, 2); return x === "uz" || x === "ru" || (x[0] !== "_" && I18N[x]) ? x : null; }
+function X(l, uz, ru) { if (l === "ru") return ru; if (l === "uz" || uz == null) return uz; var m = /^(\d+)( kishi)$/.exec(uz); if (m) return m[1] + X(l, m[2]); var d = I18N[l] || {}, e = I18N.en || {}; return d[uz] || e[uz] || uz; }
+Object.keys(I18N).forEach(function (l) { if (l === "_names") return; T[l] = {}; Object.keys(T.uz).forEach(function (k) { T[l][k] = X(l, T.uz[k], T.ru[k]); }); });
+function L(st) { return (st && okLang(st.lang)) || "uz"; }
+function lab(opt, l) { return X(l, opt[1], opt[2]); }
 
 // ------------------------------------------------------------------ Supabase (server key)
 function SK() { return process.env.SUPABASE_SERVICE_KEY || ""; }
@@ -215,7 +222,7 @@ async function ask(api, chat, st, note) {
   if (!q) return showSummary(api, chat, st);
   var f = flow(st), head = T[l].step.replace("{i}", st.step + 1).replace("{n}", f.length);
   if (inUnit) head += " · " + tf(T[l][cur(st).room ? "unit_head_room" : "unit_head_car"], { n: (st.units || []).length + 1 });
-  var text = (note ? note + "\n\n" : "") + "▫️ " + head + "\n\n" + q[l], markup;
+  var text = (note ? note + "\n\n" : "") + "▫️ " + head + "\n\n" + X(l, q.uz, q.ru), markup;
   if (q.t === "choice") markup = kb(chunk(q.opts.map(function (o) { return { text: lab(o, l), callback_data: "c:" + o[0] }; }), q.cols || 1).concat([navRow(st, q)]));
   else if (q.t === "multi") {
     var sel = (inUnit ? st.cur : st.data)[q.k] || [];
@@ -273,7 +280,7 @@ async function back(api, chat, st) {
   st.kind = null; st.step = 0; await putState(st); return askKind(api, chat, st);
 }
 
-function askLang(api, chat) { return api("sendMessage", { chat_id: chat, text: T.uz.lang, reply_markup: kb([[{ text: "🇺🇿 O'zbekcha", callback_data: "l:uz" }, { text: "🇷🇺 Русский", callback_data: "l:ru" }]]) }); }
+function askLang(api, chat) { return api("sendMessage", { chat_id: chat, text: "Tilni tanlang / Выберите язык / Choose a language:", reply_markup: kb(chunk(BOT_LANGS.map(function (x) { return { text: x[1], callback_data: "l:" + x[0] }; }), 3)) }); }
 function askKind(api, chat, st) { var l = L(st); return api("sendMessage", { chat_id: chat, text: T[l].kind, reply_markup: kb(KINDS.map(function (k) { return [{ text: lab(k, l), callback_data: "k:" + k[0] }]; })) }); }
 
 // ------------------------------------------------------------------ answers
@@ -281,7 +288,7 @@ function vText(q, s, l) {
   s = String(s || "").trim();
   if (!s) return { err: tf(T[l].bad_text, q) };
   if (s.length < q.min) return { err: tf(T[l].bad_short, q) };
-  if (q.digits && (s.replace(/\D/g, "").length < 9)) return { err: tf(T[l].bad_int, { min: "9", max: "14 " + (l === "ru" ? "цифр" : "raqam") }) };
+  if (q.digits && (s.replace(/\D/g, "").length < 9)) return { err: tf(T[l].bad_int, { min: "9", max: "14 " + X(l, "raqam", "цифр") }) };
   return { v: s.slice(0, q.max) };
 }
 function vNum(q, s, l, usd) {
@@ -316,7 +323,7 @@ async function onText(api, chat, st, msg) {
 
 async function onPhoto(api, chat, st, msg, token) {
   var l = L(st), q = cur(st), inUnit = q && q.t === "units" && st.cur; if (inUnit) q = subList(st)[st.sub];
-  if (!q || q.t !== "photos") return api("sendMessage", { chat_id: chat, text: l === "ru" ? "Сейчас фото не нужно — ответьте на вопрос выше." : "Hozir rasm kerak emas — yuqoridagi savolga javob bering." });
+  if (!q || q.t !== "photos") return api("sendMessage", { chat_id: chat, text: X(l, "Hozir rasm kerak emas — yuqoridagi savolga javob bering.", "Сейчас фото не нужно — ответьте на вопрос выше.") });
   var f = null, mime = "image/jpeg";
   if (msg.photo && msg.photo.length) f = msg.photo[msg.photo.length - 1];
   else if (msg.document && /^image\//.test(msg.document.mime_type || "")) { f = msg.document; mime = msg.document.mime_type; }
@@ -380,25 +387,25 @@ function pick(list, v, l) { var o = list.filter(function (x) { return x[0] === v
 async function showSummary(api, chat, st) {
   var l = L(st), d = st.data, ru = l === "ru", lines = [];
   var row = function (a, b) { if (b != null && b !== "" && !(Array.isArray(b) && !b.length)) lines.push("• " + a + ": " + b); };
-  row(ru ? "Тип" : "Turi", pick(KINDS, st.kind, l));
-  row(ru ? "Название / имя" : "Nomi / ism", d.name); row(ru ? "Услуга" : "Xizmat", d.spec);
-  row(ru ? "Телефон" : "Telefon", d.phone); row("WhatsApp", d.whatsapp); row("Telegram", st.username ? "@" + st.username : "");
-  row(ru ? "Город" : "Shahar", d.city); row(ru ? "Работает в" : "Ishlaydigan shaharlar", (d.cities || []).join(", "));
-  row(ru ? "Адрес" : "Manzil", [d.home_area, d.home_address].filter(Boolean).join(", ")); row(ru ? "Карта" : "Xarita", d.map ? "✅" : "");
-  row(ru ? "Год рождения" : "Tug'ilgan yil", d.birth_year); row(ru ? "Языки" : "Tillar", (d.languages || []).map(function (x) { return pick(LANGS, x, l); }).join(", "));
-  row(ru ? "Номер документа" : "Hujjat / reyestr raqami", d.license_no); row(ru ? "Стаж" : "Tajriba", d.experience_years != null ? d.experience_years + (ru ? " лет" : " yil") : "");
-  row(ru ? "ИНН" : "INN", d.inn); row(ru ? "Категория" : "Toifa", d.guide_cat ? pick(GCATS, d.guide_cat, l) : "");
-  row(ru ? "Звёзды" : "Yulduz", d.hotel_stars != null && st.kind === "hotel" ? pick(STARS, d.hotel_stars, l) : ""); row("Check-in / out", d.check_in ? d.check_in + " / " + d.check_out : "");
-  row(ru ? "Удобства" : "Qulayliklar", (d.amenities || []).map(function (x) { return pick(AMEN, x, l); }).join(", ")); row(ru ? "Отмена" : "Bekor qilish", d.policies ? pick(POLICY, d.policies, l) : "");
-  row(ru ? "Цена" : "Narx", d.price_day ? "$" + d.price_day + (d.r_half_day ? " · ½: $" + d.r_half_day : "") : "");
+  row(X(l, "Turi", "Тип"), pick(KINDS, st.kind, l));
+  row(X(l, "Nomi / ism", "Название / имя"), d.name); row(X(l, "Xizmat", "Услуга"), d.spec);
+  row(X(l, "Telefon", "Телефон"), d.phone); row("WhatsApp", d.whatsapp); row("Telegram", st.username ? "@" + st.username : "");
+  row(X(l, "Shahar", "Город"), d.city); row(X(l, "Ishlaydigan shaharlar", "Работает в"), (d.cities || []).join(", "));
+  row(X(l, "Manzil", "Адрес"), [d.home_area, d.home_address].filter(Boolean).join(", ")); row(X(l, "Xarita", "Карта"), d.map ? "✅" : "");
+  row(X(l, "Tug'ilgan yil", "Год рождения"), d.birth_year); row(X(l, "Tillar", "Языки"), (d.languages || []).map(function (x) { return pick(LANGS, x, l); }).join(", "));
+  row(X(l, "Hujjat / reyestr raqami", "Номер документа"), d.license_no); row(X(l, "Tajriba", "Стаж"), d.experience_years != null ? d.experience_years + X(l, " yil", " лет") : "");
+  row(X(l, "INN", "ИНН"), d.inn); row(X(l, "Toifa", "Категория"), d.guide_cat ? pick(GCATS, d.guide_cat, l) : "");
+  row(X(l, "Yulduz", "Звёзды"), d.hotel_stars != null && st.kind === "hotel" ? pick(STARS, d.hotel_stars, l) : ""); row("Check-in / out", d.check_in ? d.check_in + " / " + d.check_out : "");
+  row(X(l, "Qulayliklar", "Удобства"), (d.amenities || []).map(function (x) { return pick(AMEN, x, l); }).join(", ")); row(X(l, "Bekor qilish", "Отмена"), d.policies ? pick(POLICY, d.policies, l) : "");
+  row(X(l, "Narx", "Цена"), d.price_day ? "$" + d.price_day + (d.r_half_day ? " · ½: $" + d.r_half_day : "") : "");
   row("E-mail", d.email);
   (st.units || []).forEach(function (u, i) {
     lines.push((st.kind === "hotel" ? "🛏 " : "🚗 ") + (i + 1) + ". " + (u.name || pick(st.kind === "hotel" ? RCLASS : VCLASS, u.class, l)) + " — $" + u.price_netto +
-      (st.kind === "hotel" ? " · " + u.capacity + (ru ? " чел." : " kishi") + " · ×" + u.qty : " · " + (u.year || "") + " · " + (u.capacity || "") + (ru ? " мест" : " o'rin")));
+      (st.kind === "hotel" ? " · " + u.capacity + X(l, " kishi", " чел.") + " · ×" + u.qty : " · " + (u.year || "") + " · " + (u.capacity || "") + X(l, " o'rin", " мест")));
   });
   var files = await sb("/rest/v1/tg_reg_files?select=slot&chat=eq." + chat), cnt = {};
   files.forEach(function (f) { cnt[f.slot] = (cnt[f.slot] || 0) + 1; });
-  lines.push("📷 " + (ru ? "Фото" : "Rasmlar") + ": " + files.length);
+  lines.push("📷 " + X(l, "Rasmlar", "Фото") + ": " + files.length);
   var bio = d.bio ? "\n\n📝 " + d.bio.slice(0, 600) : "";
   return api("sendMessage", { chat_id: chat, text: T[l].summary + "\n\n" + lines.join("\n") + bio,
     reply_markup: kb([[{ text: T[l].send, callback_data: "send" }], [{ text: T[l].back, callback_data: "back" }, { text: T[l].restart, callback_data: "restart" }]]) });
@@ -512,7 +519,7 @@ module.exports = async function handle(api, upd) {
   if (cb) api("answerCallbackQuery", { callback_query_id: cb.id }).catch(function () {});
   var text = msg ? String(msg.text || "").trim() : "", data = cb ? String(cb.data || "") : "";
   var st = await getState(chat);
-  var fresh = function (lang) { return { chat: chat, lang: lang || (st && st.lang) || ((from.language_code || "") === "ru" ? "ru" : "uz"), kind: null, step: 0, sub: 0, data: {}, units: [], cur: null, username: from.username || null, status: "active" }; };
+  var fresh = function (lang) { return { chat: chat, lang: lang || (st && st.lang) || okLang(from.language_code) || "uz", kind: null, step: 0, sub: 0, data: {}, units: [], cur: null, username: from.username || null, status: "active" }; };
 
   if (/^\/(kabinet|login|cabinet)/i.test(text) || data === "login") { await loginLink(api, chat, st || fresh()); return true; }
   if (/^\/cancel/i.test(text)) { if (st) { st.status = "cancelled"; await putState(st); } await api("sendMessage", { chat_id: chat, text: T[L(st)].cancelled, reply_markup: { remove_keyboard: true } }); return true; }
@@ -525,7 +532,7 @@ module.exports = async function handle(api, upd) {
     }
     await putState(fresh()); await askLang(api, chat); return true;
   }
-  if (data.indexOf("l:") === 0) { st = st && st.status === "active" ? st : fresh(); st.lang = data.slice(2) === "ru" ? "ru" : "uz"; st.username = from.username || st.username; await putState(st); await askKind(api, chat, st); return true; }
+  if (data.indexOf("l:") === 0) { st = st && st.status === "active" ? st : fresh(); st.lang = okLang(data.slice(2)) || "uz"; st.username = from.username || st.username; await putState(st); await askKind(api, chat, st); return true; }
   if (data.indexOf("k:") === 0) {
     if (!st) st = fresh(); var kd = data.slice(2); if (!FLOW[kd]) return true;
     if (await partnerByChat(chat)) { await api("sendMessage", { chat_id: chat, text: tf(T[L(st)].already, { name: "" }), reply_markup: kb([[{ text: T[L(st)].login, callback_data: "login" }]]) }); return true; }
@@ -543,3 +550,4 @@ module.exports = async function handle(api, upd) {
   return true;
 };
 module.exports.loginLink = loginLink;
+module.exports._i18n = { X: X, Q: Q, SUB: SUB, T: T, lists: [CITIES, LANGS, YESNO, GCATS, AMEN, STARS, POLICY, RCLASS, BEDS, VCLASS, CTYPE, KINDS] };

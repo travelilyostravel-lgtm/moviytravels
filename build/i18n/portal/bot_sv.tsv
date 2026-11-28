@@ -1,0 +1,213 @@
+1	👋 Välkommen till Moviy Nomads partnerbot!\n\nVilken sorts partner vill du bli?
+2	⬅️ Tillbaka
+3	➡️ Hoppa över
+4	✅ Klar
+5	✖️ Avbryt
+6	📱 Skicka mitt nummer
+7	📍 Skicka plats
+8	Skriv en text ({min}–{max} tecken).
+9	För kort. Skriv minst {min} tecken.
+10	Endast siffror ({min}–{max}).
+11	❗ Ange priset i US-DOLLAR, endast siffror ({min}–{max}). Priser i sum godtas inte — räkna om till dollar. Exempel: 45
+12	Skriv numret som +998 90 123 45 67 eller tryck på «📱 Skicka mitt nummer».
+13	Felaktig e-post. Exempel: namn@gmail.com
+14	📍 Skicka en plats eller en kartlänk.
+15	Tryck på en av knapparna nedan.
+16	Välj minst {min}, sedan «✅ Klar».
+17	📷 Skicka ett foto (som foto, inte som fil). Hittills: {n} / {min}.
+18	✅ Mottaget: {n}. 
+19	{k} till behövs.
+20	Det räcker. Du kan skicka fler eller trycka på «✅ Klar».
+21	Max är {max}. Nästa fråga:
+22	Lägga till en rumstyp till?
+23	Lägga till ett fordon till?
+24	➕ Ja, lägg till
+25	✅ Nej, fortsätt
+26	✅ Tillagt: {name} — ${price}
+27	🛏 Rumstyp {n}
+28	🚗 Fordon {n}
+29	📋 Din ansökan är klar. Kontrollera den:
+30	✅ Skicka
+31	🔄 Fyll i på nytt
+32	⏳ Skickar… Laddar upp foton, vänta upp till 1 minut.
+33	🎉 Din ansökan har tagits emot!\n\nMoviy Nomad-teamet granskar den inom 1–3 arbetsdagar. Resultatet kommer i den här boten. När den godkänts visas ditt kort på webbplatsen.\n\nDu öppnar ditt konto här när som helst: /kabinet
+34	⚠ Fel vid sändning. Tryck på «✅ Skicka» igen om en minut. Om det händer igen, skriv till oss: @moviy_safina
+35	Du hade börjat registrera dig. Ska vi fortsätta?
+36	▶️ Fortsätt
+37	Du är redan partner till Moviy Nomad: {name}.\n\nTryck på knappen för att öppna ditt konto:
+38	🔑 Öppna mitt konto
+39	🔑 Inloggningslänk till ditt konto (giltig 1 timme, bara för dig — dela den inte):
+40	Länken kunde inte skapas. Försök igen senare.
+41	Avbrutet. Tryck på /start för att börja om.
+42	Fråga {i} / {n}
+43	Ja
+44	Nej
+45	Skriv ditt för- och efternamn (som i passet).
+46	Skriv hotellets namn.
+47	Ditt fullständiga namn eller företagsnamn.
+48	Vilken tjänst erbjuder du? (t.ex. fotograf, kock, workshop)
+49	Som vad registrerar du dig?
+50	Skicka ditt telefonnummer: tryck på «📱 Skicka mitt nummer» nedan eller skriv det som +998…
+51	Ditt WhatsApp-nummer (om det är ett annat). Om det är samma, tryck på «➡️ Hoppa över».
+52	Vilken stad är du i?
+53	Vilken stad ligger hotellet i?
+54	I vilka städer arbetar du? Välj alla och tryck sedan på «✅ Klar».
+55	Ditt födelseår (t.ex. 1990).
+56	I vilket distrikt eller vilken mahalla bor du?
+57	I vilket distrikt / vilken mahalla ligger hotellet?
+58	Fullständig adress (gata, hus).
+59	📍 Skicka hotellets plats: 📎 → «Plats», eller klistra in en Google / Yandex Maps-länk.
+60	Vilka språk talar du? Välj dem, sedan «✅ Klar».
+61	Vilka språk talar din personal?
+62	Nummer på guidelegitimation eller guidediplom.
+63	Körkortsnummer.
+64	Hur många år har du arbetat med resenärer? (siffra)
+65	Hur många år har du kört bil?
+66	INN-nummer (skatte-ID).
+67	INN (skatte-ID) eller nummer som egenföretagare. Om inget, «➡️ Hoppa över».
+68	Nummer i Turistkommitténs register (boende). Om inget, «➡️ Hoppa över».
+69	Antal stjärnor:
+70	Incheckningstid:
+71	Utcheckningstid:
+72	Vilka bekvämligheter finns? Välj dem, sedan «✅ Klar».
+73	Vilken avbokningsregel har du?
+74	Din guidekategori:
+75	Ditt nettopris för en hel dag (8 timmar) — i US-DOLLAR. Endast siffror, t.ex. 60
+76	Pris för en halvdag (4 timmar), $ (valfritt).
+77	Nettopris för din tjänst — i US-DOLLAR (per person eller per gång). Exempel: 30
+78	Skriv om dig själv (minst 2–3 meningar): erfarenhet, vilka turer du leder, vad som gör dig unik.
+79	Kort om dig och din tjänst (minst 1–2 meningar).
+80	Beskriv hotellet: läge, rummens bekvämligheter, frukost, vad som är bra med det.
+81	Din e-post (valfritt). Om ingen, «➡️ Hoppa över».
+82	📷 Huvudfoto: porträtt i klassisk eller traditionell klädsel, ansiktet syns tydligt. Skicka 1 foto.
+83	📷 Huvudfoto: byggnadens fasad eller gård / reception. 1 foto.
+84	🪪 Tydligt foto av guidelegitimation eller diplom (numret läsbart). Bara vi ser det.
+85	🪪 Tydligt foto av körkortet. Bara vi ser det.
+86	📷 Foton på dig ensam — minst 3. Du kan skicka alla på en gång.
+87	📷 Foton med resenärer — minst 10 (bara med deras samtycke). Du kan skicka dem som album.
+88	📷 Foton på bilen — minst 6: utsida, interiör, bagageutrymme.
+89	📄 Foto av registreringsbeviset (numret läsbart). Bara vi ser det.
+90	📷 Allmänna foton — minst 5: reception, gård, frukostmatsal, badrum, gata.
+91	🛏 Rumstyp:
+92	Rummets namn (t.ex. Deluxe dubbelrum, utsikt mot gården). Hoppar du över används rumstypen.
+93	För hur många personer?
+94	Sängar:
+95	Hur många rum av denna typ har hotellet? (siffra)
+96	Ingår frukost i priset?
+97	💵 NETTOpris per natt — i US-DOLLAR. Endast siffror, t.ex. 45\n(Priset som betalas till dig. På webbplatsen ser kunden det med serviceavgift.)
+98	📷 Foton på detta rum — minst 2 (säng, badrum).
+99	🚗 Fordonsklass:
+100	Märke och modell (t.ex. Chevrolet Malibu 2).
+101	Tillverkningsår:
+102	Hur många passagerarplatser? (utan föraren)
+103	Hur många resväskor får plats?
+104	Registreringsnummer (bara vi ser det):
+105	Finns luftkonditionering?
+106	💵 NETTOpris för 1 dags hyra (med förare) — i US-DOLLAR. Exempel: 70
+107	💵 Pris för flygplatstransfer, $ (valfritt).
+108	📷 Foton på detta fordon — minst 2 (utsida, interiör).
+109	Tasjkent
+110	Samarkand
+111	Buchara
+112	Chiva
+113	Sjachrisabz
+114	Namangan
+115	Andizjan
+116	Fergana
+117	Kokand
+118	Margilan
+119	Urgentj
+120	Nukus
+121	Termez
+122	Karsji
+123	Navoi
+124	Dzjizak
+125	Gulistan
+126	Mujnak
+127	Tjimgan / Tjarvak
+128	🇬🇧 Engelska
+129	🇷🇺 Ryska
+130	🇺🇿 Uzbekiska
+131	🇩🇪 Tyska
+132	🇫🇷 Franska
+133	🇮🇹 Italienska
+134	🇪🇸 Spanska
+135	🇹🇷 Turkiska
+136	🇸🇦 Arabiska
+137	🇨🇳 Kinesiska
+138	🇯🇵 Japanska
+139	🇰🇷 Koreanska
+140	✅ Ja
+141	❌ Nej
+142	Amatörguide
+143	Specialiserad guide
+144	Professionell guide
+145	Guide i «Guldfonden»
+146	Wi-Fi
+147	Frukost
+148	Parkering
+149	Luftkonditionering
+150	Transfer
+151	Restaurang
+152	Pool
+153	Tvätteri
+154	Reception dygnet runt
+155	Familjerum
+156	Traditionell gård
+157	Hiss
+158	Terrass
+159	Rökfritt
+160	Utan stjärnor / gästhus
+161	Gratis avbokning — 1 dag före
+162	Gratis avbokning — 3 dagar före
+163	Gratis avbokning — 7 dagar före
+164	Ej återbetalningsbar
+165	Standard
+166	Deluxe
+167	Svit
+168	Familjerum
+169	Enkelrum
+170	Vandrarhem (säng)
+171	1 dubbelsäng
+172	2 enkelsängar
+173	1 enkelsäng
+174	3 enkelsängar
+175	Dubbel- + enkelsäng
+176	Våningssäng
+177	Ekonomi (Cobalt, Nexia)
+178	Komfort (Malibu, Camry)
+179	Business (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Minivan (4–7 pers.)
+182	Minibuss (8–19 pers.)
+183	Buss (20+ pers.)
+184	🙋 Privat förare
+185	🏢 Transportföretag
+186	🧑‍🏫 Guide
+187	🚐 Transport / förare
+188	🏨 Hotell / gästhus
+189	✨ Annan tjänst
+190	 pers.
+191	siffror
+192	Inget foto behövs nu — svara på frågan ovan.
+193	Typ
+194	Namn
+195	Tjänst
+196	Telefon
+197	Stad
+198	Arbetar i
+199	Adress
+200	Karta
+201	Födelseår
+202	Språk
+203	Dokument- / registernummer
+204	Erfarenhet
+205	 år
+206	INN
+207	Kategori
+208	Stjärnor
+209	Bekvämligheter
+210	Avbokning
+211	Pris
+212	 platser
+213	Foton

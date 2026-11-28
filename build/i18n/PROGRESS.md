@@ -55,4 +55,4 @@ Asoschi topshirig'i (28.11): sayt 30 tilda; saytning HAMMA bo'limlari 30 tilda i
 | Vaucher PDF (voucher.html) | ✅ 30 til — build/i18n/portal/vc_<til>.json; agent portalida mijoz tili 30 ta |
 | Saytdagi hamkor ro'yxat formasi (join_i18n) | ✅ 30 til — build/i18n/portal/jn_<til>.tsv |
 | Hamkor kabineti (partner/) | ✅ 30 til |
-| Telegram bot (api/_reg.js) | ⏳ |
+| Telegram bot (api/_reg.js) | ✅ 30 til — build/i18n/portal/bot_<til>.tsv → api/_reg_i18n.js (matnlar ro'yxati: node build/bot_extract.js) |

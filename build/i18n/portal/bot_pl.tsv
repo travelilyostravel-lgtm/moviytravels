@@ -1,0 +1,213 @@
+1	👋 Witamy w bocie partnerów Moviy Nomad!\n\nJakim partnerem chcesz zostać?
+2	⬅️ Wstecz
+3	➡️ Pomiń
+4	✅ Gotowe
+5	✖️ Anuluj
+6	📱 Wyślij mój numer
+7	📍 Wyślij lokalizację
+8	Napisz tekst ({min}–{max} znaków).
+9	Za krótko. Napisz co najmniej {min} znaków.
+10	Tylko cyfry ({min}–{max}).
+11	❗ Podaj cenę w DOLARACH USA, tylko cyfry ({min}–{max}). Ceny w sumach nie są przyjmowane — przelicz na dolary. Przykład: 45
+12	Wpisz numer w formacie +998 90 123 45 67 albo naciśnij «📱 Wyślij mój numer».
+13	Błędny e-mail. Przykład: imie@gmail.com
+14	📍 Wyślij lokalizację lub link do mapy.
+15	Naciśnij jeden z przycisków poniżej.
+16	Zaznacz co najmniej {min}, potem «✅ Gotowe».
+17	📷 Wyślij zdjęcie (jako zdjęcie, nie plik). Na razie: {n} / {min}.
+18	✅ Przyjęto: {n}. 
+19	Potrzeba jeszcze {k}.
+20	Wystarczy. Możesz wysłać więcej albo nacisnąć «✅ Gotowe».
+21	Maksimum to {max}. Następne pytanie:
+22	Dodać kolejny typ pokoju?
+23	Dodać kolejny pojazd?
+24	➕ Tak, dodaj
+25	✅ Nie, dalej
+26	✅ Dodano: {name} — ${price}
+27	🛏 Typ pokoju {n}
+28	🚗 Pojazd {n}
+29	📋 Zgłoszenie gotowe. Sprawdź je:
+30	✅ Wyślij
+31	🔄 Wypełnij od nowa
+32	⏳ Wysyłanie… Przesyłamy zdjęcia, poczekaj do 1 minuty.
+33	🎉 Zgłoszenie przyjęte!\n\nZespół Moviy Nomad sprawdzi je w ciągu 1–3 dni roboczych. Wynik przyjdzie do tego bota. Po zatwierdzeniu Twoja karta pojawi się na stronie.\n\nDo panelu możesz wejść stąd w dowolnej chwili: /kabinet
+34	⚠ Błąd wysyłania. Za minutę naciśnij «✅ Wyślij» ponownie. Jeśli się powtórzy, napisz do nas: @moviy_safina
+35	Rozpocząłeś rejestrację. Kontynuujemy?
+36	▶️ Kontynuuj
+37	Jesteś już partnerem Moviy Nomad: {name}.\n\nNaciśnij przycisk, aby wejść do panelu:
+38	🔑 Wejdź do panelu
+39	🔑 Link do logowania w panelu (ważny 1 godzinę, tylko dla Ciebie — nikomu go nie przekazuj):
+40	Nie udało się utworzyć linku. Spróbuj później.
+41	Anulowano. Aby zacząć od nowa, naciśnij /start
+42	Pytanie {i} / {n}
+43	Tak
+44	Nie
+45	Napisz imię i nazwisko (jak w paszporcie).
+46	Napisz nazwę hotelu.
+47	Imię i nazwisko lub nazwa firmy.
+48	Jaką usługę świadczysz? (np. fotograf, kucharz, warsztaty)
+49	Jako kto się rejestrujesz?
+50	Wyślij numer telefonu: naciśnij «📱 Wyślij mój numer» poniżej albo wpisz w formacie +998…
+51	Numer WhatsApp (jeśli inny). Jeśli ten sam — naciśnij «➡️ Pomiń».
+52	W jakim jesteś mieście?
+53	W jakim mieście jest hotel?
+54	W jakich miastach pracujesz? Zaznacz wszystkie i naciśnij «✅ Gotowe».
+55	Rok urodzenia (np. 1990).
+56	W jakiej dzielnicy lub mahalli mieszkasz?
+57	W jakiej dzielnicy / mahalli jest hotel?
+58	Pełny adres (ulica, dom).
+59	📍 Wyślij lokalizację hotelu: 📎 → «Lokalizacja» albo wklej link do map Google / Yandex.
+60	Jakimi językami mówisz? Zaznacz, potem «✅ Gotowe».
+61	Jakimi językami mówi personel?
+62	Numer legitymacji lub dyplomu przewodnika.
+63	Numer prawa jazdy.
+64	Ile lat pracujesz z turystami? (liczba)
+65	Od ilu lat prowadzisz samochód?
+66	Numer INN (identyfikator podatkowy).
+67	INN (identyfikator podatkowy) lub numer osoby samozatrudnionej. Jeśli nie masz — «➡️ Pomiń».
+68	Numer w rejestrze Komitetu Turystyki (obiekt noclegowy). Jeśli nie masz — «➡️ Pomiń».
+69	Liczba gwiazdek:
+70	Godzina zameldowania (check-in):
+71	Godzina wymeldowania (check-out):
+72	Jakie są udogodnienia? Zaznacz, potem «✅ Gotowe».
+73	Jaka jest zasada anulowania rezerwacji?
+74	Twoja kategoria przewodnika:
+75	Twoja cena netto za pełny dzień (8 godzin) — w DOLARACH USA. Tylko cyfry, np. 60
+76	Cena za pół dnia (4 godziny), $ (opcjonalnie).
+77	Cena netto usługi — w DOLARACH USA (za osobę lub za raz). Przykład: 30
+78	Napisz o sobie (co najmniej 2–3 zdania): doświadczenie, jakie wycieczki prowadzisz, czym się wyróżniasz.
+79	Krótko o sobie i usłudze (co najmniej 1–2 zdania).
+80	Opisz hotel: położenie, udogodnienia w pokojach, śniadanie, jego zalety.
+81	Twój e-mail (opcjonalnie). Jeśli nie masz — «➡️ Pomiń».
+82	📷 Zdjęcie główne: portret w stroju klasycznym lub narodowym, twarz dobrze widoczna. Wyślij 1 zdjęcie.
+83	📷 Zdjęcie główne: fasada budynku lub dziedziniec / recepcja. 1 zdjęcie.
+84	🪪 Wyraźne zdjęcie legitymacji lub dyplomu przewodnika (numer czytelny). Widzimy je tylko my.
+85	🪪 Wyraźne zdjęcie prawa jazdy. Widzimy je tylko my.
+86	📷 Twoje zdjęcia w pojedynkę — co najmniej 3. Możesz wysłać wszystkie naraz.
+87	📷 Zdjęcia z turystami — co najmniej 10 (tylko za ich zgodą). Możesz wysłać jako album.
+88	📷 Zdjęcia samochodu — co najmniej 6: z zewnątrz, wnętrze, bagażnik.
+89	📄 Zdjęcie dowodu rejestracyjnego (numer czytelny). Widzimy je tylko my.
+90	📷 Zdjęcia ogólne — co najmniej 5: recepcja, dziedziniec, sala śniadaniowa, łazienka, ulica.
+91	🛏 Typ pokoju:
+92	Nazwa pokoju (np. Deluxe dwuosobowy z widokiem na dziedziniec). Jeśli pominiesz, użyjemy typu pokoju.
+93	Dla ilu osób?
+94	Łóżka:
+95	Ile takich pokoi ma hotel? (liczba)
+96	Czy śniadanie jest wliczone w cenę?
+97	💵 Cena NETTO za noc — w DOLARACH USA. Tylko cyfry, np. 45\n(Cena wypłacana Tobie. Na stronie klient widzi ją z opłatą serwisową.)
+98	📷 Zdjęcia tego pokoju — co najmniej 2 (łóżko, łazienka).
+99	🚗 Klasa pojazdu:
+100	Marka i model (np. Chevrolet Malibu 2).
+101	Rok produkcji:
+102	Ile miejsc dla pasażerów? (bez kierowcy)
+103	Ile walizek się mieści?
+104	Numer rejestracyjny (widzimy go tylko my):
+105	Czy jest klimatyzacja?
+106	💵 Cena NETTO za 1 dzień wynajmu (z kierowcą) — w DOLARACH USA. Przykład: 70
+107	💵 Cena transferu z lotniska, $ (opcjonalnie).
+108	📷 Zdjęcia tego pojazdu — co najmniej 2 (z zewnątrz, wnętrze).
+109	Taszkent
+110	Samarkanda
+111	Buchara
+112	Chiwa
+113	Szahrisabz
+114	Namangan
+115	Andiżan
+116	Fergana
+117	Kokand
+118	Margilan
+119	Urgencz
+120	Nukus
+121	Termez
+122	Karszy
+123	Nawoi
+124	Dżyzak
+125	Gulistan
+126	Mujnak
+127	Czimgan / Czarwak
+128	🇬🇧 Angielski
+129	🇷🇺 Rosyjski
+130	🇺🇿 Uzbecki
+131	🇩🇪 Niemiecki
+132	🇫🇷 Francuski
+133	🇮🇹 Włoski
+134	🇪🇸 Hiszpański
+135	🇹🇷 Turecki
+136	🇸🇦 Arabski
+137	🇨🇳 Chiński
+138	🇯🇵 Japoński
+139	🇰🇷 Koreański
+140	✅ Tak
+141	❌ Nie
+142	Przewodnik amator
+143	Przewodnik specjalistyczny
+144	Przewodnik zawodowy
+145	Przewodnik «Złotego Funduszu»
+146	Wi-Fi
+147	Śniadanie
+148	Parking
+149	Klimatyzacja
+150	Transfer
+151	Restauracja
+152	Basen
+153	Pralnia
+154	Recepcja 24 h
+155	Pokoje rodzinne
+156	Tradycyjny dziedziniec
+157	Winda
+158	Taras
+159	Dla niepalących
+160	Bez gwiazdek / pensjonat
+161	Bezpłatne anulowanie — 1 dzień przed
+162	Bezpłatne anulowanie — 3 dni przed
+163	Bezpłatne anulowanie — 7 dni przed
+164	Bezzwrotna
+165	Standard
+166	Deluxe
+167	Apartament (suite)
+168	Rodzinny
+169	Jednoosobowy
+170	Hostel (miejsce)
+171	1 podwójne
+172	2 pojedyncze
+173	1 pojedyncze
+174	3 pojedyncze
+175	Podwójne + pojedyncze
+176	Piętrowe
+177	Ekonomiczna (Cobalt, Nexia)
+178	Komfort (Malibu, Camry)
+179	Biznes (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Minivan (4–7 os.)
+182	Minibus (8–19 os.)
+183	Autobus (20+ os.)
+184	🙋 Prywatny kierowca
+185	🏢 Firma transportowa
+186	🧑‍🏫 Przewodnik
+187	🚐 Transport / kierowca
+188	🏨 Hotel / pensjonat
+189	✨ Inna usługa
+190	 os.
+191	cyfr
+192	Teraz zdjęcie nie jest potrzebne — odpowiedz na pytanie powyżej.
+193	Typ
+194	Nazwa / imię
+195	Usługa
+196	Telefon
+197	Miasto
+198	Pracuje w
+199	Adres
+200	Mapa
+201	Rok urodzenia
+202	Języki
+203	Nr dokumentu / rejestru
+204	Doświadczenie
+205	 lat
+206	INN
+207	Kategoria
+208	Gwiazdki
+209	Udogodnienia
+210	Anulowanie
+211	Cena
+212	 miejsc
+213	Zdjęcia

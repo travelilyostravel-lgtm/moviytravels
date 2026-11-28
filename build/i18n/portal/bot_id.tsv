@@ -1,0 +1,213 @@
+1	👋 Selamat datang di bot mitra Moviy Nomad!\n\nAnda ingin menjadi mitra jenis apa?
+2	⬅️ Kembali
+3	➡️ Lewati
+4	✅ Selesai
+5	✖️ Batal
+6	📱 Kirim nomor saya
+7	📍 Kirim lokasi
+8	Silakan tulis teks ({min}–{max} karakter).
+9	Terlalu pendek. Tulis minimal {min} karakter.
+10	Hanya angka ({min}–{max}).
+11	❗ Tulis harga dalam DOLAR AS, hanya angka ({min}–{max}). Harga dalam sum tidak diterima — konversikan ke dolar. Contoh: 45
+12	Tulis nomor seperti +998 90 123 45 67 atau tekan «📱 Kirim nomor saya».
+13	E-mail salah. Contoh: nama@gmail.com
+14	📍 Kirim lokasi atau tautan peta.
+15	Tekan salah satu tombol di bawah.
+16	Pilih minimal {min}, lalu «✅ Selesai».
+17	📷 Kirim foto (sebagai foto, bukan file). Sejauh ini: {n} / {min}.
+18	✅ Diterima: {n}. 
+19	Perlu {k} lagi.
+20	Sudah cukup. Anda bisa mengirim lagi atau menekan «✅ Selesai».
+21	Maksimal {max}. Pertanyaan berikutnya:
+22	Tambah tipe kamar lain?
+23	Tambah kendaraan lain?
+24	➕ Ya, tambah
+25	✅ Tidak, lanjut
+26	✅ Ditambahkan: {name} — ${price}
+27	🛏 Tipe kamar {n}
+28	🚗 Kendaraan {n}
+29	📋 Pendaftaran Anda sudah siap. Silakan periksa:
+30	✅ Kirim
+31	🔄 Isi ulang dari awal
+32	⏳ Mengirim… Foto sedang diunggah, tunggu hingga 1 menit.
+33	🎉 Pendaftaran Anda diterima!\n\nTim Moviy Nomad akan memeriksanya dalam 1–3 hari kerja. Hasilnya akan masuk ke bot ini. Setelah disetujui, kartu Anda tampil di situs.\n\nAnda bisa membuka akun dari sini kapan saja: /kabinet
+34	⚠ Gagal mengirim. Tekan «✅ Kirim» lagi satu menit lagi. Jika terulang, kirim pesan kepada kami: @moviy_safina
+35	Anda sudah mulai mendaftar. Lanjutkan?
+36	▶️ Lanjutkan
+37	Anda sudah menjadi mitra Moviy Nomad: {name}.\n\nTekan tombol untuk membuka akun Anda:
+38	🔑 Buka akun saya
+39	🔑 Tautan masuk ke akun Anda (berlaku 1 jam, hanya untuk Anda — jangan dibagikan):
+40	Tautan tidak dapat dibuat. Coba lagi nanti.
+41	Dibatalkan. Tekan /start untuk mulai lagi.
+42	Pertanyaan {i} / {n}
+43	Ya
+44	Tidak
+45	Tulis nama depan dan nama belakang Anda (seperti di paspor).
+46	Tulis nama hotel.
+47	Nama lengkap Anda atau nama perusahaan.
+48	Layanan apa yang Anda tawarkan? (mis. fotografer, juru masak, kelas keterampilan)
+49	Anda mendaftar sebagai apa?
+50	Kirim nomor telepon Anda: tekan «📱 Kirim nomor saya» di bawah atau tulis seperti +998…
+51	Nomor WhatsApp Anda (jika berbeda). Jika sama, tekan «➡️ Lewati».
+52	Anda di kota mana?
+53	Hotelnya di kota mana?
+54	Di kota mana saja Anda bekerja? Pilih semua, lalu tekan «✅ Selesai».
+55	Tahun lahir Anda (mis. 1990).
+56	Anda tinggal di distrik atau mahalla mana?
+57	Hotelnya di distrik / mahalla mana?
+58	Alamat lengkap (jalan, rumah).
+59	📍 Kirim lokasi hotel: 📎 → «Lokasi», atau tempel tautan Google / Yandex Maps.
+60	Bahasa apa saja yang Anda kuasai? Pilih, lalu «✅ Selesai».
+61	Staf Anda berbicara bahasa apa saja?
+62	Nomor kartu pemandu atau ijazah pemandu.
+63	Nomor SIM.
+64	Berapa tahun Anda bekerja dengan wisatawan? (angka)
+65	Berapa tahun pengalaman menyetir Anda?
+66	Nomor INN (nomor pajak).
+67	INN (nomor pajak) atau nomor sertifikat wiraswasta. Jika tidak ada — «➡️ Lewati».
+68	Nomor di daftar Komite Pariwisata (akomodasi). Jika tidak ada — «➡️ Lewati».
+69	Jumlah bintang:
+70	Jam check-in:
+71	Jam check-out:
+72	Fasilitas apa saja yang ada? Pilih, lalu «✅ Selesai».
+73	Apa aturan pembatalan Anda?
+74	Kategori pemandu Anda:
+75	Harga net Anda untuk sehari penuh (8 jam) — dalam DOLAR AS. Hanya angka, mis. 60
+76	Harga setengah hari (4 jam), $ (opsional).
+77	Harga net layanan Anda — dalam DOLAR AS (per orang atau per kali). Contoh: 30
+78	Tulis tentang diri Anda (minimal 2–3 kalimat): pengalaman, tur yang Anda pandu, apa yang membedakan Anda.
+79	Singkat tentang Anda dan layanan Anda (minimal 1–2 kalimat).
+80	Jelaskan hotelnya: lokasi, fasilitas kamar, sarapan, keunggulannya.
+81	E-mail Anda (opsional). Jika tidak ada — «➡️ Lewati».
+82	📷 Foto utama: potret dengan busana formal atau pakaian nasional, wajah terlihat jelas. Kirim 1 foto.
+83	📷 Foto utama: tampak depan gedung atau halaman / resepsionis. 1 foto.
+84	🪪 Foto jelas kartu atau ijazah pemandu (nomor terbaca). Hanya kami yang melihatnya.
+85	🪪 Foto jelas SIM Anda. Hanya kami yang melihatnya.
+86	📷 Foto Anda sendirian — minimal 3. Boleh dikirim sekaligus.
+87	📷 Foto bersama wisatawan — minimal 10 (hanya dengan izin mereka). Boleh dikirim sebagai album.
+88	📷 Foto mobil — minimal 6: luar, interior, bagasi.
+89	📄 Foto STNK (nomor terbaca). Hanya kami yang melihatnya.
+90	📷 Foto umum — minimal 5: resepsionis, halaman, ruang sarapan, kamar mandi, jalan.
+91	🛏 Tipe kamar:
+92	Nama kamar (mis. Deluxe double, menghadap halaman). Jika dilewati, tipe kamar yang dipakai.
+93	Untuk berapa orang?
+94	Tempat tidur:
+95	Berapa kamar tipe ini di hotel? (angka)
+96	Apakah sarapan termasuk dalam harga?
+97	💵 Harga NET per malam — dalam DOLAR AS. Hanya angka, mis. 45\n(Harga yang dibayarkan kepada Anda. Di situs, klien melihatnya dengan biaya layanan.)
+98	📷 Foto kamar ini — minimal 2 (tempat tidur, kamar mandi).
+99	🚗 Kelas kendaraan:
+100	Merek dan model (mis. Chevrolet Malibu 2).
+101	Tahun pembuatan:
+102	Berapa kursi penumpang? (tanpa sopir)
+103	Berapa koper yang muat?
+104	Pelat nomor (hanya kami yang melihat):
+105	Ada AC?
+106	💵 Harga NET sewa 1 hari (dengan sopir) — dalam DOLAR AS. Contoh: 70
+107	💵 Harga antar-jemput bandara, $ (opsional).
+108	📷 Foto kendaraan ini — minimal 2 (luar, interior).
+109	Tashkent
+110	Samarkand
+111	Bukhara
+112	Khiva
+113	Shahrisabz
+114	Namangan
+115	Andijan
+116	Fergana
+117	Kokand
+118	Margilan
+119	Urgench
+120	Nukus
+121	Termez
+122	Karshi
+123	Navoi
+124	Jizzakh
+125	Gulistan
+126	Muynak
+127	Chimgan / Charvak
+128	🇬🇧 Inggris
+129	🇷🇺 Rusia
+130	🇺🇿 Uzbek
+131	🇩🇪 Jerman
+132	🇫🇷 Prancis
+133	🇮🇹 Italia
+134	🇪🇸 Spanyol
+135	🇹🇷 Turki
+136	🇸🇦 Arab
+137	🇨🇳 Mandarin
+138	🇯🇵 Jepang
+139	🇰🇷 Korea
+140	✅ Ya
+141	❌ Tidak
+142	Pemandu amatir
+143	Pemandu spesialis
+144	Pemandu profesional
+145	Pemandu «Dana Emas»
+146	Wi-Fi
+147	Sarapan
+148	Parkir
+149	AC
+150	Antar-jemput
+151	Restoran
+152	Kolam renang
+153	Binatu
+154	Resepsionis 24 jam
+155	Kamar keluarga
+156	Halaman tradisional
+157	Lift
+158	Teras
+159	Bebas rokok
+160	Tanpa bintang / wisma
+161	Pembatalan gratis — 1 hari sebelumnya
+162	Pembatalan gratis — 3 hari sebelumnya
+163	Pembatalan gratis — 7 hari sebelumnya
+164	Tidak dapat dikembalikan
+165	Standar
+166	Deluxe
+167	Suite
+168	Keluarga
+169	Single
+170	Hostel (tempat tidur)
+171	1 double
+172	2 single
+173	1 single
+174	3 single
+175	Double + single
+176	Tempat tidur susun
+177	Ekonomi (Cobalt, Nexia)
+178	Nyaman (Malibu, Camry)
+179	Bisnis (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Minivan (4–7 orang)
+182	Minibus (8–19 orang)
+183	Bus (20+ orang)
+184	🙋 Sopir pribadi
+185	🏢 Perusahaan transportasi
+186	🧑‍🏫 Pemandu
+187	🚐 Transportasi / sopir
+188	🏨 Hotel / wisma
+189	✨ Layanan lain
+190	 orang
+191	angka
+192	Foto belum diperlukan sekarang — jawab pertanyaan di atas.
+193	Jenis
+194	Nama
+195	Layanan
+196	Telepon
+197	Kota
+198	Bekerja di
+199	Alamat
+200	Peta
+201	Tahun lahir
+202	Bahasa
+203	Nomor dokumen / daftar
+204	Pengalaman
+205	 tahun
+206	INN
+207	Kategori
+208	Bintang
+209	Fasilitas
+210	Pembatalan
+211	Harga
+212	 kursi
+213	Foto

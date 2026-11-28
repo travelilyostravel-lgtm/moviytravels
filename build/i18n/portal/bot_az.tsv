@@ -1,0 +1,213 @@
+1	👋 Moviy Nomad tərəfdaş botuna xoş gəlmisiniz!\n\nHansı növ tərəfdaş olmaq istəyirsiniz?
+2	⬅️ Geri
+3	➡️ Keç
+4	✅ Hazır
+5	✖️ Ləğv et
+6	📱 Nömrəmi göndər
+7	📍 Məkanı göndər
+8	Zəhmət olmasa mətn yazın ({min}–{max} simvol).
+9	Çox qısadır. Ən azı {min} simvol yazın.
+10	Yalnız rəqəm ({min}–{max}).
+11	❗ Qiyməti ABŞ DOLLARI ilə, yalnız rəqəmlə yazın ({min}–{max}). Somla qiymət qəbul edilmir — dollara çevirin. Məsələn: 45
+12	Nömrəni +998 90 123 45 67 şəklində yazın və ya «📱 Nömrəmi göndər» düyməsini basın.
+13	E-mail səhvdir. Məsələn: name@gmail.com
+14	📍 Məkan və ya xəritə linki göndərin.
+15	Aşağıdakı düymələrdən birini basın.
+16	Ən azı {min} seçin, sonra «✅ Hazır».
+17	📷 Şəkil göndərin (fayl kimi yox, şəkil kimi). Hazırda: {n} / {min}.
+18	✅ Qəbul edildi: {n}. 
+19	Daha {k} lazımdır.
+20	Kifayətdir. Daha göndərə və ya «✅ Hazır» basa bilərsiniz.
+21	Maksimum — {max}. Növbəti sual:
+22	Daha bir otaq növü əlavə edək?
+23	Daha bir avtomobil əlavə edək?
+24	➕ Bəli, əlavə et
+25	✅ Xeyr, davam
+26	✅ Əlavə edildi: {name} — ${price}
+27	🛏 {n}-ci otaq növü
+28	🚗 {n}-ci avtomobil
+29	📋 Müraciətiniz hazırdır. Yoxlayın:
+30	✅ Göndər
+31	🔄 Yenidən doldur
+32	⏳ Göndərilir… Şəkillər yüklənir, 1 dəqiqəyədək gözləyin.
+33	🎉 Müraciətiniz qəbul edildi!\n\nMoviy Nomad komandası onu 1–3 iş günü ərzində yoxlayacaq. Nəticə bu bota gələcək. Təsdiqdən sonra kartınız saytda görünəcək.\n\nKabinetə istənilən vaxt buradan daxil ola bilərsiniz: /kabinet
+34	⚠ Göndərmə xətası. Bir dəqiqədən sonra «✅ Göndər»i yenidən basın. Təkrarlansa, bizə yazın: @moviy_safina
+35	Qeydiyyata başlamışdınız. Davam edək?
+36	▶️ Davam et
+37	Siz artıq Moviy Nomad tərəfdaşısınız: {name}.\n\nKabinetə daxil olmaq üçün düyməni basın:
+38	🔑 Kabinetə daxil ol
+39	🔑 Kabinetə giriş linki (1 saat etibarlıdır, yalnız sizin üçün — heç kimə verməyin):
+40	Link yaradıla bilmədi. Bir az sonra yenidən cəhd edin.
+41	Ləğv edildi. Yenidən başlamaq üçün /start basın.
+42	Sual {i} / {n}
+43	Bəli
+44	Xeyr
+45	Ad və soyadınızı yazın (pasportdakı kimi).
+46	Otelin adını yazın.
+47	Ad-soyadınız və ya şirkətin adı.
+48	Hansı xidməti göstərirsiniz? (məs.: fotoqraf, aşpaz, ustad dərsi)
+49	Kim kimi qeydiyyatdan keçirsiniz?
+50	Telefon nömrənizi göndərin: aşağıdakı «📱 Nömrəmi göndər» düyməsini basın və ya +998… şəklində yazın.
+51	WhatsApp nömrəniz (fərqlidirsə). Eynidirsə, «➡️ Keç» basın.
+52	Hansı şəhərdəsiniz?
+53	Otel hansı şəhərdədir?
+54	Hansı şəhərlərdə işləyirsiniz? Hamısını seçin, sonra «✅ Hazır» basın.
+55	Doğum iliniz (məs.: 1990).
+56	Hansı rayon və ya məhəllədə yaşayırsınız?
+57	Otel hansı rayon / məhəllədədir?
+58	Tam ünvan (küçə, ev).
+59	📍 Otelin məkanını göndərin: 📎 → «Məkan» və ya Google / Yandex xəritə linkini yapışdırın.
+60	Hansı dillərdə danışırsınız? Seçin, sonra «✅ Hazır».
+61	İşçiləriniz hansı dillərdə danışır?
+62	Bələdçi vəsiqəsinin və ya bələdçi diplomunun nömrəsi.
+63	Sürücülük vəsiqəsinin nömrəsi.
+64	Neçə ildir turistlərlə işləyirsiniz? (rəqəm)
+65	Sürücülük stajınız neçə ildir?
+66	INN (VÖEN) nömrəsi.
+67	INN və ya özünüməşğul şəxs vəsiqəsinin nömrəsi. Yoxdursa — «➡️ Keç».
+68	Turizm Komitəsinin reyestrindəki nömrə (yerləşdirmə obyekti). Yoxdursa — «➡️ Keç».
+69	Ulduz sayı:
+70	Giriş vaxtı (check-in):
+71	Çıxış vaxtı (check-out):
+72	Hansı rahatlıqlar var? Seçin, sonra «✅ Hazır».
+73	Bronun ləğvi qaydası necədir?
+74	Bələdçi kateqoriyanız:
+75	Tam günlük (8 saat) netto qiymətiniz — ABŞ DOLLARI ilə. Yalnız rəqəm, məs.: 60
+76	Yarım gün (4 saat) qiyməti, $ (könüllü).
+77	Xidmətinizin netto qiyməti — ABŞ DOLLARI ilə (1 nəfər və ya 1 dəfə üçün). Məsələn: 30
+78	Özünüz haqqında yazın (ən azı 2–3 cümlə): təcrübə, hansı turları aparırsınız, nə ilə fərqlənirsiniz.
+79	Özünüz və xidmətiniz haqqında qısaca (ən azı 1–2 cümlə).
+80	Otel haqqında yazın: yerləşməsi, otaqlardakı rahatlıqlar, səhər yeməyi, nəyi yaxşıdır.
+81	E-mail ünvanınız (könüllü). Yoxdursa — «➡️ Keç».
+82	📷 Əsas şəkil: klassik və ya milli geyimdə, üzü aydın görünən portret. 1 şəkil göndərin.
+83	📷 Əsas şəkil: binanın fasadı və ya həyət / resepşn. 1 şəkil.
+84	🪪 Bələdçi vəsiqəsinin və ya diplomun aydın şəkli (nömrə oxunsun). Bunu yalnız biz görürük.
+85	🪪 Sürücülük vəsiqəsinin aydın şəkli. Bunu yalnız biz görürük.
+86	📷 Tək şəkilləriniz — ən azı 3. Hamısını birdən göndərə bilərsiniz.
+87	📷 Turistlərlə şəkillər — ən azı 10 (yalnız onların razılığı ilə). Albom kimi göndərə bilərsiniz.
+88	📷 Avtomobilin şəkilləri — ən azı 6: xarici görünüş, salon, baqaj.
+89	📄 Texpasportun şəkli (nömrə oxunsun). Bunu yalnız biz görürük.
+90	📷 Ümumi şəkillər — ən azı 5: resepşn, həyət, səhər yeməyi zalı, hamam, küçə.
+91	🛏 Otaq növü:
+92	Otağın adı (məs.: Deluxe iki nəfərlik, həyətə baxan). Keçsəniz, otaq növü yazılacaq.
+93	Neçə nəfərlik?
+94	Çarpayılar:
+95	Oteldə belə otaqdan neçə dənə var? (rəqəm)
+96	Səhər yeməyi qiymətə daxildir?
+97	💵 1 gecəlik NETTO qiymət — ABŞ DOLLARI ilə. Yalnız rəqəm, məs.: 45\n(Sizə ödənilən qiymət. Saytda müştəri onu xidmət haqqı ilə görür.)
+98	📷 Bu otağın şəkilləri — ən azı 2 (çarpayı, hamam).
+99	🚗 Avtomobil sinfi:
+100	Marka və model (məs.: Chevrolet Malibu 2).
+101	Buraxılış ili:
+102	Neçə sərnişin yeri var? (sürücüsüz)
+103	Neçə çamadan yerləşir?
+104	Dövlət nömrəsi (yalnız biz görürük):
+105	Kondisioner var?
+106	💵 1 günlük icarənin NETTO qiyməti (sürücü ilə) — ABŞ DOLLARI ilə. Məsələn: 70
+107	💵 Hava limanı transferinin qiyməti, $ (könüllü).
+108	📷 Bu avtomobilin şəkilləri — ən azı 2 (xarici, salon).
+109	Daşkənd
+110	Səmərqənd
+111	Buxara
+112	Xivə
+113	Şəhrisəbz
+114	Namanqan
+115	Əndican
+116	Fərqanə
+117	Kokand
+118	Marqilan
+119	Urgənc
+120	Nukus
+121	Termez
+122	Qarşı
+123	Nəvai
+124	Cizzax
+125	Gülüstan
+126	Muynaq
+127	Çimqan / Çarvak
+128	🇬🇧 İngilis
+129	🇷🇺 Rus
+130	🇺🇿 Özbək
+131	🇩🇪 Alman
+132	🇫🇷 Fransız
+133	🇮🇹 İtalyan
+134	🇪🇸 İspan
+135	🇹🇷 Türk
+136	🇸🇦 Ərəb
+137	🇨🇳 Çin
+138	🇯🇵 Yapon
+139	🇰🇷 Koreya
+140	✅ Bəli
+141	❌ Xeyr
+142	Həvəskar bələdçi
+143	İxtisaslaşmış bələdçi
+144	Peşəkar bələdçi
+145	«Qızıl fond» bələdçisi
+146	Wi-Fi
+147	Səhər yeməyi
+148	Avtodayanacaq
+149	Kondisioner
+150	Transfer
+151	Restoran
+152	Hovuz
+153	Camaşırxana
+154	24 saat resepşn
+155	Ailə otaqları
+156	Milli həyət
+157	Lift
+158	Terras
+159	Siqaret çəkilmir
+160	Ulduzsuz / qonaq evi
+161	Pulsuz ləğv — 1 gün əvvəl
+162	Pulsuz ləğv — 3 gün əvvəl
+163	Pulsuz ləğv — 7 gün əvvəl
+164	Geri qaytarılmır
+165	Standart
+166	Deluxe
+167	Lüks (suite)
+168	Ailə
+169	Bir nəfərlik
+170	Hostel (yer)
+171	1 iki nəfərlik
+172	2 bir nəfərlik
+173	1 bir nəfərlik
+174	3 bir nəfərlik
+175	İki nəfərlik + bir nəfərlik
+176	İkimərtəbəli
+177	Ekonom (Cobalt, Nexia)
+178	Komfort (Malibu, Camry)
+179	Biznes (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Miniven (4–7 nəfər)
+182	Mikroavtobus (8–19 nəfər)
+183	Avtobus (20+ nəfər)
+184	🙋 Şəxsi sürücü
+185	🏢 Nəqliyyat şirkəti
+186	🧑‍🏫 Bələdçi
+187	🚐 Nəqliyyat / sürücü
+188	🏨 Otel / qonaq evi
+189	✨ Başqa xidmət
+190	 nəfər
+191	rəqəm
+192	İndi şəkil lazım deyil — yuxarıdakı suala cavab verin.
+193	Növ
+194	Ad
+195	Xidmət
+196	Telefon
+197	Şəhər
+198	İşlədiyi şəhərlər
+199	Ünvan
+200	Xəritə
+201	Doğum ili
+202	Dillər
+203	Sənəd / reyestr nömrəsi
+204	Təcrübə
+205	 il
+206	INN
+207	Kateqoriya
+208	Ulduz
+209	Rahatlıqlar
+210	Ləğv
+211	Qiymət
+212	 yer
+213	Şəkillər

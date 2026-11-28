@@ -1,0 +1,214 @@
+0	Tilni tanlang / Выберите язык:	Tilni tanlang / Выберите язык:
+1	👋 Moviy Nomad hamkorlar botiga xush kelibsiz!\n\nKim sifatida hamkor bo'lmoqchisiz?	👋 Добро пожаловать в бот партнёров Moviy Nomad!\n\nКем хотите стать партнёром?
+2	⬅️ Orqaga	⬅️ Назад
+3	➡️ O'tkazib yuborish	➡️ Пропустить
+4	✅ Tayyor	✅ Готово
+5	✖️ Bekor qilish	✖️ Отменить
+6	📱 Raqamni yuborish	📱 Отправить номер
+7	📍 Joylashuvni yuborish	📍 Отправить геопозицию
+8	Iltimos, matn yozing ({min}–{max} belgi).	Пожалуйста, напишите текст ({min}–{max} символов).
+9	Juda qisqa. Kamida {min} belgi yozing.	Слишком коротко. Минимум {min} символов.
+10	Faqat raqam yozing ({min}–{max}).	Только число ({min}–{max}).
+11	❗ Narxni AQSH DOLLARIDA, faqat raqam bilan yozing ({min}–{max}). So'mdagi narx qabul qilinmaydi — dollarga aylantirib yozing. Masalan: 45	❗ Укажите цену В ДОЛЛАРАХ США, только число ({min}–{max}). Цена в сумах не принимается — переведите в доллары. Например: 45
+12	Raqamni +998 90 123 45 67 ko'rinishida yozing yoki «📱 Raqamni yuborish» tugmasini bosing.	Напишите номер в виде +998 90 123 45 67 или нажмите «📱 Отправить номер».
+13	E-mail noto'g'ri. Masalan: ism@gmail.com	Неверный e-mail. Например: name@gmail.com
+14	📍 Joylashuvni yuboring yoki xarita havolasini tashlang.	📍 Отправьте геопозицию или ссылку на карту.
+15	Pastdagi tugmalardan birini bosing.	Нажмите одну из кнопок ниже.
+16	Kamida {min} tasini belgilang, keyin «✅ Tayyor».	Отметьте минимум {min}, затем «✅ Готово».
+17	📷 Rasm yuboring (fayl emas, oddiy rasm). Hozircha: {n} / {min}.	📷 Отправьте фото (как фото, не файлом). Сейчас: {n} / {min}.
+18	✅ Qabul qilindi: {n} ta. 	✅ Принято: {n}. 
+19	Yana {k} ta kerak.	Нужно ещё {k}.
+20	Yetarli. Yana yuborishingiz mumkin yoki «✅ Tayyor» ni bosing.	Достаточно. Можно отправить ещё или нажать «✅ Готово».
+21	Maksimal soni — {max}. Keyingi savol:	Максимум — {max}. Следующий вопрос:
+22	Yana xona turi qo'shasizmi?	Добавить ещё тип номера?
+23	Yana mashina qo'shasizmi?	Добавить ещё машину?
+24	➕ Ha, yana qo'shaman	➕ Да, добавить
+25	✅ Yo'q, davom etamiz	✅ Нет, дальше
+26	✅ Qo'shildi: {name} — ${price}	✅ Добавлено: {name} — ${price}
+27	🛏 {n}-xona turi	🛏 Тип номера №{n}
+28	🚗 {n}-mashina	🚗 Машина №{n}
+29	📋 Arizangiz tayyor. Tekshirib chiqing:	📋 Заявка готова. Проверьте:
+30	✅ Yuborish	✅ Отправить
+31	🔄 Boshidan to'ldirish	🔄 Заполнить заново
+32	⏳ Yuborilmoqda… Rasmlar yuklanyapti, 1 daqiqagacha kuting.	⏳ Отправляем… Загружаем фото, подождите до 1 минуты.
+33	🎉 Arizangiz qabul qilindi!\n\nMoviy Nomad jamoasi 1–3 ish kunida tekshiradi. Natija shu botga keladi. Tasdiqlangach, kartochkangiz saytda chiqadi.\n\nKabinetingizga istalgan vaqt shu yerdan kirasiz: /kabinet	🎉 Заявка принята!\n\nКоманда Moviy Nomad проверит её за 1–3 рабочих дня. Результат придёт в этот бот. После одобрения карточка появится на сайте.\n\nВойти в кабинет можно здесь в любое время: /kabinet
+34	⚠ Yuborishda xato bo'ldi. Bir daqiqadan keyin «✅ Yuborish» ni qayta bosing. Takrorlansa, bizga yozing: @moviy_safina	⚠ Ошибка при отправке. Через минуту нажмите «✅ Отправить» ещё раз. Если повторится — напишите нам: @moviy_safina
+35	Siz ro'yxatdan o'tishni boshlagan edingiz. Davom etamizmi?	Вы начали регистрацию. Продолжим?
+36	▶️ Davom etish	▶️ Продолжить
+37	Siz allaqachon Moviy Nomad hamkorisiz: {name}.\n\nKabinetga kirish uchun tugmani bosing:	Вы уже партнёр Moviy Nomad: {name}.\n\nЧтобы войти в кабинет, нажмите кнопку:
+38	🔑 Kabinetga kirish	🔑 Войти в кабинет
+39	🔑 Kabinetingizga kirish havolasi (1 soat amal qiladi, faqat siz uchun — hech kimga bermang):	🔑 Ссылка для входа в кабинет (действует 1 час, только для вас — никому не передавайте):
+40	Havolani yaratib bo'lmadi. Keyinroq urinib ko'ring.	Не удалось создать ссылку. Попробуйте позже.
+41	Bekor qilindi. Qayta boshlash uchun /start ni bosing.	Отменено. Чтобы начать заново, нажмите /start
+42	Savol {i} / {n}	Вопрос {i} / {n}
+43	Ha	Да
+44	Yo'q	Нет
+45	Ism va familiyangizni yozing (pasportdagidek).	Напишите имя и фамилию (как в паспорте).
+46	Mehmonxona nomini yozing.	Напишите название отеля.
+47	Ism-familiyangiz yoki kompaniya nomi.	Ваше имя или название компании.
+48	Qanday xizmat ko'rsatasiz? (masalan: fotograf, oshpaz, master-klass)	Какую услугу оказываете? (например: фотограф, повар, мастер-класс)
+49	Kim sifatida ro'yxatdan o'tasiz?	Кто вы?
+50	Telefon raqamingizni yuboring: pastdagi «📱 Raqamni yuborish» tugmasini bosing yoki +998… ko'rinishida yozing.	Отправьте номер телефона: нажмите «📱 Отправить номер» внизу или напишите в виде +998…
+51	WhatsApp raqamingiz (agar boshqa bo'lsa). Bir xil bo'lsa «O'tkazib yuborish» ni bosing.	Номер WhatsApp (если другой). Если тот же — нажмите «Пропустить».
+52	Qaysi shahardasiz?	В каком вы городе?
+53	Mehmonxona qaysi shaharda?	В каком городе отель?
+54	Qaysi shaharlarda ishlaysiz? Hammasini belgilang, keyin «✅ Tayyor» ni bosing.	В каких городах работаете? Отметьте все и нажмите «✅ Готово».
+55	Tug'ilgan yilingiz (masalan: 1990).	Год рождения (например: 1990).
+56	Qaysi tuman yoki mahallada yashaysiz?	В каком районе / махалле живёте?
+57	Mehmonxona qaysi tuman / mahallada?	В каком районе / махалле отель?
+58	To'liq manzil (ko'cha, uy).	Полный адрес (улица, дом).
+59	📍 Mehmonxona joylashuvini yuboring: 📎 → «Joylashuv» (Location) yoki Google / Yandex xarita havolasini tashlang.	📍 Отправьте местоположение отеля: 📎 → «Геопозиция» или ссылку Google / Яндекс карты.
+60	Qaysi tillarda gaplashasiz? Belgilang, keyin «✅ Tayyor».	На каких языках говорите? Отметьте и нажмите «✅ Готово».
+61	Xodimlaringiz qaysi tillarda gaplashadi?	На каких языках говорит персонал?
+62	Gid guvohnomasi yoki gidlik diplomi raqami.	Номер удостоверения гида или диплома гида.
+63	Haydovchilik guvohnomasi raqami.	Номер водительского удостоверения.
+64	Sayyohlar bilan necha yil ishlagansiz? (raqam)	Сколько лет работаете с туристами? (число)
+65	Haydash stajingiz necha yil?	Стаж вождения (лет)?
+66	INN (STIR) raqami.	ИНН.
+67	INN (STIR) raqami yoki o'zini o'zi band qilgan shaxs guvohnomasi raqami. Bo'lmasa — «O'tkazib yuborish».	ИНН или номер самозанятого. Если нет — «Пропустить».
+68	Turizm qo'mitasi reyestridagi raqam (joylashtirish vositasi). Bo'lmasa — «O'tkazib yuborish».	Номер в реестре Комитета по туризму. Если нет — «Пропустить».
+69	Yulduz soni:	Звёздность:
+70	Kirish vaqti (check-in):	Время заезда (check-in):
+71	Chiqish vaqti (check-out):	Время выезда (check-out):
+72	Qanday qulayliklar bor? Belgilang, keyin «✅ Tayyor».	Какие удобства есть? Отметьте и нажмите «✅ Готово».
+73	Bron bekor qilinsa qanday qoida?	Правило отмены бронирования:
+74	Gid toifangiz:	Ваша категория:
+75	To'liq kunlik (8 soat) netto narxingiz — AQSH DOLLARIDA. Faqat raqam, masalan: 60	Нетто-цена за полный день (8 ч) — В ДОЛЛАРАХ США. Только число, например: 60
+76	Yarim kun (4 soat) narxi, $ (ixtiyoriy).	Цена за полдня (4 ч), $ (необязательно).
+77	Xizmatingizning netto narxi — AQSH DOLLARIDA (1 kishi yoki 1 marta uchun). Masalan: 30	Нетто-цена услуги — В ДОЛЛАРАХ США (за человека или за раз). Например: 30
+78	O'zingiz haqingizda yozing (kamida 2–3 gap): tajriba, qaysi turlarni olib borasiz, nimasi bilan farq qilasiz.	Расскажите о себе (2–3 предложения минимум): опыт, какие туры ведёте, чем отличаетесь.
+79	O'zingiz va xizmatingiz haqida qisqacha (kamida 1–2 gap).	Коротко о себе и услуге (1–2 предложения минимум).
+80	Mehmonxona haqida yozing: joylashuvi, xonalardagi qulayliklar, nonushta, nimasi bilan yaxshi.	Опишите отель: расположение, удобства в номерах, завтрак, чем хорош.
+81	E-mail manzilingiz (ixtiyoriy). Bo'lmasa — «O'tkazib yuborish».	E-mail (необязательно). Если нет — «Пропустить».
+82	📷 Asosiy rasm: klassik yoki milliy kiyimda, yuz aniq ko'rinadigan portret. 1 ta rasm yuboring.	📷 Главное фото: портрет в классической или национальной одежде, лицо хорошо видно. Отправьте 1 фото.
+83	📷 Asosiy rasm: bino fasadi yoki hovli / qabulxona. 1 ta rasm.	📷 Главное фото: фасад здания или двор / ресепшн. 1 фото.
+84	🪪 Gid guvohnomasi yoki diplomning aniq rasmi (raqami o'qilsin). Buni faqat biz ko'ramiz.	🪪 Чёткое фото удостоверения гида или диплома (номер читается). Видим только мы.
+85	🪪 Haydovchilik guvohnomasining aniq rasmi. Buni faqat biz ko'ramiz.	🪪 Чёткое фото водительского удостоверения. Видим только мы.
+86	📷 O'zingizning yakka rasmlaringiz — kamida 3 ta. Hammasini birdaniga yuborsangiz ham bo'ladi.	📷 Ваши личные фото — минимум 3. Можно отправить все сразу.
+87	📷 Sayyohlar bilan tushgan rasmlar — kamida 10 ta (faqat ularning roziligi bilan). Birdaniga albom qilib yuborish mumkin.	📷 Фото с туристами — минимум 10 (только с их согласия). Можно альбомом.
+88	📷 Mashina rasmlari — kamida 6 ta: tashqi ko'rinish, salon, yuk joyi.	📷 Фото машины — минимум 6: снаружи, салон, багажник.
+89	📄 Texpasport rasmi (raqami o'qilsin). Buni faqat biz ko'ramiz.	📄 Фото техпаспорта (номер читается). Видим только мы.
+90	📷 Umumiy rasmlar — kamida 5 ta: qabulxona, hovli, nonushta zali, hammom, ko'cha.	📷 Общие фото — минимум 5: ресепшн, двор, зал для завтрака, санузел, улица.
+91	🛏 Xona turi:	🛏 Тип номера:
+92	Xona nomi (masalan: Deluxe ikki kishilik, hovliga qaragan). O'tkazib yuborsangiz, xona turi yoziladi.	Название номера (например: Делюкс с видом на двор). Если пропустить — будет тип номера.
+93	Necha kishilik?	Сколько гостей?
+94	Karavotlar:	Кровати:
+95	Mehmonxonada shunday xonadan nechta bor? (raqam)	Сколько таких номеров в отеле? (число)
+96	Narxga nonushta kiradimi?	Завтрак включён в цену?
+97	💵 1 kecha uchun NETTO narx — AQSH DOLLARIDA. Faqat raqam, masalan: 45\n(Sizga to'lanadigan narx. Saytda mijozga xizmat haqi bilan ko'rsatiladi.)	💵 НЕТТО-цена за ночь — В ДОЛЛАРАХ США. Только число, например: 45\n(Цена, которую получаете вы. На сайте клиент видит её с сервисным сбором.)
+98	📷 Shu xonaning rasmlari — kamida 2 ta (yotoq, hammom).	📷 Фото этого номера — минимум 2 (кровать, санузел).
+99	🚗 Mashina klassi:	🚗 Класс машины:
+100	Marka va model (masalan: Chevrolet Malibu 2).	Марка и модель (например: Chevrolet Malibu 2).
+101	Ishlab chiqarilgan yili:	Год выпуска:
+102	Nechta yo'lovchi o'rni bor? (haydovchisiz)	Сколько пассажирских мест? (без водителя)
+103	Nechta chamadon sig'adi?	Сколько чемоданов помещается?
+104	Davlat raqami (faqat biz ko'ramiz):	Госномер (видим только мы):
+105	Konditsioner bormi?	Есть кондиционер?
+106	💵 1 kunlik ijara NETTO narxi (haydovchi bilan) — AQSH DOLLARIDA. Masalan: 70	💵 НЕТТО-цена за день (с водителем) — В ДОЛЛАРАХ США. Например: 70
+107	💵 Aeroport transferi narxi, $ (ixtiyoriy).	💵 Цена трансфера из аэропорта, $ (необязательно).
+108	📷 Shu mashinaning rasmlari — kamida 2 ta (tashqi, salon).	📷 Фото этой машины — минимум 2 (снаружи, салон).
+109	Toshkent	Ташкент
+110	Samarqand	Самарканд
+111	Buxoro	Бухара
+112	Xiva	Хива
+113	Shahrisabz	Шахрисабз
+114	Namangan	Наманган
+115	Andijon	Андижан
+116	Farg'ona	Фергана
+117	Qo'qon	Коканд
+118	Marg'ilon	Маргилан
+119	Urganch	Ургенч
+120	Nukus	Нукус
+121	Termiz	Термез
+122	Qarshi	Карши
+123	Navoiy	Навои
+124	Jizzax	Джизак
+125	Guliston	Гулистан
+126	Mo'ynoq	Муйнак
+127	Chimyon / Chorvoq	Чимган / Чарвак
+128	🇬🇧 Ingliz	🇬🇧 Английский
+129	🇷🇺 Rus	🇷🇺 Русский
+130	🇺🇿 O'zbek	🇺🇿 Узбекский
+131	🇩🇪 Nemis	🇩🇪 Немецкий
+132	🇫🇷 Fransuz	🇫🇷 Французский
+133	🇮🇹 Italyan	🇮🇹 Итальянский
+134	🇪🇸 Ispan	🇪🇸 Испанский
+135	🇹🇷 Turk	🇹🇷 Турецкий
+136	🇸🇦 Arab	🇸🇦 Арабский
+137	🇨🇳 Xitoy	🇨🇳 Китайский
+138	🇯🇵 Yapon	🇯🇵 Японский
+139	🇰🇷 Koreys	🇰🇷 Корейский
+140	✅ Ha	✅ Да
+141	❌ Yo'q	❌ Нет
+142	Havaskor gid	Гид-любитель
+143	Ixtisoslashgan gid	Специализированный гид
+144	Professional gid	Профессиональный гид
+145	«Oltin fond» gidi	Гид «Золотого фонда»
+146	Wi-Fi	Wi-Fi
+147	Nonushta	Завтрак
+148	Avtoturargoh	Парковка
+149	Konditsioner	Кондиционер
+150	Aeroport transferi	Трансфер
+151	Restoran	Ресторан
+152	Basseyn	Бассейн
+153	Kir yuvish	Прачечная
+154	24 soat qabulxona	Ресепшн 24 ч
+155	Oilaviy xonalar	Семейные номера
+156	Milliy hovli	Национальный двор
+157	Lift	Лифт
+158	Terassa	Терраса
+159	Chekilmaydigan xonalar	Для некурящих
+160	Yulduzsiz / mehmon uyi	Без звёзд / гостевой дом
+161	Bepul bekor qilish — 1 kun oldin	Бесплатная отмена — за 1 день
+162	Bepul bekor qilish — 3 kun oldin	Бесплатная отмена — за 3 дня
+163	Bepul bekor qilish — 7 kun oldin	Бесплатная отмена — за 7 дней
+164	Qaytarilmaydi	Без возврата
+165	Standart	Стандарт
+166	Deluxe	Делюкс
+167	Lyuks (suite)	Люкс (suite)
+168	Oilaviy	Семейный
+169	Bir kishilik	Одноместный
+170	Hostel (joy)	Хостел (место)
+171	1 ta ikki kishilik	1 двуспальная
+172	2 ta bir kishilik	2 односпальные
+173	1 ta bir kishilik	1 односпальная
+174	3 ta bir kishilik	3 односпальные
+175	Ikki kishilik + bir kishilik	Двуспальная + односпальная
+176	Ikki qavatli	Двухъярусная
+177	Ekonom (Cobalt, Nexia)	Эконом (Cobalt, Nexia)
+178	Komfort (Malibu, Camry)	Комфорт (Malibu, Camry)
+179	Biznes (Mercedes E, BMW 5)	Бизнес (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)	Премиум (Mercedes S, V-Class)
+181	Miniven (4–7 kishi)	Минивэн (4–7 чел.)
+182	Mikroavtobus (8–19 kishi)	Микроавтобус (8–19 чел.)
+183	Avtobus (20+ kishi)	Автобус (20+ чел.)
+184	🙋 Shaxsiy haydovchi	🙋 Частный водитель
+185	🏢 Transport kompaniyasi	🏢 Транспортная компания
+186	🧑‍🏫 Gid	🧑‍🏫 Гид
+187	🚐 Transport / haydovchi	🚐 Транспорт / водитель
+188	🏨 Mehmonxona / mehmon uyi	🏨 Отель / гостевой дом
+189	✨ Boshqa xizmat	✨ Другая услуга
+190	 kishi	 чел.
+191	raqam	цифр
+192	Hozir rasm kerak emas — yuqoridagi savolga javob bering.	Сейчас фото не нужно — ответьте на вопрос выше.
+193	Turi	Тип
+194	Nomi / ism	Название / имя
+195	Xizmat	Услуга
+196	Telefon	Телефон
+197	Shahar	Город
+198	Ishlaydigan shaharlar	Работает в
+199	Manzil	Адрес
+200	Xarita	Карта
+201	Tug'ilgan yil	Год рождения
+202	Tillar	Языки
+203	Hujjat / reyestr raqami	Номер документа
+204	Tajriba	Стаж
+205	 yil	 лет
+206	INN	ИНН
+207	Toifa	Категория
+208	Yulduz	Звёзды
+209	Qulayliklar	Удобства
+210	Bekor qilish	Отмена
+211	Narx	Цена
+212	 o'rin	 мест
+213	Rasmlar	Фото

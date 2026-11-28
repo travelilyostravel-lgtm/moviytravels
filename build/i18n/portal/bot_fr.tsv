@@ -1,0 +1,213 @@
+1	👋 Bienvenue sur le bot partenaires de Moviy Nomad !\n\nQuel type de partenaire souhaitez-vous devenir ?
+2	⬅️ Retour
+3	➡️ Passer
+4	✅ Terminé
+5	✖️ Annuler
+6	📱 Envoyer mon numéro
+7	📍 Envoyer la position
+8	Veuillez écrire un texte ({min}–{max} caractères).
+9	Trop court. Écrivez au moins {min} caractères.
+10	Chiffres uniquement ({min}–{max}).
+11	❗ Indiquez le prix en DOLLARS US, chiffres uniquement ({min}–{max}). Les prix en sums ne sont pas acceptés — convertissez en dollars. Exemple : 45
+12	Écrivez le numéro sous la forme +998 90 123 45 67 ou appuyez sur «📱 Envoyer mon numéro».
+13	E-mail incorrect. Exemple : nom@gmail.com
+14	📍 Envoyez une position ou un lien de carte.
+15	Appuyez sur l'un des boutons ci-dessous.
+16	Sélectionnez au moins {min}, puis «✅ Terminé».
+17	📷 Envoyez une photo (en tant que photo, pas en fichier). Pour l'instant : {n} / {min}.
+18	✅ Reçu : {n}. 
+19	Encore {k} nécessaire(s).
+20	C'est suffisant. Vous pouvez en envoyer d'autres ou appuyer sur «✅ Terminé».
+21	Le maximum est {max}. Question suivante :
+22	Ajouter un autre type de chambre ?
+23	Ajouter un autre véhicule ?
+24	➕ Oui, ajouter
+25	✅ Non, continuer
+26	✅ Ajouté : {name} — ${price}
+27	🛏 Type de chambre {n}
+28	🚗 Véhicule {n}
+29	📋 Votre candidature est prête. Vérifiez-la :
+30	✅ Envoyer
+31	🔄 Recommencer
+32	⏳ Envoi en cours… Téléversement des photos, patientez jusqu'à 1 minute.
+33	🎉 Votre candidature a été reçue !\n\nL'équipe Moviy Nomad la vérifiera sous 1 à 3 jours ouvrés. Le résultat arrivera dans ce bot. Une fois approuvée, votre fiche apparaîtra sur le site.\n\nVous pouvez ouvrir votre espace d'ici à tout moment : /kabinet
+34	⚠ Erreur d'envoi. Appuyez de nouveau sur «✅ Envoyer» dans une minute. Si cela se répète, écrivez-nous : @moviy_safina
+35	Vous aviez commencé l'inscription. On continue ?
+36	▶️ Continuer
+37	Vous êtes déjà partenaire de Moviy Nomad : {name}.\n\nAppuyez sur le bouton pour ouvrir votre espace :
+38	🔑 Ouvrir mon espace
+39	🔑 Lien de connexion à votre espace (valable 1 heure, rien que pour vous — ne le partagez pas) :
+40	Impossible de créer le lien. Réessayez plus tard.
+41	Annulé. Appuyez sur /start pour recommencer.
+42	Question {i} / {n}
+43	Oui
+44	Non
+45	Écrivez votre prénom et votre nom (comme sur le passeport).
+46	Écrivez le nom de l'hôtel.
+47	Votre nom complet ou le nom de l'entreprise.
+48	Quel service proposez-vous ? (ex. : photographe, cuisinier, atelier)
+49	À quel titre vous inscrivez-vous ?
+50	Envoyez votre numéro de téléphone : appuyez sur «📱 Envoyer mon numéro» ci-dessous ou écrivez-le sous la forme +998…
+51	Votre numéro WhatsApp (s'il est différent). S'il est identique, appuyez sur «➡️ Passer».
+52	Dans quelle ville êtes-vous ?
+53	Dans quelle ville se trouve l'hôtel ?
+54	Dans quelles villes travaillez-vous ? Sélectionnez-les toutes, puis appuyez sur «✅ Terminé».
+55	Votre année de naissance (ex. : 1990).
+56	Dans quel district ou mahalla habitez-vous ?
+57	Dans quel district / mahalla se trouve l'hôtel ?
+58	Adresse complète (rue, maison).
+59	📍 Envoyez la position de l'hôtel : 📎 → «Position», ou collez un lien Google / Yandex Maps.
+60	Quelles langues parlez-vous ? Sélectionnez-les, puis «✅ Terminé».
+61	Quelles langues parle votre personnel ?
+62	Numéro de la carte de guide ou du diplôme de guide.
+63	Numéro du permis de conduire.
+64	Depuis combien d'années travaillez-vous avec des voyageurs ? (nombre)
+65	Depuis combien d'années conduisez-vous ?
+66	Numéro INN (identifiant fiscal).
+67	INN (identifiant fiscal) ou numéro d'auto-entrepreneur. Sinon, «➡️ Passer».
+68	Numéro au registre du Comité du tourisme (hébergement). Sinon, «➡️ Passer».
+69	Nombre d'étoiles :
+70	Heure d'arrivée (check-in) :
+71	Heure de départ (check-out) :
+72	Quels équipements avez-vous ? Sélectionnez-les, puis «✅ Terminé».
+73	Quelle est votre règle d'annulation ?
+74	Votre catégorie de guide :
+75	Votre prix net pour une journée complète (8 heures) — en DOLLARS US. Chiffres uniquement, ex. : 60
+76	Prix d'une demi-journée (4 heures), $ (facultatif).
+77	Prix net de votre service — en DOLLARS US (par personne ou par prestation). Exemple : 30
+78	Parlez de vous (au moins 2–3 phrases) : expérience, tours que vous menez, ce qui vous distingue.
+79	En bref, sur vous et votre service (au moins 1–2 phrases).
+80	Décrivez l'hôtel : emplacement, équipements des chambres, petit-déjeuner, ses points forts.
+81	Votre e-mail (facultatif). Sinon, «➡️ Passer».
+82	📷 Photo principale : portrait en tenue classique ou traditionnelle, visage bien visible. Envoyez 1 photo.
+83	📷 Photo principale : façade du bâtiment ou cour / réception. 1 photo.
+84	🪪 Photo nette de votre carte de guide ou diplôme (numéro lisible). Nous seuls la voyons.
+85	🪪 Photo nette de votre permis de conduire. Nous seuls la voyons.
+86	📷 Photos de vous seul(e) — au moins 3. Vous pouvez toutes les envoyer d'un coup.
+87	📷 Photos avec des voyageurs — au moins 10 (uniquement avec leur accord). Vous pouvez les envoyer en album.
+88	📷 Photos de la voiture — au moins 6 : extérieur, intérieur, coffre.
+89	📄 Photo de la carte grise (numéro lisible). Nous seuls la voyons.
+90	📷 Photos générales — au moins 5 : réception, cour, salle du petit-déjeuner, salle de bains, rue.
+91	🛏 Type de chambre :
+92	Nom de la chambre (ex. : Deluxe double, vue sur la cour). Si vous passez, le type de chambre sera utilisé.
+93	Pour combien de personnes ?
+94	Lits :
+95	Combien de chambres de ce type l'hôtel a-t-il ? (nombre)
+96	Le petit-déjeuner est-il inclus dans le prix ?
+97	💵 Prix NET par nuit — en DOLLARS US. Chiffres uniquement, ex. : 45\n(Le prix qui vous est versé. Sur le site, le client le voit avec les frais de service.)
+98	📷 Photos de cette chambre — au moins 2 (lit, salle de bains).
+99	🚗 Catégorie du véhicule :
+100	Marque et modèle (ex. : Chevrolet Malibu 2).
+101	Année de fabrication :
+102	Combien de places passagers ? (sans le chauffeur)
+103	Combien de valises tiennent ?
+104	Plaque d'immatriculation (nous seuls la voyons) :
+105	Y a-t-il la climatisation ?
+106	💵 Prix NET d'une journée de location (avec chauffeur) — en DOLLARS US. Exemple : 70
+107	💵 Prix du transfert aéroport, $ (facultatif).
+108	📷 Photos de ce véhicule — au moins 2 (extérieur, intérieur).
+109	Tachkent
+110	Samarcande
+111	Boukhara
+112	Khiva
+113	Chakhrisabz
+114	Namangan
+115	Andijan
+116	Ferghana
+117	Kokand
+118	Marguilan
+119	Ourguentch
+120	Noukous
+121	Termez
+122	Karchi
+123	Navoï
+124	Djizak
+125	Goulistan
+126	Moïnak
+127	Tchimgan / Tcharvak
+128	🇬🇧 Anglais
+129	🇷🇺 Russe
+130	🇺🇿 Ouzbek
+131	🇩🇪 Allemand
+132	🇫🇷 Français
+133	🇮🇹 Italien
+134	🇪🇸 Espagnol
+135	🇹🇷 Turc
+136	🇸🇦 Arabe
+137	🇨🇳 Chinois
+138	🇯🇵 Japonais
+139	🇰🇷 Coréen
+140	✅ Oui
+141	❌ Non
+142	Guide amateur
+143	Guide spécialisé
+144	Guide professionnel
+145	Guide du «Fonds d'or»
+146	Wi-Fi
+147	Petit-déjeuner
+148	Parking
+149	Climatisation
+150	Transfert
+151	Restaurant
+152	Piscine
+153	Blanchisserie
+154	Réception 24h/24
+155	Chambres familiales
+156	Cour traditionnelle
+157	Ascenseur
+158	Terrasse
+159	Non-fumeurs
+160	Sans étoiles / maison d'hôtes
+161	Annulation gratuite — 1 jour avant
+162	Annulation gratuite — 3 jours avant
+163	Annulation gratuite — 7 jours avant
+164	Non remboursable
+165	Standard
+166	Deluxe
+167	Suite
+168	Familiale
+169	Simple
+170	Auberge (lit)
+171	1 lit double
+172	2 lits simples
+173	1 lit simple
+174	3 lits simples
+175	Double + simple
+176	Lits superposés
+177	Économie (Cobalt, Nexia)
+178	Confort (Malibu, Camry)
+179	Affaires (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Minivan (4–7 pers.)
+182	Minibus (8–19 pers.)
+183	Bus (20+ pers.)
+184	🙋 Chauffeur privé
+185	🏢 Société de transport
+186	🧑‍🏫 Guide
+187	🚐 Transport / chauffeur
+188	🏨 Hôtel / maison d'hôtes
+189	✨ Autre service
+190	 pers.
+191	chiffres
+192	Aucune photo n'est nécessaire maintenant — répondez à la question ci-dessus.
+193	Type
+194	Nom
+195	Service
+196	Téléphone
+197	Ville
+198	Travaille à
+199	Adresse
+200	Carte
+201	Année de naissance
+202	Langues
+203	N° de document / registre
+204	Expérience
+205	 ans
+206	INN
+207	Catégorie
+208	Étoiles
+209	Équipements
+210	Annulation
+211	Prix
+212	 places
+213	Photos

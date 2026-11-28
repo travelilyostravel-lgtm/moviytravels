@@ -1,0 +1,213 @@
+1	👋 Moviy Nomad iş ortağı botuna hoş geldiniz!\n\nHangi tür iş ortağı olmak istiyorsunuz?
+2	⬅️ Geri
+3	➡️ Atla
+4	✅ Tamam
+5	✖️ İptal
+6	📱 Numaramı gönder
+7	📍 Konum gönder
+8	Lütfen metin yazın ({min}–{max} karakter).
+9	Çok kısa. En az {min} karakter yazın.
+10	Yalnızca rakam ({min}–{max}).
+11	❗ Fiyatı ABD DOLARI olarak, yalnızca rakamla yazın ({min}–{max}). Som cinsinden fiyat kabul edilmez — dolara çevirin. Örnek: 45
+12	Numarayı +998 90 123 45 67 biçiminde yazın veya «📱 Numaramı gönder» düğmesine basın.
+13	E-posta hatalı. Örnek: isim@gmail.com
+14	📍 Konum veya harita bağlantısı gönderin.
+15	Aşağıdaki düğmelerden birine basın.
+16	En az {min} tane seçin, sonra «✅ Tamam».
+17	📷 Fotoğraf gönderin (dosya olarak değil, fotoğraf olarak). Şu an: {n} / {min}.
+18	✅ Alındı: {n}. 
+19	{k} tane daha gerekli.
+20	Yeterli. Daha fazla gönderebilir veya «✅ Tamam»a basabilirsiniz.
+21	En fazla {max}. Sıradaki soru:
+22	Başka oda tipi eklensin mi?
+23	Başka araç eklensin mi?
+24	➕ Evet, ekle
+25	✅ Hayır, devam
+26	✅ Eklendi: {name} — ${price}
+27	🛏 {n}. oda tipi
+28	🚗 {n}. araç
+29	📋 Başvurunuz hazır. Lütfen kontrol edin:
+30	✅ Gönder
+31	🔄 Baştan doldur
+32	⏳ Gönderiliyor… Fotoğraflar yükleniyor, 1 dakikaya kadar bekleyin.
+33	🎉 Başvurunuz alındı!\n\nMoviy Nomad ekibi 1–3 iş günü içinde inceleyecek. Sonuç bu bota gelecek. Onaylandığında kartınız sitede görünecek.\n\nHesabınıza buradan istediğiniz zaman girebilirsiniz: /kabinet
+34	⚠ Gönderim hatası. Bir dakika sonra «✅ Gönder»e tekrar basın. Tekrarlarsa bize yazın: @moviy_safina
+35	Kayda başlamıştınız. Devam edelim mi?
+36	▶️ Devam et
+37	Zaten Moviy Nomad iş ortağısınız: {name}.\n\nHesabınıza girmek için düğmeye basın:
+38	🔑 Hesabıma gir
+39	🔑 Hesap giriş bağlantınız (1 saat geçerli, yalnızca sizin için — kimseyle paylaşmayın):
+40	Bağlantı oluşturulamadı. Lütfen daha sonra deneyin.
+41	İptal edildi. Yeniden başlamak için /start'a basın.
+42	Soru {i} / {n}
+43	Evet
+44	Hayır
+45	Adınızı ve soyadınızı yazın (pasaporttaki gibi).
+46	Otelin adını yazın.
+47	Adınız soyadınız veya şirket adı.
+48	Hangi hizmeti veriyorsunuz? (ör. fotoğrafçı, aşçı, atölye)
+49	Nasıl kayıt oluyorsunuz?
+50	Telefon numaranızı gönderin: aşağıdaki «📱 Numaramı gönder» düğmesine basın veya +998… biçiminde yazın.
+51	WhatsApp numaranız (farklıysa). Aynıysa «➡️ Atla»ya basın.
+52	Hangi şehirdesiniz?
+53	Otel hangi şehirde?
+54	Hangi şehirlerde çalışıyorsunuz? Hepsini seçin, sonra «✅ Tamam»a basın.
+55	Doğum yılınız (ör. 1990).
+56	Hangi ilçe veya mahallede yaşıyorsunuz?
+57	Otel hangi ilçe / mahallede?
+58	Tam adres (sokak, ev).
+59	📍 Otelin konumunu gönderin: 📎 → «Konum» ya da Google / Yandex harita bağlantısı yapıştırın.
+60	Hangi dilleri konuşuyorsunuz? Seçin, sonra «✅ Tamam».
+61	Personeliniz hangi dilleri konuşuyor?
+62	Rehber belgesi veya rehberlik diploması numarası.
+63	Sürücü belgesi numarası.
+64	Kaç yıldır turistlerle çalışıyorsunuz? (sayı)
+65	Kaç yıldır araç kullanıyorsunuz?
+66	INN (vergi) numarası.
+67	INN (vergi) veya serbest meslek belgesi numarası. Yoksa «➡️ Atla».
+68	Turizm Komitesi sicil numarası (konaklama tesisi). Yoksa «➡️ Atla».
+69	Yıldız sayısı:
+70	Giriş saati (check-in):
+71	Çıkış saati (check-out):
+72	Hangi olanaklar var? Seçin, sonra «✅ Tamam».
+73	İptal kuralınız nedir?
+74	Rehber kategoriniz:
+75	Tam gün (8 saat) net fiyatınız — ABD DOLARI olarak. Yalnızca rakam, ör. 60
+76	Yarım gün (4 saat) fiyatı, $ (isteğe bağlı).
+77	Hizmetinizin net fiyatı — ABD DOLARI olarak (kişi başı veya seferlik). Örnek: 30
+78	Kendinizi anlatın (en az 2–3 cümle): deneyim, hangi turları yaptığınız, sizi farklı kılan.
+79	Kendiniz ve hizmetiniz hakkında kısaca (en az 1–2 cümle).
+80	Oteli anlatın: konum, oda olanakları, kahvaltı, güzel yanları.
+81	E-posta adresiniz (isteğe bağlı). Yoksa «➡️ Atla».
+82	📷 Ana fotoğraf: klasik veya milli kıyafetle, yüzün net göründüğü portre. 1 fotoğraf gönderin.
+83	📷 Ana fotoğraf: bina cephesi veya avlu / resepsiyon. 1 fotoğraf.
+84	🪪 Rehber belgesinin veya diplomanın net fotoğrafı (numara okunsun). Bunu yalnızca biz görürüz.
+85	🪪 Sürücü belgesinin net fotoğrafı. Bunu yalnızca biz görürüz.
+86	📷 Tek başınıza fotoğraflarınız — en az 3. Hepsini birden gönderebilirsiniz.
+87	📷 Turistlerle fotoğraflar — en az 10 (yalnızca onların izniyle). Albüm olarak gönderebilirsiniz.
+88	📷 Araç fotoğrafları — en az 6: dış görünüm, iç mekân, bagaj.
+89	📄 Araç ruhsatı fotoğrafı (numara okunsun). Bunu yalnızca biz görürüz.
+90	📷 Genel fotoğraflar — en az 5: resepsiyon, avlu, kahvaltı salonu, banyo, sokak.
+91	🛏 Oda tipi:
+92	Oda adı (ör. Deluxe çift kişilik, avlu manzaralı). Atlarsanız oda tipi yazılır.
+93	Kaç kişilik?
+94	Yataklar:
+95	Otelde bu tipten kaç oda var? (sayı)
+96	Kahvaltı fiyata dahil mi?
+97	💵 Gecelik NET fiyat — ABD DOLARI olarak. Yalnızca rakam, ör. 45\n(Size ödenen fiyat. Sitede müşteri bunu hizmet bedeliyle görür.)
+98	📷 Bu odanın fotoğrafları — en az 2 (yatak, banyo).
+99	🚗 Araç sınıfı:
+100	Marka ve model (ör. Chevrolet Malibu 2).
+101	Üretim yılı:
+102	Kaç yolcu koltuğu var? (sürücü hariç)
+103	Kaç valiz sığar?
+104	Plaka (yalnızca biz görürüz):
+105	Klima var mı?
+106	💵 1 günlük kiralama NET fiyatı (sürücülü) — ABD DOLARI olarak. Örnek: 70
+107	💵 Havalimanı transfer fiyatı, $ (isteğe bağlı).
+108	📷 Bu aracın fotoğrafları — en az 2 (dış, iç).
+109	Taşkent
+110	Semerkant
+111	Buhara
+112	Hive
+113	Şehrisebz
+114	Namangan
+115	Andican
+116	Fergana
+117	Hokand
+118	Margilan
+119	Ürgenç
+120	Nukus
+121	Termez
+122	Karşi
+123	Navoi
+124	Cizzah
+125	Gülistan
+126	Muynak
+127	Çimgan / Çarvak
+128	🇬🇧 İngilizce
+129	🇷🇺 Rusça
+130	🇺🇿 Özbekçe
+131	🇩🇪 Almanca
+132	🇫🇷 Fransızca
+133	🇮🇹 İtalyanca
+134	🇪🇸 İspanyolca
+135	🇹🇷 Türkçe
+136	🇸🇦 Arapça
+137	🇨🇳 Çince
+138	🇯🇵 Japonca
+139	🇰🇷 Korece
+140	✅ Evet
+141	❌ Hayır
+142	Amatör rehber
+143	Uzman rehber
+144	Profesyonel rehber
+145	«Altın Fon» rehberi
+146	Wi-Fi
+147	Kahvaltı
+148	Otopark
+149	Klima
+150	Transfer
+151	Restoran
+152	Havuz
+153	Çamaşırhane
+154	24 saat resepsiyon
+155	Aile odaları
+156	Geleneksel avlu
+157	Asansör
+158	Teras
+159	Sigara içilmez
+160	Yıldızsız / pansiyon
+161	Ücretsiz iptal — 1 gün önce
+162	Ücretsiz iptal — 3 gün önce
+163	Ücretsiz iptal — 7 gün önce
+164	İade edilmez
+165	Standart
+166	Deluxe
+167	Süit
+168	Aile
+169	Tek kişilik
+170	Hostel (yatak)
+171	1 çift kişilik
+172	2 tek kişilik
+173	1 tek kişilik
+174	3 tek kişilik
+175	Çift + tek kişilik
+176	Ranza
+177	Ekonomi (Cobalt, Nexia)
+178	Konfor (Malibu, Camry)
+179	Business (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Minivan (4–7 kişi)
+182	Minibüs (8–19 kişi)
+183	Otobüs (20+ kişi)
+184	🙋 Özel sürücü
+185	🏢 Ulaşım şirketi
+186	🧑‍🏫 Rehber
+187	🚐 Ulaşım / sürücü
+188	🏨 Otel / pansiyon
+189	✨ Başka hizmet
+190	 kişi
+191	rakam
+192	Şu an fotoğraf gerekmiyor — lütfen yukarıdaki soruyu yanıtlayın.
+193	Tür
+194	Ad
+195	Hizmet
+196	Telefon
+197	Şehir
+198	Çalıştığı şehirler
+199	Adres
+200	Harita
+201	Doğum yılı
+202	Diller
+203	Belge / sicil numarası
+204	Deneyim
+205	 yıl
+206	INN
+207	Kategori
+208	Yıldız
+209	Olanaklar
+210	İptal
+211	Fiyat
+212	 koltuk
+213	Fotoğraflar

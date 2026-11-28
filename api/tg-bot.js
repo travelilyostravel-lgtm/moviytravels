@@ -26,8 +26,8 @@ function readBody(req) {
     var d = ""; req.on("data", function (c) { d += c; if (d.length > 65536) req.destroy(); }); req.on("end", function () { try { ok(JSON.parse(d || "{}")); } catch (e) { ok({}); } }); req.on("error", function () { ok({}); });
   });
 }
-const BTN = { inline_keyboard: [[{ text: "🔑 Kabinet / Кабинет", url: SITE + "/partner/" }]] };
-const HELLO = "👋 Assalomu alaykum! Bu — Moviy Nomad hamkorlar boti.\n\n• Hamkor bo'lish (ro'yxatdan o'tish): /start\n• Kabinetga kirish: /kabinet\n• Saytda allaqachon ro'yxatdan o'tgan bo'lsangiz — kabinetingizda «📲 Telegram» tugmasini bosing, xabarnomalar shu yerga keladi.\n\n— — —\n\nЗдравствуйте! Это бот партнёров Moviy Nomad.\n• Стать партнёром: /start\n• Войти в кабинет: /kabinet\n• Уже зарегистрированы на сайте — нажмите «📲 Telegram» в кабинете.";
+const BTN = { inline_keyboard: [[{ text: "🔑 Kabinet / Кабинет / Account", url: SITE + "/partner/" }]] };
+const HELLO = "👋 Assalomu alaykum! Bu — Moviy Nomad hamkorlar boti.\n\n• Hamkor bo'lish (ro'yxatdan o'tish): /start\n• Kabinetga kirish: /kabinet\n• Saytda allaqachon ro'yxatdan o'tgan bo'lsangiz — kabinetingizda «📲 Telegram» tugmasini bosing, xabarnomalar shu yerga keladi.\n\n— — —\n\nЗдравствуйте! Это бот партнёров Moviy Nomad.\n• Стать партнёром: /start\n• Войти в кабинет: /kabinet\n• Уже зарегистрированы на сайте — нажмите «📲 Telegram» в кабинете.\n\n— — —\n\nHello! This is the Moviy Nomad partner bot (30 languages).\n• Become a partner: /start\n• Open your account: /kabinet\n• Already registered on the site — press «📲 Telegram» in your account.";
 
 module.exports = async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
@@ -57,7 +57,7 @@ module.exports = async function handler(req, res) {
     var sent = 0, failed = 0, list = [];
     try { list = await rpc("tg_outbox_take", { p_key: key }); } catch (e) { return res.status(500).json({ ok: false, error: String(e.message || e) }); }
     for (var i = 0; i < (list || []).length; i++) {
-      var m = list[i], out = await tg(token, "sendMessage", { chat_id: m.chat, text: m.text, disable_web_page_preview: true, reply_markup: m.button ? { inline_keyboard: [[{ text: "🔑 Kabinet / Кабинет", url: m.button }]] } : undefined });
+      var m = list[i], out = await tg(token, "sendMessage", { chat_id: m.chat, text: m.text, disable_web_page_preview: true, reply_markup: m.button ? { inline_keyboard: [[{ text: "🔑 Kabinet / Кабинет / Account", url: m.button }]] } : undefined });
       try { await rpc("tg_outbox_done", { p_key: key, p_id: m.id, p_ok: !!out.ok, p_err: out.ok ? null : String(out.description || "error") }); } catch (e) {}
       if (out.ok) sent++; else failed++;
       await new Promise(function (r2) { setTimeout(r2, 60); });   // stay well under Telegram's speed limit
@@ -78,8 +78,8 @@ module.exports = async function handler(req, res) {
     if (mm && mm[1]) {
       var lk = null; try { lk = await rpc("tg_link", { p_key: key, p_code: mm[1], p_chat: chat }); } catch (e) {}
       if (lk && lk.ok) await tg(token, "sendMessage", { chat_id: chat, reply_markup: BTN,
-        text: "✅ " + (lk.name || "") + ", Telegram xabarnomalar ulandi! Endi kartochkangiz va buyurtmalar haqidagi muhim xabarlar shu yerga keladi.\n\n— — —\n\n✅ Уведомления подключены! Важные сообщения о карточке и заказах будут приходить сюда." });
-      else await tg(token, "sendMessage", { chat_id: chat, reply_markup: BTN, text: "⚠ Havola eskirgan. Kabinetingizda «📲 Telegram» tugmasini qayta bosing.\n\n⚠ Ссылка устарела. Нажмите «📲 Telegram» в кабинете ещё раз." });
+        text: "✅ " + (lk.name || "") + ", Telegram xabarnomalar ulandi! Endi kartochkangiz va buyurtmalar haqidagi muhim xabarlar shu yerga keladi.\n\n— — —\n\n✅ Уведомления подключены! Важные сообщения о карточке и заказах будут приходить сюда.\n\n✅ Notifications are on! Important messages about your card and orders will come here." });
+      else await tg(token, "sendMessage", { chat_id: chat, reply_markup: BTN, text: "⚠ Havola eskirgan. Kabinetingizda «📲 Telegram» tugmasini qayta bosing.\n\n⚠ Ссылка устарела. Нажмите «📲 Telegram» в кабинете ещё раз.\n\n⚠ The link has expired. Press «📲 Telegram» in your account again." });
     } else {
       await tg(token, "sendMessage", { chat_id: chat, text: HELLO, reply_markup: BTN });
     }

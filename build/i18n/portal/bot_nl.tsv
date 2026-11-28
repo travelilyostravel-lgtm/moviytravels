@@ -1,0 +1,213 @@
+1	👋 Welkom bij de partnerbot van Moviy Nomad!\n\nWat voor partner wilt u worden?
+2	⬅️ Terug
+3	➡️ Overslaan
+4	✅ Klaar
+5	✖️ Annuleren
+6	📱 Mijn nummer sturen
+7	📍 Locatie sturen
+8	Typ een tekst ({min}–{max} tekens).
+9	Te kort. Typ minstens {min} tekens.
+10	Alleen cijfers ({min}–{max}).
+11	❗ Vul de prijs in AMERIKAANSE DOLLARS in, alleen cijfers ({min}–{max}). Prijzen in sum worden niet geaccepteerd — reken om naar dollars. Voorbeeld: 45
+12	Typ het nummer als +998 90 123 45 67 of druk op «📱 Mijn nummer sturen».
+13	Onjuist e-mailadres. Voorbeeld: naam@gmail.com
+14	📍 Stuur een locatie of een kaartlink.
+15	Druk op een van de knoppen hieronder.
+16	Kies er minstens {min}, daarna «✅ Klaar».
+17	📷 Stuur een foto (als foto, niet als bestand). Tot nu toe: {n} / {min}.
+18	✅ Ontvangen: {n}. 
+19	Nog {k} nodig.
+20	Dat is genoeg. U kunt meer sturen of op «✅ Klaar» drukken.
+21	Het maximum is {max}. Volgende vraag:
+22	Nog een kamertype toevoegen?
+23	Nog een voertuig toevoegen?
+24	➕ Ja, toevoegen
+25	✅ Nee, verder
+26	✅ Toegevoegd: {name} — ${price}
+27	🛏 Kamertype {n}
+28	🚗 Voertuig {n}
+29	📋 Uw aanmelding is klaar. Controleer haar:
+30	✅ Versturen
+31	🔄 Opnieuw invullen
+32	⏳ Bezig met versturen… Foto's worden geüpload, wacht tot 1 minuut.
+33	🎉 Uw aanmelding is ontvangen!\n\nHet Moviy Nomad-team controleert haar binnen 1–3 werkdagen. Het resultaat komt in deze bot. Na goedkeuring verschijnt uw kaart op de site.\n\nU opent uw account hier op elk moment: /kabinet
+34	⚠ Fout bij versturen. Druk over een minuut opnieuw op «✅ Versturen». Gebeurt het weer, schrijf ons: @moviy_safina
+35	U was begonnen met aanmelden. Zullen we verdergaan?
+36	▶️ Doorgaan
+37	U bent al partner van Moviy Nomad: {name}.\n\nDruk op de knop om uw account te openen:
+38	🔑 Mijn account openen
+39	🔑 Inloglink voor uw account (1 uur geldig, alleen voor u — deel hem met niemand):
+40	Kon de link niet maken. Probeer het later opnieuw.
+41	Geannuleerd. Druk op /start om opnieuw te beginnen.
+42	Vraag {i} / {n}
+43	Ja
+44	Nee
+45	Typ uw voor- en achternaam (zoals in uw paspoort).
+46	Typ de naam van het hotel.
+47	Uw volledige naam of bedrijfsnaam.
+48	Welke dienst biedt u aan? (bijv. fotograaf, kok, workshop)
+49	Als wat meldt u zich aan?
+50	Stuur uw telefoonnummer: druk hieronder op «📱 Mijn nummer sturen» of typ het als +998…
+51	Uw WhatsApp-nummer (als het anders is). Is het hetzelfde, druk dan op «➡️ Overslaan».
+52	In welke stad bent u?
+53	In welke stad ligt het hotel?
+54	In welke steden werkt u? Kies ze allemaal en druk op «✅ Klaar».
+55	Uw geboortejaar (bijv. 1990).
+56	In welk district of welke mahalla woont u?
+57	In welk district / welke mahalla ligt het hotel?
+58	Volledig adres (straat, huisnummer).
+59	📍 Stuur de locatie van het hotel: 📎 → «Locatie», of plak een Google / Yandex Maps-link.
+60	Welke talen spreekt u? Kies ze, daarna «✅ Klaar».
+61	Welke talen spreekt uw personeel?
+62	Nummer van de gidspas of het gidsdiploma.
+63	Nummer van het rijbewijs.
+64	Hoeveel jaar werkt u al met reizigers? (getal)
+65	Hoeveel jaar rijdt u al?
+66	INN-nummer (fiscaal nummer).
+67	INN (fiscaal nummer) of nummer als zelfstandige. Zo niet, «➡️ Overslaan».
+68	Nummer in het register van het Comité voor Toerisme (accommodatie). Zo niet, «➡️ Overslaan».
+69	Aantal sterren:
+70	Inchecktijd:
+71	Uitchecktijd:
+72	Welke voorzieningen zijn er? Kies ze, daarna «✅ Klaar».
+73	Wat is uw annuleringsregel?
+74	Uw gidscategorie:
+75	Uw nettoprijs voor een hele dag (8 uur) — in AMERIKAANSE DOLLARS. Alleen cijfers, bijv. 60
+76	Prijs voor een halve dag (4 uur), $ (optioneel).
+77	Nettoprijs van uw dienst — in AMERIKAANSE DOLLARS (per persoon of per keer). Voorbeeld: 30
+78	Schrijf over uzelf (minstens 2–3 zinnen): ervaring, welke tours u leidt, wat u onderscheidt.
+79	Kort over uzelf en uw dienst (minstens 1–2 zinnen).
+80	Beschrijf het hotel: ligging, voorzieningen in de kamers, ontbijt, sterke punten.
+81	Uw e-mailadres (optioneel). Zo niet, «➡️ Overslaan».
+82	📷 Hoofdfoto: portret in klassieke of traditionele kleding, gezicht goed zichtbaar. Stuur 1 foto.
+83	📷 Hoofdfoto: voorgevel of binnenplaats / receptie. 1 foto.
+84	🪪 Duidelijke foto van uw gidspas of diploma (nummer leesbaar). Alleen wij zien hem.
+85	🪪 Duidelijke foto van uw rijbewijs. Alleen wij zien hem.
+86	📷 Foto's van uzelf alleen — minstens 3. U mag ze allemaal tegelijk sturen.
+87	📷 Foto's met reizigers — minstens 10 (alleen met hun toestemming). U mag ze als album sturen.
+88	📷 Foto's van de auto — minstens 6: buitenkant, interieur, kofferbak.
+89	📄 Foto van het kentekenbewijs (nummer leesbaar). Alleen wij zien hem.
+90	📷 Algemene foto's — minstens 5: receptie, binnenplaats, ontbijtzaal, badkamer, straat.
+91	🛏 Kamertype:
+92	Naam van de kamer (bijv. Deluxe tweepersoons, uitzicht op binnenplaats). Slaat u dit over, dan wordt het kamertype gebruikt.
+93	Voor hoeveel personen?
+94	Bedden:
+95	Hoeveel kamers van dit type heeft het hotel? (getal)
+96	Is het ontbijt bij de prijs inbegrepen?
+97	💵 NETTOprijs per nacht — in AMERIKAANSE DOLLARS. Alleen cijfers, bijv. 45\n(De prijs die aan u wordt betaald. Op de site ziet de klant hem met servicekosten.)
+98	📷 Foto's van deze kamer — minstens 2 (bed, badkamer).
+99	🚗 Voertuigklasse:
+100	Merk en model (bijv. Chevrolet Malibu 2).
+101	Bouwjaar:
+102	Hoeveel passagiersplaatsen? (zonder chauffeur)
+103	Hoeveel koffers passen erin?
+104	Kenteken (alleen wij zien het):
+105	Is er airconditioning?
+106	💵 NETTOprijs voor 1 dag huur (met chauffeur) — in AMERIKAANSE DOLLARS. Voorbeeld: 70
+107	💵 Prijs van de luchthaventransfer, $ (optioneel).
+108	📷 Foto's van dit voertuig — minstens 2 (buitenkant, interieur).
+109	Tasjkent
+110	Samarkand
+111	Buchara
+112	Chiva
+113	Sjachrisabz
+114	Namangan
+115	Andizjan
+116	Fergana
+117	Kokand
+118	Margilan
+119	Urgench
+120	Nukus
+121	Termez
+122	Karsji
+123	Navoi
+124	Djizzak
+125	Goelistan
+126	Moejnak
+127	Tsjimgan / Tsjarvak
+128	🇬🇧 Engels
+129	🇷🇺 Russisch
+130	🇺🇿 Oezbeeks
+131	🇩🇪 Duits
+132	🇫🇷 Frans
+133	🇮🇹 Italiaans
+134	🇪🇸 Spaans
+135	🇹🇷 Turks
+136	🇸🇦 Arabisch
+137	🇨🇳 Chinees
+138	🇯🇵 Japans
+139	🇰🇷 Koreaans
+140	✅ Ja
+141	❌ Nee
+142	Amateurgids
+143	Gespecialiseerde gids
+144	Professionele gids
+145	Gids van het «Gouden Fonds»
+146	Wifi
+147	Ontbijt
+148	Parkeerplaats
+149	Airconditioning
+150	Transfer
+151	Restaurant
+152	Zwembad
+153	Wasserette
+154	24-uursreceptie
+155	Familiekamers
+156	Traditionele binnenplaats
+157	Lift
+158	Terras
+159	Rookvrij
+160	Zonder sterren / pension
+161	Gratis annuleren — 1 dag van tevoren
+162	Gratis annuleren — 3 dagen van tevoren
+163	Gratis annuleren — 7 dagen van tevoren
+164	Niet-restitueerbaar
+165	Standaard
+166	Deluxe
+167	Suite
+168	Familie
+169	Eenpersoons
+170	Hostel (bed)
+171	1 tweepersoonsbed
+172	2 eenpersoonsbedden
+173	1 eenpersoonsbed
+174	3 eenpersoonsbedden
+175	Tweepersoons + eenpersoons
+176	Stapelbed
+177	Economy (Cobalt, Nexia)
+178	Comfort (Malibu, Camry)
+179	Business (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Minivan (4–7 pers.)
+182	Minibus (8–19 pers.)
+183	Bus (20+ pers.)
+184	🙋 Particuliere chauffeur
+185	🏢 Vervoersbedrijf
+186	🧑‍🏫 Gids
+187	🚐 Vervoer / chauffeur
+188	🏨 Hotel / pension
+189	✨ Andere dienst
+190	 pers.
+191	cijfers
+192	Er is nu geen foto nodig — beantwoord de vraag hierboven.
+193	Type
+194	Naam
+195	Dienst
+196	Telefoon
+197	Stad
+198	Werkt in
+199	Adres
+200	Kaart
+201	Geboortejaar
+202	Talen
+203	Document- / registernummer
+204	Ervaring
+205	 jaar
+206	INN
+207	Categorie
+208	Sterren
+209	Voorzieningen
+210	Annulering
+211	Prijs
+212	 plaatsen
+213	Foto's

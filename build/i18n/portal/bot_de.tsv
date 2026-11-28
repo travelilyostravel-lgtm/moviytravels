@@ -1,0 +1,213 @@
+1	👋 Willkommen beim Partner-Bot von Moviy Nomad!\n\nWelche Art von Partner möchten Sie werden?
+2	⬅️ Zurück
+3	➡️ Überspringen
+4	✅ Fertig
+5	✖️ Abbrechen
+6	📱 Meine Nummer senden
+7	📍 Standort senden
+8	Bitte schreiben Sie einen Text ({min}–{max} Zeichen).
+9	Zu kurz. Schreiben Sie mindestens {min} Zeichen.
+10	Nur Ziffern ({min}–{max}).
+11	❗ Geben Sie den Preis in US-DOLLAR an, nur Ziffern ({min}–{max}). Preise in Sum werden nicht angenommen — bitte in Dollar umrechnen. Beispiel: 45
+12	Schreiben Sie die Nummer wie +998 90 123 45 67 oder tippen Sie auf «📱 Meine Nummer senden».
+13	Ungültige E-Mail. Beispiel: name@gmail.com
+14	📍 Senden Sie einen Standort oder einen Kartenlink.
+15	Tippen Sie auf eine der Schaltflächen unten.
+16	Wählen Sie mindestens {min}, dann «✅ Fertig».
+17	📷 Senden Sie ein Foto (als Foto, nicht als Datei). Bisher: {n} / {min}.
+18	✅ Erhalten: {n}. 
+19	Noch {k} nötig.
+20	Das reicht. Sie können weitere senden oder auf «✅ Fertig» tippen.
+21	Das Maximum ist {max}. Nächste Frage:
+22	Noch einen Zimmertyp hinzufügen?
+23	Noch ein Fahrzeug hinzufügen?
+24	➕ Ja, hinzufügen
+25	✅ Nein, weiter
+26	✅ Hinzugefügt: {name} — ${price}
+27	🛏 Zimmertyp {n}
+28	🚗 Fahrzeug {n}
+29	📋 Ihre Bewerbung ist fertig. Bitte prüfen Sie sie:
+30	✅ Senden
+31	🔄 Neu ausfüllen
+32	⏳ Wird gesendet… Fotos werden hochgeladen, bitte bis zu 1 Minute warten.
+33	🎉 Ihre Bewerbung ist eingegangen!\n\nDas Moviy-Nomad-Team prüft sie innerhalb von 1–3 Werktagen. Das Ergebnis kommt in diesen Bot. Nach der Freigabe erscheint Ihre Karte auf der Website.\n\nIhr Konto öffnen Sie jederzeit hier: /kabinet
+34	⚠ Fehler beim Senden. Tippen Sie in einer Minute erneut auf «✅ Senden». Wenn es wieder passiert, schreiben Sie uns: @moviy_safina
+35	Sie hatten mit der Registrierung begonnen. Weitermachen?
+36	▶️ Weiter
+37	Sie sind bereits Partner von Moviy Nomad: {name}.\n\nTippen Sie auf die Schaltfläche, um Ihr Konto zu öffnen:
+38	🔑 Mein Konto öffnen
+39	🔑 Ihr Anmeldelink (1 Stunde gültig, nur für Sie — nicht weitergeben):
+40	Der Link konnte nicht erstellt werden. Bitte später erneut versuchen.
+41	Abgebrochen. Tippen Sie auf /start, um neu zu beginnen.
+42	Frage {i} / {n}
+43	Ja
+44	Nein
+45	Schreiben Sie Vor- und Nachnamen (wie im Reisepass).
+46	Schreiben Sie den Namen des Hotels.
+47	Ihr vollständiger Name oder Firmenname.
+48	Welche Leistung bieten Sie an? (z. B. Fotograf, Koch, Workshop)
+49	Als was registrieren Sie sich?
+50	Senden Sie Ihre Telefonnummer: Tippen Sie unten auf «📱 Meine Nummer senden» oder schreiben Sie sie wie +998…
+51	Ihre WhatsApp-Nummer (falls abweichend). Wenn sie gleich ist, tippen Sie auf «➡️ Überspringen».
+52	In welcher Stadt sind Sie?
+53	In welcher Stadt liegt das Hotel?
+54	In welchen Städten arbeiten Sie? Alle auswählen, dann «✅ Fertig» tippen.
+55	Ihr Geburtsjahr (z. B. 1990).
+56	In welchem Bezirk oder welcher Mahalla wohnen Sie?
+57	In welchem Bezirk / welcher Mahalla liegt das Hotel?
+58	Vollständige Adresse (Straße, Hausnummer).
+59	📍 Senden Sie den Standort des Hotels: 📎 → «Standort», oder fügen Sie einen Google- / Yandex-Maps-Link ein.
+60	Welche Sprachen sprechen Sie? Auswählen, dann «✅ Fertig».
+61	Welche Sprachen spricht Ihr Personal?
+62	Nummer des Gästeführerausweises oder -diploms.
+63	Nummer des Führerscheins.
+64	Wie viele Jahre arbeiten Sie schon mit Reisenden? (Zahl)
+65	Seit wie vielen Jahren fahren Sie?
+66	INN-Nummer (Steuernummer).
+67	INN (Steuernummer) oder Nummer als Selbstständiger. Falls keine, «➡️ Überspringen».
+68	Nummer im Register des Tourismuskomitees (Unterkunft). Falls keine, «➡️ Überspringen».
+69	Sternezahl:
+70	Check-in-Zeit:
+71	Check-out-Zeit:
+72	Welche Ausstattung gibt es? Auswählen, dann «✅ Fertig».
+73	Welche Stornoregel haben Sie?
+74	Ihre Gästeführer-Kategorie:
+75	Ihr Nettopreis für einen ganzen Tag (8 Stunden) — in US-DOLLAR. Nur Ziffern, z. B. 60
+76	Preis für einen halben Tag (4 Stunden), $ (optional).
+77	Nettopreis Ihrer Leistung — in US-DOLLAR (pro Person oder pro Mal). Beispiel: 30
+78	Schreiben Sie über sich (mindestens 2–3 Sätze): Erfahrung, welche Touren Sie führen, was Sie auszeichnet.
+79	Kurz über Sie und Ihre Leistung (mindestens 1–2 Sätze).
+80	Beschreiben Sie das Hotel: Lage, Zimmerausstattung, Frühstück, was es auszeichnet.
+81	Ihre E-Mail (optional). Falls keine, «➡️ Überspringen».
+82	📷 Hauptfoto: Porträt in klassischer oder traditioneller Kleidung, Gesicht gut sichtbar. Senden Sie 1 Foto.
+83	📷 Hauptfoto: Gebäudefassade oder Innenhof / Rezeption. 1 Foto.
+84	🪪 Deutliches Foto Ihres Gästeführerausweises oder Diploms (Nummer lesbar). Nur wir sehen es.
+85	🪪 Deutliches Foto Ihres Führerscheins. Nur wir sehen es.
+86	📷 Fotos von Ihnen allein — mindestens 3. Sie können alle auf einmal senden.
+87	📷 Fotos mit Reisenden — mindestens 10 (nur mit deren Einverständnis). Als Album senden möglich.
+88	📷 Fotos des Autos — mindestens 6: außen, Innenraum, Kofferraum.
+89	📄 Foto des Fahrzeugscheins (Nummer lesbar). Nur wir sehen es.
+90	📷 Allgemeine Fotos — mindestens 5: Rezeption, Innenhof, Frühstücksraum, Bad, Straße.
+91	🛏 Zimmertyp:
+92	Zimmername (z. B. Deluxe Doppel, Blick auf den Innenhof). Wenn Sie überspringen, wird der Zimmertyp verwendet.
+93	Für wie viele Personen?
+94	Betten:
+95	Wie viele Zimmer dieser Art hat das Hotel? (Zahl)
+96	Ist das Frühstück im Preis enthalten?
+97	💵 NETTOpreis pro Nacht — in US-DOLLAR. Nur Ziffern, z. B. 45\n(Der Preis, der an Sie gezahlt wird. Auf der Website sieht der Kunde ihn mit Servicegebühr.)
+98	📷 Fotos dieses Zimmers — mindestens 2 (Bett, Bad).
+99	🚗 Fahrzeugklasse:
+100	Marke und Modell (z. B. Chevrolet Malibu 2).
+101	Baujahr:
+102	Wie viele Passagiersitze? (ohne Fahrer)
+103	Wie viele Koffer passen hinein?
+104	Kennzeichen (nur wir sehen es):
+105	Gibt es eine Klimaanlage?
+106	💵 NETTOpreis für 1 Miettag (mit Fahrer) — in US-DOLLAR. Beispiel: 70
+107	💵 Preis für den Flughafentransfer, $ (optional).
+108	📷 Fotos dieses Fahrzeugs — mindestens 2 (außen, innen).
+109	Taschkent
+110	Samarkand
+111	Buchara
+112	Chiwa
+113	Schahrisabs
+114	Namangan
+115	Andijon
+116	Fergana
+117	Kokand
+118	Margilan
+119	Urgentsch
+120	Nukus
+121	Termez
+122	Karschi
+123	Nawoi
+124	Dschisak
+125	Gulistan
+126	Muinak
+127	Tschimgan / Tscharwak
+128	🇬🇧 Englisch
+129	🇷🇺 Russisch
+130	🇺🇿 Usbekisch
+131	🇩🇪 Deutsch
+132	🇫🇷 Französisch
+133	🇮🇹 Italienisch
+134	🇪🇸 Spanisch
+135	🇹🇷 Türkisch
+136	🇸🇦 Arabisch
+137	🇨🇳 Chinesisch
+138	🇯🇵 Japanisch
+139	🇰🇷 Koreanisch
+140	✅ Ja
+141	❌ Nein
+142	Amateur-Gästeführer
+143	Spezialisierter Gästeführer
+144	Professioneller Gästeführer
+145	Gästeführer des «Goldenen Fonds»
+146	WLAN
+147	Frühstück
+148	Parkplatz
+149	Klimaanlage
+150	Transfer
+151	Restaurant
+152	Pool
+153	Wäscherei
+154	24-Stunden-Rezeption
+155	Familienzimmer
+156	Traditioneller Innenhof
+157	Aufzug
+158	Terrasse
+159	Nichtraucher
+160	Ohne Sterne / Gästehaus
+161	Kostenlose Stornierung — 1 Tag vorher
+162	Kostenlose Stornierung — 3 Tage vorher
+163	Kostenlose Stornierung — 7 Tage vorher
+164	Nicht erstattbar
+165	Standard
+166	Deluxe
+167	Suite
+168	Familienzimmer
+169	Einzelzimmer
+170	Hostel (Bett)
+171	1 Doppelbett
+172	2 Einzelbetten
+173	1 Einzelbett
+174	3 Einzelbetten
+175	Doppel- + Einzelbett
+176	Etagenbett
+177	Economy (Cobalt, Nexia)
+178	Komfort (Malibu, Camry)
+179	Business (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Minivan (4–7 Pers.)
+182	Kleinbus (8–19 Pers.)
+183	Bus (20+ Pers.)
+184	🙋 Privatfahrer
+185	🏢 Transportunternehmen
+186	🧑‍🏫 Gästeführer
+187	🚐 Transport / Fahrer
+188	🏨 Hotel / Gästehaus
+189	✨ Andere Leistung
+190	 Pers.
+191	Ziffern
+192	Jetzt wird kein Foto benötigt — bitte beantworten Sie die Frage oben.
+193	Art
+194	Name
+195	Leistung
+196	Telefon
+197	Stadt
+198	Arbeitet in
+199	Adresse
+200	Karte
+201	Geburtsjahr
+202	Sprachen
+203	Dokument- / Registernummer
+204	Erfahrung
+205	 Jahre
+206	INN
+207	Kategorie
+208	Sterne
+209	Ausstattung
+210	Stornierung
+211	Preis
+212	 Plätze
+213	Fotos

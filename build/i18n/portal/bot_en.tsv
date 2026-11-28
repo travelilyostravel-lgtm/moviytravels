@@ -1,0 +1,214 @@
+0	Tilni tanlang / Выберите язык / Choose a language:
+1	👋 Welcome to the Moviy Nomad partner bot!\n\nWhat kind of partner would you like to be?
+2	⬅️ Back
+3	➡️ Skip
+4	✅ Done
+5	✖️ Cancel
+6	📱 Send my number
+7	📍 Send location
+8	Please type text ({min}–{max} characters).
+9	Too short. Type at least {min} characters.
+10	Numbers only ({min}–{max}).
+11	❗ Enter the price in US DOLLARS, numbers only ({min}–{max}). Prices in sum are not accepted — convert to dollars. Example: 45
+12	Type the number like +998 90 123 45 67 or press «📱 Send my number».
+13	Wrong e-mail. Example: name@gmail.com
+14	📍 Send a location or a map link.
+15	Press one of the buttons below.
+16	Select at least {min}, then «✅ Done».
+17	📷 Send a photo (as a photo, not a file). So far: {n} / {min}.
+18	✅ Received: {n}. 
+19	{k} more needed.
+20	That's enough. You can send more or press «✅ Done».
+21	The maximum is {max}. Next question:
+22	Add another room type?
+23	Add another vehicle?
+24	➕ Yes, add more
+25	✅ No, continue
+26	✅ Added: {name} — ${price}
+27	🛏 Room type {n}
+28	🚗 Vehicle {n}
+29	📋 Your application is ready. Please check it:
+30	✅ Send
+31	🔄 Start over
+32	⏳ Sending… Uploading photos, please wait up to 1 minute.
+33	🎉 Your application has been received!\n\nThe Moviy Nomad team will check it within 1–3 working days. The result will come to this bot. Once approved, your card will appear on the site.\n\nYou can open your account from here at any time: /kabinet
+34	⚠ Sending failed. Press «✅ Send» again in a minute. If it happens again, write to us: @moviy_safina
+35	You started registering. Shall we continue?
+36	▶️ Continue
+37	You are already a Moviy Nomad partner: {name}.\n\nPress the button to open your account:
+38	🔑 Open my account
+39	🔑 Your account login link (valid for 1 hour, only for you — do not share it):
+40	Could not create the link. Please try again later.
+41	Cancelled. Press /start to begin again.
+42	Question {i} / {n}
+43	Yes
+44	No
+45	Type your first and last name (as in your passport).
+46	Type the hotel name.
+47	Your full name or company name.
+48	What service do you offer? (e.g. photographer, cook, master class)
+49	How are you registering?
+50	Send your phone number: press «📱 Send my number» below or type it like +998…
+51	Your WhatsApp number (if different). If it is the same, press «➡️ Skip».
+52	Which city are you in?
+53	Which city is the hotel in?
+54	Which cities do you work in? Select all, then press «✅ Done».
+55	Your year of birth (e.g. 1990).
+56	Which district or mahalla do you live in?
+57	Which district / mahalla is the hotel in?
+58	Full address (street, house).
+59	📍 Send the hotel location: 📎 → «Location», or paste a Google / Yandex map link.
+60	Which languages do you speak? Select them, then «✅ Done».
+61	Which languages does your staff speak?
+62	Guide certificate or guide diploma number.
+63	Driving licence number.
+64	How many years have you worked with travellers? (number)
+65	How many years have you been driving?
+66	INN (tax ID) number.
+67	INN (tax ID) or self-employed certificate number. If none, press «➡️ Skip».
+68	Number in the Tourism Committee register (accommodation). If none, press «➡️ Skip».
+69	Star rating:
+70	Check-in time:
+71	Check-out time:
+72	Which amenities do you have? Select them, then «✅ Done».
+73	What is your cancellation rule?
+74	Your guide category:
+75	Your net price for a full day (8 hours) — in US DOLLARS. Numbers only, e.g. 60
+76	Half-day (4 hours) price, $ (optional).
+77	Net price of your service — in US DOLLARS (per person or per time). Example: 30
+78	Write about yourself (at least 2–3 sentences): experience, which tours you lead, what makes you different.
+79	Briefly about you and your service (at least 1–2 sentences).
+80	Describe the hotel: location, room amenities, breakfast, what makes it good.
+81	Your e-mail (optional). If none, press «➡️ Skip».
+82	📷 Main photo: a portrait in classic or national dress, face clearly visible. Send 1 photo.
+83	📷 Main photo: building front or courtyard / reception. 1 photo.
+84	🪪 A clear photo of your guide certificate or diploma (number readable). Only we see it.
+85	🪪 A clear photo of your driving licence. Only we see it.
+86	📷 Photos of yourself alone — at least 3. You can send them all at once.
+87	📷 Photos with travellers — at least 10 (only with their consent). You can send them as an album.
+88	📷 Photos of the car — at least 6: outside, interior, boot.
+89	📄 Photo of the vehicle registration document (number readable). Only we see it.
+90	📷 General photos — at least 5: reception, courtyard, breakfast room, bathroom, street.
+91	🛏 Room type:
+92	Room name (e.g. Deluxe double, courtyard view). If you skip, the room type is used.
+93	How many guests?
+94	Beds:
+95	How many rooms of this kind does the hotel have? (number)
+96	Is breakfast included in the price?
+97	💵 NET price per night — in US DOLLARS. Numbers only, e.g. 45\n(The price paid to you. On the site the client sees it with a service fee.)
+98	📷 Photos of this room — at least 2 (bed, bathroom).
+99	🚗 Vehicle class:
+100	Make and model (e.g. Chevrolet Malibu 2).
+101	Year of manufacture:
+102	How many passenger seats? (without the driver)
+103	How many suitcases fit?
+104	Licence plate (only we see it):
+105	Is there air conditioning?
+106	💵 NET price for 1 day of hire (with driver) — in US DOLLARS. Example: 70
+107	💵 Airport transfer price, $ (optional).
+108	📷 Photos of this vehicle — at least 2 (outside, interior).
+109	Tashkent
+110	Samarkand
+111	Bukhara
+112	Khiva
+113	Shahrisabz
+114	Namangan
+115	Andijan
+116	Fergana
+117	Kokand
+118	Margilan
+119	Urgench
+120	Nukus
+121	Termez
+122	Karshi
+123	Navoi
+124	Jizzakh
+125	Gulistan
+126	Muynak
+127	Chimgan / Charvak
+128	🇬🇧 English
+129	🇷🇺 Russian
+130	🇺🇿 Uzbek
+131	🇩🇪 German
+132	🇫🇷 French
+133	🇮🇹 Italian
+134	🇪🇸 Spanish
+135	🇹🇷 Turkish
+136	🇸🇦 Arabic
+137	🇨🇳 Chinese
+138	🇯🇵 Japanese
+139	🇰🇷 Korean
+140	✅ Yes
+141	❌ No
+142	Amateur guide
+143	Specialised guide
+144	Professional guide
+145	«Golden Fund» guide
+146	Wi-Fi
+147	Breakfast
+148	Parking
+149	Air conditioning
+150	Transfer
+151	Restaurant
+152	Swimming pool
+153	Laundry
+154	24h reception
+155	Family rooms
+156	National-style courtyard
+157	Lift
+158	Terrace
+159	Non-smoking
+160	No stars / guest house
+161	Free cancellation — 1 day before
+162	Free cancellation — 3 days before
+163	Free cancellation — 7 days before
+164	Non-refundable
+165	Standard
+166	Deluxe
+167	Suite
+168	Family
+169	Single
+170	Hostel (bed)
+171	1 double
+172	2 single
+173	1 single
+174	3 single
+175	Double + single
+176	Bunk bed
+177	Economy (Cobalt, Nexia)
+178	Comfort (Malibu, Camry)
+179	Business (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Minivan (4–7 people)
+182	Minibus (8–19 people)
+183	Bus (20+ people)
+184	🙋 Private driver
+185	🏢 Transport company
+186	🧑‍🏫 Guide
+187	🚐 Transport / driver
+188	🏨 Hotel / guest house
+189	✨ Other service
+190	 people
+191	digits
+192	No photo is needed now — please answer the question above.
+193	Type
+194	Name
+195	Service
+196	Phone
+197	City
+198	Works in
+199	Address
+200	Map
+201	Year of birth
+202	Languages
+203	Document / register number
+204	Experience
+205	 years
+206	INN
+207	Category
+208	Stars
+209	Amenities
+210	Cancellation
+211	Price
+212	 seats
+213	Photos

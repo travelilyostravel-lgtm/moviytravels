@@ -1,0 +1,213 @@
+1	👋 Selamat datang ke bot rakan kongsi Moviy Nomad!\n\nAnda mahu menjadi rakan kongsi jenis apa?
+2	⬅️ Kembali
+3	➡️ Langkau
+4	✅ Siap
+5	✖️ Batal
+6	📱 Hantar nombor saya
+7	📍 Hantar lokasi
+8	Sila tulis teks ({min}–{max} aksara).
+9	Terlalu pendek. Tulis sekurang-kurangnya {min} aksara.
+10	Nombor sahaja ({min}–{max}).
+11	❗ Tulis harga dalam DOLAR AS, nombor sahaja ({min}–{max}). Harga dalam sum tidak diterima — tukarkan kepada dolar. Contoh: 45
+12	Tulis nombor seperti +998 90 123 45 67 atau tekan «📱 Hantar nombor saya».
+13	E-mel salah. Contoh: nama@gmail.com
+14	📍 Hantar lokasi atau pautan peta.
+15	Tekan salah satu butang di bawah.
+16	Pilih sekurang-kurangnya {min}, kemudian «✅ Siap».
+17	📷 Hantar foto (sebagai foto, bukan fail). Setakat ini: {n} / {min}.
+18	✅ Diterima: {n}. 
+19	Perlu {k} lagi.
+20	Sudah cukup. Anda boleh hantar lagi atau tekan «✅ Siap».
+21	Maksimum {max}. Soalan seterusnya:
+22	Tambah jenis bilik lain?
+23	Tambah kenderaan lain?
+24	➕ Ya, tambah
+25	✅ Tidak, teruskan
+26	✅ Ditambah: {name} — ${price}
+27	🛏 Jenis bilik {n}
+28	🚗 Kenderaan {n}
+29	📋 Permohonan anda sudah siap. Sila semak:
+30	✅ Hantar
+31	🔄 Isi semula dari awal
+32	⏳ Menghantar… Foto sedang dimuat naik, tunggu sehingga 1 minit.
+33	🎉 Permohonan anda telah diterima!\n\nPasukan Moviy Nomad akan menyemaknya dalam 1–3 hari bekerja. Keputusan akan sampai ke bot ini. Selepas diluluskan, kad anda akan dipaparkan di laman web.\n\nAnda boleh membuka akaun dari sini pada bila-bila masa: /kabinet
+34	⚠ Ralat semasa menghantar. Tekan «✅ Hantar» sekali lagi selepas seminit. Jika berulang, tulis kepada kami: @moviy_safina
+35	Anda telah mula mendaftar. Teruskan?
+36	▶️ Teruskan
+37	Anda sudah menjadi rakan kongsi Moviy Nomad: {name}.\n\nTekan butang untuk membuka akaun anda:
+38	🔑 Buka akaun saya
+39	🔑 Pautan log masuk akaun anda (sah 1 jam, untuk anda sahaja — jangan kongsikan):
+40	Pautan tidak dapat dibuat. Cuba lagi nanti.
+41	Dibatalkan. Tekan /start untuk mula semula.
+42	Soalan {i} / {n}
+43	Ya
+44	Tidak
+45	Tulis nama pertama dan nama keluarga anda (seperti dalam pasport).
+46	Tulis nama hotel.
+47	Nama penuh anda atau nama syarikat.
+48	Perkhidmatan apa yang anda tawarkan? (cth. jurugambar, tukang masak, kelas kemahiran)
+49	Anda mendaftar sebagai apa?
+50	Hantar nombor telefon anda: tekan «📱 Hantar nombor saya» di bawah atau tulis seperti +998…
+51	Nombor WhatsApp anda (jika berbeza). Jika sama, tekan «➡️ Langkau».
+52	Anda di bandar mana?
+53	Hotel di bandar mana?
+54	Di bandar mana anda bekerja? Pilih semua, kemudian tekan «✅ Siap».
+55	Tahun lahir anda (cth. 1990).
+56	Anda tinggal di daerah atau mahalla mana?
+57	Hotel di daerah / mahalla mana?
+58	Alamat penuh (jalan, rumah).
+59	📍 Hantar lokasi hotel: 📎 → «Lokasi», atau tampal pautan Google / Yandex Maps.
+60	Bahasa apa yang anda tuturkan? Pilih, kemudian «✅ Siap».
+61	Kakitangan anda bertutur dalam bahasa apa?
+62	Nombor kad atau diploma pemandu pelancong.
+63	Nombor lesen memandu.
+64	Berapa tahun anda bekerja dengan pelancong? (nombor)
+65	Berapa tahun pengalaman memandu anda?
+66	Nombor INN (nombor cukai).
+67	INN (nombor cukai) atau nombor sijil bekerja sendiri. Jika tiada — «➡️ Langkau».
+68	Nombor dalam daftar Jawatankuasa Pelancongan (penginapan). Jika tiada — «➡️ Langkau».
+69	Bilangan bintang:
+70	Waktu daftar masuk (check-in):
+71	Waktu daftar keluar (check-out):
+72	Kemudahan apa yang ada? Pilih, kemudian «✅ Siap».
+73	Apakah peraturan pembatalan anda?
+74	Kategori pemandu pelancong anda:
+75	Harga bersih anda untuk sehari penuh (8 jam) — dalam DOLAR AS. Nombor sahaja, cth. 60
+76	Harga separuh hari (4 jam), $ (pilihan).
+77	Harga bersih perkhidmatan anda — dalam DOLAR AS (seorang atau sekali). Contoh: 30
+78	Tulis tentang diri anda (sekurang-kurangnya 2–3 ayat): pengalaman, lawatan yang anda bawa, apa yang membezakan anda.
+79	Ringkas tentang anda dan perkhidmatan anda (sekurang-kurangnya 1–2 ayat).
+80	Terangkan hotel: lokasi, kemudahan bilik, sarapan, kelebihannya.
+81	E-mel anda (pilihan). Jika tiada — «➡️ Langkau».
+82	📷 Foto utama: potret berpakaian formal atau tradisional, wajah jelas kelihatan. Hantar 1 foto.
+83	📷 Foto utama: hadapan bangunan atau halaman / kaunter penyambut tetamu. 1 foto.
+84	🪪 Foto jelas kad atau diploma pemandu pelancong (nombor boleh dibaca). Hanya kami yang melihatnya.
+85	🪪 Foto jelas lesen memandu anda. Hanya kami yang melihatnya.
+86	📷 Foto anda seorang diri — sekurang-kurangnya 3. Boleh dihantar sekali gus.
+87	📷 Foto bersama pelancong — sekurang-kurangnya 10 (hanya dengan izin mereka). Boleh dihantar sebagai album.
+88	📷 Foto kereta — sekurang-kurangnya 6: luar, dalam, but.
+89	📄 Foto geran kenderaan (nombor boleh dibaca). Hanya kami yang melihatnya.
+90	📷 Foto umum — sekurang-kurangnya 5: kaunter penyambut tetamu, halaman, ruang sarapan, bilik mandi, jalan.
+91	🛏 Jenis bilik:
+92	Nama bilik (cth. Deluxe kelamin, menghadap halaman). Jika dilangkau, jenis bilik akan digunakan.
+93	Untuk berapa orang?
+94	Katil:
+95	Berapa bilik jenis ini di hotel? (nombor)
+96	Adakah sarapan termasuk dalam harga?
+97	💵 Harga BERSIH semalam — dalam DOLAR AS. Nombor sahaja, cth. 45\n(Harga yang dibayar kepada anda. Di laman web pelanggan melihatnya bersama caj perkhidmatan.)
+98	📷 Foto bilik ini — sekurang-kurangnya 2 (katil, bilik mandi).
+99	🚗 Kelas kenderaan:
+100	Jenama dan model (cth. Chevrolet Malibu 2).
+101	Tahun dibuat:
+102	Berapa tempat duduk penumpang? (tanpa pemandu)
+103	Berapa beg pakaian yang muat?
+104	Nombor pendaftaran (hanya kami yang melihat):
+105	Ada penghawa dingin?
+106	💵 Harga BERSIH sewa 1 hari (dengan pemandu) — dalam DOLAR AS. Contoh: 70
+107	💵 Harga pindahan lapangan terbang, $ (pilihan).
+108	📷 Foto kenderaan ini — sekurang-kurangnya 2 (luar, dalam).
+109	Tashkent
+110	Samarkand
+111	Bukhara
+112	Khiva
+113	Shahrisabz
+114	Namangan
+115	Andijan
+116	Fergana
+117	Kokand
+118	Margilan
+119	Urgench
+120	Nukus
+121	Termez
+122	Karshi
+123	Navoi
+124	Jizzakh
+125	Gulistan
+126	Muynak
+127	Chimgan / Charvak
+128	🇬🇧 Inggeris
+129	🇷🇺 Rusia
+130	🇺🇿 Uzbek
+131	🇩🇪 Jerman
+132	🇫🇷 Perancis
+133	🇮🇹 Itali
+134	🇪🇸 Sepanyol
+135	🇹🇷 Turki
+136	🇸🇦 Arab
+137	🇨🇳 Cina
+138	🇯🇵 Jepun
+139	🇰🇷 Korea
+140	✅ Ya
+141	❌ Tidak
+142	Pemandu pelancong amatur
+143	Pemandu pelancong pakar
+144	Pemandu pelancong profesional
+145	Pemandu pelancong «Dana Emas»
+146	Wi-Fi
+147	Sarapan
+148	Tempat letak kereta
+149	Penghawa dingin
+150	Pindahan
+151	Restoran
+152	Kolam renang
+153	Dobi
+154	Penyambut tetamu 24 jam
+155	Bilik keluarga
+156	Halaman tradisional
+157	Lif
+158	Teres
+159	Bebas asap rokok
+160	Tanpa bintang / rumah tamu
+161	Pembatalan percuma — 1 hari sebelum
+162	Pembatalan percuma — 3 hari sebelum
+163	Pembatalan percuma — 7 hari sebelum
+164	Tidak boleh dipulangkan
+165	Standard
+166	Deluxe
+167	Suite
+168	Keluarga
+169	Bujang
+170	Hostel (katil)
+171	1 kelamin
+172	2 bujang
+173	1 bujang
+174	3 bujang
+175	Kelamin + bujang
+176	Katil dua tingkat
+177	Ekonomi (Cobalt, Nexia)
+178	Selesa (Malibu, Camry)
+179	Perniagaan (Mercedes E, BMW 5)
+180	Premium (Mercedes S, V-Class)
+181	Van mini (4–7 orang)
+182	Bas mini (8–19 orang)
+183	Bas (20+ orang)
+184	🙋 Pemandu persendirian
+185	🏢 Syarikat pengangkutan
+186	🧑‍🏫 Pemandu pelancong
+187	🚐 Pengangkutan / pemandu
+188	🏨 Hotel / rumah tamu
+189	✨ Perkhidmatan lain
+190	 orang
+191	digit
+192	Foto tidak diperlukan sekarang — jawab soalan di atas.
+193	Jenis
+194	Nama
+195	Perkhidmatan
+196	Telefon
+197	Bandar
+198	Bekerja di
+199	Alamat
+200	Peta
+201	Tahun lahir
+202	Bahasa
+203	Nombor dokumen / daftar
+204	Pengalaman
+205	 tahun
+206	INN
+207	Kategori
+208	Bintang
+209	Kemudahan
+210	Pembatalan
+211	Harga
+212	 tempat duduk
+213	Foto
