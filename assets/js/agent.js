@@ -1,0 +1,416 @@
+/* Moviy Nomad — agent portal */
+(function () {
+  var P = window.MNP, sb = P.sb, $ = P.$, $$ = P.$$, esc = P.esc, CFG = window.MN || {};
+  var me = { user: null, profile: null, agency: null }, quote = null;
+
+  // ---------------------------------------------------------------- views
+  function show(v) {
+    ["auth", "pending", "quote", "list", "booking", "agency", "groups", "services"].forEach(function (x) { $("#v-" + x).classList.toggle("hidden", x !== v); });
+    $$("#tabs button").forEach(function (b) { b.classList.toggle("is-on", b.dataset.view === v || (v === "booking" && b.dataset.view === "list")); });
+    window.scrollTo(0, 0);
+  }
+  $$("#tabs button").forEach(function (b) { b.onclick = function () { go(b.dataset.view); }; });
+  var groupRows = [], gbComm = false;
+  async function loadGroups() {
+    var box = $("#ag-sched"); box.innerHTML = '<p class="p-sub">Loading…</p>';
+    var r = await sb.from("group_departures").select("id,tour_id,start_date,capacity,booked,price_pp,single_supp,status,group_kind").gte("start_date", new Date().toISOString().slice(0, 10)).order("start_date");
+    var L = window.MN_L || {}, T = window.MN_TOURS || {};
+    var rows = r.data || []; groupRows = rows;
+    var rng = function (x) { var d = new Date(x.start_date + "T12:00:00"), n = (T[x.tour_id] ? T[x.tour_id].days.length : 8) - 1, e = new Date(d); e.setDate(e.getDate() + n); var f = function (z) { return z.toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }; return f(d) + " – " + f(e) + " " + e.getFullYear(); };
+    var KN = { small: "Small group 12–17", medium: "Medium group 30–35", large: "Large group 45–50" };
+    function pick(x) {
+      var f = $("#ag-gbook"), left = Math.max(0, x.capacity - x.booked), tname = ((L.tours || {})[x.tour_id] || [x.tour_id])[0];
+      var comm = window.MN_ENGINE && window.MN_ENGINE.commission ? window.MN_ENGINE.commission(x.tour_id, me.agency.commission_pct) : Number(me.agency.commission_pct || 0), note = arguments[1] || "";
+      f.innerHTML = '<div class="p-card" style="margin-top:16px;border:2px solid #12355b"><h3>Book seats: ' + esc(tname) + ' · ' + esc(rng(x)) + '</h3><p class="p-sub">' + esc(AGT(KN[x.group_kind] || "")) + ' · <b>' + AGT("{0} seats left", left) + '</b> · ' + AGT("{0} per person (twin share)", "$" + x.price_pp) + (x.single_supp ? ' · ' + AGT("single room +{0}", "$" + x.single_supp) : '') + '</p>' +
+        '<div class="p-grid"><div class="fld"><label>Travellers</label><input type="number" id="gb-pax" min="1" max="' + left + '" value="1"></div><div class="fld"><label>Room</label><select id="gb-room"><option value="twin">Twin / double share</option><option value="single">Single room</option></select></div>' +
+        '<div class="fld" style="grid-column:1/-1"><label>Note for Moviy Nomad (optional)</label><input id="gb-note" maxlength="500"></div></div>' +
+        '<div class="agp"><div class="agp__br"><small>Client price (brutto)</small><b id="gb-br"></b><span>the same price travellers see on our website</span></div>' +
+        '<div class="agp__btns"><button type="button" class="btn agp__comm" id="gb-commbtn">% Commission</button><button type="button" class="btn agp__re" id="gb-re">⟳ Recalculate</button></div>' +
+        '<div class="agp__panel' + (gbComm ? '' : ' hidden') + '" id="gb-cpanel"><div><small>Your commission</small><b>' + comm + '%</b></div><div><small>You earn</small><b id="gb-ca"></b></div><div><small>You pay Moviy Nomad (netto)</small><b id="gb-nt"></b></div></div>' +
+        '<p class="agp__state">' + note + AGT("Seats and prices checked at {0}. If you come back later, press <b>Recalculate</b>.", new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })) + '</p></div>' +
+        '<p class="p-sub">Payment: 30% within 3 working days of our invoice, 70% no later than 14 days before the start. Seats are held for you as soon as we confirm your 30% deposit.</p>' +
+        '<div class="msg" id="m-gb"></div><div class="p-actions"><button class="btn btn--gold" id="gb-go">Book seats</button></div></div>';
+      function calc() { var n = Math.max(1, Math.min(left, parseInt($("#gb-pax").value, 10) || 1)), br = n * x.price_pp + ($("#gb-room").value === "single" ? n * (x.single_supp || 0) : 0); $("#gb-br").textContent = P.money(br); var nt = Math.round(br * (1 - comm / 100) * 100) / 100; $("#gb-nt").textContent = P.money(nt); $("#gb-ca").textContent = P.money(Math.round((br - nt) * 100) / 100); return { n: n, br: br }; }
+      $("#gb-pax").oninput = $("#gb-room").onchange = calc; calc();
+      $("#gb-commbtn").onclick = function () { gbComm = !gbComm; $("#gb-cpanel").classList.toggle("hidden", !gbComm); };
+      $("#gb-re").onclick = async function () {
+        this.disabled = true; this.textContent = AGT("⟳ Updating…");
+        var pax = $("#gb-pax").value, room = $("#gb-room").value, oldP = x.price_pp, oldL = left;
+        try { await refreshAll(); await loadGroups(); } catch (e) {}
+        var nx = groupRows.filter(function (g) { return g.id === x.id; })[0];
+        if (!nx) { f.innerHTML = '<div class="msg msg--err" style="margin-top:16px">This departure is no longer available. Please choose another date.</div>'; return; }
+        var nl = Math.max(0, nx.capacity - nx.booked);
+        pick(nx, (nx.price_pp !== oldP ? "<b>" + AGT("Price updated: {0} → {1}.", "$" + oldP, "$" + nx.price_pp) + "</b> " : "") + (nl !== oldL ? "<b>" + AGT("Free seats now: {0}.", nl) + "</b> " : "") + (nx.price_pp === oldP && nl === oldL ? AGT("✓ Up to date.") + " " : ""));
+        $("#gb-pax").value = Math.min(+pax || 1, nl || 1); $("#gb-room").value = room; $("#gb-pax").dispatchEvent(new Event("input"));
+      };
+      f.scrollIntoView({ behavior: "smooth", block: "start" });
+      $("#gb-go").onclick = async function () {
+        var c = calc(); if (c.n > left) return P.msg("#m-gb", "Only " + left + " seats left.", "err");
+        this.disabled = true; P.msg("#m-gb", "Booking…");
+        var row = { lang: window.AG_LANG || "en", agency_id: me.agency.id, tour_id: x.tour_id, tour_title: tname + " — group departure " + rng(x) + " (" + (KN[x.group_kind] || "") + ")", start_date: x.start_date, pax: c.n, brutto: c.br,
+          config: { departure_id: x.id, group_kind: x.group_kind, room: $("#gb-room").value, group: true }, agent_note: $("#gb-note").value.trim() || null };
+        var r2 = await sb.from("bookings").insert(row).select().single();
+        this.disabled = false;
+        if (r2.error) return P.msg("#m-gb", r2.error.message, "err");
+        openBooking(r2.data.id);
+      };
+    }
+    if (!$("#ag-gbook")) box.insertAdjacentHTML("afterend", '<div id="ag-gbook"></div>');
+    window.MN_GDS.render(box, rows, { lang: "en", title: function (id) { return ((L.tours || {})[id] || [id])[0]; }, onPick: pick,
+      range: function (x) { var d = new Date(x.start_date + "T12:00:00"), n = (T[x.tour_id] ? T[x.tour_id].days.length : 8) - 1, e = new Date(d); e.setDate(e.getDate() + n); var f = function (z) { return z.toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }; return f(d) + " – " + f(e) + " " + e.getFullYear(); } });
+  }
+  // ---------------------------------------------------------------- partner services (guides, drivers, hotels)
+  // Brutto comes from the public view (= our website price). The server sets the booking price again from the partner's
+  // price + our fee, and the commission from the partner settings — nothing the browser sends can change it.
+  var SV = { rows: [], kind: "guide", comm: null };
+  var SVK = { guide: "Guides", driver: "Cars with driver", hotel: "Hotels", other: "Other services" };
+  async function loadServices() {
+    var list = $("#sv-list"); list.innerHTML = '<p class="p-sub">' + AGT("Loading…") + '</p>';
+    var r = await sb.from("partners_public").select("id,kind,name,city,cities,languages,photo,price_brutto,price_note,vehicle_type,vehicle_seats,hotel_stars,experience_years,rating,reviews_count,license_ok");
+    var t = await sb.rpc("partner_terms");
+    SV.rows = r.data || []; SV.comm = t.data && t.data.agent_comm != null ? +t.data.agent_comm : 10;
+    var kinds = ["guide", "driver", "hotel", "other"].filter(function (k) { return SV.rows.some(function (x) { return x.kind === k; }); });
+    if (kinds.indexOf(SV.kind) < 0) SV.kind = kinds[0] || "guide";
+    $("#sv-kinds").innerHTML = kinds.map(function (k) { return '<button data-svk="' + k + '" class="' + (k === SV.kind ? "is-on" : "") + '">' + AGT(SVK[k]) + ' (' + SV.rows.filter(function (x) { return x.kind === k; }).length + ')</button>'; }).join("");
+    $$("[data-svk]").forEach(function (b) { b.onclick = function () { SV.kind = b.dataset.svk; loadServices(); }; });
+    var pub = function (x) { return x ? (window.MN_SB || {}).url + "/storage/v1/object/public/partner-photos/" + x.split("/").map(encodeURIComponent).join("/") : ""; };
+    var rows = SV.rows.filter(function (x) { return x.kind === SV.kind; }).sort(function (a, b) { return (b.rating || 0) - (a.rating || 0); });
+    list.innerHTML = rows.length ? '<table class="tbl"><thead><tr><th></th><th>' + AGT("Name") + '</th><th>' + AGT("City") + '</th><th>' + AGT("Details") + '</th><th>' + AGT("Client price (brutto)") + '</th><th></th></tr></thead><tbody>' + rows.map(function (x) {
+      var det = x.kind === "guide" ? (x.languages || []).join(", ") + (x.experience_years ? " · " + x.experience_years + " y." : "") : x.kind === "driver" ? [x.vehicle_type, x.vehicle_seats ? x.vehicle_seats + " seats" : ""].filter(Boolean).join(", ") : x.kind === "hotel" ? (x.hotel_stars ? x.hotel_stars + "★" : "") : "";
+      return '<tr><td>' + (x.photo ? '<img src="' + esc(pub(x.photo)) + '" alt="" style="width:44px;height:44px;border-radius:10px;object-fit:cover">' : '') + '</td><td><b>' + esc(x.name) + '</b>' + (x.license_ok ? ' <small>✓</small>' : '') + (x.reviews_count ? '<br><small>★ ' + Number(x.rating).toFixed(1) + ' (' + x.reviews_count + ')</small>' : '') + '</td><td>' + esc([x.city].concat(x.cities || []).filter(function (c, i, a) { return c && a.indexOf(c) === i; }).slice(0, 4).join(", ")) + '</td><td><small>' + esc(det) + '</small></td><td>' +
+        (x.price_brutto ? '<b>$' + Math.round(x.price_brutto) + '</b> <small>' + AGT(x.kind === "hotel" ? "per night" : "per day") + '</small>' : '<small>' + AGT("on request") + '</small>') + '</td><td>' + (x.price_brutto ? '<button class="btn btn--gold btn--sm" data-svb="' + x.id + '">' + AGT("Book") + '</button>' : '') + '</td></tr>';
+    }).join("") + '</tbody></table>' : '<p class="p-sub">' + AGT("No partners in this section yet.") + '</p>';
+    $$("[data-svb]").forEach(function (b) { b.onclick = function () { svBook(b.dataset.svb); }; });
+  }
+  function svBook(id) {
+    var x = SV.rows.filter(function (r) { return r.id === id; })[0]; if (!x) return;
+    var box = $("#sv-book"), hotel = x.kind === "hotel", open = false;
+    box.classList.remove("hidden");
+    box.innerHTML = '<h3>' + esc(x.name) + '</h3><div class="p-grid">' +
+      '<div class="fld"><label>' + AGT("Start date *") + '</label><input type="date" id="sv-date" min="' + new Date().toISOString().slice(0, 10) + '"></div>' +
+      '<div class="fld"><label>' + AGT(hotel ? "Nights *" : "Days *") + '</label><input type="number" id="sv-units" min="1" max="60" value="1"></div>' +
+      '<div class="fld"><label>' + AGT(hotel ? "Rooms" : x.kind === "driver" ? "Cars" : "Quantity") + '</label><input type="number" id="sv-qty" min="1" max="20" value="1"></div>' +
+      '<div class="fld"><label>' + AGT("Travellers *") + '</label><input type="number" id="sv-pax" min="1" max="60" value="2"></div>' +
+      '<div class="fld full"><label>' + AGT("Note for Moviy Nomad") + '</label><input id="sv-note" placeholder="' + esc(AGT("Arrival flight, special wishes…")) + '"></div></div>' +
+      '<div class="agp"><div class="agp__br"><small>' + AGT("Client price (brutto)") + '</small><b id="sv-br"></b><span id="sv-pp"></span></div>' +
+      '<div class="agp__btns"><button type="button" class="btn agp__comm" id="sv-commbtn">% Commission</button></div>' +
+      '<div class="agp__panel hidden" id="sv-cpanel"><div><small>' + AGT("Your commission") + '</small><b id="sv-cpct"></b></div><div><small>' + AGT("You earn") + '</small><b id="sv-camt"></b></div><div><small>' + AGT("You pay Moviy Nomad (netto)") + '</small><b id="sv-net"></b></div></div></div>' +
+      '<div class="msg" id="m-sv"></div><div class="p-actions"><button class="btn btn--gold" id="sv-go">' + AGT("Send booking →") + '</button><button class="btn btn--outline" id="sv-x">' + AGT("Close") + '</button></div>';
+    function calc() {
+      var u = Math.min(60, Math.max(1, parseInt($("#sv-units").value, 10) || 1)), q = Math.min(20, Math.max(1, parseInt($("#sv-qty").value, 10) || 1));
+      var br = Math.round(x.price_brutto * u * q * 100) / 100, cm = Math.round(br * SV.comm) / 100;
+      $("#sv-br").textContent = P.money(br); $("#sv-pp").textContent = u + " × $" + Math.round(x.price_brutto) + (q > 1 ? " × " + q : "");
+      $("#sv-cpct").textContent = SV.comm + "%"; $("#sv-camt").textContent = P.money(cm); $("#sv-net").textContent = P.money(br - cm);
+      return { u: u, q: q, br: br };
+    }
+    box.oninput = calc; calc();
+    $("#sv-commbtn").onclick = function () { open = !open; $("#sv-cpanel").classList.toggle("hidden", !open); };
+    $("#sv-x").onclick = function () { box.classList.add("hidden"); };
+    $("#sv-go").onclick = async function () {
+      var c = calc(), d = $("#sv-date").value;
+      if (!d) return P.msg("#m-sv", AGT("Choose the start date."), "err");
+      this.disabled = true; P.msg("#m-sv", AGT("Creating the booking…"));
+      var row = { lang: window.AG_LANG || "en", agency_id: me.agency.id, tour_id: "partner:" + x.kind, tour_title: x.name, start_date: d,
+        pax: Math.min(60, Math.max(1, parseInt($("#sv-pax").value, 10) || 1)), brutto: c.br, agent_note: $("#sv-note").value.trim() || null,
+        config: { partner_id: x.id, units: c.u, qty: c.q } };
+      var r = await sb.from("bookings").insert(row).select().single();
+      this.disabled = false;
+      if (r.error) return P.msg("#m-sv", r.error.message, "err");
+      box.classList.add("hidden"); openBooking(r.data.id);
+    };
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function go(v) {
+    if (v === "list") loadList();
+    if (v === "agency") renderAgency();
+    if (v === "groups") loadGroups();
+    if (v === "services") loadServices();
+    show(v);
+  }
+
+  // ---------------------------------------------------------------- auth
+  $$("[data-auth]").forEach(function (b) {
+    b.onclick = function () {
+      $$("[data-auth]").forEach(function (x) { x.classList.toggle("is-on", x === b); });
+      $("#f-login").classList.toggle("hidden", b.dataset.auth !== "login");
+      $("#f-register").classList.toggle("hidden", b.dataset.auth !== "register");
+    };
+  });
+  if (location.hash === "#register") { var rb = $('[data-auth="register"]'); if (rb) rb.click(); }
+  if (!P.configured) { $("#notcfg").hidden = false; show("auth"); return; }
+
+  $("#f-login").onsubmit = async function (e) {
+    e.preventDefault(); var f = e.target;
+    P.msg("#m-login", "Logging in…");
+    var r = await sb.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value });
+    if (r.error) return P.msg("#m-login", r.error.message, "err");
+    P.msg("#m-login", ""); boot();
+  };
+  $("#forgot").onclick = async function () {
+    var email = $("#f-login").email.value.trim();
+    if (!email) return P.msg("#m-login", "Type your e-mail first.", "err");
+    var r = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.href.split("#")[0] });
+    P.msg("#m-login", r.error ? r.error.message : "We sent you a link to set a new password.", r.error ? "err" : "ok");
+  };
+  $("#f-register").onsubmit = async function (e) {
+    e.preventDefault(); var f = e.target, data = {}, btn = f.querySelector("[type=submit]");
+    ["agency_name", "country", "city", "address", "website", "license_no", "tax_id", "contact_name", "phone", "whatsapp"].forEach(function (k) { data[k] = f[k].value.trim(); });
+    // No password from the agent: a long random one is set and never shown. Moviy Nomad gives the real password after checking the documents.
+    var rnd = new Uint8Array(24); crypto.getRandomValues(rnd);
+    var pw = Array.prototype.map.call(rnd, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("") + "Aa1!";
+    var files = [["registration", f.doc_registration.files[0]], ["license", f.doc_license.files[0]]].filter(function (x) { return x[1]; });
+    for (var i = 0; i < files.length; i++) if (files[i][1].size > 10 * 1024 * 1024) return P.msg("#m-register", AGT("Each file must be under 10 MB."), "err");
+    P.msg("#m-register", AGT("Sending…")); btn.disabled = true;
+    try {
+      var r = await sb.auth.signUp({ email: f.email.value.trim(), password: pw, options: { data: data, emailRedirectTo: location.href.split("#")[0] } });
+      if (r.error) throw r.error;
+      if (r.data.session && files.length) {
+        var pr = await sb.from("profiles").select("agency_id").eq("id", r.data.user.id).single();
+        var ag = pr.data && pr.data.agency_id;
+        if (ag) for (var j = 0; j < files.length; j++) {
+          var path = await P.upload("agency-docs", ag, files[j][1]);
+          await sb.from("agency_documents").insert({ agency_id: ag, kind: files[j][0], file_path: path, file_name: files[j][1].name });
+        }
+      }
+      if (r.data.session) await sb.auth.signOut();
+      f.reset();
+      P.msg("#m-register", AGT("Thank you! Your application has been sent. We will check it within 1–2 working days and send your password to your e-mail or WhatsApp. Your login is your e-mail."), "ok");
+    } catch (er) { P.msg("#m-register", P.err ? P.err(er) : (er.message || String(er)), "err"); }
+    btn.disabled = false;
+  };
+  $("#logout").onclick = async function () { await sb.auth.signOut(); location.reload(); };
+  sb.auth.onAuthStateChange(function (ev) {
+    if (ev === "PASSWORD_RECOVERY") {
+      var pw = prompt("Enter a new password (min. 8 characters):");
+      if (pw) sb.auth.updateUser({ password: pw }).then(function (r) { alert(r.error ? r.error.message : "Password updated."); });
+    }
+  });
+
+  // ---------------------------------------------------------------- boot
+  async function boot() {
+    var s = await sb.auth.getSession();
+    me.user = s.data.session && s.data.session.user;
+    if (!me.user) { $("#tabs").classList.add("hidden"); show("auth"); return; }
+    var p = await sb.from("profiles").select("*").eq("id", me.user.id).single();
+    me.profile = p.data;
+    if (me.profile && me.profile.agency_id) {
+      var a = await sb.from("agencies").select("*").eq("id", me.profile.agency_id).single();
+      me.agency = a.data;
+    }
+    $("#who").innerHTML = "<b>" + esc(me.agency ? me.agency.name : me.user.email) + "</b>" + esc(me.profile && me.profile.full_name || me.user.email);
+    $("#who").classList.remove("hidden"); $("#logout").classList.remove("hidden");
+    if (!me.agency) { show("pending"); $("#pend-title").textContent = "No agency is linked to this account"; $("#pend-text").textContent = "Please contact Moviy Nomad."; return; }
+    if (me.agency.status !== "approved") { renderPending(); return; }
+    $("#tabs").classList.remove("hidden");
+    show("quote");
+    if (window.MN_BUILDER) window.MN_BUILDER.render();
+  }
+
+  // ---------------------------------------------------------------- pending + documents
+  async function loadDocs(box) {
+    var r = await sb.from("agency_documents").select("*").eq("agency_id", me.agency.id).order("created_at");
+    var KIND = { registration: "Company registration", license: "Tourism license", id: "ID of the director", other: "Other" };
+    box.innerHTML = (r.data || []).length ? r.data.map(function (d) {
+      return '<div class="file"><b>' + esc(AGT(KIND[d.kind] || d.kind)) + ' — ' + esc(d.file_name || "") + '</b><button data-open="' + esc(d.file_path) + '">Open</button></div>';
+    }).join("") : '<div class="empty">No documents uploaded yet.</div>';
+    $$("[data-open]", box).forEach(function (b) { b.onclick = function () { P.openFile("agency-docs", b.dataset.open); }; });
+  }
+  function renderPending() {
+    show("pending");
+    var st = me.agency.status;
+    if (st === "rejected" || st === "blocked") {
+      $("#pend-title").textContent = st === "rejected" ? "Your application was not approved" : "Your account is blocked";
+      $("#pend-text").textContent = (me.agency.admin_note ? me.agency.admin_note + " " : "") + AGT("Please contact Moviy Nomad for details.");
+    }
+    loadDocs($("#pend-docs"));
+  }
+  $("#doc-up").onclick = async function () {
+    var file = $("#doc-file").files[0];
+    if (!file) return P.msg("#m-docs", "Choose a file first.", "err");
+    if (file.size > 10 * 1024 * 1024) return P.msg("#m-docs", "The file is larger than 10 MB.", "err");
+    P.msg("#m-docs", "Uploading…");
+    try {
+      var path = await P.upload("agency-docs", me.agency.id, file);
+      var r = await sb.from("agency_documents").insert({ agency_id: me.agency.id, kind: $("#doc-kind").value, file_path: path, file_name: file.name });
+      if (r.error) throw r.error;
+      P.msg("#m-docs", "Uploaded. Thank you!", "ok"); $("#doc-file").value = ""; loadDocs($("#pend-docs"));
+    } catch (e) { P.msg("#m-docs", P.err(e), "err"); }
+  };
+
+  // ---------------------------------------------------------------- quote (builder hook)
+  // Brutto is shown first (the agent can show the screen to the client); commission and netto open with the "% Commission" button.
+  var lastBr = null, commOpen = false;
+  var hhmm = function (d) { return d ? d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) : "—"; };
+  function qState(extra) {
+    var at = window.MN_ENGINE && MN_ENGINE.pricesAt ? MN_ENGINE.pricesAt() : null, old = at && (Date.now() - at.getTime() > 10 * 60 * 1000);
+    var el = $("#q-state"); if (!el) return;
+    el.className = "agp__state" + (old ? " is-old" : "");
+    el.innerHTML = (extra ? extra + " " : "") + (old ? AGT("Prices checked at {0} — they may have changed. Press <b>Recalculate</b>.", hhmm(at)) : AGT("Prices checked at {0}.", hhmm(at)));
+  }
+  window.MN_ON_QUOTE = function (q) {
+    quote = q;
+    $("#q-empty").classList.toggle("hidden", !!q); $("#q-body").classList.toggle("hidden", !q);
+    if (!q || !me.agency) return;
+    var c = window.MN_ENGINE && window.MN_ENGINE.commission ? window.MN_ENGINE.commission(q.tour_id, me.agency.commission_pct) : Number(me.agency.commission_pct || 0), brutto = q.price.total, netto = Math.round(brutto * (1 - c / 100) * 100) / 100;
+    $("#q-title").textContent = q.tour_title + " · " + q.price.days + " days";
+    $("#q-pax").textContent = q.price.pax + (q.config.single ? " (single rooms)" : "");
+    $("#q-brutto").textContent = P.money(brutto);
+    $("#q-pp").textContent = P.money(q.price.pp) + " per person — the same price travellers see on our website";
+    $("#q-cpct").textContent = c + "%";
+    $("#q-camt").textContent = P.money(Math.round((brutto - netto) * 100) / 100);
+    $("#q-netto").textContent = P.money(netto);
+    $("#q-cpanel").classList.toggle("hidden", !commOpen);
+    lastBr = brutto; qState();
+  };
+  $("#q-commbtn").onclick = function () { commOpen = !commOpen; this.setAttribute("aria-expanded", commOpen); $("#q-cpanel").classList.toggle("hidden", !commOpen); };
+  // Re-read the agency commission and the latest prices from the server, then everything on the screen is recalculated
+  function refreshAll() { return Promise.race([refreshAll0(), new Promise(function (_, no) { setTimeout(function () { no(new Error("timeout")); }, 10000); })]); }
+  async function refreshAll0() {
+    var a = me.agency && me.agency.id ? await sb.from("agencies").select("*").eq("id", me.agency.id).single() : null;
+    if (a && a.data) me.agency = a.data;
+    if (window.MN_ENGINE && MN_ENGINE.refreshPrices) await MN_ENGINE.refreshPrices();
+  }
+  $("#q-re").onclick = async function () {
+    var b = this, before = lastBr; b.disabled = true; b.textContent = AGT("⟳ Updating…");
+    try { await refreshAll(); } catch (e) {}
+    b.disabled = false; b.textContent = AGT("⟳ Recalculate");
+    if (quote) window.MN_ON_QUOTE(quote);
+    qState(before !== null && lastBr !== null && before !== lastBr ? "<b>" + AGT("Price updated: {0} → {1}.", P.money(before), P.money(lastBr)) + "</b>" : AGT("✓ Up to date."));
+  };
+  setInterval(function () { if (quote && !document.hidden) qState(); }, 60000);
+  $("#q-book").onclick = async function () {
+    if (!quote) return;
+    var d = $("#q-date").value;
+    if (!d) return P.msg("#m-quote", "Choose the start date.", "err");
+    if (new Date(d) < new Date(new Date().toDateString())) return P.msg("#m-quote", "The start date is in the past.", "err");
+    this.disabled = true; P.msg("#m-quote", "Checking the latest price…");
+    var before = lastBr; try { await refreshAll(); } catch (e) {}
+    if (before !== null && lastBr !== null && before !== lastBr) { this.disabled = false; qState("<b>" + AGT("Price updated: {0} → {1}.", P.money(before), P.money(lastBr)) + "</b>"); return P.msg("#m-quote", "The price has just been updated. Please check the new brutto with your client and press Book again.", "err"); }
+    P.msg("#m-quote", "Creating the booking…");
+    var row = { lang: window.AG_LANG || "en", agency_id: me.agency.id, tour_id: quote.tour_id, tour_title: quote.tour_title, config: quote.config, start_date: d,
+      pax: quote.price.pax, brutto: quote.price.total, agent_note: $("#q-note").value.trim() || null };
+    var r = await sb.from("bookings").insert(row).select().single();
+    this.disabled = false;
+    if (r.error) return P.msg("#m-quote", r.error.message, "err");
+    P.msg("#m-quote", ""); $("#q-note").value = "";
+    openBooking(r.data.id);
+  };
+
+  // ---------------------------------------------------------------- list
+  async function loadList() {
+    var box = $("#list"); box.innerHTML = '<div class="empty">Loading…</div>';
+    var r = await sb.from("bookings").select("id,ref,tour_title,start_date,pax,brutto,netto,status,created_at").order("created_at", { ascending: false });
+    if (r.error) { box.innerHTML = '<div class="msg msg--err">' + esc(r.error.message) + '</div>'; return; }
+    if (!r.data.length) { box.innerHTML = '<div class="empty">No bookings yet. Make your first quote in “New quote”.</div>'; return; }
+    box.innerHTML = '<table class="tbl"><thead><tr><th>Ref</th><th>Tour</th><th>Start</th><th>Pax</th><th class="num">Brutto</th><th class="num">Netto</th><th>Status</th></tr></thead><tbody>' +
+      r.data.map(function (b) { return '<tr class="click" data-id="' + b.id + '"><td><b>' + esc(b.ref) + '</b></td><td>' + esc(b.tour_title) + '</td><td>' + P.date(b.start_date) + '</td><td>' + b.pax + '</td><td class="num">' + P.money(b.brutto) + '</td><td class="num"><b>' + P.money(b.netto) + '</b></td><td>' + P.badge(b.status) + '</td></tr>'; }).join("") + '</tbody></table>';
+    $$("tr[data-id]", box).forEach(function (tr) { tr.onclick = function () { openBooking(tr.dataset.id); }; });
+  }
+
+  // ---------------------------------------------------------------- booking detail
+  async function openBooking(id) {
+    show("booking");
+    var box = $("#v-booking"); box.innerHTML = '<div class="p-card empty">Loading…</div>';
+    var b = (await sb.from("bookings").select("*").eq("id", id).single()).data;
+    var tr = (await sb.from("travellers").select("*").eq("booking_id", id).order("created_at")).data || [];
+    var sv = (await sb.from("booking_services").select("*").eq("booking_id", id).order("sort")).data || [];
+    var vc = (await sb.from("vouchers").select("*").eq("booking_id", id).order("created_at")).data || [];
+    if (!b) { box.innerHTML = '<div class="p-card msg msg--err">Booking not found.</div>'; return; }
+    var editable = b.status === "request" || b.status === "awaiting_payment";
+    var route = (b.config.route || []).map(function (r) { return esc(r.name) + " (" + r.nights + "n)"; }).join(" → ");
+
+    var h = '<div class="p-card"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><button class="btn btn--outline btn--sm" id="back">← All bookings</button></div>' + P.badge(b.status) + '</div>' +
+      '<h2 style="margin-top:14px">' + esc(b.ref) + ' · ' + esc(b.tour_title) + '</h2>' + P.flowLine(b.status) +
+      '<div class="kv" style="margin-top:14px"><div><small>Start</small><b>' + P.date(b.start_date) + '</b></div><div><small>Travellers</small><b>' + b.pax + '</b></div><div><small>Brutto</small><b>' + P.money(b.brutto) + '</b></div><div class="hl"><small>Netto to pay (' + b.commission_pct + '% commission)</small><b>' + P.money(b.netto) + '</b></div></div>' +
+      '<p class="p-sub" style="margin-top:12px">' + route + ' · ' + esc(b.config.hotel || "") + ' · ' + esc(b.config.transport || "") + ' · ' + (window.AG_LANG && AG_LANG !== "en" ? "🗣 " : "Guide: ") + esc(b.config.guide || "") + '</p>' +
+      (b.agent_note ? '<p><b>Your note:</b> ' + esc(b.agent_note) + '</p>' : '') + '</div>';
+
+    // Payment
+    if (b.status === "request") h += '<div class="p-card"><h3>Next step</h3><p>Add all travellers with their passports below. Moviy Nomad will check availability and send you the payment details here.</p></div>';
+    if (b.status === "awaiting_payment" || b.status === "payment_reported" || b.status === "deposit_paid") {
+      var dep = Math.round(b.netto * 0.3), due = b.balance_due ? P.date(b.balance_due) : "14 days before the start";
+      h += '<div class="p-card"><h3>Payment</h3><div class="msg msg--info" style="white-space:pre-wrap">' + esc(b.payment_details || "") + '</div><p>' + AGT("Total netto:") + ' <b>' + P.money(b.netto) + '</b> · ' + AGT("Reference:") + ' <b>' + esc(b.ref) + '</b></p>' +
+        '<table class="tbl"><tr><th>30% deposit</th><td><b>' + P.money(dep) + '</b> — within 3 working days of the invoice' + ((+b.paid_total || 0) >= dep ? ' ✅ received' : '') + '</td></tr><tr><th>70% balance</th><td><b>' + P.money(b.netto - dep) + '</b> — by ' + esc(due) + '</td></tr><tr><th>Received</th><td><b>' + P.money(+b.paid_total || 0) + '</b></td></tr></table>';
+      if (b.status === "awaiting_payment" || b.status === "deposit_paid") h += '<div class="p-actions"><button class="btn btn--green" id="paid">I have paid</button></div>';
+      else h += '<p class="msg msg--ok">You reported the payment. We will confirm it as soon as the money arrives.</p>';
+      var txt = encodeURIComponent("Moviy Nomad, payment sent for booking " + b.ref + ": " + P.money(b.netto) + " (" + (me.agency && me.agency.name) + ")");
+      h += '<div class="p-actions"><a class="btn btn--wa btn--sm" target="_blank" rel="noopener" href="https://wa.me/' + esc(CFG.whatsapp || "") + '?text=' + txt + '">Notify on WhatsApp</a><a class="btn btn--tg btn--sm" target="_blank" rel="noopener" href="https://t.me/' + esc(CFG.telegram || "") + '">Notify on Telegram</a></div></div>';
+    }
+
+    // Vouchers
+    if (vc.length || sv.length || b.voucher_key) {
+      h += '<div class="p-card"><h3>Services & vouchers</h3>' +
+        (sv.length ? '<table class="tbl"><thead><tr><th>Service</th><th>City</th><th>Dates</th><th>Confirmation</th></tr></thead><tbody>' + sv.map(function (s) { return '<tr><td><b>' + esc(s.title) + '</b><br><small>' + esc(s.kind) + '</small></td><td>' + esc(s.city || "") + '</td><td>' + P.date(s.date_from) + (s.date_to ? " – " + P.date(s.date_to) : "") + '</td><td>' + esc(s.confirmation_no || "") + '</td></tr>'; }).join("") + '</tbody></table>' : '') +
+        (b.voucher_key ? '<div class="p-actions" style="margin-top:12px;align-items:center"><b>Client language:</b> <select id="vl">' + [["en","English"],["ru","Русский"],["uz","O\'zbekcha"],["tr","Türkçe"],["ar","العربية"],["de","Deutsch"],["sv","Svenska"],["zh","中文"],["hi","हिन्दी"],["ko","한국어"]].map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === (window.AG_LANG || "en") ? " selected" : "") + '>' + o[1] + '</option>'; }).join("") + '</select>' +
+          '<a class="btn btn--gold btn--sm" id="vl-a" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '&lang=' + (window.AG_LANG || "en") + '">🧾 Travel voucher (PDF)</a>' +
+          '<a class="btn btn--green btn--sm" id="vl-b" target="_blank" rel="noopener" href="../voucher.html?ref=' + encodeURIComponent(b.ref) + '&k=' + esc(b.voucher_key) + '&lang=' + (window.AG_LANG || "en") + '&doc=services">Service vouchers (PDF)</a></div>' : '') +
+        (vc.length ? '<div class="files" style="margin-top:14px">' + vc.map(function (v) { return '<div class="file"><b>📄 ' + esc(v.title || v.kind) + '</b><button data-v="' + esc(v.file_path) + '">Download PDF</button></div>'; }).join("") + '</div>' : '') + '</div>';
+    }
+
+    // Travellers
+    h += '<div class="p-card"><h3>Travellers (' + tr.length + ' of ' + b.pax + ')</h3>';
+    h += tr.length ? '<table class="tbl"><thead><tr><th>Name</th><th>Passport</th><th>Nationality</th><th>Birth date</th><th>Scan</th>' + (editable ? '<th></th>' : '') + '</tr></thead><tbody>' + tr.map(function (t) {
+      return '<tr><td><b>' + esc(t.last_name) + ' ' + esc(t.first_name) + '</b> ' + esc(t.gender || "") + '</td><td>' + esc(t.passport_no) + (t.passport_expiry ? '<br><small>exp. ' + P.date(t.passport_expiry) + '</small>' : '') + '</td><td>' + esc(t.nationality || "") + '</td><td>' + P.date(t.birth_date) + '</td><td>' + (t.passport_file ? '<button class="link" data-p="' + esc(t.passport_file) + '">View</button>' : '—') + '</td>' + (editable ? '<td><button class="link" data-del="' + t.id + '">Remove</button></td>' : '') + '</tr>';
+    }).join("") + '</tbody></table>' : '<div class="empty">No travellers yet.</div>';
+    if (editable) {
+      h += '<form id="f-trav" style="margin-top:18px"><div class="trav">' +
+        '<div class="fld"><label>First name *</label><input name="first_name" required></div><div class="fld"><label>Last name *</label><input name="last_name" required></div>' +
+        '<div class="fld"><label>Sex</label><select name="gender"><option value="">–</option><option>M</option><option>F</option></select></div>' +
+        '<div class="fld"><label>Birth date</label><input type="date" name="birth_date"></div><div class="fld"><label>Nationality</label><input name="nationality"></div>' +
+        '<div class="fld"><label>Passport no. *</label><input name="passport_no" required></div><div class="fld"><label>Passport expiry</label><input type="date" name="passport_expiry"></div>' +
+        '</div><div class="fld" style="margin-top:10px"><label>Passport scan (photo page, PDF or image) </label><input type="file" name="scan" accept=".pdf,image/*"></div>' +
+        '<div class="msg" id="m-trav"></div><div class="p-actions"><button class="btn btn--navy" type="submit">Add traveller</button>' +
+        '<button class="btn btn--red" type="button" id="cancel-b">Cancel booking</button></div></form>';
+    }
+    h += '</div>';
+    box.innerHTML = h;
+    if ($("#vl")) $("#vl").onchange = function () { var l = this.value; ["#vl-a", "#vl-b"].forEach(function (q) { var a = $(q); a.href = a.href.replace(/lang=[a-z]+/, "lang=" + l); }); };
+
+    $("#back").onclick = function () { go("list"); };
+    $$("[data-v]", box).forEach(function (x) { x.onclick = function () { P.openFile("vouchers", x.dataset.v); }; });
+    $$("[data-p]", box).forEach(function (x) { x.onclick = function () { P.openFile("passports", x.dataset.p); }; });
+    $$("[data-del]", box).forEach(function (x) { x.onclick = async function () { if (!confirm("Remove this traveller?")) return; var r = await sb.from("travellers").delete().eq("id", x.dataset.del); if (r.error) alert(r.error.message); openBooking(id); }; });
+    var paid = $("#paid", box);
+    if (paid) paid.onclick = async function () {
+      if (!confirm("Confirm that you have sent " + P.money(b.netto) + " for " + b.ref + "?")) return;
+      var r = await sb.from("bookings").update({ status: "payment_reported" }).eq("id", id);
+      if (r.error) return alert(r.error.message); openBooking(id);
+    };
+    var cancel = $("#cancel-b", box);
+    if (cancel) cancel.onclick = async function () {
+      if (!confirm("Cancel booking " + b.ref + "? This cannot be undone.")) return;
+      var r = await sb.from("bookings").update({ status: "cancelled" }).eq("id", id);
+      if (r.error) return alert(r.error.message); openBooking(id);
+    };
+    var f = $("#f-trav", box);
+    if (f) f.onsubmit = async function (e) {
+      e.preventDefault();
+      if (tr.length >= b.pax && !confirm("This booking is for " + b.pax + " travellers. Add one more anyway?")) return;
+      P.msg("#m-trav", "Saving…");
+      try {
+        var row = { booking_id: id }, file = f.scan.files[0];
+        ["first_name", "last_name", "gender", "birth_date", "nationality", "passport_no", "passport_expiry"].forEach(function (k) { row[k] = f[k].value.trim() || null; });
+        row.first_name = row.first_name.toUpperCase(); row.last_name = row.last_name.toUpperCase(); row.passport_no = row.passport_no.toUpperCase();
+        if (file) {
+          if (file.size > 10 * 1024 * 1024) throw new Error("The scan is larger than 10 MB.");
+          row.passport_file = await P.upload("passports", b.agency_id + "/" + id, file);
+        }
+        var r = await sb.from("travellers").insert(row);
+        if (r.error) throw r.error;
+        openBooking(id);
+      } catch (e2) { P.msg("#m-trav", P.err(e2), "err"); }
+    };
+  }
+
+  // ---------------------------------------------------------------- agency
+  function renderAgency() {
+    var a = me.agency, box = $("#agency-box");
+    box.innerHTML = '<h2>' + esc(a.name) + '</h2><p class="p-sub">' + esc([a.city, a.country].filter(Boolean).join(", ")) + ' · ' + P.badge(a.status) + '</p>' +
+      '<div class="kv"><div class="hl"><small>Your commission</small><b>' + a.commission_pct + '%</b></div><div><small>Contact</small><b>' + esc(a.contact_name) + '</b></div><div><small>E-mail</small><b>' + esc(a.email) + '</b></div><div><small>WhatsApp</small><b>' + esc(a.whatsapp || a.phone || "—") + '</b></div></div>' +
+      '<h3 style="margin-top:22px">Documents</h3><div class="files" id="ag-docs"></div><p class="p-sub" style="margin-top:12px">To change your details or commission, contact Moviy Nomad.</p>';
+    loadDocs($("#ag-docs"));
+  }
+
+  boot();
+})();

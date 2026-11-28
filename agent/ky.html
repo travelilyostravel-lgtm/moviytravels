@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ky" dir="ltr" data-base="../">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent portal — Moviy Nomad</title><meta name="robots" content="noindex"><meta name="theme-color" content="#12355b">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css?v=5b63fa72"><link rel="stylesheet" href="../assets/css/deck.css"><link rel="stylesheet" href="../assets/css/portal.css">
+</head>
+<body class="portal">
+<header class="p-top"><div class="container p-top__bar"><a class="logo" href="../index.html"><svg viewBox="0 0 180 120" aria-hidden="true"><polyline points="8,112 50,62 62,76" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="116,52 172,112" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M62 112V72c0-21 13-35 28-37 15 2 28 16 28 37v40z" fill="#2fa4c7"/><line x1="90" y1="35" x2="90" y2="16" stroke="#f3b443" stroke-width="5" stroke-linecap="round"/><circle cx="90" cy="12" r="5.5" fill="#f3b443"/><rect x="52" y="108" width="76" height="9" rx="4.5" fill="#f3b443"/></svg><span class="logo__text">MOVIY<span>NOMAD</span></span></a><span class="p-top__tag">Agent portal</span><span class="p-top__sp"></span>
+  <select class="ag-lang" id="ag-lang" aria-label="Language" data-notr><option value="en">English</option><option value="ru">Русский</option><option value="uz">O'zbekcha</option><option value="tr">Türkçe</option><option value="ar">العربية</option><option value="de">Deutsch</option><option value="sv">Svenska</option><option value="zh">中文</option><option value="hi">हिन्दी</option><option value="ko">한국어</option><option value="kk">Қазақша</option><option value="ky" selected>Кыргызча</option><option value="tg">Тоҷикӣ</option><option value="tk">Türkmençe</option><option value="az">Azərbaycanca</option><option value="hy">Հայերեն</option><option value="ka">ქართული</option><option value="be">Беларуская</option><option value="uk">Українська</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pt">Português</option><option value="pl">Polski</option><option value="nl">Nederlands</option><option value="fa">فارسی</option></select><div class="p-top__who hidden" id="who"></div><button class="btn btn--ghost btn--sm hidden" id="logout">Log out</button></div>
+  <nav class="p-tabs hidden" id="tabs"><div class="container" style="display:flex;gap:4px"><button data-view="quote" class="is-on">New quote</button><button data-view="list">My bookings</button><button data-view="groups">Group departures</button><button data-view="services">Services / Guides</button><button data-view="agency">Agency</button></div></nav>
+</header>
+<main class="container p-main">
+  <div class="msg msg--err" id="notcfg" hidden>The portal is not connected to the database yet.</div>
+
+  <section id="v-auth" class="p-auth hidden"><div class="p-card">
+    <div class="seg"><button data-auth="login" class="is-on">Log in</button><button data-auth="register">Register your agency</button></div>
+    <form id="f-login">
+      <h2>Welcome, partner</h2><p class="p-sub">Log in to quote tours with your net prices and book for your clients.</p>
+      <div class="fld"><label>E-mail</label><input type="email" name="email" required autocomplete="email"></div>
+      <div class="fld" style="margin-top:12px"><label>Password</label><input type="password" name="password" required autocomplete="current-password"></div>
+      <div class="msg" id="m-login"></div>
+      <div class="p-actions"><button class="btn btn--gold" type="submit">Log in</button><button class="btn btn--outline" type="button" id="forgot">Forgot password</button></div>
+    </form>
+    <form id="f-register" class="hidden">
+      <h2>Become a partner agency</h2><p class="p-sub">We check every agency by hand. After approval you get net prices and online booking.</p>
+      <div class="p-grid">
+        <div class="fld full"><label>Agency name *</label><input name="agency_name" required></div>
+        <div class="fld"><label>Country *</label><select name="country" required><option>Germany</option><option>Sweden</option><option>Turkey</option><option>United Arab Emirates</option><option>Saudi Arabia</option><option>China</option><option>India</option><option>South Korea</option><option>Russia</option><option>Kazakhstan</option><option>United Kingdom</option><option>France</option><option>Italy</option><option>Spain</option><option>Netherlands</option><option>Poland</option><option>USA</option><option>Japan</option><option>Malaysia</option><option>Indonesia</option><option>Other</option></select></div>
+        <div class="fld"><label>City *</label><input name="city" required></div>
+        <div class="fld full"><label>Legal address (registered office) *</label><input name="address" required placeholder="Street, building, office"></div>
+        <div class="fld"><label>Website</label><input name="website" placeholder="https://"></div>
+        <div class="fld"><label>Company tax number (INN / TIN / VAT) *</label><input name="tax_id" required></div>
+        <div class="fld"><label>License / registration no.</label><input name="license_no"></div>
+        <div class="fld"><label>Contact person *</label><input name="contact_name" required></div>
+        <div class="fld"><label>Phone</label><input name="phone"></div>
+        <div class="fld"><label>Main WhatsApp number *</label><input name="whatsapp" type="tel" required placeholder="+90 5xx xxx xx xx" pattern="[+0-9 ()-]{7,}"></div>
+        <div class="fld"><label>Main e-mail (login) *</label><input type="email" name="email" required autocomplete="email"></div>
+        <div class="fld"><label>Company registration (PDF or image)</label><input type="file" name="doc_registration" accept=".pdf,image/*"></div>
+        <div class="fld"><label>Tourism license (PDF or image)</label><input type="file" name="doc_license" accept=".pdf,image/*"></div>
+        <p class="p-sub full">No password is needed now. We check your application and documents, then send you a password — your login is the e-mail above.</p>
+        <label class="chk full"><input type="checkbox" required> I agree that Moviy Nomad checks my agency documents and stores my clients' passport data only to arrange their trip.</label>
+      </div>
+      <div class="msg" id="m-register"></div>
+      <div class="p-actions"><button class="btn btn--gold" type="submit">Send application</button></div>
+      <div class="ag-help"><p class="p-sub">No WhatsApp or business e-mail? Write to our manager directly:</p>
+        <div class="p-actions"><a class="btn btn--outline" href="https://wa.me/998975427799?text=Hello%2C%20I%20am%20a%20travel%20agency%20and%20would%20like%20to%20become%20a%20Moviy%20Nomad%20partner." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--outline" href="https://t.me/moviy_safina" target="_blank" rel="noopener">Telegram</a><a class="btn btn--outline" href="mailto:moviynomad4214@gmail.com?subject=Partner%20agency%20application">E-mail</a></div></div>
+    </form>
+  </div></section>
+
+  <section id="v-pending" class="hidden"><div class="p-card">
+    <h2 id="pend-title">Your application is being reviewed</h2>
+    <p class="p-sub" id="pend-text">Please upload your company registration and tourism license. We usually review applications within 1–2 working days.</p>
+    <div class="files" id="pend-docs"></div>
+    <div class="p-grid" style="margin-top:16px"><div class="fld"><label>Document type</label><select id="doc-kind"><option value="registration">Company registration</option><option value="license">Tourism license</option><option value="id">ID of the director</option><option value="other">Other</option></select></div>
+      <div class="fld"><label>File (PDF or image)</label><input type="file" id="doc-file" accept=".pdf,image/*"></div></div>
+    <div class="msg" id="m-docs"></div>
+    <div class="p-actions"><button class="btn btn--navy" id="doc-up">Upload document</button></div>
+    <div class="ag-help"><p class="p-sub">Questions? Write to our manager directly:</p>
+      <div class="p-actions"><a class="btn btn--outline" href="https://wa.me/998975427799" target="_blank" rel="noopener">WhatsApp</a><a class="btn btn--outline" href="https://t.me/moviy_safina" target="_blank" rel="noopener">Telegram</a><a class="btn btn--outline" href="mailto:moviynomad4214@gmail.com">E-mail</a></div></div>
+  </div></section>
+
+  <section id="v-quote" class="hidden">
+    <main class="container bwrap">
+  <div class="bhead"><span class="eyebrow">Tour builder</span><h1>Build your own Silk Road journey</h1><p>Choose places and nights, hotels, transport and a guide. You will see the route on the map and an estimated price — then send it to us in one tap.</p></div>
+  <div>
+    <div class="bstep"><h3><span>1</span>Where do you want to go?</h3>
+      <div class="presets" id="presets"></div>
+      <div id="cities"></div></div>
+    <div class="bstep"><h3><span>2</span>Your route &amp; nights</h3><div id="route"></div></div>
+    <div class="bstep"><h3><span>3</span>Hotels</h3><div class="cards" id="hotel"></div></div>
+    <div class="bstep"><h3><span>4</span>Transport</h3><div class="cards" id="transport"></div></div>
+    <div class="bstep"><h3><span>5</span>Travellers, guide &amp; dates</h3>
+      <div class="brow"><div><label class="lbl">Travellers</label><div class="stepper"><button data-pax="-1" aria-label="−">−</button><b id="pax">2</b><button data-pax="1" aria-label="+">+</button></div><label class="tgl"><input type="checkbox" id="single"> Single room</label></div>
+      <div><label class="lbl" for="lang">Guide language</label><select id="lang"></select><label class="lbl" for="month" style="margin-top:14px">Travel month</label><select id="month"><option value="">Not sure yet</option><option value="January">January</option><option value="February">February</option><option value="March">March</option><option value="April">April</option><option value="May">May</option><option value="June">June</option><option value="July">July</option><option value="August">August</option><option value="September">September</option><option value="October">October</option><option value="November">November</option><option value="December">December</option></select></div></div>
+      <label class="lbl" style="margin-top:18px">Interests</label><div class="chks"><label class="chk"><input type="checkbox" name="interest" value="History &amp; architecture"> History &amp; architecture</label><label class="chk"><input type="checkbox" name="interest" value="Spiritual / ziyarat"> Spiritual / ziyarat</label><label class="chk"><input type="checkbox" name="interest" value="Food &amp; bazaars"> Food &amp; bazaars</label><label class="chk"><input type="checkbox" name="interest" value="Mountains &amp; nature"> Mountains &amp; nature</label><label class="chk"><input type="checkbox" name="interest" value="Desert &amp; yurts"> Desert &amp; yurts</label><label class="chk"><input type="checkbox" name="interest" value="Crafts &amp; silk"> Crafts &amp; silk</label><label class="chk"><input type="checkbox" name="interest" value="Photography"> Photography</label></div></div>
+  </div>
+  <aside class="result is-empty" id="result">
+    <svg id="bmap"></svg>
+    <div class="bstats" id="bstats"></div>
+    <div class="bprice"><small>Estimated price per person</small><strong id="bprice">—</strong><small id="btotal"></small>
+      <a class="btn btn--wa is-disabled" id="send" target="_blank" rel="noopener">Send to WhatsApp</a>
+      <a class="btn btn--outline" id="sendtg" href="#" target="_blank" rel="noopener" style="width:100%;margin-top:10px">Write on Telegram</a></div>
+    <p class="bnote">Distances and times are approximate. The final price depends on dates and availability — we confirm it before you book.</p>
+  </aside>
+</main>
+    <div class="p-card" id="q-box" style="margin-top:20px">
+      <h3>Your quote</h3>
+      <div id="q-empty" class="empty">Choose a ready tour or build a route above.</div>
+      <div id="q-body" class="hidden">
+        <div class="kv"><div><small>Tour</small><b id="q-title"></b></div><div><small>Travellers</small><b id="q-pax"></b></div></div>
+        <div class="agp">
+          <div class="agp__br"><small>Client price (brutto)</small><b id="q-brutto"></b><span id="q-pp"></span></div>
+          <div class="agp__btns"><button type="button" class="btn agp__comm" id="q-commbtn" aria-expanded="false">% Commission</button><button type="button" class="btn agp__re" id="q-re">⟳ Recalculate</button></div>
+          <div class="agp__panel hidden" id="q-cpanel"><div><small>Your commission</small><b id="q-cpct"></b></div><div><small>You earn</small><b id="q-camt"></b></div><div><small>You pay Moviy Nomad (netto)</small><b id="q-netto"></b></div></div>
+          <p class="agp__state" id="q-state"></p>
+        </div>
+        <div class="msg" style="margin-top:10px;font-size:13.5px;line-height:1.5"><b>Payment &amp; cancellation (summary).</b> 30% deposit within 3 working days of our invoice; the remaining 70% no later than 14 days before the start (100% at once if booked later). Unpaid balance: one reminder + 48 h, then the booking is cancelled and the deposit is kept. Cancellation fees: 31+ days — bank fees and non-refundable tickets only; 30–15 days — 15%; 14–8 days — 50%; 7–3 days — 75%; 2 days or less / no-show — 100%. An agent who refuses to pay twice is suspended. <a href="../terms.html" target="_blank">Full terms</a></div>
+        <div class="p-grid"><div class="fld"><label>Start date *</label><input type="date" id="q-date"></div><div class="fld"><label>Note for Moviy Nomad</label><input id="q-note" placeholder="Arrival flight, special wishes…"></div></div>
+        <div class="msg" id="m-quote"></div>
+        <div class="p-actions"><button class="btn btn--gold" id="q-book">Book this tour →</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="v-list" class="hidden"><div class="p-card"><h2>My bookings</h2><p class="p-sub">All requests and bookings of your agency.</p><div id="list"></div></div></section>
+
+  <section id="v-booking" class="hidden"></section>
+
+  <section id="v-groups" class="hidden"><div class="p-card"><h2>Guaranteed group departures — free seats</h2><p class="p-sub">Classic Uzbekistan, 8 days / 7 nights, every Saturday from Khiva. Your clients can join any group, even 1 person. Prices are public (per person, twin share); your commission applies. <b>Click a green or yellow cell to book seats</b> — the price is calculated automatically; seats are held when we confirm your 30% deposit.</p><div id="ag-sched"></div></div></section>
+  <section id="v-services" class="hidden"><div class="p-card"><h2>Services / Guides</h2><p class="p-sub">Licensed guides, cars with drivers and hotels checked by Moviy Nomad. Prices are client prices (brutto) per day or night — the same as on our website. Your commission applies: press <b>% Commission</b>. <span>Choose a partner, the dates and send the booking — we confirm availability.</span></p>
+    <div class="filters" id="sv-kinds"></div><div id="sv-list"></div></div>
+    <div class="p-card hidden" id="sv-book"></div></section>
+  <section id="v-agency" class="hidden"><div class="p-card" id="agency-box"></div></section>
+</main>
+<script>window.MN={"whatsapp": "998975427799", "telegram": "moviy_safina", "instagram": "moviy_nomad", "msgGeneral": "Hello Moviy Nomad! I'd like to plan a trip to Uzbekistan.", "msgTour": "Hello Moviy Nomad! I'm interested in the \"{tour}\" tour. Please send me the program and price.", "bookLabel": "Book online", "bookReqLabel": "Send a request"};window.AG_LANG="ky";window.AG_DICT={};</script>
+<script src="../assets/js/agent-i18n.js"></script>
+<script>document.getElementById("ag-lang").onchange=function(){var l=this.value;try{localStorage.setItem("mn_ag_lang",l)}catch(e){}location.href=(l==="en"?"index.html":l+".html")+location.search+location.hash;};</script>
+<script src="../assets/vendor/supabase.js"></script><script src="../assets/js/sb-config.js"></script><script src="../assets/js/portal-core.js"></script>
+<script src="../assets/data/catalog.js"></script><script src="../assets/data/places.js"></script><script src="../assets/data/geo.js"></script><script src="../assets/data/tours.js"></script>
+<script src="../assets/data/l10n/ky.js"></script><script src="../assets/js/engine.js"></script><script src="../assets/js/builder.js"></script><script src="../assets/js/gd-schedule.js"></script><script src="../assets/js/agent.js"></script>
+</body></html>

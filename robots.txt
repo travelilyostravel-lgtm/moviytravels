@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /partner/
+Disallow: /agent/
+Disallow: /voucher.html
+Allow: /
+
+Sitemap: https://moviy-travel.uz/sitemap.xml
