@@ -341,13 +341,6 @@ def render(lang):
 
 {XB["about"]}
 
-  <section class="section section--sand">
-    <div class="container">
-      <div class="section-head reveal"><span class="eyebrow">{e(t["steps_eyebrow"])}</span><h2>{e(t["steps_title"])}</h2></div>
-      <div class="steps">{steps}</div>
-    </div>
-  </section>
-
 {XB["reviews"]}
 
   <section class="section" id="faq">
