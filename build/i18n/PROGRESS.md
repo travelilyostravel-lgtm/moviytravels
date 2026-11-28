@@ -52,6 +52,6 @@ Asoschi topshirig'i (28.11): sayt 30 tilda; saytning HAMMA bo'limlari 30 tilda i
 |---|---|
 | Agent portali (agent/*.html, 212 matn + quruvchi) | ✅ 30 til — build/i18n/portal/ag_<til>.tsv |
 | Mijozga xatlar (msg-templates.js, notify) | ✅ 30 til — build/i18n/portal/mail_<til>.json → notify.json + msg-templates-more.js (Edge Function: fa/ur rtl — keyingi deployda) |
-| Vaucher PDF (voucher.html) | ⏳ |
+| Vaucher PDF (voucher.html) | ✅ 30 til — build/i18n/portal/vc_<til>.json; agent portalida mijoz tili 30 ta |
 | Hamkor portali + ro'yxat formasi | ⏳ |
 | Telegram bot (api/_reg.js) | ⏳ |
