@@ -54,7 +54,7 @@ def LD(lang):
 def l10n_lang(lang):
     return lang if os.path.exists(os.path.join(os.path.dirname(__file__), "l10n", lang + ".py")) else "en"
 
-EXTRA_FONT = {"ar": "&family=Tajawal:wght@400;500;700", "zh": "&family=Noto+Sans+SC:wght@400;600;700", "hi": "&family=Noto+Sans+Devanagari:wght@400;600;700", "ko": "&family=Noto+Sans+KR:wght@400;600;700"}
+EXTRA_FONT = {"fa": "&family=Vazirmatn:wght@400;600;700", "ur": "&family=Noto+Naskh+Arabic:wght@400;600;700", "hy": "&family=Noto+Sans+Armenian:wght@400;600;700", "ka": "&family=Noto+Sans+Georgian:wght@400;600;700", "ja": "&family=Noto+Sans+JP:wght@400;600;700", "ar": "&family=Tajawal:wght@400;500;700", "zh": "&family=Noto+Sans+SC:wght@400;600;700", "hi": "&family=Noto+Sans+Devanagari:wght@400;600;700", "ko": "&family=Noto+Sans+KR:wght@400;600;700"}
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MT_TXT = {

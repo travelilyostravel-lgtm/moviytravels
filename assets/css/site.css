@@ -1724,3 +1724,10 @@ html[data-theme="dark"] #reviews{background:#0f2238}html[data-theme="dark"] .rev
 .hero .hero__actions{flex-wrap:nowrap}.hero .hero__actions .btn{white-space:nowrap}
 @media(max-width:700px){.hero .hero__actions{flex-wrap:wrap}}
 @media(max-width:700px){.hero .hero__sub{display:block;-webkit-line-clamp:unset;overflow:visible}}
+/* 30 languages: scripts that Montserrat / Nunito do not cover (2026-11-28) */
+html[lang="fa"]{--font-head:"Vazirmatn",system-ui,sans-serif;--font-body:"Vazirmatn",system-ui,sans-serif}
+html[lang="ur"]{--font-head:"Noto Naskh Arabic",system-ui,serif;--font-body:"Noto Naskh Arabic",system-ui,serif}
+html[lang="hy"]{--font-head:"Noto Sans Armenian",sans-serif;--font-body:"Noto Sans Armenian",sans-serif}
+html[lang="ka"]{--font-head:"Noto Sans Georgian",sans-serif;--font-body:"Noto Sans Georgian",sans-serif}
+html[lang="ja"]{--font-head:"Montserrat","Noto Sans JP",sans-serif;--font-body:"Noto Sans JP",sans-serif}
+html[lang="fa"] .eyebrow,html[lang="ur"] .eyebrow,html[lang="ja"] .eyebrow,html[lang="hy"] .eyebrow,html[lang="ka"] .eyebrow{letter-spacing:.04em}

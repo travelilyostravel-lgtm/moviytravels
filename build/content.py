@@ -874,3 +874,35 @@ for _l, (_v, _b) in _FAQ_UZ.items():
     _f = list(T[_l]['faq'])
     _f[0] = (_f[0][0], _v); _f[1] = (_f[1][0], _b)
     T[_l]['faq'] = _f
+
+# ---- 2026-11-28: 30 languages. New languages live in build/i18n/<code>.json:
+#   {"live": false, "T": {...same keys as T["en"], only the translated ones...}, "<module>": {...}}
+# Anything not translated falls back to English. A language appears on the site (switcher, pages, sitemap)
+# only when its file says "live": true — so half-translated pages never reach Google.
+import copy as _cp, json as _js, os as _os
+NEW_LANGS = {  # code: (native name, direction)
+    "kk": ("Қазақша", "ltr"), "ky": ("Кыргызча", "ltr"), "tg": ("Тоҷикӣ", "ltr"), "tk": ("Türkmençe", "ltr"), "az": ("Azərbaycanca", "ltr"),
+    "hy": ("Հայերեն", "ltr"), "ka": ("ქართული", "ltr"), "be": ("Беларуская", "ltr"), "uk": ("Українська", "ltr"),
+    "fr": ("Français", "ltr"), "es": ("Español", "ltr"), "it": ("Italiano", "ltr"), "pt": ("Português", "ltr"), "pl": ("Polski", "ltr"), "nl": ("Nederlands", "ltr"),
+    "fa": ("فارسی", "rtl"), "ur": ("اردو", "rtl"), "ja": ("日本語", "ltr"), "id": ("Bahasa Indonesia", "ltr"), "ms": ("Bahasa Melayu", "ltr"),
+}
+def _deep(base, over):
+    if isinstance(base, dict) and isinstance(over, dict):
+        out = dict(base)
+        for k, v in over.items(): out[k] = _deep(base.get(k), v) if k in base else v
+        return out
+    if isinstance(base, (list, tuple)) and isinstance(over, (list, tuple)) and len(base) == len(over):
+        return type(base)(_deep(b, o) for b, o in zip(base, over))
+    return over if over not in (None, "") else base
+I18N = {}
+_I18N_DIR = _os.path.join(_os.path.dirname(__file__), "i18n")
+for _l, (_nm, _dr) in NEW_LANGS.items():
+    _p = _os.path.join(_I18N_DIR, _l + ".json")
+    I18N[_l] = _js.load(open(_p, encoding="utf-8")) if _os.path.exists(_p) else {}
+    T[_l] = _deep(_cp.deepcopy(T["en"]), I18N[_l].get("T", {}))
+    T[_l]["name"], T[_l]["dir"] = _nm, _dr
+LANGS_ALL = LANGS + list(NEW_LANGS)
+LANGS = LANGS + [l for l in NEW_LANGS if I18N[l].get("live") or _os.environ.get("MN_ALL_LANGS")]
+def tr_module(lang, module, en_dict):
+    """English dict of a module + this language's translations from build/i18n (for the new languages)."""
+    return _deep(_cp.deepcopy(en_dict), I18N.get(lang, {}).get(module, {}))
