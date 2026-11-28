@@ -1,0 +1,167 @@
+0	Pendaftaran: jadi pemandu
+1	Pendaftaran: mitra transportasi
+2	Pendaftaran: tambahkan hotel
+3	Pendaftaran: jadi mitra
+4	Pendiri meninjau setiap pendaftaran secara pribadi. Pendaftaran yang tidak memenuhi persyaratan tidak diterima. Jawaban dalam 1–3 hari kerja.
+5	Anda mendaftar sebagai
+7	Transportasi / sopir
+8	Hotel / wisma
+9	Layanan lain
+10	Tentang Anda
+11	Foto
+12	Masuk ke akun mitra
+13	Nama lengkap
+14	Nama lengkap
+15	Nama hotel
+16	Nama atau merek
+19	Telegram: isi @username (5+ karakter) atau nomor telepon
+21	Kota utama
+22	Kota lain tempat Anda bekerja
+23	Bahasa (pisahkan dengan koma: English, Русский)
+24	Nomor lisensi atau diploma pemandu
+25	Nomor SIM
+26	Nomor registrasi (jika ada)
+27	Nomor sertifikat (jika ada)
+28	Nomor pajak (INN)
+29	Pengalaman (tahun)
+30	Mobil (mis. Chevrolet Cobalt)
+31	Kursi penumpang
+32	Tahun
+33	Bintang (jika ada)
+34	Jumlah kamar
+35	Layanan (mis. fotografer, kelas memasak plov)
+36	Harga, $ / hari
+37	Harga, $ / hari
+38	Harga, $ / malam (kamar double)
+39	Harga, $ / layanan
+40	Tentang Anda: tur yang paling Anda kuasai, wisatawan yang pernah Anda layani
+41	Tentang Anda dan mobil Anda
+42	Tentang hotel: lokasi, fasilitas, sarapan
+43	Detail layanan Anda
+44	Foto utama
+45	Berbusana formal atau pakaian nasional, potret dengan wajah terlihat jelas. Ditampilkan di kartu Anda di situs.
+46	Berbusana formal atau pakaian nasional, wajah terlihat jelas.
+47	Bangunan atau halaman / resepsionis bergaya nasional.
+48	Berbusana formal atau pakaian nasional, potret berkualitas.
+49	Foto lisensi atau diploma
+50	Foto jelas lisensi atau diploma pemandu: nomor dan nama terbaca. Hanya kami yang melihatnya.
+51	Foto jelas SIM Anda. Hanya kami yang melihatnya.
+54	Foto diri Anda
+55	Foto Anda sendiri. Ditampilkan di profil Anda di situs.
+56	Foto mobil
+57	Luar, dalam, bagasi. Ditampilkan di profil Anda di situs.
+58	Kamar dan area
+59	Terang dan asli. Ditampilkan di galeri Anda (total hingga 30).
+60	Foto bersama wisatawan
+61	Ditampilkan di galeri Anda di situs, pengunjung bisa menyukainya. Unggah hanya dengan persetujuan wisatawan. Total hingga 30 foto.
+62	Foto STNK
+63	Foto jelas STNK kendaraan. Hanya kami yang melihatnya.
+64	Tahun lahir
+65	Tempat tinggal (kota, kawasan) — ditampilkan di situs
+66	Alamat (kota, kawasan) — ditampilkan di situs
+67	Alamat lengkap (jalan, nomor) — hanya kami yang melihat
+68	Tempat Anda bisa memandu (centang semua)
+70	minimal
+71	dipilih
+73	Kata sandi (min. 8 karakter)
+74	Nanti gunakan e-mail dan kata sandi ini untuk masuk di moviy-travel.uz/partner/.
+75	Saya telah membaca persyaratan dan memenuhinya.
+76	Saya tidak akan bertransaksi langsung dengan klien yang datang melalui Moviy Nomad.
+77	Kirim pendaftaran
+78	Mengirim… mengunggah foto
+79	Mohon isi:
+80	Foto belum cukup:
+81	E-mail ini sudah terdaftar. Masuk: moviy-travel.uz/partner/
+82	{n} foto tidak terunggah karena koneksi — tambahkan di akun mitra Anda.
+83	periksa koneksi dan tekan lagi «Kirim pendaftaran»: isian Anda tersimpan.
+84	Pendaftaran diterima!
+85	Pendiri akan meninjaunya dalam 1–3 hari kerja. Hasilnya bisa dilihat di akun mitra Anda: moviy-travel.uz/partner/
+86	Buka akun mitra
+87	Kesalahan: 
+88	Kata sandi (opsional, min. 8 karakter)
+89	Anda masuk dengan e-mail: kode masuk dikirim ke sana. Anda juga bisa membuat kata sandi agar orang lain tidak bisa membuka akun Anda.
+90	E-mail ini sudah terdaftar. Masuk di moviy-travel.uz/partner/ (kode e-mail atau kata sandi).
+91	Tipe kamar dan harga
+92	+ Tambah tipe kamar
+94	Tipe kamar
+95	Nama (mis. Deluxe double)
+96	Tamu
+97	Tempat tidur
+98	Jumlah kamar tipe ini
+99	Termasuk sarapan
+100	Harga net, $ / malam
+101	Standar
+102	Deluxe
+103	Suite
+104	Keluarga
+105	Single
+106	Tempat tidur asrama
+108	2 single
+109	1 single
+110	3 single
+111	Double + single
+112	Ranjang susun
+113	Fasilitas
+114	Wi-Fi
+116	Parkir
+117	AC
+118	Antar-jemput bandara
+119	Restoran
+120	Kolam renang
+121	Laundry
+122	Resepsionis 24 jam
+123	Kamar keluarga
+124	Halaman bergaya nasional
+125	Lift
+126	Teras
+127	Kamar bebas rokok
+128	Waktu check-in
+129	Waktu check-out
+130	Lokasi di peta (tautan Google atau Yandex)
+131	Kebijakan: pembatalan, anak-anak, hewan peliharaan
+132	Nomor registrasi Komite Pariwisata (akomodasi)
+133	Kendaraan dan harga
+134	+ Tambah kendaraan
+135	Kelas
+136	Ekonomi (Cobalt, Nexia)
+137	Comfort (Malibu, Camry)
+138	Bisnis (Mercedes E, BMW 5)
+139	Premium (Mercedes S, V-Class)
+140	Minivan (4–7 orang)
+141	Minibus (8–19 orang)
+142	Bus (20+ orang)
+143	Merek dan model
+144	Kursi penumpang
+145	Koper
+146	Tahun
+147	Nomor polisi (hanya kami yang melihat)
+148	AC
+149	Harga net, $ / hari
+150	Harga net, $ / antar-jemput bandara
+152	Sopir pribadi
+153	Perusahaan transportasi
+155	Tambahkan minimal satu tipe kamar / kendaraan beserta harganya.
+156	Net = harga yang Anda terima. Di situs wisatawan melihatnya dengan biaya layanan Moviy Nomad. Setiap kamar/kendaraan tampil di situs setelah kami periksa; nanti bisa Anda ubah di akun.
+157	Langkah terakhir: gabung grup Telegram «Moviy Nomad»
+158	Grup tertutup untuk mitra kami dan pelaku pariwisata: berita, pesanan, jejaring. Admin menyetujui permintaan bergabung Anda.
+159	Gabung grup Telegram
+160	💵 Harga Anda (NET, $) — tidak ditampilkan di situs
+161	Harga ini hanya untuk Moviy Nomad: persis inilah yang dibayarkan kepada Anda. Di situs wisatawan melihat pengalaman, bahasa, dan kualifikasi Anda, bukan harga. Kosongkan jika ragu.
+162	Sehari penuh (8 jam), $
+163	Setengah hari (4 jam), $
+164	Jam tambahan, $
+165	Penjemputan di bandara/stasiun, $
+166	Perjalanan sehari ke luar kota, $
+167	Mendampingi seluruh tur (per hari), $
+168	Biaya tambahan grup besar (16+), $
+169	Kategori kualifikasi
+170	— pilih —
+171	Pemandu amatir
+172	Pemandu spesialis
+173	Pemandu profesional
+174	Pemandu «Dana Emas»
+195	Izin bekerja: nomor pajak atau surat keterangan usaha mandiri.
+196	Foto utama: berbusana formal atau pakaian nasional, potret berkualitas.
+197	Foto Anda atau hasil kerja Anda — minimal 3.
+198	Foto bekerja bersama wisatawan — minimal 10 (di galeri Anda; hanya dengan persetujuan wisatawan).
+199	Tepat waktu, berkualitas, dan sopan.

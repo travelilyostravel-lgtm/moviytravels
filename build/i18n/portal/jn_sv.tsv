@@ -1,0 +1,199 @@
+0	Ansökan: bli guide
+1	Ansökan: transportpartner
+2	Ansökan: lägg till ett hotell
+3	Ansökan: bli partner
+4	Grundaren granskar varje ansökan personligen. Ansökningar som inte uppfyller kraven godtas inte. Svar inom 1–3 arbetsdagar.
+5	Du ansöker som
+6	Guide
+7	Transport / förare
+8	Hotell / pensionat
+9	Annan tjänst
+10	Om dig
+11	Foton
+12	Inloggning till partnersidan
+13	För- och efternamn
+14	För- och efternamn
+15	Hotellets namn
+16	Namn eller varumärke
+17	Telefon
+18	Telegram (@användarnamn eller nummer)
+19	Telegram: ange ett @användarnamn (5+ tecken) eller ett telefonnummer
+20	WhatsApp (valfritt)
+21	Huvudort
+22	Andra städer där du arbetar
+23	Språk (kommaseparerade: English, Русский)
+24	Nummer på guidelicens eller diplom
+25	Körkortsnummer
+26	Registernummer (om det finns)
+27	Certifikatnummer (om det finns)
+28	Skattenummer (INN)
+29	Erfarenhet (år)
+30	Bil (t.ex. Chevrolet Cobalt)
+31	Passagerarplatser
+32	Årsmodell
+33	Stjärnor (om det finns)
+34	Antal rum
+35	Tjänst (t.ex. fotograf, plov-kurs)
+36	Pris, $ / dag
+37	Pris, $ / dag
+38	Pris, $ / natt (dubbelrum)
+39	Pris, $ / tjänst
+40	Om dig: turer du kan bäst, vilka resenärer du har arbetat med
+41	Om dig och din bil
+42	Om hotellet: läge, faciliteter, frukost
+43	Din tjänst i detalj
+44	Huvudfoto
+45	I klassisk eller traditionell klädsel, ett porträtt där ansiktet syns tydligt. Visas på ditt kort på webbplatsen.
+46	I klassisk eller traditionell klädsel, ansiktet syns tydligt.
+47	Byggnaden eller en gård / reception i traditionell stil.
+48	I klassisk eller traditionell klädsel, ett porträtt av god kvalitet.
+49	Foto av licens eller diplom
+50	Ett tydligt foto av din guidelicens eller ditt diplom: nummer och namn läsbara. Endast vi ser det.
+51	Ett tydligt foto av ditt körkort. Endast vi ser det.
+54	Foton av dig
+55	Foton där du är ensam. Visas i din profil på webbplatsen.
+56	Foton av bilen
+57	Utsida, insida, bagageutrymme. Visas i din profil på webbplatsen.
+58	Rum och område
+59	Ljusa och verkliga. Visas i ditt galleri (upp till 30 totalt).
+60	Foton med resenärer
+61	Visas i ditt galleri på webbplatsen, besökare kan gilla dem. Ladda bara upp med resenärernas samtycke. Upp till 30 foton totalt.
+62	Foto av registreringsbeviset
+63	Ett tydligt foto av fordonets registreringsbevis. Endast vi ser det.
+64	Födelseår
+65	Var du bor (stad, stadsdel) — visas på webbplatsen
+66	Adress (stad, stadsdel) — visas på webbplatsen
+67	Fullständig adress (gata, nummer) — endast vi ser den
+68	Var du kan guida (kryssa i allt som stämmer)
+69	Krav
+70	minst
+71	valda
+72	E-post
+73	Lösenord (minst 8 tecken)
+74	Med denna e-post och detta lösenord loggar du senare in på moviy-travel.uz/partner/.
+75	Jag har läst kraven och uppfyller dem.
+76	Jag gör inga direkta affärer med kunder som kommit via Moviy Nomad.
+77	Skicka ansökan
+78	Skickar… laddar upp foton
+79	Fyll i:
+80	För få foton:
+81	Den här e-posten är redan registrerad. Logga in: moviy-travel.uz/partner/
+82	{n} foton laddades inte upp på grund av anslutningen — lägg till dem på din partnersida.
+83	kontrollera anslutningen och tryck på «Skicka ansökan» igen: det du skrev är sparat.
+84	Ansökan mottagen!
+85	Grundaren granskar den inom 1–3 arbetsdagar. Resultatet ser du på din partnersida: moviy-travel.uz/partner/
+86	Öppna partnersidan
+87	Fel: 
+88	Lösenord (valfritt, minst 8 tecken)
+89	Du loggar in med din e-post: en inloggningskod skickas dit. Du kan också välja ett lösenord så att ingen annan öppnar din sida.
+90	Den här e-posten är redan registrerad. Logga in på moviy-travel.uz/partner/ (e-postkod eller lösenord).
+91	Rumstyper och priser
+92	+ Lägg till rumstyp
+93	Ta bort
+94	Rumstyp
+95	Namn (t.ex. Deluxe dubbelrum)
+96	Gäster
+97	Sängar
+98	Antal rum av denna typ
+99	Frukost ingår
+100	Nettopris, $ / natt
+101	Standard
+102	Deluxe
+103	Svit
+104	Familjerum
+105	Enkelrum
+106	Säng i sovsal
+107	1 dubbelsäng
+108	2 enkelsängar
+109	1 enkelsäng
+110	3 enkelsängar
+111	Dubbel- + enkelsäng
+112	Våningssäng
+113	Faciliteter
+114	Wi-Fi
+115	Frukost
+116	Parkering
+117	Luftkonditionering
+118	Flygplatstransfer
+119	Restaurang
+120	Pool
+121	Tvätt
+122	Reception dygnet runt
+123	Familjerum
+124	Traditionell innergård
+125	Hiss
+126	Terrass
+127	Rökfria rum
+128	Incheckningstid
+129	Utcheckningstid
+130	Plats på kartan (länk till Google eller Yandex)
+131	Regler: avbokning, barn, husdjur
+132	Registernummer hos turistkommittén (boende)
+133	Fordon och priser
+134	+ Lägg till fordon
+135	Klass
+136	Ekonomi (Cobalt, Nexia)
+137	Komfort (Malibu, Camry)
+138	Business (Mercedes E, BMW 5)
+139	Premium (Mercedes S, V-klass)
+140	Minivan (4–7 pers.)
+141	Minibuss (8–19 pers.)
+142	Buss (20+ pers.)
+143	Märke och modell
+144	Passagerarplatser
+145	Resväskor
+146	Årsmodell
+147	Registreringsnummer (endast vi ser det)
+148	Luftkonditionering
+149	Nettopris, $ / dag
+150	Nettopris, $ / flygplatstransfer
+151	Du är
+152	Privat förare
+153	Transportföretag
+154	Företagsnamn
+155	Lägg till minst en rumstyp / ett fordon med pris.
+156	Netto = priset du får. På webbplatsen ser resenärerna det med Moviy Nomads serviceavgift. Varje rum/fordon visas på webbplatsen efter vår kontroll; du kan ändra dem senare på din sida.
+157	Sista steget: gå med i Telegram-gruppen «Moviy Nomad»
+158	En sluten grupp för våra partner och personer inom turism: nyheter, uppdrag, nätverk. En admin godkänner din förfrågan.
+159	Gå med i Telegram-gruppen
+160	💵 Dina priser (NETTO, $) — visas inte på webbplatsen
+161	Dessa priser är bara för Moviy Nomad: exakt detta får du betalt. På webbplatsen ser resenärerna din erfarenhet, dina språk och din kompetens, inte priser. Lämna tomt om du är osäker.
+162	Heldag (8 timmar), $
+163	Halvdag (4 timmar), $
+164	Extra timme, $
+165	Mottagning på flygplats/station, $
+166	Dagsutflykt utanför staden, $
+167	Följe under hela resan (per dag), $
+168	Tillägg för stor grupp (16+), $
+169	Kompetenskategori
+170	— välj —
+171	Amatörguide
+172	Specialiserad guide
+173	Professionell guide
+174	Guide i «Guldfonden»
+175	Guidelicens från turistkommittén eller guidediplom — ange numret och ladda upp ett foto.
+176	Flytande i minst ett främmande språk.
+177	Huvudfoto: i klassisk (kostym, vit skjorta) eller traditionell klädsel, ett kvalitetsporträtt där ansiktet syns tydligt.
+178	Foton av dig — minst 3.
+179	Foton med resenärer — minst 10 (de visar din erfarenhet och syns i ditt galleri; endast med resenärernas samtycke).
+180	Minst 1 års erfarenhet av resenärer.
+181	Punktlig, prydlig och artig.
+182	Körkort och minst 3 års körerfarenhet.
+183	Varje fordon: klass, modell, år, platser, registreringspapper och nettopris (per dag och flygplatstransfer).
+184	Bil från 2015 eller nyare, luftkonditionerad, ren invändigt, försäkrad.
+185	Huvudfoto: i klassisk eller traditionell klädsel, god kvalitet, ansiktet syns tydligt.
+186	Foton av bilen — minst 6 (utsida, insida, bagageutrymme).
+187	Foton med resenärer — minst 10 (visas i ditt galleri; endast med resenärernas samtycke).
+188	Ingen rökning i bilen, säker körning, punktlig.
+189	Ett registrerat boende (skattenummer eller registernummer).
+190	Varje rumstyp: namn, gäster, antal rum och nettopris (foton per typ lägger du till senare på din sida).
+191	Huvudfoto: byggnaden eller en gård / reception i traditionell stil.
+192	Foton av rum och område — minst 10, ljusa och verkliga.
+193	Rena rum, varmvatten, Wi-Fi och frukost.
+194	Bokningen bekräftas inom 24 timmar, priset anges i förväg.
+195	Tillstånd att arbeta: skattenummer eller intyg om egenföretagande.
+196	Huvudfoto: i klassisk eller traditionell klädsel, ett kvalitetsporträtt.
+197	Foton av dig eller ditt arbete — minst 3.
+198	Foton när du arbetar med resenärer — minst 10 (visas i ditt galleri; endast med resenärernas samtycke).
+199	Punktlig, kvalitet och artighet.
+200	Gör aldrig direkta affärer med kunder som kommit via Moviy Nomad.

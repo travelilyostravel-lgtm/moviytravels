@@ -1,0 +1,167 @@
+0	Candidature : devenir guide
+1	Candidature : partenaire transport
+2	Candidature : ajouter un hôtel
+3	Candidature : devenir partenaire
+4	Le fondateur examine personnellement chaque candidature. Les candidatures qui ne répondent pas aux exigences ne sont pas acceptées. Réponse sous 1 à 3 jours ouvrés.
+5	Vous postulez en tant que
+7	Transport / chauffeur
+8	Hôtel / maison d'hôtes
+9	Autre service
+10	À propos de vous
+11	Photos
+12	Connexion à l'espace partenaire
+13	Nom complet
+14	Nom complet
+15	Nom de l'hôtel
+16	Nom ou marque
+19	Telegram : saisissez un @username (5+ caractères) ou un numéro de téléphone
+21	Ville principale
+22	Autres villes où vous travaillez
+23	Langues (séparées par des virgules : English, Русский)
+24	N° de licence ou de diplôme de guide
+25	N° de permis de conduire
+26	N° d'enregistrement (le cas échéant)
+27	N° de certificat (le cas échéant)
+28	Numéro fiscal (INN)
+29	Expérience (années)
+30	Voiture (ex. Chevrolet Cobalt)
+31	Places passagers
+32	Année
+33	Étoiles (le cas échéant)
+34	Nombre de chambres
+35	Service (ex. photographe, atelier plov)
+36	Prix, $ / jour
+37	Prix, $ / jour
+38	Prix, $ / nuit (chambre double)
+39	Prix, $ / prestation
+40	À propos de vous : les circuits que vous connaissez le mieux, les voyageurs avec qui vous avez travaillé
+41	À propos de vous et de votre voiture
+42	À propos de l'hôtel : emplacement, équipements, petit-déjeuner
+43	Votre service en détail
+44	Photo principale
+45	En tenue classique ou nationale, un portrait au visage bien visible. Affichée sur votre fiche sur le site.
+46	En tenue classique ou nationale, visage bien visible.
+47	Le bâtiment ou une cour / réception de style national.
+48	En tenue classique ou nationale, un portrait de qualité.
+49	Photo de la licence ou du diplôme
+50	Une photo nette de votre licence ou diplôme de guide : numéro et nom lisibles. Visible uniquement par nous.
+51	Une photo nette de votre permis de conduire. Visible uniquement par nous.
+54	Photos de vous
+55	Photos de vous seul(e). Affichées dans votre profil sur le site.
+56	Photos de la voiture
+57	Extérieur, intérieur, coffre. Affichées dans votre profil sur le site.
+58	Chambres et extérieurs
+59	Lumineuses et réelles. Affichées dans votre galerie (30 au total maximum).
+60	Photos avec des voyageurs
+61	Affichées dans votre galerie sur le site, les visiteurs peuvent les aimer. À publier uniquement avec l'accord des voyageurs. 30 photos au total maximum.
+62	Photo de la carte grise
+63	Une photo nette de la carte grise du véhicule. Visible uniquement par nous.
+64	Année de naissance
+65	Où vous habitez (ville, quartier) — affiché sur le site
+66	Adresse (ville, quartier) — affichée sur le site
+67	Adresse complète (rue, numéro) — visible uniquement par nous
+68	Où vous pouvez guider (cochez tout ce qui convient)
+70	au moins
+71	sélectionné(s)
+73	Mot de passe (8 caractères min.)
+74	Utilisez plus tard cet e-mail et ce mot de passe pour vous connecter sur moviy-travel.uz/partner/.
+75	J'ai lu les exigences et j'y réponds.
+76	Je ne conclurai pas d'accords directs avec les clients venus par Moviy Nomad.
+77	Envoyer la candidature
+78	Envoi… téléchargement des photos
+79	Veuillez remplir :
+80	Pas assez de photos :
+81	Cet e-mail est déjà enregistré. Connectez-vous : moviy-travel.uz/partner/
+82	{n} photos n'ont pas pu être envoyées à cause de la connexion — ajoutez-les dans votre espace partenaire.
+83	vérifiez votre connexion et appuyez à nouveau sur « Envoyer la candidature » : vos saisies sont conservées.
+84	Candidature reçue !
+85	Le fondateur l'examinera sous 1 à 3 jours ouvrés. Vous verrez le résultat dans votre espace partenaire : moviy-travel.uz/partner/
+86	Ouvrir l'espace partenaire
+87	Erreur : 
+88	Mot de passe (facultatif, 8 caractères min.)
+89	Vous vous connectez avec votre e-mail : un code de connexion y est envoyé. Vous pouvez aussi définir un mot de passe pour que personne d'autre n'ouvre votre espace.
+90	Cet e-mail est déjà enregistré. Connectez-vous sur moviy-travel.uz/partner/ (code par e-mail ou mot de passe).
+91	Types de chambres et prix
+92	+ Ajouter un type de chambre
+94	Type de chambre
+95	Nom (ex. Deluxe double)
+96	Personnes
+97	Lits
+98	Chambres de ce type
+99	Petit-déjeuner inclus
+100	Prix net, $ / nuit
+101	Standard
+102	Deluxe
+103	Suite
+104	Familiale
+105	Individuelle
+106	Lit en dortoir
+108	2 lits simples
+109	1 lit simple
+110	3 lits simples
+111	Double + simple
+112	Lits superposés
+113	Équipements
+114	Wi-Fi
+116	Parking
+117	Climatisation
+118	Transfert aéroport
+119	Restaurant
+120	Piscine
+121	Blanchisserie
+122	Réception 24 h/24
+123	Chambres familiales
+124	Cour de style national
+125	Ascenseur
+126	Terrasse
+127	Chambres non-fumeurs
+128	Heure d'arrivée (check-in)
+129	Heure de départ (check-out)
+130	Emplacement sur la carte (lien Google ou Yandex)
+131	Conditions : annulation, enfants, animaux
+132	N° au registre du Comité du tourisme (hébergement)
+133	Véhicules et prix
+134	+ Ajouter un véhicule
+135	Catégorie
+136	Économique (Cobalt, Nexia)
+137	Confort (Malibu, Camry)
+138	Affaires (Mercedes E, BMW 5)
+139	Premium (Mercedes S, Classe V)
+140	Minivan (4–7 pers.)
+141	Minibus (8–19 pers.)
+142	Autocar (20+ pers.)
+143	Marque et modèle
+144	Places passagers
+145	Valises
+146	Année
+147	Immatriculation (visible uniquement par nous)
+148	Climatisation
+149	Prix net, $ / jour
+150	Prix net, $ / transfert aéroport
+152	Chauffeur indépendant
+153	Société de transport
+155	Ajoutez au moins un type de chambre / un véhicule avec son prix.
+156	Net = le prix que vous recevez. Sur le site, les voyageurs le voient avec les frais de service de Moviy Nomad. Chaque chambre/véhicule apparaît sur le site après vérification ; vous pourrez les modifier ensuite dans votre espace.
+157	Dernière étape : rejoignez le groupe Telegram « Moviy Nomad »
+158	Un groupe fermé pour nos partenaires et les professionnels du tourisme : actualités, commandes, réseau. Un administrateur valide votre demande.
+159	Rejoindre le groupe Telegram
+160	💵 Vos prix (NETS, $) — non affichés sur le site
+161	Ces prix sont uniquement pour Moviy Nomad : c'est exactement ce qui vous est versé. Sur le site, les voyageurs voient votre expérience, vos langues et votre qualification, pas vos prix. Laissez vide en cas de doute.
+162	Journée complète (8 heures), $
+163	Demi-journée (4 heures), $
+164	Heure supplémentaire, $
+165	Accueil à l'aéroport/la gare, $
+166	Excursion d'une journée hors de la ville, $
+167	Accompagnement de tout le circuit (par jour), $
+168	Supplément grand groupe (16+), $
+169	Catégorie de qualification
+170	— choisir —
+171	Guide amateur
+172	Guide spécialisé
+173	Guide professionnel
+174	Guide du « Fonds d'or »
+195	Autorisation de travailler : numéro fiscal ou attestation d'auto-entrepreneur.
+196	Photo principale : en tenue classique ou nationale, un portrait de qualité.
+197	Photos de vous ou de votre travail — au moins 3.
+198	Photos de travail avec des voyageurs — au moins 10 (dans votre galerie ; uniquement avec l'accord des voyageurs).
+199	Ponctuel, de qualité et poli.

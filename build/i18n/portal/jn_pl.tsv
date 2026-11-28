@@ -1,0 +1,167 @@
+0	Zgłoszenie: zostań przewodnikiem
+1	Zgłoszenie: partner transportowy
+2	Zgłoszenie: dodaj hotel
+3	Zgłoszenie: zostań partnerem
+4	Założyciel osobiście rozpatruje każde zgłoszenie. Zgłoszenia niespełniające wymagań nie są przyjmowane. Odpowiedź w ciągu 1–3 dni roboczych.
+5	Zgłaszasz się jako
+7	Transport / kierowca
+8	Hotel / pensjonat
+9	Inna usługa
+10	O Tobie
+11	Zdjęcia
+12	Logowanie do panelu partnera
+13	Imię i nazwisko
+14	Imię i nazwisko
+15	Nazwa hotelu
+16	Nazwa lub marka
+19	Telegram: wpisz @username (5+ znaków) lub numer telefonu
+21	Główne miasto
+22	Inne miasta, w których pracujesz
+23	Języki (po przecinku: English, Русский)
+24	Nr licencji lub dyplomu przewodnika
+25	Nr prawa jazdy
+26	Nr w rejestrze (jeśli jest)
+27	Nr zaświadczenia (jeśli jest)
+28	Numer podatkowy (INN)
+29	Doświadczenie (lata)
+30	Samochód (np. Chevrolet Cobalt)
+31	Miejsca dla pasażerów
+32	Rok
+33	Gwiazdki (jeśli są)
+34	Liczba pokoi
+35	Usługa (np. fotograf, warsztat plovu)
+36	Cena, $ / dzień
+37	Cena, $ / dzień
+38	Cena, $ / noc (pokój 2-os.)
+39	Cena, $ / usługa
+40	O Tobie: wycieczki, które znasz najlepiej, z jakimi podróżnymi pracowałeś
+41	O Tobie i Twoim samochodzie
+42	O hotelu: lokalizacja, udogodnienia, śniadanie
+43	Szczegóły Twojej usługi
+44	Zdjęcie główne
+45	W stroju klasycznym lub narodowym, portret z wyraźnie widoczną twarzą. Widoczne na Twojej karcie na stronie.
+46	W stroju klasycznym lub narodowym, twarz wyraźnie widoczna.
+47	Budynek lub dziedziniec / recepcja w stylu narodowym.
+48	W stroju klasycznym lub narodowym, portret dobrej jakości.
+49	Zdjęcie licencji lub dyplomu
+50	Wyraźne zdjęcie licencji lub dyplomu przewodnika: numer i nazwisko czytelne. Widzimy je tylko my.
+51	Wyraźne zdjęcie prawa jazdy. Widzimy je tylko my.
+54	Twoje zdjęcia
+55	Zdjęcia, na których jesteś sam(a). Widoczne w Twoim profilu na stronie.
+56	Zdjęcia samochodu
+57	Z zewnątrz, w środku, bagażnik. Widoczne w Twoim profilu na stronie.
+58	Pokoje i teren
+59	Jasne i prawdziwe. Widoczne w Twojej galerii (łącznie do 30).
+60	Zdjęcia z podróżnymi
+61	Widoczne w Twojej galerii na stronie, odwiedzający mogą je polubić. Dodawaj tylko za zgodą podróżnych. Łącznie do 30 zdjęć.
+62	Zdjęcie dowodu rejestracyjnego
+63	Wyraźne zdjęcie dowodu rejestracyjnego pojazdu. Widzimy je tylko my.
+64	Rok urodzenia
+65	Gdzie mieszkasz (miasto, dzielnica) — widoczne na stronie
+66	Adres (miasto, dzielnica) — widoczny na stronie
+67	Pełny adres (ulica, numer) — widzimy go tylko my
+68	Gdzie możesz oprowadzać (zaznacz wszystko)
+70	co najmniej
+71	wybrano
+73	Hasło (min. 8 znaków)
+74	Później z tym e-mailem i hasłem zalogujesz się na moviy-travel.uz/partner/.
+75	Przeczytałem(-am) wymagania i je spełniam.
+76	Nie będę zawierać bezpośrednich umów z klientami, którzy przyszli przez Moviy Nomad.
+77	Wyślij zgłoszenie
+78	Wysyłanie… przesyłanie zdjęć
+79	Uzupełnij:
+80	Za mało zdjęć:
+81	Ten e-mail jest już zarejestrowany. Zaloguj się: moviy-travel.uz/partner/
+82	{n} zdjęć nie przesłało się z powodu połączenia — dodaj je w panelu partnera.
+83	sprawdź połączenie i ponownie naciśnij «Wyślij zgłoszenie»: wpisane dane są zapisane.
+84	Zgłoszenie przyjęte!
+85	Założyciel rozpatrzy je w ciągu 1–3 dni roboczych. Wynik zobaczysz w panelu partnera: moviy-travel.uz/partner/
+86	Otwórz panel partnera
+87	Błąd: 
+88	Hasło (opcjonalne, min. 8 znaków)
+89	Logujesz się e-mailem: przychodzi na niego kod logowania. Możesz też ustawić hasło, aby nikt inny nie otworzył Twojego panelu.
+90	Ten e-mail jest już zarejestrowany. Zaloguj się na moviy-travel.uz/partner/ (kod z e-maila lub hasło).
+91	Rodzaje pokoi i ceny
+92	+ Dodaj rodzaj pokoju
+94	Rodzaj pokoju
+95	Nazwa (np. Deluxe 2-os.)
+96	Goście
+97	Łóżka
+98	Liczba takich pokoi
+99	Śniadanie w cenie
+100	Cena netto, $ / noc
+101	Standard
+102	Deluxe
+103	Apartament (suite)
+104	Rodzinny
+105	Jednoosobowy
+106	Łóżko w dormitorium
+108	2 pojedyncze
+109	1 pojedyncze
+110	3 pojedyncze
+111	Podwójne + pojedyncze
+112	Łóżko piętrowe
+113	Udogodnienia
+114	Wi-Fi
+116	Parking
+117	Klimatyzacja
+118	Transfer z lotniska
+119	Restauracja
+120	Basen
+121	Pralnia
+122	Recepcja 24 h
+123	Pokoje rodzinne
+124	Dziedziniec w stylu narodowym
+125	Winda
+126	Taras
+127	Pokoje dla niepalących
+128	Godzina zameldowania (check-in)
+129	Godzina wymeldowania (check-out)
+130	Lokalizacja na mapie (link Google lub Yandex)
+131	Zasady: anulacja, dzieci, zwierzęta
+132	Nr w rejestrze Komitetu Turystyki (obiekt noclegowy)
+133	Pojazdy i ceny
+134	+ Dodaj pojazd
+135	Klasa
+136	Ekonomiczna (Cobalt, Nexia)
+137	Komfort (Malibu, Camry)
+138	Biznes (Mercedes E, BMW 5)
+139	Premium (Mercedes S, Klasa V)
+140	Minivan (4–7 os.)
+141	Minibus (8–19 os.)
+142	Autokar (20+ os.)
+143	Marka i model
+144	Miejsca dla pasażerów
+145	Walizki
+146	Rok
+147	Numer rejestracyjny (widzimy go tylko my)
+148	Klimatyzacja
+149	Cena netto, $ / dzień
+150	Cena netto, $ / transfer z lotniska
+152	Kierowca prywatny
+153	Firma transportowa
+155	Dodaj co najmniej jeden rodzaj pokoju / pojazd z ceną.
+156	Netto = cena, którą otrzymujesz. Na stronie podróżni widzą ją z opłatą serwisową Moviy Nomad. Każdy pokój/pojazd pojawia się na stronie po naszej weryfikacji; później możesz je zmieniać w panelu.
+157	Ostatni krok: dołącz do grupy Telegram «Moviy Nomad»
+158	Zamknięta grupa dla naszych partnerów i ludzi z branży turystycznej: aktualności, zlecenia, kontakty. Administrator zatwierdza prośbę o dołączenie.
+159	Dołącz do grupy Telegram
+160	💵 Twoje ceny (NETTO, $) — niewidoczne na stronie
+161	Te ceny są tylko dla Moviy Nomad: dokładnie tyle Ci płacimy. Na stronie podróżni widzą Twoje doświadczenie, języki i kwalifikacje, a nie ceny. Zostaw puste, jeśli nie masz pewności.
+162	Cały dzień (8 godzin), $
+163	Pół dnia (4 godziny), $
+164	Dodatkowa godzina, $
+165	Powitanie na lotnisku/dworcu, $
+166	Jednodniowy wyjazd za miasto, $
+167	Towarzyszenie przez całą wycieczkę (za dzień), $
+168	Dopłata za dużą grupę (16+), $
+169	Kategoria kwalifikacji
+170	— wybierz —
+171	Przewodnik amator
+172	Przewodnik specjalistyczny
+173	Przewodnik zawodowy
+174	Przewodnik «Złotego Funduszu»
+195	Pozwolenie na pracę: numer podatkowy lub zaświadczenie o samozatrudnieniu.
+196	Zdjęcie główne: w stroju klasycznym lub narodowym, portret dobrej jakości.
+197	Zdjęcia Ciebie lub Twojej pracy — co najmniej 3.
+198	Zdjęcia z pracy z podróżnymi — co najmniej 10 (w Twojej galerii; tylko za zgodą podróżnych).
+199	Punktualność, jakość i uprzejmość.

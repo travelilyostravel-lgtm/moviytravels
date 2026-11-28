@@ -1,0 +1,199 @@
+0	Başvuru: rehber olun
+1	Başvuru: ulaşım ortağı
+2	Başvuru: otel ekleyin
+3	Başvuru: iş ortağı olun
+4	Kurucu her başvuruyu bizzat inceler. Şartları karşılamayan başvurular kabul edilmez. Yanıt 1–3 iş günü içinde.
+5	Başvuru türünüz
+6	Rehber
+7	Ulaşım / şoför
+8	Otel / pansiyon
+9	Diğer hizmet
+10	Hakkınızda
+11	Fotoğraflar
+12	İş ortağı paneline giriş
+13	Ad soyad
+14	Ad soyad
+15	Otel adı
+16	Ad veya marka
+17	Telefon
+18	Telegram (@kullanıcıadı veya numara)
+19	Telegram: @kullanıcıadı (5+ karakter) veya telefon numarası yazın
+20	WhatsApp (isteğe bağlı)
+21	Ana şehir
+22	Çalıştığınız diğer şehirler
+23	Diller (virgülle: English, Русский)
+24	Rehber lisansı veya diploma numarası
+25	Ehliyet numarası
+26	Sicil numarası (varsa)
+27	Belge numarası (varsa)
+28	Vergi numarası (INN)
+29	Deneyim (yıl)
+30	Araç (örn. Chevrolet Cobalt)
+31	Yolcu koltuğu
+32	Yıl
+33	Yıldız (varsa)
+34	Oda sayısı
+35	Hizmet (örn. fotoğrafçı, pilav atölyesi)
+36	Fiyat, $ / gün
+37	Fiyat, $ / gün
+38	Fiyat, $ / gece (çift kişilik oda)
+39	Fiyat, $ / hizmet
+40	Hakkınızda: en iyi bildiğiniz turlar, hangi gezginlerle çalıştınız
+41	Siz ve aracınız hakkında
+42	Otel hakkında: konum, olanaklar, kahvaltı
+43	Hizmetiniz hakkında ayrıntılı bilgi
+44	Ana fotoğraf
+45	Klasik veya yöresel kıyafetle, yüzü net görünen bir portre. Sitedeki kartınızda gösterilir.
+46	Klasik veya yöresel kıyafetle, yüz net görünür.
+47	Bina veya yöresel tarzda avlu / resepsiyon.
+48	Klasik veya yöresel kıyafetle, kaliteli bir portre.
+49	Lisans veya diploma fotoğrafı
+50	Rehber lisansınızın veya diplomanızın net fotoğrafı: numara ve ad okunabilir olmalı. Sadece biz görürüz.
+51	Ehliyetinizin net fotoğrafı. Sadece biz görürüz.
+54	Kendi fotoğraflarınız
+55	Tek başınıza olduğunuz fotoğraflar. Sitedeki profilinizde gösterilir.
+56	Araç fotoğrafları
+57	Dış, iç, bagaj. Sitedeki profilinizde gösterilir.
+58	Odalar ve alan
+59	Aydınlık ve gerçek. Galerinizde gösterilir (toplam 30'a kadar).
+60	Gezginlerle fotoğraflar
+61	Sitedeki galerinizde gösterilir, ziyaretçiler beğenebilir. Yalnızca gezginlerin izniyle yükleyin. Toplam 30 fotoğrafa kadar.
+62	Ruhsat fotoğrafı
+63	Araç ruhsatının net fotoğrafı. Sadece biz görürüz.
+64	Doğum yılı
+65	Yaşadığınız yer (şehir, semt) — sitede gösterilir
+66	Adres (şehir, semt) — sitede gösterilir
+67	Tam adres (sokak, bina) — sadece biz görürüz
+68	Rehberlik yapabileceğiniz yerler (hepsini işaretleyin)
+69	Şartlar
+70	en az
+71	seçildi
+72	E-posta
+73	Şifre (en az 8 karakter)
+74	Daha sonra bu e-posta ve şifreyle moviy-travel.uz/partner/ adresinden giriş yaparsınız.
+75	Şartları okudum ve karşılıyorum.
+76	Moviy Nomad aracılığıyla gelen müşterilerle doğrudan anlaşma yapmayacağım.
+77	Başvuruyu gönder
+78	Gönderiliyor… fotoğraflar yükleniyor
+79	Lütfen doldurun:
+80	Fotoğraflar yetersiz:
+81	Bu e-posta zaten kayıtlı. Giriş yapın: moviy-travel.uz/partner/
+82	{n} fotoğraf bağlantı nedeniyle yüklenemedi — iş ortağı panelinizden ekleyin.
+83	bağlantınızı kontrol edip «Başvuruyu gönder» düğmesine yeniden basın: girdikleriniz kaydedildi.
+84	Başvuru alındı!
+85	Kurucu 1–3 iş günü içinde inceleyecek. Sonucu iş ortağı panelinizde göreceksiniz: moviy-travel.uz/partner/
+86	İş ortağı panelini aç
+87	Hata: 
+88	Şifre (isteğe bağlı, en az 8 karakter)
+89	E-postanızla giriş yaparsınız: giriş kodu e-postanıza gelir. Panelinizi başkası açmasın diye şifre de belirleyebilirsiniz.
+90	Bu e-posta zaten kayıtlı. moviy-travel.uz/partner/ adresinden giriş yapın (e-posta kodu veya şifre ile).
+91	Oda tipleri ve fiyatlar
+92	+ Oda tipi ekle
+93	Kaldır
+94	Oda tipi
+95	Ad (örn. Deluxe çift kişilik)
+96	Kişi
+97	Yataklar
+98	Bu tipteki oda sayısı
+99	Kahvaltı dahil
+100	Net fiyat, $ / gece
+101	Standart
+102	Deluxe
+103	Süit
+104	Aile
+105	Tek kişilik
+106	Yatakhane yatağı
+107	1 çift kişilik
+108	2 tek kişilik
+109	1 tek kişilik
+110	3 tek kişilik
+111	Çift + tek kişilik
+112	Ranza
+113	Olanaklar
+114	Wi-Fi
+115	Kahvaltı
+116	Otopark
+117	Klima
+118	Havalimanı transferi
+119	Restoran
+120	Havuz
+121	Çamaşırhane
+122	24 saat resepsiyon
+123	Aile odaları
+124	Yöresel avlu
+125	Asansör
+126	Teras
+127	Sigara içilmeyen odalar
+128	Giriş saati (check-in)
+129	Çıkış saati (check-out)
+130	Haritadaki konum (Google veya Yandex bağlantısı)
+131	Kurallar: iptal, çocuklar, evcil hayvanlar
+132	Turizm Komitesi sicil numarası (konaklama tesisi)
+133	Araçlar ve fiyatlar
+134	+ Araç ekle
+135	Sınıf
+136	Ekonomi (Cobalt, Nexia)
+137	Konfor (Malibu, Camry)
+138	Business (Mercedes E, BMW 5)
+139	Premium (Mercedes S, V-Class)
+140	Minivan (4–7 kişi)
+141	Minibüs (8–19 kişi)
+142	Otobüs (20+ kişi)
+143	Marka ve model
+144	Yolcu koltuğu
+145	Bavul
+146	Yıl
+147	Plaka (sadece biz görürüz)
+148	Klima
+149	Net fiyat, $ / gün
+150	Net fiyat, $ / havalimanı transferi
+151	Siz
+152	Özel şoför
+153	Ulaşım şirketi
+154	Şirket adı
+155	En az bir oda tipi / aracı fiyatıyla ekleyin.
+156	Net = size ödenen fiyat. Sitede gezginler bunu Moviy Nomad hizmet bedeliyle görür. Her oda/araç kontrolümüzden sonra sitede görünür; sonra panelinizden değiştirebilirsiniz.
+157	Son adım: «Moviy Nomad» Telegram grubuna katılın
+158	İş ortaklarımız ve turizm sektöründeki kişiler için kapalı grup: haberler, işler, tanışma. Katılma isteğinizi yönetici onaylar.
+159	Telegram grubuna katıl
+160	💵 Fiyatlarınız (NET, $) — sitede gösterilmez
+161	Bu fiyatlar yalnızca Moviy Nomad içindir: size tam olarak bu ödenir. Sitede gezginler fiyatı değil, deneyiminizi, dillerinizi ve yeterliliğinizi görür. Emin değilseniz boş bırakın.
+162	Tam gün (8 saat), $
+163	Yarım gün (4 saat), $
+164	Ek saat, $
+165	Havalimanı/gar karşılama, $
+166	Şehir dışı günübirlik gezi, $
+167	Tüm tur boyunca eşlik (günlük), $
+168	Büyük grup (16+) ek ücreti, $
+169	Yeterlilik kategorisi
+170	— seçin —
+171	Amatör rehber
+172	Uzman rehber
+173	Profesyonel rehber
+174	«Altın Fon» rehberi
+175	Turizm Komitesi rehber lisansı veya rehberlik diploması — numarayı girin ve fotoğrafını yükleyin.
+176	En az bir yabancı dili akıcı konuşmak.
+177	Ana fotoğraf: klasik (takım elbise, beyaz gömlek) veya yöresel kıyafetle, yüzü net görünen kaliteli bir portre.
+178	Kendi fotoğraflarınız — en az 3.
+179	Gezginlerle fotoğraflar — en az 10 (deneyiminizi kanıtlar ve galerinizde görünür; yalnızca gezginlerin izniyle).
+180	Gezginlerle en az 1 yıllık deneyim.
+181	Dakik, düzenli ve kibar.
+182	Ehliyet ve en az 3 yıllık sürüş deneyimi.
+183	Her araç: sınıf, model, yıl, koltuk, ruhsat ve net fiyat (günlük ve havalimanı transferi).
+184	2015 veya daha yeni, klimalı, içi temiz, sigortalı araç.
+185	Ana fotoğraf: klasik veya yöresel kıyafetle, kaliteli, yüzü net görünen.
+186	Araç fotoğrafları — en az 6 (dış, iç, bagaj).
+187	Gezginlerle fotoğraflar — en az 10 (galerinizde görünür; yalnızca gezginlerin izniyle).
+188	Araçta sigara yok, güvenli sürüş, dakiklik.
+189	Kayıtlı konaklama tesisi (vergi numarası veya sicil numarası).
+190	Her oda tipi: ad, kişi sayısı, oda sayısı ve net fiyat (her tipin fotoğraflarını sonra panelinizden eklersiniz).
+191	Ana fotoğraf: bina veya yöresel tarzda avlu / resepsiyon.
+192	Oda ve alan fotoğrafları — en az 10, aydınlık ve gerçek.
+193	Temiz odalar, sıcak su, Wi-Fi ve kahvaltı.
+194	Rezervasyon 24 saat içinde onaylanır, fiyat önceden belirtilir.
+195	Çalışma izni: vergi numarası veya serbest çalışan belgesi.
+196	Ana fotoğraf: klasik veya yöresel kıyafetle, kaliteli bir portre.
+197	Sizin veya işinizin fotoğrafları — en az 3.
+198	Gezginlerle çalışırken fotoğraflar — en az 10 (galerinizde görünür; yalnızca gezginlerin izniyle).
+199	Dakik, kaliteli ve kibar.
+200	Moviy Nomad aracılığıyla gelen müşterilerle asla doğrudan anlaşma yapmayın.

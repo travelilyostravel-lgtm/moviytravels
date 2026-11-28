@@ -1,0 +1,167 @@
+0	Permohonan: jadi pemandu pelancong
+1	Permohonan: rakan kongsi pengangkutan
+2	Permohonan: tambah hotel
+3	Permohonan: jadi rakan kongsi
+4	Pengasas menyemak setiap permohonan sendiri. Permohonan yang tidak memenuhi syarat tidak diterima. Jawapan dalam 1–3 hari bekerja.
+5	Anda memohon sebagai
+7	Pengangkutan / pemandu
+8	Hotel / rumah tamu
+9	Perkhidmatan lain
+10	Tentang anda
+11	Foto
+12	Log masuk akaun rakan kongsi
+13	Nama penuh
+14	Nama penuh
+15	Nama hotel
+16	Nama atau jenama
+19	Telegram: masukkan @username (5+ aksara) atau nombor telefon
+21	Bandar utama
+22	Bandar lain tempat anda bekerja
+23	Bahasa (dipisah koma: English, Русский)
+24	No. lesen atau diploma pemandu pelancong
+25	No. lesen memandu
+26	No. pendaftaran (jika ada)
+27	No. sijil (jika ada)
+28	Nombor cukai (INN)
+29	Pengalaman (tahun)
+30	Kereta (cth. Chevrolet Cobalt)
+31	Tempat duduk penumpang
+32	Tahun
+33	Bintang (jika ada)
+34	Bilangan bilik
+35	Perkhidmatan (cth. jurugambar, kelas memasak plov)
+36	Harga, $ / hari
+37	Harga, $ / hari
+38	Harga, $ / malam (bilik double)
+39	Harga, $ / perkhidmatan
+40	Tentang anda: lawatan yang paling anda kuasai, pelancong yang pernah anda layani
+41	Tentang anda dan kereta anda
+42	Tentang hotel: lokasi, kemudahan, sarapan
+43	Butiran perkhidmatan anda
+44	Foto utama
+45	Berpakaian formal atau tradisional, potret dengan wajah jelas kelihatan. Dipaparkan pada kad anda di laman web.
+46	Berpakaian formal atau tradisional, wajah jelas kelihatan.
+47	Bangunan atau halaman / kaunter penyambut tetamu bergaya tradisional.
+48	Berpakaian formal atau tradisional, potret berkualiti.
+49	Foto lesen atau diploma
+50	Foto jelas lesen atau diploma pemandu pelancong: nombor dan nama boleh dibaca. Hanya kami yang melihatnya.
+51	Foto jelas lesen memandu anda. Hanya kami yang melihatnya.
+54	Foto diri anda
+55	Foto anda seorang. Dipaparkan dalam profil anda di laman web.
+56	Foto kereta
+57	Luar, dalam, but. Dipaparkan dalam profil anda di laman web.
+58	Bilik dan kawasan
+59	Terang dan sebenar. Dipaparkan dalam galeri anda (jumlah hingga 30).
+60	Foto bersama pelancong
+61	Dipaparkan dalam galeri anda di laman web, pelawat boleh menyukainya. Muat naik hanya dengan persetujuan pelancong. Jumlah hingga 30 foto.
+62	Foto geran kenderaan
+63	Foto jelas geran / sijil pendaftaran kenderaan. Hanya kami yang melihatnya.
+64	Tahun lahir
+65	Tempat tinggal (bandar, kawasan) — dipaparkan di laman web
+66	Alamat (bandar, kawasan) — dipaparkan di laman web
+67	Alamat penuh (jalan, nombor rumah) — hanya kami yang melihat
+68	Tempat anda boleh membawa lawatan (tandakan semua)
+70	sekurang-kurangnya
+71	dipilih
+73	Kata laluan (min. 8 aksara)
+74	Kemudian gunakan e-mel dan kata laluan ini untuk log masuk di moviy-travel.uz/partner/.
+75	Saya telah membaca syarat dan memenuhinya.
+76	Saya tidak akan berurusan terus dengan pelanggan yang datang melalui Moviy Nomad.
+77	Hantar permohonan
+78	Menghantar… memuat naik foto
+79	Sila isi:
+80	Foto tidak mencukupi:
+81	E-mel ini sudah berdaftar. Log masuk: moviy-travel.uz/partner/
+82	{n} foto tidak dimuat naik kerana sambungan — tambahkannya dalam akaun rakan kongsi anda.
+83	semak sambungan dan tekan sekali lagi «Hantar permohonan»: apa yang anda isi telah disimpan.
+84	Permohonan diterima!
+85	Pengasas akan menyemaknya dalam 1–3 hari bekerja. Keputusannya boleh dilihat dalam akaun rakan kongsi anda: moviy-travel.uz/partner/
+86	Buka akaun rakan kongsi
+87	Ralat: 
+88	Kata laluan (pilihan, min. 8 aksara)
+89	Anda log masuk dengan e-mel: kod log masuk dihantar kepadanya. Anda juga boleh menetapkan kata laluan supaya orang lain tidak membuka akaun anda.
+90	E-mel ini sudah berdaftar. Log masuk di moviy-travel.uz/partner/ (kod e-mel atau kata laluan).
+91	Jenis bilik dan harga
+92	+ Tambah jenis bilik
+94	Jenis bilik
+95	Nama (cth. Deluxe double)
+96	Tetamu
+97	Katil
+98	Bilangan bilik jenis ini
+99	Termasuk sarapan
+100	Harga bersih, $ / malam
+101	Standard
+102	Deluxe
+103	Suite
+104	Keluarga
+105	Single
+106	Katil asrama
+108	2 single
+109	1 single
+110	3 single
+111	Double + single
+112	Katil dua tingkat
+113	Kemudahan
+114	Wi-Fi
+116	Tempat letak kereta
+117	Penyaman udara
+118	Pemindahan lapangan terbang
+119	Restoran
+120	Kolam renang
+121	Dobi
+122	Kaunter 24 jam
+123	Bilik keluarga
+124	Halaman tradisional
+125	Lif
+126	Teres
+127	Bilik bebas rokok
+128	Masa daftar masuk (check-in)
+129	Masa daftar keluar (check-out)
+130	Lokasi di peta (pautan Google atau Yandex)
+131	Polisi: pembatalan, kanak-kanak, haiwan peliharaan
+132	No. pendaftaran Jawatankuasa Pelancongan (penginapan)
+133	Kenderaan dan harga
+134	+ Tambah kenderaan
+135	Kelas
+136	Ekonomi (Cobalt, Nexia)
+137	Selesa (Malibu, Camry)
+138	Bisnes (Mercedes E, BMW 5)
+139	Premium (Mercedes S, V-Class)
+140	Van mini (4–7 orang)
+141	Bas mini (8–19 orang)
+142	Bas (20+ orang)
+143	Jenama dan model
+144	Tempat duduk penumpang
+145	Bagasi
+146	Tahun
+147	Nombor plat (hanya kami yang melihat)
+148	Penyaman udara
+149	Harga bersih, $ / hari
+150	Harga bersih, $ / pemindahan lapangan terbang
+152	Pemandu persendirian
+153	Syarikat pengangkutan
+155	Tambah sekurang-kurangnya satu jenis bilik / kenderaan dengan harganya.
+156	Bersih = harga yang anda terima. Di laman web pelancong melihatnya bersama yuran perkhidmatan Moviy Nomad. Setiap bilik/kenderaan dipaparkan selepas semakan kami; anda boleh menukarnya kemudian dalam akaun.
+157	Langkah terakhir: sertai kumpulan Telegram «Moviy Nomad»
+158	Kumpulan tertutup untuk rakan kongsi kami dan orang dalam pelancongan: berita, tempahan, rangkaian. Admin meluluskan permintaan anda.
+159	Sertai kumpulan Telegram
+160	💵 Harga anda (BERSIH, $) — tidak dipaparkan di laman web
+161	Harga ini hanya untuk Moviy Nomad: tepat jumlah inilah yang dibayar kepada anda. Di laman web pelancong melihat pengalaman, bahasa dan kelayakan anda, bukan harga. Biarkan kosong jika tidak pasti.
+162	Sehari penuh (8 jam), $
+163	Separuh hari (4 jam), $
+164	Jam tambahan, $
+165	Sambutan di lapangan terbang/stesen, $
+166	Lawatan sehari ke luar bandar, $
+167	Mengiringi seluruh lawatan (sehari), $
+168	Caj tambahan kumpulan besar (16+), $
+169	Kategori kelayakan
+170	— pilih —
+171	Pemandu pelancong amatur
+172	Pemandu pelancong pakar
+173	Pemandu pelancong profesional
+174	Pemandu pelancong «Dana Emas»
+195	Kebenaran bekerja: nombor cukai atau sijil bekerja sendiri.
+196	Foto utama: berpakaian formal atau tradisional, potret berkualiti.
+197	Foto anda atau hasil kerja anda — sekurang-kurangnya 3.
+198	Foto bekerja bersama pelancong — sekurang-kurangnya 10 (dalam galeri anda; hanya dengan persetujuan pelancong).
+199	Menepati masa, berkualiti dan sopan.

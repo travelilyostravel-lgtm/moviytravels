@@ -22,12 +22,12 @@
   }
 
   // ------------------------------------------------------------ step 2: the form
-  var CL = D.lang === "ru" ? "ru" : "uz", CITIES = (window.MNCities && window.MNCities.list) || [];
+  var CL = D.lang === "uz" ? "uz" : ["ru", "kk", "ky", "tg", "be", "uk"].indexOf(D.lang) > -1 ? "ru" : "en", CITIES = (window.MNCities && window.MNCities.list) || [];
   function langPick(label, req) {
     var LL = (window.MNLangs && window.MNLangs.list) || [];
     return '<div class="mf-f mf-f--full"><span>' + esc(label.replace(/\s*\(.*\)\s*$/, "")) + (req ? " *" : "") + '</span><div class="pchips jf-cities jf-langs"' + (req ? ' data-req="1"' : '') + '>' +
       LL.map(function (l) { return '<label><input type="checkbox" name="lang_x" value="' + esc(window.MNLangs.label(l[0], "en")) + '"> ' + l[1] + ' ' + esc(window.MNLangs.label(l[0], D.lang)) + '</label>'; }).join("") +
-      '</div><input name="languages" maxlength="200" placeholder="+ ' + esc(D.lang === "ru" ? "другие языки" : D.lang === "uz" ? "boshqa tillar" : "other languages") + '" style="margin-top:6px"></div>';
+      '</div><input name="languages" maxlength="200" placeholder="+ ' + esc(D.J && D.J.other_langs ? D.J.other_langs : D.lang === "ru" ? "другие языки" : D.lang === "uz" ? "boshqa tillar" : "other languages") + '" style="margin-top:6px"></div>';
   }
   function citySel(label) {
     return '<label class="mf-f"><span>' + esc(label) + ' *</span><select name="city" required><option value=""></option>' +
@@ -75,6 +75,7 @@
     var TGB = { uz: ["📲 Telegram orqali ro'yxatdan o'tish — osonroq", "Bot savollarni bittalab beradi: javob yozasiz, rasm tashlaysiz — kartochka o'zi to'ladi."],
       ru: ["📲 Регистрация через Telegram — проще", "Бот задаёт вопросы по одному: отвечаете, отправляете фото — карточка заполнится сама."],
       en: ["📲 Register via Telegram — easier", "The bot asks one question at a time: you reply and send photos — the card fills itself."] }[D.lang === "ru" ? "ru" : D.lang === "uz" ? "uz" : "en"];
+    if (J.tg_reg) TGB = J.tg_reg;
     var f = '<form class="jf mf" id="jn-form" novalidate data-noreg><h3>' + esc(J.title[kind]) + '</h3>' +
       '<a class="jf-tg" href="https://t.me/moviynomad_partners_bot?start=join" target="_blank" rel="noopener"><b>' + esc(TGB[0]) + '</b><small>' + esc(TGB[1]) + '</small></a>' +
       '<p class="jf-note">' + esc(J.note) + '</p>' +

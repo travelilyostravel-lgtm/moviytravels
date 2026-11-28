@@ -1,0 +1,167 @@
+0	Solicitud: ser guía
+1	Solicitud: socio de transporte
+2	Solicitud: añadir un hotel
+3	Solicitud: ser socio
+4	El fundador revisa personalmente cada solicitud. No se aceptan solicitudes que no cumplan los requisitos. Respuesta en 1–3 días hábiles.
+5	Solicitas como
+7	Transporte / conductor
+8	Hotel / casa de huéspedes
+9	Otro servicio
+10	Sobre ti
+11	Fotos
+12	Acceso al área de socio
+13	Nombre completo
+14	Nombre completo
+15	Nombre del hotel
+16	Nombre o marca
+19	Telegram: escribe un @username (5+ caracteres) o un número de teléfono
+21	Ciudad principal
+22	Otras ciudades donde trabajas
+23	Idiomas (separados por comas: English, Русский)
+24	N.º de licencia o diploma de guía
+25	N.º de permiso de conducir
+26	N.º de registro (si lo hay)
+27	N.º de certificado (si lo hay)
+28	Número fiscal (INN)
+29	Experiencia (años)
+30	Coche (p. ej., Chevrolet Cobalt)
+31	Plazas de pasajeros
+32	Año
+33	Estrellas (si las hay)
+34	Número de habitaciones
+35	Servicio (p. ej., fotógrafo, clase de plov)
+36	Precio, $ / día
+37	Precio, $ / día
+38	Precio, $ / noche (habitación doble)
+39	Precio, $ / servicio
+40	Sobre ti: los circuitos que mejor conoces, con qué viajeros has trabajado
+41	Sobre ti y tu coche
+42	Sobre el hotel: ubicación, instalaciones, desayuno
+43	Tu servicio en detalle
+44	Foto principal
+45	Con ropa clásica o nacional, un retrato con la cara bien visible. Se muestra en tu ficha del sitio.
+46	Con ropa clásica o nacional, la cara bien visible.
+47	El edificio o un patio / recepción de estilo nacional.
+48	Con ropa clásica o nacional, un retrato de calidad.
+49	Foto de la licencia o diploma
+50	Una foto nítida de tu licencia o diploma de guía: número y nombre legibles. Solo la vemos nosotros.
+51	Una foto nítida de tu permiso de conducir. Solo la vemos nosotros.
+54	Fotos tuyas
+55	Fotos en las que apareces solo/a. Se muestran en tu perfil del sitio.
+56	Fotos del coche
+57	Exterior, interior, maletero. Se muestran en tu perfil del sitio.
+58	Habitaciones y recinto
+59	Luminosas y reales. Se muestran en tu galería (hasta 30 en total).
+60	Fotos con viajeros
+61	Se muestran en tu galería del sitio; los visitantes pueden darles «me gusta». Súbelas solo con el consentimiento de los viajeros. Hasta 30 fotos en total.
+62	Foto del permiso de circulación
+63	Una foto nítida del permiso de circulación del vehículo. Solo la vemos nosotros.
+64	Año de nacimiento
+65	Dónde vives (ciudad, barrio) — se muestra en el sitio
+66	Dirección (ciudad, barrio) — se muestra en el sitio
+67	Dirección completa (calle, número) — solo la vemos nosotros
+68	Dónde puedes guiar (marca todo lo que corresponda)
+70	al menos
+71	seleccionados
+73	Contraseña (mín. 8 caracteres)
+74	Más tarde usarás este e-mail y esta contraseña para entrar en moviy-travel.uz/partner/.
+75	He leído los requisitos y los cumplo.
+76	No haré tratos directos con clientes que lleguen a través de Moviy Nomad.
+77	Enviar solicitud
+78	Enviando… subiendo fotos
+79	Por favor, rellena:
+80	Faltan fotos:
+81	Este e-mail ya está registrado. Accede: moviy-travel.uz/partner/
+82	{n} fotos no se subieron por la conexión; añádelas en tu área de socio.
+83	comprueba tu conexión y pulsa de nuevo «Enviar solicitud»: lo que escribiste está guardado.
+84	¡Solicitud recibida!
+85	El fundador la revisará en 1–3 días hábiles. Verás el resultado en tu área de socio: moviy-travel.uz/partner/
+86	Abrir área de socio
+87	Error: 
+88	Contraseña (opcional, mín. 8 caracteres)
+89	Accedes con tu e-mail: te enviamos un código de acceso. También puedes poner una contraseña para que nadie más abra tu área.
+90	Este e-mail ya está registrado. Accede en moviy-travel.uz/partner/ (código por e-mail o contraseña).
+91	Tipos de habitación y precios
+92	+ Añadir tipo de habitación
+94	Tipo de habitación
+95	Nombre (p. ej., Deluxe doble)
+96	Huéspedes
+97	Camas
+98	Habitaciones de este tipo
+99	Desayuno incluido
+100	Precio neto, $ / noche
+101	Estándar
+102	Deluxe
+103	Suite
+104	Familiar
+105	Individual
+106	Cama en dormitorio
+108	2 individuales
+109	1 individual
+110	3 individuales
+111	Doble + individual
+112	Litera
+113	Instalaciones
+114	Wi-Fi
+116	Aparcamiento
+117	Aire acondicionado
+118	Traslado al aeropuerto
+119	Restaurante
+120	Piscina
+121	Lavandería
+122	Recepción 24 horas
+123	Habitaciones familiares
+124	Patio de estilo nacional
+125	Ascensor
+126	Terraza
+127	Habitaciones para no fumadores
+128	Hora de entrada (check-in)
+129	Hora de salida (check-out)
+130	Ubicación en el mapa (enlace de Google o Yandex)
+131	Normas: cancelación, niños, mascotas
+132	N.º de registro del Comité de Turismo (alojamiento)
+133	Vehículos y precios
+134	+ Añadir vehículo
+135	Clase
+136	Económica (Cobalt, Nexia)
+137	Confort (Malibu, Camry)
+138	Business (Mercedes E, BMW 5)
+139	Premium (Mercedes S, Clase V)
+140	Monovolumen (4–7 pax)
+141	Minibús (8–19 pax)
+142	Autocar (20+ pax)
+143	Marca y modelo
+144	Plazas de pasajeros
+145	Maletas
+146	Año
+147	Matrícula (solo la vemos nosotros)
+148	Aire acondicionado
+149	Precio neto, $ / día
+150	Precio neto, $ / traslado al aeropuerto
+152	Conductor particular
+153	Empresa de transporte
+155	Añade al menos un tipo de habitación / vehículo con su precio.
+156	Neto = el precio que recibes. En el sitio los viajeros lo ven con la tarifa de servicio de Moviy Nomad. Cada habitación/vehículo aparece en el sitio tras nuestra revisión; luego puedes cambiarlos en tu área.
+157	Último paso: únete al grupo de Telegram «Moviy Nomad»
+158	Un grupo cerrado para nuestros socios y profesionales del turismo: noticias, encargos, contactos. Un administrador aprueba tu solicitud.
+159	Unirse al grupo de Telegram
+160	💵 Tus precios (NETOS, $) — no se muestran en el sitio
+161	Estos precios son solo para Moviy Nomad: es exactamente lo que te pagamos. En el sitio los viajeros ven tu experiencia, idiomas y cualificación, no tus precios. Déjalo en blanco si no estás seguro.
+162	Día completo (8 horas), $
+163	Medio día (4 horas), $
+164	Hora extra, $
+165	Recibimiento en aeropuerto/estación, $
+166	Excursión de un día fuera de la ciudad, $
+167	Acompañamiento de todo el viaje (por día), $
+168	Suplemento grupo grande (16+), $
+169	Categoría de cualificación
+170	— elegir —
+171	Guía aficionado
+172	Guía especializado
+173	Guía profesional
+174	Guía del «Fondo de Oro»
+195	Permiso para trabajar: número fiscal o certificado de autónomo.
+196	Foto principal: con ropa clásica o nacional, un retrato de calidad.
+197	Fotos tuyas o de tu trabajo — al menos 3.
+198	Fotos trabajando con viajeros — al menos 10 (en tu galería; solo con el consentimiento de los viajeros).
+199	Puntual, de calidad y amable.

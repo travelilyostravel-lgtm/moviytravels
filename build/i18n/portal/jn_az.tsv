@@ -1,0 +1,167 @@
+0	Müraciət: bələdçi olmaq
+1	Müraciət: nəqliyyat tərəfdaşı
+2	Müraciət: otel əlavə etmək
+3	Müraciət: tərəfdaş olmaq
+4	Hər müraciətə təsisçi şəxsən baxır. Tələblərə cavab verməyən müraciətlər qəbul edilmir. Cavab 1–3 iş günü ərzində.
+5	Kim kimi müraciət edirsiniz
+7	Nəqliyyat / sürücü
+8	Otel / qonaq evi
+9	Digər xidmət
+10	Haqqınızda
+11	Şəkillər
+12	Tərəfdaş kabinetinə giriş
+13	Ad və soyad
+14	Ad və soyad
+15	Otelin adı
+16	Ad və ya brend
+19	Telegram: @username (5+ simvol) və ya telefon nömrəsi yazın
+21	Əsas şəhər
+22	İşlədiyiniz digər şəhərlər
+23	Dillər (vergüllə: English, Русский)
+24	Bələdçi lisenziyası və ya diplom nömrəsi
+25	Sürücülük vəsiqəsinin nömrəsi
+26	Reyestr nömrəsi (varsa)
+27	Şəhadətnamə nömrəsi (varsa)
+28	Vergi nömrəsi (VÖEN)
+29	Təcrübə (il)
+30	Avtomobil (məs., Chevrolet Cobalt)
+31	Sərnişin yerləri
+32	İl
+33	Ulduzlar (varsa)
+34	Otaq sayı
+35	Xidmət (məs., fotoqraf, plov ustad dərsi)
+36	Qiymət, $ / gün
+37	Qiymət, $ / gün
+38	Qiymət, $ / gecə (ikiyerlik otaq)
+39	Qiymət, $ / xidmət
+40	Haqqınızda: ən yaxşı bildiyiniz turlar, hansı səyahətçilərlə işləmisiniz
+41	Özünüz və avtomobiliniz haqqında
+42	Otel haqqında: yerləşmə, şərait, səhər yeməyi
+43	Xidmətiniz haqqında ətraflı
+44	Əsas şəkil
+45	Klassik və ya milli geyimdə, üzü aydın görünən portret. Saytdakı kartınızda göstərilir.
+46	Klassik və ya milli geyimdə, üzü aydın görünür.
+47	Bina və ya milli üslubda həyət / qəbul.
+48	Klassik və ya milli geyimdə, keyfiyyətli portret.
+49	Lisenziya və ya diplomun şəkli
+50	Bələdçi lisenziyası və ya diplomun aydın şəkli: nömrə və ad oxunsun. Yalnız biz görürük.
+51	Sürücülük vəsiqəsinin aydın şəkli. Yalnız biz görürük.
+54	Öz şəkilləriniz
+55	Tək çəkildiyiniz şəkillər. Saytdakı profilinizdə göstərilir.
+56	Avtomobilin şəkilləri
+57	Çölü, içi, baqaj. Saytdakı profilinizdə göstərilir.
+58	Otaqlar və ərazi
+59	İşıqlı və real. Qalereyanızda göstərilir (cəmi 30-a qədər).
+60	Səyahətçilərlə şəkillər
+61	Saytdakı qalereyanızda göstərilir, ziyarətçilər bəyənə bilər. Yalnız səyahətçilərin razılığı ilə yükləyin. Cəmi 30 şəkilə qədər.
+62	Texpasportun şəkli
+63	Avtomobilin texpasportunun aydın şəkli. Yalnız biz görürük.
+64	Doğum ili
+65	Yaşadığınız yer (şəhər, rayon) — saytda göstərilir
+66	Ünvan (şəhər, rayon) — saytda göstərilir
+67	Tam ünvan (küçə, ev) — yalnız biz görürük
+68	Bələdçilik edə biləcəyiniz yerlər (hamısını qeyd edin)
+70	ən azı
+71	seçildi
+73	Şifrə (ən azı 8 simvol)
+74	Sonra bu e-mail və şifrə ilə moviy-travel.uz/partner/ saytına daxil olacaqsınız.
+75	Tələbləri oxudum və onlara cavab verirəm.
+76	Moviy Nomad vasitəsilə gələn müştərilərlə birbaşa razılaşma etməyəcəyəm.
+77	Müraciəti göndər
+78	Göndərilir… şəkillər yüklənir
+79	Doldurun:
+80	Şəkillər kifayət deyil:
+81	Bu e-mail artıq qeydiyyatdadır. Daxil olun: moviy-travel.uz/partner/
+82	{n} şəkil bağlantı səbəbindən yüklənmədi — onları tərəfdaş kabinetində əlavə edin.
+83	bağlantını yoxlayın və «Müraciəti göndər» düyməsini yenidən basın: daxil etdikləriniz saxlanılıb.
+84	Müraciət qəbul edildi!
+85	Təsisçi onu 1–3 iş günü ərzində nəzərdən keçirəcək. Nəticəni tərəfdaş kabinetinizdə görəcəksiniz: moviy-travel.uz/partner/
+86	Tərəfdaş kabinetini aç
+87	Xəta: 
+88	Şifrə (istəyə görə, ən azı 8 simvol)
+89	E-mail ilə daxil olursunuz: ona giriş kodu gəlir. Kabinetinizi başqası açmasın deyə şifrə də təyin edə bilərsiniz.
+90	Bu e-mail artıq qeydiyyatdadır. moviy-travel.uz/partner/ saytına daxil olun (e-mail kodu və ya şifrə ilə).
+91	Otaq növləri və qiymətlər
+92	+ Otaq növü əlavə et
+94	Otaq növü
+95	Adı (məs., Deluxe ikiyerlik)
+96	Qonaqlar
+97	Çarpayılar
+98	Belə otaqların sayı
+99	Səhər yeməyi daxildir
+100	Netto qiymət, $ / gecə
+101	Standart
+102	Deluxe
+103	Lüks (suite)
+104	Ailə
+105	Birnəfərlik
+106	Hostel (yer)
+108	2 birnəfərlik
+109	1 birnəfərlik
+110	3 birnəfərlik
+111	İkinəfərlik + birnəfərlik
+112	İkimərtəbəli çarpayı
+113	Şərait
+114	Wi-Fi
+116	Dayanacaq
+117	Kondisioner
+118	Hava limanı transferi
+119	Restoran
+120	Hovuz
+121	Camaşırxana
+122	24 saat qəbul
+123	Ailə otaqları
+124	Milli həyət
+125	Lift
+126	Terras
+127	Siqaret çəkilməyən otaqlar
+128	Giriş vaxtı (check-in)
+129	Çıxış vaxtı (check-out)
+130	Xəritədə yeri (Google və ya Yandex keçidi)
+131	Qaydalar: ləğv, uşaqlar, ev heyvanları
+132	Turizm Komitəsinin reyestr nömrəsi (yerləşmə obyekti)
+133	Avtomobillər və qiymətlər
+134	+ Avtomobil əlavə et
+135	Sinif
+136	Ekonom (Cobalt, Nexia)
+137	Komfort (Malibu, Camry)
+138	Biznes (Mercedes E, BMW 5)
+139	Premium (Mercedes S, V-Class)
+140	Miniven (4–7 nəfər)
+141	Mikroavtobus (8–19 nəfər)
+142	Avtobus (20+ nəfər)
+143	Marka və model
+144	Sərnişin yerləri
+145	Çamadan yerləri
+146	İl
+147	Dövlət nömrəsi (yalnız biz görürük)
+148	Kondisioner var
+149	Netto qiymət, $ / gün
+150	Netto qiymət, $ / hava limanı transferi
+152	Fərdi sürücü
+153	Nəqliyyat şirkəti
+155	Ən azı bir otaq növü / avtomobili qiyməti ilə əlavə edin.
+156	Netto — sizə ödənilən qiymətdir. Saytda müştəri onu Moviy Nomad xidmət haqqı ilə görür. Hər otaq/avtomobil yoxlamadan sonra saytda görünür; sonra onları kabinetdə dəyişə bilərsiniz.
+157	Son addım: «Moviy Nomad» Telegram qrupuna qoşulun
+158	Tərəfdaşlarımız və turizm sahəsindəki insanlar üçün qapalı qrup: xəbərlər, sifarişlər, tanışlıq. Qoşulma sorğunuzu admin təsdiqləyir.
+159	Telegram qrupuna qoşul
+160	💵 Qiymətləriniz (NETTO, $) — saytda göstərilmir
+161	Bu qiymətlər yalnız Moviy Nomad üçündür: məhz bu məbləğ sizə ödənilir. Saytda səyahətçilər qiyməti deyil, təcrübənizi, dillərinizi və ixtisasınızı görür. Əmin deyilsinizsə, boş saxlayın.
+162	Tam gün (8 saat), $
+163	Yarım gün (4 saat), $
+164	Əlavə saat, $
+165	Hava limanında/vağzalda qarşılama, $
+166	Şəhərdən kənar birgünlük səfər, $
+167	Bütün tur boyu müşayiət (gündəlik), $
+168	Böyük qrup (16+) üçün əlavə, $
+169	İxtisas kateqoriyası
+170	— seçin —
+171	Həvəskar bələdçi
+172	İxtisaslaşmış bələdçi
+173	Peşəkar bələdçi
+174	«Qızıl fond» bələdçisi
+195	İşləmək icazəsi: vergi nömrəsi və ya özünüməşğulluq şəhadətnaməsi.
+196	Əsas şəkil: klassik və ya milli geyimdə, keyfiyyətli portret.
+197	Özünüzün və ya işinizin şəkilləri — ən azı 3.
+198	Səyahətçilərlə iş şəkilləri — ən azı 10 (qalereyanızda; yalnız səyahətçilərin razılığı ilə).
+199	Vaxtında, keyfiyyətli və nəzakətli.

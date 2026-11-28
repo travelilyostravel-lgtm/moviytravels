@@ -1,0 +1,167 @@
+0	Aanmelding: word gids
+1	Aanmelding: vervoerspartner
+2	Aanmelding: hotel toevoegen
+3	Aanmelding: word partner
+4	De oprichter beoordeelt elke aanmelding persoonlijk. Aanmeldingen die niet aan de eisen voldoen, worden niet aangenomen. Antwoord binnen 1–3 werkdagen.
+5	Je meldt je aan als
+7	Vervoer / chauffeur
+8	Hotel / pension
+9	Andere dienst
+10	Over jou
+11	Foto's
+12	Inloggen in de partneromgeving
+13	Volledige naam
+14	Volledige naam
+15	Naam van het hotel
+16	Naam of merk
+19	Telegram: vul een @username (5+ tekens) of een telefoonnummer in
+21	Hoofdplaats
+22	Andere steden waar je werkt
+23	Talen (komma-gescheiden: English, Русский)
+24	Nummer gidsvergunning of -diploma
+25	Rijbewijsnummer
+26	Registratienummer (indien aanwezig)
+27	Certificaatnummer (indien aanwezig)
+28	Fiscaal nummer (INN)
+29	Ervaring (jaren)
+30	Auto (bijv. Chevrolet Cobalt)
+31	Passagiersplaatsen
+32	Bouwjaar
+33	Sterren (indien van toepassing)
+34	Aantal kamers
+35	Dienst (bijv. fotograaf, plov-workshop)
+36	Prijs, $ / dag
+37	Prijs, $ / dag
+38	Prijs, $ / nacht (tweepersoonskamer)
+39	Prijs, $ / dienst
+40	Over jou: de reizen die je het best kent, met welke reizigers je hebt gewerkt
+41	Over jou en je auto
+42	Over het hotel: ligging, voorzieningen, ontbijt
+43	Je dienst in detail
+44	Hoofdfoto
+45	In klassieke of traditionele kleding, een portret met duidelijk zichtbaar gezicht. Getoond op je kaart op de site.
+46	In klassieke of traditionele kleding, gezicht duidelijk zichtbaar.
+47	Het gebouw of een binnenplaats / receptie in traditionele stijl.
+48	In klassieke of traditionele kleding, een portret van goede kwaliteit.
+49	Foto van vergunning of diploma
+50	Een scherpe foto van je gidsvergunning of -diploma: nummer en naam leesbaar. Alleen wij zien hem.
+51	Een scherpe foto van je rijbewijs. Alleen wij zien hem.
+54	Foto's van jezelf
+55	Foto's waarop je alleen staat. Getoond in je profiel op de site.
+56	Foto's van de auto
+57	Buiten, binnen, kofferbak. Getoond in je profiel op de site.
+58	Kamers en terrein
+59	Licht en echt. Getoond in je galerij (in totaal tot 30).
+60	Foto's met reizigers
+61	Getoond in je galerij op de site; bezoekers kunnen ze liken. Upload alleen met toestemming van de reizigers. In totaal tot 30 foto's.
+62	Foto van het kentekenbewijs
+63	Een scherpe foto van het kentekenbewijs. Alleen wij zien hem.
+64	Geboortejaar
+65	Waar je woont (stad, wijk) — getoond op de site
+66	Adres (stad, wijk) — getoond op de site
+67	Volledig adres (straat, huisnummer) — alleen wij zien het
+68	Waar je kunt gidsen (vink alles aan)
+70	minstens
+71	gekozen
+73	Wachtwoord (min. 8 tekens)
+74	Met dit e-mailadres en wachtwoord log je later in op moviy-travel.uz/partner/.
+75	Ik heb de eisen gelezen en voldoe eraan.
+76	Ik maak geen directe afspraken met klanten die via Moviy Nomad komen.
+77	Aanmelding versturen
+78	Versturen… foto's uploaden
+79	Vul in:
+80	Te weinig foto's:
+81	Dit e-mailadres is al geregistreerd. Log in: moviy-travel.uz/partner/
+82	{n} foto's zijn door de verbinding niet geüpload — voeg ze toe in je partneromgeving.
+83	controleer je verbinding en druk opnieuw op «Aanmelding versturen»: wat je invulde is bewaard.
+84	Aanmelding ontvangen!
+85	De oprichter beoordeelt ze binnen 1–3 werkdagen. Het resultaat zie je in je partneromgeving: moviy-travel.uz/partner/
+86	Partneromgeving openen
+87	Fout: 
+88	Wachtwoord (optioneel, min. 8 tekens)
+89	Je logt in met je e-mailadres: je ontvangt een inlogcode. Je kunt ook een wachtwoord instellen zodat niemand anders je omgeving opent.
+90	Dit e-mailadres is al geregistreerd. Log in op moviy-travel.uz/partner/ (code per e-mail of wachtwoord).
+91	Kamertypes en prijzen
+92	+ Kamertype toevoegen
+94	Kamertype
+95	Naam (bijv. Deluxe tweepersoons)
+96	Gasten
+97	Bedden
+98	Aantal kamers van dit type
+99	Ontbijt inbegrepen
+100	Nettoprijs, $ / nacht
+101	Standaard
+102	Deluxe
+103	Suite
+104	Familie
+105	Eenpersoons
+106	Slaapzaalbed
+108	2 eenpersoons
+109	1 eenpersoons
+110	3 eenpersoons
+111	Tweepersoons + eenpersoons
+112	Stapelbed
+113	Voorzieningen
+114	Wi-Fi
+116	Parkeren
+117	Airconditioning
+118	Luchthavenvervoer
+119	Restaurant
+120	Zwembad
+121	Wasserij
+122	24-uursreceptie
+123	Familiekamers
+124	Traditionele binnenplaats
+125	Lift
+126	Terras
+127	Rookvrije kamers
+128	Inchecktijd
+129	Uitchecktijd
+130	Locatie op de kaart (link Google of Yandex)
+131	Regels: annulering, kinderen, huisdieren
+132	Registratienummer Comité voor Toerisme (accommodatie)
+133	Voertuigen en prijzen
+134	+ Voertuig toevoegen
+135	Klasse
+136	Economy (Cobalt, Nexia)
+137	Comfort (Malibu, Camry)
+138	Business (Mercedes E, BMW 5)
+139	Premium (Mercedes S, V-Klasse)
+140	Minivan (4–7 pers.)
+141	Minibus (8–19 pers.)
+142	Touringcar (20+ pers.)
+143	Merk en model
+144	Passagiersplaatsen
+145	Koffers
+146	Bouwjaar
+147	Kenteken (alleen wij zien het)
+148	Airconditioning
+149	Nettoprijs, $ / dag
+150	Nettoprijs, $ / luchthavenvervoer
+152	Particuliere chauffeur
+153	Vervoersbedrijf
+155	Voeg minstens één kamertype / voertuig met prijs toe.
+156	Netto = de prijs die jij ontvangt. Op de site zien reizigers hem met de servicekosten van Moviy Nomad. Elke kamer/elk voertuig verschijnt op de site na onze controle; je kunt ze later in je omgeving wijzigen.
+157	Laatste stap: word lid van de Telegram-groep «Moviy Nomad»
+158	Een besloten groep voor onze partners en mensen uit het toerisme: nieuws, opdrachten, netwerken. Een beheerder keurt je verzoek goed.
+159	Lid worden van de Telegram-groep
+160	💵 Jouw prijzen (NETTO, $) — niet zichtbaar op de site
+161	Deze prijzen zijn alleen voor Moviy Nomad: precies dit bedrag krijg je betaald. Op de site zien reizigers je ervaring, talen en kwalificatie, geen prijzen. Laat leeg als je het niet zeker weet.
+162	Hele dag (8 uur), $
+163	Halve dag (4 uur), $
+164	Extra uur, $
+165	Ontvangst op luchthaven/station, $
+166	Dagtrip buiten de stad, $
+167	Begeleiding van de hele reis (per dag), $
+168	Toeslag grote groep (16+), $
+169	Kwalificatiecategorie
+170	— kies —
+171	Amateurgids
+172	Gespecialiseerde gids
+173	Professionele gids
+174	Gids van het «Gouden Fonds»
+195	Werkvergunning: fiscaal nummer of bewijs van zelfstandige.
+196	Hoofdfoto: in klassieke of traditionele kleding, een portret van goede kwaliteit.
+197	Foto's van jezelf of je werk — minstens 3.
+198	Werkfoto's met reizigers — minstens 10 (in je galerij; alleen met toestemming van de reizigers).
+199	Stipt, goede kwaliteit en beleefd.

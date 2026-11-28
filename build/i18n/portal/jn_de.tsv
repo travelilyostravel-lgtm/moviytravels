@@ -1,0 +1,199 @@
+0	Bewerbung: Reiseleiter werden
+1	Bewerbung: Transportpartner
+2	Bewerbung: Hotel hinzufügen
+3	Bewerbung: Partner werden
+4	Der Gründer prüft jede Bewerbung persönlich. Bewerbungen, die die Anforderungen nicht erfüllen, werden nicht angenommen. Antwort innerhalb von 1–3 Werktagen.
+5	Sie bewerben sich als
+6	Reiseleiter
+7	Transport / Fahrer
+8	Hotel / Gästehaus
+9	Andere Dienstleistung
+10	Über Sie
+11	Fotos
+12	Login zum Partnerbereich
+13	Vor- und Nachname
+14	Vor- und Nachname
+15	Name des Hotels
+16	Name oder Marke
+17	Telefon
+18	Telegram (@Benutzername oder Nummer)
+19	Telegram: einen @Benutzernamen (5+ Zeichen) oder eine Telefonnummer eingeben
+20	WhatsApp (optional)
+21	Hauptort
+22	Weitere Städte, in denen Sie arbeiten
+23	Sprachen (kommagetrennt: English, Русский)
+24	Nummer der Reiseleiterlizenz oder des Diploms
+25	Führerscheinnummer
+26	Registernummer (falls vorhanden)
+27	Zertifikatsnummer (falls vorhanden)
+28	Steuernummer (INN)
+29	Erfahrung (Jahre)
+30	Auto (z. B. Chevrolet Cobalt)
+31	Sitzplätze
+32	Baujahr
+33	Sterne (falls vorhanden)
+34	Anzahl Zimmer
+35	Dienstleistung (z. B. Fotograf, Plov-Kochkurs)
+36	Preis, $ / Tag
+37	Preis, $ / Tag
+38	Preis, $ / Nacht (Doppelzimmer)
+39	Preis, $ / Leistung
+40	Über Sie: Touren, die Sie am besten kennen, mit welchen Reisenden Sie gearbeitet haben
+41	Über Sie und Ihr Auto
+42	Über das Hotel: Lage, Ausstattung, Frühstück
+43	Ihre Dienstleistung im Detail
+44	Hauptfoto
+45	In klassischer oder traditioneller Kleidung, ein Porträt mit deutlich sichtbarem Gesicht. Wird auf Ihrer Karte auf der Website gezeigt.
+46	In klassischer oder traditioneller Kleidung, Gesicht deutlich sichtbar.
+47	Das Gebäude oder ein Innenhof / Empfang im traditionellen Stil.
+48	In klassischer oder traditioneller Kleidung, ein hochwertiges Porträt.
+49	Foto der Lizenz oder des Diploms
+50	Ein deutliches Foto Ihrer Reiseleiterlizenz oder Ihres Diploms: Nummer und Name lesbar. Nur wir sehen es.
+51	Ein deutliches Foto Ihres Führerscheins. Nur wir sehen es.
+54	Fotos von Ihnen
+55	Fotos, auf denen Sie allein sind. Werden in Ihrem Profil auf der Website gezeigt.
+56	Fotos des Autos
+57	Außen, innen, Kofferraum. Werden in Ihrem Profil auf der Website gezeigt.
+58	Zimmer und Anlage
+59	Hell und echt. Werden in Ihrer Galerie gezeigt (insgesamt bis zu 30).
+60	Fotos mit Reisenden
+61	Werden in Ihrer Galerie auf der Website gezeigt, Besucher können sie liken. Nur mit Zustimmung der Reisenden hochladen. Insgesamt bis zu 30 Fotos.
+62	Foto des Fahrzeugscheins
+63	Ein deutliches Foto des Fahrzeugscheins. Nur wir sehen es.
+64	Geburtsjahr
+65	Wohnort (Stadt, Bezirk) — wird auf der Website gezeigt
+66	Adresse (Stadt, Bezirk) — wird auf der Website gezeigt
+67	Vollständige Adresse (Straße, Hausnummer) — nur wir sehen sie
+68	Wo Sie führen können (alles Zutreffende ankreuzen)
+69	Anforderungen
+70	mindestens
+71	ausgewählt
+72	E-Mail
+73	Passwort (mindestens 8 Zeichen)
+74	Mit dieser E-Mail und diesem Passwort melden Sie sich später auf moviy-travel.uz/partner/ an.
+75	Ich habe die Anforderungen gelesen und erfülle sie.
+76	Ich schließe keine direkten Geschäfte mit Kunden ab, die über Moviy Nomad kommen.
+77	Bewerbung senden
+78	Senden… Fotos werden hochgeladen
+79	Bitte ausfüllen:
+80	Zu wenige Fotos:
+81	Diese E-Mail ist bereits registriert. Anmelden: moviy-travel.uz/partner/
+82	{n} Fotos wurden wegen der Verbindung nicht hochgeladen — fügen Sie sie im Partnerbereich hinzu.
+83	prüfen Sie Ihre Verbindung und drücken Sie erneut «Bewerbung senden»: Ihre Eingaben sind gespeichert.
+84	Bewerbung eingegangen!
+85	Der Gründer prüft sie innerhalb von 1–3 Werktagen. Das Ergebnis sehen Sie in Ihrem Partnerbereich: moviy-travel.uz/partner/
+86	Partnerbereich öffnen
+87	Fehler: 
+88	Passwort (optional, mindestens 8 Zeichen)
+89	Sie melden sich mit Ihrer E-Mail an: Ein Anmeldecode wird dorthin gesendet. Sie können auch ein Passwort festlegen, damit niemand sonst Ihren Bereich öffnet.
+90	Diese E-Mail ist bereits registriert. Melden Sie sich auf moviy-travel.uz/partner/ an (E-Mail-Code oder Passwort).
+91	Zimmertypen und Preise
+92	+ Zimmertyp hinzufügen
+93	Entfernen
+94	Zimmertyp
+95	Name (z. B. Deluxe Doppelzimmer)
+96	Gäste
+97	Betten
+98	Zimmer dieses Typs
+99	Frühstück inklusive
+100	Nettopreis, $ / Nacht
+101	Standard
+102	Deluxe
+103	Suite
+104	Familienzimmer
+105	Einzelzimmer
+106	Schlafsaalbett
+107	1 Doppelbett
+108	2 Einzelbetten
+109	1 Einzelbett
+110	3 Einzelbetten
+111	Doppel- + Einzelbett
+112	Etagenbett
+113	Ausstattung
+114	WLAN
+115	Frühstück
+116	Parkplatz
+117	Klimaanlage
+118	Flughafentransfer
+119	Restaurant
+120	Pool
+121	Wäscherei
+122	24-Stunden-Rezeption
+123	Familienzimmer
+124	Traditioneller Innenhof
+125	Aufzug
+126	Terrasse
+127	Nichtraucherzimmer
+128	Check-in-Zeit
+129	Check-out-Zeit
+130	Lage auf der Karte (Google- oder Yandex-Link)
+131	Regeln: Stornierung, Kinder, Haustiere
+132	Registernummer des Tourismuskomitees (Unterkunft)
+133	Fahrzeuge und Preise
+134	+ Fahrzeug hinzufügen
+135	Klasse
+136	Economy (Cobalt, Nexia)
+137	Komfort (Malibu, Camry)
+138	Business (Mercedes E, BMW 5)
+139	Premium (Mercedes S, V-Klasse)
+140	Minivan (4–7 Pers.)
+141	Kleinbus (8–19 Pers.)
+142	Reisebus (20+ Pers.)
+143	Marke und Modell
+144	Sitzplätze
+145	Koffer
+146	Baujahr
+147	Kennzeichen (nur wir sehen es)
+148	Klimaanlage
+149	Nettopreis, $ / Tag
+150	Nettopreis, $ / Flughafentransfer
+151	Sie sind
+152	Privater Fahrer
+153	Transportunternehmen
+154	Firmenname
+155	Fügen Sie mindestens einen Zimmertyp / ein Fahrzeug mit Preis hinzu.
+156	Netto = der Preis, den Sie erhalten. Auf der Website sehen Reisende ihn mit der Servicegebühr von Moviy Nomad. Jedes Zimmer/Fahrzeug erscheint nach unserer Prüfung auf der Website; Sie können es später in Ihrem Bereich ändern.
+157	Letzter Schritt: Treten Sie der Telegram-Gruppe «Moviy Nomad» bei
+158	Eine geschlossene Gruppe für unsere Partner und Menschen aus dem Tourismus: Neuigkeiten, Aufträge, Kontakte. Ein Admin bestätigt Ihre Beitrittsanfrage.
+159	Der Telegram-Gruppe beitreten
+160	💵 Ihre Preise (NETTO, $) — nicht auf der Website sichtbar
+161	Diese Preise sind nur für Moviy Nomad: genau diesen Betrag erhalten Sie. Auf der Website sehen Reisende Ihre Erfahrung, Sprachen und Qualifikation, keine Preise. Leer lassen, wenn Sie unsicher sind.
+162	Ganzer Tag (8 Stunden), $
+163	Halber Tag (4 Stunden), $
+164	Zusätzliche Stunde, $
+165	Empfang am Flughafen/Bahnhof, $
+166	Tagesausflug außerhalb der Stadt, $
+167	Begleitung der ganzen Reise (pro Tag), $
+168	Zuschlag für große Gruppe (16+), $
+169	Qualifikationsstufe
+170	— wählen —
+171	Amateur-Reiseleiter
+172	Fach-Reiseleiter
+173	Professioneller Reiseleiter
+174	Reiseleiter des «Goldenen Fonds»
+175	Reiseleiterlizenz des Tourismuskomitees oder Reiseleiterdiplom — Nummer eingeben und Foto hochladen.
+176	Mindestens eine Fremdsprache fließend.
+177	Hauptfoto: in klassischer (Anzug, weißes Hemd) oder traditioneller Kleidung, ein hochwertiges Porträt mit deutlich sichtbarem Gesicht.
+178	Fotos von Ihnen — mindestens 3.
+179	Fotos mit Reisenden — mindestens 10 (sie belegen Ihre Erfahrung und erscheinen in Ihrer Galerie; nur mit Zustimmung der Reisenden).
+180	Mindestens 1 Jahr Erfahrung mit Reisenden.
+181	Pünktlich, gepflegt und höflich.
+182	Führerschein und mindestens 3 Jahre Fahrpraxis.
+183	Jedes Fahrzeug: Klasse, Modell, Baujahr, Sitze, Zulassungspapiere und Nettopreis (pro Tag und Flughafentransfer).
+184	Auto ab Baujahr 2015, klimatisiert, innen sauber, versichert.
+185	Hauptfoto: in klassischer oder traditioneller Kleidung, gute Qualität, Gesicht deutlich sichtbar.
+186	Fotos des Autos — mindestens 6 (außen, innen, Kofferraum).
+187	Fotos mit Reisenden — mindestens 10 (in Ihrer Galerie; nur mit Zustimmung der Reisenden).
+188	Rauchfrei im Auto, sicheres Fahren, pünktlich.
+189	Registrierte Unterkunft (Steuernummer oder Registernummer).
+190	Jeder Zimmertyp: Name, Gäste, Anzahl Zimmer und Nettopreis (Fotos je Typ fügen Sie später in Ihrem Bereich hinzu).
+191	Hauptfoto: das Gebäude oder ein Innenhof / Empfang im traditionellen Stil.
+192	Fotos der Zimmer und der Anlage — mindestens 10, hell und echt.
+193	Saubere Zimmer, Warmwasser, WLAN und Frühstück.
+194	Buchung innerhalb von 24 Stunden bestätigt, Preis im Voraus genannt.
+195	Arbeitserlaubnis: Steuernummer oder Bescheinigung über Selbstständigkeit.
+196	Hauptfoto: in klassischer oder traditioneller Kleidung, ein hochwertiges Porträt.
+197	Fotos von Ihnen oder Ihrer Arbeit — mindestens 3.
+198	Fotos bei der Arbeit mit Reisenden — mindestens 10 (in Ihrer Galerie; nur mit Zustimmung der Reisenden).
+199	Pünktlich, hochwertig und höflich.
+200	Niemals direkte Geschäfte mit Kunden machen, die über Moviy Nomad gekommen sind.

@@ -1,0 +1,201 @@
+0	J.title.guide	Application: become a guide
+1	J.title.driver	Application: transport partner
+2	J.title.hotel	Application: add a hotel
+3	J.title.other	Application: become a partner
+4	J.note	The founder reviews every application personally. Applications that do not meet the requirements are not accepted. Answer within 1–3 working days.
+5	J.choose	You are applying as
+6	J.kinds.guide	Guide
+7	J.kinds.driver	Transport / driver
+8	J.kinds.hotel	Hotel / guest house
+9	J.kinds.other	Other service
+10	J.sec_about	About you
+11	J.sec_photo	Photos
+12	J.sec_login	Partner account login
+13	J.name.guide	Full name
+14	J.name.driver	Full name
+15	J.name.hotel	Hotel name
+16	J.name.other	Name or brand
+17	J.phone	Phone
+18	J.tg	Telegram (@username or number)
+19	J.tg_bad	Telegram: enter an @username (5+ characters) or a phone number
+20	J.whatsapp	WhatsApp (optional)
+21	J.city	Main city
+22	J.cities	Other cities you work in
+23	J.languages	Languages (comma separated: English, Русский)
+24	J.license.guide	Guide licence or diploma number
+25	J.license.driver	Driving licence number
+26	J.license.hotel	Registry number (if any)
+27	J.license.other	Certificate number (if any)
+28	J.inn	Tax number (INN)
+29	J.exp	Experience (years)
+30	J.vtype	Car (e.g. Chevrolet Cobalt)
+31	J.vseats	Passenger seats
+32	J.vyear	Year
+33	J.stars	Stars (if any)
+34	J.rooms	Number of rooms
+35	J.spec	Service (e.g. photographer, plov master class)
+36	J.price.guide	Price, $ / day
+37	J.price.driver	Price, $ / day
+38	J.price.hotel	Price, $ / night (double room)
+39	J.price.other	Price, $ / service
+40	J.bio.guide	About you: tours you know best, travellers you have worked with
+41	J.bio.driver	About you and your car
+42	J.bio.hotel	About the hotel: location, facilities, breakfast
+43	J.bio.other	About your service in detail
+44	J.ph.main.0	Main photo
+45	J.ph.main.1.guide	In classic or national dress, a portrait with the face clearly visible. Shown on your card on the site.
+46	J.ph.main.1.driver	In classic or national dress, face clearly visible.
+47	J.ph.main.1.hotel	The building or a national-style courtyard / reception.
+48	J.ph.main.1.other	In classic or national dress, a quality portrait.
+49	J.ph.lic.0	Photo of the licence or diploma
+50	J.ph.lic.1.guide	A clear photo of your guide licence or diploma: number and name readable. Only we see it.
+51	J.ph.lic.1.driver	A clear photo of your driving licence. Only we see it.
+52	J.ph.lic.1.hotel	
+53	J.ph.lic.1.other	
+54	J.ph.solo.0	Photos of yourself
+55	J.ph.solo.1	Photos of you alone. Shown in your profile on the site.
+56	J.ph.car.0	Car photos
+57	J.ph.car.1	Outside, inside, boot. Shown in your profile on the site.
+58	J.ph.rooms.0	Rooms and grounds
+59	J.ph.rooms.1	Bright and real. Shown in your gallery (up to 30 in total).
+60	J.ph.trip.0	Photos with travellers
+61	J.ph.trip.1	Shown in your gallery on the site, visitors can like them. Upload only with the travellers' consent. Up to 30 photos in total.
+62	J.ph.tech.0	Vehicle registration photo
+63	J.ph.tech.1	A clear photo of the vehicle registration certificate. Only we see it.
+64	J.birth	Year of birth
+65	J.area	Where you live (city, district) — shown on the site
+66	J.area_h	Address (city, district) — shown on the site
+67	J.addr	Full address (street, house) — only we see it
+68	J.works	Where you can guide (tick all that apply)
+69	J.req_t	Requirements
+70	J.min	at least
+71	J.sel	selected
+72	J.email	E-mail
+73	J.password	Password (at least 8 characters)
+74	J.login_note	Use this e-mail and password later to sign in at moviy-travel.uz/partner/.
+75	J.agree1	I have read the requirements and meet them.
+76	J.agree2	I will not make direct deals with clients who came through Moviy Nomad.
+77	J.send	Send application
+78	J.sending	Sending… uploading photos
+79	J.need	Please fill in:
+80	J.need_ph	Not enough photos:
+81	J.exists	This e-mail is already registered. Sign in: moviy-travel.uz/partner/
+82	J.part	{n} photos did not upload because of the connection — add them in your partner account.
+83	J.retry	check your connection and press «Send application» again: what you entered is saved.
+84	J.done_t	Application received!
+85	J.done	The founder will review it within 1–3 working days. You will see the result in your partner account: moviy-travel.uz/partner/
+86	J.cab	Open partner account
+87	J.err	Error: 
+88	J.pw_opt	Password (optional, at least 8 characters)
+89	J.login_note2	You sign in with your e-mail: a login code is sent to it. You may also set a password so nobody else can open your account.
+90	J.exists2	This e-mail is already registered. Sign in at moviy-travel.uz/partner/ (e-mail code or password).
+91	J.sec_rooms	Room types and prices
+92	J.room_add	+ Add room type
+93	J.unit_del	Remove
+94	J.r_class	Room type
+95	J.r_name	Name (e.g. Deluxe double)
+96	J.r_cap	Guests
+97	J.r_beds	Beds
+98	J.r_qty	Rooms of this type
+99	J.r_bf	Breakfast included
+100	J.r_price	Net price, $ / night
+101	J.rc.standard	Standard
+102	J.rc.deluxe	Deluxe
+103	J.rc.suite	Suite
+104	J.rc.family	Family
+105	J.rc.single	Single
+106	J.rc.dorm	Dorm bed
+107	J.beds.1 double	1 double
+108	J.beds.2 single	2 single
+109	J.beds.1 single	1 single
+110	J.beds.3 single	3 single
+111	J.beds.double + single	Double + single
+112	J.beds.bunk	Bunk bed
+113	J.sec_amen	Facilities
+114	J.amen.wifi	Wi-Fi
+115	J.amen.breakfast	Breakfast
+116	J.amen.parking	Parking
+117	J.amen.ac	Air conditioning
+118	J.amen.transfer	Airport transfer
+119	J.amen.restaurant	Restaurant
+120	J.amen.pool	Pool
+121	J.amen.laundry	Laundry
+122	J.amen.reception24	24-hour reception
+123	J.amen.family	Family rooms
+124	J.amen.courtyard	National courtyard
+125	J.amen.elevator	Lift
+126	J.amen.terrace	Terrace
+127	J.amen.nosmoking	Non-smoking rooms
+128	J.check_in	Check-in time
+129	J.check_out	Check-out time
+130	J.map_url	Location on the map (Google or Yandex link)
+131	J.policies	Policies: cancellation, children, pets
+132	J.registry	Tourism Committee registry number (accommodation)
+133	J.sec_cars	Vehicles and prices
+134	J.car_add	+ Add vehicle
+135	J.v_class	Class
+136	J.vc.economy	Economy (Cobalt, Nexia)
+137	J.vc.comfort	Comfort (Malibu, Camry)
+138	J.vc.business	Business (Mercedes E, BMW 5)
+139	J.vc.premium	Premium (Mercedes S, V-Class)
+140	J.vc.minivan	Minivan (4–7 pax)
+141	J.vc.minibus	Minibus (8–19 pax)
+142	J.vc.bus	Coach (20+ pax)
+143	J.v_model	Make and model
+144	J.v_seats	Passenger seats
+145	J.v_lug	Suitcases
+146	J.v_year	Year
+147	J.v_plate	Plate number (only we see it)
+148	J.v_ac	Air conditioning
+149	J.v_day	Net price, $ / day
+150	J.v_tr	Net price, $ / airport transfer
+151	J.ctype	You are
+152	J.ct.person	Private driver
+153	J.ct.company	Transport company
+154	J.company_name	Company name
+155	J.need_unit	Add at least one room type / vehicle with its price.
+156	J.netto_note	Net = the price you receive. On the site travellers see it with the Moviy Nomad service fee. Each room/vehicle appears on the site after our check; you can change them later in your account.
+157	J.grp_t	Last step: join the «Moviy Nomad» Telegram group
+158	J.grp	A closed group for our partners and people in tourism: news, orders, networking. An admin approves your join request.
+159	J.grp_btn	Join the Telegram group
+160	J.sec_rates	💵 Your prices (NET, $) — not shown on the site
+161	J.rates_note	These prices are only for Moviy Nomad: this is exactly what you are paid. On the site travellers see your experience, languages and qualification, not prices. Leave empty if unsure.
+162	J.r_full	Full day (8 hours), $
+163	J.r_half	Half day (4 hours), $
+164	J.r_hour	Extra hour, $
+165	J.r_meet	Airport/station meeting, $
+166	J.r_out	Out-of-town day trip, $
+167	J.r_tour	Accompanying the whole tour (per day), $
+168	J.r_big	Large group (16+) surcharge, $
+169	J.gcat	Qualification category
+170	J.gcats.	— choose —
+171	J.gcats.havaskor	Amateur guide
+172	J.gcats.ixtisoslashgan	Specialised guide
+173	J.gcats.professional	Professional guide
+174	J.gcats.oltin_fond	«Golden Fund» guide
+175	REQ.guide.0	A Tourism Committee guide licence or a guide diploma — enter the number and upload a photo.
+176	REQ.guide.1	Fluent in at least one foreign language.
+177	REQ.guide.2	Main photo: in classic (suit, white shirt) or national dress, a quality portrait with the face clearly visible.
+178	REQ.guide.3	Photos of yourself — at least 3.
+179	REQ.guide.4	Photos with travellers — at least 10 (they prove your experience and appear in your gallery; only with the travellers' consent).
+180	REQ.guide.5	At least 1 year of experience with travellers.
+181	REQ.guide.6	Punctual, neat and polite.
+182	REQ.driver.0	Driving licence and at least 3 years of driving experience.
+183	REQ.driver.1	Each vehicle: class, model, year, seats, registration papers and net price (per day and airport transfer).
+184	REQ.driver.2	Car from 2015 or newer, air-conditioned, clean inside, insured.
+185	REQ.driver.3	Main photo: in classic or national dress, good quality, face clearly visible.
+186	REQ.driver.4	Car photos — at least 6 (outside, inside, boot).
+187	REQ.driver.5	Photos with travellers — at least 10 (shown in your gallery; only with the travellers' consent).
+188	REQ.driver.6	No smoking in the car, safe driving, punctual.
+189	REQ.hotel.0	A registered accommodation (tax number or registry number).
+190	REQ.hotel.1	Each room type: name, guests, number of rooms and net price (later you add photos for each type in your account).
+191	REQ.hotel.2	Main photo: the building or a national-style courtyard / reception.
+192	REQ.hotel.3	Photos of rooms and grounds — at least 10, bright and real.
+193	REQ.hotel.4	Clean rooms, hot water, Wi-Fi and breakfast.
+194	REQ.hotel.5	Booking confirmed within 24 hours, price stated in advance.
+195	REQ.other.0	Permission to work: tax number or self-employed certificate.
+196	REQ.other.1	Main photo: in classic or national dress, a quality portrait.
+197	REQ.other.2	Photos of you or your work — at least 3.
+198	REQ.other.3	Photos working with travellers — at least 10 (shown in your gallery; only with the travellers' consent).
+199	REQ.other.4	Punctual, high quality and polite.
+200	ND	Never make direct deals with clients who came through Moviy Nomad.

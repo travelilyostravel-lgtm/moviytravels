@@ -209,3 +209,90 @@ GR = {
 }
 for _l, _x in GR.items():
     J[_l].update(_x)
+
+
+# 28.11.2026: the other site languages. build/i18n/portal/jn_<lang>.tsv = id<TAB>text (ids from jn_en.tsv);
+# for the newer languages, phrases already translated on the site (build/i18n/<lang>.json) are reused automatically.
+def _more_langs():
+    import os, json, copy
+    here = os.path.dirname(os.path.abspath(__file__)); pdir = os.path.join(here, "i18n", "portal")
+    rows = []
+    def walk(x, path):
+        if isinstance(x, str): rows.append(path)
+        elif isinstance(x, dict):
+            for k, v in x.items(): walk(v, path + [k])
+        elif isinstance(x, (list, tuple)):
+            for i, v in enumerate(x): walk(v, path + [i])
+    src = {"J": J["en"], "REQ": REQ["en"], "ND": NO_DIRECT["en"]}
+    walk(src["J"], ["J"]); walk(src["REQ"], ["REQ"]); rows.append(["ND"])
+    def get(root, path):
+        for p in path[1:]: root = root[p]
+        return root
+    def put(root, path, val):
+        # tuples are immutable: rebuild them on the way back up
+        if not path: return val
+        k = path[0]
+        if isinstance(root, tuple):
+            l = list(root); l[k] = put(root[k], path[1:], val); return tuple(l)
+        root[k] = put(root[k], path[1:], val); return root
+    import glob
+    langs = set(os.path.basename(f)[3:-4] for f in glob.glob(os.path.join(pdir, "jn_*.tsv"))) - {"en"}
+    langs |= set(os.path.basename(f)[:-5] for f in glob.glob(os.path.join(here, "i18n", "*.json")) if not os.path.basename(f).startswith("_"))
+    for l in sorted(langs):
+        if l in J and l in ("uz", "ru", "en"): continue
+        S = {}
+        try: S = json.load(open(os.path.join(here, "i18n", l + ".json"), encoding="utf-8")).get("S", {})
+        except Exception: pass
+        tr = {}
+        f = os.path.join(pdir, "jn_" + l + ".tsv")
+        if os.path.exists(f):
+            for line in open(f, encoding="utf-8"):
+                if "\t" in line:
+                    i, t = line.rstrip("\n").split("\t", 1)
+                    if i.isdigit() and t.strip(): tr[int(i)] = t
+        if not tr and not S: continue
+        out = {"J": copy.deepcopy(src["J"]), "REQ": copy.deepcopy(src["REQ"]), "ND": src["ND"]}
+        for i, path in enumerate(rows):
+            en = get(src[path[0]], path) if path[0] != "ND" else src["ND"]
+            t = tr.get(i) or (S.get(en) if en and S.get(en) != en else None)
+            if not t: continue
+            if path[0] == "ND": out["ND"] = t
+            else: out[path[0]] = put(out[path[0]], path[1:], t)
+        J[l] = out["J"]; REQ[l] = out["REQ"]; NO_DIRECT[l] = out["ND"]
+
+
+_more_langs()
+
+
+# Telegram banner + "other languages" placeholder for the languages without them above (28.11.2026)
+_EXTRA = {
+ "tr": ("+ diğer diller", "📲 Telegram ile kayıt — daha kolay", "Bot soruları tek tek sorar: yanıt verir, fotoğraf gönderirsiniz — kart kendiliğinden dolar."),
+ "ar": ("+ لغات أخرى", "📲 التسجيل عبر تيليجرام — أسهل", "يطرح البوت الأسئلة واحدًا تلو الآخر: تجيب وترسل الصور — فتمتلئ البطاقة تلقائيًا."),
+ "de": ("+ weitere Sprachen", "📲 Registrierung über Telegram — einfacher", "Der Bot stellt eine Frage nach der anderen: Sie antworten und senden Fotos — die Karte füllt sich selbst."),
+ "sv": ("+ andra språk", "📲 Registrera dig via Telegram — enklare", "Boten ställer en fråga i taget: du svarar och skickar foton — kortet fylls i av sig självt."),
+ "zh": ("+ 其他语言", "📲 通过 Telegram 注册——更简单", "机器人逐一提问：您回答并发送照片——名片会自动填好。"),
+ "hi": ("+ अन्य भाषाएँ", "📲 Telegram से पंजीकरण — आसान", "बॉट एक-एक करके सवाल पूछता है: आप जवाब देते हैं और फ़ोटो भेजते हैं — कार्ड अपने आप भर जाता है।"),
+ "ko": ("+ 기타 언어", "📲 Telegram으로 가입 — 더 쉬워요", "봇이 질문을 하나씩 합니다: 답하고 사진을 보내면 카드가 자동으로 채워집니다."),
+ "kk": ("+ басқа тілдер", "📲 Telegram арқылы тіркелу — оңайырақ", "Бот сұрақтарды бір-бірден қояды: сіз жауап беріп, сурет жібересіз — карточка өзі толады."),
+ "ky": ("+ башка тилдер", "📲 Telegram аркылуу катталуу — оңоюраак", "Бот суроолорду бирден берет: сиз жооп берип, сүрөт жөнөтөсүз — карточка өзү толот."),
+ "tg": ("+ забонҳои дигар", "📲 Бақайдгирӣ тавассути Telegram — осонтар", "Бот саволҳоро як-як медиҳад: шумо ҷавоб медиҳед ва сурат мефиристед — корт худаш пур мешавад."),
+ "tk": ("+ beýleki diller", "📲 Telegram arkaly hasaba durmak — has aňsat", "Bot soraglary birin-birin berýär: siz jogap berýärsiňiz we surat iberýärsiňiz — kartoçka özi dolýar."),
+ "az": ("+ digər dillər", "📲 Telegram ilə qeydiyyat — daha asan", "Bot sualları bir-bir verir: siz cavab yazır, şəkil göndərirsiniz — kart özü dolur."),
+ "hy": ("+ այլ լեզուներ", "📲 Գրանցում Telegram-ով — ավելի հեշտ", "Բոտը հարցերը տալիս է մեկ առ մեկ. պատասխանում և լուսանկարներ եք ուղարկում — քարտը լրացվում է ինքնուրույն։"),
+ "ka": ("+ სხვა ენები", "📲 რეგისტრაცია Telegram-ით — უფრო მარტივად", "ბოტი კითხვებს სათითაოდ გისვამთ: პასუხობთ და ფოტოებს აგზავნით — ბარათი თავად ივსება."),
+ "be": ("+ іншыя мовы", "📲 Рэгістрацыя праз Telegram — прасцей", "Бот задае пытанні па адным: вы адказваеце і дасылаеце фота — картка запаўняецца сама."),
+ "uk": ("+ інші мови", "📲 Реєстрація через Telegram — простіше", "Бот ставить питання по одному: ви відповідаєте й надсилаєте фото — картка заповнюється сама."),
+ "fr": ("+ autres langues", "📲 Inscription via Telegram — plus simple", "Le bot pose une question à la fois : vous répondez et envoyez des photos — la fiche se remplit toute seule."),
+ "es": ("+ otros idiomas", "📲 Registro por Telegram — más fácil", "El bot hace una pregunta cada vez: respondes y envías fotos, y la ficha se rellena sola."),
+ "it": ("+ altre lingue", "📲 Registrazione via Telegram — più semplice", "Il bot fa una domanda alla volta: rispondi e invii le foto, e la scheda si compila da sola."),
+ "pt": ("+ outros idiomas", "📲 Registo pelo Telegram — mais fácil", "O bot faz uma pergunta de cada vez: responde e envia fotos — o cartão preenche-se sozinho."),
+ "pl": ("+ inne języki", "📲 Rejestracja przez Telegram — łatwiej", "Bot zadaje pytania po kolei: odpowiadasz i wysyłasz zdjęcia — karta wypełnia się sama."),
+ "nl": ("+ andere talen", "📲 Aanmelden via Telegram — makkelijker", "De bot stelt één vraag tegelijk: je antwoordt en stuurt foto's — de kaart vult zichzelf."),
+ "fa": ("+ زبان‌های دیگر", "📲 ثبت‌نام از طریق تلگرام — ساده‌تر", "ربات سؤال‌ها را یکی‌یکی می‌پرسد: پاسخ می‌دهید و عکس می‌فرستید — کارت خودش پر می‌شود."),
+ "ur": ("+ دیگر زبانیں", "📲 ٹیلیگرام کے ذریعے رجسٹریشن — زیادہ آسان", "بوٹ ایک ایک کرکے سوال پوچھتا ہے: آپ جواب دیتے اور تصاویر بھیجتے ہیں — کارڈ خود بھر جاتا ہے۔"),
+ "ja": ("+ その他の言語", "📲 Telegramで登録 — もっと簡単", "ボットが1問ずつ質問します。回答して写真を送るだけで、カードが自動で完成します。"),
+ "id": ("+ bahasa lain", "📲 Daftar lewat Telegram — lebih mudah", "Bot bertanya satu per satu: Anda menjawab dan mengirim foto — kartu terisi sendiri."),
+ "ms": ("+ bahasa lain", "📲 Daftar melalui Telegram — lebih mudah", "Bot bertanya satu demi satu: anda menjawab dan menghantar foto — kad diisi sendiri."),
+}
+for _l, (_o, _t, _d) in _EXTRA.items():
+    if _l in J: J[_l]["other_langs"] = _o; J[_l]["tg_reg"] = [_t, _d]
