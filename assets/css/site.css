@@ -1689,3 +1689,24 @@ html[data-theme="dark"] .gdd__note{background:#1b2d42}
 .jf-tg{display:block;margin:6px 0 16px;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,#229ED9,#1b7fb3);color:#fff;text-decoration:none;box-shadow:0 6px 18px rgba(34,158,217,.25)}
 .jf-tg b{display:block;font-size:16px}.jf-tg small{display:block;opacity:.9;font-size:13px;margin-top:3px}
 .jf-tg:hover{filter:brightness(1.06)}
+/* reviews: one row of 4 + Telegram banner (2026-11-28) */
+#reviews{background:linear-gradient(180deg,#fbf7ef 0%,#f3ecdf 100%)}
+.revs2{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
+.rev2{position:relative;margin:0;background:#fff;border-radius:22px;padding:26px 22px 20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 10px 30px rgba(12,36,65,.08);border-top:4px solid var(--gold);transition:transform .25s,box-shadow .25s;overflow:hidden}
+.rev2:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(12,36,65,.14)}
+.rev2__q{position:absolute;top:-18px;inset-inline-end:14px;font:700 120px/1 Georgia,serif;color:var(--gold);opacity:.18;pointer-events:none}
+.rev2__stars{color:var(--gold);letter-spacing:3px;font-size:15px}
+.rev2 blockquote{margin:0;color:var(--ink);font-size:15px;line-height:1.6;flex:1;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden}
+.rev2 figcaption{display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.rev2 figcaption b{display:block;color:var(--navy);font-size:15px}.rev2 figcaption small{color:var(--muted);font-size:13px}
+.rev2__av{flex:0 0 44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px}
+.rev2__av--0{background:linear-gradient(135deg,#1f4e8c,#2bb3a8)}.rev2__av--1{background:linear-gradient(135deg,#c8372d,#e8b10c)}
+.rev2__av--2{background:linear-gradient(135deg,#2e9e6a,#1f4e8c)}.rev2__av--3{background:linear-gradient(135deg,#7b2a8c,#d9324a)}
+.rev-tg{display:flex;align-items:center;gap:16px;margin:26px auto 0;max-width:640px;padding:16px 22px;border-radius:18px;background:linear-gradient(135deg,#229ED9,#1b6fa8);color:#fff;text-decoration:none;box-shadow:0 10px 26px rgba(34,158,217,.3);transition:transform .2s}
+.rev-tg:hover{transform:translateY(-2px)}
+.rev-tg__ic{flex:0 0 46px;height:46px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center}.rev-tg__ic svg{width:24px;height:24px;fill:#fff}
+.rev-tg__t{flex:1}.rev-tg__t b{display:block;font-size:17px}.rev-tg__t small{opacity:.85;font-size:13px}
+.rev-tg__go{font-size:24px;font-weight:800}
+@media(max-width:1100px){.revs2{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.revs2{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:4px 2px 14px;margin:0 -4px}.rev2{flex:0 0 84%;scroll-snap-align:start}}
+html[data-theme="dark"] #reviews{background:#0f2238}html[data-theme="dark"] .rev2{background:#16304d}html[data-theme="dark"] .rev2 blockquote{color:#e8eef5}html[data-theme="dark"] .rev2 figcaption b{color:#fff}

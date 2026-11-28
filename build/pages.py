@@ -130,15 +130,21 @@ def home_blocks(lang, pre, A, icon):
       <p class="pt-more"><a class="btn btn--outline" href="partners.html">{e(" ".join(PT["see_all"].replace("({n})", "").replace("{n}", "").split()))} →</a> <a class="pt-become" href="partners.html#join">{e(PT["become"])}</a></p>
     </div>
   </section>'''
+    # 2026-11-28: one row of 4 reviews (premium cards), the rest in the Telegram channel
+    _rv = [r for r in x["reviews"] if not NON_UZ_RE.search(r[1])][:4]  # 2026-11-26: Uzbekistan only
+    def _ini(n):
+        w = [p for p in __import__("re").split(r"[\s,.]+", n) if p]
+        return (w[0][:1] + (w[1][:1] if len(w) > 1 else "")).upper() if w else "★"
     revs = "".join(
-        f'<figure class="rev reveal"><div class="rev__stars">★★★★★</div><blockquote>“{e(txt)}”</blockquote><figcaption><b>{e(name)}</b><span>{e(trip)}</span></figcaption></figure>'
-        for name, trip, txt in x["reviews"] if not NON_UZ_RE.search(trip))  # 2026-11-26: Uzbekistan only
+        f'<figure class="rev2 reveal"><span class="rev2__q" aria-hidden="true">“</span><div class="rev2__stars" aria-label="5/5">★★★★★</div>'
+        f'<blockquote>{e(txt)}</blockquote><figcaption><span class="rev2__av rev2__av--{i % 4}">{e(_ini(name))}</span><span><b>{e(name)}</b><small>📍 {e(trip)}</small></span></figcaption></figure>'
+        for i, (name, trip, txt) in enumerate(_rv))
     reviews = f'''
   <section class="section" id="reviews">
     <div class="container">
       <div class="section-head reveal"><span class="eyebrow">{e(x["rev_eyebrow"])}</span><h2>{e(x["rev_title"])}</h2><p>{e(x["rev_sub"])}</p></div>
-      <div class="revs">{revs}</div>
-      <p style="margin-top:28px"><a class="btn btn--tg" href="https://t.me/{c["reviews_channel"]}" target="_blank" rel="noopener">{icon["tg"]}{e(x["rev_all"])}</a></p>
+      <div class="revs2">{revs}</div>
+      <a class="rev-tg reveal" href="https://t.me/{c["reviews_channel"]}" target="_blank" rel="noopener"><span class="rev-tg__ic">{icon["tg"]}</span><span class="rev-tg__t"><b>{e(x["rev_all"])}</b><small>t.me/{e(c["reviews_channel"])}</small></span><span class="rev-tg__go" aria-hidden="true">→</span></a>
     </div>
   </section>
   <section class="section section--sand" id="stories">
