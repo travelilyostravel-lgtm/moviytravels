@@ -1,0 +1,212 @@
+0	Company registration (PDF or image)
+1	Tourism license (PDF or image)
+2	No password is needed now. We check your application and documents, then send you a password — your login is the e-mail above.
+3	Each file must be under 10 MB.
+4	Sending…
+5	Thank you! Your application has been sent. We will check it within 1–2 working days and send your password to your e-mail or WhatsApp. Your login is your e-mail.
+6	Company tax number (INN / TIN / VAT) *
+7	City *
+8	Legal address (registered office) *
+9	Street, building, office
+10	Main WhatsApp number *
+11	Main e-mail (login) *
+12	No WhatsApp or business e-mail? Write to our manager directly:
+13	Questions? Write to our manager directly:
+14	Agent portal
+15	Log out
+16	New quote
+17	My bookings
+18	Group departures
+19	Agency
+20	The portal is not connected to the database yet.
+21	Log in
+22	Register your agency
+23	Welcome, partner
+24	Log in to quote tours with your net prices and book for your clients.
+25	E-mail
+26	Password
+27	Forgot password
+28	Become a partner agency
+29	We check every agency by hand. After approval you get net prices and online booking.
+30	Agency name *
+31	Country *
+32	City
+33	Address
+34	Website
+35	License / registration no.
+36	Contact person *
+37	Phone
+38	E-mail (login) *
+39	Password *
+40	(min. 8 characters)
+41	I agree that Moviy Nomad checks my agency documents and stores my clients' passport data only to arrange their trip.
+42	Send application
+43	Your application is being reviewed
+44	Please upload your company registration and tourism license. We usually review applications within 1–2 working days.
+45	Document type
+46	Company registration
+47	Tourism license
+48	ID of the director
+49	Other
+50	File (PDF or image)
+51	Upload document
+52	Your quote
+53	Choose a ready tour or build a route above.
+54	Tour
+55	Travellers
+56	Client price (brutto)
+57	% Commission
+58	⟳ Recalculate
+59	⟳ Updating…
+60	Your commission
+61	You earn
+62	You pay Moviy Nomad (netto)
+63	Payment & cancellation (summary).
+64	30% deposit within 3 working days of our invoice; the remaining 70% no later than 14 days before the start (100% at once if booked later). Unpaid balance: one reminder + 48 h, then the booking is cancelled and the deposit is kept. Cancellation fees: 31+ days — bank fees and non-refundable tickets only; 30–15 days — 15%; 14–8 days — 50%; 7–3 days — 75%; 2 days or less / no-show — 100%. An agent who refuses to pay twice is suspended.
+65	Full terms
+66	Start date *
+67	Note for Moviy Nomad
+68	Arrival flight, special wishes…
+69	Book this tour →
+70	All requests and bookings of your agency.
+71	Guaranteed group departures — free seats
+72	Classic Uzbekistan, 8 days / 7 nights, every Saturday from Khiva. Your clients can join any group, even 1 person. Prices are public (per person, twin share); your commission applies.
+73	Click a green or yellow cell to book seats
+74	— the price is calculated automatically; seats are held when we confirm your 30% deposit.
+75	Loading…
+76	Small group 12–17
+77	Medium group 30–35
+78	Large group 45–50
+79	Book seats: {0}
+80	{0} seats left
+81	{0} per person (twin share)
+82	single room +{0}
+83	Room
+84	Twin / double share
+85	Single room
+86	Note for Moviy Nomad (optional)
+87	the same price travellers see on our website
+88	{0} per person — the same price travellers see on our website
+89	Payment: 30% within 3 working days of our invoice, 70% no later than 14 days before the start. Seats are held for you as soon as we confirm your 30% deposit.
+90	Book seats
+91	This departure is no longer available. Please choose another date.
+92	Price updated: {0} → {1}.
+93	Free seats now: {0}.
+94	✓ Up to date.
+95	Only {0} seats left.
+96	Booking…
+97	Seats and prices checked at {0}. If you come back later, press <b>Recalculate</b>.
+98	Prices checked at {0}.
+99	Prices checked at {0} — they may have changed. Press <b>Recalculate</b>.
+100	Logging in…
+101	Type your e-mail first.
+102	We sent you a link to set a new password.
+103	Thank you! Please confirm your e-mail with the link we just sent, then log in and upload your documents.
+104	Enter a new password (min. 8 characters):
+105	Password updated.
+106	No agency is linked to this account
+107	Please contact Moviy Nomad.
+108	Open
+109	No documents uploaded yet.
+110	Your application was not approved
+111	Your account is blocked
+112	Please contact Moviy Nomad for details.
+113	Choose a file first.
+114	The file is larger than 10 MB.
+115	Uploaded. Thank you!
+116	{0} · {1} days
+117	{0} (single rooms)
+118	Choose the start date.
+119	The start date is in the past.
+120	Checking the latest price…
+121	The price has just been updated. Please check the new brutto with your client and press Book again.
+122	Creating the booking…
+123	Ref
+124	Start
+125	Pax
+126	Brutto
+127	Netto
+128	Status
+129	Booking not found.
+130	← All bookings
+131	Netto to pay ({0}% commission)
+132	Your note:
+133	Next step
+134	Add all travellers with their passports below. Moviy Nomad will check availability and send you the payment details here.
+135	14 days before the start
+136	Payment
+137	Total netto:
+138	Reference:
+139	30% deposit
+140	70% balance
+141	Received
+142	— within 3 working days of the invoice
+143	— within 3 working days of the invoice ✅ received
+144	— by {0}
+145	I have paid
+146	You reported the payment. We will confirm it as soon as the money arrives.
+147	Notify on WhatsApp
+148	Notify on Telegram
+149	Client language:
+150	🧾 Travel voucher (PDF)
+151	Service vouchers (PDF)
+152	Download PDF
+153	Travellers ({0} of {1})
+154	Name
+155	Passport
+156	Nationality
+157	Birth date
+158	Scan
+159	View
+160	Remove
+161	No travellers yet.
+162	First name *
+163	Last name *
+164	Sex
+165	Passport no. *
+166	Passport expiry
+167	Passport scan (photo page, PDF or image)
+168	Add traveller
+169	Cancel booking
+170	Remove this traveller?
+171	Confirm that you have sent {0} for {1}?
+172	Cancel booking {0}? This cannot be undone.
+173	This booking is for {0} travellers. Add one more anyway?
+174	Saving…
+175	The scan is larger than 10 MB.
+176	Contact
+177	Documents
+178	To change your details or commission, contact Moviy Nomad.
+179	Language
+180	Request
+181	Awaiting payment
+182	Payment reported
+183	Deposit paid (30%)
+184	Paid
+185	Confirmed
+186	Cancelled
+187	Pending review
+188	Approved
+189	Rejected
+190	Blocked
+191	Services / Guides
+192	Guides
+193	Cars with driver
+194	Hotels
+195	Other services
+196	Details
+197	per day
+198	per night
+199	on request
+200	Book
+201	No partners in this section yet.
+202	Nights *
+203	Days *
+204	Rooms
+205	Cars
+206	Quantity
+207	Travellers *
+208	Send booking →
+209	Close
+210	Licensed guides, cars with drivers and hotels checked by Moviy Nomad. Prices are client prices (brutto) per day or night — the same as on our website. Your commission applies: press
+211	Choose a partner, the dates and send the booking — we confirm availability.

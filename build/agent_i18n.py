@@ -233,4 +233,13 @@ def table():
     for en, tr in P:
         assert len(tr) == len(LANGS), en
         for l, t in zip(LANGS, tr): out.setdefault(l, {})[en] = t
+    # the 20 newer site languages: build/i18n/portal/ag_<lang>.tsv  (id<TAB>text, id = position in P)
+    import glob, os
+    for f in glob.glob(os.path.join(os.path.dirname(__file__), "i18n", "portal", "ag_*.tsv")):
+        l = os.path.basename(f)[3:-4]
+        if l == "en": continue
+        for line in open(f, encoding="utf-8"):
+            if "\t" not in line: continue
+            i, t = line.rstrip("\n").split("\t", 1)
+            if i.isdigit() and int(i) < len(P) and t.strip(): out.setdefault(l, {})[P[int(i)][0]] = t
     return out

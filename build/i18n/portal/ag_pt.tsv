@@ -1,0 +1,212 @@
+0	Registro da empresa (PDF ou imagem)
+1	Licença de turismo (PDF ou imagem)
+2	Não é preciso senha agora. Verificamos a sua candidatura e os documentos e depois enviamos uma senha — o seu login é o e-mail acima.
+3	Cada ficheiro deve ter menos de 10 MB.
+4	A enviar…
+5	Obrigado! A sua candidatura foi enviada. Verificamos em 1–2 dias úteis e enviamos a senha por e-mail ou WhatsApp. O seu login é o seu e-mail.
+6	Número fiscal da empresa (NIF / CNPJ / TIN / VAT) *
+7	Cidade *
+8	Morada legal (sede registada) *
+9	Rua, edifício, escritório
+10	Número principal de WhatsApp *
+11	E-mail principal (login) *
+12	Sem WhatsApp ou e-mail empresarial? Escreva diretamente ao nosso gestor:
+13	Dúvidas? Escreva diretamente ao nosso gestor:
+14	Portal de agentes
+15	Sair
+16	Novo orçamento
+17	As minhas reservas
+18	Partidas em grupo
+19	Agência
+20	O portal ainda não está ligado à base de dados.
+21	Entrar
+22	Registar a sua agência
+23	Bem-vindo, parceiro
+24	Entre para orçamentar circuitos com os seus preços líquidos e reservar para os seus clientes.
+25	E-mail
+26	Senha
+27	Esqueci a senha
+28	Torne-se agência parceira
+29	Verificamos cada agência manualmente. Após aprovação, terá preços líquidos e reserva online.
+30	Nome da agência *
+31	País *
+32	Cidade
+33	Morada
+34	Website
+35	N.º de licença / registo
+36	Pessoa de contacto *
+37	Telefone
+38	E-mail (login) *
+39	Senha *
+40	(mín. 8 caracteres)
+41	Concordo que a Moviy Nomad verifique os documentos da minha agência e guarde os dados de passaporte dos meus clientes apenas para organizar a viagem.
+42	Enviar candidatura
+43	A sua candidatura está em análise
+44	Carregue o registo da empresa e a licença de turismo. Normalmente analisamos as candidaturas em 1–2 dias úteis.
+45	Tipo de documento
+46	Registo da empresa
+47	Licença de turismo
+48	Documento de identificação do diretor
+49	Outro
+50	Ficheiro (PDF ou imagem)
+51	Carregar documento
+52	O seu orçamento
+53	Escolha um circuito pronto ou crie um itinerário acima.
+54	Circuito
+55	Viajantes
+56	Preço ao cliente (bruto)
+57	% Comissão
+58	⟳ Recalcular
+59	⟳ A atualizar…
+60	A sua comissão
+61	Ganha
+62	Paga à Moviy Nomad (líquido)
+63	Pagamento e cancelamento (resumo).
+64	Sinal de 30% em 3 dias úteis após a nossa fatura; os restantes 70% até 14 dias antes do início (100% de uma vez se reservar mais tarde). Saldo por pagar: um lembrete + 48 h; depois a reserva é cancelada e o sinal fica retido. Taxas de cancelamento: 31+ dias — só taxas bancárias e bilhetes não reembolsáveis; 30–15 dias — 15%; 14–8 dias — 50%; 7–3 dias — 75%; 2 dias ou menos / não comparência — 100%. Um agente que recusar pagar duas vezes é suspenso.
+65	Condições completas
+66	Data de início *
+67	Nota para a Moviy Nomad
+68	Voo de chegada, pedidos especiais…
+69	Reservar este circuito →
+70	Todos os pedidos e reservas da sua agência.
+71	Partidas em grupo garantidas — lugares livres
+72	Uzbequistão clássico, 8 dias / 7 noites, todos os sábados a partir de Khiva. Os seus clientes podem juntar-se a qualquer grupo, mesmo 1 pessoa. Os preços são públicos (por pessoa, em quarto duplo); a sua comissão aplica-se.
+73	Clique numa célula verde ou amarela para reservar lugares
+74	— o preço é calculado automaticamente; os lugares ficam garantidos quando confirmamos o seu sinal de 30%.
+75	A carregar…
+76	Grupo pequeno 12–17
+77	Grupo médio 30–35
+78	Grupo grande 45–50
+79	Reservar lugares: {0}
+80	Restam {0} lugares
+81	{0} por pessoa (quarto duplo)
+82	quarto individual +{0}
+83	Quarto
+84	Twin / duplo partilhado
+85	Quarto individual
+86	Nota para a Moviy Nomad (opcional)
+87	o mesmo preço que os viajantes veem no nosso site
+88	{0} por pessoa — o mesmo preço que os viajantes veem no nosso site
+89	Pagamento: 30% em 3 dias úteis após a nossa fatura, 70% até 14 dias antes do início. Os lugares ficam garantidos assim que confirmamos o seu sinal de 30%.
+90	Reservar lugares
+91	Esta partida já não está disponível. Escolha outra data.
+92	Preço atualizado: {0} → {1}.
+93	Lugares livres agora: {0}.
+94	✓ Atualizado.
+95	Restam apenas {0} lugares.
+96	A reservar…
+97	Lugares e preços verificados às {0}. Se voltar mais tarde, carregue em <b>Recalcular</b>.
+98	Preços verificados às {0}.
+99	Preços verificados às {0} — podem ter mudado. Carregue em <b>Recalcular</b>.
+100	A entrar…
+101	Escreva primeiro o seu e-mail.
+102	Enviámos-lhe um link para definir uma nova senha.
+103	Obrigado! Confirme o seu e-mail com o link que acabámos de enviar, depois entre e carregue os documentos.
+104	Introduza uma nova senha (mín. 8 caracteres):
+105	Senha atualizada.
+106	Nenhuma agência está associada a esta conta
+107	Contacte a Moviy Nomad.
+108	Abrir
+109	Ainda não carregou documentos.
+110	A sua candidatura não foi aprovada
+111	A sua conta está bloqueada
+112	Contacte a Moviy Nomad para mais informações.
+113	Escolha primeiro um ficheiro.
+114	O ficheiro tem mais de 10 MB.
+115	Carregado. Obrigado!
+116	{0} · {1} dias
+117	{0} (quartos individuais)
+118	Escolha a data de início.
+119	A data de início já passou.
+120	A verificar o preço mais recente…
+121	O preço acabou de ser atualizado. Confirme o novo bruto com o cliente e carregue novamente em Reservar.
+122	A criar a reserva…
+123	Ref.
+124	Início
+125	Pax
+126	Bruto
+127	Líquido
+128	Estado
+129	Reserva não encontrada.
+130	← Todas as reservas
+131	Líquido a pagar ({0}% de comissão)
+132	A sua nota:
+133	Próximo passo
+134	Adicione abaixo todos os viajantes com os passaportes. A Moviy Nomad verifica a disponibilidade e envia aqui os dados de pagamento.
+135	14 dias antes do início
+136	Pagamento
+137	Líquido total:
+138	Referência:
+139	Sinal de 30%
+140	Saldo de 70%
+141	Recebido
+142	— em 3 dias úteis após a fatura
+143	— em 3 dias úteis após a fatura ✅ recebido
+144	— até {0}
+145	Já paguei
+146	Informou o pagamento. Confirmamos assim que o dinheiro chegar.
+147	Avisar no WhatsApp
+148	Avisar no Telegram
+149	Idioma do cliente:
+150	🧾 Voucher de viagem (PDF)
+151	Vouchers de serviço (PDF)
+152	Descarregar PDF
+153	Viajantes ({0} de {1})
+154	Nome
+155	Passaporte
+156	Nacionalidade
+157	Data de nascimento
+158	Digitalização
+159	Ver
+160	Remover
+161	Ainda não há viajantes.
+162	Nome próprio *
+163	Apelido *
+164	Sexo
+165	N.º do passaporte *
+166	Validade do passaporte
+167	Digitalização do passaporte (página da foto, PDF ou imagem)
+168	Adicionar viajante
+169	Cancelar reserva
+170	Remover este viajante?
+171	Confirma que enviou {0} por {1}?
+172	Cancelar a reserva {0}? Não é possível anular.
+173	Esta reserva é para {0} viajantes. Adicionar mais um mesmo assim?
+174	A guardar…
+175	A digitalização tem mais de 10 MB.
+176	Contacto
+177	Documentos
+178	Para alterar os seus dados ou a comissão, contacte a Moviy Nomad.
+179	Idioma
+180	Pedido
+181	A aguardar pagamento
+182	Pagamento informado
+183	Sinal pago (30%)
+184	Pago
+185	Confirmado
+186	Cancelado
+187	Em análise
+188	Aprovado
+189	Recusado
+190	Bloqueado
+191	Serviços / Guias
+192	Guias
+193	Carros com motorista
+194	Hotéis
+195	Outros serviços
+196	Detalhes
+197	por dia
+198	por noite
+199	sob pedido
+200	Reservar
+201	Ainda não há parceiros nesta secção.
+202	Noites *
+203	Dias *
+204	Quartos
+205	Carros
+206	Quantidade
+207	Viajantes *
+208	Enviar reserva →
+209	Fechar
+210	Guias licenciados, carros com motorista e hotéis verificados pela Moviy Nomad. Os preços são preços ao cliente (brutos) por dia ou por noite — iguais aos do nosso site. A sua comissão aplica-se: carregue em
+211	Escolha um parceiro e as datas e envie a reserva — nós confirmamos a disponibilidade.

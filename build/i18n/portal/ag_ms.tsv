@@ -1,0 +1,212 @@
+0	Sijil pendaftaran syarikat (PDF atau imej)
+1	Lesen pelancongan (PDF atau imej)
+2	Kata laluan belum diperlukan sekarang. Kami menyemak permohonan dan dokumen anda, kemudian menghantar kata laluan — log masuk anda ialah e-mel di atas.
+3	Setiap fail mestilah kurang daripada 10 MB.
+4	Menghantar…
+5	Terima kasih! Permohonan anda telah dihantar. Kami akan menyemaknya dalam 1–2 hari bekerja dan menghantar kata laluan ke e-mel atau WhatsApp anda. Log masuk anda ialah e-mel anda.
+6	Nombor cukai syarikat (TIN / SST / VAT) *
+7	Bandar *
+8	Alamat berdaftar (pejabat berdaftar) *
+9	Jalan, bangunan, pejabat
+10	Nombor WhatsApp utama *
+11	E-mel utama (log masuk) *
+12	Tiada WhatsApp atau e-mel perniagaan? Tulis terus kepada pengurus kami:
+13	Ada soalan? Tulis terus kepada pengurus kami:
+14	Portal ejen
+15	Log keluar
+16	Sebut harga baharu
+17	Tempahan saya
+18	Perlepasan berkumpulan
+19	Agensi
+20	Portal belum disambungkan ke pangkalan data.
+21	Log masuk
+22	Daftar agensi anda
+23	Selamat datang, rakan kongsi
+24	Log masuk untuk membuat sebut harga lawatan dengan harga bersih anda dan menempah untuk pelanggan.
+25	E-mel
+26	Kata laluan
+27	Lupa kata laluan
+28	Jadi agensi rakan kongsi
+29	Kami menyemak setiap agensi secara manual. Selepas diluluskan, anda mendapat harga bersih dan tempahan dalam talian.
+30	Nama agensi *
+31	Negara *
+32	Bandar
+33	Alamat
+34	Laman web
+35	No. lesen / pendaftaran
+36	Orang untuk dihubungi *
+37	Telefon
+38	E-mel (log masuk) *
+39	Kata laluan *
+40	(min. 8 aksara)
+41	Saya bersetuju Moviy Nomad menyemak dokumen agensi saya dan menyimpan data pasport pelanggan saya hanya untuk menguruskan perjalanan mereka.
+42	Hantar permohonan
+43	Permohonan anda sedang disemak
+44	Sila muat naik sijil pendaftaran syarikat dan lesen pelancongan. Kami biasanya menyemak permohonan dalam 1–2 hari bekerja.
+45	Jenis dokumen
+46	Pendaftaran syarikat
+47	Lesen pelancongan
+48	Kad pengenalan pengarah
+49	Lain-lain
+50	Fail (PDF atau imej)
+51	Muat naik dokumen
+52	Sebut harga anda
+53	Pilih lawatan sedia ada atau bina laluan di atas.
+54	Lawatan
+55	Pelancong
+56	Harga pelanggan (kasar)
+57	% Komisen
+58	⟳ Kira semula
+59	⟳ Mengemas kini…
+60	Komisen anda
+61	Pendapatan anda
+62	Anda bayar kepada Moviy Nomad (bersih)
+63	Pembayaran & pembatalan (ringkasan).
+64	Deposit 30% dalam 3 hari bekerja selepas invois kami; baki 70% selewat-lewatnya 14 hari sebelum bermula (100% sekali gus jika ditempah lebih lewat). Baki tidak dibayar: satu peringatan + 48 jam, kemudian tempahan dibatalkan dan deposit tidak dikembalikan. Caj pembatalan: 31+ hari — hanya caj bank dan tiket tidak boleh dikembalikan; 30–15 hari — 15%; 14–8 hari — 50%; 7–3 hari — 75%; 2 hari atau kurang / tidak hadir — 100%. Ejen yang enggan membayar dua kali akan digantung.
+65	Terma penuh
+66	Tarikh mula *
+67	Nota untuk Moviy Nomad
+68	Penerbangan ketibaan, permintaan khas…
+69	Tempah lawatan ini →
+70	Semua permintaan dan tempahan agensi anda.
+71	Perlepasan berkumpulan dijamin — tempat kosong
+72	Uzbekistan Klasik, 8 hari / 7 malam, setiap Sabtu dari Khiva. Pelanggan anda boleh menyertai mana-mana kumpulan, walaupun 1 orang. Harga adalah awam (seorang, bilik twin berkongsi); komisen anda terpakai.
+73	Klik sel hijau atau kuning untuk menempah tempat
+74	— harga dikira secara automatik; tempat disimpan untuk anda apabila kami mengesahkan deposit 30% anda.
+75	Memuatkan…
+76	Kumpulan kecil 12–17
+77	Kumpulan sederhana 30–35
+78	Kumpulan besar 45–50
+79	Tempah tempat: {0}
+80	Tinggal {0} tempat
+81	{0} seorang (bilik twin berkongsi)
+82	bilik single +{0}
+83	Bilik
+84	Twin / double berkongsi
+85	Bilik single
+86	Nota untuk Moviy Nomad (pilihan)
+87	harga yang sama seperti yang dilihat pelancong di laman web kami
+88	{0} seorang — harga yang sama seperti yang dilihat pelancong di laman web kami
+89	Pembayaran: 30% dalam 3 hari bekerja selepas invois kami, 70% selewat-lewatnya 14 hari sebelum bermula. Tempat disimpan untuk anda sebaik sahaja kami mengesahkan deposit 30%.
+90	Tempah tempat
+91	Perlepasan ini tidak lagi tersedia. Sila pilih tarikh lain.
+92	Harga dikemas kini: {0} → {1}.
+93	Tempat kosong sekarang: {0}.
+94	✓ Terkini.
+95	Tinggal {0} tempat sahaja.
+96	Menempah…
+97	Tempat dan harga disemak pada {0}. Jika anda kembali kemudian, tekan <b>Kira semula</b>.
+98	Harga disemak pada {0}.
+99	Harga disemak pada {0} — mungkin telah berubah. Tekan <b>Kira semula</b>.
+100	Log masuk…
+101	Taip e-mel anda dahulu.
+102	Kami telah menghantar pautan untuk menetapkan kata laluan baharu.
+103	Terima kasih! Sahkan e-mel anda melalui pautan yang baru kami hantar, kemudian log masuk dan muat naik dokumen anda.
+104	Masukkan kata laluan baharu (min. 8 aksara):
+105	Kata laluan dikemas kini.
+106	Tiada agensi dipautkan kepada akaun ini
+107	Sila hubungi Moviy Nomad.
+108	Buka
+109	Belum ada dokumen dimuat naik.
+110	Permohonan anda tidak diluluskan
+111	Akaun anda disekat
+112	Sila hubungi Moviy Nomad untuk butiran.
+113	Pilih fail dahulu.
+114	Fail lebih besar daripada 10 MB.
+115	Dimuat naik. Terima kasih!
+116	{0} · {1} hari
+117	{0} (bilik single)
+118	Pilih tarikh mula.
+119	Tarikh mula telah berlalu.
+120	Menyemak harga terkini…
+121	Harga baru sahaja dikemas kini. Semak harga kasar baharu dengan pelanggan dan tekan Tempah sekali lagi.
+122	Mencipta tempahan…
+123	Ruj.
+124	Mula
+125	Pax
+126	Kasar
+127	Bersih
+128	Status
+129	Tempahan tidak dijumpai.
+130	← Semua tempahan
+131	Bersih untuk dibayar (komisen {0}%)
+132	Nota anda:
+133	Langkah seterusnya
+134	Tambah semua pelancong bersama pasport mereka di bawah. Moviy Nomad akan menyemak kekosongan dan menghantar butiran pembayaran di sini.
+135	14 hari sebelum bermula
+136	Pembayaran
+137	Jumlah bersih:
+138	Rujukan:
+139	Deposit 30%
+140	Baki 70%
+141	Diterima
+142	— dalam 3 hari bekerja selepas invois
+143	— dalam 3 hari bekerja selepas invois ✅ diterima
+144	— sebelum {0}
+145	Saya sudah bayar
+146	Anda telah melaporkan pembayaran. Kami akan mengesahkannya sebaik sahaja wang diterima.
+147	Maklumkan melalui WhatsApp
+148	Maklumkan melalui Telegram
+149	Bahasa pelanggan:
+150	🧾 Baucar perjalanan (PDF)
+151	Baucar perkhidmatan (PDF)
+152	Muat turun PDF
+153	Pelancong ({0} daripada {1})
+154	Nama
+155	Pasport
+156	Kewarganegaraan
+157	Tarikh lahir
+158	Imbasan
+159	Lihat
+160	Buang
+161	Belum ada pelancong.
+162	Nama pertama *
+163	Nama keluarga *
+164	Jantina
+165	No. pasport *
+166	Tarikh tamat pasport
+167	Imbasan pasport (halaman foto, PDF atau imej)
+168	Tambah pelancong
+169	Batalkan tempahan
+170	Buang pelancong ini?
+171	Sahkan bahawa anda telah menghantar {0} untuk {1}?
+172	Batalkan tempahan {0}? Ini tidak boleh dibuat asal.
+173	Tempahan ini untuk {0} pelancong. Tetap tambah seorang lagi?
+174	Menyimpan…
+175	Imbasan lebih besar daripada 10 MB.
+176	Hubungan
+177	Dokumen
+178	Untuk menukar butiran atau komisen anda, hubungi Moviy Nomad.
+179	Bahasa
+180	Permintaan
+181	Menunggu pembayaran
+182	Pembayaran dilaporkan
+183	Deposit dibayar (30%)
+184	Dibayar
+185	Disahkan
+186	Dibatalkan
+187	Sedang disemak
+188	Diluluskan
+189	Ditolak
+190	Disekat
+191	Perkhidmatan / Pemandu pelancong
+192	Pemandu pelancong
+193	Kereta dengan pemandu
+194	Hotel
+195	Perkhidmatan lain
+196	Butiran
+197	sehari
+198	semalam
+199	atas permintaan
+200	Tempah
+201	Belum ada rakan kongsi dalam bahagian ini.
+202	Malam *
+203	Hari *
+204	Bilik
+205	Kereta
+206	Kuantiti
+207	Pelancong *
+208	Hantar tempahan →
+209	Tutup
+210	Pemandu pelancong berlesen, kereta dengan pemandu dan hotel yang disemak oleh Moviy Nomad. Harga ialah harga pelanggan (kasar) sehari atau semalam — sama seperti di laman web kami. Komisen anda terpakai: tekan
+211	Pilih rakan kongsi dan tarikh, kemudian hantar tempahan — kami yang mengesahkan kekosongan.

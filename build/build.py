@@ -528,6 +528,23 @@ PORTAL_HEAD = """<!DOCTYPE html>
 </head>"""
 
 
+def agent_site_words(lang, html):
+    """Newer languages: the builder part of the agent page reuses the site's own translations (build/i18n/<lang>.json)."""
+    import re as _re
+    if lang not in __import__("content").NEW_LANGS: return html
+    try: S = json.load(open(os.path.join(os.path.dirname(__file__), "i18n", lang + ".json"), encoding="utf-8"))["S"]
+    except Exception: return html
+    m = _re.search(r'window\.AG_DICT=(\{.*?\});</script>', html)
+    if not m: return html
+    D = json.loads(m.group(1))
+    body = _re.sub(r"<script[\s\S]*?</script>", " ", html)
+    texts = set(t.strip() for t in _re.findall(r">([^<>]+)<", body)) | set(_re.findall(r'(?:placeholder|title|aria-label)="([^"]+)"', body))
+    for t in texts:
+        t = __import__("html").unescape(t).strip()
+        if t and t not in D and S.get(t) and S[t] != t: D[t] = S[t]
+    return html[:m.start(1)] + json.dumps(D, ensure_ascii=False) + html[m.end(1):]
+
+
 def render_agent(lang="en"):
     import agent_i18n
     U = LD(lang)["ui"]
@@ -537,7 +554,7 @@ def render_agent(lang="en"):
     dict_js = json.dumps(agent_i18n.table().get(lang, {}), ensure_ascii=False) if lang != "en" else "{}"
     head = PORTAL_HEAD.format(lang=lang, title="Agent portal — Moviy Nomad", CSSV=CSSV).replace('dir="ltr"', f'dir="{T[lang]["dir"]}"', 1)
     if lang in EXTRA_FONT: head = head.replace("&display=swap", EXTRA_FONT[lang] + "&display=swap", 1)
-    redirect = """<script>(function(){try{var l=localStorage.getItem("mn_ag_lang");if(!l){var n=(navigator.language||"en").slice(0,2).toLowerCase();if(["ru","uz","tr","ar","de","sv","zh","hi","ko"].indexOf(n)>-1)l=n;}if(l&&l!=="en"&&/^[a-z]{2}$/.test(l))location.replace(l+".html"+location.search+location.hash);}catch(e){}})();</script>""" if lang == "en" else ""
+    redirect = ("""<script>(function(){try{var l=localStorage.getItem("mn_ag_lang");if(!l){var n=(navigator.language||"en").slice(0,2).toLowerCase();if(%s.indexOf(n)>-1)l=n;}if(l&&l!=="en"&&/^[a-z]{2}$/.test(l))location.replace(l+".html"+location.search+location.hash);}catch(e){}})();</script>""" % json.dumps([l for l in LANGS if l != "en"])) if lang == "en" else ""
     head = head.replace("</head>", redirect + "</head>", 1)
     countries = "".join(f"<option>{c}</option>" for c in ["Germany", "Sweden", "Turkey", "United Arab Emirates", "Saudi Arabia", "China", "India", "South Korea", "Russia", "Kazakhstan", "United Kingdom", "France", "Italy", "Spain", "Netherlands", "Poland", "USA", "Japan", "Malaysia", "Indonesia", "Other"])
     return head + f"""
@@ -760,8 +777,8 @@ def main():
         print("ok", lang, "pages", ("MISSING " + ",".join(miss)) if miss else "")
     for lang in LANGS:
         with open(os.path.join(ROOT, "agent", "index.html" if lang == "en" else lang + ".html"), "w", encoding="utf-8") as f:
-            f.write(render_agent(lang))
-    print("ok agent/ (10 languages)")
+            f.write(agent_site_words(lang, render_agent(lang)))
+    print("ok agent/ (%d languages)" % len(LANGS))
     os.makedirs(os.path.join(ROOT, "admin"), exist_ok=True)
     with open(os.path.join(ROOT, "admin", "index.html"), "w", encoding="utf-8") as f:
         f.write(render_admin())

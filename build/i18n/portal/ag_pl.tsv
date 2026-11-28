@@ -1,0 +1,212 @@
+0	Wpis do rejestru firmy (PDF lub obraz)
+1	Licencja turystyczna (PDF lub obraz)
+2	Hasło nie jest teraz potrzebne. Sprawdzimy zgłoszenie i dokumenty, a potem wyślemy hasło — loginem jest e-mail powyżej.
+3	Każdy plik musi mieć mniej niż 10 MB.
+4	Wysyłanie…
+5	Dziękujemy! Zgłoszenie zostało wysłane. Sprawdzimy je w ciągu 1–2 dni roboczych i wyślemy hasło e-mailem lub przez WhatsApp. Twoim loginem jest e-mail.
+6	Numer podatkowy firmy (NIP / TIN / VAT) *
+7	Miasto *
+8	Adres siedziby (zarejestrowane biuro) *
+9	Ulica, budynek, biuro
+10	Główny numer WhatsApp *
+11	Główny e-mail (login) *
+12	Nie masz WhatsAppa ani firmowego e-maila? Napisz bezpośrednio do naszego menedżera:
+13	Pytania? Napisz bezpośrednio do naszego menedżera:
+14	Portal agentów
+15	Wyloguj
+16	Nowa wycena
+17	Moje rezerwacje
+18	Wyjazdy grupowe
+19	Agencja
+20	Portal nie jest jeszcze połączony z bazą danych.
+21	Zaloguj się
+22	Zarejestruj agencję
+23	Witamy, partnerze
+24	Zaloguj się, aby wyceniać wycieczki po swoich cenach netto i rezerwować dla klientów.
+25	E-mail
+26	Hasło
+27	Nie pamiętam hasła
+28	Zostań agencją partnerską
+29	Każdą agencję sprawdzamy ręcznie. Po akceptacji otrzymasz ceny netto i rezerwację online.
+30	Nazwa agencji *
+31	Kraj *
+32	Miasto
+33	Adres
+34	Strona internetowa
+35	Nr licencji / rejestracji
+36	Osoba kontaktowa *
+37	Telefon
+38	E-mail (login) *
+39	Hasło *
+40	(min. 8 znaków)
+41	Zgadzam się, aby Moviy Nomad sprawdziło dokumenty mojej agencji i przechowywało dane paszportowe moich klientów wyłącznie w celu organizacji ich podróży.
+42	Wyślij zgłoszenie
+43	Twoje zgłoszenie jest rozpatrywane
+44	Prześlij wpis do rejestru firmy i licencję turystyczną. Zgłoszenia rozpatrujemy zwykle w ciągu 1–2 dni roboczych.
+45	Rodzaj dokumentu
+46	Rejestracja firmy
+47	Licencja turystyczna
+48	Dowód tożsamości dyrektora
+49	Inny
+50	Plik (PDF lub obraz)
+51	Prześlij dokument
+52	Twoja wycena
+53	Wybierz gotową wycieczkę lub ułóż trasę powyżej.
+54	Wycieczka
+55	Podróżni
+56	Cena dla klienta (brutto)
+57	% Prowizja
+58	⟳ Przelicz
+59	⟳ Aktualizacja…
+60	Twoja prowizja
+61	Zarabiasz
+62	Płacisz Moviy Nomad (netto)
+63	Płatność i anulacja (skrót).
+64	Zaliczka 30% w ciągu 3 dni roboczych od naszej faktury; pozostałe 70% najpóźniej 14 dni przed rozpoczęciem (przy późniejszej rezerwacji — 100% od razu). Nieopłacona reszta: jedno przypomnienie + 48 godz., potem rezerwacja jest anulowana, a zaliczka zatrzymana. Opłaty za anulację: 31+ dni — tylko opłaty bankowe i bilety bezzwrotne; 30–15 dni — 15%; 14–8 dni — 50%; 7–3 dni — 75%; 2 dni lub mniej / niestawienie się — 100%. Agent, który dwukrotnie odmówi zapłaty, zostaje zawieszony.
+65	Pełne warunki
+66	Data rozpoczęcia *
+67	Uwaga dla Moviy Nomad
+68	Lot przylotowy, szczególne życzenia…
+69	Zarezerwuj tę wycieczkę →
+70	Wszystkie zapytania i rezerwacje Twojej agencji.
+71	Gwarantowane wyjazdy grupowe — wolne miejsca
+72	Klasyczny Uzbekistan, 8 dni / 7 nocy, w każdą sobotę z Chiwy. Twoi klienci mogą dołączyć do dowolnej grupy, nawet 1 osoba. Ceny są publiczne (za osobę, w pokoju 2-os.); obowiązuje Twoja prowizja.
+73	Kliknij zieloną lub żółtą komórkę, aby zarezerwować miejsca
+74	— cena jest liczona automatycznie; miejsca są blokowane po potwierdzeniu Twojej zaliczki 30%.
+75	Ładowanie…
+76	Mała grupa 12–17
+77	Średnia grupa 30–35
+78	Duża grupa 45–50
+79	Rezerwacja miejsc: {0}
+80	Pozostało {0} miejsc
+81	{0} za osobę (pokój 2-os.)
+82	pokój 1-os. +{0}
+83	Pokój
+84	Twin / double (wspólny)
+85	Pokój 1-osobowy
+86	Uwaga dla Moviy Nomad (opcjonalnie)
+87	ta sama cena, którą podróżni widzą na naszej stronie
+88	{0} za osobę — ta sama cena, którą podróżni widzą na naszej stronie
+89	Płatność: 30% w ciągu 3 dni roboczych od faktury, 70% najpóźniej 14 dni przed rozpoczęciem. Miejsca są Twoje, gdy tylko potwierdzimy zaliczkę 30%.
+90	Zarezerwuj miejsca
+91	Ten wyjazd jest już niedostępny. Wybierz inną datę.
+92	Cena zaktualizowana: {0} → {1}.
+93	Wolne miejsca teraz: {0}.
+94	✓ Aktualne.
+95	Zostało tylko {0} miejsc.
+96	Rezerwowanie…
+97	Miejsca i ceny sprawdzone o {0}. Jeśli wrócisz później, naciśnij <b>Przelicz</b>.
+98	Ceny sprawdzone o {0}.
+99	Ceny sprawdzone o {0} — mogły się zmienić. Naciśnij <b>Przelicz</b>.
+100	Logowanie…
+101	Najpierw wpisz e-mail.
+102	Wysłaliśmy link do ustawienia nowego hasła.
+103	Dziękujemy! Potwierdź e-mail linkiem, który właśnie wysłaliśmy, a potem zaloguj się i prześlij dokumenty.
+104	Wpisz nowe hasło (min. 8 znaków):
+105	Hasło zaktualizowane.
+106	Z tym kontem nie jest powiązana żadna agencja
+107	Skontaktuj się z Moviy Nomad.
+108	Otwórz
+109	Nie przesłano jeszcze dokumentów.
+110	Twoje zgłoszenie nie zostało zaakceptowane
+111	Twoje konto jest zablokowane
+112	Skontaktuj się z Moviy Nomad, aby poznać szczegóły.
+113	Najpierw wybierz plik.
+114	Plik jest większy niż 10 MB.
+115	Przesłano. Dziękujemy!
+116	{0} · {1} dni
+117	{0} (pokoje 1-os.)
+118	Wybierz datę rozpoczęcia.
+119	Data rozpoczęcia już minęła.
+120	Sprawdzanie aktualnej ceny…
+121	Cena właśnie się zmieniła. Sprawdź nowe brutto z klientem i ponownie naciśnij Rezerwuj.
+122	Tworzenie rezerwacji…
+123	Nr
+124	Start
+125	Os.
+126	Brutto
+127	Netto
+128	Status
+129	Nie znaleziono rezerwacji.
+130	← Wszystkie rezerwacje
+131	Netto do zapłaty ({0}% prowizji)
+132	Twoja uwaga:
+133	Następny krok
+134	Dodaj poniżej wszystkich podróżnych z paszportami. Moviy Nomad sprawdzi dostępność i prześle tutaj dane do płatności.
+135	14 dni przed rozpoczęciem
+136	Płatność
+137	Razem netto:
+138	Tytuł przelewu:
+139	Zaliczka 30%
+140	Reszta 70%
+141	Otrzymano
+142	— w ciągu 3 dni roboczych od faktury
+143	— w ciągu 3 dni roboczych od faktury ✅ otrzymano
+144	— do {0}
+145	Zapłaciłem
+146	Zgłosiłeś płatność. Potwierdzimy ją, gdy tylko pieniądze wpłyną.
+147	Powiadom na WhatsAppie
+148	Powiadom na Telegramie
+149	Język klienta:
+150	🧾 Voucher podróżny (PDF)
+151	Vouchery usług (PDF)
+152	Pobierz PDF
+153	Podróżni ({0} z {1})
+154	Imię i nazwisko
+155	Paszport
+156	Obywatelstwo
+157	Data urodzenia
+158	Skan
+159	Zobacz
+160	Usuń
+161	Brak podróżnych.
+162	Imię *
+163	Nazwisko *
+164	Płeć
+165	Nr paszportu *
+166	Ważność paszportu
+167	Skan paszportu (strona ze zdjęciem, PDF lub obraz)
+168	Dodaj podróżnego
+169	Anuluj rezerwację
+170	Usunąć tego podróżnego?
+171	Potwierdzasz, że wysłałeś {0} za {1}?
+172	Anulować rezerwację {0}? Tego nie można cofnąć.
+173	Ta rezerwacja jest dla {0} podróżnych. Mimo to dodać jeszcze jednego?
+174	Zapisywanie…
+175	Skan jest większy niż 10 MB.
+176	Kontakt
+177	Dokumenty
+178	Aby zmienić dane lub prowizję, skontaktuj się z Moviy Nomad.
+179	Język
+180	Zapytanie
+181	Oczekuje na płatność
+182	Płatność zgłoszona
+183	Zaliczka wpłacona (30%)
+184	Opłacono
+185	Potwierdzono
+186	Anulowano
+187	W trakcie weryfikacji
+188	Zaakceptowano
+189	Odrzucono
+190	Zablokowano
+191	Usługi / Przewodnicy
+192	Przewodnicy
+193	Samochody z kierowcą
+194	Hotele
+195	Inne usługi
+196	Szczegóły
+197	za dzień
+198	za noc
+199	na zapytanie
+200	Rezerwuj
+201	W tej sekcji nie ma jeszcze partnerów.
+202	Noce *
+203	Dni *
+204	Pokoje
+205	Samochody
+206	Liczba
+207	Podróżni *
+208	Wyślij rezerwację →
+209	Zamknij
+210	Licencjonowani przewodnicy, samochody z kierowcą i hotele sprawdzone przez Moviy Nomad. Ceny to ceny dla klienta (brutto) za dzień lub noc — takie same jak na naszej stronie. Obowiązuje Twoja prowizja: naciśnij
+211	Wybierz partnera i daty, a potem wyślij rezerwację — dostępność potwierdzimy my.
