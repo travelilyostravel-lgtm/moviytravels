@@ -1,7 +1,7 @@
 /* Moviy Nomad — admin panel (UI in Uzbek) */
 (function () {
   var P = window.MNP, sb = P.sb, $ = P.$, $$ = P.$$, esc = P.esc, CFG = window.MN || {};
-  var LANGS = { en: "English", ru: "Русский", uz: "O'zbekcha", tr: "Türkçe", ar: "العربية", de: "Deutsch", sv: "Svenska", zh: "中文", hi: "हिन्दी", ko: "한국어" };
+  var LANGS = window.MN_LANGS || { en: "English", ru: "Русский", uz: "O'zbekcha", tr: "Türkçe", ar: "العربية", de: "Deutsch", sv: "Svenska", zh: "中文", hi: "हिन्दी", ko: "한국어" };
   function addD(d, n) { if (!d) return null; var t = new Date(d + "T12:00:00"); t.setDate(t.getDate() + n); return t.toISOString().slice(0, 10); }
   function vlink(b) { return location.origin + location.pathname.replace(/admin\/.*$/, "") + "voucher.html?ref=" + encodeURIComponent(b.ref) + "&k=" + b.voucher_key; }
   var L = "uz", bFilter = "active", aFilter = "pending";

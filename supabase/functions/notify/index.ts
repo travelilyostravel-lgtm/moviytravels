@@ -41,7 +41,7 @@ function render(c: any, ev: string, lang: string, x: any) {
   const f = (s: string) => s.replace(/\{(\w+)\}/g, (_, k) => V[k] ?? "");
   const subject = f(t[0]), text = f(t[1]);
   const body = esc(text).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#1f6fb2">$1</a>').replace(/\n/g, "<br>");
-  const dir = lang === "ar" ? "rtl" : "ltr";
+  const dir = ["ar", "fa", "ur"].includes(lang) ? "rtl" : "ltr";
   const html = `<!doctype html><html dir="${dir}"><body style="margin:0;background:#f5f1ea;font-family:Arial,Helvetica,sans-serif;color:#1b2a3a">
 <div style="max-width:600px;margin:0 auto;padding:24px 14px"><div style="background:#12355b;color:#fff;padding:16px 22px;border-radius:14px 14px 0 0;font-weight:bold;letter-spacing:.08em">MOVIY <span style="color:#7cc4dd">NOMAD</span></div>
 <div style="background:#fff;padding:24px 22px;border-radius:0 0 14px 14px;font-size:15px;line-height:1.6">${body}</div>

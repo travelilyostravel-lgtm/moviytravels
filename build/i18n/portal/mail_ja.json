@@ -1,0 +1,11 @@
+{"w":{"bal":"残金","by":"期限","full":"ご旅行代金はお支払い済みです。"},
+"confirm":["ご予約確定 — 30%の前金をお支払いください · {ref}","{name} 様\n\nMoviy Nomadをお選びいただきありがとうございます。ご予約 {ref}（{tour}、{date}、{pax}名）が確定しました。\n\nツアー代金：{total}\n前金（30%）：{dep} — 3営業日以内にお支払いください。\n残金（70%）：{bal} — {due}まで。\n\n振込先：\n{bank}\n振込名義・参照番号：{ref}\n\n規約：{terms}\n\nMoviy Nomad（MOVIY TRAVEL）ライセンス番号 {lic}\nWhatsApp {phone}"],
+"received":["ご入金を確認しました — {ref}","{name} 様\n\n{last}のお支払いを確認しました。ありがとうございます。\nお支払い済み：{paid} / {total}\n{left}\n予約書類（PDF）：{doc}\n\nMoviy Nomad、WhatsApp {phone}"],
+"reminder":["リマインダー：残金のお支払い期限 {due} — {ref}","{name} 様\n\n{tour}（{date}）の残金 {left_amt} のお支払い期限は {due} です。\n\n振込先：\n{bank}\n振込名義・参照番号：{ref}\n\nMoviy Nomad、WhatsApp {phone}"],
+"final":["最終のお知らせ — 48時間 — {ref}","{name} 様\n\nご予約 {ref} の残金 {left_amt} がまだ確認できておりません。48時間以内にお支払いください。お支払いがない場合、規約に基づき予約は取り消しとなり、前金は返金されません。\n\n振込先：\n{bank}\n\nMoviy Nomad、WhatsApp {phone}"],
+"voucher":["旅行バウチャーのご案内 — {ref}","{name} 様\n\n{tour}（{date}）のご旅行代金のお支払いが完了しました。ありがとうございます。\n旅行バウチャー：{doc}\nサービスバウチャー（お出迎え、送迎、ホテル、ガイド）：{svc}\n\nパスポートと一緒にご提示ください。WhatsAppで24時間対応しています：{phone}\n\n素敵なご旅行を！\nMoviy Nomad"],
+"cancel":["ご予約の取り消し — {ref}","{name} 様\n\nご予約 {ref}（{tour}、{date}）は取り消されました。返金は当社の規約に従います：{terms}\n\nMoviy Nomad、WhatsApp {phone}"],
+"request_new":["リクエストを受け付けました — {ref}","{name} 様\n\nMoviy Nomadをお選びいただきありがとうございます。リクエスト {ref}（{tour}、{date}、{pax}名）を受け付けました。\n\n担当者が数時間以内に料金と詳細をご連絡します。\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+"booking_new":["予約リクエストを受け付けました — {ref}","{name} 様\n\n予約リクエスト {ref}（{tour}、{date}、{pax}名）を受け付けました。\n\n空き状況を確認し、エージェントポータルに振込先をお送りします。ポータルですべての旅行者のパスポート情報をご登録ください。\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+"message":["Moviy Nomadから新しいメッセージ","{name} 様\n\nマイページにMoviy Nomadから新しいメッセージが届いています：\n\n「{msg}」\n\nマイページを開いてご確認・ご返信ください：{cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"],
+"account_ok":["Moviy Nomadのマイページが開設されました","{name} 様\n\nMoviy Nomadのマイページが承認されました。リクエストや予約、お支払い、書類、バウチャーの確認、当社へのメッセージ送信ができます。\n\nログイン：{cab}\n\nMoviy Nomad — WhatsApp {phone} · {email}"]}
