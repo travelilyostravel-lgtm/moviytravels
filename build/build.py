@@ -841,5 +841,8 @@ def write_sitemap():
 
 if __name__ == "__main__":
     main()
+    import i18n_tool, content as _ct   # 2026-11-28: translate pages of the new languages (string tables in build/i18n)
+    for _nl in _ct.NEW_LANGS:
+        if _nl in LANGS: print("ok", _nl, "translated strings:", i18n_tool.apply(ROOT, _nl))
     write_sitemap()
     write_notify_json()
